@@ -1123,7 +1123,7 @@ window.DASH = {
   },
   "rebalance": null,
   "news": {
-    "asof": "2026-08-12 08:17:47",
+    "asof": "2026-08-12 10:05:16",
     "big_stories": [
       {
         "title": "Software-as-a-Service (SaaS) Companies Are Making a Comeback. Here's the Exact SaaS Stock I Recommend Buying Right Now.",
@@ -1483,19 +1483,6 @@ window.DASH = {
         "sent": "negative"
       },
       {
-        "title": "Exchange-Traded Funds Higher, Equity Futures Mixed Pre-Bell Tuesday Amid Stalled US-Iran Talks",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/exchange-traded-funds-higher-equity-130332588.html?.tsrc=rss",
-        "ts": 1786453412,
-        "when": "Aug 11, 01:03 PM",
-        "ticker": "IWM",
-        "industry": "Small Caps",
-        "theory": [
-          "T10",
-          "T15"
-        ],
-        "sent": "positive"
-      },
-      {
         "title": "Yum! Brands Stock: Is Wall Street Bullish or Bearish?",
         "link": "https://www.barchart.com/story/news/3777478/yum-brands-stock-is-wall-street-bullish-or-bearish?.tsrc=rss",
         "ts": 1786450855,
@@ -1614,6 +1601,18 @@ window.DASH = {
           "T14"
         ],
         "sent": "neutral"
+      },
+      {
+        "title": "Sector Update: Consumer Stocks Lower in Late Afternoon Trading",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-lower-afternoon-195537186.html?.tsrc=rss",
+        "ts": 1786391737,
+        "when": "Aug 10, 07:55 PM",
+        "ticker": "XLY",
+        "industry": "Consumer Disc.",
+        "theory": [
+          "T13"
+        ],
+        "sent": "negative"
       }
     ]
   }
