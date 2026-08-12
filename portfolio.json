@@ -219,7 +219,7 @@
         "total_value": 101500.02,
         "cash": 25.0,
         "invested_value": 101475.02,
-        "day_change": -35.16,
+        "day_change": 0.0,
         "prices": {
           "TQQQ": 74.6,
           "SOXL": 142.16,

@@ -157,7 +157,7 @@ window.DASH = {
     "total_value": 101500.02,
     "cash": 25.0,
     "invested_value": 101475.02,
-    "day_change": -35.16,
+    "day_change": 0.0,
     "total_return_pct": 1.5,
     "realized_pnl": 0.0,
     "start_value": 100000,
@@ -888,7 +888,7 @@ window.DASH = {
       "total_value": 101500.02,
       "cash": 25.0,
       "invested_value": 101475.02,
-      "day_change": -35.16,
+      "day_change": 0.0,
       "prices": {
         "TQQQ": 74.6,
         "SOXL": 142.16,
@@ -1161,7 +1161,7 @@ window.DASH = {
   },
   "rebalance": null,
   "news": {
-    "asof": "2026-08-12 20:33:49",
+    "asof": "2026-08-12 20:44:41",
     "big_stories": [
       {
         "title": "Sector Update: Consumer Stocks Mixed Late Afternoon",
@@ -1220,19 +1220,17 @@ window.DASH = {
         "sent": "neutral"
       },
       {
-        "title": "Tech Earnings, Oil, CPI Lift Wall Street Pre-Bell; Asia, Europe Up",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/tech-earnings-oil-cpi-lift-110514660.html?.tsrc=rss",
-        "ts": 1786532714,
-        "when": "Aug 12, 11:05 AM",
-        "ticker": "SMH",
-        "industry": "Semis",
+        "title": "Exchange-Traded Funds, Equity Futures Gain Pre-Bell Wednesday Amid In-Line Consumer Inflation Data, Tech Gains",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/exchange-traded-funds-equity-futures-131639194.html?.tsrc=rss",
+        "ts": 1786540599,
+        "when": "Aug 12, 01:16 PM",
+        "ticker": "IWM",
+        "industry": "Small Caps",
         "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
+          "T10",
+          "T15"
         ],
-        "sent": "neutral"
+        "sent": "positive"
       }
     ],
     "feed": [
@@ -1474,12 +1472,11 @@ window.DASH = {
         "link": "https://finance.yahoo.com/markets/stocks/articles/exchange-traded-funds-equity-futures-131639194.html?.tsrc=rss",
         "ts": 1786540599,
         "when": "Aug 12, 01:16 PM",
-        "ticker": "GLD",
-        "industry": "Gold",
+        "ticker": "IWM",
+        "industry": "Small Caps",
         "theory": [
-          "T6",
-          "T9",
-          "T11"
+          "T10",
+          "T15"
         ],
         "sent": "positive"
       },
@@ -1513,6 +1510,18 @@ window.DASH = {
         "sent": "neutral"
       },
       {
+        "title": "Stock Market News for Aug 12, 2026",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/stock-market-news-aug-12-112700930.html?.tsrc=rss",
+        "ts": 1786534020,
+        "when": "Aug 12, 11:27 AM",
+        "ticker": "XLY",
+        "industry": "Consumer Disc.",
+        "theory": [
+          "T13"
+        ],
+        "sent": "neutral"
+      },
+      {
         "title": "Tech Earnings, Oil, CPI Lift Wall Street Pre-Bell; Asia, Europe Up",
         "link": "https://finance.yahoo.com/markets/stocks/articles/tech-earnings-oil-cpi-lift-110514660.html?.tsrc=rss",
         "ts": 1786532714,
@@ -1524,18 +1533,6 @@ window.DASH = {
           "T7",
           "T2",
           "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "JPMorgan Announces Cash Distributions for the JPMorgan ETFs",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/jpmorgan-announces-cash-distributions-jpmorgan-110000768.html?.tsrc=rss",
-        "ts": 1786532400,
-        "when": "Aug 12, 11:00 AM",
-        "ticker": "JEPQ",
-        "industry": "Covered-Call Income",
-        "theory": [
-          "T12"
         ],
         "sent": "neutral"
       },
