@@ -1161,8 +1161,23 @@ window.DASH = {
   },
   "rebalance": null,
   "news": {
-    "asof": "2026-08-12 21:26:03",
+    "asof": "2026-08-12 21:45:16",
     "big_stories": [
+      {
+        "title": "S&P500, Nasdaq End Higher As Fresh CPI Data Calms Earlier-Than-Expected Rate Hike Fears — GOOGL, DJT, WEN, BE, SNDK In Focus",
+        "link": "https://stocktwits.com/news-articles/markets/equity/s-and-p500-nasdaq-end-higher-as-fresh-cpi-data-calms-rate-hike-fears/cZo808cRJWt?.tsrc=rss",
+        "ts": 1786569626,
+        "when": "Aug 12, 09:20 PM",
+        "ticker": "SMH",
+        "industry": "Semis",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
       {
         "title": "Michael Burry delivers brutal verdict on $420 billion AI giant",
         "link": "https://www.thestreet.com/investing/stocks/pltr-palantir-stock-michael-burry-says-surging-ai-giant-is-worth-under-1-long-term-despite-strong-q2-2026-earnings?.tsrc=rss",
@@ -1218,12 +1233,14 @@ window.DASH = {
           "T11"
         ],
         "sent": "neutral"
-      },
+      }
+    ],
+    "feed": [
       {
-        "title": "Tech Earnings, Oil, CPI Lift Wall Street Pre-Bell; Asia, Europe Up",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/tech-earnings-oil-cpi-lift-110514660.html?.tsrc=rss",
-        "ts": 1786532714,
-        "when": "Aug 12, 11:05 AM",
+        "title": "S&P500, Nasdaq End Higher As Fresh CPI Data Calms Earlier-Than-Expected Rate Hike Fears — GOOGL, DJT, WEN, BE, SNDK In Focus",
+        "link": "https://stocktwits.com/news-articles/markets/equity/s-and-p500-nasdaq-end-higher-as-fresh-cpi-data-calms-rate-hike-fears/cZo808cRJWt?.tsrc=rss",
+        "ts": 1786569626,
+        "when": "Aug 12, 09:20 PM",
         "ticker": "SMH",
         "industry": "Semis",
         "theory": [
@@ -1232,10 +1249,8 @@ window.DASH = {
           "T2",
           "T14"
         ],
-        "sent": "neutral"
-      }
-    ],
-    "feed": [
+        "sent": "positive"
+      },
       {
         "title": "Michael Burry delivers brutal verdict on $420 billion AI giant",
         "link": "https://www.thestreet.com/investing/stocks/pltr-palantir-stock-michael-burry-says-surging-ai-giant-is-worth-under-1-long-term-despite-strong-q2-2026-earnings?.tsrc=rss",
@@ -1265,6 +1280,36 @@ window.DASH = {
           "T14"
         ],
         "sent": "neutral"
+      },
+      {
+        "title": "SpaceX, Nebius, Palantir, Super Micro, Quantinuum, Wendy’s, and More Stocks That Explain Today’s Market",
+        "link": "https://finance.yahoo.com/m/ddf7e389-b308-33f6-a023-cd25665510d4/spacex%2C-nebius%2C-palantir%2C.html?.tsrc=rss",
+        "ts": 1786568880,
+        "when": "Aug 12, 09:08 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "Palantir and Microsoft Drop. Why the AI Revival Is Hitting Software Stocks.",
+        "link": "https://finance.yahoo.com/m/7f558cb1-ac00-3575-810c-26075b32b0c8/palantir-and-microsoft-drop..html?.tsrc=rss",
+        "ts": 1786567500,
+        "when": "Aug 12, 08:45 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "negative"
       },
       {
         "title": "Sector Update: Consumer Stocks Mixed Late Afternoon",
@@ -1315,21 +1360,6 @@ window.DASH = {
         "when": "Aug 12, 06:14 PM",
         "ticker": "DRAM",
         "industry": "AI Memory/HBM",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "SpaceX, Nebius, Palantir, Super Micro, Quantinuum, Wendy’s, and More Stocks That Explain Today’s Market",
-        "link": "https://finance.yahoo.com/m/ddf7e389-b308-33f6-a023-cd25665510d4/spacex%2C-nebius%2C-palantir%2C.html?.tsrc=rss",
-        "ts": 1786556940,
-        "when": "Aug 12, 05:49 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
         "theory": [
           "T1",
           "T7",
@@ -1455,21 +1485,6 @@ window.DASH = {
         "sent": "positive"
       },
       {
-        "title": "Palantir and Microsoft Drop. Why the AI Revival Is Hitting Software Stocks.",
-        "link": "https://finance.yahoo.com/m/7f558cb1-ac00-3575-810c-26075b32b0c8/palantir-and-microsoft-drop..html?.tsrc=rss",
-        "ts": 1786542780,
-        "when": "Aug 12, 01:53 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "negative"
-      },
-      {
         "title": "Palantir Stock's Premium Sits On One Country's Demand",
         "link": "https://www.trefis.com/articles/611168/palantir-stocks-premium-sits-on-one-countrys-demand/2026-08-12?.tsrc=rss",
         "ts": 1786542535,
@@ -1498,20 +1513,6 @@ window.DASH = {
           "T14"
         ],
         "sent": "negative"
-      },
-      {
-        "title": "Exchange-Traded Funds, Equity Futures Gain Pre-Bell Wednesday Amid In-Line Consumer Inflation Data, Tech Gains",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/exchange-traded-funds-equity-futures-131639194.html?.tsrc=rss",
-        "ts": 1786540599,
-        "when": "Aug 12, 01:16 PM",
-        "ticker": "GLD",
-        "industry": "Gold",
-        "theory": [
-          "T6",
-          "T9",
-          "T11"
-        ],
-        "sent": "positive"
       },
       {
         "title": "Forget Buying Gold Directly: Wheaton Precious Metals Could Be the Better Play.",
@@ -1554,18 +1555,6 @@ window.DASH = {
           "T7",
           "T2",
           "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "JPMorgan Announces Cash Distributions for the JPMorgan ETFs",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/jpmorgan-announces-cash-distributions-jpmorgan-110000768.html?.tsrc=rss",
-        "ts": 1786532400,
-        "when": "Aug 12, 11:00 AM",
-        "ticker": "JEPQ",
-        "industry": "Covered-Call Income",
-        "theory": [
-          "T12"
         ],
         "sent": "neutral"
       },
@@ -1667,6 +1656,18 @@ window.DASH = {
           "T14"
         ],
         "sent": "positive"
+      },
+      {
+        "title": "Sector Update: Consumer Stocks Decline Late Afternoon",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-decline-afternoon-195018690.html?.tsrc=rss",
+        "ts": 1786477818,
+        "when": "Aug 11, 07:50 PM",
+        "ticker": "XLY",
+        "industry": "Consumer Disc.",
+        "theory": [
+          "T13"
+        ],
+        "sent": "neutral"
       }
     ]
   }
