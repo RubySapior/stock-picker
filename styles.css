@@ -5,6 +5,7 @@
     --amber:#f59e0b; --blue:#38bdf8; --violet:#a78bfa;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
   body{background:var(--bg); color:var(--txt); font-family:'Segoe UI',system-ui,-apple-system,sans-serif; padding:24px;}
   .wrap{max-width:1200px; margin:0 auto;}
   header{display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:12px; margin-bottom:20px;}
@@ -78,7 +79,10 @@
   .sent.negative{color:var(--red); background:rgba(239,68,68,.14);}
   .sent.neutral{color:var(--muted); background:rgba(148,163,184,.16);}
   .tick{font-weight:700; color:var(--blue); letter-spacing:.3px;}
-  .theoryTag{font-size:10px; color:var(--violet); border:1px solid rgba(167,139,250,.35); border-radius:6px; padding:0 6px;}
+  .tick[title]{cursor:help;}
+  a.theoryTag{text-decoration:none; cursor:pointer; color:var(--violet);}
+  .theoryTag{display:inline-block; font-size:10px; color:var(--violet); border:1px solid rgba(167,139,250,.35); border-radius:6px; padding:0 6px;}
+  a.theoryTag:hover{background:rgba(167,139,250,.15);}
   #newsFeed{max-height:520px; overflow-y:auto;}
   .feedItem{padding:8px 2px; border-bottom:1px solid var(--border);}
   .feedItem:last-child{border-bottom:none;}

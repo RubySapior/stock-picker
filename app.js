@@ -56,6 +56,8 @@ function loadDash(cb) {
 
 function render() {
   const D = window.DASH;
+  const escA = v => String(v==null?'':v).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const NAME = {}; (D.positions||[]).forEach(p => NAME[p.ticker] = p.name);
   const fmt$ = v => '$' + Number(v).toLocaleString(undefined,{minimumFractionDigits:2, maximumFractionDigits:2});
   const fmtN = (v,d=2) => Number(v).toLocaleString(undefined,{minimumFractionDigits:d, maximumFractionDigits:d});
   const cls = v => v > 0 ? 'pos' : (v < 0 ? 'neg' : 'muted');
@@ -142,7 +144,7 @@ function render() {
       const label = st==='open' ? 'OPEN' : (p.exit && p.exit.reason==='take_profit' ? 'TAKE PROFIT' : 'STOP LOSS');
       const pnl = p.pnl_pct===null ? '—' : sign(p.pnl_pct)+'%';
       return `<tr>
-        <td><strong>${p.ticker}</strong>${p.leverage > 1 ? `<span class="levBadge">${p.leverage}x</span>` : ''}${isNew.positions[p.ticker] ? '<span class="newTag">NEW</span>' : ''}</td>
+        <td><strong><span class="tick" title="${escA(p.name)}">${p.ticker}</span></strong>${p.leverage > 1 ? `<span class="levBadge">${p.leverage}x</span>` : ''}${isNew.positions[p.ticker] ? '<span class="newTag">NEW</span>' : ''}</td>
         <td>${p.name}<div class="small muted">${p.sleeve}</div></td>
         <td>${fmtN(p.buy_price)}</td>
         <td>${fmtN(p.current_price)}</td>
@@ -225,7 +227,7 @@ function render() {
       const statusLabel = st==='pending' ? 'PENDING' : st==='right' ? 'RIGHT' : st==='wrong' ? 'WRONG' : st==='abandoned' ? 'ABANDONED' : st.toUpperCase();
       const badgeClass = st==='pending' ? 'pending' : st==='right' ? 'right' : st==='wrong' ? 'wrong' : st==='abandoned' ? 'abandoned' : st;
       const evs = (t.evidence||[]).slice().reverse().map(e => `<div class="ev">${e}</div>`).join('');
-      return `<tr>
+      return `<tr id="theory-${t.id}">
         <td><span class="badge ${t.tier.toLowerCase()}">${t.tier}</span></td>
         <td><strong>${t.id}</strong></td>
         <td>${t.title}<div class="thesis">${t.tier_reason || ''}</div></td>
@@ -243,7 +245,7 @@ function render() {
     if (!D.events.length) evBox.innerHTML = '<div class="muted small">No closed trades yet. Take-profit / stop-loss exits will appear here.</div>';
     else evBox.innerHTML = D.events.slice().reverse().map(e =>
       `<div class="eventline">
-         <div><strong>${e.ticker || 'SYSTEM'}</strong> <span class="muted small">${e.date}</span></div>
+         <div><strong title="${escA(NAME[e.ticker]||e.ticker)}">${e.ticker || 'SYSTEM'}</strong> <span class="muted small">${e.date}</span></div>
          <div><span class="pill ${e.reason==='take_profit'?'tp':(e.reason==='stop_loss'?'sl':(e.reason==='rebalance_recommended'?'warn':'open'))}">${e.reason.toUpperCase()}</span>
          <span class="muted small">@ ${fmtN(e.price)}</span>
          <span class="${cls(e.realized_pnl)}"> ${sign(e.realized_pnl)}</span></div>
@@ -272,9 +274,9 @@ function render() {
     const thTitle = {}; (D.theories||[]).forEach(t => thTitle[t.id] = t.title);
     const sentChip = sn => `<span class="sent ${sn}">${sn}</span>`;
     const chips = it => (it.theory||[]).map(t =>
-      `<span class="theoryTag" title="${esc(thTitle[t]||t)}">${t}</span>`).join('');
+      `<a class="theoryTag" href="#theory-${t}" title="${esc(thTitle[t]||t)}">${t}</a>`).join('');
     const meta = it =>
-      `${sentChip(it.sent)}<span class="tick">${it.ticker}</span><span class="ind">${esc(it.industry)}</span><span class="small">${esc(it.when)}</span>${isNew.news[it.link||it.title] ? '<span class="newTag">NEW</span>' : ''}`;
+      `${sentChip(it.sent)}<span class="tick" title="${esc(NAME[it.ticker]||it.ticker)}">${it.ticker}</span><span class="ind">${esc(it.industry)}</span><span class="small">${esc(it.when)}</span>${isNew.news[it.link||it.title] ? '<span class="newTag">NEW</span>' : ''}`;
     const empty = '<div class="muted small">No news yet — run <code>python update.py</code> with internet access.</div>';
 
     bigEl.innerHTML = (N.big_stories && N.big_stories.length)
