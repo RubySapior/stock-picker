@@ -163,7 +163,7 @@ window.DASH = {
     "start_value": 100000,
     "max_drawdown_pct": 0.0,
     "sharpe_annualized": null,
-    "cagr_annualized": 213.88
+    "cagr_annualized": 77.17
   },
   "positions": [
     {
@@ -1123,13 +1123,13 @@ window.DASH = {
   },
   "rebalance": null,
   "news": {
-    "asof": "2026-08-11 23:11:09",
+    "asof": "2026-08-12 08:17:47",
     "big_stories": [
       {
-        "title": "Cathie Wood Has Been Selling Palantir Into Every Rally Since Its 29% Earnings Pop",
-        "link": "https://www.fool.com/investing/2026/08/11/cathie-wood-has-been-selling-palantir-into-every-r/?.tsrc=rss",
-        "ts": 1786498020,
-        "when": "Aug 11, 07:27 PM",
+        "title": "Software-as-a-Service (SaaS) Companies Are Making a Comeback. Here's the Exact SaaS Stock I Recommend Buying Right Now.",
+        "link": "https://www.fool.com/investing/2026/08/12/software-as-a-service-saas-companies-are-making-a/?.tsrc=rss",
+        "ts": 1786512000,
+        "when": "Aug 12, 05:20 AM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -1138,13 +1138,13 @@ window.DASH = {
           "T2",
           "T14"
         ],
-        "sent": "neutral"
+        "sent": "positive"
       },
       {
         "title": "JEPQ’s 10.9% Yield Hides $2,900 Annual Tax Bill Most Retirees Never See",
         "link": "https://247wallst.com/investing/etf/2026/08/11/jepqs-10-9-yield-hides-2900-annual-tax-bill-most-retirees-never-see/?.tsrc=rss",
         "ts": 1786485923,
-        "when": "Aug 11, 04:05 PM",
+        "when": "Aug 11, 10:05 PM",
         "ticker": "JEPQ",
         "industry": "Covered-Call Income",
         "theory": [
@@ -1156,7 +1156,7 @@ window.DASH = {
         "title": "Sector Update: Consumer Stocks Decline Late Afternoon",
         "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-decline-afternoon-195018690.html?.tsrc=rss",
         "ts": 1786477818,
-        "when": "Aug 11, 01:50 PM",
+        "when": "Aug 11, 07:50 PM",
         "ticker": "XLY",
         "industry": "Consumer Disc.",
         "theory": [
@@ -1168,7 +1168,7 @@ window.DASH = {
         "title": "If You Want More Upside From Gold, This ETF Offers a Different Kind of Leverage",
         "link": "https://www.barchart.com/story/news/3784926/if-you-want-more-upside-from-gold-this-etf-offers-a-different-kind-of-leverage?.tsrc=rss",
         "ts": 1786468495,
-        "when": "Aug 11, 11:14 AM",
+        "when": "Aug 11, 05:14 PM",
         "ticker": "GDX",
         "industry": "Gold Miners",
         "theory": [
@@ -1182,7 +1182,7 @@ window.DASH = {
         "title": "Trump's Polysilicon Tariffs Could Reshape These ETFs",
         "link": "https://finance.yahoo.com/economy/policy/articles/trumps-polysilicon-tariffs-could-reshape-135600837.html?.tsrc=rss",
         "ts": 1786456560,
-        "when": "Aug 11, 07:56 AM",
+        "when": "Aug 11, 01:56 PM",
         "ticker": "SMH",
         "industry": "Semis",
         "theory": [
@@ -1196,10 +1196,25 @@ window.DASH = {
     ],
     "feed": [
       {
+        "title": "Software-as-a-Service (SaaS) Companies Are Making a Comeback. Here's the Exact SaaS Stock I Recommend Buying Right Now.",
+        "link": "https://www.fool.com/investing/2026/08/12/software-as-a-service-saas-companies-are-making-a/?.tsrc=rss",
+        "ts": 1786512000,
+        "when": "Aug 12, 05:20 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
+      {
         "title": "Cathie Wood Has Been Selling Palantir Into Every Rally Since Its 29% Earnings Pop",
         "link": "https://www.fool.com/investing/2026/08/11/cathie-wood-has-been-selling-palantir-into-every-r/?.tsrc=rss",
         "ts": 1786498020,
-        "when": "Aug 11, 07:27 PM",
+        "when": "Aug 12, 01:27 AM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -1214,7 +1229,7 @@ window.DASH = {
         "title": "Michael Burry Adds To NVDA, PLTR, ORCL Shorts — Why He’s Thinking About 2005 Again",
         "link": "https://stocktwits.com/news-articles/markets/equity/michael-burry-adds-to-nvda-pltr-orcl-shorts-why-he-is-thinking-about-2005-again/cZoNOyZRJXV?.tsrc=rss",
         "ts": 1786488724,
-        "when": "Aug 11, 04:52 PM",
+        "when": "Aug 11, 10:52 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -1229,7 +1244,7 @@ window.DASH = {
         "title": "JEPQ’s 10.9% Yield Hides $2,900 Annual Tax Bill Most Retirees Never See",
         "link": "https://247wallst.com/investing/etf/2026/08/11/jepqs-10-9-yield-hides-2900-annual-tax-bill-most-retirees-never-see/?.tsrc=rss",
         "ts": 1786485923,
-        "when": "Aug 11, 04:05 PM",
+        "when": "Aug 11, 10:05 PM",
         "ticker": "JEPQ",
         "industry": "Covered-Call Income",
         "theory": [
@@ -1241,7 +1256,7 @@ window.DASH = {
         "title": "Your Father Retired With a Pension. You Got a 401(k) and a Brochure. These 4 ETFs Build the Pension Yourself",
         "link": "https://247wallst.com/investing/etf/2026/08/11/your-father-retired-with-a-pension-you-got-a-401k-and-a-brochure-these-4-etfs-build-the-pension-yourself/?.tsrc=rss",
         "ts": 1786485338,
-        "when": "Aug 11, 03:55 PM",
+        "when": "Aug 11, 09:55 PM",
         "ticker": "JEPQ",
         "industry": "Covered-Call Income",
         "theory": [
@@ -1253,7 +1268,7 @@ window.DASH = {
         "title": "Palantir Technologies Inc. (PLTR) vs. Microsoft Corporation (MSFT): Can Palantir Pull Off a Microsoft-Style Comeback?",
         "link": "https://finance.yahoo.com/markets/stocks/articles/palantir-technologies-inc-pltr-vs-205832913.html?.tsrc=rss",
         "ts": 1786481912,
-        "when": "Aug 11, 02:58 PM",
+        "when": "Aug 11, 08:58 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -1268,7 +1283,7 @@ window.DASH = {
         "title": "Palantir Technologies’s Q2 Earnings Call: Our Top 5 Analyst Questions",
         "link": "https://finance.yahoo.com/markets/stocks/articles/palantir-technologies-q2-earnings-call-204522159.html?.tsrc=rss",
         "ts": 1786481122,
-        "when": "Aug 11, 02:45 PM",
+        "when": "Aug 11, 08:45 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -1283,7 +1298,7 @@ window.DASH = {
         "title": "Prediction: Palantir Will Hit $220 This Year. There's 1 Clear Reason Why.",
         "link": "https://www.fool.com/investing/2026/08/11/prediction-palantir-will-hit-220-this-year-theres/?.tsrc=rss",
         "ts": 1786481040,
-        "when": "Aug 11, 02:44 PM",
+        "when": "Aug 11, 08:44 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -1298,7 +1313,7 @@ window.DASH = {
         "title": "Sector Update: Consumer Stocks Decline Late Afternoon",
         "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-decline-afternoon-195018690.html?.tsrc=rss",
         "ts": 1786477818,
-        "when": "Aug 11, 01:50 PM",
+        "when": "Aug 11, 07:50 PM",
         "ticker": "XLY",
         "industry": "Consumer Disc.",
         "theory": [
@@ -1310,7 +1325,7 @@ window.DASH = {
         "title": "Cathie Wood Is Dumping More Palantir Shares. But Revenue Growth and Swelling Cash Flows Bode Well for PLTR Stock.",
         "link": "https://www.barchart.com/story/news/3786468/cathie-wood-is-dumping-more-palantir-shares-but-revenue-growth-and-swelling-cash-flows-bode-well-for-pltr-stock?.tsrc=rss",
         "ts": 1786473843,
-        "when": "Aug 11, 12:44 PM",
+        "when": "Aug 11, 06:44 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -1322,10 +1337,25 @@ window.DASH = {
         "sent": "positive"
       },
       {
+        "title": "Archer Aviation: Ready for Takeoff?",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/archer-aviation-ready-takeoff-184400772.html?.tsrc=rss",
+        "ts": 1786473840,
+        "when": "Aug 11, 06:44 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
         "title": "Cathie Wood Just Sold $21 Million of Palantir Stock. Here's Why That Could Be a Big Mistake.",
         "link": "https://www.fool.com/investing/2026/08/11/cathie-wood-just-sold-21-million-of-palantir-stock/?.tsrc=rss",
         "ts": 1786471860,
-        "when": "Aug 11, 12:11 PM",
+        "when": "Aug 11, 06:11 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -1340,7 +1370,7 @@ window.DASH = {
         "title": "Michael Burry Doubles Down Again Against Major AI Stock",
         "link": "https://finance.yahoo.com/markets/options/articles/michael-burry-doubles-down-again-174701348.html?.tsrc=rss",
         "ts": 1786470421,
-        "when": "Aug 11, 11:47 AM",
+        "when": "Aug 11, 05:47 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -1355,7 +1385,7 @@ window.DASH = {
         "title": "Sector Update: Consumer Stocks Decline in Afternoon Trading",
         "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-decline-afternoon-174215170.html?.tsrc=rss",
         "ts": 1786470135,
-        "when": "Aug 11, 11:42 AM",
+        "when": "Aug 11, 05:42 PM",
         "ticker": "XLY",
         "industry": "Consumer Disc.",
         "theory": [
@@ -1367,7 +1397,7 @@ window.DASH = {
         "title": "The Palantir Bull Case Is Getting Harder to Ignore",
         "link": "https://247wallst.com/investing/2026/08/11/the-palantir-bull-case-is-getting-harder-to-ignore/?.tsrc=rss",
         "ts": 1786469417,
-        "when": "Aug 11, 11:30 AM",
+        "when": "Aug 11, 05:30 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -1382,7 +1412,7 @@ window.DASH = {
         "title": "If You Want More Upside From Gold, This ETF Offers a Different Kind of Leverage",
         "link": "https://www.barchart.com/story/news/3784926/if-you-want-more-upside-from-gold-this-etf-offers-a-different-kind-of-leverage?.tsrc=rss",
         "ts": 1786468495,
-        "when": "Aug 11, 11:14 AM",
+        "when": "Aug 11, 05:14 PM",
         "ticker": "GDX",
         "industry": "Gold Miners",
         "theory": [
@@ -1396,7 +1426,7 @@ window.DASH = {
         "title": "Palantir (PLTR) AI Drives US Targeting In Iran As Missile Bottleneck Emerges",
         "link": "https://finance.yahoo.com/technology/ai/articles/palantir-pltr-ai-drives-us-170931422.html?.tsrc=rss",
         "ts": 1786468171,
-        "when": "Aug 11, 11:09 AM",
+        "when": "Aug 11, 05:09 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -1411,7 +1441,7 @@ window.DASH = {
         "title": "Michael Burry Has a Stark Warning for Investors Betting on Today's Market",
         "link": "https://finance.yahoo.com/markets/stocks/articles/michael-burry-stark-warning-investors-155418654.html?.tsrc=rss",
         "ts": 1786463658,
-        "when": "Aug 11, 09:54 AM",
+        "when": "Aug 11, 03:54 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -1426,82 +1456,7 @@ window.DASH = {
         "title": "Down 0.5% in 2026, Is Palantir Stock a Buy?",
         "link": "https://www.fool.com/investing/2026/08/11/down-in-2026-is-palantir-stock-a-buy/?.tsrc=rss",
         "ts": 1786463400,
-        "when": "Aug 11, 09:50 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "Michael Burry Sends Fresh Warning For Palantir Stock Fans",
-        "link": "https://finance.yahoo.com/markets/options/articles/michael-burry-sends-fresh-warning-154136593.html?.tsrc=rss",
-        "ts": 1786462896,
-        "when": "Aug 11, 09:41 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "negative"
-      },
-      {
-        "title": "Does Palantir’s Agentic Moat Finally Justify Its Premium Valuation Multiple?",
-        "link": "https://247wallst.com/investing/2026/08/11/does-palantirs-agentic-moat-finally-justify-its-premium-valuation-multiple/?.tsrc=rss",
-        "ts": 1786461488,
-        "when": "Aug 11, 09:18 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "EXCLUSIVE: CPI Lands Tomorrow and Could Send PLTR, TSLA Surging—But Only if It's A 'Serious Shock,' Cato Economist Says",
-        "link": "https://www.benzinga.com/markets/prediction-markets/26/08/61112578/july-cpi-high-beta-stocks?utm_source=yahooFinance&utm_campaign=partner_feed&utm_medium=referral&.tsrc=rss",
-        "ts": 1786458685,
-        "when": "Aug 11, 08:31 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "This Is the Big Question With Micron Technology Stock",
-        "link": "https://www.fool.com/investing/2026/08/11/this-is-the-big-question-with-micron-technology-st/?.tsrc=rss",
-        "ts": 1786458033,
-        "when": "Aug 11, 08:20 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Beyond Space: AI Compute & Starlink Drive SpaceX Growth",
-        "link": "https://finance.yahoo.com/technology/ai/articles/beyond-space-ai-compute-starlink-141200534.html?.tsrc=rss",
-        "ts": 1786457520,
-        "when": "Aug 11, 08:12 AM",
+        "when": "Aug 11, 03:50 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -1516,7 +1471,7 @@ window.DASH = {
         "title": "Trump's Polysilicon Tariffs Could Reshape These ETFs",
         "link": "https://finance.yahoo.com/economy/policy/articles/trumps-polysilicon-tariffs-could-reshape-135600837.html?.tsrc=rss",
         "ts": 1786456560,
-        "when": "Aug 11, 07:56 AM",
+        "when": "Aug 11, 01:56 PM",
         "ticker": "SMH",
         "industry": "Semis",
         "theory": [
@@ -1528,44 +1483,15 @@ window.DASH = {
         "sent": "negative"
       },
       {
-        "title": "Can Palantir Stock Keep Climbing After Its \"Otherworldly\" Earnings?",
-        "link": "https://www.fool.com/investing/2026/08/11/can-palantir-stock-keep-climbing-after-earnings/?.tsrc=rss",
-        "ts": 1786455300,
-        "when": "Aug 11, 07:35 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "Palantir's Sovereign AI Boom Is Almost Entirely In America",
-        "link": "https://www.trefis.com/articles/611000/palantirs-sovereign-ai-boom-is-almost-entirely-in-america/2026-08-11?.tsrc=rss",
-        "ts": 1786454594,
-        "when": "Aug 11, 07:23 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
         "title": "Exchange-Traded Funds Higher, Equity Futures Mixed Pre-Bell Tuesday Amid Stalled US-Iran Talks",
         "link": "https://finance.yahoo.com/markets/stocks/articles/exchange-traded-funds-higher-equity-130332588.html?.tsrc=rss",
         "ts": 1786453412,
-        "when": "Aug 11, 07:03 AM",
-        "ticker": "XLY",
-        "industry": "Consumer Disc.",
+        "when": "Aug 11, 01:03 PM",
+        "ticker": "IWM",
+        "industry": "Small Caps",
         "theory": [
-          "T13"
+          "T10",
+          "T15"
         ],
         "sent": "positive"
       },
@@ -1573,7 +1499,7 @@ window.DASH = {
         "title": "Yum! Brands Stock: Is Wall Street Bullish or Bearish?",
         "link": "https://www.barchart.com/story/news/3777478/yum-brands-stock-is-wall-street-bullish-or-bearish?.tsrc=rss",
         "ts": 1786450855,
-        "when": "Aug 11, 06:20 AM",
+        "when": "Aug 11, 12:20 PM",
         "ticker": "XLY",
         "industry": "Consumer Disc.",
         "theory": [
@@ -1582,25 +1508,10 @@ window.DASH = {
         "sent": "positive"
       },
       {
-        "title": "Palantir is a 'narrative play,' strategist explains",
-        "link": "https://finance.yahoo.com/video/palantir-narrative-play-strategist-explains-120000920.html?.tsrc=rss",
-        "ts": 1786449600,
-        "when": "Aug 11, 06:00 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
         "title": "Best-Performing ETF Areas of Last Week",
         "link": "https://finance.yahoo.com/markets/stocks/articles/best-performing-etf-areas-last-120000689.html?.tsrc=rss",
         "ts": 1786449600,
-        "when": "Aug 11, 06:00 AM",
+        "when": "Aug 11, 12:00 PM",
         "ticker": "GLD",
         "industry": "Gold",
         "theory": [
@@ -1614,11 +1525,93 @@ window.DASH = {
         "title": "What Are Wall Street Analysts' Target Price for McDonald's Stock?",
         "link": "https://www.barchart.com/story/news/3776509/what-are-wall-street-analysts-target-price-for-mcdonald-s-stock?.tsrc=rss",
         "ts": 1786449572,
-        "when": "Aug 11, 05:59 AM",
+        "when": "Aug 11, 11:59 AM",
         "ticker": "XLY",
         "industry": "Consumer Disc.",
         "theory": [
           "T13"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "Interest Rates, Oil Prices Limit Wall Street Pre-Bell; Asia Off, Europe Flat",
+        "link": "https://finance.yahoo.com/markets/articles/interest-rates-oil-prices-limit-110752366.html?.tsrc=rss",
+        "ts": 1786446472,
+        "when": "Aug 11, 11:07 AM",
+        "ticker": "SMH",
+        "industry": "Semis",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "Where You Hold SCHD and JEPQ Matters More Than You Think: The Taxable vs. IRA Math",
+        "link": "https://247wallst.com/personal-finance/2026/08/10/where-you-hold-schd-and-jepq-matters-more-than-you-think-the-taxable-vs-ira-math/?.tsrc=rss",
+        "ts": 1786399693,
+        "when": "Aug 10, 10:08 PM",
+        "ticker": "JEPQ",
+        "industry": "Covered-Call Income",
+        "theory": [
+          "T12"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "Semiconductor ETFs See Profit-Taking as Investors Pile Into QQQ",
+        "link": "http://www.etf.com/sections/weekly-etf-flows/semiconductor-etfs-see-profit-taking-investors-pile-qqq?utm_source=yahoo-finance&utm_medium=rss&utm_campaign=yahoo-finance-rss&.tsrc=rss",
+        "ts": 1786396615,
+        "when": "Aug 10, 09:16 PM",
+        "ticker": "SMH",
+        "industry": "Semis",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "ETF League Tables: Roundhill Gains $315M",
+        "link": "http://www.etf.com/sections/etf-league-tables/etf-league-tables-roundhill-gains-315m?utm_source=yahoo-finance&utm_medium=rss&utm_campaign=yahoo-finance-rss&.tsrc=rss",
+        "ts": 1786395730,
+        "when": "Aug 10, 09:02 PM",
+        "ticker": "DRAM",
+        "industry": "AI Memory/HBM",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "Is Now the Time to Invest in Bonds?",
+        "link": "https://finance.yahoo.com/markets/options/articles/now-time-invest-bonds-201600575.html?.tsrc=rss",
+        "ts": 1786392960,
+        "when": "Aug 10, 08:16 PM",
+        "ticker": "SGOV",
+        "industry": "Equities",
+        "theory": [],
+        "sent": "neutral"
+      },
+      {
+        "title": "The ETFs Most Exposed to the 2026 Chip Supply Chain Crisis — Winners and Losers",
+        "link": "http://www.etf.com/sections/news/etfs-most-exposed-2026-chip-supply-chain-crisis-winners-and-losers?utm_source=yahoo-finance&utm_medium=rss&utm_campaign=yahoo-finance-rss&.tsrc=rss",
+        "ts": 1786392922,
+        "when": "Aug 10, 08:15 PM",
+        "ticker": "SMH",
+        "industry": "Semis",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
         ],
         "sent": "neutral"
       }
