@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HyperGrowth Sharpe Barbell — Portfolio</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<!--
+  Page skeleton only. Every section below is filled by app.js from the
+  AUTO-GENERATED dashboard.js (window.DASH). To change what shows, edit
+  app.js or the data in portfolio.json/update.py — NOT dashboard.js.
+
+  Section -> render function in app.js:
+    header/cards          renderCards()
+    chart + donut         initValueChart() / initDonut()
+    sector limits         renderSectors()
+    portfolio vs SPY      renderComparison()
+    news                  renderNews()
+    positions table       renderPositions()
+    theories scorecard    renderTheories()
+    trade events          renderEvents()
+-->
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1 id="pname">Portfolio</h1>
+      <div class="sub" id="psub"></div>
+    </div>
+    <div class="asof">Last updated: <span id="asof"></span> <button id="updateBtn" class="updateBtn" title="Run update.py to fetch fresh prices + news, then reload">Update</button></div>
+  </header>
+
+  <div class="rebalBanner" id="rebalBanner" style="display:none;"></div>
+
+  <div class="cards" id="cards"></div>
+
+  <div class="grid">
+    <div class="panel" style="position:relative;">
+      <div class="charthead">
+        <h2>Portfolio Value History</h2>
+        <div class="chartbar">
+          <span class="rangeBtn active" data-days="0">MAX</span>
+          <span class="rangeBtn" data-days="365">1Y</span>
+          <span class="rangeBtn" data-days="183">6M</span>
+          <span class="rangeBtn" data-days="92">3M</span>
+          <span class="rangeBtn" data-days="30">1M</span>
+          <label class="spyLabel" title="Overlay S&amp;P 500, normalized to the same $100,000 start"><input type="checkbox" id="spyToggle" checked> vs SPY</label>
+        </div>
+      </div>
+      <canvas id="chart" height="280"></canvas>
+      <div id="chartTip"></div>
+      <div class="muted small" style="margin-top:6px;">scroll to zoom &middot; drag to pan &middot; double-click to reset</div>
+    </div>
+    <div class="panel" style="position:relative;">
+      <h2>PortPie</h2>
+      <canvas id="donut" height="200"></canvas>
+      <div id="donutTip"></div>
+      <div id="sleeveList" style="margin-top:10px;"></div>
+    </div>
+  </div>
+
+  <div class="cmp-grid">
+    <div class="panel">
+      <h2>Sector Limits <span class="muted small" style="font-weight:400;">(incl. leverage)</span></h2>
+      <div class="muted small" style="margin-bottom:10px;">Effective exposure = market value &times; ETF leverage. Book leverage: <strong id="levFactor" class="txt" style="color:var(--txt);"></strong></div>
+      <div id="sectorList"></div>
+    </div>
+    <div class="panel">
+      <h2>Portfolio vs SPY</h2>
+      <div id="cmpWrap"></div>
+    </div>
+  </div>
+
+  <div class="news-grid">
+    <div class="panel">
+      <h2>Big Stories</h2>
+      <div id="bigStories"></div>
+    </div>
+    <div class="panel">
+      <h2>Live News Feed</h2>
+      <div class="muted small" style="margin-bottom:8px;">Headline sentiment for held tickers &amp; their theories</div>
+      <div id="newsFeed"></div>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-bottom:20px;">
+    <h2>Positions</h2>
+    <div class="scroll">
+      <table id="posTable">
+        <thead><tr>
+          <th data-key="ticker">Ticker</th><th data-key="name">Name / Sleeve</th><th data-key="buy_price">Buy</th><th data-key="current_price">Current</th><th data-key="current_value">Value</th><th data-key="pct">% of Port</th>
+          <th data-key="pnl_pct">P&amp;L %</th><th data-key="take_profit_pct">Take Profit</th><th data-key="stop_loss_pct">Stop Loss</th><th data-key="status">Status</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-bottom:20px;">
+    <h2>Theories Scorecard</h2>
+    <div class="scroll">
+      <table id="theoryTable">
+        <thead><tr><th>Rank</th><th>ID</th><th>Theory</th><th>Prediction</th><th>Status</th><th>Evidence Log</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Trade Events</h2>
+    <div id="events"></div>
+  </div>
+
+  <footer>Simulated managed portfolio for tracking &amp; learning. Not financial advice. Served locally: run <code>python serve.py</code> then open <code>http://localhost:8000</code> - the Update button refreshes prices + news.</footer>
+</div>
+
+<script src="app.js?v=5" defer></script>
+</body>
+</html>
