@@ -1123,8 +1123,37 @@ window.DASH = {
   },
   "rebalance": null,
   "news": {
-    "asof": "2026-08-12 11:46:02",
+    "asof": "2026-08-12 13:09:39",
     "big_stories": [
+      {
+        "title": "Forget Buying Gold Directly: Wheaton Precious Metals Could Be the Better Play.",
+        "link": "https://www.fool.com/investing/2026/08/12/forget-buying-gold-directly-wheaton-precious-metal/?.tsrc=rss",
+        "ts": 1786538400,
+        "when": "Aug 12, 12:40 PM",
+        "ticker": "GLD",
+        "industry": "Gold",
+        "theory": [
+          "T6",
+          "T9",
+          "T11"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "Palantir and These Software Stocks Slide in Seesaw With Chip Giants",
+        "link": "https://finance.yahoo.com/m/7f558cb1-ac00-3575-810c-26075b32b0c8/palantir-and-these-software.html?.tsrc=rss",
+        "ts": 1786537740,
+        "when": "Aug 12, 12:29 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "negative"
+      },
       {
         "title": "Tech Earnings, Oil, CPI Lift Wall Street Pre-Bell; Asia, Europe Up",
         "link": "https://finance.yahoo.com/markets/stocks/articles/tech-earnings-oil-cpi-lift-110514660.html?.tsrc=rss",
@@ -1153,21 +1182,6 @@ window.DASH = {
         "sent": "neutral"
       },
       {
-        "title": "Software-as-a-Service (SaaS) Companies Are Making a Comeback. Here's the Exact SaaS Stock I Recommend Buying Right Now.",
-        "link": "https://www.fool.com/investing/2026/08/12/software-as-a-service-saas-companies-are-making-a/?.tsrc=rss",
-        "ts": 1786512000,
-        "when": "Aug 12, 05:20 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
         "title": "Sector Update: Consumer Stocks Decline Late Afternoon",
         "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-decline-afternoon-195018690.html?.tsrc=rss",
         "ts": 1786477818,
@@ -1178,23 +1192,53 @@ window.DASH = {
           "T13"
         ],
         "sent": "neutral"
-      },
+      }
+    ],
+    "feed": [
       {
-        "title": "If You Want More Upside From Gold, This ETF Offers a Different Kind of Leverage",
-        "link": "https://www.barchart.com/story/news/3784926/if-you-want-more-upside-from-gold-this-etf-offers-a-different-kind-of-leverage?.tsrc=rss",
-        "ts": 1786468495,
-        "when": "Aug 11, 05:14 PM",
-        "ticker": "GDX",
-        "industry": "Gold Miners",
+        "title": "Forget Buying Gold Directly: Wheaton Precious Metals Could Be the Better Play.",
+        "link": "https://www.fool.com/investing/2026/08/12/forget-buying-gold-directly-wheaton-precious-metal/?.tsrc=rss",
+        "ts": 1786538400,
+        "when": "Aug 12, 12:40 PM",
+        "ticker": "GLD",
+        "industry": "Gold",
         "theory": [
           "T6",
           "T9",
           "T11"
         ],
         "sent": "positive"
-      }
-    ],
-    "feed": [
+      },
+      {
+        "title": "Palantir and These Software Stocks Slide in Seesaw With Chip Giants",
+        "link": "https://finance.yahoo.com/m/7f558cb1-ac00-3575-810c-26075b32b0c8/palantir-and-these-software.html?.tsrc=rss",
+        "ts": 1786537740,
+        "when": "Aug 12, 12:29 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "negative"
+      },
+      {
+        "title": "Palantir Just Crushed Earnings Again. These 2 Legacy Defense Stocks Are the Cheaper Way to Play the Same Budget.",
+        "link": "https://www.fool.com/investing/2026/08/12/palantir-crush-earnings-legacy-defense-stocks/?.tsrc=rss",
+        "ts": 1786537320,
+        "when": "Aug 12, 12:22 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
       {
         "title": "Tech Earnings, Oil, CPI Lift Wall Street Pre-Bell; Asia, Europe Up",
         "link": "https://finance.yahoo.com/markets/stocks/articles/tech-earnings-oil-cpi-lift-110514660.html?.tsrc=rss",
@@ -1450,51 +1494,6 @@ window.DASH = {
         "sent": "positive"
       },
       {
-        "title": "Palantir (PLTR) AI Drives US Targeting In Iran As Missile Bottleneck Emerges",
-        "link": "https://finance.yahoo.com/technology/ai/articles/palantir-pltr-ai-drives-us-170931422.html?.tsrc=rss",
-        "ts": 1786468171,
-        "when": "Aug 11, 05:09 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "negative"
-      },
-      {
-        "title": "Michael Burry Has a Stark Warning for Investors Betting on Today's Market",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/michael-burry-stark-warning-investors-155418654.html?.tsrc=rss",
-        "ts": 1786463658,
-        "when": "Aug 11, 03:54 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "negative"
-      },
-      {
-        "title": "Down 0.5% in 2026, Is Palantir Stock a Buy?",
-        "link": "https://www.fool.com/investing/2026/08/11/down-in-2026-is-palantir-stock-a-buy/?.tsrc=rss",
-        "ts": 1786463400,
-        "when": "Aug 11, 03:50 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
         "title": "Trump's Polysilicon Tariffs Could Reshape These ETFs",
         "link": "https://finance.yahoo.com/economy/policy/articles/trumps-polysilicon-tariffs-could-reshape-135600837.html?.tsrc=rss",
         "ts": 1786456560,
@@ -1508,18 +1507,6 @@ window.DASH = {
           "T14"
         ],
         "sent": "negative"
-      },
-      {
-        "title": "Exchange-Traded Funds Higher, Equity Futures Mixed Pre-Bell Tuesday Amid Stalled US-Iran Talks",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/exchange-traded-funds-higher-equity-130332588.html?.tsrc=rss",
-        "ts": 1786453412,
-        "when": "Aug 11, 01:03 PM",
-        "ticker": "XLY",
-        "industry": "Consumer Disc.",
-        "theory": [
-          "T13"
-        ],
-        "sent": "positive"
       },
       {
         "title": "Yum! Brands Stock: Is Wall Street Bullish or Bearish?",
@@ -1615,6 +1602,16 @@ window.DASH = {
           "T14"
         ],
         "sent": "positive"
+      },
+      {
+        "title": "Is Now the Time to Invest in Bonds?",
+        "link": "https://finance.yahoo.com/markets/options/articles/now-time-invest-bonds-201600575.html?.tsrc=rss",
+        "ts": 1786392960,
+        "when": "Aug 10, 08:16 PM",
+        "ticker": "SGOV",
+        "industry": "Equities",
+        "theory": [],
+        "sent": "neutral"
       }
     ]
   }
