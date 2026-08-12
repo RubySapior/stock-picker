@@ -1123,8 +1123,35 @@ window.DASH = {
   },
   "rebalance": null,
   "news": {
-    "asof": "2026-08-12 10:05:16",
+    "asof": "2026-08-12 11:46:02",
     "big_stories": [
+      {
+        "title": "Tech Earnings, Oil, CPI Lift Wall Street Pre-Bell; Asia, Europe Up",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/tech-earnings-oil-cpi-lift-110514660.html?.tsrc=rss",
+        "ts": 1786532714,
+        "when": "Aug 12, 11:05 AM",
+        "ticker": "SMH",
+        "industry": "Semis",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "JPMorgan Announces Cash Distributions for the JPMorgan ETFs",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/jpmorgan-announces-cash-distributions-jpmorgan-110000768.html?.tsrc=rss",
+        "ts": 1786532400,
+        "when": "Aug 12, 11:00 AM",
+        "ticker": "JEPQ",
+        "industry": "Covered-Call Income",
+        "theory": [
+          "T12"
+        ],
+        "sent": "neutral"
+      },
       {
         "title": "Software-as-a-Service (SaaS) Companies Are Making a Comeback. Here's the Exact SaaS Stock I Recommend Buying Right Now.",
         "link": "https://www.fool.com/investing/2026/08/12/software-as-a-service-saas-companies-are-making-a/?.tsrc=rss",
@@ -1139,18 +1166,6 @@ window.DASH = {
           "T14"
         ],
         "sent": "positive"
-      },
-      {
-        "title": "JEPQ’s 10.9% Yield Hides $2,900 Annual Tax Bill Most Retirees Never See",
-        "link": "https://247wallst.com/investing/etf/2026/08/11/jepqs-10-9-yield-hides-2900-annual-tax-bill-most-retirees-never-see/?.tsrc=rss",
-        "ts": 1786485923,
-        "when": "Aug 11, 10:05 PM",
-        "ticker": "JEPQ",
-        "industry": "Covered-Call Income",
-        "theory": [
-          "T12"
-        ],
-        "sent": "neutral"
       },
       {
         "title": "Sector Update: Consumer Stocks Decline Late Afternoon",
@@ -1177,12 +1192,14 @@ window.DASH = {
           "T11"
         ],
         "sent": "positive"
-      },
+      }
+    ],
+    "feed": [
       {
-        "title": "Trump's Polysilicon Tariffs Could Reshape These ETFs",
-        "link": "https://finance.yahoo.com/economy/policy/articles/trumps-polysilicon-tariffs-could-reshape-135600837.html?.tsrc=rss",
-        "ts": 1786456560,
-        "when": "Aug 11, 01:56 PM",
+        "title": "Tech Earnings, Oil, CPI Lift Wall Street Pre-Bell; Asia, Europe Up",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/tech-earnings-oil-cpi-lift-110514660.html?.tsrc=rss",
+        "ts": 1786532714,
+        "when": "Aug 12, 11:05 AM",
         "ticker": "SMH",
         "industry": "Semis",
         "theory": [
@@ -1191,10 +1208,20 @@ window.DASH = {
           "T2",
           "T14"
         ],
-        "sent": "negative"
-      }
-    ],
-    "feed": [
+        "sent": "neutral"
+      },
+      {
+        "title": "JPMorgan Announces Cash Distributions for the JPMorgan ETFs",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/jpmorgan-announces-cash-distributions-jpmorgan-110000768.html?.tsrc=rss",
+        "ts": 1786532400,
+        "when": "Aug 12, 11:00 AM",
+        "ticker": "JEPQ",
+        "industry": "Covered-Call Income",
+        "theory": [
+          "T12"
+        ],
+        "sent": "neutral"
+      },
       {
         "title": "Software-as-a-Service (SaaS) Companies Are Making a Comeback. Here's the Exact SaaS Stock I Recommend Buying Right Now.",
         "link": "https://www.fool.com/investing/2026/08/12/software-as-a-service-saas-companies-are-making-a/?.tsrc=rss",
@@ -1483,6 +1510,18 @@ window.DASH = {
         "sent": "negative"
       },
       {
+        "title": "Exchange-Traded Funds Higher, Equity Futures Mixed Pre-Bell Tuesday Amid Stalled US-Iran Talks",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/exchange-traded-funds-higher-equity-130332588.html?.tsrc=rss",
+        "ts": 1786453412,
+        "when": "Aug 11, 01:03 PM",
+        "ticker": "XLY",
+        "industry": "Consumer Disc.",
+        "theory": [
+          "T13"
+        ],
+        "sent": "positive"
+      },
+      {
         "title": "Yum! Brands Stock: Is Wall Street Bullish or Bearish?",
         "link": "https://www.barchart.com/story/news/3777478/yum-brands-stock-is-wall-street-bullish-or-bearish?.tsrc=rss",
         "ts": 1786450855,
@@ -1576,43 +1615,6 @@ window.DASH = {
           "T14"
         ],
         "sent": "positive"
-      },
-      {
-        "title": "Is Now the Time to Invest in Bonds?",
-        "link": "https://finance.yahoo.com/markets/options/articles/now-time-invest-bonds-201600575.html?.tsrc=rss",
-        "ts": 1786392960,
-        "when": "Aug 10, 08:16 PM",
-        "ticker": "SGOV",
-        "industry": "Equities",
-        "theory": [],
-        "sent": "neutral"
-      },
-      {
-        "title": "The ETFs Most Exposed to the 2026 Chip Supply Chain Crisis — Winners and Losers",
-        "link": "http://www.etf.com/sections/news/etfs-most-exposed-2026-chip-supply-chain-crisis-winners-and-losers?utm_source=yahoo-finance&utm_medium=rss&utm_campaign=yahoo-finance-rss&.tsrc=rss",
-        "ts": 1786392922,
-        "when": "Aug 10, 08:15 PM",
-        "ticker": "SMH",
-        "industry": "Semis",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Sector Update: Consumer Stocks Lower in Late Afternoon Trading",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-lower-afternoon-195537186.html?.tsrc=rss",
-        "ts": 1786391737,
-        "when": "Aug 10, 07:55 PM",
-        "ticker": "XLY",
-        "industry": "Consumer Disc.",
-        "theory": [
-          "T13"
-        ],
-        "sent": "negative"
       }
     ]
   }
