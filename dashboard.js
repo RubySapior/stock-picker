@@ -1161,8 +1161,23 @@ window.DASH = {
   },
   "rebalance": null,
   "news": {
-    "asof": "2026-08-12 20:44:41",
+    "asof": "2026-08-12 21:26:03",
     "big_stories": [
+      {
+        "title": "Michael Burry delivers brutal verdict on $420 billion AI giant",
+        "link": "https://www.thestreet.com/investing/stocks/pltr-palantir-stock-michael-burry-says-surging-ai-giant-is-worth-under-1-long-term-despite-strong-q2-2026-earnings?.tsrc=rss",
+        "ts": 1786569420,
+        "when": "Aug 12, 09:17 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
       {
         "title": "Sector Update: Consumer Stocks Mixed Late Afternoon",
         "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-mixed-afternoon-195051183.html?.tsrc=rss",
@@ -1174,21 +1189,6 @@ window.DASH = {
           "T13"
         ],
         "sent": "neutral"
-      },
-      {
-        "title": "Tesla, Palantir Fall as CPI Sends September Fed Hike Odds to 33%",
-        "link": "https://www.benzinga.com/markets/prediction-markets/26/08/61156417/tesla-palantir-july-cpi-fed-hike-odds?utm_source=yahooFinance&utm_campaign=partner_feed&utm_medium=referral&.tsrc=rss",
-        "ts": 1786563225,
-        "when": "Aug 12, 07:33 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "negative"
       },
       {
         "title": "U.S. ETF Investors at Odds: Chasing Returns or Playing the Long Game?",
@@ -1220,20 +1220,52 @@ window.DASH = {
         "sent": "neutral"
       },
       {
-        "title": "Exchange-Traded Funds, Equity Futures Gain Pre-Bell Wednesday Amid In-Line Consumer Inflation Data, Tech Gains",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/exchange-traded-funds-equity-futures-131639194.html?.tsrc=rss",
-        "ts": 1786540599,
-        "when": "Aug 12, 01:16 PM",
-        "ticker": "IWM",
-        "industry": "Small Caps",
+        "title": "Tech Earnings, Oil, CPI Lift Wall Street Pre-Bell; Asia, Europe Up",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/tech-earnings-oil-cpi-lift-110514660.html?.tsrc=rss",
+        "ts": 1786532714,
+        "when": "Aug 12, 11:05 AM",
+        "ticker": "SMH",
+        "industry": "Semis",
         "theory": [
-          "T10",
-          "T15"
+          "T1",
+          "T7",
+          "T2",
+          "T14"
         ],
-        "sent": "positive"
+        "sent": "neutral"
       }
     ],
     "feed": [
+      {
+        "title": "Michael Burry delivers brutal verdict on $420 billion AI giant",
+        "link": "https://www.thestreet.com/investing/stocks/pltr-palantir-stock-michael-burry-says-surging-ai-giant-is-worth-under-1-long-term-despite-strong-q2-2026-earnings?.tsrc=rss",
+        "ts": 1786569420,
+        "when": "Aug 12, 09:17 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "Michael Burry Is Short Nebius and Palantir. Both Are Now Soaring and His Short Thesis Looks Broken.",
+        "link": "https://247wallst.com/investing/2026/08/12/michael-burry-is-short-nebius-and-palantir-both-are-now-soaring-his-short-thesis-looks-broken/?.tsrc=rss",
+        "ts": 1786569052,
+        "when": "Aug 12, 09:10 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
       {
         "title": "Sector Update: Consumer Stocks Mixed Late Afternoon",
         "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-mixed-afternoon-195051183.html?.tsrc=rss",
@@ -1472,11 +1504,12 @@ window.DASH = {
         "link": "https://finance.yahoo.com/markets/stocks/articles/exchange-traded-funds-equity-futures-131639194.html?.tsrc=rss",
         "ts": 1786540599,
         "when": "Aug 12, 01:16 PM",
-        "ticker": "IWM",
-        "industry": "Small Caps",
+        "ticker": "GLD",
+        "industry": "Gold",
         "theory": [
-          "T10",
-          "T15"
+          "T6",
+          "T9",
+          "T11"
         ],
         "sent": "positive"
       },
@@ -1510,18 +1543,6 @@ window.DASH = {
         "sent": "neutral"
       },
       {
-        "title": "Stock Market News for Aug 12, 2026",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/stock-market-news-aug-12-112700930.html?.tsrc=rss",
-        "ts": 1786534020,
-        "when": "Aug 12, 11:27 AM",
-        "ticker": "XLY",
-        "industry": "Consumer Disc.",
-        "theory": [
-          "T13"
-        ],
-        "sent": "neutral"
-      },
-      {
         "title": "Tech Earnings, Oil, CPI Lift Wall Street Pre-Bell; Asia, Europe Up",
         "link": "https://finance.yahoo.com/markets/stocks/articles/tech-earnings-oil-cpi-lift-110514660.html?.tsrc=rss",
         "ts": 1786532714,
@@ -1533,6 +1554,18 @@ window.DASH = {
           "T7",
           "T2",
           "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "JPMorgan Announces Cash Distributions for the JPMorgan ETFs",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/jpmorgan-announces-cash-distributions-jpmorgan-110000768.html?.tsrc=rss",
+        "ts": 1786532400,
+        "when": "Aug 12, 11:00 AM",
+        "ticker": "JEPQ",
+        "industry": "Covered-Call Income",
+        "theory": [
+          "T12"
         ],
         "sent": "neutral"
       },
@@ -1634,33 +1667,6 @@ window.DASH = {
           "T14"
         ],
         "sent": "positive"
-      },
-      {
-        "title": "Prediction: Palantir Will Hit $220 This Year. There's 1 Clear Reason Why.",
-        "link": "https://www.fool.com/investing/2026/08/11/prediction-palantir-will-hit-220-this-year-theres/?.tsrc=rss",
-        "ts": 1786481040,
-        "when": "Aug 11, 08:44 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Sector Update: Consumer Stocks Decline Late Afternoon",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-decline-afternoon-195018690.html?.tsrc=rss",
-        "ts": 1786477818,
-        "when": "Aug 11, 07:50 PM",
-        "ticker": "XLY",
-        "industry": "Consumer Disc.",
-        "theory": [
-          "T13"
-        ],
-        "sent": "neutral"
       }
     ]
   }
