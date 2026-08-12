@@ -1161,8 +1161,23 @@ window.DASH = {
   },
   "rebalance": null,
   "news": {
-    "asof": "2026-08-12 22:41:11",
+    "asof": "2026-08-12 23:41:23",
     "big_stories": [
+      {
+        "title": "Zeta Global’s Q2 Earnings Call: Our Top 5 Analyst Questions",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/zeta-global-q2-earnings-call-230100896.html?.tsrc=rss",
+        "ts": 1786575660,
+        "when": "Aug 12, 11:01 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
       {
         "title": "Small Caps Pay Too: The 42% Friday Payer Riding the Russell’s Big Year",
         "link": "https://247wallst.com/investing/2026/08/12/small-caps-pay-too-the-42-friday-payer-riding-the-russells-big-year/?.tsrc=rss",
@@ -1190,21 +1205,6 @@ window.DASH = {
           "T14"
         ],
         "sent": "positive"
-      },
-      {
-        "title": "Michael Burry delivers brutal verdict on $420 billion AI giant",
-        "link": "https://www.thestreet.com/investing/stocks/pltr-palantir-stock-michael-burry-says-surging-ai-giant-is-worth-under-1-long-term-despite-strong-q2-2026-earnings?.tsrc=rss",
-        "ts": 1786569420,
-        "when": "Aug 12, 09:17 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
       },
       {
         "title": "Sector Update: Consumer Stocks Mixed Late Afternoon",
@@ -1235,6 +1235,21 @@ window.DASH = {
       }
     ],
     "feed": [
+      {
+        "title": "Zeta Global’s Q2 Earnings Call: Our Top 5 Analyst Questions",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/zeta-global-q2-earnings-call-230100896.html?.tsrc=rss",
+        "ts": 1786575660,
+        "when": "Aug 12, 11:01 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
       {
         "title": "Small Caps Pay Too: The 42% Friday Payer Riding the Russell’s Big Year",
         "link": "https://247wallst.com/investing/2026/08/12/small-caps-pay-too-the-42-friday-payer-riding-the-russells-big-year/?.tsrc=rss",
@@ -1527,35 +1542,6 @@ window.DASH = {
         "sent": "neutral"
       },
       {
-        "title": "Jefferies' Latest Warning on Palantir Sends Clear Message: Stay Cautious on PLTR Stock",
-        "link": "https://www.barchart.com/story/news/3804612/jefferies-latest-warning-on-palantir-sends-clear-message-stay-cautious-on-pltr-stock?.tsrc=rss",
-        "ts": 1786541912,
-        "when": "Aug 12, 01:38 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "negative"
-      },
-      {
-        "title": "Exchange-Traded Funds, Equity Futures Gain Pre-Bell Wednesday Amid In-Line Consumer Inflation Data, Tech Gains",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/exchange-traded-funds-equity-futures-131639194.html?.tsrc=rss",
-        "ts": 1786540599,
-        "when": "Aug 12, 01:16 PM",
-        "ticker": "GLD",
-        "industry": "Gold",
-        "theory": [
-          "T6",
-          "T9",
-          "T11"
-        ],
-        "sent": "positive"
-      },
-      {
         "title": "Forget Buying Gold Directly: Wheaton Precious Metals Could Be the Better Play.",
         "link": "https://www.fool.com/investing/2026/08/12/forget-buying-gold-directly-wheaton-precious-metal/?.tsrc=rss",
         "ts": 1786538400,
@@ -1657,6 +1643,21 @@ window.DASH = {
           "T11"
         ],
         "sent": "positive"
+      },
+      {
+        "title": "Trump's Polysilicon Tariffs Could Reshape These ETFs",
+        "link": "https://finance.yahoo.com/economy/policy/articles/trumps-polysilicon-tariffs-could-reshape-135600837.html?.tsrc=rss",
+        "ts": 1786456560,
+        "when": "Aug 11, 01:56 PM",
+        "ticker": "SMH",
+        "industry": "Semis",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "negative"
       }
     ]
   }
