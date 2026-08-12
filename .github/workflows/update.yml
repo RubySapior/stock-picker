@@ -1,17 +1,23 @@
-name: Daily portfolio update
+name: Live portfolio update
 
 on:
   schedule:
-    # 21:30 UTC = 5:30pm ET in EDT / 4:30pm ET in EST, after US market close.
-    - cron: '30 21 * * *'
+    # Minimum GitHub allows for cron is every 5 minutes. Prices only change
+    # during market hours, so most off-hours runs commit nothing.
+    - cron: '*/5 * * * *'
   workflow_dispatch:
 
 permissions:
   contents: write
 
+concurrency:
+  group: live-update
+  cancel-in-progress: false
+
 jobs:
   update:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
 
@@ -28,8 +34,9 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add dashboard.js portfolio.json
           if git diff --cached --quiet; then
-            echo "No data changes today."
+            echo "No data changes this run."
           else
-            git commit -m "Daily update $(date -u +%Y-%m-%d)"
+            git commit -m "Live update $(date -u +%Y-%m-%dT%H:%MZ)"
+            git pull --rebase --autostash origin main
             git push
           fi
