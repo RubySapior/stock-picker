@@ -2,9 +2,13 @@ name: Live portfolio update
 
 on:
   schedule:
-    # Minimum GitHub allows for cron is every 5 minutes. Prices only change
-    # during market hours, so most off-hours runs commit nothing.
-    - cron: '*/5 * * * *'
+    # Every hour at :00 (covers post-market → pre-open, ~1 run/hr off-hours).
+    - cron: '0 * * * *'
+    # Every 6 minutes during 13:00–21:59 UTC = 10 runs/hr. This envelope covers
+    # US market hours in BOTH DST regimes (EDT 13:30–20:00, EST 14:30–21:00 UTC).
+    # The :00 minute overlaps with the hourly line, so market hours never exceed
+    # 10 runs/hour (matches the GitHub Pages ~10 builds/hour cap).
+    - cron: '*/6 13-21 * * *'
   workflow_dispatch:
 
 permissions:
