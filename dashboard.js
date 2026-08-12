@@ -1161,7 +1161,7 @@ window.DASH = {
   },
   "rebalance": null,
   "news": {
-    "asof": "2026-08-12 22:20:15",
+    "asof": "2026-08-12 22:41:11",
     "big_stories": [
       {
         "title": "Small Caps Pay Too: The 42% Friday Payer Riding the Russell’s Big Year",
@@ -1546,11 +1546,12 @@ window.DASH = {
         "link": "https://finance.yahoo.com/markets/stocks/articles/exchange-traded-funds-equity-futures-131639194.html?.tsrc=rss",
         "ts": 1786540599,
         "when": "Aug 12, 01:16 PM",
-        "ticker": "IWM",
-        "industry": "Small Caps",
+        "ticker": "GLD",
+        "industry": "Gold",
         "theory": [
-          "T10",
-          "T15"
+          "T6",
+          "T9",
+          "T11"
         ],
         "sent": "positive"
       },
@@ -1580,6 +1581,18 @@ window.DASH = {
           "T7",
           "T2",
           "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "JPMorgan Announces Cash Distributions for the JPMorgan ETFs",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/jpmorgan-announces-cash-distributions-jpmorgan-110000768.html?.tsrc=rss",
+        "ts": 1786532400,
+        "when": "Aug 12, 11:00 AM",
+        "ticker": "JEPQ",
+        "industry": "Covered-Call Income",
+        "theory": [
+          "T12"
         ],
         "sent": "neutral"
       },
@@ -1644,21 +1657,6 @@ window.DASH = {
           "T11"
         ],
         "sent": "positive"
-      },
-      {
-        "title": "Trump's Polysilicon Tariffs Could Reshape These ETFs",
-        "link": "https://finance.yahoo.com/economy/policy/articles/trumps-polysilicon-tariffs-could-reshape-135600837.html?.tsrc=rss",
-        "ts": 1786456560,
-        "when": "Aug 11, 01:56 PM",
-        "ticker": "SMH",
-        "industry": "Semis",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "negative"
       }
     ]
   }
