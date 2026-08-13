@@ -101,7 +101,12 @@ Owned by `write_dashboard()` in `update.py`. `app.js` reads these fields:
   **1x underlying** (vol-aware, no whipsaw); `stop_loss_pct` is then only a
   wide wrapper backstop. Stop exits are tagged `state:"vol_halt"` with
   `reclaim_ticker` / `reclaim_level` / `reentry_amount` for the re-entry
-  protocol (see `meta.limits.re_entry`).
+  protocol (see `meta.limits.re_entry`). A position may carry a one-shot
+  `scheduled_exit` `{reason, note}` tag (e.g. a deliberate rebalance): on the
+  FIRST market-open run `execute_scheduled_exits()` sells it at the live open
+  price, realizes proceeds into cash, removes the position, and prunes its
+  sector from `position_exposure`/`sector_limits`/rebalance targets if it was
+  the last holding there.
 - `sleeves[]`: `{sleeve, value}`
 - `sectors[]`: `sector`, `value`, `effective`, `leverage`, `pct`, `max_pct`,
   `status` ("ok"/"warn"/"over"), `note`
@@ -109,8 +114,9 @@ Owned by `write_dashboard()` in `update.py`. `app.js` reads these fields:
 - `history[]`: `date`, `total_value`, `cash`, `invested_value`, `day_change`,
   `prices{ticker: px}`
 - `events[]`: `date`, `ticker`, `name`, `reason` ("take_profit"/"stop_loss"/
-  "deploy_cash"/"re_entry"/"rebalance_recommended"), `note` ("index_stop
-  (TICKER x%)"/"backstop"/"re-affirmed (...)"/drift message/null), `state`
+  "deploy_cash"/"re_entry"/"rebalance_recommended"/"rebalance"), `note`
+  ("index_stop (TICKER x%)"/"backstop"/"re-affirmed (...)"/drift message/
+  scheduled-exit note/null), `state`
   (null/"vol_halt"), `price`, `buy_price`, `shares`, `realized_pnl`
 - `theories[]`: `id`, `title`, `prediction`, `tier` (S/A/B/C/D), `tier_reason`,
   `status` ("pending"/"paused"/"right"/"wrong"/"abandoned"), `created`,

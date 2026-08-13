@@ -1,7 +1,7 @@
 {
   "meta": {
     "name": "HyperGrowth Sharpe Barbell v5 - Conviction-First",
-    "strategy": "Conviction discipline: NO C- or D-tier positions are held unless they are needed as hedges. Non-hedge holdings must earn their A/B conviction or the money sits in cash. CUT in v5: IGV (D, software timing), ARKQ (C, robotics timing), XBI (C, biotech w/o catalyst), KWEB (C, unfundable China risk). KEPT B-tier with catalysts: XLY, EZU, IWM, IWDL (value = anti-growth factor hedge). Freed capital boosted A-tier growth (TQQQ 9k, SOXL 7k, DRAM 5k) and the strongest hedges (ZROZ 6k, QFLR 3k); the rest is dry-powder parked in SGOV (0-3 month T-bills) - idle cash is never left as cash. V5.1: leveraged-fund stop-losses are INDEX-REFERENCED (checked on the 1x underlying - TQQQ->QQQ -8%, SOXL->SOXX -9%, IWDL->IWD -10%) so a violent leveraged day or decay drift cannot whipsaw the stop; the wrapper-level stop_loss_pct is only a wide backstop. Take-profits auto-checked on the wrapper. JEPQ is an income sleeve, NOT a hedge-funding engine - hedge drag is priced insurance (T6), not financed by JEPQ. Stop losses / take profits auto-checked by update.py.",
+    "strategy": "Conviction discipline: NO C- or D-tier positions are held unless they are needed as hedges. Non-hedge holdings must earn their A/B conviction or the money sits in cash. CUT in v5: IGV (D, software timing), ARKQ (C, robotics timing), XBI (C, biotech w/o catalyst), KWEB (C, unfundable China risk). KEPT B-tier with catalysts: XLY, EZU, IWM, IWDL (value = anti-growth factor hedge). Freed capital boosted A-tier growth (TQQQ 9k, SOXL 7k, DRAM 5k) and the strongest hedges (ZROZ 6k, QFLR 3k); the rest is dry-powder parked in SGOV (0-3 month T-bills) - idle cash is never left as cash. V5.1: leveraged-fund stop-losses are INDEX-REFERENCED (checked on the 1x underlying - TQQQ->QQQ -8%, SOXL->SOXX -9%, IWDL->IWD -10%) so a violent leveraged day or decay drift cannot whipsaw the stop; the wrapper-level stop_loss_pct is only a wide backstop. Take-profits auto-checked on the wrapper. V5.2 (issue #7): JEPQ REMOVAL SCHEDULED for the next market open - the covered call cannot finance the hedge stack: its ~$250/yr yield vs the hedge stack's ~$1,200-2,000/yr drag was a mathematical illusion, and a capped-upside/full-downside-beta Nasdaq position adds nothing the growth sleeve lacks. update.py will sell it at the open price and sweep the proceeds to SGOV; the 'Premium Financing' sector is being deleted from the book. Hedge drag is priced insurance (T6), never financed by JEPQ. Stop losses / take profits auto-checked by update.py. V5.3 (issue #6): the hedge scorecard is SCENARIO-SPECIFIC - the generic T11 'when NASDAQ falls 10%' theory is split into per-crash-case theories: T17 AI pop (QFLR+VIXM+BTAL+ZROZ), T18 yen-carry unwind (FXY+DBMF), T19 China shock (GLD+GDX+DBMF), T20 inflation (GLD+GDX), T21 war/geopolitical (GLD+GDX+FXY+DBMF). T6 remains the book-level hedge drag/drawdown budget only.",
     "currency": "USD",
     "start_value": 100000,
     "start_date": "2026-08-10",
@@ -24,8 +24,7 @@
           "Broadening / Value": 8.0,
           "Contrarian Fear": 4.5,
           "Hedge Stack": 35.0,
-          "Premium Financing": 2.5,
-          "Short-Term Bonds": 13.0
+          "Short-Term Bonds": 15.5
         },
         "note": "Passive drift threshold (v5.3): if a sector's EFFECTIVE exposure strays more than +/-5pp from its target, update.py logs a rebalance_recommended event and flags dashboard.js. It NEVER trades - it only asks the conviction layer to review the risk-budget mismatch, so path-dependent re-entry sizing cannot silently compound into a hidden risk-budget error."
       },
@@ -106,10 +105,6 @@
           "sector": "Hedge Stack",
           "leverage": 1.0
         },
-        "JEPQ": {
-          "sector": "Premium Financing",
-          "leverage": 1.0
-        },
         "SGOV": {
           "sector": "Short-Term Bonds",
           "leverage": 1.0
@@ -138,10 +133,6 @@
           "max_pct": 45
         },
         {
-          "sector": "Premium Financing",
-          "max_pct": 6
-        },
-        {
           "sector": "Short-Term Bonds",
           "max_pct": 20
         }
@@ -153,7 +144,7 @@
   },
   "account": {
     "cash": 25.0,
-    "realized_pnl": 0.0,
+    "realized_pnl": 29.24,
     "history": [
       {
         "date": "2026-08-10",
@@ -246,37 +237,48 @@
       },
       {
         "date": "2026-08-13",
-        "total_value": 102643.49,
+        "total_value": 102365.02,
         "cash": 25.0,
-        "invested_value": 102618.49,
-        "day_change": 1143.47,
+        "invested_value": 102340.02,
+        "day_change": 865.0,
         "prices": {
-          "TQQQ": 77.16,
-          "SOXL": 153.15,
-          "SMH": 596.172,
-          "DRAM": 57.795,
-          "PLTR": 173.69,
-          "NLR": 117.85,
+          "TQQQ": 76.74,
+          "SOXL": 150.485,
+          "SMH": 593.181,
+          "DRAM": 57.235,
+          "PLTR": 174.59,
+          "NLR": 117.67,
           "NUKZ": 67.745,
-          "IWM": 303.22,
+          "IWM": 303.23,
           "IWDL": 69.8029,
-          "XLY": 118.01,
-          "EZU": 71.745,
-          "ZROZ": 58.606,
+          "XLY": 118.135,
+          "EZU": 71.71,
+          "ZROZ": 58.64,
           "FXY": 57.567,
           "VIXM": 14.17,
-          "QFLR": 35.725,
-          "GLD": 400.1,
-          "GDX": 88.275,
+          "QFLR": 35.722,
+          "GLD": 400.31,
+          "GDX": 88.2,
           "BTAL": 11.77,
-          "DBMF": 31.31,
-          "JEPQ": 60.395,
-          "SGOV": 100.527
+          "DBMF": 31.29,
+          "SGOV": 100.525
         }
       }
     ]
   },
   "events": [
+    {
+      "date": "2026-08-12",
+      "ticker": "JEPQ",
+      "name": "JPMorgan Nasdaq Equity Premium Income ETF",
+      "reason": "rebalance",
+      "note": "issue #7: covered-call removed - premium-financing was a mathematical illusion (~$250/yr yield vs ~$1,200-2,000/yr hedge drag); capped upside + full Nasdaq downside beta duplicates the growth sleeve. Sale scheduled for next market open; proceeds swept to SGOV.",
+      "state": null,
+      "price": null,
+      "buy_price": null,
+      "shares": null,
+      "realized_pnl": 0
+    },
     {
       "date": "2026-08-11",
       "ticker": "SGOV",
@@ -295,6 +297,28 @@
       "price": 100.505,
       "buy_price": 100.505,
       "shares": 129.0981,
+      "realized_pnl": 0
+    },
+    {
+      "date": "2026-08-13",
+      "ticker": "JEPQ",
+      "name": "JPMorgan Nasdaq Equity Premium Income ETF",
+      "reason": "rebalance",
+      "note": "issue #7: covered-call removed - premium-financing was a mathematical illusion (~$250/yr yield vs ~$1,200-2,000/yr hedge drag); capped upside + full Nasdaq downside beta duplicates the growth sleeve. Sold at next market open; proceeds swept to SGOV.",
+      "state": null,
+      "price": 60.38,
+      "buy_price": 59.68,
+      "shares": 41.890081,
+      "realized_pnl": 29.24
+    },
+    {
+      "date": "2026-08-13",
+      "ticker": "SGOV",
+      "name": "iShares 0-3 Month Treasury Bond ETF",
+      "reason": "deploy_cash",
+      "price": 100.5223,
+      "buy_price": 100.5223,
+      "shares": 25.161,
       "realized_pnl": 0
     }
   ],
@@ -516,7 +540,8 @@
       "name": "PIMCO 25+ Year Zero Coupon U.S. Treasury ETF",
       "sleeve": "Crisis Alpha - AI Bust",
       "theory_ids": [
-        "T6"
+        "T6",
+        "T17"
       ],
       "buy_date": "2026-08-10",
       "buy_price": 58.12,
@@ -534,7 +559,9 @@
       "name": "Invesco CurrencyShares Japanese Yen Trust",
       "sleeve": "Crisis Alpha - Carry Unwind",
       "theory_ids": [
-        "T6"
+        "T6",
+        "T18",
+        "T21"
       ],
       "buy_date": "2026-08-10",
       "buy_price": 57.62,
@@ -552,7 +579,9 @@
       "name": "ProShares VIX Mid-Term Futures ETF",
       "sleeve": "Crisis Alpha - Vol Decay",
       "theory_ids": [
-        "T6"
+        "T6",
+        "T17",
+        "T21"
       ],
       "buy_date": "2026-08-10",
       "buy_price": 14.28,
@@ -570,7 +599,8 @@
       "name": "Innovator Nasdaq-100 Managed Floor ETF",
       "sleeve": "Crisis Alpha - Down-Day Floor",
       "theory_ids": [
-        "T6"
+        "T6",
+        "T17"
       ],
       "buy_date": "2026-08-10",
       "buy_price": 35.49,
@@ -589,7 +619,10 @@
       "sleeve": "Crisis Alpha - Real Assets",
       "theory_ids": [
         "T9",
-        "T6"
+        "T6",
+        "T19",
+        "T20",
+        "T21"
       ],
       "buy_date": "2026-08-10",
       "buy_price": 402.54,
@@ -608,7 +641,10 @@
       "sleeve": "Crisis Alpha - Real Assets",
       "theory_ids": [
         "T9",
-        "T6"
+        "T6",
+        "T19",
+        "T20",
+        "T21"
       ],
       "buy_date": "2026-08-10",
       "buy_price": 90.49,
@@ -626,7 +662,8 @@
       "name": "AGF U.S. Market Neutral Anti-Beta Fund",
       "sleeve": "Crisis Alpha - Anti-Beta",
       "theory_ids": [
-        "T6"
+        "T6",
+        "T17"
       ],
       "buy_date": "2026-08-10",
       "buy_price": 12.08,
@@ -644,7 +681,10 @@
       "name": "iMGP DBi Managed Futures Strategy ETF",
       "sleeve": "Crisis Alpha - Trend",
       "theory_ids": [
-        "T6"
+        "T6",
+        "T18",
+        "T19",
+        "T21"
       ],
       "buy_date": "2026-08-10",
       "buy_price": 31.32,
@@ -657,32 +697,14 @@
       "entry_note": "Dual-direction robustness."
     },
     {
-      "id": "JEPQ",
-      "ticker": "JEPQ",
-      "name": "JPMorgan Nasdaq Equity Premium Income ETF",
-      "sleeve": "Premium Financing",
-      "theory_ids": [
-        "T12"
-      ],
-      "buy_date": "2026-08-10",
-      "buy_price": 59.68,
-      "shares": 41.890081,
-      "cost": 2500.0,
-      "take_profit_pct": 0.2,
-      "stop_loss_pct": -0.12,
-      "status": "open",
-      "thesis": "B-TIER CONVICTION (T12). Income sleeve: its ~10% covered-call yield harvests Nasdaq vol premium for current income. It does NOT self-fund the hedge stack - hedging drag is priced insurance (budgeted in T6 at net >-5% over 12mo), not financed by JEPQ. Book-level yield is small (~0.25%), so it is an income position, not a hedge-funding machine.",
-      "entry_note": "Income sleeve. Hedge drag is priced insurance (T6), not financed by JEPQ."
-    },
-    {
       "ticker": "SGOV",
       "name": "iShares 0-3 Month Treasury Bond ETF",
       "sleeve": "Short-Term Bonds (SGOV)",
       "theory_ids": [],
       "buy_date": "2026-08-11",
       "buy_price": 100.505,
-      "shares": 129.098055,
-      "cost": 12975.0,
+      "shares": 154.259039,
+      "cost": 15504.24,
       "take_profit_pct": 0.0,
       "stop_loss_pct": -0.1,
       "status": "open",
@@ -734,12 +756,13 @@
       "title": "Crisis-alpha stack cuts drawdown without killing upside",
       "prediction": "Portfolio max drawdown over the next 12 months stays under -35% while the hedge stack (ZROZ+FXY+VIXM+QFLR+GLD+GDX+BTAL+DBMF) contributes a combined net return greater than -5%.",
       "tier": "A",
-      "tier_reason": "Purpose-built to cut drawdown; the >-5% net hedge return is the only uncertain leg.",
+      "tier_reason": "Purpose-built to cut drawdown; the >-5% net hedge return is the only uncertain leg. This is the insurance-COST budget only; per-crash-case performance is scored in T17-T21 (issue #6).",
       "status": "pending",
       "created": "2026-08-10",
-      "last_updated": "2026-08-10",
+      "last_updated": "2026-08-13",
       "evidence": [
-        "2026-08-10: Hedges mapped to distinct crash mechanisms: deflation, carry-unwind, vol-spike, put-floor, real assets, anti-beta, trend."
+        "2026-08-10: Hedges mapped to distinct crash mechanisms: deflation, carry-unwind, vol-spike, put-floor, real assets, anti-beta, trend.",
+        "2026-08-13 (issue #6): generic hedge claims split into scenario-specific theories T17 (AI pop), T18 (yen carry), T19 (China), T20 (inflation), T21 (war). T6 stays the book-level drag/drawdown budget."
       ]
     },
     {
@@ -797,14 +820,15 @@
     {
       "id": "T11",
       "title": "Hedge stack halves the loss on a crash week",
-      "prediction": "On any week the Nasdaq falls >=10%, the hedge stack keeps the portfolio's total drawdown to less than half of what the identical book WITHOUT hedges would suffer.",
+      "prediction": "OBSOLETE - replaced by scenario-specific hedge theories. The generic 'when the Nasdaq falls >=10%' framing could not attribute credit to the right instrument or falsify a specific crash case.",
       "tier": "S",
-      "tier_reason": "Close to structural: multiple uncorrelated crash instruments (rates, FX, vol, gold, anti-beta) fund the same event.",
-      "status": "pending",
+      "tier_reason": "Superseded by T17-T21 in issue #6: a single 'crash week' theory is untestable - AI pop, yen-carry unwind, China shock, inflation, and war each stress different instruments.",
+      "status": "abandoned",
       "created": "2026-08-10",
-      "last_updated": "2026-08-10",
+      "last_updated": "2026-08-13",
       "evidence": [
-        "2026-08-10: Hedges mapped to distinct crash mechanisms."
+        "2026-08-10: Hedges mapped to distinct crash mechanisms.",
+        "2026-08-13 (issue #6): too general - 'when NASDAQ falls 10%' cannot distinguish which hedge pays or whether the theory is wrong. Split into T17 (AI pop), T18 (yen carry), T19 (China), T20 (inflation), T21 (war)."
       ]
     },
     {
@@ -812,13 +836,14 @@
       "title": "Covered-call income adds book-level yield",
       "prediction": "JEPQ's cumulative distributions over 12 months are net-positive at the book level (distributions exceed JEPQ's own price/cap drag), i.e. the position pays to hold rather than costing the book.",
       "tier": "B",
-      "tier_reason": "Rated down from the old 'premium financing' claim: JEPQ's ~0.25% book-level yield is far too small to fund the ~35% hedge stack. The hedges are priced insurance budgeted in T6 (net >-5% over 12mo), NOT financed by JEPQ. Honest testable claim: JEPQ itself is net-positive.",
-      "status": "pending",
+      "tier_reason": "Test DISCONTINUED (issue #7): JEPQ removed at v5.2. Even the honest version of the claim could not clear the strategy's Sharpe bar - ~$250/yr income vs ~$1,200-2,000/yr hedge drag meant it never financed the insurance stack, and its capped upside + full Nasdaq downside beta duplicated the growth sleeve. Proceeds move to SGOV.",
+      "status": "abandoned",
       "created": "2026-08-10",
-      "last_updated": "2026-08-10",
+      "last_updated": "2026-08-12",
       "evidence": [
         "2026-08-10: JEPQ yield ~10% on a 2.5% position = ~0.25% book-level - small income sleeve, not a hedge-funding engine.",
-        "2026-08-11 (v5.1): 'JEPQ funds the hedges' narrative deleted. Hedge drag is explicitly priced insurance (T6)."
+        "2026-08-11 (v5.1): 'JEPQ funds the hedges' narrative deleted. Hedge drag is explicitly priced insurance (T6).",
+        "2026-08-12 (issue #7): position removed - covered-call income could not finance the hedge stack (math illusion) and added no diversification. Sale scheduled at next market open, proceeds to SGOV."
       ]
     },
     {
@@ -872,6 +897,71 @@
       "last_updated": "2026-08-10",
       "evidence": [
         "2026-08-10 (v5): Cut IGV (D), ARKQ (C), XBI (C), KWEB (C) - all non-hedges. Cash 3.5% -> 13%. No C/D allowed unless it is a hedge."
+      ]
+    },
+    {
+      "id": "T17",
+      "title": "AI-pop hedge: floor + vol + anti-beta cap the unwind",
+      "prediction": "On any week the Nasdaq-100 falls >=10% on an AI-valuation unwind (AI pop), QFLR + VIXM + BTAL + ZROZ combined finish positive and the book's drawdown stays below half of the identical unhedged book's loss.",
+      "tier": "S",
+      "tier_reason": "Four instruments target the SAME event's distinct mechanisms (QFLR put-floor stops the bleed, VIXM spikes on realized vol, BTAL profits from the high-beta crash, ZROZ reprices on Fed cuts) - close to structural.",
+      "status": "pending",
+      "created": "2026-08-13",
+      "last_updated": "2026-08-13",
+      "evidence": [
+        "2026-08-13 (issue #6): created to replace the generic T11. This is the 'when the Nasdaq pops' case the hedge stack was actually built for."
+      ]
+    },
+    {
+      "id": "T18",
+      "title": "Yen-carry unwind hedge",
+      "prediction": "On any week the yen strengthens violently on forced carry liquidation (USDJPY falls >3%), FXY + DBMF combined finish positive and offset the leveraged-growth sleeve's loss.",
+      "tier": "S",
+      "tier_reason": "FXY is direct yen exposure and DBMF catches the cross-market trend - the 1998 / 2007-08 carry-unwind analogs make the mechanism concrete.",
+      "status": "pending",
+      "created": "2026-08-13",
+      "last_updated": "2026-08-13",
+      "evidence": [
+        "2026-08-13 (issue #6): created to replace the generic T11. Carry-unwind is the specific tail a leveraged book must test on its own."
+      ]
+    },
+    {
+      "id": "T19",
+      "title": "China shock hedge",
+      "prediction": "On any China-specific shock week (Taiwan conflict escalation, renewed trade war, stimulus collapse), GLD + GDX + DBMF combined finish positive and cushion the book's Asia/China-linked beta.",
+      "tier": "B",
+      "tier_reason": "Gold and trend are historically positive on China risk-off, but the geopolitical trigger is the least predictable - conviction capped at B.",
+      "status": "pending",
+      "created": "2026-08-13",
+      "last_updated": "2026-08-13",
+      "evidence": [
+        "2026-08-13 (issue #6): created to replace the generic T11. China tail-risk was why KWEB was cut in v5; the hedge answer deserves its own test."
+      ]
+    },
+    {
+      "id": "T20",
+      "title": "Inflation surprise hedge",
+      "prediction": "On any month headline CPI prints materially above consensus (inflation/debasement regime), GLD + GDX combined finish positive while the growth sleeve declines.",
+      "tier": "B",
+      "tier_reason": "Gold is the classic inflation store of value and miners add operating leverage. ZROZ is deliberately excluded - long bonds LOSE in inflation.",
+      "status": "pending",
+      "created": "2026-08-13",
+      "last_updated": "2026-08-13",
+      "evidence": [
+        "2026-08-13 (issue #6): created to replace the generic T11. Fed-behind-the-curve is the scenario ZROZ names - but bonds, not gold, do the work there; gold takes the debasement case."
+      ]
+    },
+    {
+      "id": "T21",
+      "title": "War / geopolitical-spike hedge",
+      "prediction": "On any war or geopolitical-escalation week (Middle East, Russia/Ukraine, Taiwan), GLD + GDX + FXY + DBMF combined finish positive, offsetting the equity sleeve's risk-off selloff.",
+      "tier": "B",
+      "tier_reason": "Safe-haven gold + yen and trend-following catch flight-to-safety and commodity spikes; several instruments, but event timing is uncertain.",
+      "status": "pending",
+      "created": "2026-08-13",
+      "last_updated": "2026-08-13",
+      "evidence": [
+        "2026-08-13 (issue #6): created to replace the generic T11. GLD's thesis already names the Iran-war spike; it deserves its own scored case."
       ]
     }
   ]

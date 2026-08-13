@@ -520,6 +520,66 @@ def market_is_open(now_utc=None):
     return 9 * 60 + 30 <= hm <= 16 * 60
 
 
+def execute_scheduled_exits(data, prices, today):
+    """Execute deliberate rebalances tagged `scheduled_exit` on positions.
+
+    Used for manual strategy changes (e.g. issue #7: JEPQ removal). A position
+    carrying `scheduled_exit` is sold at the live price on the FIRST market-open
+    run after the tag was added - never on a stale closed-market quote - then
+    removed from the book (proceeds realize into cash, and the no-idle-cash
+    policy parks them in SGOV). The tag is deleted on execution.
+    """
+    if not market_is_open():
+        return
+    for pos in list(data["positions"]):
+        plan = pos.get("scheduled_exit")
+        if not plan or pos["status"] != "open":
+            continue
+        px = prices.get(pos["ticker"])
+        if px is None:
+            print(f"  WARN: scheduled exit {pos['ticker']} - no price, deferring")
+            continue
+        realized = round((px - pos["buy_price"]) * pos["shares"], 2)
+        proceeds = round(px * pos["shares"], 2)
+        data["account"]["cash"] = round(data["account"]["cash"] + proceeds, 2)
+        data["account"]["realized_pnl"] = round(data["account"]["realized_pnl"] + realized, 2)
+        data["events"].append({
+            "date": today,
+            "ticker": pos["ticker"],
+            "name": pos["name"],
+            "reason": plan.get("reason", "rebalance"),
+            "note": plan.get("note"),
+            "state": None,
+            "price": round(px, 2),
+            "buy_price": pos["buy_price"],
+            "shares": pos["shares"],
+            "realized_pnl": realized,
+        })
+        # Prune the sector config if this was the last position in its sector
+        # (e.g. 'Premium Financing' after JEPQ leaves the book).
+        limits = data["meta"].setdefault("limits", {})
+        pex = limits.setdefault("position_exposure", {})
+        sector = (pex.get(pos["ticker"]) or {}).get("sector")
+        pex.pop(pos["ticker"], None)
+        if sector:
+            still_held = any(
+                p["status"] == "open" and p is not pos
+                and (pex.get(p["ticker"]) or {}).get("sector") == sector
+                for p in data["positions"]
+            )
+            if not still_held:
+                limits["sector_limits"] = [
+                    s for s in limits.get("sector_limits", [])
+                    if s["sector"] != sector
+                ]
+                (limits.setdefault("rebalance", {})
+                     .setdefault("targets", {}).pop(sector, None))
+                print(f"  SECTOR CLEANUP: removed empty sector '{sector}' from limits")
+        pos.pop("scheduled_exit", None)
+        data["positions"].remove(pos)
+        print(f"  SCHEDULED EXIT {pos['ticker']}: sold @ {px:.2f} (pnl {realized:+,.2f})")
+
+
 def main():
     """Fetch prices -> check exits -> deploy cash -> snapshot -> write dashboard.js."""
     with open(PORTFOLIO, encoding="utf-8") as f:
@@ -545,6 +605,11 @@ def main():
                 if tk and tk not in tickers:
                     tickers.append(tk)
     prices = fetch_prices(tickers) if tickers else {}
+
+    # Deliberate rebalances (e.g. issue #7 JEPQ removal): sell at the first
+    # market-open price, then let the no-idle-cash policy park proceeds in SGOV.
+    execute_scheduled_exits(data, prices, today)
+    open_positions = [p for p in data["positions"] if p["status"] == "open"]
 
     # --- stop loss / take profit engine ---
     for pos in list(open_positions):

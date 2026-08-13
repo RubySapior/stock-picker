@@ -30,14 +30,13 @@ SLEEVE_THEORY = {
     "AI Power - Nuclear": ["T3"],
     "Broadening / Value": ["T10", "T15"],
     "Contrarian Fear": ["T13"],
-    "Crisis Alpha - AI Bust": ["T6", "T11"],
-    "Crisis Alpha - Carry Unwind": ["T6", "T11"],
-    "Crisis Alpha - Vol Decay": ["T6", "T11"],
-    "Crisis Alpha - Down-Day Floor": ["T6", "T11"],
-    "Crisis Alpha - Real Assets": ["T6", "T9", "T11"],
-    "Crisis Alpha - Anti-Beta": ["T6", "T11"],
-    "Crisis Alpha - Trend": ["T6", "T11"],
-    "Premium Financing": ["T12"],
+    "Crisis Alpha - AI Bust": ["T6", "T17"],
+    "Crisis Alpha - Carry Unwind": ["T6", "T18", "T21"],
+    "Crisis Alpha - Vol Decay": ["T6", "T17", "T21"],
+    "Crisis Alpha - Down-Day Floor": ["T6", "T17"],
+    "Crisis Alpha - Real Assets": ["T6", "T9", "T19", "T20", "T21"],
+    "Crisis Alpha - Anti-Beta": ["T6", "T17"],
+    "Crisis Alpha - Trend": ["T6", "T18", "T19", "T21"],
 }
 
 TICKER_INDUSTRY = {
@@ -49,7 +48,6 @@ TICKER_INDUSTRY = {
     "ZROZ": "Long Treasuries", "FXY": "Yen FX", "VIXM": "Volatility",
     "QFLR": "Nasdaq Hedged", "GLD": "Gold", "GDX": "Gold Miners",
     "BTAL": "Anti-Beta Factor", "DBMF": "Managed Futures",
-    "JEPQ": "Covered-Call Income",
 }
 
 _ANALYZER = SentimentIntensityAnalyzer()
