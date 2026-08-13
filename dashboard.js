@@ -1161,8 +1161,22 @@ window.DASH = {
   },
   "rebalance": null,
   "news": {
-    "asof": "2026-08-13 06:16:54",
+    "asof": "2026-08-13 08:21:28",
     "big_stories": [
+      {
+        "title": "Bank of Korea Breaks 13-Year Streak With Gold ETF Purchase",
+        "link": "https://beincrypto.com/bank-of-korea-gold-etf-purchase/?.tsrc=rss",
+        "ts": 1786604786,
+        "when": "Aug 13, 07:06 AM",
+        "ticker": "GLD",
+        "industry": "Gold",
+        "theory": [
+          "T6",
+          "T9",
+          "T11"
+        ],
+        "sent": "neutral"
+      },
       {
         "title": "Palantir Technologies (PLTR) Is Up 8.0% After Raising 2026 Revenue Guidance On Stronger Q2 Results",
         "link": "https://finance.yahoo.com/markets/stocks/articles/palantir-technologies-pltr-8-0-043114044.html?.tsrc=rss",
@@ -1217,21 +1231,23 @@ window.DASH = {
           "T14"
         ],
         "sent": "neutral"
-      },
-      {
-        "title": "Sector Update: Consumer Stocks Mixed Late Afternoon",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-mixed-afternoon-195051183.html?.tsrc=rss",
-        "ts": 1786564251,
-        "when": "Aug 12, 07:50 PM",
-        "ticker": "XLY",
-        "industry": "Consumer Disc.",
-        "theory": [
-          "T13"
-        ],
-        "sent": "neutral"
       }
     ],
     "feed": [
+      {
+        "title": "Bank of Korea Breaks 13-Year Streak With Gold ETF Purchase",
+        "link": "https://beincrypto.com/bank-of-korea-gold-etf-purchase/?.tsrc=rss",
+        "ts": 1786604786,
+        "when": "Aug 13, 07:06 AM",
+        "ticker": "GLD",
+        "industry": "Gold",
+        "theory": [
+          "T6",
+          "T9",
+          "T11"
+        ],
+        "sent": "neutral"
+      },
       {
         "title": "Palantir Technologies (PLTR) Is Up 8.0% After Raising 2026 Revenue Guidance On Stronger Q2 Results",
         "link": "https://finance.yahoo.com/markets/stocks/articles/palantir-technologies-pltr-8-0-043114044.html?.tsrc=rss",
@@ -1555,11 +1571,12 @@ window.DASH = {
         "link": "https://finance.yahoo.com/markets/stocks/articles/exchange-traded-funds-equity-futures-131639194.html?.tsrc=rss",
         "ts": 1786540599,
         "when": "Aug 12, 01:16 PM",
-        "ticker": "IWM",
-        "industry": "Small Caps",
+        "ticker": "GLD",
+        "industry": "Gold",
         "theory": [
-          "T10",
-          "T15"
+          "T6",
+          "T9",
+          "T11"
         ],
         "sent": "positive"
       },
@@ -1576,18 +1593,6 @@ window.DASH = {
           "T11"
         ],
         "sent": "positive"
-      },
-      {
-        "title": "Stock Market News for Aug 12, 2026",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/stock-market-news-aug-12-112700930.html?.tsrc=rss",
-        "ts": 1786534020,
-        "when": "Aug 12, 11:27 AM",
-        "ticker": "XLY",
-        "industry": "Consumer Disc.",
-        "theory": [
-          "T13"
-        ],
-        "sent": "neutral"
       },
       {
         "title": "Tech Earnings, Oil, CPI Lift Wall Street Pre-Bell; Asia, Europe Up",
