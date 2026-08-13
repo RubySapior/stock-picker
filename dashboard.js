@@ -1161,13 +1161,13 @@ window.DASH = {
   },
   "rebalance": null,
   "news": {
-    "asof": "2026-08-13 11:46:36",
+    "asof": "2026-08-13 13:11:17",
     "big_stories": [
       {
-        "title": "Market Would Fall by 12,152 Points in a ‘Black Monday’ Style Crash. Big Short Investor Says It’s Possible.",
-        "link": "https://247wallst.com/investing/2026/08/13/market-would-fall-by-12152-points-in-a-black-monday-style-crash-big-short-investor-says-its-possible/?.tsrc=rss",
-        "ts": 1786619915,
-        "when": "Aug 13, 11:18 AM",
+        "title": "Dow Fixture Microsoft Breaks Out Along With These Stocks, But Datadog Triggers Sell Signals",
+        "link": "https://finance.yahoo.com/m/30b2aa92-4f90-32dc-bb78-62c5936e6613/dow-fixture-microsoft-breaks.html?.tsrc=rss",
+        "ts": 1786622479,
+        "when": "Aug 13, 12:01 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -1176,7 +1176,7 @@ window.DASH = {
           "T2",
           "T14"
         ],
-        "sent": "negative"
+        "sent": "neutral"
       },
       {
         "title": "Bank of Korea Breaks 13-Year Streak With Gold ETF Purchase",
@@ -1234,6 +1234,21 @@ window.DASH = {
       }
     ],
     "feed": [
+      {
+        "title": "Dow Fixture Microsoft Breaks Out Along With These Stocks, But Datadog Triggers Sell Signals",
+        "link": "https://finance.yahoo.com/m/30b2aa92-4f90-32dc-bb78-62c5936e6613/dow-fixture-microsoft-breaks.html?.tsrc=rss",
+        "ts": 1786622479,
+        "when": "Aug 13, 12:01 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
       {
         "title": "Market Would Fall by 12,152 Points in a ‘Black Monday’ Style Crash. Big Short Investor Says It’s Possible.",
         "link": "https://247wallst.com/investing/2026/08/13/market-would-fall-by-12152-points-in-a-black-monday-style-crash-big-short-investor-says-its-possible/?.tsrc=rss",
@@ -1514,9 +1529,14 @@ window.DASH = {
         "link": "http://www.etf.com/sections/advisor-center/us-etf-investors-odds-chasing-returns-or-playing-long-game?utm_source=yahoo-finance&utm_medium=rss&utm_campaign=yahoo-finance-rss&.tsrc=rss",
         "ts": 1786558489,
         "when": "Aug 12, 06:14 PM",
-        "ticker": "SGOV",
-        "industry": "Equities",
-        "theory": [],
+        "ticker": "DRAM",
+        "industry": "AI Memory/HBM",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
         "sent": "positive"
       },
       {
@@ -1640,21 +1660,6 @@ window.DASH = {
         "link": "https://www.trefis.com/articles/611168/palantir-stocks-premium-sits-on-one-countrys-demand/2026-08-12?.tsrc=rss",
         "ts": 1786542535,
         "when": "Aug 12, 01:48 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "negative"
-      },
-      {
-        "title": "Jefferies' Latest Warning on Palantir Sends Clear Message: Stay Cautious on PLTR Stock",
-        "link": "https://www.barchart.com/story/news/3804612/jefferies-latest-warning-on-palantir-sends-clear-message-stay-cautious-on-pltr-stock?.tsrc=rss",
-        "ts": 1786541912,
-        "when": "Aug 12, 01:38 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
