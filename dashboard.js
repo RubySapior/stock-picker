@@ -1315,7 +1315,7 @@ window.DASH = {
   },
   "rebalance": null,
   "news": {
-    "asof": "2026-08-13 22:41:55",
+    "asof": "2026-08-13 23:41:20",
     "big_stories": [
       {
         "title": "The House Is Paid Off but the Property Tax Bill Never Retires. These 3 ETFs Pay It Every Year",
@@ -1343,21 +1343,6 @@ window.DASH = {
         "sent": "positive"
       },
       {
-        "title": "DRAM Movers: These Memory/Storage ETFs Are Soaring as Sandisk, Micron Rally",
-        "link": "https://247wallst.com/investing/2026/08/13/dram-movers-these-memory-storage-etfs-are-soaring-as-sandisk-micron-rally/?.tsrc=rss",
-        "ts": 1786644735,
-        "when": "Aug 13, 06:12 PM",
-        "ticker": "SMH",
-        "industry": "Semis",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
         "title": "Sector Update: Consumer Stocks Rise in Afternoon Trading",
         "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-rise-afternoon-173751918.html?.tsrc=rss",
         "ts": 1786642671,
@@ -1370,10 +1355,10 @@ window.DASH = {
         "sent": "neutral"
       },
       {
-        "title": "5 ETFs to Benefit From Cooling Inflation in the Near Term",
-        "link": "https://finance.yahoo.com/economy/policy/articles/5-etfs-benefit-cooling-inflation-140000926.html?.tsrc=rss",
-        "ts": 1786629600,
-        "when": "Aug 13, 02:00 PM",
+        "title": "Gold Rally Faces Moment of Truth",
+        "link": "https://finance.yahoo.com/markets/commodities/articles/gold-rally-faces-moment-truth-165917278.html?.tsrc=rss",
+        "ts": 1786640357,
+        "when": "Aug 13, 04:59 PM",
         "ticker": "GLD",
         "industry": "Gold",
         "theory": [
@@ -1384,6 +1369,19 @@ window.DASH = {
           "T21"
         ],
         "sent": "positive"
+      },
+      {
+        "title": "Small Caps Pay Too: The 42% Friday Payer Riding the Russell’s Big Year",
+        "link": "https://247wallst.com/investing/2026/08/12/small-caps-pay-too-the-42-friday-payer-riding-the-russells-big-year/?.tsrc=rss",
+        "ts": 1786570842,
+        "when": "Aug 12, 09:40 PM",
+        "ticker": "IWM",
+        "industry": "Small Caps",
+        "theory": [
+          "T10",
+          "T15"
+        ],
+        "sent": "negative"
       }
     ],
     "feed": [
@@ -1428,21 +1426,6 @@ window.DASH = {
         "sent": "negative"
       },
       {
-        "title": "DRAM Movers: These Memory/Storage ETFs Are Soaring as Sandisk, Micron Rally",
-        "link": "https://247wallst.com/investing/2026/08/13/dram-movers-these-memory-storage-etfs-are-soaring-as-sandisk-micron-rally/?.tsrc=rss",
-        "ts": 1786644735,
-        "when": "Aug 13, 06:12 PM",
-        "ticker": "SMH",
-        "industry": "Semis",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
         "title": "Sector Update: Consumer Stocks Rise in Afternoon Trading",
         "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-rise-afternoon-173751918.html?.tsrc=rss",
         "ts": 1786642671,
@@ -1453,6 +1436,22 @@ window.DASH = {
           "T13"
         ],
         "sent": "neutral"
+      },
+      {
+        "title": "Gold Rally Faces Moment of Truth",
+        "link": "https://finance.yahoo.com/markets/commodities/articles/gold-rally-faces-moment-truth-165917278.html?.tsrc=rss",
+        "ts": 1786640357,
+        "when": "Aug 13, 04:59 PM",
+        "ticker": "GLD",
+        "industry": "Gold",
+        "theory": [
+          "T6",
+          "T9",
+          "T19",
+          "T20",
+          "T21"
+        ],
+        "sent": "positive"
       },
       {
         "title": "Strength in Defense & Propulsion Unit Drives GE Aerospace: Can It Sustain?",
@@ -1505,11 +1504,14 @@ window.DASH = {
         "link": "https://finance.yahoo.com/markets/stocks/articles/exchange-traded-funds-equity-futures-131321660.html?.tsrc=rss",
         "ts": 1786626801,
         "when": "Aug 13, 01:13 PM",
-        "ticker": "IWM",
-        "industry": "Small Caps",
+        "ticker": "GLD",
+        "industry": "Gold",
         "theory": [
-          "T10",
-          "T15"
+          "T6",
+          "T9",
+          "T19",
+          "T20",
+          "T21"
         ],
         "sent": "neutral"
       },
@@ -1804,11 +1806,14 @@ window.DASH = {
         "link": "https://finance.yahoo.com/markets/stocks/articles/exchange-traded-funds-equity-futures-131639194.html?.tsrc=rss",
         "ts": 1786540599,
         "when": "Aug 12, 01:16 PM",
-        "ticker": "IWM",
-        "industry": "Small Caps",
+        "ticker": "GLD",
+        "industry": "Gold",
         "theory": [
-          "T10",
-          "T15"
+          "T6",
+          "T9",
+          "T19",
+          "T20",
+          "T21"
         ],
         "sent": "positive"
       }
