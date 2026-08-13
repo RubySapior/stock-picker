@@ -149,16 +149,16 @@ window.DASH = {
   },
   "asof": "2026-08-13",
   "summary": {
-    "total_value": 102252.52,
+    "total_value": 102253.05,
     "cash": 25.0,
-    "invested_value": 102227.52,
-    "day_change": 752.5,
+    "invested_value": 102228.05,
+    "day_change": 753.03,
     "total_return_pct": 2.25,
     "realized_pnl": 29.24,
     "start_value": 100000,
     "max_drawdown_pct": 0.0,
-    "sharpe_annualized": 27.25,
-    "cagr_annualized": 1405.95
+    "sharpe_annualized": 27.26,
+    "cagr_annualized": 1406.91
   },
   "positions": [
     {
@@ -479,16 +479,16 @@ window.DASH = {
       "buy_price": 35.49,
       "shares": 98.619327,
       "cost": 3500.0,
-      "current_price": 35.81,
-      "current_value": 3531.56,
-      "pnl_pct": 0.9,
+      "current_price": 35.818,
+      "current_value": 3532.35,
+      "pnl_pct": 0.92,
       "take_profit_pct": 0.2,
       "stop_loss_pct": -0.12,
       "status": "open",
       "exit": null,
       "sector": "Hedge Stack",
       "leverage": 1.0,
-      "effective_value": 3531.56,
+      "effective_value": 3532.35,
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
@@ -505,8 +505,8 @@ window.DASH = {
       "buy_price": 402.54,
       "shares": 8.694794,
       "cost": 3500.0,
-      "current_price": 398.95,
-      "current_value": 3468.79,
+      "current_price": 398.96,
+      "current_value": 3468.88,
       "pnl_pct": -0.89,
       "take_profit_pct": 0.2,
       "stop_loss_pct": -0.12,
@@ -514,7 +514,7 @@ window.DASH = {
       "exit": null,
       "sector": "Hedge Stack",
       "leverage": 1.0,
-      "effective_value": 3468.79,
+      "effective_value": 3468.88,
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
@@ -563,8 +563,8 @@ window.DASH = {
       "buy_price": 299.98,
       "shares": 10.000667,
       "cost": 3000.0,
-      "current_price": 303.49,
-      "current_value": 3035.1,
+      "current_price": 303.5,
+      "current_value": 3035.2,
       "pnl_pct": 1.17,
       "take_profit_pct": 0.3,
       "stop_loss_pct": -0.15,
@@ -572,7 +572,7 @@ window.DASH = {
       "exit": null,
       "sector": "Broadening / Value",
       "leverage": 1.0,
-      "effective_value": 3035.1,
+      "effective_value": 3035.2,
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
@@ -588,16 +588,16 @@ window.DASH = {
       "buy_price": 69.9752,
       "shares": 35.726519,
       "cost": 2500.0,
-      "current_price": 70.0,
-      "current_value": 2500.86,
-      "pnl_pct": 0.04,
+      "current_price": 69.9874,
+      "current_value": 2500.41,
+      "pnl_pct": 0.02,
       "take_profit_pct": 0.45,
       "stop_loss_pct": -0.35,
       "status": "open",
       "exit": null,
       "sector": "Broadening / Value",
       "leverage": 2.0,
-      "effective_value": 5001.72,
+      "effective_value": 5000.82,
       "underlying": "IWD",
       "underlying_stop_pct": -0.1,
       "underlying_buy_price": 258.31,
@@ -723,7 +723,7 @@ window.DASH = {
     },
     {
       "sleeve": "Crisis Alpha - Real Assets",
-      "value": 6882.92
+      "value": 6883.01
     },
     {
       "sleeve": "Crisis Alpha - AI Bust",
@@ -731,7 +731,7 @@ window.DASH = {
     },
     {
       "sleeve": "Broadening / Value",
-      "value": 5535.96
+      "value": 5535.61
     },
     {
       "sleeve": "Crisis Alpha - Trend",
@@ -755,7 +755,7 @@ window.DASH = {
     },
     {
       "sleeve": "Crisis Alpha - Down-Day Floor",
-      "value": 3531.56
+      "value": 3532.35
     },
     {
       "sleeve": "Crisis Alpha - Inflation",
@@ -785,8 +785,8 @@ window.DASH = {
     },
     {
       "sector": "Broadening / Value",
-      "value": 5535.96,
-      "effective": 8036.82,
+      "value": 5535.61,
+      "effective": 8036.02,
       "leverage": 1.45,
       "pct": 7.9,
       "max_pct": 16,
@@ -805,8 +805,8 @@ window.DASH = {
     },
     {
       "sector": "Hedge Stack",
-      "value": 37823.89,
-      "effective": 37823.89,
+      "value": 37824.77,
+      "effective": 37824.77,
       "leverage": 1.0,
       "pct": 37.0,
       "max_pct": 45,
@@ -917,10 +917,10 @@ window.DASH = {
     },
     {
       "date": "2026-08-13",
-      "total_value": 102252.52,
+      "total_value": 102253.05,
       "cash": 25.0,
-      "invested_value": 102227.52,
-      "day_change": 752.5,
+      "invested_value": 102228.05,
+      "day_change": 753.03,
       "prices": {
         "TQQQ": 77.15,
         "SOXL": 145.36,
@@ -929,15 +929,15 @@ window.DASH = {
         "PLTR": 179.01,
         "NLR": 118.52,
         "NUKZ": 68.09,
-        "IWM": 303.49,
-        "IWDL": 70.0,
+        "IWM": 303.5,
+        "IWDL": 69.9874,
         "XLY": 118.45,
         "EZU": 71.88,
         "ZROZ": 58.67,
         "FXY": 57.53,
         "VIXM": 14.22,
-        "QFLR": 35.81,
-        "GLD": 398.95,
+        "QFLR": 35.818,
+        "GLD": 398.96,
         "GDX": 88.27,
         "BTAL": 11.81,
         "DBMF": 31.32,
@@ -1315,25 +1315,13 @@ window.DASH = {
   },
   "rebalance": null,
   "news": {
-    "asof": "2026-08-13 20:25:00",
+    "asof": "2026-08-13 20:42:30",
     "big_stories": [
       {
-        "title": "Sector Update: Consumer Stocks Advance Late Afternoon",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-advance-afternoon-193514616.html?.tsrc=rss",
-        "ts": 1786649714,
-        "when": "Aug 13, 07:35 PM",
-        "ticker": "XLY",
-        "industry": "Consumer Disc.",
-        "theory": [
-          "T13"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Revenue at Palantir-Backed Ondas Rises 1,236%. Stock Falls as Losses Widen.",
-        "link": "https://finance.yahoo.com/m/5a8f0245-cf08-346b-9a59-873a8c7d16c1/revenue-at-palantir-backed.html?.tsrc=rss",
-        "ts": 1786645980,
-        "when": "Aug 13, 06:33 PM",
+        "title": "Michael Burry Loads Up On QQQ Puts, Boosts MU Short As He Braces For ‘Larger Fall’ — Here’s What He Did To NVDA, PLTR And TSLA",
+        "link": "https://stocktwits.com/news-articles/markets/equity/michael-burry-loads-up-on-qqq-puts-boosts-mu-short-as-he-braces-for-larger-fall-heres-what-he-did-to-nvda-pltr-and-tsla/cZoqVbeRJLw?.tsrc=rss",
+        "ts": 1786651987,
+        "when": "Aug 13, 08:13 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -1342,7 +1330,44 @@ window.DASH = {
           "T2",
           "T14"
         ],
-        "sent": "negative"
+        "sent": "positive"
+      },
+      {
+        "title": "Your Idle Cash Is Sitting in Vanguard’s VMFXX, and It’s Doing More Work Than You Think",
+        "link": "https://247wallst.com/investing/2026/08/13/your-idle-cash-is-sitting-in-vanguards-vmfxx-and-its-doing-more-work-than-you-think-2/?.tsrc=rss",
+        "ts": 1786647302,
+        "when": "Aug 13, 06:55 PM",
+        "ticker": "SGOV",
+        "industry": "Equities",
+        "theory": [],
+        "sent": "neutral"
+      },
+      {
+        "title": "DRAM Movers: These Memory/Storage ETFs Are Soaring as Sandisk, Micron Rally",
+        "link": "https://247wallst.com/investing/2026/08/13/dram-movers-these-memory-storage-etfs-are-soaring-as-sandisk-micron-rally/?.tsrc=rss",
+        "ts": 1786644735,
+        "when": "Aug 13, 06:12 PM",
+        "ticker": "SMH",
+        "industry": "Semis",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "Sector Update: Consumer Stocks Rise in Afternoon Trading",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-rise-afternoon-173751918.html?.tsrc=rss",
+        "ts": 1786642671,
+        "when": "Aug 13, 05:37 PM",
+        "ticker": "XLY",
+        "industry": "Consumer Disc.",
+        "theory": [
+          "T13"
+        ],
+        "sent": "neutral"
       },
       {
         "title": "Gold Rally Faces Moment of Truth",
@@ -1359,47 +1384,32 @@ window.DASH = {
           "T21"
         ],
         "sent": "positive"
-      },
+      }
+    ],
+    "feed": [
       {
-        "title": "Exchange-Traded Funds, Equity Futures Higher Pre-Bell Thursday Amid Producer Inflation Data Release",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/exchange-traded-funds-equity-futures-131321660.html?.tsrc=rss",
-        "ts": 1786626801,
-        "when": "Aug 13, 01:13 PM",
-        "ticker": "IWM",
-        "industry": "Small Caps",
-        "theory": [
-          "T10",
-          "T15"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "You Skipped the AI Rally Because Retirement Felt Too Close. These 3 ETFs Get You In Without Betting Your Nest Egg",
-        "link": "https://247wallst.com/investing/etf/2026/08/12/you-skipped-the-ai-rally-because-retirement-felt-too-close-these-3-etfs-get-you-in-without-betting-your-nest-egg/?.tsrc=rss",
-        "ts": 1786570522,
-        "when": "Aug 12, 09:35 PM",
-        "ticker": "SMH",
-        "industry": "Semis",
+        "title": "Michael Burry Loads Up On QQQ Puts, Boosts MU Short As He Braces For ‘Larger Fall’ — Here’s What He Did To NVDA, PLTR And TSLA",
+        "link": "https://stocktwits.com/news-articles/markets/equity/michael-burry-loads-up-on-qqq-puts-boosts-mu-short-as-he-braces-for-larger-fall-heres-what-he-did-to-nvda-pltr-and-tsla/cZoqVbeRJLw?.tsrc=rss",
+        "ts": 1786651987,
+        "when": "Aug 13, 08:13 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
         "theory": [
           "T1",
           "T7",
           "T2",
           "T14"
         ],
-        "sent": "neutral"
-      }
-    ],
-    "feed": [
+        "sent": "positive"
+      },
       {
-        "title": "Sector Update: Consumer Stocks Advance Late Afternoon",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-advance-afternoon-193514616.html?.tsrc=rss",
-        "ts": 1786649714,
-        "when": "Aug 13, 07:35 PM",
-        "ticker": "XLY",
-        "industry": "Consumer Disc.",
-        "theory": [
-          "T13"
-        ],
+        "title": "Your Idle Cash Is Sitting in Vanguard’s VMFXX, and It’s Doing More Work Than You Think",
+        "link": "https://247wallst.com/investing/2026/08/13/your-idle-cash-is-sitting-in-vanguards-vmfxx-and-its-doing-more-work-than-you-think-2/?.tsrc=rss",
+        "ts": 1786647302,
+        "when": "Aug 13, 06:55 PM",
+        "ticker": "SGOV",
+        "industry": "Equities",
+        "theory": [],
         "sent": "neutral"
       },
       {
@@ -1416,6 +1426,21 @@ window.DASH = {
           "T14"
         ],
         "sent": "negative"
+      },
+      {
+        "title": "DRAM Movers: These Memory/Storage ETFs Are Soaring as Sandisk, Micron Rally",
+        "link": "https://247wallst.com/investing/2026/08/13/dram-movers-these-memory-storage-etfs-are-soaring-as-sandisk-micron-rally/?.tsrc=rss",
+        "ts": 1786644735,
+        "when": "Aug 13, 06:12 PM",
+        "ticker": "SMH",
+        "industry": "Semis",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
       },
       {
         "title": "Sector Update: Consumer Stocks Rise in Afternoon Trading",
@@ -1496,11 +1521,14 @@ window.DASH = {
         "link": "https://finance.yahoo.com/markets/stocks/articles/exchange-traded-funds-equity-futures-131321660.html?.tsrc=rss",
         "ts": 1786626801,
         "when": "Aug 13, 01:13 PM",
-        "ticker": "IWM",
-        "industry": "Small Caps",
+        "ticker": "GLD",
+        "industry": "Gold",
         "theory": [
-          "T10",
-          "T15"
+          "T6",
+          "T9",
+          "T19",
+          "T20",
+          "T21"
         ],
         "sent": "neutral"
       },
@@ -1736,21 +1764,6 @@ window.DASH = {
         "sent": "negative"
       },
       {
-        "title": "Michael Burry Is Short Nebius and Palantir. Both Are Now Soaring and His Short Thesis Looks Broken.",
-        "link": "https://247wallst.com/investing/2026/08/12/michael-burry-is-short-nebius-and-palantir-both-are-now-soaring-his-short-thesis-looks-broken/?.tsrc=rss",
-        "ts": 1786569052,
-        "when": "Aug 12, 09:10 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "negative"
-      },
-      {
         "title": "Sector Update: Consumer Stocks Mixed Late Afternoon",
         "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-mixed-afternoon-195051183.html?.tsrc=rss",
         "ts": 1786564251,
@@ -1802,19 +1815,6 @@ window.DASH = {
           "T19",
           "T20",
           "T21"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "Exchange-Traded Funds, Equity Futures Gain Pre-Bell Wednesday Amid In-Line Consumer Inflation Data, Tech Gains",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/exchange-traded-funds-equity-futures-131639194.html?.tsrc=rss",
-        "ts": 1786540599,
-        "when": "Aug 12, 01:16 PM",
-        "ticker": "IWM",
-        "industry": "Small Caps",
-        "theory": [
-          "T10",
-          "T15"
         ],
         "sent": "positive"
       }
