@@ -2,7 +2,7 @@
 window.DASH = {
   "meta": {
     "name": "HyperGrowth Sharpe Barbell v5 - Conviction-First",
-    "strategy": "Conviction discipline: NO C- or D-tier positions are held unless they are needed as hedges. Non-hedge holdings must earn their A/B conviction or the money sits in cash. CUT in v5: IGV (D, software timing), ARKQ (C, robotics timing), XBI (C, biotech w/o catalyst), KWEB (C, unfundable China risk). KEPT B-tier with catalysts: XLY, EZU, IWM, IWDL (value = anti-growth factor hedge). Freed capital boosted A-tier growth (TQQQ 9k, SOXL 7k, DRAM 5k) and the strongest hedges (ZROZ 6k, QFLR 3k); the rest is dry-powder parked in SGOV (0-3 month T-bills) - idle cash is never left as cash. V5.1: leveraged-fund stop-losses are INDEX-REFERENCED (checked on the 1x underlying - TQQQ->QQQ -8%, SOXL->SOXX -9%, IWDL->IWD -10%) so a violent leveraged day or decay drift cannot whipsaw the stop; the wrapper-level stop_loss_pct is only a wide backstop. Take-profits auto-checked on the wrapper. V5.2 (issue #7): JEPQ REMOVAL SCHEDULED for the next market open - the covered call cannot finance the hedge stack: its ~$250/yr yield vs the hedge stack's ~$1,200-2,000/yr drag was a mathematical illusion, and a capped-upside/full-downside-beta Nasdaq position adds nothing the growth sleeve lacks. update.py will sell it at the open price and sweep the proceeds to SGOV; the 'Premium Financing' sector is being deleted from the book. Hedge drag is priced insurance (T6), never financed by JEPQ. Stop losses / take profits auto-checked by update.py. V5.3 (issue #6): the hedge scorecard is SCENARIO-SPECIFIC - the generic T11 'when NASDAQ falls 10%' theory is split into per-crash-case theories: T17 AI pop (QFLR+VIXM+BTAL+ZROZ), T18 yen-carry unwind (FXY+DBMF), T19 China shock (GLD+GDX+DBMF), T20 inflation (GLD+GDX), T21 war/geopolitical (GLD+GDX+FXY+DBMF). T6 remains the book-level hedge drag/drawdown budget only.",
+    "strategy": "Conviction discipline: NO C- or D-tier positions are held unless they are needed as hedges. Non-hedge holdings must earn their A/B conviction or the money sits in cash. CUT in v5: IGV (D, software timing), ARKQ (C, robotics timing), XBI (C, biotech w/o catalyst), KWEB (C, unfundable China risk). KEPT B-tier with catalysts: XLY, EZU, IWM, IWDL (value = anti-growth factor hedge). Freed capital boosted A-tier growth (TQQQ 9k, SOXL 7k, DRAM 5k) and the strongest hedges (ZROZ 6k, QFLR 3k); the rest is dry-powder parked in SGOV (0-3 month T-bills) - idle cash is never left as cash. V5.1: leveraged-fund stop-losses are INDEX-REFERENCED (checked on the 1x underlying - TQQQ->QQQ -8%, SOXL->SOXX -9%, IWDL->IWD -10%) so a violent leveraged day or decay drift cannot whipsaw the stop; the wrapper-level stop_loss_pct is only a wide backstop. Take-profits auto-checked on the wrapper. V5.2 (issue #7): JEPQ REMOVAL SCHEDULED for the next market open - the covered call cannot finance the hedge stack: its ~$250/yr yield vs the hedge stack's ~$1,200-2,000/yr drag was a mathematical illusion, and a capped-upside/full-downside-beta Nasdaq position adds nothing the growth sleeve lacks. update.py will sell it at the open price and sweep the proceeds to SGOV; the 'Premium Financing' sector is being deleted from the book. Hedge drag is priced insurance (T6), never financed by JEPQ. Stop losses / take profits auto-checked by update.py. V5.3 (issue #6): the hedge scorecard is SCENARIO-SPECIFIC - the generic T11 'when NASDAQ falls 10%' theory is split into per-crash-case theories: T17 AI pop (QFLR+VIXM+BTAL+ZROZ), T18 yen-carry unwind (FXY+DBMF), T19 China shock (GLD+GDX+DBMF), T20 inflation (GLD+GDX), T21 war/geopolitical (GLD+GDX+FXY+DBMF). T6 remains the book-level hedge drag/drawdown budget only. V5.4 (issue #6 follow-up): T20 inflation leg added - TIP (~2.5k TIPS) is the book's only DIRECT CPI-linked hedge, closing the scorecard gap where GLD+GDX were the sole inflation protection while ZROZ loses in that scenario. Funded from SGOV dry powder; Hedge Stack ~37% stays under its 45% cap.",
     "currency": "USD",
     "start_value": 100000,
     "start_date": "2026-08-10",
@@ -106,6 +106,10 @@ window.DASH = {
           "sector": "Hedge Stack",
           "leverage": 1.0
         },
+        "TIP": {
+          "sector": "Hedge Stack",
+          "leverage": 1.0
+        },
         "SGOV": {
           "sector": "Short-Term Bonds",
           "leverage": 1.0
@@ -145,16 +149,16 @@ window.DASH = {
   },
   "asof": "2026-08-13",
   "summary": {
-    "total_value": 102365.02,
+    "total_value": 102478.08,
     "cash": 25.0,
-    "invested_value": 102340.02,
-    "day_change": 865.0,
-    "total_return_pct": 2.37,
+    "invested_value": 102453.08,
+    "day_change": 978.06,
+    "total_return_pct": 2.48,
     "realized_pnl": 29.24,
     "start_value": 100000,
     "max_drawdown_pct": 0.0,
-    "sharpe_annualized": 28.33,
-    "cagr_annualized": 1621.69
+    "sharpe_annualized": 28.8,
+    "cagr_annualized": 1869.35
   },
   "positions": [
     {
@@ -163,10 +167,10 @@ window.DASH = {
       "sleeve": "Short-Term Bonds (SGOV)",
       "buy_date": "2026-08-11",
       "buy_price": 100.505,
-      "shares": 154.259039,
-      "cost": 15504.24,
-      "current_price": 100.525,
-      "current_value": 15506.89,
+      "shares": 129.390024,
+      "cost": 13004.24,
+      "current_price": 100.5233,
+      "current_value": 13006.71,
       "pnl_pct": 0.02,
       "take_profit_pct": 0.0,
       "stop_loss_pct": -0.1,
@@ -174,7 +178,7 @@ window.DASH = {
       "exit": null,
       "sector": "Short-Term Bonds",
       "leverage": 1.0,
-      "effective_value": 15506.89,
+      "effective_value": 13006.71,
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
@@ -188,16 +192,16 @@ window.DASH = {
       "buy_price": 73.8,
       "shares": 121.95122,
       "cost": 9000.0,
-      "current_price": 76.74,
-      "current_value": 9358.54,
-      "pnl_pct": 3.98,
+      "current_price": 76.945,
+      "current_value": 9383.54,
+      "pnl_pct": 4.26,
       "take_profit_pct": 0.5,
       "stop_loss_pct": -0.35,
       "status": "open",
       "exit": null,
       "sector": "Tech / AI Growth",
       "leverage": 3.0,
-      "effective_value": 28075.62,
+      "effective_value": 28150.62,
       "underlying": "QQQ",
       "underlying_stop_pct": -0.08,
       "underlying_buy_price": 720.87,
@@ -214,16 +218,16 @@ window.DASH = {
       "buy_price": 130.0,
       "shares": 53.846154,
       "cost": 7000.0,
-      "current_price": 150.485,
-      "current_value": 8103.04,
-      "pnl_pct": 15.76,
+      "current_price": 151.25,
+      "current_value": 8144.23,
+      "pnl_pct": 16.35,
       "take_profit_pct": 0.6,
       "stop_loss_pct": -0.35,
       "status": "open",
       "exit": null,
       "sector": "Tech / AI Growth",
       "leverage": 3.0,
-      "effective_value": 24309.12,
+      "effective_value": 24432.69,
       "underlying": "SOXX",
       "underlying_stop_pct": -0.09,
       "underlying_buy_price": 529.39,
@@ -240,16 +244,16 @@ window.DASH = {
       "buy_price": 116.99,
       "shares": 59.834174,
       "cost": 7000.0,
-      "current_price": 117.67,
-      "current_value": 7040.69,
-      "pnl_pct": 0.58,
+      "current_price": 117.87,
+      "current_value": 7052.65,
+      "pnl_pct": 0.75,
       "take_profit_pct": 0.35,
       "stop_loss_pct": -0.18,
       "status": "open",
       "exit": null,
       "sector": "Nuclear / Power",
       "leverage": 1.0,
-      "effective_value": 7040.69,
+      "effective_value": 7052.65,
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
@@ -265,16 +269,16 @@ window.DASH = {
       "buy_price": 58.12,
       "shares": 103.235092,
       "cost": 6000.0,
-      "current_price": 58.64,
-      "current_value": 6053.71,
-      "pnl_pct": 0.89,
+      "current_price": 58.68,
+      "current_value": 6057.84,
+      "pnl_pct": 0.96,
       "take_profit_pct": 0.3,
       "stop_loss_pct": -0.15,
       "status": "open",
       "exit": null,
       "sector": "Hedge Stack",
       "leverage": 1.0,
-      "effective_value": 6053.71,
+      "effective_value": 6057.84,
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
@@ -291,16 +295,16 @@ window.DASH = {
       "buy_price": 49.6,
       "shares": 100.806452,
       "cost": 5000.0,
-      "current_price": 57.235,
-      "current_value": 5769.66,
-      "pnl_pct": 15.39,
+      "current_price": 57.328,
+      "current_value": 5779.03,
+      "pnl_pct": 15.58,
       "take_profit_pct": 0.5,
       "stop_loss_pct": -0.25,
       "status": "open",
       "exit": null,
       "sector": "Tech / AI Growth",
       "leverage": 1.0,
-      "effective_value": 5769.66,
+      "effective_value": 5779.03,
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
@@ -317,16 +321,16 @@ window.DASH = {
       "buy_price": 31.32,
       "shares": 175.606641,
       "cost": 5500.0,
-      "current_price": 31.29,
-      "current_value": 5494.73,
-      "pnl_pct": -0.1,
+      "current_price": 31.295,
+      "current_value": 5495.61,
+      "pnl_pct": -0.08,
       "take_profit_pct": 0.2,
       "stop_loss_pct": -0.12,
       "status": "open",
       "exit": null,
       "sector": "Hedge Stack",
       "leverage": 1.0,
-      "effective_value": 5494.73,
+      "effective_value": 5495.61,
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
@@ -345,16 +349,16 @@ window.DASH = {
       "buy_price": 12.08,
       "shares": 455.298013,
       "cost": 5500.0,
-      "current_price": 11.77,
-      "current_value": 5358.86,
-      "pnl_pct": -2.57,
+      "current_price": 11.775,
+      "current_value": 5361.13,
+      "pnl_pct": -2.52,
       "take_profit_pct": 0.15,
       "stop_loss_pct": -0.1,
       "status": "open",
       "exit": null,
       "sector": "Hedge Stack",
       "leverage": 1.0,
-      "effective_value": 5358.86,
+      "effective_value": 5361.13,
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
@@ -371,16 +375,16 @@ window.DASH = {
       "buy_price": 569.41,
       "shares": 8.781016,
       "cost": 5000.0,
-      "current_price": 593.181,
-      "current_value": 5208.73,
-      "pnl_pct": 4.17,
+      "current_price": 594.585,
+      "current_value": 5221.06,
+      "pnl_pct": 4.42,
       "take_profit_pct": 0.4,
       "stop_loss_pct": -0.2,
       "status": "open",
       "exit": null,
       "sector": "Tech / AI Growth",
       "leverage": 1.0,
-      "effective_value": 5208.73,
+      "effective_value": 5221.06,
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
@@ -396,16 +400,16 @@ window.DASH = {
       "buy_price": 66.64,
       "shares": 60.02401,
       "cost": 4000.0,
-      "current_price": 67.745,
-      "current_value": 4066.33,
-      "pnl_pct": 1.66,
+      "current_price": 67.7,
+      "current_value": 4063.63,
+      "pnl_pct": 1.59,
       "take_profit_pct": 0.45,
       "stop_loss_pct": -0.25,
       "status": "open",
       "exit": null,
       "sector": "Nuclear / Power",
       "leverage": 1.0,
-      "effective_value": 4066.33,
+      "effective_value": 4063.63,
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
@@ -421,16 +425,16 @@ window.DASH = {
       "buy_price": 57.62,
       "shares": 69.42034,
       "cost": 4000.0,
-      "current_price": 57.567,
-      "current_value": 3996.32,
-      "pnl_pct": -0.09,
+      "current_price": 57.585,
+      "current_value": 3997.57,
+      "pnl_pct": -0.06,
       "take_profit_pct": 0.2,
       "stop_loss_pct": -0.12,
       "status": "open",
       "exit": null,
       "sector": "Hedge Stack",
       "leverage": 1.0,
-      "effective_value": 3996.32,
+      "effective_value": 3997.57,
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
@@ -501,16 +505,16 @@ window.DASH = {
       "buy_price": 402.54,
       "shares": 8.694794,
       "cost": 3500.0,
-      "current_price": 400.31,
-      "current_value": 3480.61,
-      "pnl_pct": -0.55,
+      "current_price": 400.651,
+      "current_value": 3483.58,
+      "pnl_pct": -0.47,
       "take_profit_pct": 0.2,
       "stop_loss_pct": -0.12,
       "status": "open",
       "exit": null,
       "sector": "Hedge Stack",
       "leverage": 1.0,
-      "effective_value": 3480.61,
+      "effective_value": 3483.58,
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
@@ -530,16 +534,16 @@ window.DASH = {
       "buy_price": 90.49,
       "shares": 38.678306,
       "cost": 3500.0,
-      "current_price": 88.2,
-      "current_value": 3411.43,
-      "pnl_pct": -2.53,
+      "current_price": 88.17,
+      "current_value": 3410.27,
+      "pnl_pct": -2.56,
       "take_profit_pct": 0.35,
       "stop_loss_pct": -0.2,
       "status": "open",
       "exit": null,
       "sector": "Hedge Stack",
       "leverage": 1.0,
-      "effective_value": 3411.43,
+      "effective_value": 3410.27,
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
@@ -559,21 +563,47 @@ window.DASH = {
       "buy_price": 299.98,
       "shares": 10.000667,
       "cost": 3000.0,
-      "current_price": 303.23,
-      "current_value": 3032.5,
-      "pnl_pct": 1.08,
+      "current_price": 303.275,
+      "current_value": 3032.95,
+      "pnl_pct": 1.1,
       "take_profit_pct": 0.3,
       "stop_loss_pct": -0.15,
       "status": "open",
       "exit": null,
       "sector": "Broadening / Value",
       "leverage": 1.0,
-      "effective_value": 3032.5,
+      "effective_value": 3032.95,
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
       "theory_ids": [
         "T10"
+      ]
+    },
+    {
+      "ticker": "TIP",
+      "name": "iShares TIPS Bond ETF",
+      "sleeve": "Crisis Alpha - Inflation",
+      "buy_date": "2026-08-13",
+      "buy_price": 107.22,
+      "shares": 23.316544,
+      "cost": 2500.0,
+      "current_price": 107.205,
+      "current_value": 2499.65,
+      "pnl_pct": -0.01,
+      "take_profit_pct": 0.15,
+      "stop_loss_pct": -0.1,
+      "status": "open",
+      "exit": null,
+      "sector": "Hedge Stack",
+      "leverage": 1.0,
+      "effective_value": 2499.65,
+      "underlying": null,
+      "underlying_stop_pct": null,
+      "underlying_buy_price": null,
+      "theory_ids": [
+        "T6",
+        "T20"
       ]
     },
     {
@@ -609,8 +639,8 @@ window.DASH = {
       "buy_price": 119.67,
       "shares": 20.890784,
       "cost": 2500.0,
-      "current_price": 118.135,
-      "current_value": 2467.93,
+      "current_price": 118.137,
+      "current_value": 2467.97,
       "pnl_pct": -1.28,
       "take_profit_pct": 0.3,
       "stop_loss_pct": -0.15,
@@ -618,7 +648,7 @@ window.DASH = {
       "exit": null,
       "sector": "Contrarian Fear",
       "leverage": 1.0,
-      "effective_value": 2467.93,
+      "effective_value": 2467.97,
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
@@ -634,16 +664,16 @@ window.DASH = {
       "buy_price": 71.3,
       "shares": 28.05049,
       "cost": 2000.0,
-      "current_price": 71.71,
-      "current_value": 2011.5,
-      "pnl_pct": 0.58,
+      "current_price": 71.755,
+      "current_value": 2012.76,
+      "pnl_pct": 0.64,
       "take_profit_pct": 0.3,
       "stop_loss_pct": -0.15,
       "status": "open",
       "exit": null,
       "sector": "Contrarian Fear",
       "leverage": 1.0,
-      "effective_value": 2011.5,
+      "effective_value": 2012.76,
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
@@ -659,16 +689,16 @@ window.DASH = {
       "buy_price": 175.23,
       "shares": 11.413455,
       "cost": 2000.0,
-      "current_price": 174.59,
-      "current_value": 1992.68,
-      "pnl_pct": -0.37,
+      "current_price": 174.97,
+      "current_value": 1997.01,
+      "pnl_pct": -0.15,
       "take_profit_pct": 0.4,
       "stop_loss_pct": -0.2,
       "status": "open",
       "exit": null,
       "sector": "Tech / AI Growth",
       "leverage": 1.0,
-      "effective_value": 1992.68,
+      "effective_value": 1997.01,
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
@@ -681,43 +711,43 @@ window.DASH = {
   "sleeves": [
     {
       "sleeve": "Tech/AI Growth",
-      "value": 30432.65
+      "value": 30524.87
     },
     {
       "sleeve": "Short-Term Bonds (SGOV)",
-      "value": 15506.89
+      "value": 13006.71
     },
     {
       "sleeve": "AI Power - Nuclear",
-      "value": 11107.02
+      "value": 11116.28
     },
     {
       "sleeve": "Crisis Alpha - Real Assets",
-      "value": 6892.04
+      "value": 6893.85
     },
     {
       "sleeve": "Crisis Alpha - AI Bust",
-      "value": 6053.71
+      "value": 6057.84
     },
     {
       "sleeve": "Broadening / Value",
-      "value": 5526.31
+      "value": 5526.76
     },
     {
       "sleeve": "Crisis Alpha - Trend",
-      "value": 5494.73
+      "value": 5495.61
     },
     {
       "sleeve": "Crisis Alpha - Anti-Beta",
-      "value": 5358.86
+      "value": 5361.13
     },
     {
       "sleeve": "Contrarian Fear",
-      "value": 4479.43
+      "value": 4480.73
     },
     {
       "sleeve": "Crisis Alpha - Carry Unwind",
-      "value": 3996.32
+      "value": 3997.57
     },
     {
       "sleeve": "Crisis Alpha - Vol Decay",
@@ -726,23 +756,27 @@ window.DASH = {
     {
       "sleeve": "Crisis Alpha - Down-Day Floor",
       "value": 3522.88
+    },
+    {
+      "sleeve": "Crisis Alpha - Inflation",
+      "value": 2499.65
     }
   ],
   "sectors": [
     {
       "sector": "Tech / AI Growth",
-      "value": 30432.65,
-      "effective": 65355.81,
+      "value": 30524.87,
+      "effective": 65580.41,
       "leverage": 2.15,
-      "pct": 63.9,
+      "pct": 64.0,
       "max_pct": 70,
       "status": "warn",
       "note": "v5-expanded for 3x TQQQ/SOXL"
     },
     {
       "sector": "Nuclear / Power",
-      "value": 11107.02,
-      "effective": 11107.02,
+      "value": 11116.28,
+      "effective": 11116.28,
       "leverage": 1.0,
       "pct": 10.9,
       "max_pct": 16,
@@ -751,8 +785,8 @@ window.DASH = {
     },
     {
       "sector": "Broadening / Value",
-      "value": 5526.31,
-      "effective": 8020.12,
+      "value": 5526.76,
+      "effective": 8020.57,
       "leverage": 1.45,
       "pct": 7.8,
       "max_pct": 16,
@@ -761,8 +795,8 @@ window.DASH = {
     },
     {
       "sector": "Contrarian Fear",
-      "value": 4479.43,
-      "effective": 4479.43,
+      "value": 4480.73,
+      "effective": 4480.73,
       "leverage": 1.0,
       "pct": 4.4,
       "max_pct": 12,
@@ -771,20 +805,20 @@ window.DASH = {
     },
     {
       "sector": "Hedge Stack",
-      "value": 35287.73,
-      "effective": 35287.73,
+      "value": 37797.72,
+      "effective": 37797.72,
       "leverage": 1.0,
-      "pct": 34.5,
+      "pct": 36.9,
       "max_pct": 45,
       "status": "ok",
       "note": ""
     },
     {
       "sector": "Short-Term Bonds",
-      "value": 15506.89,
-      "effective": 15506.89,
+      "value": 13006.71,
+      "effective": 13006.71,
       "leverage": 1.0,
-      "pct": 15.2,
+      "pct": 12.7,
       "max_pct": 20,
       "status": "ok",
       "note": ""
@@ -883,31 +917,32 @@ window.DASH = {
     },
     {
       "date": "2026-08-13",
-      "total_value": 102365.02,
+      "total_value": 102478.08,
       "cash": 25.0,
-      "invested_value": 102340.02,
-      "day_change": 865.0,
+      "invested_value": 102453.08,
+      "day_change": 978.06,
       "prices": {
-        "TQQQ": 76.74,
-        "SOXL": 150.485,
-        "SMH": 593.181,
-        "DRAM": 57.235,
-        "PLTR": 174.59,
-        "NLR": 117.67,
-        "NUKZ": 67.745,
-        "IWM": 303.23,
+        "TQQQ": 76.945,
+        "SOXL": 151.25,
+        "SMH": 594.585,
+        "DRAM": 57.328,
+        "PLTR": 174.97,
+        "NLR": 117.87,
+        "NUKZ": 67.7,
+        "IWM": 303.275,
         "IWDL": 69.8029,
-        "XLY": 118.135,
-        "EZU": 71.71,
-        "ZROZ": 58.64,
-        "FXY": 57.567,
+        "XLY": 118.137,
+        "EZU": 71.755,
+        "ZROZ": 58.68,
+        "FXY": 57.585,
         "VIXM": 14.17,
         "QFLR": 35.722,
-        "GLD": 400.31,
-        "GDX": 88.2,
-        "BTAL": 11.77,
-        "DBMF": 31.29,
-        "SGOV": 100.525
+        "GLD": 400.651,
+        "GDX": 88.17,
+        "BTAL": 11.775,
+        "DBMF": 31.295,
+        "TIP": 107.205,
+        "SGOV": 100.5233
       }
     }
   ],
@@ -964,6 +999,18 @@ window.DASH = {
       "price": 100.5223,
       "buy_price": 100.5223,
       "shares": 25.161,
+      "realized_pnl": 0
+    },
+    {
+      "date": "2026-08-13",
+      "ticker": "TIP",
+      "name": "iShares TIPS Bond ETF",
+      "reason": "rebalance",
+      "note": "T20 inflation leg added (~2.5k, Hedge Stack): direct CPI-linked hedge closing the scenario gap flagged by the v5.3 scorecard - inflation was hedged only by GLD+GDX while ZROZ loses in that scenario. Funded by trimming SGOV.",
+      "state": null,
+      "price": 107.22,
+      "buy_price": 107.22,
+      "shares": 23.316544,
       "realized_pnl": 0
     }
   ],
@@ -1239,7 +1286,7 @@ window.DASH = {
       },
       {
         "date": "2026-08-13",
-        "value": 100369.33
+        "value": 100390.02
       }
     ],
     "aligned": [
@@ -1257,18 +1304,18 @@ window.DASH = {
       },
       {
         "date": "2026-08-13",
-        "value": 100369.33
+        "value": 100390.02
       }
     ],
     "summary": {
-      "total_return_pct": 0.37,
+      "total_return_pct": 0.39,
       "max_drawdown_pct": -0.32,
-      "sharpe_annualized": 4.96
+      "sharpe_annualized": 5.13
     }
   },
   "rebalance": null,
   "news": {
-    "asof": "2026-08-13 09:36:41",
+    "asof": "2026-08-13 09:44:48",
     "big_stories": [
       {
         "title": "Revenue at Palantir-Backed Ondas Rises 1,236%. Stock Falls as Losses Widen.",
@@ -1302,19 +1349,6 @@ window.DASH = {
         "sent": "positive"
       },
       {
-        "title": "Exchange-Traded Funds, Equity Futures Higher Pre-Bell Thursday Amid Producer Inflation Data Release",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/exchange-traded-funds-equity-futures-131321660.html?.tsrc=rss",
-        "ts": 1786626801,
-        "when": "Aug 13, 07:13 AM",
-        "ticker": "IWM",
-        "industry": "Small Caps",
-        "theory": [
-          "T10",
-          "T15"
-        ],
-        "sent": "neutral"
-      },
-      {
         "title": "Are Wall Street Analysts Predicting Royal Caribbean Cruises Stock Will Climb or Sink?",
         "link": "https://www.barchart.com/story/news/3822206/are-wall-street-analysts-predicting-royal-caribbean-cruises-stock-will-climb-or-sink?.tsrc=rss",
         "ts": 1786609407,
@@ -1325,6 +1359,19 @@ window.DASH = {
           "T13"
         ],
         "sent": "neutral"
+      },
+      {
+        "title": "Small Caps Pay Too: The 42% Friday Payer Riding the Russell’s Big Year",
+        "link": "https://247wallst.com/investing/2026/08/12/small-caps-pay-too-the-42-friday-payer-riding-the-russells-big-year/?.tsrc=rss",
+        "ts": 1786570842,
+        "when": "Aug 12, 03:40 PM",
+        "ticker": "IWM",
+        "industry": "Small Caps",
+        "theory": [
+          "T10",
+          "T15"
+        ],
+        "sent": "negative"
       },
       {
         "title": "You Skipped the AI Rally Because Retirement Felt Too Close. These 3 ETFs Get You In Without Betting Your Nest Egg",
@@ -1388,34 +1435,6 @@ window.DASH = {
           "T21"
         ],
         "sent": "positive"
-      },
-      {
-        "title": "Exchange-Traded Funds, Equity Futures Higher Pre-Bell Thursday Amid Producer Inflation Data Release",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/exchange-traded-funds-equity-futures-131321660.html?.tsrc=rss",
-        "ts": 1786626801,
-        "when": "Aug 13, 07:13 AM",
-        "ticker": "IWM",
-        "industry": "Small Caps",
-        "theory": [
-          "T10",
-          "T15"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "A Guide to Investing in AI ETFs",
-        "link": "https://finance.yahoo.com/technology/ai/articles/guide-investing-ai-etfs-125300291.html?.tsrc=rss",
-        "ts": 1786625580,
-        "when": "Aug 13, 06:53 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
       },
       {
         "title": "Dow Fixture Microsoft Breaks Out Along With These Stocks, But Datadog Triggers Sell Signals",
@@ -1535,6 +1554,21 @@ window.DASH = {
           "T14"
         ],
         "sent": "positive"
+      },
+      {
+        "title": "Inovio Pharmaceuticals Q2 Earnings Call Highlights",
+        "link": "https://www.marketbeat.com/instant-alerts/inovio-pharmaceuticals-q2-earnings-call-highlights-2026-08-12/?utm_source=yahoofinance&utm_medium=yahoofinance&.tsrc=rss",
+        "ts": 1786579438,
+        "when": "Aug 12, 06:03 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
       },
       {
         "title": "Zeta Global’s Q2 Earnings Call: Our Top 5 Analyst Questions",
@@ -1667,6 +1701,36 @@ window.DASH = {
         "sent": "neutral"
       },
       {
+        "title": "Tesla, Palantir Fall as CPI Sends September Fed Hike Odds to 33%",
+        "link": "https://www.benzinga.com/markets/prediction-markets/26/08/61156417/tesla-palantir-july-cpi-fed-hike-odds?utm_source=yahooFinance&utm_campaign=partner_feed&utm_medium=referral&.tsrc=rss",
+        "ts": 1786563225,
+        "when": "Aug 12, 01:33 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "Michael Burry adds to Nvidia and Palantir shorts while loading up on Molina Healthcare, which is down 54% from its high",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/michael-burry-adds-nvidia-palantir-184500402.html?.tsrc=rss",
+        "ts": 1786560300,
+        "when": "Aug 12, 12:45 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
         "title": "U.S. ETF Investors at Odds: Chasing Returns or Playing the Long Game?",
         "link": "http://www.etf.com/sections/advisor-center/us-etf-investors-odds-chasing-returns-or-playing-long-game?utm_source=yahoo-finance&utm_medium=rss&utm_campaign=yahoo-finance-rss&.tsrc=rss",
         "ts": 1786558489,
@@ -1694,57 +1758,27 @@ window.DASH = {
         "sent": "neutral"
       },
       {
-        "title": "Gold Makes Surprising Move on Fed Expectations",
-        "link": "https://finance.yahoo.com/markets/commodities/articles/gold-makes-surprising-move-fed-140200002.html?.tsrc=rss",
-        "ts": 1786543320,
-        "when": "Aug 12, 08:02 AM",
-        "ticker": "GLD",
-        "industry": "Gold",
+        "title": "Palantir Technologies Inc. (PLTR) vs. BigBear.ai Holdings, Inc. (BBAI): Palantir’s “Otherworldly” Quarter Sends Shares Soaring 30%",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/palantir-technologies-inc-pltr-vs-172109809.html?.tsrc=rss",
+        "ts": 1786555269,
+        "when": "Aug 12, 11:21 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
         "theory": [
-          "T6",
-          "T9",
-          "T19",
-          "T20",
-          "T21"
+          "T1",
+          "T7",
+          "T2",
+          "T14"
         ],
         "sent": "positive"
       },
       {
-        "title": "Exchange-Traded Funds, Equity Futures Gain Pre-Bell Wednesday Amid In-Line Consumer Inflation Data, Tech Gains",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/exchange-traded-funds-equity-futures-131639194.html?.tsrc=rss",
-        "ts": 1786540599,
-        "when": "Aug 12, 07:16 AM",
-        "ticker": "IWM",
-        "industry": "Small Caps",
-        "theory": [
-          "T10",
-          "T15"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "Forget Buying Gold Directly: Wheaton Precious Metals Could Be the Better Play.",
-        "link": "https://www.fool.com/investing/2026/08/12/forget-buying-gold-directly-wheaton-precious-metal/?.tsrc=rss",
-        "ts": 1786538400,
-        "when": "Aug 12, 06:40 AM",
-        "ticker": "GLD",
-        "industry": "Gold",
-        "theory": [
-          "T6",
-          "T9",
-          "T19",
-          "T20",
-          "T21"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "Tech Earnings, Oil, CPI Lift Wall Street Pre-Bell; Asia, Europe Up",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/tech-earnings-oil-cpi-lift-110514660.html?.tsrc=rss",
-        "ts": 1786532714,
-        "when": "Aug 12, 05:05 AM",
-        "ticker": "SMH",
-        "industry": "Semis",
+        "title": "Michael Burry Just Shorted Palantir Again -- He Thinks It's Headed Below $1",
+        "link": "https://www.fool.com/investing/2026/08/12/michael-burry-just-shorted-palantir-again-he-think/?.tsrc=rss",
+        "ts": 1786553107,
+        "when": "Aug 12, 10:45 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
         "theory": [
           "T1",
           "T7",
@@ -1754,28 +1788,49 @@ window.DASH = {
         "sent": "neutral"
       },
       {
-        "title": "Sector Update: Consumer Stocks Decline Late Afternoon",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-decline-afternoon-195018690.html?.tsrc=rss",
-        "ts": 1786477818,
-        "when": "Aug 11, 01:50 PM",
-        "ticker": "XLY",
-        "industry": "Consumer Disc.",
+        "title": "Prediction: Palantir Stock Will Trade At $300 in 2027. Here's the Math",
+        "link": "https://www.fool.com/investing/2026/08/12/prediction-palantir-stock-will-trade-at-300-in-202/?.tsrc=rss",
+        "ts": 1786552980,
+        "when": "Aug 12, 10:43 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
         "theory": [
-          "T13"
+          "T1",
+          "T7",
+          "T2",
+          "T14"
         ],
         "sent": "neutral"
       },
       {
-        "title": "Sector Update: Consumer Stocks Decline in Afternoon Trading",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-decline-afternoon-174215170.html?.tsrc=rss",
-        "ts": 1786470135,
-        "when": "Aug 11, 11:42 AM",
-        "ticker": "XLY",
-        "industry": "Consumer Disc.",
+        "title": "Does Palantir’s Agentic Moat Finally Justify Its Premium Valuation Multiple?",
+        "link": "https://247wallst.com/investing/2026/08/11/does-palantirs-agentic-moat-finally-justify-its-premium-valuation-multiple/?.tsrc=rss",
+        "ts": 1786547888,
+        "when": "Aug 12, 09:18 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
         "theory": [
-          "T13"
+          "T1",
+          "T7",
+          "T2",
+          "T14"
         ],
         "sent": "neutral"
+      },
+      {
+        "title": "Zacks Investment Ideas feature highlights: Archer Aviation, Boeing, Palantir, NVIDIA, SpaceX and United Airlines",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/zacks-investment-ideas-feature-highlights-140700637.html?.tsrc=rss",
+        "ts": 1786543620,
+        "when": "Aug 12, 08:07 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
       }
     ]
   }
