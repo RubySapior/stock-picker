@@ -157,13 +157,13 @@ window.DASH = {
     "total_value": 101500.02,
     "cash": 25.0,
     "invested_value": 101475.02,
-    "day_change": 0.0,
+    "day_change": 1186.36,
     "total_return_pct": 1.5,
     "realized_pnl": 0.0,
     "start_value": 100000,
     "max_drawdown_pct": 0.0,
     "sharpe_annualized": 19.33,
-    "cagr_annualized": 512.7
+    "cagr_annualized": 1416.62
   },
   "positions": [
     {
@@ -858,7 +858,7 @@ window.DASH = {
       "total_value": 100313.66,
       "cash": 25.0,
       "invested_value": 100288.66,
-      "day_change": 0.0,
+      "day_change": 313.69,
       "prices": {
         "TQQQ": 73.06,
         "SOXL": 133.0,
@@ -888,7 +888,7 @@ window.DASH = {
       "total_value": 101500.02,
       "cash": 25.0,
       "invested_value": 101475.02,
-      "day_change": 0.0,
+      "day_change": 1186.36,
       "prices": {
         "TQQQ": 74.6,
         "SOXL": 142.16,
@@ -1161,13 +1161,13 @@ window.DASH = {
   },
   "rebalance": null,
   "news": {
-    "asof": "2026-08-13 04:19:32",
+    "asof": "2026-08-12 22:39:41",
     "big_stories": [
       {
         "title": "Goldman Sachs Bets Again on Options ETFs With NEOS Deal",
         "link": "http://www.etf.com/sections/features/goldman-sachs-bets-again-options-etfs-neos-deal?utm_source=yahoo-finance&utm_medium=rss&utm_campaign=yahoo-finance-rss&.tsrc=rss",
         "ts": 1786583907,
-        "when": "Aug 13, 01:18 AM",
+        "when": "Aug 12, 07:18 PM",
         "ticker": "JEPQ",
         "industry": "Covered-Call Income",
         "theory": [
@@ -1179,7 +1179,7 @@ window.DASH = {
         "title": "Inovio Pharmaceuticals Q2 Earnings Call Highlights",
         "link": "https://www.marketbeat.com/instant-alerts/inovio-pharmaceuticals-q2-earnings-call-highlights-2026-08-12/?utm_source=yahoofinance&utm_medium=yahoofinance&.tsrc=rss",
         "ts": 1786579438,
-        "when": "Aug 13, 12:03 AM",
+        "when": "Aug 12, 06:03 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -1194,7 +1194,7 @@ window.DASH = {
         "title": "Small Caps Pay Too: The 42% Friday Payer Riding the Russell’s Big Year",
         "link": "https://247wallst.com/investing/2026/08/12/small-caps-pay-too-the-42-friday-payer-riding-the-russells-big-year/?.tsrc=rss",
         "ts": 1786570842,
-        "when": "Aug 12, 09:40 PM",
+        "when": "Aug 12, 03:40 PM",
         "ticker": "IWM",
         "industry": "Small Caps",
         "theory": [
@@ -1207,7 +1207,7 @@ window.DASH = {
         "title": "You Skipped the AI Rally Because Retirement Felt Too Close. These 3 ETFs Get You In Without Betting Your Nest Egg",
         "link": "https://247wallst.com/investing/etf/2026/08/12/you-skipped-the-ai-rally-because-retirement-felt-too-close-these-3-etfs-get-you-in-without-betting-your-nest-egg/?.tsrc=rss",
         "ts": 1786570522,
-        "when": "Aug 12, 09:35 PM",
+        "when": "Aug 12, 03:35 PM",
         "ticker": "SMH",
         "industry": "Semis",
         "theory": [
@@ -1222,7 +1222,7 @@ window.DASH = {
         "title": "Sector Update: Consumer Stocks Mixed Late Afternoon",
         "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-mixed-afternoon-195051183.html?.tsrc=rss",
         "ts": 1786564251,
-        "when": "Aug 12, 07:50 PM",
+        "when": "Aug 12, 01:50 PM",
         "ticker": "XLY",
         "industry": "Consumer Disc.",
         "theory": [
@@ -1236,7 +1236,7 @@ window.DASH = {
         "title": "Goldman Sachs Bets Again on Options ETFs With NEOS Deal",
         "link": "http://www.etf.com/sections/features/goldman-sachs-bets-again-options-etfs-neos-deal?utm_source=yahoo-finance&utm_medium=rss&utm_campaign=yahoo-finance-rss&.tsrc=rss",
         "ts": 1786583907,
-        "when": "Aug 13, 01:18 AM",
+        "when": "Aug 12, 07:18 PM",
         "ticker": "JEPQ",
         "industry": "Covered-Call Income",
         "theory": [
@@ -1248,7 +1248,7 @@ window.DASH = {
         "title": "Inovio Pharmaceuticals Q2 Earnings Call Highlights",
         "link": "https://www.marketbeat.com/instant-alerts/inovio-pharmaceuticals-q2-earnings-call-highlights-2026-08-12/?utm_source=yahoofinance&utm_medium=yahoofinance&.tsrc=rss",
         "ts": 1786579438,
-        "when": "Aug 13, 12:03 AM",
+        "when": "Aug 12, 06:03 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -1263,7 +1263,7 @@ window.DASH = {
         "title": "Zeta Global’s Q2 Earnings Call: Our Top 5 Analyst Questions",
         "link": "https://finance.yahoo.com/markets/stocks/articles/zeta-global-q2-earnings-call-230100896.html?.tsrc=rss",
         "ts": 1786575660,
-        "when": "Aug 12, 11:01 PM",
+        "when": "Aug 12, 05:01 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -1278,7 +1278,7 @@ window.DASH = {
         "title": "Small Caps Pay Too: The 42% Friday Payer Riding the Russell’s Big Year",
         "link": "https://247wallst.com/investing/2026/08/12/small-caps-pay-too-the-42-friday-payer-riding-the-russells-big-year/?.tsrc=rss",
         "ts": 1786570842,
-        "when": "Aug 12, 09:40 PM",
+        "when": "Aug 12, 03:40 PM",
         "ticker": "IWM",
         "industry": "Small Caps",
         "theory": [
@@ -1291,7 +1291,7 @@ window.DASH = {
         "title": "You Skipped the AI Rally Because Retirement Felt Too Close. These 3 ETFs Get You In Without Betting Your Nest Egg",
         "link": "https://247wallst.com/investing/etf/2026/08/12/you-skipped-the-ai-rally-because-retirement-felt-too-close-these-3-etfs-get-you-in-without-betting-your-nest-egg/?.tsrc=rss",
         "ts": 1786570522,
-        "when": "Aug 12, 09:35 PM",
+        "when": "Aug 12, 03:35 PM",
         "ticker": "SMH",
         "industry": "Semis",
         "theory": [
@@ -1306,7 +1306,7 @@ window.DASH = {
         "title": "S&P500, Nasdaq End Higher As Fresh CPI Data Calms Earlier-Than-Expected Rate Hike Fears — GOOGL, DJT, WEN, BE, SNDK In Focus",
         "link": "https://stocktwits.com/news-articles/markets/equity/s-and-p500-nasdaq-end-higher-as-fresh-cpi-data-calms-rate-hike-fears/cZo808cRJWt?.tsrc=rss",
         "ts": 1786569626,
-        "when": "Aug 12, 09:20 PM",
+        "when": "Aug 12, 03:20 PM",
         "ticker": "SMH",
         "industry": "Semis",
         "theory": [
@@ -1321,7 +1321,7 @@ window.DASH = {
         "title": "Michael Burry delivers brutal verdict on $420 billion AI giant",
         "link": "https://www.thestreet.com/investing/stocks/pltr-palantir-stock-michael-burry-says-surging-ai-giant-is-worth-under-1-long-term-despite-strong-q2-2026-earnings?.tsrc=rss",
         "ts": 1786569420,
-        "when": "Aug 12, 09:17 PM",
+        "when": "Aug 12, 03:17 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -1336,7 +1336,7 @@ window.DASH = {
         "title": "Michael Burry Is Short Nebius and Palantir. Both Are Now Soaring and His Short Thesis Looks Broken.",
         "link": "https://247wallst.com/investing/2026/08/12/michael-burry-is-short-nebius-and-palantir-both-are-now-soaring-his-short-thesis-looks-broken/?.tsrc=rss",
         "ts": 1786569052,
-        "when": "Aug 12, 09:10 PM",
+        "when": "Aug 12, 03:10 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -1351,7 +1351,7 @@ window.DASH = {
         "title": "SpaceX, Nebius, Palantir, Super Micro, Quantinuum, Wendy’s, and More Stocks That Explain Today’s Market",
         "link": "https://finance.yahoo.com/m/ddf7e389-b308-33f6-a023-cd25665510d4/spacex%2C-nebius%2C-palantir%2C.html?.tsrc=rss",
         "ts": 1786568880,
-        "when": "Aug 12, 09:08 PM",
+        "when": "Aug 12, 03:08 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -1366,7 +1366,7 @@ window.DASH = {
         "title": "Palantir and Microsoft Drop. Why the AI Revival Is Hitting Software Stocks.",
         "link": "https://finance.yahoo.com/m/7f558cb1-ac00-3575-810c-26075b32b0c8/palantir-and-microsoft-drop..html?.tsrc=rss",
         "ts": 1786567500,
-        "when": "Aug 12, 08:45 PM",
+        "when": "Aug 12, 02:45 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -1381,7 +1381,7 @@ window.DASH = {
         "title": "Sector Update: Consumer Stocks Mixed Late Afternoon",
         "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-mixed-afternoon-195051183.html?.tsrc=rss",
         "ts": 1786564251,
-        "when": "Aug 12, 07:50 PM",
+        "when": "Aug 12, 01:50 PM",
         "ticker": "XLY",
         "industry": "Consumer Disc.",
         "theory": [
@@ -1393,7 +1393,7 @@ window.DASH = {
         "title": "Tesla, Palantir Fall as CPI Sends September Fed Hike Odds to 33%",
         "link": "https://www.benzinga.com/markets/prediction-markets/26/08/61156417/tesla-palantir-july-cpi-fed-hike-odds?utm_source=yahooFinance&utm_campaign=partner_feed&utm_medium=referral&.tsrc=rss",
         "ts": 1786563225,
-        "when": "Aug 12, 07:33 PM",
+        "when": "Aug 12, 01:33 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -1408,7 +1408,7 @@ window.DASH = {
         "title": "Michael Burry adds to Nvidia and Palantir shorts while loading up on Molina Healthcare, which is down 54% from its high",
         "link": "https://finance.yahoo.com/markets/stocks/articles/michael-burry-adds-nvidia-palantir-184500402.html?.tsrc=rss",
         "ts": 1786560300,
-        "when": "Aug 12, 06:45 PM",
+        "when": "Aug 12, 12:45 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -1423,7 +1423,7 @@ window.DASH = {
         "title": "U.S. ETF Investors at Odds: Chasing Returns or Playing the Long Game?",
         "link": "http://www.etf.com/sections/advisor-center/us-etf-investors-odds-chasing-returns-or-playing-long-game?utm_source=yahoo-finance&utm_medium=rss&utm_campaign=yahoo-finance-rss&.tsrc=rss",
         "ts": 1786558489,
-        "when": "Aug 12, 06:14 PM",
+        "when": "Aug 12, 12:14 PM",
         "ticker": "DRAM",
         "industry": "AI Memory/HBM",
         "theory": [
@@ -1438,7 +1438,7 @@ window.DASH = {
         "title": "Sector Update: Consumer Stocks Mixed Wednesday Afternoon",
         "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-mixed-wednesday-173830870.html?.tsrc=rss",
         "ts": 1786556310,
-        "when": "Aug 12, 05:38 PM",
+        "when": "Aug 12, 11:38 AM",
         "ticker": "XLY",
         "industry": "Consumer Disc.",
         "theory": [
@@ -1450,7 +1450,7 @@ window.DASH = {
         "title": "Palantir Technologies Inc. (PLTR) vs. BigBear.ai Holdings, Inc. (BBAI): Palantir’s “Otherworldly” Quarter Sends Shares Soaring 30%",
         "link": "https://finance.yahoo.com/markets/stocks/articles/palantir-technologies-inc-pltr-vs-172109809.html?.tsrc=rss",
         "ts": 1786555269,
-        "when": "Aug 12, 05:21 PM",
+        "when": "Aug 12, 11:21 AM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -1465,7 +1465,7 @@ window.DASH = {
         "title": "Michael Burry Just Shorted Palantir Again -- He Thinks It's Headed Below $1",
         "link": "https://www.fool.com/investing/2026/08/12/michael-burry-just-shorted-palantir-again-he-think/?.tsrc=rss",
         "ts": 1786553107,
-        "when": "Aug 12, 04:45 PM",
+        "when": "Aug 12, 10:45 AM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -1480,7 +1480,7 @@ window.DASH = {
         "title": "Prediction: Palantir Stock Will Trade At $300 in 2027. Here's the Math",
         "link": "https://www.fool.com/investing/2026/08/12/prediction-palantir-stock-will-trade-at-300-in-202/?.tsrc=rss",
         "ts": 1786552980,
-        "when": "Aug 12, 04:43 PM",
+        "when": "Aug 12, 10:43 AM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -1495,7 +1495,7 @@ window.DASH = {
         "title": "Does Palantir’s Agentic Moat Finally Justify Its Premium Valuation Multiple?",
         "link": "https://247wallst.com/investing/2026/08/11/does-palantirs-agentic-moat-finally-justify-its-premium-valuation-multiple/?.tsrc=rss",
         "ts": 1786547888,
-        "when": "Aug 12, 03:18 PM",
+        "when": "Aug 12, 09:18 AM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -1510,7 +1510,7 @@ window.DASH = {
         "title": "Zacks Investment Ideas feature highlights: Archer Aviation, Boeing, Palantir, NVIDIA, SpaceX and United Airlines",
         "link": "https://finance.yahoo.com/markets/stocks/articles/zacks-investment-ideas-feature-highlights-140700637.html?.tsrc=rss",
         "ts": 1786543620,
-        "when": "Aug 12, 02:07 PM",
+        "when": "Aug 12, 08:07 AM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -1525,7 +1525,7 @@ window.DASH = {
         "title": "Gold Makes Surprising Move on Fed Expectations",
         "link": "https://finance.yahoo.com/markets/commodities/articles/gold-makes-surprising-move-fed-140200002.html?.tsrc=rss",
         "ts": 1786543320,
-        "when": "Aug 12, 02:02 PM",
+        "when": "Aug 12, 08:02 AM",
         "ticker": "GLD",
         "industry": "Gold",
         "theory": [
@@ -1539,7 +1539,7 @@ window.DASH = {
         "title": "Zacks Investment Ideas feature highlights: SpaceX, Meta, Palantir, Snowflake, Alphabet, AT&T and T-Mobile",
         "link": "https://finance.yahoo.com/markets/stocks/articles/zacks-investment-ideas-feature-highlights-140100288.html?.tsrc=rss",
         "ts": 1786543260,
-        "when": "Aug 12, 02:01 PM",
+        "when": "Aug 12, 08:01 AM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -1554,7 +1554,7 @@ window.DASH = {
         "title": "Palantir Stock's Premium Sits On One Country's Demand",
         "link": "https://www.trefis.com/articles/611168/palantir-stocks-premium-sits-on-one-countrys-demand/2026-08-12?.tsrc=rss",
         "ts": 1786542535,
-        "when": "Aug 12, 01:48 PM",
+        "when": "Aug 12, 07:48 AM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -1569,7 +1569,7 @@ window.DASH = {
         "title": "Jefferies' Latest Warning on Palantir Sends Clear Message: Stay Cautious on PLTR Stock",
         "link": "https://www.barchart.com/story/news/3804612/jefferies-latest-warning-on-palantir-sends-clear-message-stay-cautious-on-pltr-stock?.tsrc=rss",
         "ts": 1786541912,
-        "when": "Aug 12, 01:38 PM",
+        "when": "Aug 12, 07:38 AM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -1584,7 +1584,7 @@ window.DASH = {
         "title": "Exchange-Traded Funds, Equity Futures Gain Pre-Bell Wednesday Amid In-Line Consumer Inflation Data, Tech Gains",
         "link": "https://finance.yahoo.com/markets/stocks/articles/exchange-traded-funds-equity-futures-131639194.html?.tsrc=rss",
         "ts": 1786540599,
-        "when": "Aug 12, 01:16 PM",
+        "when": "Aug 12, 07:16 AM",
         "ticker": "XLY",
         "industry": "Consumer Disc.",
         "theory": [
@@ -1596,7 +1596,7 @@ window.DASH = {
         "title": "Forget Buying Gold Directly: Wheaton Precious Metals Could Be the Better Play.",
         "link": "https://www.fool.com/investing/2026/08/12/forget-buying-gold-directly-wheaton-precious-metal/?.tsrc=rss",
         "ts": 1786538400,
-        "when": "Aug 12, 12:40 PM",
+        "when": "Aug 12, 06:40 AM",
         "ticker": "GLD",
         "industry": "Gold",
         "theory": [
@@ -1610,7 +1610,7 @@ window.DASH = {
         "title": "Palantir Just Crushed Earnings Again. These 2 Legacy Defense Stocks Are the Cheaper Way to Play the Same Budget.",
         "link": "https://www.fool.com/investing/2026/08/12/palantir-crush-earnings-legacy-defense-stocks/?.tsrc=rss",
         "ts": 1786537320,
-        "when": "Aug 12, 12:22 PM",
+        "when": "Aug 12, 06:22 AM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -1625,7 +1625,7 @@ window.DASH = {
         "title": "Stock Market News for Aug 12, 2026",
         "link": "https://finance.yahoo.com/markets/stocks/articles/stock-market-news-aug-12-112700930.html?.tsrc=rss",
         "ts": 1786534020,
-        "when": "Aug 12, 11:27 AM",
+        "when": "Aug 12, 05:27 AM",
         "ticker": "XLY",
         "industry": "Consumer Disc.",
         "theory": [
@@ -1637,7 +1637,7 @@ window.DASH = {
         "title": "Tech Earnings, Oil, CPI Lift Wall Street Pre-Bell; Asia, Europe Up",
         "link": "https://finance.yahoo.com/markets/stocks/articles/tech-earnings-oil-cpi-lift-110514660.html?.tsrc=rss",
         "ts": 1786532714,
-        "when": "Aug 12, 11:05 AM",
+        "when": "Aug 12, 05:05 AM",
         "ticker": "SMH",
         "industry": "Semis",
         "theory": [
@@ -1652,7 +1652,7 @@ window.DASH = {
         "title": "Software-as-a-Service (SaaS) Companies Are Making a Comeback. Here's the Exact SaaS Stock I Recommend Buying Right Now.",
         "link": "https://www.fool.com/investing/2026/08/12/software-as-a-service-saas-companies-are-making-a/?.tsrc=rss",
         "ts": 1786512000,
-        "when": "Aug 12, 05:20 AM",
+        "when": "Aug 11, 11:20 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [

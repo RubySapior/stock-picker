@@ -590,7 +590,15 @@ def main():
     cash = data["account"]["cash"]
     total = cash + invested
 
-    prev = data["account"]["history"][-1]["total_value"] if data["account"]["history"] else data["meta"]["start_value"]
+    # True day change anchors to the last snapshot from a PRIOR day (previous
+    # close), not history[-1]: auto-updates every few minutes replace today's
+    # own snapshot, so comparing to history[-1] would shrink day_change to
+    # "change since last update" instead of the real session-to-date move.
+    prev = data["meta"]["start_value"]
+    for h in reversed(data["account"]["history"]):
+        if h["date"] < today:
+            prev = h["total_value"]
+            break
     day_change = round(total - prev, 2)
 
     snapshot = {
