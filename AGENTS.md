@@ -11,7 +11,8 @@ dashboard works by double-clicking `index.html`.
 |------|------|-------|
 | `portfolio.json` | Source of truth: meta, account/cash, positions, theories, events. | **YES** — hand-edit to rebalance / add / remove positions |
 | `update.py` | Daily updater: fetch prices → check exits → deploy cash → snapshot → write `dashboard.js`. | **YES** — all data-mutating logic |
-| `news.py` | Fetch Yahoo RSS headlines for held tickers, tag theories, score sentiment. | **YES** |
+| `news.py` | Fetch Yahoo RSS headlines for held tickers, tag theories, score sentiment (VADER). | **YES** |
+| `vader/` | Vendored MIT-licensed VADER sentiment engine (`vader.py` + `vader_lexicon.txt` + `emoji_utf8_lexicon.txt` + `LICENSE`). Third-party code, kept verbatim; `news.py` maps its `compound` score to pos/neg/neutral. | **NO** — upstream dependency |
 | `dashboard.js` | **AUTO-GENERATED** output consumed by the browser (`window.DASH = {...}`). | **NO** — overwritten on every `update.py` run; edit `update.py`/`portfolio.json` instead |
 | `app.js` | Renders `window.DASH` into every section of `index.html`. | **YES** — UI only |
 | `index.html` | Page skeleton; the sections `app.js` fills. | **YES** — UI only |

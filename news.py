@@ -13,10 +13,11 @@ Usage:  from news import build_news; build_news(positions)
 import concurrent.futures
 import email.utils
 import json
-import re
 import time
 import urllib.request
 import xml.etree.ElementTree as ET
+
+from vader.vader import SentimentIntensityAnalyzer
 
 RSS_URL = "https://feeds.finance.yahoo.com/rss/2.0/headline?s={s}&region=US&lang=en-US"
 USER_AGENT = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
@@ -51,38 +52,15 @@ TICKER_INDUSTRY = {
     "JEPQ": "Covered-Call Income",
 }
 
-# Headline sentiment lexicon (substring match on base stems, deduped so one
-# headline word never scores twice, e.g. "gain" covers "gains/gaining").
-POS_WORDS = [
-    "beat", "upgrade", "record", "surge", "jump", "gain", "rose", "rise",
-    "rally", "strong", "growth", "grow", "profit", "win", "buy",
-    "outperform", "boost", "boom", "expansion", "expand", "higher",
-    "raise", "approve", "approval", "partnership", "deal", "award",
-    "best", "top", "high", "climb", "milestone", "bullish", "breakout",
-    "recover", "rebound", "upside", "solid", "robust", "exceed",
-    "momentum", "strength",
-]
-
-NEG_WORDS = [
-    "plunge", "drop", "miss", "downgrade", "cut", "loss", "lose",
-    "fall", "fell", "sell", "underperform", "weak", "warning", "worry",
-    "trouble", "lawsuit", "investigation", "investigate", "halt",
-    "reduce", "lower", "crash", "sink", "fail", "recall", "layoff",
-    "restructure", "bankrupt", "ban", "tariff", "slow", "slowdown",
-    "downturn", "recession", "debt", "fraud", "fine", "penalty", "risk",
-    "slump", "slid", "slide", "disappoint", "class action",
-    "subpoena", "estimate miss",
-]
+_ANALYZER = SentimentIntensityAnalyzer()
 
 
 def _sentiment(title):
-    """Word-boundary lexicon score so 'gain' never matches inside 'Again'."""
-    t = title.lower()
-    pos = sum(len(re.findall(r'\b' + w + r'\w*', t)) for w in POS_WORDS)
-    neg = sum(len(re.findall(r'\b' + w + r'\w*', t)) for w in NEG_WORDS)
-    if pos > neg:
+    """VADER compound score (-1..1) -> 'positive' / 'negative' / 'neutral'."""
+    compound = _ANALYZER.polarity_scores(title)["compound"]
+    if compound >= 0.05:
         return "positive"
-    if neg > pos:
+    if compound <= -0.05:
         return "negative"
     return "neutral"
 
