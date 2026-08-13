@@ -1161,7 +1161,7 @@ window.DASH = {
   },
   "rebalance": null,
   "news": {
-    "asof": "2026-08-13 02:00:00",
+    "asof": "2026-08-13 04:19:32",
     "big_stories": [
       {
         "title": "Goldman Sachs Bets Again on Options ETFs With NEOS Deal",
@@ -1176,10 +1176,10 @@ window.DASH = {
         "sent": "positive"
       },
       {
-        "title": "Zeta Global’s Q2 Earnings Call: Our Top 5 Analyst Questions",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/zeta-global-q2-earnings-call-230100896.html?.tsrc=rss",
-        "ts": 1786575660,
-        "when": "Aug 12, 11:01 PM",
+        "title": "Inovio Pharmaceuticals Q2 Earnings Call Highlights",
+        "link": "https://www.marketbeat.com/instant-alerts/inovio-pharmaceuticals-q2-earnings-call-highlights-2026-08-12/?utm_source=yahoofinance&utm_medium=yahoofinance&.tsrc=rss",
+        "ts": 1786579438,
+        "when": "Aug 13, 12:03 AM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -1241,6 +1241,21 @@ window.DASH = {
         "industry": "Covered-Call Income",
         "theory": [
           "T12"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "Inovio Pharmaceuticals Q2 Earnings Call Highlights",
+        "link": "https://www.marketbeat.com/instant-alerts/inovio-pharmaceuticals-q2-earnings-call-highlights-2026-08-12/?utm_source=yahoofinance&utm_medium=yahoofinance&.tsrc=rss",
+        "ts": 1786579438,
+        "when": "Aug 13, 12:03 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
         ],
         "sent": "positive"
       },
@@ -1551,15 +1566,29 @@ window.DASH = {
         "sent": "neutral"
       },
       {
+        "title": "Jefferies' Latest Warning on Palantir Sends Clear Message: Stay Cautious on PLTR Stock",
+        "link": "https://www.barchart.com/story/news/3804612/jefferies-latest-warning-on-palantir-sends-clear-message-stay-cautious-on-pltr-stock?.tsrc=rss",
+        "ts": 1786541912,
+        "when": "Aug 12, 01:38 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "negative"
+      },
+      {
         "title": "Exchange-Traded Funds, Equity Futures Gain Pre-Bell Wednesday Amid In-Line Consumer Inflation Data, Tech Gains",
         "link": "https://finance.yahoo.com/markets/stocks/articles/exchange-traded-funds-equity-futures-131639194.html?.tsrc=rss",
         "ts": 1786540599,
         "when": "Aug 12, 01:16 PM",
-        "ticker": "IWM",
-        "industry": "Small Caps",
+        "ticker": "XLY",
+        "industry": "Consumer Disc.",
         "theory": [
-          "T10",
-          "T15"
+          "T13"
         ],
         "sent": "positive"
       },
@@ -1576,6 +1605,21 @@ window.DASH = {
           "T11"
         ],
         "sent": "positive"
+      },
+      {
+        "title": "Palantir Just Crushed Earnings Again. These 2 Legacy Defense Stocks Are the Cheaper Way to Play the Same Budget.",
+        "link": "https://www.fool.com/investing/2026/08/12/palantir-crush-earnings-legacy-defense-stocks/?.tsrc=rss",
+        "ts": 1786537320,
+        "when": "Aug 12, 12:22 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
       },
       {
         "title": "Stock Market News for Aug 12, 2026",
@@ -1605,52 +1649,19 @@ window.DASH = {
         "sent": "neutral"
       },
       {
-        "title": "JEPQ’s 10.9% Yield Hides $2,900 Annual Tax Bill Most Retirees Never See",
-        "link": "https://247wallst.com/investing/etf/2026/08/11/jepqs-10-9-yield-hides-2900-annual-tax-bill-most-retirees-never-see/?.tsrc=rss",
-        "ts": 1786485923,
-        "when": "Aug 11, 10:05 PM",
-        "ticker": "JEPQ",
-        "industry": "Covered-Call Income",
+        "title": "Software-as-a-Service (SaaS) Companies Are Making a Comeback. Here's the Exact SaaS Stock I Recommend Buying Right Now.",
+        "link": "https://www.fool.com/investing/2026/08/12/software-as-a-service-saas-companies-are-making-a/?.tsrc=rss",
+        "ts": 1786512000,
+        "when": "Aug 12, 05:20 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
         "theory": [
-          "T12"
+          "T1",
+          "T7",
+          "T2",
+          "T14"
         ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Your Father Retired With a Pension. You Got a 401(k) and a Brochure. These 4 ETFs Build the Pension Yourself",
-        "link": "https://247wallst.com/investing/etf/2026/08/11/your-father-retired-with-a-pension-you-got-a-401k-and-a-brochure-these-4-etfs-build-the-pension-yourself/?.tsrc=rss",
-        "ts": 1786485338,
-        "when": "Aug 11, 09:55 PM",
-        "ticker": "JEPQ",
-        "industry": "Covered-Call Income",
-        "theory": [
-          "T12"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Sector Update: Consumer Stocks Decline Late Afternoon",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-decline-afternoon-195018690.html?.tsrc=rss",
-        "ts": 1786477818,
-        "when": "Aug 11, 07:50 PM",
-        "ticker": "XLY",
-        "industry": "Consumer Disc.",
-        "theory": [
-          "T13"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Sector Update: Consumer Stocks Decline in Afternoon Trading",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-decline-afternoon-174215170.html?.tsrc=rss",
-        "ts": 1786470135,
-        "when": "Aug 11, 05:42 PM",
-        "ticker": "XLY",
-        "industry": "Consumer Disc.",
-        "theory": [
-          "T13"
-        ],
-        "sent": "neutral"
+        "sent": "positive"
       }
     ]
   }
