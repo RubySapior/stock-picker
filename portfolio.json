@@ -1,8 +1,8 @@
 {
   "meta": {
     "version": {
-      "site": "0.3.5",
-      "algo": "0.5.5"
+      "site": "0.3.6",
+      "algo": "0.5.6"
     },
     "name": "HyperGrowth Sharpe Barbell v5 - Conviction-First",
     "strategy": "Conviction-first: only A/B-tier non-hedge holdings; C/D-tier positions exist solely as hedges. Leveraged funds stop on their 1x index (TQQQ->QQQ -8%, SOXL->SOXX -9%, IWDL->IWD -10%) so decay can't whipsaw. Hedge scorecard is scenario-specific (T17-T21); hedge drag is priced insurance (T6). No idle cash - dry powder parks in SGOV. Full version log below.",
@@ -170,15 +170,15 @@
         "confirmed": false
       },
       "F5": {
-        "prev_score": 4.0,
+        "prev_score": 4.1,
         "score": 4.1,
-        "days_above": 7,
+        "days_above": 8,
         "confirmed": true
       },
       "F6": {
-        "prev_score": 4.9,
-        "score": 4.8,
-        "days_above": 21,
+        "prev_score": 4.8,
+        "score": 4.9,
+        "days_above": 22,
         "confirmed": true
       },
       "F7": {
@@ -321,31 +321,31 @@
       },
       {
         "date": "2026-08-14",
-        "total_value": 101909.67,
+        "total_value": 101851.66,
         "cash": 25.0,
-        "invested_value": 101884.67,
-        "day_change": -343.38,
+        "invested_value": 101826.66,
+        "day_change": -401.39,
         "prices": {
-          "TQQQ": 76.285,
-          "SOXL": 141.245,
-          "SMH": 584.6,
-          "DRAM": 57.138,
-          "PLTR": 176.7,
-          "NLR": 118.74,
-          "NUKZ": 67.86,
-          "IWM": 304.48,
+          "TQQQ": 76.23,
+          "SOXL": 140.517,
+          "SMH": 583.835,
+          "DRAM": 57.09,
+          "PLTR": 176.91,
+          "NLR": 118.41,
+          "NUKZ": 68.105,
+          "IWM": 304.68,
           "IWDL": 69.9874,
-          "XLY": 118.165,
-          "EZU": 71.87,
-          "ZROZ": 57.76,
-          "FXY": 57.575,
-          "VIXM": 14.2,
-          "QFLR": 35.8225,
-          "GLD": 401.81,
-          "GDX": 89.92,
-          "BTAL": 11.879,
-          "DBMF": 31.325,
-          "SGOV": 100.55
+          "XLY": 118.25,
+          "EZU": 71.855,
+          "ZROZ": 57.78,
+          "FXY": 57.58,
+          "VIXM": 14.177,
+          "QFLR": 35.79,
+          "GLD": 401.89,
+          "GDX": 89.98,
+          "BTAL": 11.877,
+          "DBMF": 31.34,
+          "SGOV": 100.558
         }
       }
     ]
