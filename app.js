@@ -82,6 +82,8 @@ function render() {
   document.title = D.meta.name;
   document.getElementById('pname').textContent = D.meta.name;
   document.getElementById('psub').textContent = D.meta.strategy;
+  const stratLog = document.getElementById('stratLog');
+  if (stratLog) stratLog.textContent = D.meta.strategy_log || '';
   document.getElementById('asof').textContent = D.asof;
 
   /* ---- rebalance flags (passive drift alerts, never trades) ---- */

@@ -92,6 +92,7 @@ open index.html      # also works directly via file:// double-click
 Owned by `write_dashboard()` in `update.py`. `app.js` reads these fields:
 
 - `meta`: `name`, `strategy`, `start_date`, `start_value`, `limits`
+  (`strategy_log` = full version changelog, shown under a collapsible)
 - `asof`: last snapshot date
 - `summary`: `total_value`, `cash`, `invested_value`, `day_change`,
   `total_return_pct`, `realized_pnl`, `start_value`, `max_drawdown_pct`,

@@ -2,7 +2,8 @@
 window.DASH = {
   "meta": {
     "name": "HyperGrowth Sharpe Barbell v5 - Conviction-First",
-    "strategy": "Conviction discipline: NO C- or D-tier positions are held unless they are needed as hedges. Non-hedge holdings must earn their A/B conviction or the money sits in cash. CUT in v5: IGV (D, software timing), ARKQ (C, robotics timing), XBI (C, biotech w/o catalyst), KWEB (C, unfundable China risk). KEPT B-tier with catalysts: XLY, EZU, IWM, IWDL (value = anti-growth factor hedge). Freed capital boosted A-tier growth (TQQQ 9k, SOXL 7k, DRAM 5k) and the strongest hedges (ZROZ 6k, QFLR 3k); the rest is dry-powder parked in SGOV (0-3 month T-bills) - idle cash is never left as cash. V5.1: leveraged-fund stop-losses are INDEX-REFERENCED (checked on the 1x underlying - TQQQ->QQQ -8%, SOXL->SOXX -9%, IWDL->IWD -10%) so a violent leveraged day or decay drift cannot whipsaw the stop; the wrapper-level stop_loss_pct is only a wide backstop. Take-profits auto-checked on the wrapper. V5.2 (issue #7): JEPQ REMOVAL SCHEDULED for the next market open - the covered call cannot finance the hedge stack: its ~$250/yr yield vs the hedge stack's ~$1,200-2,000/yr drag was a mathematical illusion, and a capped-upside/full-downside-beta Nasdaq position adds nothing the growth sleeve lacks. update.py will sell it at the open price and sweep the proceeds to SGOV; the 'Premium Financing' sector is being deleted from the book. Hedge drag is priced insurance (T6), never financed by JEPQ. Stop losses / take profits auto-checked by update.py. V5.3 (issue #6): the hedge scorecard is SCENARIO-SPECIFIC - the generic T11 'when NASDAQ falls 10%' theory is split into per-crash-case theories: T17 AI pop (QFLR+VIXM+BTAL+ZROZ), T18 yen-carry unwind (FXY+DBMF), T19 China shock (GLD+GDX+DBMF), T20 inflation (GLD+GDX), T21 war/geopolitical (GLD+GDX+FXY+DBMF). T6 remains the book-level hedge drag/drawdown budget only. V5.4 (issue #6 follow-up): the TIP inflation-leg trial is REVERSED before any market-open execution - a Fed-hikes-in-response regime lifts SGOV's T-bill yield with zero duration loss while TIP fell ~12% in the 2022 inflation shock; GLD+GDX already own the stagflation case. T20 stays tested by gold; scheduled_exit sells TIP and sweeps to SGOV at the next market-open update.",
+    "strategy": "Conviction-first: only A/B-tier non-hedge holdings; C/D-tier positions exist solely as hedges. Leveraged funds stop on their 1x index (TQQQ->QQQ -8%, SOXL->SOXX -9%, IWDL->IWD -10%) so decay can't whipsaw. Hedge scorecard is scenario-specific (T17-T21); hedge drag is priced insurance (T6). No idle cash - dry powder parks in SGOV. Full version log below.",
+    "strategy_log": "Conviction discipline: NO C- or D-tier positions are held unless they are needed as hedges. Non-hedge holdings must earn their A/B conviction or the money sits in cash. CUT in v5: IGV (D, software timing), ARKQ (C, robotics timing), XBI (C, biotech w/o catalyst), KWEB (C, unfundable China risk). KEPT B-tier with catalysts: XLY, EZU, IWM, IWDL (value = anti-growth factor hedge). Freed capital boosted A-tier growth (TQQQ 9k, SOXL 7k, DRAM 5k) and the strongest hedges (ZROZ 6k, QFLR 3k); the rest is dry-powder parked in SGOV (0-3 month T-bills) - idle cash is never left as cash. V5.1: leveraged-fund stop-losses are INDEX-REFERENCED (checked on the 1x underlying - TQQQ->QQQ -8%, SOXL->SOXX -9%, IWDL->IWD -10%) so a violent leveraged day or decay drift cannot whipsaw the stop; the wrapper-level stop_loss_pct is only a wide backstop. Take-profits auto-checked on the wrapper. V5.2 (issue #7): JEPQ REMOVAL SCHEDULED for the next market open - the covered call cannot finance the hedge stack: its ~$250/yr yield vs the hedge stack's ~$1,200-2,000/yr drag was a mathematical illusion, and a capped-upside/full-downside-beta Nasdaq position adds nothing the growth sleeve lacks. update.py will sell it at the open price and sweep the proceeds to SGOV; the 'Premium Financing' sector is being deleted from the book. Hedge drag is priced insurance (T6), never financed by JEPQ. Stop losses / take profits auto-checked by update.py. V5.3 (issue #6): the hedge scorecard is SCENARIO-SPECIFIC - the generic T11 'when NASDAQ falls 10%' theory is split into per-crash-case theories: T17 AI pop (QFLR+VIXM+BTAL+ZROZ), T18 yen-carry unwind (FXY+DBMF), T19 China shock (GLD+GDX+DBMF), T20 inflation (GLD+GDX), T21 war/geopolitical (GLD+GDX+FXY+DBMF). T6 remains the book-level hedge drag/drawdown budget only. V5.4 (issue #6 follow-up): the TIP inflation-leg trial is REVERSED before any market-open execution - a Fed-hikes-in-response regime lifts SGOV's T-bill yield with zero duration loss while TIP fell ~12% in the 2022 inflation shock; GLD+GDX already own the stagflation case. T20 stays tested by gold; scheduled_exit sells TIP and sweeps to SGOV at the next market-open update.",
     "currency": "USD",
     "start_value": 100000,
     "start_date": "2026-08-10",
@@ -148,49 +149,49 @@ window.DASH = {
     "rebalance_flags": {},
     "fear_state": {
       "F1": {
-        "prev_score": null,
+        "prev_score": 2.5,
         "score": 2.5,
         "days_above": 0,
         "confirmed": false
       },
       "F2": {
-        "prev_score": null,
+        "prev_score": 2.1,
         "score": 2.1,
         "days_above": 0,
         "confirmed": false
       },
       "F3": {
-        "prev_score": null,
+        "prev_score": 2.7,
         "score": 2.7,
         "days_above": 0,
         "confirmed": false
       },
       "F4": {
-        "prev_score": null,
+        "prev_score": 3.5,
         "score": 3.5,
         "days_above": 0,
         "confirmed": false
       },
       "F5": {
-        "prev_score": null,
+        "prev_score": 3.9,
         "score": 3.9,
         "days_above": 0,
         "confirmed": false
       },
       "F6": {
-        "prev_score": null,
+        "prev_score": 4.8,
         "score": 4.8,
-        "days_above": 1,
+        "days_above": 2,
         "confirmed": false
       },
       "F7": {
-        "prev_score": null,
+        "prev_score": 2.0,
         "score": 2.0,
         "days_above": 0,
         "confirmed": false
       },
       "F8": {
-        "prev_score": null,
+        "prev_score": 2.8,
         "score": 2.8,
         "days_above": 0,
         "confirmed": false
@@ -1357,17 +1358,17 @@ window.DASH = {
       "name": "War / energy shock",
       "type": "episodic",
       "score": 3.9,
-      "level": 0.582,
+      "level": 0.591,
       "velocity": {
         "label": "5d velocity",
-        "value": 0.0454,
-        "pct": 0.773
+        "value": 0.0524,
+        "pct": 0.784
       },
       "trend": null,
       "signals": [
         {
           "label": "Crude 5d momentum",
-          "value": 0.773
+          "value": 0.784
         },
         {
           "label": "Gold 1d momentum",
@@ -1527,8 +1528,8 @@ window.DASH = {
       "level": 0.2,
       "velocity": {
         "label": "5d velocity",
-        "value": -0.0064,
-        "pct": 0.306
+        "value": -0.0062,
+        "pct": 0.314
       },
       "trend": null,
       "signals": [
@@ -1632,7 +1633,7 @@ window.DASH = {
   },
   "rebalance": null,
   "news": {
-    "asof": "2026-08-13 20:14:26",
+    "asof": "2026-08-13 21:03:41",
     "big_stories": [
       {
         "title": "The House Is Paid Off but the Property Tax Bill Never Retires. These 3 ETFs Pay It Every Year",
