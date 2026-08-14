@@ -101,55 +101,58 @@
       layout();
     }
 
-    /* ---- pointer drag / swipe ----
-       touch-action: pan-y on .wheelStage lets the browser own vertical
-       gestures, so a swipe that starts on the cards can still scroll the
-       page. We only claim the gesture once it commits to the horizontal
-       axis (SLOP px of travel); vertical gestures are abandoned at once.
-       Fast flicks advance by velocity even under the distance threshold. */
+    /* ---- drag / swipe ----
+       Mouse + pen drive via pointer events; touch drives via NATIVE touch
+       events (pointer events are unreliable on mobile — browsers can
+       withhold or cancel them depending on where the finger lands).
+       The stage's touch-action:pan-y lets the browser own vertical
+       gestures (page scroll); we claim horizontal ones with preventDefault
+       the moment the gesture commits to the horizontal axis, so the
+       browser can never steal or cancel them.
+       Fast flicks advance by velocity; dragging past CATCH of the card gap
+       brings the next card to the front WHILE dragging (carousel catch,
+       re-anchors and can chain through several cards in one drag). */
     const SLOP = 8;          // px of travel before committing to an axis
     const FLICK = 0.35;      // px/ms release velocity that counts as a flick
-    stage.addEventListener('pointerdown', e => {
-      if (e.target.closest('.wheelBtn')) return;
+    const CATCH = 0.45;      // fraction of the gap that triggers the catch
+    let touchId = null;
+    let caught = false;      // gesture already advanced via the carousel catch
+
+    function startDrag(x, y) {
       dragging = true;
       suppressClick = false;
+      caught = false;
       lockAxis = null;
-      dragStart = dragPos = e.clientX;
-      startY = e.clientY;
-      lastT = e.timeStamp; lastX = e.clientX;
+      dragStart = dragPos = x;
+      startY = y;
+      lastT = performance.now(); lastX = x; velX = 0;
       stage.classList.add('dragging');
-      window.addEventListener('pointermove', onMove);
-      window.addEventListener('pointerup', onUp);
-      window.addEventListener('pointercancel', onUp);
-    });
-    function onMove(e) {
+    }
+    function moveDrag(x, y, ts) {
       if (!dragging) return;
-      const dx = e.clientX - dragStart;
-      const dy = e.clientY - startY;
+      const dx = x - dragStart;
+      const dy = y - startY;
       if (!lockAxis) {
         if (Math.abs(dx) < SLOP && Math.abs(dy) < SLOP) return;
         lockAxis = Math.abs(dx) > Math.abs(dy) ? 'h' : 'v';
-        if (lockAxis === 'v') { endDrag(); return; }   // page scroll, not cards
+        if (lockAxis === 'v') { endDrag(); return; }   // browser scrolls the page
         suppressClick = true;
       }
       if (lockAxis !== 'h') return;
-      dragPos = e.clientX;
+      dragPos = x;
       dragX = dx;
-      if (e.timeStamp > lastT) velX = (e.clientX - lastX) / (e.timeStamp - lastT);
-      lastT = e.timeStamp; lastX = e.clientX;
+      if (ts > lastT) velX = (x - lastX) / (ts - lastT);
+      lastT = ts; lastX = x;
       layout();
-      /* carousel catch: crossing the threshold brings the next card to the
-         front WHILE dragging, then re-anchors so the gesture continues from
-         the new front card (chain through several cards in one drag). */
       const gap = spacing();
-      if (dragX < -gap * 0.45) { goTo(focus + 1); dragStart = e.clientX; dragX = 0; }
-      else if (dragX > gap * 0.45) { goTo(focus - 1); dragStart = e.clientX; dragX = 0; }
+      if (dragX < -gap * CATCH) { goTo(focus + 1); caught = true; dragStart = x; dragX = 0; }
+      else if (dragX > gap * CATCH) { goTo(focus - 1); caught = true; dragStart = x; dragX = 0; }
     }
-    function onUp() {
+    function finishDrag() {
       if (!dragging) return;
       const gap = spacing();
       endDrag();
-      if (Math.abs(velX) > FLICK) goTo(focus + (velX < 0 ? 1 : -1));
+      if (!caught && Math.abs(velX) > FLICK) goTo(focus + (velX < 0 ? 1 : -1));
       else if (dragX < -gap * 0.28) goTo(focus + 1);
       else if (dragX > gap * 0.28) goTo(focus - 1);
       else { dragX = 0; layout(); }
@@ -157,11 +160,53 @@
     function endDrag() {
       dragging = false;
       lockAxis = null;
+      touchId = null;
       stage.classList.remove('dragging');
-      window.removeEventListener('pointermove', onMove);
-      window.removeEventListener('pointerup', onUp);
-      window.removeEventListener('pointercancel', onUp);
+      window.removeEventListener('pointermove', onPointerMove);
+      window.removeEventListener('pointerup', finishDrag);
+      window.removeEventListener('pointercancel', onPointerCancel);
     }
+
+    /* pointer path (mouse + pen) */
+    stage.addEventListener('pointerdown', e => {
+      if (e.pointerType === 'touch') return;
+      if (dragging || e.target.closest('.wheelBtn')) return;
+      startDrag(e.clientX, e.clientY);
+      window.addEventListener('pointermove', onPointerMove);
+      window.addEventListener('pointerup', finishDrag);
+      window.addEventListener('pointercancel', onPointerCancel);
+    });
+    function onPointerMove(e) {
+      if (e.pointerType === 'touch') return;
+      moveDrag(e.clientX, e.clientY, e.timeStamp);
+    }
+    function onPointerCancel() {
+      if (lockAxis === 'h') return;   // never abandon an owned horizontal drag
+      endDrag();
+    }
+
+    /* touch path (phones / tablets) */
+    stage.addEventListener('touchstart', e => {
+      if (dragging || e.target.closest('.wheelBtn')) return;
+      const t = e.changedTouches[0];
+      touchId = t.identifier;
+      startDrag(t.clientX, t.clientY);
+    }, { passive: true });
+    stage.addEventListener('touchmove', e => {
+      let t = null;
+      for (const c of e.changedTouches) if (c.identifier === touchId) { t = c; break; }
+      if (!t) return;
+      moveDrag(t.clientX, t.clientY, performance.now());
+      if (lockAxis === 'h') e.preventDefault();   // browser must not steal the drag
+    }, { passive: false });
+    stage.addEventListener('touchend', e => {
+      let t = null;
+      for (const c of e.changedTouches) if (c.identifier === touchId) { t = c; break; }
+      if (!t) return;
+      touchId = null;
+      finishDrag();
+    }, { passive: true });
+    stage.addEventListener('touchcancel', () => { endDrag(); }, { passive: true });
 
     /* ---- wheel scroll + keys + buttons ----
        Both axes rotate the deck: vertical wheel/trackpad scroll and

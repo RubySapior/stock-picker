@@ -35,6 +35,21 @@ milestones (or both if a prompt touches both sides), each with its own entry bel
 
 ## [Unreleased]
 
+## [site 0.4.1] — 2026-08-14
+
+### Fixed
+- Theory-card flip 3D context: removed `will-change`/`preserve-3d` from the
+  card so the browser no longer flattens the flip mid-transition (the old
+  "book-spread" glitch where both faces rendered). Flip now animates a clean
+  single face.
+- Mid-drag catch is now a smooth glide (0.15s easing while dragging) instead
+  of a hard teleport.
+- Wheel dragging on phones: gestures now run on native touch events
+  (touchstart/move/end) so the browser can never cancel them; vertical
+  swipes still scroll the page, horizontal swipes always drive the wheel.
+  A gesture that already caught the next card no longer double-advances on
+  release.
+
 ## [site 0.4.0] — 2026-08-14
 
 ### Fixed
