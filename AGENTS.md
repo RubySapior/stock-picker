@@ -167,6 +167,12 @@ Owned by `write_dashboard()` in `update.py`. `app.js` reads these fields:
   per-instrument max demand from fears scoring ≥4.0 sustained `confirm_days`
   (3 structural / 2 episodic), scaled to Hedge Stack headroom (45% cap minus
   current share). Never trades. `complacency`: null or `{index, valuation_
-  stretch, fear_term, note}` — index = stretch×(1−(mean(top3)−1)/4); ≥0.5
-  warns to keep baseline hedges on. State persists in `meta.fear_state`
-  (score/prev_score/days_above/confirmed).
+  stretch, fear_term, divergence, fear_avg, regime, note, pay_check}` —
+  index = stretch×(1−(mean(top3)−1)/4), but the reading is a 2D regime
+  matrix (equity stretch × top-3 fear avg): fragility (stretch≥0.5 +
+  fear≥3.5), stress (<0.5 + ≥3.5), complacency (≥0.5 + <2.5), neutral
+  (<0.5 + <2.5), watchful/moderate (middle band). `pay_check` =
+  `{fear_id, fear_name, score, checks:[{ticker, ret_pct, paying}]}` —
+  10-session returns of the DOMINANT fear's hedge_ticks only (the
+  instruments expected to pay in that scenario). State persists in
+  `meta.fear_state` (score/prev_score/days_above/confirmed).

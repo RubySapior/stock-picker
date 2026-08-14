@@ -18,6 +18,33 @@ version bump — `site` for UI-only changes, `algo` for engine/data changes
 
 ## [Unreleased]
 
+## [algo 0.5.6] — 2026-08-14
+
+### Added
+- Complacency reading upgraded to a **2D regime matrix**: equity stretch ×
+  top-3 fear average. Distinct states: fragility (ATH + macro stress),
+  stress (equity drawdown active), complacency (melt-up), neutral, and
+  watchful/moderate middle band. Fixes the old 1D trap where "stress
+  regime" described both a realized crash and a fragile divergence.
+- **Hedge attribution check**: the sub-line judges only the DOMINANT fear's
+  `hedge_ticks` (instruments expected to pay in that scenario) over the
+  last 10 sessions — a rates shock (F6) checks SGOV, not ZROZ/TIP which
+  are expected to bleed. Hedge tickers are now fetched as part of the
+  symbol universe.
+
+### Changed
+- `complacency` payload now also carries `divergence` (stretch × fear),
+  `fear_avg`, `regime`, and `pay_check`.
+
+## [site 0.3.6] — 2026-08-14
+
+### Changed
+- Fear Gauge: complacency line renders the new regime note (e.g. "Fragility
+  regime - macro divergence...") and a check line with the dominant fear's
+  expected payers as sentiment chips (green = paying, red = bleeding).
+- Help page: Complacency section rewritten for the 2D regime matrix and the
+  attribution check (Simple + Advanced tabs).
+
 ## [site 0.3.5] — 2026-08-14
 
 ### Changed

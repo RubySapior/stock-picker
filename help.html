@@ -103,7 +103,7 @@
       <ul class="helpList">
         <li>Eight crash scenarios (F1&ndash;F8) &mdash; AI-pop, yen-carry unwind, China shock, inflation, war, rates, credit, recession &mdash; each scored <strong>1&ndash;5</strong> (5 = panic).</li>
         <li>The arrow shows whether the fear is <strong>rising / falling / flat</strong>; the &ldquo;signals&rdquo; line names the top 2 market factors driving the score.</li>
-        <li><strong>Complacency</strong> is the opposite gauge: when the market is calm AND stretched, it warns you to keep your hedges on; when it is low (&ldquo;stress regime&rdquo;), the market is already pricing trouble, so your hedges should be showing gains.</li>
+        <li><strong>Complacency</strong> is the opposite gauge: it combines market stretch (how extended QQQ is) with the fear scores into a regime label. <em>Fragility</em> = equities at highs while bonds/credit are stressed (keep hedges on, they may lag until the equity crack); <em>stress</em> = broad equity drawdown, hedges should be paying; <em>complacency</em> = melt-up, keep the hedge floor. A check line names the dominant fear&rsquo;s expected payers and their recent returns.</li>
         <li><strong>Suggested hedge actions</strong> appears only when a fear is genuinely confirmed (high for several days). It is a recommendation for <em>you</em> to review &mdash; the system never trades by itself.</li>
       </ul>
     </div>
@@ -186,16 +186,18 @@
     <div class="panel" style="margin-bottom:20px;">
       <h2>Complacency index math (fears.py:297)</h2>
       <ul class="helpList">
-        <li><strong>Valuation stretch</strong> = 0.5 &times; (QQQ 20d momentum percentile) + 0.5 &times; (QQQ vs 200d MA distance percentile).</li>
-        <li><strong>Fear term</strong> = <code>1 &minus; (mean(top-3 fear scores) &minus; 1) / 4</code> &mdash; 1.0 when no fear, near 0 in a panic.</li>
-        <li><strong>Index</strong> = stretch &times; fear term, 0..1. Reading the bands:
+        <li><strong>Valuation stretch</strong> = 0.5 &times; (QQQ 20d momentum percentile) + 0.5 &times; (QQQ vs 200d MA distance percentile) &mdash; the equity side of the gauge.</li>
+        <li><strong>Fear term</strong> = <code>1 &minus; (mean(top-3 fear scores) &minus; 1) / 4</code> &mdash; 1.0 when no fear, near 0 in a panic (the systemic side).</li>
+        <li><strong>Index</strong> = stretch &times; fear term, 0..1 &mdash; one number for the header. But the reading is a <strong>2D regime matrix</strong> (stretch on one axis, top-3 fear average on the other) so a low index no longer conflates two opposite realities:
           <ul class="helpList">
-            <li>&ge; 0.70 &mdash; &ldquo;Extreme calm / high concentration &mdash; do NOT trim baseline hedges&rdquo;: the market is stretched and unafraid, the classic pre-crash setup.</li>
-            <li>0.50&ndash;0.70 &mdash; &ldquo;Calm but levered &mdash; keep the hedge stack on&rdquo;.</li>
-            <li>0.30&ndash;0.50 &mdash; &ldquo;Moderate stress &mdash; hedges have a job to do&rdquo;.</li>
-            <li>&lt; 0.30 &mdash; &ldquo;Stress regime &mdash; hedges should be paying&rdquo;: QQQ momentum/stretch is weak <em>or</em> the top fears are elevated (usually both), so the market is already pricing stress. The hedge sleeve (GLD/GDX/BTAL/DBMF/VIXM/ZROZ/FXY/QFLR) should be showing positive returns right now &mdash; if it isn&rsquo;t, that is information.</li>
+            <li><strong>Fragility</strong> (stretch &ge; 0.5 + fear &ge; 3.5) &mdash; SPY at/near ATH while bonds/credit/FX are stressed. Macro divergence; hedges carry expected drag until the equity crack. <em>This is today&rsquo;s reading.</em></li>
+            <li><strong>Stress</strong> (stretch &lt; 0.5 + fear &ge; 3.5) &mdash; broad equity drawdown active; hedges should be paying.</li>
+            <li><strong>Complacency</strong> (stretch &ge; 0.5 + fear &lt; 2.5) &mdash; melt-up; keep the baseline hedge floor.</li>
+            <li><strong>Neutral</strong> (stretch &lt; 0.5 + fear &lt; 2.5) &mdash; quiet equilibrium; no hedge change warranted.</li>
+            <li><strong>Watchful / Moderate</strong> (fear 2.5&ndash;3.5 middle band) &mdash; some stress under the surface; keep hedges on.</li>
           </ul>
         </li>
+        <li><strong>Hedge attribution check</strong> &mdash; the sub-line judges only the <em>dominant fear&rsquo;s</em> <code>hedge_ticks</code> (the instruments supposed to pay in that scenario) over their last 10 sessions. In a rates shock (F6) it checks SGOV only &mdash; ZROZ/TIP are expected to bleed and are not flagged.</li>
       </ul>
     </div>
 

@@ -154,6 +154,7 @@ SYMBOLS = sorted({s for f in FEARS for c in f["components"]
                   for s in (c.get("a"), c.get("b")) if s} |
                  {s for f in FEARS for s in (f["velocity"].get("a"),
                                              f["velocity"].get("b")) if s} |
+                 {s for f in FEARS for s in f.get("hedge_ticks", []) if s} |
                  {"QQQ"})
 
 
@@ -294,8 +295,73 @@ def _fear_score(fear, hist_map, today):
     }
 
 
+def _regime(vs, fear_avg):
+    """2D regime matrix: equity stretch (x) x systemic fear (y)."""
+    stretch_hi = vs >= 0.5
+    if fear_avg >= 3.5:
+        return "fragility" if stretch_hi else "stress"
+    if fear_avg >= 2.5:
+        return "watchful" if stretch_hi else "moderate"
+    return "complacency" if stretch_hi else "neutral"
+
+
+_REGIME_NOTES = {
+    "fragility": ("Fragility regime - macro divergence: equities stretched while "
+                  "macro fears run high. Hedges carry expected drag until the "
+                  "equity crack."),
+    "stress": ("Stress regime - broad equity drawdown active. Hedges should be "
+               "paying."),
+    "complacency": ("Complacency regime - melt-up conditions. Keep the baseline "
+                    "hedge floor on."),
+    "neutral": ("Neutral regime - quiet equilibrium. No hedge change warranted."),
+    "watchful": ("Calm but watchful - some macro stress under the surface. Keep "
+                 "the hedge stack on."),
+    "moderate": ("Moderate stress - hedges have a job to do."),
+}
+
+PAY_WINDOW = 10   # sessions used for the dominant-fear hedge attribution check
+
+
+def _pay_check(hist_map, fears):
+    """Attribution check: dominant fear's hedge_ticks vs their recent returns.
+
+    Returns {fear_id, fear_name, checks:[{ticker, ret_pct, paying}]} - only the
+    instruments that are SUPPOSED to pay in this scenario are judged, so a
+    rates shock (F6) checks SGOV, not ZROZ/TIP which are expected to bleed.
+    """
+    if not fears:
+        return None
+    dom = max(fears, key=lambda f: f["score"])
+    checks = []
+    for tk in dom.get("hedge_ticks", []):
+        h = hist_map.get(tk)
+        if not h:
+            continue
+        px = [x["px"] for x in h]
+        px = px[-WINDOW:]
+        if len(px) < 2 or not px[-1]:
+            continue
+        base = px[-1 - min(PAY_WINDOW, len(px) - 1)]
+        if not base:
+            continue
+        ret = round((px[-1] / base - 1.0) * 100.0, 2)
+        checks.append({"ticker": tk, "ret_pct": ret, "paying": ret >= 0})
+    if not checks:
+        return None
+    return {"fear_id": dom["id"], "fear_name": dom["name"],
+            "score": dom["score"], "checks": checks}
+
+
 def _complacency(hist_map, fears):
-    """Complacency = valuation/momentum stretch x (1 - fear level), 0..1."""
+    """Complacency = valuation/momentum stretch x (1 - fear level), 0..1.
+
+    The index stays a single number for the header, but the reading is a 2D
+    regime matrix (stretch x systemic fear) so the message can distinguish a
+    realized equity crash from a fragile divergence (SPY at ATH while bonds/
+    credit are stressed) - see _regime() / _REGIME_NOTES. The dominant fear's
+    hedge attribution check (_pay_check) judges only the instruments expected
+    to pay in that scenario.
+    """
     q = hist_map.get("QQQ")
     if not q:
         return None
@@ -313,18 +379,17 @@ def _complacency(hist_map, fears):
         vs += 0.5 * _pct_rank(today / ma_series[-1], dist_series)
     scores = sorted((f["score"] for f in fears), reverse=True)[:3]
     mean = sum(scores) / len(scores) if scores else 3.0
-    ft = 1.0 - (mean - 1.0) / 4.0
+    norm_fear = max(0.0, min(1.0, (mean - 1.0) / 4.0))
+    ft = 1.0 - norm_fear
     index = round(vs * ft, 3)
-    if index >= 0.70:
-        note = "Extreme calm / high concentration - do NOT trim baseline hedges."
-    elif index >= 0.50:
-        note = "Calm but levered - keep the hedge stack on."
-    elif index >= 0.30:
-        note = "Moderate stress - hedges have a job to do."
-    else:
-        note = "Stress regime - hedges should be paying."
+    divergence = round(vs * norm_fear, 3)
+    fear_avg = round(mean, 2)
+    regime = _regime(vs, fear_avg)
     return {"index": index, "valuation_stretch": round(vs, 3),
-            "fear_term": round(ft, 3), "note": note}
+            "fear_term": round(ft, 3), "divergence": divergence,
+            "fear_avg": fear_avg, "regime": regime,
+            "note": _REGIME_NOTES[regime],
+            "pay_check": _pay_check(hist_map, fears)}
 
 
 def _sizing(fears, fear_state, hedge_share):

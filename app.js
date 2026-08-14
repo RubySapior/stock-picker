@@ -152,9 +152,18 @@ function render() {
     }).join('');
 
     const C = D.complacency;
-    document.getElementById('complacency').innerHTML = C
-      ? `<span class="${C.index >= 0.5 ? 'compHot' : (C.index >= 0.3 ? 'compMid' : 'compCool')}">Complacency ${fmtN(C.index,2)} &middot; ${esc(C.note)}</span>`
-      : '';
+    let cLine = '';
+    if (C) {
+      cLine = `<span class="${C.index >= 0.5 ? 'compHot' : (C.index >= 0.3 ? 'compMid' : 'compCool')}">Complacency ${fmtN(C.index,2)} &middot; ${esc(C.note)}</span>`;
+      const pay = C.pay_check;
+      if (pay && pay.checks.length) {
+        const chips = pay.checks.map(x =>
+          `<span class="sent ${x.paying ? 'positive' : 'negative'}" title="10-session return">${esc(x.ticker)} ${fmtN(x.ret_pct,1)}%</span>`
+        ).join(' ');
+        cLine += `<div class="muted small" style="margin-top:5px;">Check &mdash; ${esc(pay.fear_name)} (${fmtN(pay.score,1)}) expected payers: ${chips}</div>`;
+      }
+    }
+    document.getElementById('complacency').innerHTML = cLine;
 
     const S = D.fear_sizing;
     const szEl = document.getElementById('fearSizing');
