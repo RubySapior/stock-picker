@@ -18,6 +18,21 @@ version bump — `site` for UI-only changes, `algo` for engine/data changes
 
 ## [Unreleased]
 
+## [algo 0.5.7] — 2026-08-14
+
+### Changed
+- Fragility regime note simplified: "Equities expected to crack." (was the
+  longer "Hedges carry expected drag until the equity crack").
+
+## [site 0.3.7] — 2026-08-14
+
+### Added
+- Header: GitHub button linking to the project's main page
+  (github.com/RubySapior/stock-picker), next to Help.
+
+### Changed
+- Help page: fragility description matches the new note wording.
+
 ## [algo 0.5.6] — 2026-08-14
 
 ### Added

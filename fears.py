@@ -307,8 +307,7 @@ def _regime(vs, fear_avg):
 
 _REGIME_NOTES = {
     "fragility": ("Fragility regime - macro divergence: equities stretched while "
-                  "macro fears run high. Hedges carry expected drag until the "
-                  "equity crack."),
+                  "macro fears run high. Equities expected to crack."),
     "stress": ("Stress regime - broad equity drawdown active. Hedges should be "
                "paying."),
     "complacency": ("Complacency regime - melt-up conditions. Keep the baseline "
