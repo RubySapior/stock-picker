@@ -35,6 +35,19 @@ milestones (or both if a prompt touches both sides), each with its own entry bel
 
 ## [Unreleased]
 
+## [site 0.4.2] — 2026-08-14
+
+### Fixed
+- Flip no longer reveals a blank slab behind the front card: the wheel
+  stage's background was removed and the front card now sits on a small
+  fanned stack of card backs, so flipping shows a deck instead of empty
+  space.
+- Swipe speed dialed down: mouse-wheel/trackpad advance now waits 400ms
+  between cards (was 90ms) and a drag can only catch the next card every
+  150ms, so a fast flick moves exactly one card instead of chaining
+  through several. Card slide is slightly calmer (0.55s) and the in-drag
+  catch glides a touch softer (0.2s).
+
 ## [site 0.4.1] — 2026-08-14
 
 ### Fixed

@@ -80,6 +80,7 @@
         el.style.opacity = Math.abs(d) <= 1 ? 1 : (Math.abs(d) === 2 ? 0.30 : 0);
         el.style.zIndex = 100 - Math.abs(d);
         el.classList.toggle('dim', Math.abs(d) === 2);
+        el.classList.toggle('front', d === 0);
       }
       counter.textContent = list.length ? `${focus + 1} / ${list.length}` : '0 / 0';
     }
@@ -115,8 +116,10 @@
     const SLOP = 8;          // px of travel before committing to an axis
     const FLICK = 0.35;      // px/ms release velocity that counts as a flick
     const CATCH = 0.45;      // fraction of the gap that triggers the catch
+    const CATCH_COOLDOWN = 150; // ms a catch must wait before another can fire
     let touchId = null;
     let caught = false;      // gesture already advanced via the carousel catch
+    let lastCatch = 0;       // performance.now() of the last catch
 
     function startDrag(x, y) {
       dragging = true;
@@ -145,8 +148,9 @@
       lastT = ts; lastX = x;
       layout();
       const gap = spacing();
-      if (dragX < -gap * CATCH) { goTo(focus + 1); caught = true; dragStart = x; dragX = 0; }
-      else if (dragX > gap * CATCH) { goTo(focus - 1); caught = true; dragStart = x; dragX = 0; }
+      const now = performance.now();
+      if (dragX < -gap * CATCH && now - lastCatch > CATCH_COOLDOWN) { goTo(focus + 1); caught = true; lastCatch = now; dragStart = x; dragX = 0; }
+      else if (dragX > gap * CATCH && now - lastCatch > CATCH_COOLDOWN) { goTo(focus - 1); caught = true; lastCatch = now; dragStart = x; dragX = 0; }
     }
     function finishDrag() {
       if (!dragging) return;
@@ -217,7 +221,7 @@
       if (Math.abs(dx) === 0 && Math.abs(dy) === 0) return;
       e.preventDefault();
       const now = Date.now();
-      if (now - wheelLock < 90) return;
+      if (now - wheelLock < 400) return;
       wheelLock = now;
       if (Math.abs(dy) >= Math.abs(dx)) goTo(focus + (dy > 0 ? 1 : -1));
       else goTo(focus + (dx > 0 ? 1 : -1));
