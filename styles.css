@@ -16,6 +16,12 @@
     border:none; border-radius:8px; padding:6px 14px; margin-left:10px; vertical-align:2px;}
   .updateBtn:hover{filter:brightness(1.1);}
   .updateBtn:disabled{opacity:.6; cursor:wait;}
+  .mascot{width:46px; height:46px; flex:none; border-radius:12px; border:1.5px dashed var(--border);
+    background:var(--panel2) center/contain no-repeat; background-image:url('icon.png');}
+  .mascot::after{content:'ICON'; display:flex; width:100%; height:100%; align-items:center; justify-content:center;
+    color:var(--muted); font-size:9px; font-weight:700; letter-spacing:1px;}
+  .mascot.hasIcon::after{display:none;}
+  .mascot.hasIcon{border-style:solid;}
   .cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:12px; margin-bottom:20px;}
   .card{background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:14px 16px;}
   .card .label{color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.6px;}

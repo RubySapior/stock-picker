@@ -12,7 +12,30 @@ Convention: bump `meta.version.site` on any UI change, `meta.version.algo` on
 any engine/data-rule change, and add an entry below. Both stay below 1.0.0 —
 this project is not v1-ready yet.
 
+**Per-prompt rule:** every prompt's change set (however small) counts as one
+version bump — `site` for UI-only changes, `algo` for engine/data changes
+(or both if a prompt touches both sides), each with its own entry below.
+
 ## [Unreleased]
+
+## [site 0.3.2] — 2026-08-14
+
+### Added
+- Page renamed to **AI Port-picker** (header title + browser tab).
+- Mascot placeholder in the header: dashed 46px slot that auto-loads
+  `icon.png` from the project folder when you drop it in (placeholder text
+  hides itself; drop `icon.png` next to `index.html`).
+- Theories Scorecard on the main page now uses the same flash-card wheel as
+  the Theory Archive (drag / scroll / arrow-key browsing, click to flip).
+  The plain table is one toggle away ("Table view ⇆" button, choice
+  remembered across visits); news links that jump to `#theory-T#` still
+  switch to the table automatically.
+- Shared `wheel.js` module: the wheel logic now lives in one place, used by
+  both the archive page and the main scorecard.
+
+### Changed
+- Positions table: positions with a scheduled exit (e.g. TIP) show an amber
+  **SELL SCHEDULED** tag next to the ticker, with the exit note on hover.
 
 ## [site 0.3.1] — 2026-08-14
 

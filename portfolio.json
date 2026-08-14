@@ -1,7 +1,7 @@
 {
   "meta": {
     "version": {
-      "site": "0.3.1",
+      "site": "0.3.2",
       "algo": "0.5.4"
     },
     "name": "HyperGrowth Sharpe Barbell v5 - Conviction-First",
@@ -183,7 +183,7 @@
       "F6": {
         "prev_score": 4.8,
         "score": 4.8,
-        "days_above": 5,
+        "days_above": 6,
         "confirmed": true
       },
       "F7": {

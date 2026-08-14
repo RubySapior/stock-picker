@@ -57,6 +57,18 @@ python serve.py      # serve at http://localhost:8000 (Update button works here)
 open index.html      # also works directly via file:// double-click
 ```
 
+## Versioning (per-prompt rule)
+
+- **Every prompt's change set counts as one version bump.** UI-only changes
+  bump `meta.version.site`; engine/data-rule changes bump
+  `meta.version.algo`; a prompt touching both bumps both. Each bump gets a
+  `CHANGELOG.md` entry under `[site x.y.z]` / `[algo x.y.z]` sections.
+- After editing `app.js` / `styles.css` / `index.html` / archive pages, bump
+  the matching `?v=N` cache-bust query strings in the HTML files.
+- After bumping `meta.version` in `portfolio.json`, run `python update.py`
+  so `dashboard.js` (and the header version line) picks it up. Never hand-
+  edit `dashboard.js`.
+
 ## Conventions & guardrails (important for AI agents)
 
 - **Never edit `dashboard.js` by hand** — it is regenerated on every

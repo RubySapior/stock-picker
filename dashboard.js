@@ -2,7 +2,7 @@
 window.DASH = {
   "meta": {
     "version": {
-      "site": "0.3.1",
+      "site": "0.3.2",
       "algo": "0.5.4"
     },
     "name": "HyperGrowth Sharpe Barbell v5 - Conviction-First",
@@ -184,7 +184,7 @@ window.DASH = {
       "F6": {
         "prev_score": 4.8,
         "score": 4.8,
-        "days_above": 5,
+        "days_above": 6,
         "confirmed": true
       },
       "F7": {
@@ -1389,7 +1389,7 @@ window.DASH = {
       "level": 0.58,
       "velocity": {
         "label": "5d velocity",
-        "value": 0.0448,
+        "value": 0.0441,
         "pct": 0.769
       },
       "trend": null,
@@ -1556,7 +1556,7 @@ window.DASH = {
       "level": 0.2,
       "velocity": {
         "label": "5d velocity",
-        "value": -0.0056,
+        "value": -0.0055,
         "pct": 0.341
       },
       "trend": null,
@@ -1661,7 +1661,7 @@ window.DASH = {
   },
   "rebalance": null,
   "news": {
-    "asof": "2026-08-13 23:47:32",
+    "asof": "2026-08-13 23:52:19",
     "big_stories": [
       {
         "title": "The House Is Paid Off but the Property Tax Bill Never Retires. These 3 ETFs Pay It Every Year",
@@ -1716,10 +1716,10 @@ window.DASH = {
         "sent": "neutral"
       },
       {
-        "title": "5 ETFs to Benefit From Cooling Inflation in the Near Term",
-        "link": "https://finance.yahoo.com/economy/policy/articles/5-etfs-benefit-cooling-inflation-140000926.html?.tsrc=rss",
-        "ts": 1786629600,
-        "when": "Aug 13, 08:00 AM",
+        "title": "Gold Rally Faces Moment of Truth",
+        "link": "https://finance.yahoo.com/markets/commodities/articles/gold-rally-faces-moment-truth-165917278.html?.tsrc=rss",
+        "ts": 1786640357,
+        "when": "Aug 13, 10:59 AM",
         "ticker": "GLD",
         "industry": "Gold",
         "theory": [
@@ -1801,6 +1801,38 @@ window.DASH = {
         "sent": "neutral"
       },
       {
+        "title": "Gold Rally Faces Moment of Truth",
+        "link": "https://finance.yahoo.com/markets/commodities/articles/gold-rally-faces-moment-truth-165917278.html?.tsrc=rss",
+        "ts": 1786640357,
+        "when": "Aug 13, 10:59 AM",
+        "ticker": "GLD",
+        "industry": "Gold",
+        "theory": [
+          "T6",
+          "T9",
+          "T19",
+          "T20",
+          "T21"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "MoneyMasters Podcast 8-13-26- SP 500 Vs. TSX - Which Leads Next",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/moneymasters-podcast-8-13-26-163200205.html?.tsrc=rss",
+        "ts": 1786638720,
+        "when": "Aug 13, 10:32 AM",
+        "ticker": "GLD",
+        "industry": "Gold",
+        "theory": [
+          "T6",
+          "T9",
+          "T19",
+          "T20",
+          "T21"
+        ],
+        "sent": "neutral"
+      },
+      {
         "title": "Strength in Defense & Propulsion Unit Drives GE Aerospace: Can It Sustain?",
         "link": "https://finance.yahoo.com/markets/stocks/articles/strength-defense-propulsion-unit-drives-151700107.html?.tsrc=rss",
         "ts": 1786634220,
@@ -1845,6 +1877,37 @@ window.DASH = {
           "T21"
         ],
         "sent": "positive"
+      },
+      {
+        "title": "Exchange-Traded Funds, Equity Futures Higher Pre-Bell Thursday Amid Producer Inflation Data Release",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/exchange-traded-funds-equity-futures-131321660.html?.tsrc=rss",
+        "ts": 1786626801,
+        "when": "Aug 13, 07:13 AM",
+        "ticker": "GLD",
+        "industry": "Gold",
+        "theory": [
+          "T6",
+          "T9",
+          "T19",
+          "T20",
+          "T21"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "A Guide to Investing in AI ETFs",
+        "link": "https://finance.yahoo.com/technology/ai/articles/guide-investing-ai-etfs-125300291.html?.tsrc=rss",
+        "ts": 1786625580,
+        "when": "Aug 13, 06:53 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
       },
       {
         "title": "Are Wall Street Analysts Bullish on Smurfit Westrock Stock?",
@@ -1990,21 +2053,6 @@ window.DASH = {
         "sent": "positive"
       },
       {
-        "title": "Inovio Pharmaceuticals Q2 Earnings Call Highlights",
-        "link": "https://www.marketbeat.com/instant-alerts/inovio-pharmaceuticals-q2-earnings-call-highlights-2026-08-12/?utm_source=yahoofinance&utm_medium=yahoofinance&.tsrc=rss",
-        "ts": 1786579438,
-        "when": "Aug 12, 06:03 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
         "title": "Zeta Global’s Q2 Earnings Call: Our Top 5 Analyst Questions",
         "link": "https://finance.yahoo.com/markets/stocks/articles/zeta-global-q2-earnings-call-230100896.html?.tsrc=rss",
         "ts": 1786575660,
@@ -2078,51 +2126,6 @@ window.DASH = {
         "sent": "negative"
       },
       {
-        "title": "Michael Burry Is Short Nebius and Palantir. Both Are Now Soaring and His Short Thesis Looks Broken.",
-        "link": "https://247wallst.com/investing/2026/08/12/michael-burry-is-short-nebius-and-palantir-both-are-now-soaring-his-short-thesis-looks-broken/?.tsrc=rss",
-        "ts": 1786569052,
-        "when": "Aug 12, 03:10 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "negative"
-      },
-      {
-        "title": "SpaceX, Nebius, Palantir, Super Micro, Quantinuum, Wendy’s, and More Stocks That Explain Today’s Market",
-        "link": "https://finance.yahoo.com/m/ddf7e389-b308-33f6-a023-cd25665510d4/spacex%2C-nebius%2C-palantir%2C.html?.tsrc=rss",
-        "ts": 1786568880,
-        "when": "Aug 12, 03:08 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "Palantir and Microsoft Drop. Why the AI Revival Is Hitting Software Stocks.",
-        "link": "https://finance.yahoo.com/m/7f558cb1-ac00-3575-810c-26075b32b0c8/palantir-and-microsoft-drop..html?.tsrc=rss",
-        "ts": 1786567500,
-        "when": "Aug 12, 02:45 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "negative"
-      },
-      {
         "title": "Sector Update: Consumer Stocks Mixed Late Afternoon",
         "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-mixed-afternoon-195051183.html?.tsrc=rss",
         "ts": 1786564251,
@@ -2135,32 +2138,29 @@ window.DASH = {
         "sent": "neutral"
       },
       {
-        "title": "Tesla, Palantir Fall as CPI Sends September Fed Hike Odds to 33%",
-        "link": "https://www.benzinga.com/markets/prediction-markets/26/08/61156417/tesla-palantir-july-cpi-fed-hike-odds?utm_source=yahooFinance&utm_campaign=partner_feed&utm_medium=referral&.tsrc=rss",
-        "ts": 1786563225,
-        "when": "Aug 12, 01:33 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
+        "title": "U.S. ETF Investors at Odds: Chasing Returns or Playing the Long Game?",
+        "link": "http://www.etf.com/sections/advisor-center/us-etf-investors-odds-chasing-returns-or-playing-long-game?utm_source=yahoo-finance&utm_medium=rss&utm_campaign=yahoo-finance-rss&.tsrc=rss",
+        "ts": 1786558489,
+        "when": "Aug 12, 12:14 PM",
+        "ticker": "DRAM",
+        "industry": "AI Memory/HBM",
         "theory": [
           "T1",
           "T7",
           "T2",
           "T14"
         ],
-        "sent": "neutral"
+        "sent": "positive"
       },
       {
-        "title": "Michael Burry adds to Nvidia and Palantir shorts while loading up on Molina Healthcare, which is down 54% from its high",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/michael-burry-adds-nvidia-palantir-184500402.html?.tsrc=rss",
-        "ts": 1786560300,
-        "when": "Aug 12, 12:45 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
+        "title": "Sector Update: Consumer Stocks Mixed Wednesday Afternoon",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-mixed-wednesday-173830870.html?.tsrc=rss",
+        "ts": 1786556310,
+        "when": "Aug 12, 11:38 AM",
+        "ticker": "XLY",
+        "industry": "Consumer Disc.",
         "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
+          "T13"
         ],
         "sent": "neutral"
       }

@@ -79,13 +79,20 @@ function render() {
   try{ localStorage.setItem(NEW_KEY, JSON.stringify(base)); }catch(e){}
 
   /* ---- header ---- */
-  document.title = D.meta.name;
-  document.getElementById('pname').textContent = D.meta.name;
+  document.title = 'AI Port-picker';
+  document.getElementById('pname').textContent = 'AI Port-picker';
   document.getElementById('asof').textContent = D.asof;
   const verEl = document.getElementById('verLine');
   if (verEl) {
     const v = D.meta.version;
-    verEl.textContent = v ? `site v${v.site} · algo v${v.algo}` : '';
+    verEl.textContent = `${D.meta.name}${v ? ` &middot; site v${v.site} · algo v${v.algo}` : ''}`;
+  }
+  const mascot = document.getElementById('mascot');
+  if (mascot) {
+    const img = new Image();
+    img.onload = () => mascot.classList.add('hasIcon');
+    img.onerror = () => mascot.classList.remove('hasIcon');
+    img.src = 'icon.png';
   }
 
   /* ---- rebalance flags (passive drift alerts, never trades) ---- */
@@ -259,21 +266,17 @@ function render() {
       : '<div class="muted small">Benchmark unavailable — run <code>python update.py</code> with internet access.</div>';
   }
 
-  /* ---- theories scorecard ---- */
-  function renderTheories(){
-    const tierOrder = {S:0,A:1,B:2,C:3,D:4};
-    const sortedTheories = D.theories
-      .filter(t => t.status === 'pending' || t.status === 'paused')
-      .slice()
-      .sort((a,b) => {
-        const ta = tierOrder[a.tier] ?? 5, tb = tierOrder[b.tier] ?? 5;
-        return ta - tb || a.id.localeCompare(b.id);
-      });
+  /* ---- theories scorecard (flash-card wheel + plain-table toggle) ---- */
+  const thStLabel = st => st==='pending' ? 'PENDING' : st==='right' ? 'RIGHT' : st==='wrong' ? 'WRONG' : st==='abandoned' ? 'ABANDONED' : st.toUpperCase();
+  const thStClass = st => st==='pending' ? 'pending' : st==='right' ? 'right' : st==='wrong' ? 'wrong' : st==='abandoned' ? 'abandoned' : st;
+  let thWheel = null, thList = [], thView = 'wheel';
+  try { thView = localStorage.getItem('stockpicker.main.theories.view') === 'table' ? 'table' : 'wheel'; } catch(e){}
+  if (location.hash && location.hash.indexOf('#theory-') === 0) thView = 'table';
+  function renderTheoryTable(){
     const clamp = (s, n) => { const t = String(s==null?'':s); return t.length > n ? t.slice(0, n-1).trimEnd() + '…' : t; };
-    const tRows = sortedTheories.map(t => {
+    document.getElementById('tableView').style.display = '';
+    const tRows = thList.map(t => {
       const st = t.status;
-      const statusLabel = st==='pending' ? 'PENDING' : st==='right' ? 'RIGHT' : st==='wrong' ? 'WRONG' : st==='abandoned' ? 'ABANDONED' : st.toUpperCase();
-      const badgeClass = st==='pending' ? 'pending' : st==='right' ? 'right' : st==='wrong' ? 'wrong' : st==='abandoned' ? 'abandoned' : st;
       const all = (t.evidence||[]).slice().reverse();
       const evs = all.slice(0, 2).map(e => `<div class="ev" title="${escA(e)}">${clamp(e, 140)}</div>`).join('');
       const more = all.length > 2 ? `<div class="ev muted small">+${all.length - 2} more &mdash; see archive</div>` : '';
@@ -282,11 +285,46 @@ function render() {
         <td><strong>${t.id}</strong></td>
         <td title="${escA(t.title)}">${clamp(t.title, 100)}<div class="thesis" title="${escA(t.tier_reason||'')}">${clamp(t.tier_reason||'', 150)}</div></td>
         <td class="small" title="${escA(t.prediction)}">${clamp(t.prediction, 160)}</td>
-        <td><span class="badge ${badgeClass}">${statusLabel}</span></td>
+        <td><span class="badge ${thStClass(st)}">${thStLabel(st)}</span></td>
         <td>${evs || '<span class="muted small">no evidence yet</span>'}${more}</td>
       </tr>`;
     }).join('');
     document.querySelector('#theoryTable tbody').innerHTML = tRows;
+  }
+  function applyThView(){
+    const wheelOn = thView === 'wheel';
+    const stage = document.getElementById('wheelStage');
+    const hint = document.getElementById('wheelHint');
+    const tableWrap = document.getElementById('tableView');
+    const toggle = document.getElementById('viewToggle');
+    if (stage) stage.style.display = wheelOn ? '' : 'none';
+    if (hint) hint.style.display = wheelOn ? '' : 'none';
+    if (tableWrap) tableWrap.style.display = wheelOn ? 'none' : '';
+    if (toggle) toggle.textContent = wheelOn ? 'Table view \u2196' : 'Wheel view \u2196';
+    if (wheelOn && thWheel) thWheel.setList(thList);
+    if (!wheelOn) renderTheoryTable();
+  }
+  function renderTheories(){
+    const tierOrder = {S:0,A:1,B:2,C:3,D:4};
+    thList = D.theories
+      .filter(t => t.status === 'pending' || t.status === 'paused')
+      .slice()
+      .sort((a,b) => {
+        const ta = tierOrder[a.tier] ?? 5, tb = tierOrder[b.tier] ?? 5;
+        return ta - tb || a.id.localeCompare(b.id);
+      });
+    const tCount = document.getElementById('tCount');
+    if (tCount) tCount.textContent = `${thList.length} of ${D.theories.length} theories active`;
+    if (!thWheel) {
+      thWheel = makeWheel(document.getElementById('wheelStage'), [], { stLabel: thStLabel, stClass: thStClass });
+      const toggle = document.getElementById('viewToggle');
+      if (toggle) toggle.addEventListener('click', () => {
+        thView = thView === 'wheel' ? 'table' : 'wheel';
+        try { localStorage.setItem('stockpicker.main.theories.view', thView); } catch(e){}
+        applyThView();
+      });
+    }
+    applyThView();
   }
 
   /* ---- trade events ---- */
