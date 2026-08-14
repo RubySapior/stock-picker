@@ -35,7 +35,6 @@ SLEEVE_THEORY = {
     "Crisis Alpha - Vol Decay": ["T6", "T17", "T21"],
     "Crisis Alpha - Down-Day Floor": ["T6", "T17"],
     "Crisis Alpha - Real Assets": ["T6", "T9", "T19", "T20", "T21"],
-    "Crisis Alpha - Inflation": ["T6", "T20"],
     "Crisis Alpha - Anti-Beta": ["T6", "T17"],
     "Crisis Alpha - Trend": ["T6", "T18", "T19", "T21"],
 }
@@ -49,7 +48,6 @@ TICKER_INDUSTRY = {
     "ZROZ": "Long Treasuries", "FXY": "Yen FX", "VIXM": "Volatility",
     "QFLR": "Nasdaq Hedged", "GLD": "Gold", "GDX": "Gold Miners",
     "BTAL": "Anti-Beta Factor", "DBMF": "Managed Futures",
-    "TIP": "TIPS / Inflation",
 }
 
 _ANALYZER = SentimentIntensityAnalyzer()
