@@ -262,7 +262,7 @@ function render() {
   function renderTheories(){
     const tierOrder = {S:0,A:1,B:2,C:3,D:4};
     const sortedTheories = D.theories
-      .filter(t => t.status !== 'abandoned')
+      .filter(t => t.status === 'pending' || t.status === 'paused')
       .slice()
       .sort((a,b) => {
         const ta = tierOrder[a.tier] ?? 5, tb = tierOrder[b.tier] ?? 5;

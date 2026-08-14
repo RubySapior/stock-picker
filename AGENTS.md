@@ -17,6 +17,7 @@ dashboard works by double-clicking `index.html`.
 | `dashboard.js` | **AUTO-GENERATED** output consumed by the browser (`window.DASH = {...}`). | **NO** — overwritten on every `update.py` run; edit `update.py`/`portfolio.json` instead |
 | `app.js` | Renders `window.DASH` into every section of `index.html`. | **YES** — UI only |
 | `index.html` | Page skeleton; the sections `app.js` fills. | **YES** — UI only |
+| `theories.html` + `theories.js` | Theory Archive page: every theory (incl. abandoned) with status/tier filters + free-text search. Reads the same `dashboard.js`. | **YES** — UI only |
 | `styles.css` | All styling (dark theme, panels, pills, charts). | **YES** |
 | `serve.py` | Optional local server. Exposes `POST /refresh` (runs `update.py`) used by the Update button. | **YES** |
 | `run.bat` | Double-click shortcut that runs `python update.py`. | **YES** |
@@ -82,6 +83,9 @@ open index.html      # also works directly via file:// double-click
   `renderTheories`, `renderEvents`, `renderSleeves`, `renderNews`,
   `initValueChart`, `initDonut`). Each reads only from `window.DASH` plus the
   `stockpicker.seen.v1` localStorage key (new-since-last-load badges).
+- Main-page scorecard shows **active theories only** (`pending`/`paused`);
+  `theories.html` (Theory Archive) lists every theory incl. `abandoned` with
+  status/tier filters + free-text search, linked from the scorecard header.
 
 ## `window.DASH` data contract
 
