@@ -158,7 +158,7 @@ window.DASH = {
       },
       "F2": {
         "prev_score": 2.3,
-        "score": 2.3,
+        "score": 2.4,
         "days_above": 0,
         "confirmed": false
       },
@@ -170,25 +170,25 @@ window.DASH = {
       },
       "F4": {
         "prev_score": 3.5,
-        "score": 3.5,
+        "score": 2.5,
         "days_above": 0,
         "confirmed": false
       },
       "F5": {
-        "prev_score": 4.0,
-        "score": 3.9,
+        "prev_score": 3.9,
+        "score": 3.8,
         "days_above": 0,
         "confirmed": false
       },
       "F6": {
         "prev_score": 4.8,
-        "score": 4.8,
-        "days_above": 12,
+        "score": 4.7,
+        "days_above": 13,
         "confirmed": true
       },
       "F7": {
         "prev_score": 2.0,
-        "score": 2.0,
+        "score": 2.1,
         "days_above": 0,
         "confirmed": false
       },
@@ -1352,18 +1352,18 @@ window.DASH = {
       "id": "F6",
       "name": "Rates shock / duration liquidation",
       "type": "structural",
-      "score": 4.8,
-      "level": 0.968,
+      "score": 4.7,
+      "level": 0.963,
       "velocity": null,
       "trend": {
         "label": "50d trend",
-        "value": 0.0343,
-        "pct": 0.886
+        "value": 0.0308,
+        "pct": 0.857
       },
       "signals": [
         {
           "label": "TLT/SHY (long-vs-short duration)",
-          "value": 0.977
+          "value": 0.969
         },
         {
           "label": "10y yield level",
@@ -1384,18 +1384,18 @@ window.DASH = {
       "id": "F5",
       "name": "War / energy shock",
       "type": "episodic",
-      "score": 3.9,
-      "level": 0.591,
+      "score": 3.8,
+      "level": 0.58,
       "velocity": {
         "label": "5d velocity",
-        "value": 0.0521,
-        "pct": 0.784
+        "value": 0.0446,
+        "pct": 0.769
       },
       "trend": null,
       "signals": [
         {
           "label": "Crude 5d momentum",
-          "value": 0.784
+          "value": 0.769
         },
         {
           "label": "Gold 1d momentum",
@@ -1410,36 +1410,6 @@ window.DASH = {
         "GDX",
         "FXY",
         "DBMF"
-      ],
-      "asof": "2026-08-14",
-      "degraded": false,
-      "trend_dir": "flat"
-    },
-    {
-      "id": "F4",
-      "name": "Inflation resurgence",
-      "type": "structural",
-      "score": 3.5,
-      "level": 0.785,
-      "velocity": null,
-      "trend": {
-        "label": "50d trend",
-        "value": -0.0055,
-        "pct": 0.257
-      },
-      "signals": [
-        {
-          "label": "TIP/IEF (breakevens proxy)",
-          "value": 0.785
-        }
-      ],
-      "theory_ids": [
-        "T20"
-      ],
-      "hedge_ticks": [
-        "GLD",
-        "GDX",
-        "SGOV"
       ],
       "asof": "2026-08-14",
       "degraded": false,
@@ -1487,7 +1457,7 @@ window.DASH = {
       "velocity": {
         "label": "5d velocity",
         "value": -0.0004,
-        "pct": 0.545
+        "pct": 0.541
       },
       "trend": null,
       "signals": [
@@ -1517,17 +1487,17 @@ window.DASH = {
       "name": "AI / tech concentration pop",
       "type": "structural",
       "score": 2.5,
-      "level": 0.149,
+      "level": 0.163,
       "velocity": null,
       "trend": {
         "label": "50d trend",
-        "value": 0.0773,
-        "pct": 0.914
+        "value": 0.0827,
+        "pct": 0.9
       },
       "signals": [
         {
           "label": "QQQ/RSP concentration ratio",
-          "value": 0.281
+          "value": 0.308
         },
         {
           "label": "QQQ drawdown from 52w high",
@@ -1548,21 +1518,51 @@ window.DASH = {
       "trend_dir": "flat"
     },
     {
+      "id": "F4",
+      "name": "Inflation resurgence",
+      "type": "structural",
+      "score": 2.5,
+      "level": 0.508,
+      "velocity": null,
+      "trend": {
+        "label": "50d trend",
+        "value": -0.0129,
+        "pct": 0.043
+      },
+      "signals": [
+        {
+          "label": "TIP/IEF (breakevens proxy)",
+          "value": 0.508
+        }
+      ],
+      "theory_ids": [
+        "T20"
+      ],
+      "hedge_ticks": [
+        "GLD",
+        "GDX",
+        "SGOV"
+      ],
+      "asof": "2026-08-14",
+      "degraded": false,
+      "trend_dir": "falling"
+    },
+    {
       "id": "F2",
       "name": "Yen-carry unwind",
       "type": "episodic",
-      "score": 2.3,
-      "level": 0.2,
+      "score": 2.4,
+      "level": 0.196,
       "velocity": {
         "label": "5d velocity",
-        "value": -0.0047,
-        "pct": 0.369
+        "value": -0.0041,
+        "pct": 0.427
       },
       "trend": null,
       "signals": [
         {
           "label": "Yen strength (FXY level)",
-          "value": 0.2
+          "value": 0.196
         }
       ],
       "theory_ids": [
@@ -1580,12 +1580,12 @@ window.DASH = {
       "id": "F7",
       "name": "Credit stress / HY spread",
       "type": "episodic",
-      "score": 2.0,
+      "score": 2.1,
       "level": 0.012,
       "velocity": {
         "label": "5d velocity",
         "value": -0.0024,
-        "pct": 0.345
+        "pct": 0.396
       },
       "trend": null,
       "signals": [
@@ -1607,9 +1607,9 @@ window.DASH = {
     }
   ],
   "complacency": {
-    "index": 0.139,
+    "index": 0.183,
     "valuation_stretch": 0.594,
-    "fear_term": 0.233,
+    "fear_term": 0.308,
     "note": "Stress regime - hedges should be paying."
   },
   "fear_sizing": null,
@@ -1660,13 +1660,13 @@ window.DASH = {
   },
   "rebalance": null,
   "news": {
-    "asof": "2026-08-14 10:02:28",
+    "asof": "2026-08-14 11:43:11",
     "big_stories": [
       {
-        "title": "Wall Street's riskiest trades are suddenly back on top: Chart of the Day",
-        "link": "https://finance.yahoo.com/markets/article/wall-streets-riskiest-trades-are-suddenly-back-on-top-chart-of-the-day-100100027.html?.tsrc=rss",
-        "ts": 1786701660,
-        "when": "Aug 14, 10:01 AM",
+        "title": "Chamath Palihapitiya Sees Palantir As A Potential Winner In 3-Year Shift To Model-Agnostic AI",
+        "link": "https://stocktwits.com/news-articles/markets/equity/pltr-stock-chamath-palihapitiya-3rd-party-ai-harnesses-palantir/cZothJpRJiv?.tsrc=rss",
+        "ts": 1786704946,
+        "when": "Aug 14, 10:55 AM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -1675,7 +1675,7 @@ window.DASH = {
           "T2",
           "T14"
         ],
-        "sent": "negative"
+        "sent": "positive"
       },
       {
         "title": "The House Is Paid Off but the Property Tax Bill Never Retires. These 3 ETFs Pay It Every Year",
@@ -1732,6 +1732,21 @@ window.DASH = {
       }
     ],
     "feed": [
+      {
+        "title": "Chamath Palihapitiya Sees Palantir As A Potential Winner In 3-Year Shift To Model-Agnostic AI",
+        "link": "https://stocktwits.com/news-articles/markets/equity/pltr-stock-chamath-palihapitiya-3rd-party-ai-harnesses-palantir/cZothJpRJiv?.tsrc=rss",
+        "ts": 1786704946,
+        "when": "Aug 14, 10:55 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
       {
         "title": "Wall Street's riskiest trades are suddenly back on top: Chart of the Day",
         "link": "https://finance.yahoo.com/markets/article/wall-streets-riskiest-trades-are-suddenly-back-on-top-chart-of-the-day-100100027.html?.tsrc=rss",
@@ -1877,6 +1892,19 @@ window.DASH = {
         "sent": "positive"
       },
       {
+        "title": "Exchange-Traded Funds, Equity Futures Higher Pre-Bell Thursday Amid Producer Inflation Data Release",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/exchange-traded-funds-equity-futures-131321660.html?.tsrc=rss",
+        "ts": 1786626801,
+        "when": "Aug 13, 01:13 PM",
+        "ticker": "IWM",
+        "industry": "Small Caps",
+        "theory": [
+          "T10",
+          "T15"
+        ],
+        "sent": "neutral"
+      },
+      {
         "title": "A Guide to Investing in AI ETFs",
         "link": "https://finance.yahoo.com/technology/ai/articles/guide-investing-ai-etfs-125300291.html?.tsrc=rss",
         "ts": 1786625580,
@@ -1961,21 +1989,6 @@ window.DASH = {
         "sent": "negative"
       },
       {
-        "title": "PLTU: Palantir Already Soared. Buying It With 2X Leverage Now Is a Different Bet Entirely",
-        "link": "https://247wallst.com/investing/etf/2026/08/13/pltu-palantir-already-soared-buying-it-with-2x-leverage-now-is-a-different-bet-entirely/?.tsrc=rss",
-        "ts": 1786611716,
-        "when": "Aug 13, 09:01 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
         "title": "Are Wall Street Analysts Predicting Royal Caribbean Cruises Stock Will Climb or Sink?",
         "link": "https://www.barchart.com/story/news/3822206/are-wall-street-analysts-predicting-royal-caribbean-cruises-stock-will-climb-or-sink?.tsrc=rss",
         "ts": 1786609407,
@@ -2018,21 +2031,6 @@ window.DASH = {
           "T21"
         ],
         "sent": "neutral"
-      },
-      {
-        "title": "Palantir Technologies (PLTR) Is Up 8.0% After Raising 2026 Revenue Guidance On Stronger Q2 Results",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/palantir-technologies-pltr-8-0-043114044.html?.tsrc=rss",
-        "ts": 1786595474,
-        "when": "Aug 13, 04:31 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
       },
       {
         "title": "Small Caps Pay Too: The 42% Friday Payer Riding the Russell’s Big Year",
@@ -2133,6 +2131,19 @@ window.DASH = {
         "sent": "positive"
       },
       {
+        "title": "Exchange-Traded Funds, Equity Futures Gain Pre-Bell Wednesday Amid In-Line Consumer Inflation Data, Tech Gains",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/exchange-traded-funds-equity-futures-131639194.html?.tsrc=rss",
+        "ts": 1786540599,
+        "when": "Aug 12, 01:16 PM",
+        "ticker": "IWM",
+        "industry": "Small Caps",
+        "theory": [
+          "T10",
+          "T15"
+        ],
+        "sent": "positive"
+      },
+      {
         "title": "Forget Buying Gold Directly: Wheaton Precious Metals Could Be the Better Play.",
         "link": "https://www.fool.com/investing/2026/08/12/forget-buying-gold-directly-wheaton-precious-metal/?.tsrc=rss",
         "ts": 1786538400,
@@ -2147,21 +2158,6 @@ window.DASH = {
           "T21"
         ],
         "sent": "positive"
-      },
-      {
-        "title": "Tech Earnings, Oil, CPI Lift Wall Street Pre-Bell; Asia, Europe Up",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/tech-earnings-oil-cpi-lift-110514660.html?.tsrc=rss",
-        "ts": 1786532714,
-        "when": "Aug 12, 11:05 AM",
-        "ticker": "SMH",
-        "industry": "Semis",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
       }
     ]
   }
