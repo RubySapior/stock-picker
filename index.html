@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HyperGrowth Sharpe Barbell — Portfolio</title>
-<link rel="stylesheet" href="styles.css?v=5">
+<link rel="stylesheet" href="styles.css?v=6">
 </head>
 <!--
   Page skeleton only. Every section below is filled by app.js from the
@@ -98,14 +98,17 @@
 
   <div class="panel" style="margin-bottom:20px;">
     <h2>Positions</h2>
-    <div class="scroll">
-      <table id="posTable">
-        <thead><tr>
-          <th data-key="ticker">Ticker</th><th data-key="name">Name / Sleeve</th><th data-key="buy_price">Buy</th><th data-key="current_price">Current</th><th data-key="current_value">Value</th><th data-key="pct">% of Port</th>
-          <th data-key="pnl_pct">P&amp;L %</th><th data-key="take_profit_pct">Take Profit</th><th data-key="stop_loss_pct">Stop Loss</th><th data-key="status">Status</th>
-        </tr></thead>
-        <tbody></tbody>
-      </table>
+    <div class="scrollWrap">
+      <div class="scroll">
+        <table id="posTable">
+          <thead><tr>
+            <th data-key="ticker">Ticker</th><th data-key="name">Name / Sleeve</th><th data-key="buy_price">Buy</th><th data-key="current_price">Current</th><th data-key="current_value">Value</th><th data-key="pct">% of Port</th>
+            <th data-key="pnl_pct">P&amp;L %</th><th data-key="take_profit_pct">Take Profit</th><th data-key="stop_loss_pct">Stop Loss</th><th data-key="status">Status</th>
+          </tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="hBar" aria-hidden="true"><div class="hThumb" id="posHThumb"></div></div>
     </div>
   </div>
 
@@ -114,11 +117,14 @@
       <h2>Theories Scorecard</h2>
       <a class="archiveBtn" href="theories.html">All theories &#8599;</a>
     </div>
-    <div class="scroll">
-      <table id="theoryTable">
-        <thead><tr><th>Rank</th><th>ID</th><th>Theory</th><th>Prediction</th><th>Status</th><th>Evidence Log</th></tr></thead>
-        <tbody></tbody>
-      </table>
+    <div class="scrollWrap">
+      <div class="scroll">
+        <table id="theoryTable">
+          <thead><tr><th>Rank</th><th>ID</th><th>Theory</th><th>Prediction</th><th>Status</th><th>Evidence Log</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="hBar" aria-hidden="true"><div class="hThumb" id="theoryHThumb"></div></div>
     </div>
   </div>
 
@@ -130,6 +136,6 @@
   <footer>Simulated managed portfolio for tracking &amp; learning. Not financial advice. Served locally: run <code>python serve.py</code> then open <code>http://localhost:8000</code> - the Update button refreshes prices + news.</footer>
 </div>
 
-<script src="app.js?v=8" defer></script>
+<script src="app.js?v=9" defer></script>
 </body>
 </html>

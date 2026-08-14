@@ -726,6 +726,30 @@ function render() {
     startLoad();
   }
 
+  /* ---- custom horizontal scrollbar (same style as the news feed) ---- */
+  function initHScrollBar(sc, th){
+    const wrap = sc.parentElement;
+    let idleT = null;
+    function upd(){
+      const w = sc.clientWidth, sw = sc.scrollWidth, max = sw - w;
+      const show = max > 4;
+      th.style.display = show ? 'block' : 'none';
+      if(!show) return;
+      const tw = Math.max(24, w * w / sw);
+      th.style.width = tw + 'px';
+      th.style.left = (sc.scrollLeft / max) * (w - tw) + 'px';
+    }
+    function poke(){
+      wrap.classList.add('scrolling');
+      clearTimeout(idleT);
+      idleT = setTimeout(() => wrap.classList.remove('scrolling'), 1100);
+    }
+    sc.addEventListener('scroll', () => { upd(); poke(); });
+    sc.addEventListener('wheel', poke, { passive: true });
+    window.addEventListener('resize', upd);
+    upd();
+  }
+
   /* ---- invoke every section renderer in DOM order ---- */
   renderCards();
   renderFears();
@@ -738,6 +762,8 @@ function render() {
   renderNews();
   initValueChart();
   initDonut();
+  initHScrollBar(document.querySelector('#posTable').closest('.scroll'), document.getElementById('posHThumb'));
+  initHScrollBar(document.querySelector('#theoryTable').closest('.scroll'), document.getElementById('theoryHThumb'));
 }
 loadDash(render);
 
