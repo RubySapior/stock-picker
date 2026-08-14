@@ -153,7 +153,7 @@ window.DASH = {
         "confirmed": false
       },
       "F2": {
-        "prev_score": 2.2,
+        "prev_score": 1.8,
         "score": 1.8,
         "days_above": 0,
         "confirmed": false
@@ -165,32 +165,32 @@ window.DASH = {
         "confirmed": false
       },
       "F4": {
-        "prev_score": 2.8,
-        "score": 3.6,
+        "prev_score": 3.6,
+        "score": 2.7,
         "days_above": 0,
         "confirmed": false
       },
       "F5": {
         "prev_score": 4.1,
         "score": 4.1,
-        "days_above": 17,
+        "days_above": 18,
         "confirmed": true
       },
       "F6": {
-        "prev_score": 4.7,
+        "prev_score": 4.9,
         "score": 4.9,
-        "days_above": 31,
+        "days_above": 32,
         "confirmed": true
       },
       "F7": {
-        "prev_score": 1.6,
-        "score": 1.4,
+        "prev_score": 1.4,
+        "score": 1.7,
         "days_above": 0,
         "confirmed": false
       },
       "F8": {
-        "prev_score": 2.9,
-        "score": 2.8,
+        "prev_score": 2.8,
+        "score": 2.9,
         "days_above": 0,
         "confirmed": false
       }
@@ -1393,24 +1393,24 @@ window.DASH = {
       ],
       "asof": "2026-08-14",
       "degraded": false,
-      "trend_dir": "rising"
+      "trend_dir": "flat"
     },
     {
       "id": "F5",
       "name": "War / energy shock",
       "type": "episodic",
       "score": 4.1,
-      "level": 0.739,
+      "level": 0.737,
       "velocity": {
         "label": "5d velocity",
-        "value": 0.0531,
-        "pct": 0.788
+        "value": 0.0522,
+        "pct": 0.784
       },
       "trend": null,
       "signals": [
         {
           "label": "Crude 5d momentum",
-          "value": 0.788
+          "value": 0.784
         },
         {
           "label": "Gold 1d momentum",
@@ -1429,36 +1429,6 @@ window.DASH = {
       "asof": "2026-08-14",
       "degraded": false,
       "trend_dir": "flat"
-    },
-    {
-      "id": "F4",
-      "name": "Inflation resurgence",
-      "type": "structural",
-      "score": 3.6,
-      "level": 0.815,
-      "velocity": null,
-      "trend": {
-        "label": "50d trend",
-        "value": -0.0051,
-        "pct": 0.29
-      },
-      "signals": [
-        {
-          "label": "TIP/IEF (breakevens proxy)",
-          "value": 0.815
-        }
-      ],
-      "theory_ids": [
-        "T20"
-      ],
-      "hedge_ticks": [
-        "GLD",
-        "GDX",
-        "SGOV"
-      ],
-      "asof": "2026-08-14",
-      "degraded": false,
-      "trend_dir": "rising"
     },
     {
       "id": "F3",
@@ -1498,18 +1468,18 @@ window.DASH = {
       "id": "F8",
       "name": "Recession / growth freeze",
       "type": "structural",
-      "score": 2.8,
-      "level": 0.371,
+      "score": 2.9,
+      "level": 0.369,
       "velocity": null,
       "trend": {
         "label": "50d trend",
-        "value": 0.0384,
-        "pct": 0.652
+        "value": 0.0503,
+        "pct": 0.7
       },
       "signals": [
         {
           "label": "XLY/XLP (cyclical vs staples)",
-          "value": 0.742
+          "value": 0.738
         },
         {
           "label": "SPY below 200d MA",
@@ -1528,21 +1498,51 @@ window.DASH = {
       "trend_dir": "flat"
     },
     {
+      "id": "F4",
+      "name": "Inflation resurgence",
+      "type": "structural",
+      "score": 2.7,
+      "level": 0.592,
+      "velocity": null,
+      "trend": {
+        "label": "50d trend",
+        "value": -0.0138,
+        "pct": 0.029
+      },
+      "signals": [
+        {
+          "label": "TIP/IEF (breakevens proxy)",
+          "value": 0.592
+        }
+      ],
+      "theory_ids": [
+        "T20"
+      ],
+      "hedge_ticks": [
+        "GLD",
+        "GDX",
+        "SGOV"
+      ],
+      "asof": "2026-08-14",
+      "degraded": false,
+      "trend_dir": "falling"
+    },
+    {
       "id": "F1",
       "name": "AI / tech concentration pop",
       "type": "structural",
       "score": 2.6,
-      "level": 0.163,
+      "level": 0.175,
       "velocity": null,
       "trend": {
         "label": "50d trend",
-        "value": 0.0798,
-        "pct": 0.924
+        "value": 0.08,
+        "pct": 0.895
       },
       "signals": [
         {
           "label": "QQQ/RSP concentration ratio",
-          "value": 0.308
+          "value": 0.331
         },
         {
           "label": "QQQ drawdown from 52w high",
@@ -1567,17 +1567,17 @@ window.DASH = {
       "name": "Yen-carry unwind",
       "type": "episodic",
       "score": 1.8,
-      "level": 0.235,
+      "level": 0.231,
       "velocity": {
         "label": "5d velocity",
-        "value": -0.0091,
+        "value": -0.0092,
         "pct": 0.196
       },
       "trend": null,
       "signals": [
         {
           "label": "Yen strength (FXY level)",
-          "value": 0.235
+          "value": 0.231
         }
       ],
       "theory_ids": [
@@ -1589,18 +1589,18 @@ window.DASH = {
       ],
       "asof": "2026-08-14",
       "degraded": false,
-      "trend_dir": "falling"
+      "trend_dir": "flat"
     },
     {
       "id": "F7",
       "name": "Credit stress / HY spread",
       "type": "episodic",
-      "score": 1.4,
+      "score": 1.7,
       "level": 0.0,
       "velocity": {
         "label": "5d velocity",
         "value": -0.0053,
-        "pct": 0.149
+        "pct": 0.243
       },
       "trend": null,
       "signals": [
@@ -1618,15 +1618,15 @@ window.DASH = {
       ],
       "asof": "2026-08-14",
       "degraded": false,
-      "trend_dir": "falling"
+      "trend_dir": "rising"
     }
   ],
   "complacency": {
-    "index": 0.124,
+    "index": 0.135,
     "valuation_stretch": 0.621,
-    "fear_term": 0.2,
-    "divergence": 0.497,
-    "fear_avg": 4.2,
+    "fear_term": 0.217,
+    "divergence": 0.486,
+    "fear_avg": 4.13,
     "regime": "fragility",
     "note": "Fragility regime - macro divergence: equities stretched while macro fears run high. Equities expected to crack.",
     "pay_check": {
@@ -1912,7 +1912,7 @@ window.DASH = {
   },
   "rebalance": null,
   "news": {
-    "asof": "2026-08-14 20:31:17",
+    "asof": "2026-08-14 20:40:09",
     "big_stories": [
       {
         "title": "Sector Update: Consumer Stocks Mixed Late Afternoon",
@@ -2263,21 +2263,6 @@ window.DASH = {
         "sent": "neutral"
       },
       {
-        "title": "Wall Street's riskiest trades are suddenly back on top: Chart of the Day",
-        "link": "https://finance.yahoo.com/markets/article/wall-streets-riskiest-trades-are-suddenly-back-on-top-chart-of-the-day-100100027.html?.tsrc=rss",
-        "ts": 1786701660,
-        "when": "Aug 14, 10:01 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "negative"
-      },
-      {
         "title": "The House Is Paid Off but the Property Tax Bill Never Retires. These 3 ETFs Pay It Every Year",
         "link": "https://247wallst.com/investing/etf/2026/08/13/the-house-is-paid-off-but-the-property-tax-bill-never-retires-these-3-etfs-pay-it-every-year/?.tsrc=rss",
         "ts": 1786659944,
@@ -2316,21 +2301,6 @@ window.DASH = {
           "T14"
         ],
         "sent": "negative"
-      },
-      {
-        "title": "DRAM Movers: These Memory/Storage ETFs Are Soaring as Sandisk, Micron Rally",
-        "link": "https://247wallst.com/investing/2026/08/13/dram-movers-these-memory-storage-etfs-are-soaring-as-sandisk-micron-rally/?.tsrc=rss",
-        "ts": 1786644735,
-        "when": "Aug 13, 06:12 PM",
-        "ticker": "SMH",
-        "industry": "Semis",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
       },
       {
         "title": "Sector Update: Consumer Stocks Rise in Afternoon Trading",
@@ -2392,6 +2362,21 @@ window.DASH = {
         "sent": "positive"
       },
       {
+        "title": "If You Invested $10,000 in Palantir Before It Released Its AIP Platform, Here's What Your Stake Would Be Worth Today",
+        "link": "https://www.fool.com/investing/2026/08/13/if-you-invested-10000-in-palantir-before-it-releas/?.tsrc=rss",
+        "ts": 1786631400,
+        "when": "Aug 13, 02:30 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
+      {
         "title": "5 ETFs to Benefit From Cooling Inflation in the Near Term",
         "link": "https://finance.yahoo.com/economy/policy/articles/5-etfs-benefit-cooling-inflation-140000926.html?.tsrc=rss",
         "ts": 1786629600,
@@ -2406,6 +2391,22 @@ window.DASH = {
           "T21"
         ],
         "sent": "positive"
+      },
+      {
+        "title": "Exchange-Traded Funds, Equity Futures Higher Pre-Bell Thursday Amid Producer Inflation Data Release",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/exchange-traded-funds-equity-futures-131321660.html?.tsrc=rss",
+        "ts": 1786626801,
+        "when": "Aug 13, 01:13 PM",
+        "ticker": "GLD",
+        "industry": "Gold",
+        "theory": [
+          "T6",
+          "T9",
+          "T19",
+          "T20",
+          "T21"
+        ],
+        "sent": "neutral"
       }
     ]
   }
