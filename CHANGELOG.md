@@ -35,6 +35,15 @@ milestones (or both if a prompt touches both sides), each with its own entry bel
 
 ## [Unreleased]
 
+## [site 0.4.9] — 2026-08-14
+
+### Added
+- "Next refresh" countdown in the header (closes #11): ticks down to the
+  next expected data refresh (6 min during market hours, hourly otherwise,
+  matching the GitHub Action cron), then auto-reloads the cache-busted
+  dashboard. If the new data isn't deployed yet it shows "waiting for new
+  data" and waits rather than reload-looping.
+
 ## [site 0.4.8] — 2026-08-14
 
 ### Fixed

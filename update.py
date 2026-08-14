@@ -817,8 +817,16 @@ def write_dashboard(data, benchmark=None, rebalance=None, fear_data=None, benchm
             })
     total_eff = sum(v[1] for v in sec_tot.values())
 
+    # Refresh cadence for the dashboard countdown: matches the GitHub Action
+    # cron (`*/6 13-21 UTC`, hourly otherwise).
+    now_utc = time.gmtime()
+    refresh_interval = 6 if 13 <= now_utc.tm_hour <= 21 else 60
+    meta = dict(data["meta"])
+    meta["asof_ts"] = int(time.time())
+    meta["refresh_interval"] = refresh_interval
+
     payload = {
-        "meta": data["meta"],
+        "meta": meta,
         "asof": history[-1]["date"],
         "summary": {
             "total_value": total,

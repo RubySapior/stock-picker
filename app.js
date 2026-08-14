@@ -95,6 +95,35 @@ function render() {
     img.src = 'icon.png';
   }
 
+  /* ---- next-refresh countdown (meta.asof_ts + meta.refresh_interval) ---- */
+  const nrEl = document.getElementById('nextRefresh');
+  if (nrEl && D.meta && D.meta.asof_ts && D.meta.refresh_interval) {
+    const target = (D.meta.asof_ts + D.meta.refresh_interval * 60) * 1000;
+    const LAST_KEY = 'stockpicker.refresh.last';
+    const fmt = s => {
+      s = Math.max(0, Math.ceil(s));
+      const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), ss = s % 60;
+      return h ? h + ':' + String(m).padStart(2, '0') + ':' + String(ss).padStart(2, '0')
+               : String(m).padStart(2, '0') + ':' + String(ss).padStart(2, '0');
+    };
+    const tick = () => {
+      const r = target - Date.now();
+      if (r <= 0) {
+        const last = +(sessionStorage.getItem(LAST_KEY) || 0);
+        if (Date.now() - last > 20000) {
+          sessionStorage.setItem(LAST_KEY, String(Date.now()));
+          location.reload();
+        } else {
+          nrEl.textContent = 'waiting for new data';
+        }
+        return;
+      }
+      nrEl.textContent = fmt(r / 1000);
+    };
+    tick();
+    setInterval(tick, 1000);
+  }
+
   /* ---- rebalance flags (passive drift alerts, never trades) ---- */
   const rebal = D.rebalance ? (Array.isArray(D.rebalance) ? D.rebalance : [D.rebalance]) : [];
   const rebalEl = document.getElementById('rebalBanner');
