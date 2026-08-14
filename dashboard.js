@@ -2,7 +2,7 @@
 window.DASH = {
   "meta": {
     "version": {
-      "site": "0.3.4",
+      "site": "0.3.5",
       "algo": "0.5.5"
     },
     "name": "HyperGrowth Sharpe Barbell v5 - Conviction-First",
@@ -157,7 +157,7 @@ window.DASH = {
         "confirmed": false
       },
       "F2": {
-        "prev_score": 2.3,
+        "prev_score": 2.2,
         "score": 2.2,
         "days_above": 0,
         "confirmed": false
@@ -183,7 +183,7 @@ window.DASH = {
       "F6": {
         "prev_score": 4.8,
         "score": 4.8,
-        "days_above": 9,
+        "days_above": 10,
         "confirmed": true
       },
       "F7": {
@@ -1385,17 +1385,17 @@ window.DASH = {
       "name": "War / energy shock",
       "type": "episodic",
       "score": 3.9,
-      "level": 0.585,
+      "level": 0.591,
       "velocity": {
         "label": "5d velocity",
-        "value": 0.05,
-        "pct": 0.776
+        "value": 0.0515,
+        "pct": 0.784
       },
       "trend": null,
       "signals": [
         {
           "label": "Crude 5d momentum",
-          "value": 0.776
+          "value": 0.784
         },
         {
           "label": "Gold 1d momentum",
@@ -1660,7 +1660,7 @@ window.DASH = {
   },
   "rebalance": null,
   "news": {
-    "asof": "2026-08-14 00:36:18",
+    "asof": "2026-08-14 00:40:01",
     "big_stories": [
       {
         "title": "The House Is Paid Off but the Property Tax Bill Never Retires. These 3 ETFs Pay It Every Year",
@@ -1686,21 +1686,6 @@ window.DASH = {
           "T14"
         ],
         "sent": "positive"
-      },
-      {
-        "title": "DRAM Movers: These Memory/Storage ETFs Are Soaring as Sandisk, Micron Rally",
-        "link": "https://247wallst.com/investing/2026/08/13/dram-movers-these-memory-storage-etfs-are-soaring-as-sandisk-micron-rally/?.tsrc=rss",
-        "ts": 1786644735,
-        "when": "Aug 13, 12:12 PM",
-        "ticker": "SMH",
-        "industry": "Semis",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
       },
       {
         "title": "Sector Update: Consumer Stocks Rise in Afternoon Trading",
@@ -1729,6 +1714,19 @@ window.DASH = {
           "T21"
         ],
         "sent": "positive"
+      },
+      {
+        "title": "Small Caps Pay Too: The 42% Friday Payer Riding the Russell’s Big Year",
+        "link": "https://247wallst.com/investing/2026/08/12/small-caps-pay-too-the-42-friday-payer-riding-the-russells-big-year/?.tsrc=rss",
+        "ts": 1786570842,
+        "when": "Aug 12, 03:40 PM",
+        "ticker": "IWM",
+        "industry": "Small Caps",
+        "theory": [
+          "T10",
+          "T15"
+        ],
+        "sent": "negative"
       }
     ],
     "feed": [
@@ -1771,21 +1769,6 @@ window.DASH = {
           "T14"
         ],
         "sent": "negative"
-      },
-      {
-        "title": "DRAM Movers: These Memory/Storage ETFs Are Soaring as Sandisk, Micron Rally",
-        "link": "https://247wallst.com/investing/2026/08/13/dram-movers-these-memory-storage-etfs-are-soaring-as-sandisk-micron-rally/?.tsrc=rss",
-        "ts": 1786644735,
-        "when": "Aug 13, 12:12 PM",
-        "ticker": "SMH",
-        "industry": "Semis",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
       },
       {
         "title": "Sector Update: Consumer Stocks Rise in Afternoon Trading",
@@ -2162,6 +2145,22 @@ window.DASH = {
           "T13"
         ],
         "sent": "neutral"
+      },
+      {
+        "title": "Gold Makes Surprising Move on Fed Expectations",
+        "link": "https://finance.yahoo.com/markets/commodities/articles/gold-makes-surprising-move-fed-140200002.html?.tsrc=rss",
+        "ts": 1786543320,
+        "when": "Aug 12, 08:02 AM",
+        "ticker": "GLD",
+        "industry": "Gold",
+        "theory": [
+          "T6",
+          "T9",
+          "T19",
+          "T20",
+          "T21"
+        ],
+        "sent": "positive"
       }
     ]
   }

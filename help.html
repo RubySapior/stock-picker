@@ -103,14 +103,14 @@
       <ul class="helpList">
         <li>Eight crash scenarios (F1&ndash;F8) &mdash; AI-pop, yen-carry unwind, China shock, inflation, war, rates, credit, recession &mdash; each scored <strong>1&ndash;5</strong> (5 = panic).</li>
         <li>The arrow shows whether the fear is <strong>rising / falling / flat</strong>; the &ldquo;signals&rdquo; line names the top 2 market factors driving the score.</li>
-        <li><strong>Complacency</strong> is the opposite gauge: when the market is calm AND stretched, it warns you to keep your hedges on.</li>
+        <li><strong>Complacency</strong> is the opposite gauge: when the market is calm AND stretched, it warns you to keep your hedges on; when it is low (&ldquo;stress regime&rdquo;), the market is already pricing trouble, so your hedges should be showing gains.</li>
         <li><strong>Suggested hedge actions</strong> appears only when a fear is genuinely confirmed (high for several days). It is a recommendation for <em>you</em> to review &mdash; the system never trades by itself.</li>
       </ul>
     </div>
 
     <div class="panel" style="margin-bottom:20px;">
       <h2>Rebalance flags</h2>
-      <p class="helpText">Once per calendar quarter (first market-open run of Jan/Apr/Jul/Oct), the book&rsquo;s sector exposure is checked against its targets; if a sector is off by more than 5 percentage points, a banner appears at the top. It only <em>asks</em> you to review the risk budget &mdash; it never rebalances on its own. You make the change in <code>portfolio.json</code>.</p>
+      <p class="helpText">Once per calendar quarter (first market-open run of Jan/Apr/Jul/Oct), the book&rsquo;s sector exposure is checked against its targets; <strong>any</strong> sector off its target &mdash; no matter how small the gap &mdash; produces a banner at the top. It only <em>asks</em> you to review the risk budget &mdash; it never rebalances on its own. You make the change in <code>portfolio.json</code>.</p>
     </div>
 
   </div>
@@ -188,7 +188,14 @@
       <ul class="helpList">
         <li><strong>Valuation stretch</strong> = 0.5 &times; (QQQ 20d momentum percentile) + 0.5 &times; (QQQ vs 200d MA distance percentile).</li>
         <li><strong>Fear term</strong> = <code>1 &minus; (mean(top-3 fear scores) &minus; 1) / 4</code> &mdash; 1.0 when no fear, near 0 in a panic.</li>
-        <li><strong>Index</strong> = stretch &times; fear term, 0..1. &ge; 0.50 warns &ldquo;keep the hedge stack on&rdquo;; &ge; 0.70 &ldquo;do NOT trim baseline hedges&rdquo;.</li>
+        <li><strong>Index</strong> = stretch &times; fear term, 0..1. Reading the bands:
+          <ul class="helpList">
+            <li>&ge; 0.70 &mdash; &ldquo;Extreme calm / high concentration &mdash; do NOT trim baseline hedges&rdquo;: the market is stretched and unafraid, the classic pre-crash setup.</li>
+            <li>0.50&ndash;0.70 &mdash; &ldquo;Calm but levered &mdash; keep the hedge stack on&rdquo;.</li>
+            <li>0.30&ndash;0.50 &mdash; &ldquo;Moderate stress &mdash; hedges have a job to do&rdquo;.</li>
+            <li>&lt; 0.30 &mdash; &ldquo;Stress regime &mdash; hedges should be paying&rdquo;: QQQ momentum/stretch is weak <em>or</em> the top fears are elevated (usually both), so the market is already pricing stress. The hedge sleeve (GLD/GDX/BTAL/DBMF/VIXM/ZROZ/FXY/QFLR) should be showing positive returns right now &mdash; if it isn&rsquo;t, that is information.</li>
+          </ul>
+        </li>
       </ul>
     </div>
 
@@ -212,7 +219,7 @@
       <h2>Rebalance audit (update.py)</h2>
       <ul class="helpList">
         <li>Targets (effective %): Tech / AI Growth 60, Nuclear / Power 11, Broadening / Value 8, Contrarian Fear 4.5, Hedge Stack 35, Short-Term Bonds 15.5.</li>
-        <li>The audit runs <strong>once per calendar quarter</strong> (first market-open run of Jan/Apr/Jul/Oct), tracked in <code>meta.last_rebalance_quarter</code> &mdash; there are no daily pp-drift flags. If a sector&rsquo;s effective exposure strays more than <code>tolerance_pct</code> (5pp) from its target on the quarterly check, a <code>rebalance_recommended</code> event is logged and flagged in the UI banner. Flags never trade &mdash; they ask the conviction layer to review a risk-budget mismatch.</li>
+        <li>The audit runs <strong>once per calendar quarter</strong> (first market-open run of Jan/Apr/Jul/Oct), tracked in <code>meta.last_rebalance_quarter</code> &mdash; there are no daily pp-drift flags. On the quarterly check, <strong>any</strong> sector whose effective exposure drifts from its target is flagged &mdash; no tolerance band, however small the gap (v5.5). A <code>rebalance_recommended</code> event is logged and flagged in the UI banner. Flags never trade &mdash; they ask the conviction layer to review a risk-budget mismatch.</li>
       </ul>
     </div>
 

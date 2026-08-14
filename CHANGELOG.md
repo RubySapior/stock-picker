@@ -18,6 +18,13 @@ version bump — `site` for UI-only changes, `algo` for engine/data changes
 
 ## [Unreleased]
 
+## [site 0.3.5] — 2026-08-14
+
+### Changed
+- Help page: Complacency section now explains all four bands, including the
+  low-end "Stress regime - hedges should be paying" reading; rebalance
+  notes (Simple + Advanced tabs) updated to the v5.5 no-tolerance rule.
+
 ## [site 0.3.4] — 2026-08-14
 
 ### Changed
