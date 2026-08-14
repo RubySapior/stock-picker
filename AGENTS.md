@@ -146,8 +146,9 @@ Owned by `write_dashboard()` in `update.py`. `app.js` reads these fields:
   `pause_reason`, `paused_ticker` (set by the vol-halt re-entry protocol).
 - `rebalance`: null or `[{type, sleeve, target_exposure, actual_exposure,
   message}]` — quarterly drift flags from `rebalance_audit()` (see
-  `meta.limits.rebalance.targets` + `tolerance_pct`): the audit runs ONCE per
-  calendar quarter (tracked in `meta.last_rebalance_quarter`), not daily.
+  `meta.limits.rebalance.targets`): the audit runs ONCE per calendar quarter
+  (tracked in `meta.last_rebalance_quarter`), not daily. There is no
+  tolerance band — ANY drift from target is flagged, however small.
   Flags never trade; they ask the conviction layer to review a risk-budget
   mismatch.
 - `benchmark`: null or `label`, `start_value`, `history[]`, `aligned[]`,

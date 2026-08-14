@@ -18,6 +18,14 @@ version bump — `site` for UI-only changes, `algo` for engine/data changes
 
 ## [Unreleased]
 
+## [algo 0.5.5] — 2026-08-14
+
+### Changed
+- Rebalance audit: tolerance band removed — every sleeve that drifts from its
+  target is flagged, no matter how small the gap. `tolerance_pct` config
+  deleted; the flag message no longer mentions a tolerance. Still quarterly
+  and still recommendation-only (never trades).
+
 ## [site 0.3.3] — 2026-08-14
 
 ### Changed

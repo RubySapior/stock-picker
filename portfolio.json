@@ -2,7 +2,7 @@
   "meta": {
     "version": {
       "site": "0.3.3",
-      "algo": "0.5.4"
+      "algo": "0.5.5"
     },
     "name": "HyperGrowth Sharpe Barbell v5 - Conviction-First",
     "strategy": "Conviction-first: only A/B-tier non-hedge holdings; C/D-tier positions exist solely as hedges. Leveraged funds stop on their 1x index (TQQQ->QQQ -8%, SOXL->SOXX -9%, IWDL->IWD -10%) so decay can't whipsaw. Hedge scorecard is scenario-specific (T17-T21); hedge drag is priced insurance (T6). No idle cash - dry powder parks in SGOV. Full version log below.",
@@ -22,7 +22,6 @@
         "note": "Research-integrity protocol (v5.2): a stop is a VOL-HALT, not a death. The linked theory is marked PAUSED (only if no open position still tests it), proceeds park in SGOV. If the 1x underlying closes back above its stop level for 2 consecutive sessions the theory is RE-AFFIRMED and the position is re-entered with the recovered capital; if no reclaim within 60 days the theory is formally ABANDONED (falsified) and capital stays reallocated. Prevents the silent-SGOV-trap from quietly converting the book into a T-bill portfolio and corrupting multi-month theory tests."
       },
       "rebalance": {
-        "tolerance_pct": 5.0,
         "targets": {
           "Tech / AI Growth": 60.0,
           "Nuclear / Power": 11.0,
@@ -31,7 +30,7 @@
           "Hedge Stack": 35.0,
           "Short-Term Bonds": 15.5
         },
-        "note": "Quarterly audit (v5.4): once per calendar quarter (first market-open run of Jan/Apr/Jul/Oct), update.py compares each sector's EFFECTIVE exposure against these targets and flags anything beyond tolerance_pct (+/-5pp). It NEVER trades - it only asks the conviction layer to review the risk-budget mismatch. No daily pp-drift flags."
+        "note": "Quarterly audit (v5.5): once per calendar quarter (first market-open run of Jan/Apr/Jul/Oct), update.py compares each sector's EFFECTIVE exposure against these targets and flags ANY drift - no tolerance band, every mismatch is flagged no matter how small. It NEVER trades - it only asks the conviction layer to review the risk-budget mismatch. No daily pp-drift flags."
       },
       "position_exposure": {
         "TQQQ": {

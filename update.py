@@ -290,7 +290,8 @@ def rebalance_audit(data, today):
     instead of every EOD: no daily pp-drift flagging. On the quarterly check it
     compares each sleeve's EFFECTIVE exposure (market value x leverage, as a %
     of invested value) against the target allocations in
-    meta.limits.rebalance.targets, flagging any sleeve beyond tolerance_pct.
+    meta.limits.rebalance.targets, flagging ANY drift from target - there is
+    no tolerance band, every mismatch is flagged no matter how small.
 
     Passive by design - it never trades, it only asks the conviction layer to
     review a risk-budget mismatch. No hidden reallocation, no attribution
@@ -299,7 +300,6 @@ def rebalance_audit(data, today):
     limits = data["meta"].get("limits") or {}
     cfg = limits.get("rebalance") or {}
     targets = cfg.get("targets") or {}
-    tol = float(cfg.get("tolerance_pct", 5.0))
     if not targets:
         return []
     year, month, _ = today.split("-")
@@ -324,10 +324,8 @@ def rebalance_audit(data, today):
     flags = []
     for sec, target in targets.items():
         actual = eff_tot.get(sec, 0.0) / tot_inv * 100.0
-        if abs(actual - target) <= tol:
-            continue
         msg = (f"{sec} effective exposure {actual:.1f}% vs {target:.1f}% target "
-               f"(tolerance +/-{tol:g}%, off by {actual - target:+.1f}pp). "
+               f"(off by {actual - target:+.1f}pp). "
                f"Quarterly review - manual rebalance or conviction decision required.")
         data["events"].append({
             "date": today,
