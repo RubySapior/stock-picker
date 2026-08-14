@@ -8,34 +8,36 @@
 </head>
 <!--
   Theory archive: every theory ever recorded (pending / paused / right /
-  wrong / abandoned), with status + tier filters and a free-text search.
-  Reads the same AUTO-GENERATED dashboard.js as the main page (theories.js
-  renders the list; no hand-edits to dashboard.js ever).
+  wrong / abandoned) as a flash-card wheel. Scroll, drag, or use the arrows
+  to browse; click a side card to bring it to the front; click the front
+  card to flip it and read the evidence log.
+  Reads the same AUTO-GENERATED dashboard.js (theories.js renders the wheel;
+  no hand-edits to dashboard.js ever).
 -->
 <body>
 <div class="wrap">
   <header>
     <div>
       <h1>Theory Archive</h1>
-      <div class="sub">Every theory on record &mdash; resolved, paused, and abandoned included</div>
+      <div class="sub">Flash-card wheel &mdash; every theory on record</div>
     </div>
     <div class="asof">Data as of: <span id="asof">&mdash;</span> <a class="archiveBtn" href="index.html">&#8592; Back to dashboard</a></div>
   </header>
 
-  <div class="panel" style="margin-bottom:20px;">
-    <div class="filterbar">
-      <input id="tSearch" class="searchBox" type="text" placeholder="Search title, prediction, ID, evidence&hellip;" autocomplete="off">
-      <div class="btnGroup" id="statusFilters"></div>
-      <div class="btnGroup" id="tierFilters"></div>
-      <span class="muted small" id="tCount"></span>
-    </div>
-    <div class="scroll">
-      <table id="theoryTable">
-        <thead><tr><th>Rank</th><th>ID</th><th>Theory</th><th>Prediction</th><th>Status</th><th>Evidence Log</th></tr></thead>
-        <tbody></tbody>
-      </table>
-    </div>
+  <div class="filterbar" style="margin-bottom:6px;">
+    <input id="tSearch" class="searchBox" type="text" placeholder="Search title, prediction, ID, evidence&hellip;" autocomplete="off">
+    <div class="btnGroup" id="statusFilters"></div>
+    <div class="btnGroup" id="tierFilters"></div>
+    <span class="muted small" id="tCount"></span>
   </div>
+
+  <div class="wheelStage" id="wheelStage">
+    <div class="wheel" id="wheel"></div>
+    <button class="wheelBtn prev" id="wPrev" title="Previous card">&#8249;</button>
+    <button class="wheelBtn next" id="wNext" title="Next card">&#8250;</button>
+    <div class="wheelCounter" id="wCounter"></div>
+  </div>
+  <div class="wheelHint">drag or scroll to browse &middot; click a side card to select &middot; click the front card to flip</div>
 </div>
 <script src="theories.js"></script>
 </body>
