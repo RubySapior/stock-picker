@@ -189,7 +189,7 @@
   .helpList code, .helpText code, table code{background:var(--panel2); border:1px solid var(--border); border-radius:4px; padding:1px 5px; font-size:12px;}
 
   /* ---- theory archive flash-card wheel (theories.html) ---- */
-  .wheelStage{position:relative; height:min(460px, 64vh); perspective:1500px; overflow:hidden; touch-action:pan-y; cursor:grab; border-radius:16px; user-select:none; -webkit-user-select:none; -webkit-touch-callout:none;}
+  .wheelStage{position:relative; height:min(460px, 64vh); perspective:1500px; overflow:hidden; touch-action:pan-y; cursor:grab; border-radius:16px; background:radial-gradient(ellipse at 50% 35%, rgba(56,189,248,.05), transparent 60%); user-select:none; -webkit-user-select:none; -webkit-touch-callout:none;}
   .wheelStage.dragging{cursor:grabbing;}
   .wheel{position:absolute; inset:0;}
   .wheelStage .card{position:absolute; left:50%; top:50%; width:min(320px, 82vw); height:min(420px, 56vh); background:transparent; border:none; padding:0; transition:transform .7s cubic-bezier(.22,.9,.3,1), opacity .35s ease; cursor:pointer;}

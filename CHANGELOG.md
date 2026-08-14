@@ -35,6 +35,13 @@ milestones (or both if a prompt touches both sides), each with its own entry bel
 
 ## [Unreleased]
 
+## [site 0.4.7] — 2026-08-14
+
+### Fixed
+- Restored the wheel stage's soft radial glow background (removed in
+  0.4.2), so the theory cards no longer look spread out / floating in
+  empty space. The blank-layer fix from 0.4.5 is unaffected.
+
 ## [site 0.4.6] — 2026-08-14
 
 ### Fixed
