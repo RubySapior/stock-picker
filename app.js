@@ -103,9 +103,6 @@ function render() {
       {label:'Day Change', val:sign(s.day_change), delta:'', dcls:cls(s.day_change)},
       {label:'Total Return', val:sign(s.total_return_pct)+'%', delta:'', dcls:cls(s.total_return_pct)},
       {label:'Cash + SGOV', val:fmt$(s.cash + stbVal), delta:fmt$(s.cash)+' cash', dcls:''},
-      {label:'Realized P&L', val:sign(s.realized_pnl), delta:'', dcls:cls(s.realized_pnl)},
-      {label:'Max Drawdown', val:fmtN(s.max_drawdown_pct)+'%', delta:'', dcls:''},
-      {label:'Sharpe (ann.)', val: s.sharpe_annualized===null?'n/a':fmtN(s.sharpe_annualized), delta:'', dcls:''},
       {label:'CAGR (ann.)', val: s.cagr_annualized===null?'n/a':sign(s.cagr_annualized)+'%', delta:'', dcls:cls(s.cagr_annualized)},
     ];
     document.getElementById('cards').innerHTML = cards.map(c =>
@@ -391,6 +388,12 @@ function render() {
     const spyAl = (D.benchmark && D.benchmark.aligned) ? D.benchmark.aligned : [];
     const N = hist.length;
     let W = 0, showSpy = true, view = {i0:0, i1:N-1}, hoverI = -1;
+
+    const statEl = document.getElementById('chartStat');
+    if (statEl) statEl.innerHTML =
+      `<span>Realized P&L <b class="${cls(s.realized_pnl)}">${sign(s.realized_pnl)}</b></span>` +
+      `<span>Max Drawdown <b>${fmtN(s.max_drawdown_pct)}%</b></span>` +
+      `<span>Sharpe (ann.) <b>${s.sharpe_annualized===null?'n/a':fmtN(s.sharpe_annualized)}</b></span>`;
 
     function setSize(){
       W = Math.max(60, c.clientWidth || c.parentNode.clientWidth);
