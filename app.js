@@ -261,10 +261,13 @@ function render() {
   /* ---- theories scorecard ---- */
   function renderTheories(){
     const tierOrder = {S:0,A:1,B:2,C:3,D:4};
-    const sortedTheories = D.theories.slice().sort((a,b) => {
-      const ta = tierOrder[a.tier] ?? 5, tb = tierOrder[b.tier] ?? 5;
-      return ta - tb || a.id.localeCompare(b.id);
-    });
+    const sortedTheories = D.theories
+      .filter(t => t.status !== 'abandoned')
+      .slice()
+      .sort((a,b) => {
+        const ta = tierOrder[a.tier] ?? 5, tb = tierOrder[b.tier] ?? 5;
+        return ta - tb || a.id.localeCompare(b.id);
+      });
     const tRows = sortedTheories.map(t => {
       const st = t.status;
       const statusLabel = st==='pending' ? 'PENDING' : st==='right' ? 'RIGHT' : st==='wrong' ? 'WRONG' : st==='abandoned' ? 'ABANDONED' : st.toUpperCase();
