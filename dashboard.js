@@ -157,8 +157,8 @@ window.DASH = {
         "confirmed": false
       },
       "F2": {
-        "prev_score": 2.3,
-        "score": 2.4,
+        "prev_score": 2.4,
+        "score": 2.5,
         "days_above": 0,
         "confirmed": false
       },
@@ -169,26 +169,26 @@ window.DASH = {
         "confirmed": false
       },
       "F4": {
-        "prev_score": 3.5,
-        "score": 2.5,
+        "prev_score": 2.5,
+        "score": 3.5,
         "days_above": 0,
         "confirmed": false
       },
       "F5": {
-        "prev_score": 3.9,
+        "prev_score": 3.8,
         "score": 3.8,
         "days_above": 0,
         "confirmed": false
       },
       "F6": {
-        "prev_score": 4.8,
-        "score": 4.7,
-        "days_above": 13,
+        "prev_score": 4.7,
+        "score": 4.8,
+        "days_above": 14,
         "confirmed": true
       },
       "F7": {
-        "prev_score": 2.0,
-        "score": 2.1,
+        "prev_score": 2.1,
+        "score": 2.0,
         "days_above": 0,
         "confirmed": false
       },
@@ -1352,22 +1352,22 @@ window.DASH = {
       "id": "F6",
       "name": "Rates shock / duration liquidation",
       "type": "structural",
-      "score": 4.7,
-      "level": 0.963,
+      "score": 4.8,
+      "level": 0.965,
       "velocity": null,
       "trend": {
         "label": "50d trend",
-        "value": 0.0308,
-        "pct": 0.857
+        "value": 0.0343,
+        "pct": 0.886
       },
       "signals": [
         {
           "label": "TLT/SHY (long-vs-short duration)",
-          "value": 0.969
+          "value": 0.977
         },
         {
           "label": "10y yield level",
-          "value": 0.954
+          "value": 0.946
         }
       ],
       "theory_ids": [
@@ -1385,17 +1385,17 @@ window.DASH = {
       "name": "War / energy shock",
       "type": "episodic",
       "score": 3.8,
-      "level": 0.58,
+      "level": 0.569,
       "velocity": {
         "label": "5d velocity",
-        "value": 0.0446,
-        "pct": 0.769
+        "value": 0.039,
+        "pct": 0.753
       },
       "trend": null,
       "signals": [
         {
           "label": "Crude 5d momentum",
-          "value": 0.769
+          "value": 0.753
         },
         {
           "label": "Gold 1d momentum",
@@ -1414,6 +1414,36 @@ window.DASH = {
       "asof": "2026-08-14",
       "degraded": false,
       "trend_dir": "flat"
+    },
+    {
+      "id": "F4",
+      "name": "Inflation resurgence",
+      "type": "structural",
+      "score": 3.5,
+      "level": 0.785,
+      "velocity": null,
+      "trend": {
+        "label": "50d trend",
+        "value": -0.0055,
+        "pct": 0.257
+      },
+      "signals": [
+        {
+          "label": "TIP/IEF (breakevens proxy)",
+          "value": 0.785
+        }
+      ],
+      "theory_ids": [
+        "T20"
+      ],
+      "hedge_ticks": [
+        "GLD",
+        "GDX",
+        "SGOV"
+      ],
+      "asof": "2026-08-14",
+      "degraded": false,
+      "trend_dir": "rising"
     },
     {
       "id": "F8",
@@ -1457,7 +1487,7 @@ window.DASH = {
       "velocity": {
         "label": "5d velocity",
         "value": -0.0004,
-        "pct": 0.541
+        "pct": 0.545
       },
       "trend": null,
       "signals": [
@@ -1487,17 +1517,17 @@ window.DASH = {
       "name": "AI / tech concentration pop",
       "type": "structural",
       "score": 2.5,
-      "level": 0.163,
+      "level": 0.149,
       "velocity": null,
       "trend": {
         "label": "50d trend",
-        "value": 0.0827,
-        "pct": 0.9
+        "value": 0.0773,
+        "pct": 0.914
       },
       "signals": [
         {
           "label": "QQQ/RSP concentration ratio",
-          "value": 0.308
+          "value": 0.281
         },
         {
           "label": "QQQ drawdown from 52w high",
@@ -1518,51 +1548,21 @@ window.DASH = {
       "trend_dir": "flat"
     },
     {
-      "id": "F4",
-      "name": "Inflation resurgence",
-      "type": "structural",
-      "score": 2.5,
-      "level": 0.508,
-      "velocity": null,
-      "trend": {
-        "label": "50d trend",
-        "value": -0.0129,
-        "pct": 0.043
-      },
-      "signals": [
-        {
-          "label": "TIP/IEF (breakevens proxy)",
-          "value": 0.508
-        }
-      ],
-      "theory_ids": [
-        "T20"
-      ],
-      "hedge_ticks": [
-        "GLD",
-        "GDX",
-        "SGOV"
-      ],
-      "asof": "2026-08-14",
-      "degraded": false,
-      "trend_dir": "falling"
-    },
-    {
       "id": "F2",
       "name": "Yen-carry unwind",
       "type": "episodic",
-      "score": 2.4,
-      "level": 0.196,
+      "score": 2.5,
+      "level": 0.2,
       "velocity": {
         "label": "5d velocity",
-        "value": -0.0041,
-        "pct": 0.427
+        "value": -0.0034,
+        "pct": 0.463
       },
       "trend": null,
       "signals": [
         {
           "label": "Yen strength (FXY level)",
-          "value": 0.196
+          "value": 0.2
         }
       ],
       "theory_ids": [
@@ -1580,12 +1580,12 @@ window.DASH = {
       "id": "F7",
       "name": "Credit stress / HY spread",
       "type": "episodic",
-      "score": 2.1,
+      "score": 2.0,
       "level": 0.012,
       "velocity": {
         "label": "5d velocity",
         "value": -0.0024,
-        "pct": 0.396
+        "pct": 0.345
       },
       "trend": null,
       "signals": [
@@ -1607,9 +1607,9 @@ window.DASH = {
     }
   ],
   "complacency": {
-    "index": 0.183,
+    "index": 0.143,
     "valuation_stretch": 0.594,
-    "fear_term": 0.308,
+    "fear_term": 0.242,
     "note": "Stress regime - hedges should be paying."
   },
   "fear_sizing": null,
@@ -1660,7 +1660,7 @@ window.DASH = {
   },
   "rebalance": null,
   "news": {
-    "asof": "2026-08-14 11:43:11",
+    "asof": "2026-08-14 13:05:59",
     "big_stories": [
       {
         "title": "Chamath Palihapitiya Sees Palantir As A Potential Winner In 3-Year Shift To Model-Agnostic AI",
@@ -1688,6 +1688,18 @@ window.DASH = {
         "sent": "negative"
       },
       {
+        "title": "Sector Update: Consumer Stocks Advance Late Afternoon",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-advance-afternoon-193514616.html?.tsrc=rss",
+        "ts": 1786649714,
+        "when": "Aug 13, 07:35 PM",
+        "ticker": "XLY",
+        "industry": "Consumer Disc.",
+        "theory": [
+          "T13"
+        ],
+        "sent": "neutral"
+      },
+      {
         "title": "DRAM Movers: These Memory/Storage ETFs Are Soaring as Sandisk, Micron Rally",
         "link": "https://247wallst.com/investing/2026/08/13/dram-movers-these-memory-storage-etfs-are-soaring-as-sandisk-micron-rally/?.tsrc=rss",
         "ts": 1786644735,
@@ -1699,18 +1711,6 @@ window.DASH = {
           "T7",
           "T2",
           "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Sector Update: Consumer Stocks Rise in Afternoon Trading",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-rise-afternoon-173751918.html?.tsrc=rss",
-        "ts": 1786642671,
-        "when": "Aug 13, 05:37 PM",
-        "ticker": "XLY",
-        "industry": "Consumer Disc.",
-        "theory": [
-          "T13"
         ],
         "sent": "neutral"
       },
@@ -1786,6 +1786,18 @@ window.DASH = {
           "T14"
         ],
         "sent": "positive"
+      },
+      {
+        "title": "Sector Update: Consumer Stocks Advance Late Afternoon",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-advance-afternoon-193514616.html?.tsrc=rss",
+        "ts": 1786649714,
+        "when": "Aug 13, 07:35 PM",
+        "ticker": "XLY",
+        "industry": "Consumer Disc.",
+        "theory": [
+          "T13"
+        ],
+        "sent": "neutral"
       },
       {
         "title": "Revenue at Palantir-Backed Ondas Rises 1,236%. Stock Falls as Losses Widen.",
@@ -1896,11 +1908,10 @@ window.DASH = {
         "link": "https://finance.yahoo.com/markets/stocks/articles/exchange-traded-funds-equity-futures-131321660.html?.tsrc=rss",
         "ts": 1786626801,
         "when": "Aug 13, 01:13 PM",
-        "ticker": "IWM",
-        "industry": "Small Caps",
+        "ticker": "XLY",
+        "industry": "Consumer Disc.",
         "theory": [
-          "T10",
-          "T15"
+          "T13"
         ],
         "sent": "neutral"
       },
@@ -2135,27 +2146,10 @@ window.DASH = {
         "link": "https://finance.yahoo.com/markets/stocks/articles/exchange-traded-funds-equity-futures-131639194.html?.tsrc=rss",
         "ts": 1786540599,
         "when": "Aug 12, 01:16 PM",
-        "ticker": "IWM",
-        "industry": "Small Caps",
+        "ticker": "XLY",
+        "industry": "Consumer Disc.",
         "theory": [
-          "T10",
-          "T15"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "Forget Buying Gold Directly: Wheaton Precious Metals Could Be the Better Play.",
-        "link": "https://www.fool.com/investing/2026/08/12/forget-buying-gold-directly-wheaton-precious-metal/?.tsrc=rss",
-        "ts": 1786538400,
-        "when": "Aug 12, 12:40 PM",
-        "ticker": "GLD",
-        "industry": "Gold",
-        "theory": [
-          "T6",
-          "T9",
-          "T19",
-          "T20",
-          "T21"
+          "T13"
         ],
         "sent": "positive"
       }
