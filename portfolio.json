@@ -158,37 +158,37 @@
         "confirmed": false
       },
       "F3": {
-        "prev_score": 3.5,
+        "prev_score": 3.4,
         "score": 3.4,
         "days_above": 0,
         "confirmed": false
       },
       "F4": {
-        "prev_score": 2.8,
-        "score": 3.7,
+        "prev_score": 3.7,
+        "score": 3.8,
         "days_above": 0,
         "confirmed": false
       },
       "F5": {
         "prev_score": 4.1,
         "score": 4.1,
-        "days_above": 13,
+        "days_above": 14,
         "confirmed": true
       },
       "F6": {
-        "prev_score": 4.7,
+        "prev_score": 4.9,
         "score": 4.9,
-        "days_above": 27,
+        "days_above": 28,
         "confirmed": true
       },
       "F7": {
-        "prev_score": 1.6,
+        "prev_score": 1.4,
         "score": 1.4,
         "days_above": 0,
         "confirmed": false
       },
       "F8": {
-        "prev_score": 2.9,
+        "prev_score": 2.8,
         "score": 2.8,
         "days_above": 0,
         "confirmed": false
@@ -321,31 +321,31 @@
       },
       {
         "date": "2026-08-14",
-        "total_value": 101902.9,
+        "total_value": 101880.24,
         "cash": 25.0,
-        "invested_value": 101877.9,
-        "day_change": -350.15,
+        "invested_value": 101855.24,
+        "day_change": -372.81,
         "prices": {
-          "TQQQ": 76.42,
-          "SOXL": 141.63,
-          "SMH": 584.41,
-          "DRAM": 57.16,
-          "PLTR": 175.045,
-          "NLR": 118.24,
-          "NUKZ": 67.84,
-          "IWM": 304.45,
+          "TQQQ": 76.334,
+          "SOXL": 142.07,
+          "SMH": 584.92,
+          "DRAM": 56.925,
+          "PLTR": 174.695,
+          "NLR": 117.951,
+          "NUKZ": 67.88,
+          "IWM": 304.58,
           "IWDL": 69.9874,
-          "XLY": 118.37,
+          "XLY": 118.345,
           "EZU": 71.915,
-          "ZROZ": 57.818,
-          "FXY": 57.575,
-          "VIXM": 14.2,
-          "QFLR": 35.805,
-          "GLD": 401.19,
-          "GDX": 89.9,
-          "BTAL": 11.875,
-          "DBMF": 31.345,
-          "SGOV": 100.553
+          "ZROZ": 57.807,
+          "FXY": 57.57,
+          "VIXM": 14.215,
+          "QFLR": 35.8338,
+          "GLD": 401.45,
+          "GDX": 89.8,
+          "BTAL": 11.871,
+          "DBMF": 31.335,
+          "SGOV": 100.56
         }
       }
     ]
