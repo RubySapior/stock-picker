@@ -35,6 +35,12 @@ milestones (or both if a prompt touches both sides), each with its own entry bel
 
 ## [Unreleased]
 
+## [site 0.4.8] — 2026-08-14
+
+### Fixed
+- Card rotation slowed a touch more: slide and flip transitions 0.7s ->
+  0.85s, in-drag catch glide 0.25s -> 0.3s.
+
 ## [site 0.4.7] — 2026-08-14
 
 ### Fixed

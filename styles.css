@@ -192,9 +192,9 @@
   .wheelStage{position:relative; height:min(460px, 64vh); perspective:1500px; overflow:hidden; touch-action:pan-y; cursor:grab; border-radius:16px; background:radial-gradient(ellipse at 50% 35%, rgba(56,189,248,.05), transparent 60%); user-select:none; -webkit-user-select:none; -webkit-touch-callout:none;}
   .wheelStage.dragging{cursor:grabbing;}
   .wheel{position:absolute; inset:0;}
-  .wheelStage .card{position:absolute; left:50%; top:50%; width:min(320px, 82vw); height:min(420px, 56vh); background:transparent; border:none; padding:0; transition:transform .7s cubic-bezier(.22,.9,.3,1), opacity .35s ease; cursor:pointer;}
-  .wheelStage.dragging .card{transition:transform .25s cubic-bezier(.25,.85,.35,1), opacity .3s ease;}
-  .cardInner{position:absolute; inset:0; z-index:1; perspective:1200px; transform-style:preserve-3d; transition:transform .7s cubic-bezier(.4,.1,.2,1);}
+  .wheelStage .card{position:absolute; left:50%; top:50%; width:min(320px, 82vw); height:min(420px, 56vh); background:transparent; border:none; padding:0; transition:transform .85s cubic-bezier(.22,.9,.3,1), opacity .35s ease; cursor:pointer;}
+  .wheelStage.dragging .card{transition:transform .3s cubic-bezier(.25,.85,.35,1), opacity .3s ease;}
+  .cardInner{position:absolute; inset:0; z-index:1; perspective:1200px; transform-style:preserve-3d; transition:transform .85s cubic-bezier(.4,.1,.2,1);}
   .wheelStage .card.flipped .cardInner{transform:rotateY(180deg);}
   .face{position:absolute; inset:0; backface-visibility:hidden; -webkit-backface-visibility:hidden; border-radius:16px; border:1px solid var(--border); background:linear-gradient(165deg, #151c2b 0%, #10151f 100%); box-shadow:0 18px 40px rgba(0,0,0,.5); display:flex; flex-direction:column; padding:18px 20px; overflow:hidden;}
   .face.back{transform:rotateY(180deg); background:linear-gradient(165deg, #10161f 0%, #0d1119 100%);}
