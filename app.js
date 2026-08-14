@@ -351,7 +351,13 @@ function render() {
     function matchFeedHeight(){
       const bs = document.getElementById('bigStories');
       const bh = bs ? bs.scrollHeight : 0;
-      feedEl.style.maxHeight = Math.max(bh, 260) + 'px';
+      const sub = feedEl.previousElementSibling;
+      let off = 0;
+      if (sub) {
+        const mb = parseInt(getComputedStyle(sub).marginBottom) || 0;
+        off = sub.offsetHeight + mb;
+      }
+      feedEl.style.maxHeight = Math.max(bh - off, 160) + 'px';
     }
     function updFeedBar(){
       const h = feedEl.clientHeight, sh = feedEl.scrollHeight, max = sh - h;
