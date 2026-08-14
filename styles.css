@@ -5,7 +5,7 @@
     --amber:#f59e0b; --blue:#38bdf8; --violet:#a78bfa;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
-  html{scroll-behavior:smooth;}
+  html{scroll-behavior:smooth; overflow-x:hidden; overscroll-behavior-x:contain;}
   body{background:var(--bg); color:var(--txt); font-family:'Segoe UI',system-ui,-apple-system,sans-serif; padding:24px; overflow-x:hidden;}
   .wrap{max-width:1200px; margin:0 auto;}
   header{display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:12px; margin-bottom:20px;}
@@ -143,6 +143,11 @@
     line-height:1.1; letter-spacing:.2px; text-align:center; color:var(--amber);
     border:1px solid rgba(245,158,11,.45); border-radius:4px; padding:1px 3px; cursor:help;}
   @media (max-width:900px){ .grid{grid-template-columns:1fr;} .news-grid{grid-template-columns:1fr;} .cmp-grid{grid-template-columns:1fr;} }
+  @media (max-width:520px){
+    .srow{flex-wrap:wrap; row-gap:6px;}
+    .sbar{flex-basis:100%;}
+    .sname{flex:1 1 auto; min-width:0;}
+  }
 
   /* ---- market fear gauge ---- */
   .fearPanel{margin-bottom:18px;}

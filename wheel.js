@@ -25,7 +25,7 @@
 
     let focus = 0;
     let dragX = 0, dragging = false, dragStart = 0, dragPos = 0, suppressClick = false, wheelLock = 0;
-    let lockAxis = null, startY = 0, lastT = 0, lastX = 0;
+    let lockAxis = null, startY = 0, lastT = 0, lastX = 0, velX = 0;
 
     function buildCard(t) {
       const el = document.createElement('div');
@@ -135,16 +135,21 @@
       if (lockAxis !== 'h') return;
       dragPos = e.clientX;
       dragX = dx;
+      if (e.timeStamp > lastT) velX = (e.clientX - lastX) / (e.timeStamp - lastT);
       lastT = e.timeStamp; lastX = e.clientX;
       layout();
+      /* carousel catch: crossing the threshold brings the next card to the
+         front WHILE dragging, then re-anchors so the gesture continues from
+         the new front card (chain through several cards in one drag). */
+      const gap = spacing();
+      if (dragX < -gap * 0.45) { goTo(focus + 1); dragStart = e.clientX; dragX = 0; }
+      else if (dragX > gap * 0.45) { goTo(focus - 1); dragStart = e.clientX; dragX = 0; }
     }
-    function onUp(e) {
+    function onUp() {
       if (!dragging) return;
       const gap = spacing();
-      const dt = e.timeStamp - lastT;
-      const vx = dt > 0 ? (dragPos - lastX) / dt : 0;
       endDrag();
-      if (Math.abs(vx) > FLICK) goTo(focus + (vx < 0 ? 1 : -1));
+      if (Math.abs(velX) > FLICK) goTo(focus + (velX < 0 ? 1 : -1));
       else if (dragX < -gap * 0.28) goTo(focus + 1);
       else if (dragX > gap * 0.28) goTo(focus - 1);
       else { dragX = 0; layout(); }

@@ -35,6 +35,28 @@ milestones (or both if a prompt touches both sides), each with its own entry bel
 
 ## [Unreleased]
 
+## [site 0.4.0] — 2026-08-14
+
+### Fixed
+- Issue #16 (real fix this time, verified in a headless-browser test):
+  - **Page-width bug**: the Sector Limits rows' fixed min-widths
+    (name 130 + value 86 + cap 44 + stat 56 + gaps) totaled ~346px while a
+    390px phone leaves only ~342px of content — the page was 4-19px too
+    wide, so 1-finger horizontal swipes panned the page instead of the
+    cards. Rows now wrap on narrow screens (`@media max-width:520px`) and
+    `html` also clips horizontal overflow + `overscroll-behavior-x:contain`
+    as an iOS-proof backstop.
+  - **Carousel catch**: dragging now brings the next card to the front the
+    moment the drag passes ~45% of the card gap — no need to let go. The
+    gesture re-anchors and can chain through several cards in one drag.
+  - **Flick velocity bug**: release velocity was always computed as ~0
+    (`dragPos - lastX` where lastX was the same event), so flicks never
+    fired; velocity is now measured per move-pair and a fast swipe always
+    advances regardless of distance.
+
+### Changed
+- Version jump 0.3.x -> 0.4.0 per user decision.
+
 ## [site 0.3.11] — 2026-08-14
 
 ### Fixed
