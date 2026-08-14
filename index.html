@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI Port-picker</title>
-<link rel="stylesheet" href="styles.css?v=11">
+<link rel="stylesheet" href="styles.css?v=12">
 </head>
 <!--
   Page skeleton only. Every section below is filled by app.js from the
@@ -49,7 +49,16 @@
           <span class="rangeBtn" data-days="183">6M</span>
           <span class="rangeBtn" data-days="92">3M</span>
           <span class="rangeBtn" data-days="30">1M</span>
-          <label class="spyLabel" title="Overlay S&amp;P 500, normalized to the same $100,000 start"><input type="checkbox" id="spyToggle" checked> vs SPY</label>
+          <span class="rangeBtn" data-days="7">1W</span>
+          <span class="rangeBtn" data-days="ytd">YTD</span>
+          <label class="bmLabel" title="Overlay a benchmark, normalized to the same $100,000 start">
+            <select id="bmSelect" class="bmSelect">
+              <option value="SPY">vs SPY</option>
+              <option value="QQQ">vs QQQ</option>
+              <option value="TQQQ">vs TQQQ</option>
+              <option value="MUU">vs MUU</option>
+            </select>
+          </label>
         </div>
       </div>
       <canvas id="chart" height="280"></canvas>
@@ -157,6 +166,6 @@
 </div>
 
 <script src="wheel.js?v=1"></script>
-<script src="app.js?v=19" defer></script>
+<script src="app.js?v=20" defer></script>
 </body>
 </html>

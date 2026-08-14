@@ -446,9 +446,16 @@ function render() {
     const pad = {l:56, r:14, t:16, b:30};
     const H = 280; c.style.height = H+'px';
     const hist = D.history;
-    const spyAl = (D.benchmark && D.benchmark.aligned) ? D.benchmark.aligned : [];
+    const bmMap = D.benchmarks || {};
     const N = hist.length;
     let W = 0, showSpy = true, view = {i0:0, i1:N-1}, hoverI = -1;
+    let bmKey = 'SPY';
+    try {
+      const saved = localStorage.getItem('stockpicker.chart.bm');
+      if (saved && bmMap[saved]) bmKey = saved;
+    } catch(e){}
+    const bmSel = document.getElementById('bmSelect');
+    if (bmSel) bmSel.value = bmKey;
 
     const statEl = document.getElementById('chartStat');
     if (statEl) statEl.innerHTML =
@@ -468,10 +475,11 @@ function render() {
     function draw(){
       setSize();
       const i0 = view.i0, i1 = view.i1, len = (i1-i0)||1;
+      const curAl = (bmMap[bmKey] && bmMap[bmKey].aligned) || [];
       let mn = Infinity, mx = -Infinity;
       for(let i=i0;i<=i1;i++){
         const v = hist[i].total_value; if(v<mn)mn=v; if(v>mx)mx=v;
-        if(showSpy && spyAl[i] && spyAl[i].value!==undefined){ const sv=spyAl[i].value; if(sv<mn)mn=sv; if(sv>mx)mx=sv; }
+        if(showSpy && curAl[i] && curAl[i].value!==undefined){ const sv=curAl[i].value; if(sv<mn)mn=sv; if(sv>mx)mx=sv; }
       }
       if(!isFinite(mn)){ mn = hist[i0].total_value; mx = mn; }
       const rng = (mx-mn)||1, minA = mn - rng*0.08, maxA = mx + rng*0.08;
@@ -485,11 +493,11 @@ function render() {
         ctx.strokeStyle='#1b2231'; ctx.beginPath(); ctx.moveTo(pad.l,y); ctx.lineTo(W-pad.r,y); ctx.stroke();
         ctx.fillText('$'+fmtN(v,0), pad.l-6, y+4);
       }
-      // SPY overlay
+      // benchmark overlay
       if(showSpy){
         ctx.beginPath(); let started = false;
         for(let i=i0;i<=i1;i++){
-          const sv = spyAl[i] && spyAl[i].value;
+          const sv = curAl[i] && curAl[i].value;
           if(sv===undefined) continue;
           if(!started){ ctx.moveTo(X(i),Y(sv)); started = true; } else ctx.lineTo(X(i),Y(sv));
         }
@@ -535,23 +543,29 @@ function render() {
       // legend
       ctx.textAlign='left'; ctx.font='10.5px Segoe UI';
       ctx.fillStyle='#38bdf8'; ctx.fillText('Portfolio', pad.l+2, pad.t+11);
-      if(showSpy){ ctx.fillStyle='#f59e0b'; ctx.fillText('SPY', pad.l+80, pad.t+11); }
+      if(showSpy && curAl.length){ ctx.fillStyle='#f59e0b'; ctx.fillText(bmKey, pad.l+80, pad.t+11); }
     }
 
     function setRange(days){
       let i0 = 0;
-      if(days>0){
-        const cut = Date.parse(hist[N-1].date) - days*86400000;
+      if(days !== 0 && String(days) !== '0'){
+        let cut;
+        if(String(days) === 'ytd') cut = Date.parse(hist[N-1].date.slice(0,4) + '-01-01');
+        else cut = Date.parse(hist[N-1].date) - days*86400000;
         for(let i=0;i<N;i++){ if(Date.parse(hist[i].date) >= cut){ i0 = i; break; } }
       }
       view = {i0, i1:N-1};
-      document.querySelectorAll('.rangeBtn').forEach(b => b.classList.toggle('active', Number(b.dataset.days)===days));
+      document.querySelectorAll('.rangeBtn').forEach(b => b.classList.toggle('active', String(b.dataset.days)===String(days)));
       draw();
     }
 
     document.querySelectorAll('.rangeBtn').forEach(b =>
-      b.addEventListener('click', ()=> setRange(Number(b.dataset.days))));
-    document.getElementById('spyToggle').addEventListener('change', ev=>{ showSpy = ev.target.checked; draw(); });
+      b.addEventListener('click', ()=> setRange(b.dataset.days)));
+    if (bmSel) bmSel.addEventListener('change', ev=>{
+      bmKey = ev.target.value;
+      try { localStorage.setItem('stockpicker.chart.bm', bmKey); } catch(e){}
+      draw();
+    });
 
     c.addEventListener('wheel', ev=>{
       ev.preventDefault();
@@ -606,9 +620,9 @@ function render() {
       hoverI = i;
       if(changed) draw();
       const h = hist[i];
-      const spy = showSpy && spyAl[i] ? spyAl[i].value : null;
+      const spy = showSpy && curAl[i] ? curAl[i].value : null;
       tip.innerHTML = `<strong>${h.date}</strong><div>Portfolio: ${fmt$(h.total_value)}</div>` +
-        (spy===null||spy===undefined ? '' : `<div style="color:#f59e0b;">SPY: ${fmt$(spy)}</div>`);
+        (spy===null||spy===undefined ? '' : `<div style="color:#f59e0b;">${bmKey}: ${fmt$(spy)}</div>`);
       tip.style.opacity = 1;
       let x = mx + 14;
       if(x + tip.offsetWidth > W) x = mx - tip.offsetWidth - 10;

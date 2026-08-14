@@ -35,6 +35,16 @@ milestones (or both if a prompt touches both sides), each with its own entry bel
 
 ## [Unreleased]
 
+## [site 0.3.9] — 2026-08-14
+
+### Added
+- Portfolio Value History chart: **1W** and **YTD** range buttons.
+- Benchmark dropdown replaces the "vs SPY" checkbox: pick **SPY / QQQ /
+  TQQQ / MUU** (MUU = Direxion Daily MU Bull 2X). Each is normalized to the
+  same $100,000 start and aligned to portfolio dates; choice is remembered.
+- Engine side (no algo bump): `update.py` now fetches and emits all four
+  benchmarks under `benchmarks` (SPY stays as the legacy `benchmark` key).
+
 ## [site 0.3.8] — 2026-08-14
 
 ### Changed

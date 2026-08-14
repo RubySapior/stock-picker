@@ -33,9 +33,15 @@ STB_TICKER = "SGOV"
 STB_SLEEVE = "Short-Term Bonds (SGOV)"
 CASH_BUFFER = 25.0
 
-# Benchmark for the "Portfolio vs SPY" comparison.
+# Benchmarks for the "Portfolio vs <index>" comparison (normalized to start_value).
 SPY_TICKER = "SPY"
 SPY_RANGE = "2y"
+BENCH_TICKERS = {
+    "SPY": "S&P 500 (SPY)",
+    "QQQ": "Nasdaq 100 (QQQ)",
+    "TQQQ": "Nasdaq 3x (TQQQ)",
+    "MUU": "Micron 2x (MUU)",
+}
 
 
 def fetch_price(ticker):
@@ -351,21 +357,21 @@ def rebalance_audit(data, today):
     return flags
 
 
-def build_benchmark(data, spy_hist):
-    """Normalize SPY to start_value, align to portfolio dates, compute metrics."""
-    if not spy_hist:
+def build_benchmark(data, hist, label):
+    """Normalize a benchmark series to start_value, align to portfolio dates, compute metrics."""
+    if not hist:
         return None
     start = data["meta"]["start_value"]
     start_date = data["meta"]["start_date"]
     base_px = None
-    for h in spy_hist:
+    for h in hist:
         if h["date"] >= start_date:
             base_px = h["px"]
             break
     if base_px is None:
-        base_px = spy_hist[-1]["px"]
+        base_px = hist[-1]["px"]
     norm = [{"date": h["date"], "value": round(start * h["px"] / base_px, 2)}
-            for h in spy_hist if h["date"] >= start_date]
+            for h in hist if h["date"] >= start_date]
     by_date = {h["date"]: h["value"] for h in norm}
     dates = sorted(by_date)
 
@@ -380,16 +386,16 @@ def build_benchmark(data, spy_hist):
         if last is not None:
             aligned.append({"date": hd, "value": last})
 
-    spy_vals = [{"total_value": by_date[d]} for d in dates]
+    vals = [{"total_value": by_date[d]} for d in dates]
     return {
-        "label": "S&P 500 (SPY)",
+        "label": label,
         "start_value": start,
         "history": norm,
         "aligned": aligned,
         "summary": {
             "total_return_pct": round((by_date[dates[-1]] / start - 1) * 100, 2),
-            "max_drawdown_pct": compute_drawdown(spy_vals),
-            "sharpe_annualized": compute_sharpe(spy_vals),
+            "max_drawdown_pct": compute_drawdown(vals),
+            "sharpe_annualized": compute_sharpe(vals),
         },
     }
 
@@ -702,16 +708,23 @@ def main():
         json.dump(data, f, indent=2, ensure_ascii=False)
 
     benchmark = None
+    benchmarks = {}
     try:
-        benchmark = build_benchmark(data, fetch_chart_history(SPY_TICKER))
+        for tk, label in BENCH_TICKERS.items():
+            bm = build_benchmark(data, fetch_chart_history(tk), label)
+            if bm:
+                benchmarks[tk] = bm
+        benchmark = benchmarks.get("SPY")
+        if not benchmark and benchmarks:
+            benchmark = next(iter(benchmarks.values()))
     except Exception as exc:
-        print(f"  WARN: benchmark (SPY) fetch failed: {exc}")
+        print(f"  WARN: benchmark fetch failed: {exc}")
 
-    write_dashboard(data, benchmark, rebalance, fear_data)
+    write_dashboard(data, benchmark, rebalance, fear_data, benchmarks)
     print_summary(data, today, benchmark)
 
 
-def write_dashboard(data, benchmark=None, rebalance=None, fear_data=None):
+def write_dashboard(data, benchmark=None, rebalance=None, fear_data=None, benchmarks=None):
     """Serialize the full dashboard payload to dashboard.js (window.DASH).
 
     This is the ONLY writer of dashboard.js. The payload shape is the
@@ -830,6 +843,7 @@ def write_dashboard(data, benchmark=None, rebalance=None, fear_data=None):
         "complacency": (fear_data or {}).get("complacency") or None,
         "fear_sizing": (fear_data or {}).get("fear_sizing") or None,
         "benchmark": benchmark,
+        "benchmarks": benchmarks,
         "rebalance": rebalance or None,
         "news": build_news(
             [p for p in data["positions"] if p["status"] == "open"]

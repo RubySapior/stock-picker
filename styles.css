@@ -118,6 +118,10 @@
   .rangeBtn.active{color:#0b0e14; background:var(--blue); border-color:var(--blue);}
   .spyLabel{font-size:11.5px; color:var(--muted); display:flex; align-items:center; gap:5px; cursor:pointer; margin-left:4px;}
   .spyLabel input{accent-color:var(--amber);}
+  .bmLabel{margin-left:6px;}
+  .bmSelect{background:var(--panel2); color:var(--text); border:1px solid var(--border); border-radius:6px;
+    font-size:11.5px; font-family:inherit; padding:3px 6px; cursor:pointer;}
+  .bmSelect:hover{border-color:var(--amber);}
   .cmp-grid{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px;}
   .srow{display:flex; align-items:center; gap:10px; padding:6px 0; font-size:12.5px;}
   .sname{min-width:130px;}
