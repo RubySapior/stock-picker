@@ -30,9 +30,16 @@
     const stage = document.getElementById('wheelStage');
     const wheel = document.getElementById('wheel');
     const counter = document.getElementById('wCounter');
+    const tableWrap = document.getElementById('tableView');
+    const viewToggle = document.getElementById('viewToggle');
+    const hintEl = document.getElementById('wheelHint');
     let list = [];          // filtered theories
     let focus = 0;          // index of the front card
     let dragX = 0, dragging = false, dragStart = 0, dragPos = 0;
+    const VIEW_KEY = 'stockpicker.theories.view';
+    let view = 'wheel';
+    try { view = localStorage.getItem(VIEW_KEY) === 'table' ? 'table' : 'wheel'; } catch(e) {}
+    applyView();
 
     document.getElementById('asof').textContent = D.asof || '';
 
@@ -80,8 +87,39 @@
       wheel.innerHTML = '';
       list.forEach(t => wheel.appendChild(buildCard(t)));
       focus = 0;
-      layout();
+      if (view === 'wheel') layout(); else renderTable();
     }
+
+    /* ---- plain table view (easy copy-paste) ---- */
+    function renderTable() {
+      tableWrap.style.display = '';
+      document.querySelector('#theoryTable tbody').innerHTML = list.map(t => {
+        const evs = (t.evidence||[]).slice().reverse().map(e => `<div class="ev">${escA(e)}</div>`).join('');
+        return `<tr id="theory-${t.id}">
+          <td><span class="badge ${t.tier.toLowerCase()}">${t.tier}</span></td>
+          <td><strong>${t.id}</strong></td>
+          <td>${escA(t.title)}<div class="thesis">${escA(t.tier_reason || '')}</div></td>
+          <td class="small">${escA(t.prediction)}</td>
+          <td><span class="badge ${stClass(t.status)}">${stLabel(t.status)}</span></td>
+          <td>${evs || '<span class="muted small">no evidence yet</span>'}</td>
+        </tr>`;
+      }).join('');
+    }
+
+    function applyView() {
+      const wheelOn = view === 'wheel';
+      stage.style.display = wheelOn ? '' : 'none';
+      hintEl.style.display = wheelOn ? '' : 'none';
+      tableWrap.style.display = wheelOn ? 'none' : '';
+      viewToggle.textContent = wheelOn ? 'Table view \u2196' : 'Wheel view \u2196';
+      if (list.length && wheelOn) layout();
+      if (list.length && !wheelOn) renderTable();
+    }
+    viewToggle.addEventListener('click', () => {
+      view = view === 'wheel' ? 'table' : 'wheel';
+      try { localStorage.setItem(VIEW_KEY, view); } catch(e) {}
+      applyView();
+    });
 
     function buildCard(t) {
       const el = document.createElement('div');

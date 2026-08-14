@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Theory Archive — All Theories</title>
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css?v=2">
 </head>
 <!--
   Theory archive: every theory ever recorded (pending / paused / right /
@@ -28,6 +28,7 @@
     <input id="tSearch" class="searchBox" type="text" placeholder="Search title, prediction, ID, evidence&hellip;" autocomplete="off">
     <div class="btnGroup" id="statusFilters"></div>
     <div class="btnGroup" id="tierFilters"></div>
+    <button id="viewToggle" class="rangeBtn" title="Switch between the flash-card wheel and the plain table">Table view &#8596;</button>
     <span class="muted small" id="tCount"></span>
   </div>
 
@@ -37,8 +38,17 @@
     <button class="wheelBtn next" id="wNext" title="Next card">&#8250;</button>
     <div class="wheelCounter" id="wCounter"></div>
   </div>
-  <div class="wheelHint">drag or scroll to browse &middot; click a side card to select &middot; click the front card to flip</div>
+  <div class="wheelHint" id="wheelHint">drag or scroll to browse &middot; click a side card to select &middot; click the front card to flip</div>
+
+  <div class="panel" id="tableView" style="display:none;">
+    <div class="scroll">
+      <table id="theoryTable">
+        <thead><tr><th>Rank</th><th>ID</th><th>Theory</th><th>Prediction</th><th>Status</th><th>Evidence Log</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
 </div>
-<script src="theories.js"></script>
+<script src="theories.js?v=2"></script>
 </body>
 </html>
