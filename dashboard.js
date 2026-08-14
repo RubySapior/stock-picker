@@ -157,7 +157,7 @@ window.DASH = {
         "confirmed": false
       },
       "F2": {
-        "prev_score": 2.2,
+        "prev_score": 2.3,
         "score": 2.3,
         "days_above": 0,
         "confirmed": false
@@ -175,15 +175,15 @@ window.DASH = {
         "confirmed": false
       },
       "F5": {
-        "prev_score": 3.9,
-        "score": 4.0,
-        "days_above": 1,
+        "prev_score": 4.0,
+        "score": 3.9,
+        "days_above": 0,
         "confirmed": false
       },
       "F6": {
         "prev_score": 4.8,
         "score": 4.8,
-        "days_above": 11,
+        "days_above": 12,
         "confirmed": true
       },
       "F7": {
@@ -1384,18 +1384,18 @@ window.DASH = {
       "id": "F5",
       "name": "War / energy shock",
       "type": "episodic",
-      "score": 4.0,
-      "level": 0.607,
+      "score": 3.9,
+      "level": 0.591,
       "velocity": {
         "label": "5d velocity",
-        "value": 0.0586,
-        "pct": 0.808
+        "value": 0.0521,
+        "pct": 0.784
       },
       "trend": null,
       "signals": [
         {
           "label": "Crude 5d momentum",
-          "value": 0.808
+          "value": 0.784
         },
         {
           "label": "Gold 1d momentum",
@@ -1555,8 +1555,8 @@ window.DASH = {
       "level": 0.2,
       "velocity": {
         "label": "5d velocity",
-        "value": -0.0049,
-        "pct": 0.361
+        "value": -0.0047,
+        "pct": 0.369
       },
       "trend": null,
       "signals": [
@@ -1607,9 +1607,9 @@ window.DASH = {
     }
   ],
   "complacency": {
-    "index": 0.134,
+    "index": 0.139,
     "valuation_stretch": 0.594,
-    "fear_term": 0.225,
+    "fear_term": 0.233,
     "note": "Stress regime - hedges should be paying."
   },
   "fear_sizing": null,
@@ -1660,8 +1660,23 @@ window.DASH = {
   },
   "rebalance": null,
   "news": {
-    "asof": "2026-08-14 08:16:11",
+    "asof": "2026-08-14 10:02:28",
     "big_stories": [
+      {
+        "title": "Wall Street's riskiest trades are suddenly back on top: Chart of the Day",
+        "link": "https://finance.yahoo.com/markets/article/wall-streets-riskiest-trades-are-suddenly-back-on-top-chart-of-the-day-100100027.html?.tsrc=rss",
+        "ts": 1786701660,
+        "when": "Aug 14, 10:01 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "negative"
+      },
       {
         "title": "The House Is Paid Off but the Property Tax Bill Never Retires. These 3 ETFs Pay It Every Year",
         "link": "https://247wallst.com/investing/etf/2026/08/13/the-house-is-paid-off-but-the-property-tax-bill-never-retires-these-3-etfs-pay-it-every-year/?.tsrc=rss",
@@ -1671,21 +1686,6 @@ window.DASH = {
         "industry": "Equities",
         "theory": [],
         "sent": "negative"
-      },
-      {
-        "title": "Michael Burry Loads Up On QQQ Puts, Boosts MU Short As He Braces For ‘Larger Fall’ — Here’s What He Did To NVDA, PLTR And TSLA",
-        "link": "https://stocktwits.com/news-articles/markets/equity/michael-burry-loads-up-on-qqq-puts-boosts-mu-short-as-he-braces-for-larger-fall-heres-what-he-did-to-nvda-pltr-and-tsla/cZoqVbeRJLw?.tsrc=rss",
-        "ts": 1786651987,
-        "when": "Aug 13, 08:13 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
       },
       {
         "title": "DRAM Movers: These Memory/Storage ETFs Are Soaring as Sandisk, Micron Rally",
@@ -1732,6 +1732,21 @@ window.DASH = {
       }
     ],
     "feed": [
+      {
+        "title": "Wall Street's riskiest trades are suddenly back on top: Chart of the Day",
+        "link": "https://finance.yahoo.com/markets/article/wall-streets-riskiest-trades-are-suddenly-back-on-top-chart-of-the-day-100100027.html?.tsrc=rss",
+        "ts": 1786701660,
+        "when": "Aug 14, 10:01 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "negative"
+      },
       {
         "title": "The House Is Paid Off but the Property Tax Bill Never Retires. These 3 ETFs Pay It Every Year",
         "link": "https://247wallst.com/investing/etf/2026/08/13/the-house-is-paid-off-but-the-property-tax-bill-never-retires-these-3-etfs-pay-it-every-year/?.tsrc=rss",
@@ -2009,21 +2024,6 @@ window.DASH = {
         "link": "https://finance.yahoo.com/markets/stocks/articles/palantir-technologies-pltr-8-0-043114044.html?.tsrc=rss",
         "ts": 1786595474,
         "when": "Aug 13, 04:31 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "Zeta Global’s Q2 Earnings Call: Our Top 5 Analyst Questions",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/zeta-global-q2-earnings-call-230100896.html?.tsrc=rss",
-        "ts": 1786575660,
-        "when": "Aug 12, 11:01 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
