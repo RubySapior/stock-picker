@@ -1,1059 +1,1064 @@
 {
- "meta": {
-  "name": "HyperGrowth Sharpe Barbell v5 - Conviction-First",
-  "strategy": "Conviction-first: only A/B-tier non-hedge holdings; C/D-tier positions exist solely as hedges. Leveraged funds stop on their 1x index (TQQQ->QQQ -8%, SOXL->SOXX -9%, IWDL->IWD -10%) so decay can't whipsaw. Hedge scorecard is scenario-specific (T17-T21); hedge drag is priced insurance (T6). No idle cash - dry powder parks in SGOV. Full version log below.",
-  "strategy_log": "Conviction discipline: NO C- or D-tier positions are held unless they are needed as hedges. Non-hedge holdings must earn their A/B conviction or the money sits in cash. CUT in v5: IGV (D, software timing), ARKQ (C, robotics timing), XBI (C, biotech w/o catalyst), KWEB (C, unfundable China risk). KEPT B-tier with catalysts: XLY, EZU, IWM, IWDL (value = anti-growth factor hedge). Freed capital boosted A-tier growth (TQQQ 9k, SOXL 7k, DRAM 5k) and the strongest hedges (ZROZ 6k, QFLR 3k); the rest is dry-powder parked in SGOV (0-3 month T-bills) - idle cash is never left as cash. V5.1: leveraged-fund stop-losses are INDEX-REFERENCED (checked on the 1x underlying - TQQQ->QQQ -8%, SOXL->SOXX -9%, IWDL->IWD -10%) so a violent leveraged day or decay drift cannot whipsaw the stop; the wrapper-level stop_loss_pct is only a wide backstop. Take-profits auto-checked on the wrapper. V5.2 (issue #7): JEPQ REMOVAL SCHEDULED for the next market open - the covered call cannot finance the hedge stack: its ~$250/yr yield vs the hedge stack's ~$1,200-2,000/yr drag was a mathematical illusion, and a capped-upside/full-downside-beta Nasdaq position adds nothing the growth sleeve lacks. update.py will sell it at the open price and sweep the proceeds to SGOV; the 'Premium Financing' sector is being deleted from the book. Hedge drag is priced insurance (T6), never financed by JEPQ. Stop losses / take profits auto-checked by update.py. V5.3 (issue #6): the hedge scorecard is SCENARIO-SPECIFIC - the generic T11 'when NASDAQ falls 10%' theory is split into per-crash-case theories: T17 AI pop (QFLR+VIXM+BTAL+ZROZ), T18 yen-carry unwind (FXY+DBMF), T19 China shock (GLD+GDX+DBMF), T20 inflation (GLD+GDX), T21 war/geopolitical (GLD+GDX+FXY+DBMF). T6 remains the book-level hedge drag/drawdown budget only. V5.4 (issue #6 follow-up): the TIP inflation-leg trial is REVERSED before any market-open execution - a Fed-hikes-in-response regime lifts SGOV's T-bill yield with zero duration loss while TIP fell ~12% in the 2022 inflation shock; GLD+GDX already own the stagflation case. T20 stays tested by gold; scheduled_exit sells TIP and sweeps to SGOV at the next market-open update.",
-  "currency": "USD",
-  "start_value": 100000,
-  "start_date": "2026-08-10",
-  "rebalanced": "2026-08-10",
-  "rebalance_reason": "v5 - Conviction-First mandate: drop all non-hedge C/D positions, hold cash instead. Cut IGV/ARKQ/XBI/KWEB (16k). Boosted TQQQ+2k, SOXL+2k, DRAM+1k, ZROZ+1k, QFLR+1k. Dry-powder cash (13%) is auto-parked in SGOV by update.py.",
-  "limits": {
-   "basis": "Effective exposure = market value x ETF leverage. Sector caps are CHECKED ON EFFECTIVE (leveraged) exposure. Caps were expanded in v5 to accommodate the 3x/2x sleeve sizing.",
-   "cash_policy": "Idle cash is never left as cash - update.py auto-parks it in SGOV (0-3 month T-bills) on every run.",
-   "re_entry": {
-    "mode": "index_reclaim",
-    "confirm_bars": 2,
-    "max_pause_days": 60,
-    "note": "Research-integrity protocol (v5.2): a stop is a VOL-HALT, not a death. The linked theory is marked PAUSED (only if no open position still tests it), proceeds park in SGOV. If the 1x underlying closes back above its stop level for 2 consecutive sessions the theory is RE-AFFIRMED and the position is re-entered with the recovered capital; if no reclaim within 60 days the theory is formally ABANDONED (falsified) and capital stays reallocated. Prevents the silent-SGOV-trap from quietly converting the book into a T-bill portfolio and corrupting multi-month theory tests."
-   },
-   "rebalance": {
-    "tolerance_pct": 5.0,
-    "targets": {
-     "Tech / AI Growth": 60.0,
-     "Nuclear / Power": 11.0,
-     "Broadening / Value": 8.0,
-     "Contrarian Fear": 4.5,
-     "Hedge Stack": 35.0,
-     "Short-Term Bonds": 15.5
+  "meta": {
+    "version": {
+      "site": "0.3.1",
+      "algo": "0.5.4"
     },
-    "note": "Quarterly audit (v5.4): once per calendar quarter (first market-open run of Jan/Apr/Jul/Oct), update.py compares each sector's EFFECTIVE exposure against these targets and flags anything beyond tolerance_pct (+/-5pp). It NEVER trades - it only asks the conviction layer to review the risk-budget mismatch. No daily pp-drift flags."
-   },
-   "position_exposure": {
-    "TQQQ": {
-     "sector": "Tech / AI Growth",
-     "leverage": 3.0
+    "name": "HyperGrowth Sharpe Barbell v5 - Conviction-First",
+    "strategy": "Conviction-first: only A/B-tier non-hedge holdings; C/D-tier positions exist solely as hedges. Leveraged funds stop on their 1x index (TQQQ->QQQ -8%, SOXL->SOXX -9%, IWDL->IWD -10%) so decay can't whipsaw. Hedge scorecard is scenario-specific (T17-T21); hedge drag is priced insurance (T6). No idle cash - dry powder parks in SGOV. Full version log below.",
+    "strategy_log": "Conviction discipline: NO C- or D-tier positions are held unless they are needed as hedges. Non-hedge holdings must earn their A/B conviction or the money sits in cash. CUT in v5: IGV (D, software timing), ARKQ (C, robotics timing), XBI (C, biotech w/o catalyst), KWEB (C, unfundable China risk). KEPT B-tier with catalysts: XLY, EZU, IWM, IWDL (value = anti-growth factor hedge). Freed capital boosted A-tier growth (TQQQ 9k, SOXL 7k, DRAM 5k) and the strongest hedges (ZROZ 6k, QFLR 3k); the rest is dry-powder parked in SGOV (0-3 month T-bills) - idle cash is never left as cash. V5.1: leveraged-fund stop-losses are INDEX-REFERENCED (checked on the 1x underlying - TQQQ->QQQ -8%, SOXL->SOXX -9%, IWDL->IWD -10%) so a violent leveraged day or decay drift cannot whipsaw the stop; the wrapper-level stop_loss_pct is only a wide backstop. Take-profits auto-checked on the wrapper. V5.2 (issue #7): JEPQ REMOVAL SCHEDULED for the next market open - the covered call cannot finance the hedge stack: its ~$250/yr yield vs the hedge stack's ~$1,200-2,000/yr drag was a mathematical illusion, and a capped-upside/full-downside-beta Nasdaq position adds nothing the growth sleeve lacks. update.py will sell it at the open price and sweep the proceeds to SGOV; the 'Premium Financing' sector is being deleted from the book. Hedge drag is priced insurance (T6), never financed by JEPQ. Stop losses / take profits auto-checked by update.py. V5.3 (issue #6): the hedge scorecard is SCENARIO-SPECIFIC - the generic T11 'when NASDAQ falls 10%' theory is split into per-crash-case theories: T17 AI pop (QFLR+VIXM+BTAL+ZROZ), T18 yen-carry unwind (FXY+DBMF), T19 China shock (GLD+GDX+DBMF), T20 inflation (GLD+GDX), T21 war/geopolitical (GLD+GDX+FXY+DBMF). T6 remains the book-level hedge drag/drawdown budget only. V5.4 (issue #6 follow-up): the TIP inflation-leg trial is REVERSED before any market-open execution - a Fed-hikes-in-response regime lifts SGOV's T-bill yield with zero duration loss while TIP fell ~12% in the 2022 inflation shock; GLD+GDX already own the stagflation case. T20 stays tested by gold; scheduled_exit sells TIP and sweeps to SGOV at the next market-open update.",
+    "currency": "USD",
+    "start_value": 100000,
+    "start_date": "2026-08-10",
+    "rebalanced": "2026-08-10",
+    "rebalance_reason": "v5 - Conviction-First mandate: drop all non-hedge C/D positions, hold cash instead. Cut IGV/ARKQ/XBI/KWEB (16k). Boosted TQQQ+2k, SOXL+2k, DRAM+1k, ZROZ+1k, QFLR+1k. Dry-powder cash (13%) is auto-parked in SGOV by update.py.",
+    "limits": {
+      "basis": "Effective exposure = market value x ETF leverage. Sector caps are CHECKED ON EFFECTIVE (leveraged) exposure. Caps were expanded in v5 to accommodate the 3x/2x sleeve sizing.",
+      "cash_policy": "Idle cash is never left as cash - update.py auto-parks it in SGOV (0-3 month T-bills) on every run.",
+      "re_entry": {
+        "mode": "index_reclaim",
+        "confirm_bars": 2,
+        "max_pause_days": 60,
+        "note": "Research-integrity protocol (v5.2): a stop is a VOL-HALT, not a death. The linked theory is marked PAUSED (only if no open position still tests it), proceeds park in SGOV. If the 1x underlying closes back above its stop level for 2 consecutive sessions the theory is RE-AFFIRMED and the position is re-entered with the recovered capital; if no reclaim within 60 days the theory is formally ABANDONED (falsified) and capital stays reallocated. Prevents the silent-SGOV-trap from quietly converting the book into a T-bill portfolio and corrupting multi-month theory tests."
+      },
+      "rebalance": {
+        "tolerance_pct": 5.0,
+        "targets": {
+          "Tech / AI Growth": 60.0,
+          "Nuclear / Power": 11.0,
+          "Broadening / Value": 8.0,
+          "Contrarian Fear": 4.5,
+          "Hedge Stack": 35.0,
+          "Short-Term Bonds": 15.5
+        },
+        "note": "Quarterly audit (v5.4): once per calendar quarter (first market-open run of Jan/Apr/Jul/Oct), update.py compares each sector's EFFECTIVE exposure against these targets and flags anything beyond tolerance_pct (+/-5pp). It NEVER trades - it only asks the conviction layer to review the risk-budget mismatch. No daily pp-drift flags."
+      },
+      "position_exposure": {
+        "TQQQ": {
+          "sector": "Tech / AI Growth",
+          "leverage": 3.0
+        },
+        "SOXL": {
+          "sector": "Tech / AI Growth",
+          "leverage": 3.0
+        },
+        "SMH": {
+          "sector": "Tech / AI Growth",
+          "leverage": 1.0
+        },
+        "DRAM": {
+          "sector": "Tech / AI Growth",
+          "leverage": 1.0
+        },
+        "PLTR": {
+          "sector": "Tech / AI Growth",
+          "leverage": 1.0
+        },
+        "NLR": {
+          "sector": "Nuclear / Power",
+          "leverage": 1.0
+        },
+        "NUKZ": {
+          "sector": "Nuclear / Power",
+          "leverage": 1.0
+        },
+        "IWM": {
+          "sector": "Broadening / Value",
+          "leverage": 1.0
+        },
+        "IWDL": {
+          "sector": "Broadening / Value",
+          "leverage": 2.0
+        },
+        "XLY": {
+          "sector": "Contrarian Fear",
+          "leverage": 1.0
+        },
+        "EZU": {
+          "sector": "Contrarian Fear",
+          "leverage": 1.0
+        },
+        "ZROZ": {
+          "sector": "Hedge Stack",
+          "leverage": 1.0
+        },
+        "FXY": {
+          "sector": "Hedge Stack",
+          "leverage": 1.0
+        },
+        "VIXM": {
+          "sector": "Hedge Stack",
+          "leverage": 1.0
+        },
+        "QFLR": {
+          "sector": "Hedge Stack",
+          "leverage": 1.0
+        },
+        "GLD": {
+          "sector": "Hedge Stack",
+          "leverage": 1.0
+        },
+        "GDX": {
+          "sector": "Hedge Stack",
+          "leverage": 1.0
+        },
+        "BTAL": {
+          "sector": "Hedge Stack",
+          "leverage": 1.0
+        },
+        "DBMF": {
+          "sector": "Hedge Stack",
+          "leverage": 1.0
+        },
+        "TIP": {
+          "sector": "Hedge Stack",
+          "leverage": 1.0
+        },
+        "SGOV": {
+          "sector": "Short-Term Bonds",
+          "leverage": 1.0
+        }
+      },
+      "sector_limits": [
+        {
+          "sector": "Tech / AI Growth",
+          "max_pct": 70,
+          "note": "v5-expanded for 3x TQQQ/SOXL"
+        },
+        {
+          "sector": "Nuclear / Power",
+          "max_pct": 16
+        },
+        {
+          "sector": "Broadening / Value",
+          "max_pct": 16
+        },
+        {
+          "sector": "Contrarian Fear",
+          "max_pct": 12
+        },
+        {
+          "sector": "Hedge Stack",
+          "max_pct": 45
+        },
+        {
+          "sector": "Short-Term Bonds",
+          "max_pct": 20
+        }
+      ]
     },
-    "SOXL": {
-     "sector": "Tech / AI Growth",
-     "leverage": 3.0
+    "created_by": "opencode agent (simulated managed portfolio)",
+    "disclaimer": "Simulated portfolio for tracking/learning. Not financial advice.",
+    "fear_state": {
+      "F1": {
+        "prev_score": 2.5,
+        "score": 2.5,
+        "days_above": 0,
+        "confirmed": false
+      },
+      "F2": {
+        "prev_score": 2.2,
+        "score": 2.2,
+        "days_above": 0,
+        "confirmed": false
+      },
+      "F3": {
+        "prev_score": 2.7,
+        "score": 2.7,
+        "days_above": 0,
+        "confirmed": false
+      },
+      "F4": {
+        "prev_score": 3.4,
+        "score": 3.5,
+        "days_above": 0,
+        "confirmed": false
+      },
+      "F5": {
+        "prev_score": 3.8,
+        "score": 3.8,
+        "days_above": 0,
+        "confirmed": false
+      },
+      "F6": {
+        "prev_score": 4.8,
+        "score": 4.8,
+        "days_above": 4,
+        "confirmed": true
+      },
+      "F7": {
+        "prev_score": 2.0,
+        "score": 2.0,
+        "days_above": 0,
+        "confirmed": false
+      },
+      "F8": {
+        "prev_score": 2.8,
+        "score": 2.8,
+        "days_above": 0,
+        "confirmed": false
+      }
     },
-    "SMH": {
-     "sector": "Tech / AI Growth",
-     "leverage": 1.0
-    },
-    "DRAM": {
-     "sector": "Tech / AI Growth",
-     "leverage": 1.0
-    },
-    "PLTR": {
-     "sector": "Tech / AI Growth",
-     "leverage": 1.0
-    },
-    "NLR": {
-     "sector": "Nuclear / Power",
-     "leverage": 1.0
-    },
-    "NUKZ": {
-     "sector": "Nuclear / Power",
-     "leverage": 1.0
-    },
-    "IWM": {
-     "sector": "Broadening / Value",
-     "leverage": 1.0
-    },
-    "IWDL": {
-     "sector": "Broadening / Value",
-     "leverage": 2.0
-    },
-    "XLY": {
-     "sector": "Contrarian Fear",
-     "leverage": 1.0
-    },
-    "EZU": {
-     "sector": "Contrarian Fear",
-     "leverage": 1.0
-    },
-    "ZROZ": {
-     "sector": "Hedge Stack",
-     "leverage": 1.0
-    },
-    "FXY": {
-     "sector": "Hedge Stack",
-     "leverage": 1.0
-    },
-    "VIXM": {
-     "sector": "Hedge Stack",
-     "leverage": 1.0
-    },
-    "QFLR": {
-     "sector": "Hedge Stack",
-     "leverage": 1.0
-    },
-    "GLD": {
-     "sector": "Hedge Stack",
-     "leverage": 1.0
-    },
-    "GDX": {
-     "sector": "Hedge Stack",
-     "leverage": 1.0
-    },
-    "BTAL": {
-     "sector": "Hedge Stack",
-     "leverage": 1.0
-    },
-    "DBMF": {
-     "sector": "Hedge Stack",
-     "leverage": 1.0
-    },
-    "TIP": {
-     "sector": "Hedge Stack",
-     "leverage": 1.0
-    },
-    "SGOV": {
-     "sector": "Short-Term Bonds",
-     "leverage": 1.0
-    }
-   },
-   "sector_limits": [
-    {
-     "sector": "Tech / AI Growth",
-     "max_pct": 70,
-     "note": "v5-expanded for 3x TQQQ/SOXL"
-    },
-    {
-     "sector": "Nuclear / Power",
-     "max_pct": 16
-    },
-    {
-     "sector": "Broadening / Value",
-     "max_pct": 16
-    },
-    {
-     "sector": "Contrarian Fear",
-     "max_pct": 12
-    },
-    {
-     "sector": "Hedge Stack",
-     "max_pct": 45
-    },
-    {
-     "sector": "Short-Term Bonds",
-     "max_pct": 20
-    }
-   ]
+    "last_rebalance_quarter": "2026Q3"
   },
-  "created_by": "opencode agent (simulated managed portfolio)",
-  "disclaimer": "Simulated portfolio for tracking/learning. Not financial advice.",
-  "fear_state": {
-   "F1": {
-    "prev_score": 2.5,
-    "score": 2.5,
-    "days_above": 0,
-    "confirmed": false
-   },
-   "F2": {
-    "prev_score": 2.1,
-    "score": 2.2,
-    "days_above": 0,
-    "confirmed": false
-   },
-   "F3": {
-    "prev_score": 2.7,
-    "score": 2.7,
-    "days_above": 0,
-    "confirmed": false
-   },
-   "F4": {
-    "prev_score": 3.5,
-    "score": 3.4,
-    "days_above": 0,
-    "confirmed": false
-   },
-   "F5": {
-    "prev_score": 3.9,
-    "score": 3.8,
-    "days_above": 0,
-    "confirmed": false
-   },
-   "F6": {
-    "prev_score": 4.8,
-    "score": 4.8,
-    "days_above": 3,
-    "confirmed": true
-   },
-   "F7": {
-    "prev_score": 2.0,
-    "score": 2.0,
-    "days_above": 0,
-    "confirmed": false
-   },
-   "F8": {
-    "prev_score": 2.8,
-    "score": 2.8,
-    "days_above": 0,
-    "confirmed": false
-   }
-  }
- },
- "account": {
-  "cash": 25.0,
-  "realized_pnl": 29.24,
-  "history": [
-   {
-    "date": "2026-08-10",
-    "total_value": 99999.97,
-    "cash": 13000.0,
-    "invested_value": 86999.97,
-    "day_change": 500.0,
-    "prices": {
-     "TQQQ": 73.8,
-     "SOXL": 130.0,
-     "SMH": 569.41,
-     "DRAM": 49.6,
-     "PLTR": 175.23,
-     "NLR": 116.99,
-     "NUKZ": 66.64,
-     "IWM": 299.98,
-     "IWDL": 69.9752,
-     "XLY": 119.67,
-     "EZU": 71.3,
-     "ZROZ": 58.12,
-     "FXY": 57.62,
-     "VIXM": 14.28,
-     "QFLR": 35.49,
-     "GLD": 402.54,
-     "GDX": 90.49,
-     "BTAL": 12.08,
-     "DBMF": 31.32,
-     "JEPQ": 59.68
-    }
-   },
-   {
-    "date": "2026-08-11",
-    "total_value": 100313.66,
+  "account": {
     "cash": 25.0,
-    "invested_value": 100288.66,
-    "day_change": 313.69,
-    "prices": {
-     "TQQQ": 73.06,
-     "SOXL": 133.0,
-     "SMH": 572.93,
-     "DRAM": 50.89,
-     "PLTR": 174.94,
-     "NLR": 119.18,
-     "NUKZ": 67.49,
-     "IWM": 300.99,
-     "IWDL": 69.8701,
-     "XLY": 119.24,
-     "EZU": 71.53,
-     "ZROZ": 58.31,
-     "FXY": 57.63,
-     "VIXM": 14.24,
-     "QFLR": 35.43,
-     "GLD": 400.96,
-     "GDX": 90.12,
-     "BTAL": 11.91,
-     "DBMF": 31.33,
-     "JEPQ": 59.65,
-     "SGOV": 100.51
+    "realized_pnl": 29.24,
+    "history": [
+      {
+        "date": "2026-08-10",
+        "total_value": 99999.97,
+        "cash": 13000.0,
+        "invested_value": 86999.97,
+        "day_change": 500.0,
+        "prices": {
+          "TQQQ": 73.8,
+          "SOXL": 130.0,
+          "SMH": 569.41,
+          "DRAM": 49.6,
+          "PLTR": 175.23,
+          "NLR": 116.99,
+          "NUKZ": 66.64,
+          "IWM": 299.98,
+          "IWDL": 69.9752,
+          "XLY": 119.67,
+          "EZU": 71.3,
+          "ZROZ": 58.12,
+          "FXY": 57.62,
+          "VIXM": 14.28,
+          "QFLR": 35.49,
+          "GLD": 402.54,
+          "GDX": 90.49,
+          "BTAL": 12.08,
+          "DBMF": 31.32,
+          "JEPQ": 59.68
+        }
+      },
+      {
+        "date": "2026-08-11",
+        "total_value": 100313.66,
+        "cash": 25.0,
+        "invested_value": 100288.66,
+        "day_change": 313.69,
+        "prices": {
+          "TQQQ": 73.06,
+          "SOXL": 133.0,
+          "SMH": 572.93,
+          "DRAM": 50.89,
+          "PLTR": 174.94,
+          "NLR": 119.18,
+          "NUKZ": 67.49,
+          "IWM": 300.99,
+          "IWDL": 69.8701,
+          "XLY": 119.24,
+          "EZU": 71.53,
+          "ZROZ": 58.31,
+          "FXY": 57.63,
+          "VIXM": 14.24,
+          "QFLR": 35.43,
+          "GLD": 400.96,
+          "GDX": 90.12,
+          "BTAL": 11.91,
+          "DBMF": 31.33,
+          "JEPQ": 59.65,
+          "SGOV": 100.51
+        }
+      },
+      {
+        "date": "2026-08-12",
+        "total_value": 101500.02,
+        "cash": 25.0,
+        "invested_value": 101475.02,
+        "day_change": 1186.36,
+        "prices": {
+          "TQQQ": 74.6,
+          "SOXL": 142.16,
+          "SMH": 584.83,
+          "DRAM": 54.8,
+          "PLTR": 171.04,
+          "NLR": 118.52,
+          "NUKZ": 68.05,
+          "IWM": 302.71,
+          "IWDL": 69.8029,
+          "XLY": 117.89,
+          "EZU": 71.69,
+          "ZROZ": 58.16,
+          "FXY": 57.52,
+          "VIXM": 14.16,
+          "QFLR": 35.45,
+          "GLD": 404.92,
+          "GDX": 90.96,
+          "BTAL": 11.93,
+          "DBMF": 31.43,
+          "JEPQ": 60.0,
+          "SGOV": 100.52
+        }
+      },
+      {
+        "date": "2026-08-13",
+        "total_value": 102253.05,
+        "cash": 25.0,
+        "invested_value": 102228.05,
+        "day_change": 753.03,
+        "prices": {
+          "TQQQ": 77.15,
+          "SOXL": 145.36,
+          "SMH": 589.12,
+          "DRAM": 56.93,
+          "PLTR": 179.01,
+          "NLR": 118.52,
+          "NUKZ": 68.09,
+          "IWM": 303.5,
+          "IWDL": 69.9874,
+          "XLY": 118.45,
+          "EZU": 71.88,
+          "ZROZ": 58.67,
+          "FXY": 57.53,
+          "VIXM": 14.22,
+          "QFLR": 35.818,
+          "GLD": 398.96,
+          "GDX": 88.27,
+          "BTAL": 11.81,
+          "DBMF": 31.32,
+          "TIP": 107.16,
+          "SGOV": 100.53
+        }
+      }
+    ]
+  },
+  "events": [
+    {
+      "date": "2026-08-12",
+      "ticker": "JEPQ",
+      "name": "JPMorgan Nasdaq Equity Premium Income ETF",
+      "reason": "rebalance",
+      "note": "issue #7: covered-call removed - premium-financing was a mathematical illusion (~$250/yr yield vs ~$1,200-2,000/yr hedge drag); capped upside + full Nasdaq downside beta duplicates the growth sleeve. Sale scheduled for next market open; proceeds swept to SGOV.",
+      "state": null,
+      "price": null,
+      "buy_price": null,
+      "shares": null,
+      "realized_pnl": 0
+    },
+    {
+      "date": "2026-08-11",
+      "ticker": "SGOV",
+      "name": "iShares 0-3 Month Treasury Bond ETF",
+      "reason": "deploy_cash",
+      "price": 100.5,
+      "buy_price": 100.5,
+      "shares": 129.1045,
+      "realized_pnl": 0
+    },
+    {
+      "date": "2026-08-11",
+      "ticker": "SGOV",
+      "name": "iShares 0-3 Month Treasury Bond ETF",
+      "reason": "deploy_cash",
+      "price": 100.505,
+      "buy_price": 100.505,
+      "shares": 129.0981,
+      "realized_pnl": 0
+    },
+    {
+      "date": "2026-08-13",
+      "ticker": "JEPQ",
+      "name": "JPMorgan Nasdaq Equity Premium Income ETF",
+      "reason": "rebalance",
+      "note": "issue #7: covered-call removed - premium-financing was a mathematical illusion (~$250/yr yield vs ~$1,200-2,000/yr hedge drag); capped upside + full Nasdaq downside beta duplicates the growth sleeve. Sold at next market open; proceeds swept to SGOV.",
+      "state": null,
+      "price": 60.38,
+      "buy_price": 59.68,
+      "shares": 41.890081,
+      "realized_pnl": 29.24
+    },
+    {
+      "date": "2026-08-13",
+      "ticker": "SGOV",
+      "name": "iShares 0-3 Month Treasury Bond ETF",
+      "reason": "deploy_cash",
+      "price": 100.5223,
+      "buy_price": 100.5223,
+      "shares": 25.161,
+      "realized_pnl": 0
+    },
+    {
+      "date": "2026-08-13",
+      "ticker": "TIP",
+      "name": "iShares TIPS Bond ETF",
+      "reason": "rebalance",
+      "note": "T20 inflation leg added (~2.5k, Hedge Stack): direct CPI-linked hedge closing the scenario gap flagged by the v5.3 scorecard - inflation was hedged only by GLD+GDX while ZROZ loses in that scenario. Funded by trimming SGOV.",
+      "state": null,
+      "price": 107.22,
+      "buy_price": 107.22,
+      "shares": 23.316544,
+      "realized_pnl": 0
     }
-   },
-   {
-    "date": "2026-08-12",
-    "total_value": 101500.02,
-    "cash": 25.0,
-    "invested_value": 101475.02,
-    "day_change": 1186.36,
-    "prices": {
-     "TQQQ": 74.6,
-     "SOXL": 142.16,
-     "SMH": 584.83,
-     "DRAM": 54.8,
-     "PLTR": 171.04,
-     "NLR": 118.52,
-     "NUKZ": 68.05,
-     "IWM": 302.71,
-     "IWDL": 69.8029,
-     "XLY": 117.89,
-     "EZU": 71.69,
-     "ZROZ": 58.16,
-     "FXY": 57.52,
-     "VIXM": 14.16,
-     "QFLR": 35.45,
-     "GLD": 404.92,
-     "GDX": 90.96,
-     "BTAL": 11.93,
-     "DBMF": 31.43,
-     "JEPQ": 60.0,
-     "SGOV": 100.52
+  ],
+  "positions": [
+    {
+      "id": "TQQQ",
+      "ticker": "TQQQ",
+      "name": "ProShares UltraPro QQQ (3x Nasdaq-100)",
+      "sleeve": "Tech/AI Growth",
+      "theory_ids": [
+        "T1",
+        "T7"
+      ],
+      "buy_date": "2026-08-10",
+      "buy_price": 73.8,
+      "shares": 121.95122,
+      "cost": 9000.0,
+      "take_profit_pct": 0.5,
+      "stop_loss_pct": -0.35,
+      "underlying": "QQQ",
+      "underlying_stop_pct": -0.08,
+      "underlying_buy_price": 720.87,
+      "status": "open",
+      "thesis": "A-TIER CONVICTION. Nasdaq mega-caps are the earnings engine: strongest Q1 EPS growth in 4 years, Q2 accelerating, Fed hikes not the base case, markets at all-time highs. 3x wrapper adds decay risk (offset by VIXM + QFLR floor) but the directional trend is the highest-conviction growth bet in the book. V5: boosted +2k from the conviction cuts. V5.1: stop is index-referenced (QQQ -8%), the -35% wrapper level is only a backstop.",
+      "entry_note": "Core A-tier; floored by QFLR, vol-chop hedged by VIXM. Stop on QQQ (1x), not the 3x wrapper."
+    },
+    {
+      "id": "SOXL",
+      "ticker": "SOXL",
+      "name": "Direxion Daily Semiconductor Bull 3X Shares",
+      "sleeve": "Tech/AI Growth",
+      "theory_ids": [
+        "T1",
+        "T7"
+      ],
+      "buy_date": "2026-08-10",
+      "buy_price": 130.0,
+      "shares": 53.846154,
+      "cost": 7000.0,
+      "take_profit_pct": 0.6,
+      "stop_loss_pct": -0.35,
+      "underlying": "SOXX",
+      "underlying_stop_pct": -0.09,
+      "underlying_buy_price": 529.39,
+      "status": "open",
+      "thesis": "A-TIER CONVICTION. Semis remain the epicenter of the $1T AI capex cycle (T1); backlogs expanding, earnings above estimates. The June selloff was technical, not fundamental. 3x leverage is the highest-octane expression with vol-decay risk offset by VIXM. V5: boosted +2k. V5.1: stop is index-referenced (SOXX -9%), the -35% wrapper level is only a backstop.",
+      "entry_note": "Crowded-trade risk accepted at A-tier conviction; stop on SOXX (1x), not the 3x wrapper."
+    },
+    {
+      "id": "SMH",
+      "ticker": "SMH",
+      "name": "VanEck Semiconductor ETF",
+      "sleeve": "Tech/AI Growth",
+      "theory_ids": [
+        "T1"
+      ],
+      "buy_date": "2026-08-10",
+      "buy_price": 569.41,
+      "shares": 8.781016,
+      "cost": 5000.0,
+      "take_profit_pct": 0.4,
+      "stop_loss_pct": -0.2,
+      "status": "open",
+      "thesis": "A-TIER CONVICTION (T1). 1x semis core, no leveraged-decay risk - the 'battle-tested' ballast that keeps AI exposure without a decay tail.",
+      "entry_note": "Core holding per 2026 semis guides."
+    },
+    {
+      "id": "DRAM",
+      "ticker": "DRAM",
+      "name": "Roundhill Memory ETF (HBM / Memory)",
+      "sleeve": "Tech/AI Growth",
+      "theory_ids": [
+        "T2",
+        "T1"
+      ],
+      "buy_date": "2026-08-10",
+      "buy_price": 49.6,
+      "shares": 100.806452,
+      "cost": 5000.0,
+      "take_profit_pct": 0.5,
+      "stop_loss_pct": -0.25,
+      "status": "open",
+      "thesis": "B-TIER CONVICTION (T2). Memory/high-bandwidth-DRAM is the single most supply-constrained link in the AI stack - Micron fully booked, record revenue. Concentrated and volatile, but the bottleneck thesis is concrete, not hopium. V5: boosted +1k.",
+      "entry_note": "Memory supercycle thesis."
+    },
+    {
+      "id": "PLTR",
+      "ticker": "PLTR",
+      "name": "Palantir Technologies Inc.",
+      "sleeve": "Tech/AI Growth",
+      "theory_ids": [
+        "T14",
+        "T1"
+      ],
+      "buy_date": "2026-08-10",
+      "buy_price": 175.23,
+      "shares": 11.413455,
+      "cost": 2000.0,
+      "take_profit_pct": 0.4,
+      "stop_loss_pct": -0.2,
+      "status": "open",
+      "thesis": "B-TIER CONVICTION (T14). Agentic/sovereign AI momentum is real (Q2 blowout, BofA PT $255), but the 146x P/E caps conviction at B and caps size at 2%. This is the greed-position, kept small on purpose - selling part of it into strength is the 'sell greed' bet.",
+      "entry_note": "Smallest single-stock size; valuation limits conviction to B."
+    },
+    {
+      "id": "NLR",
+      "ticker": "NLR",
+      "name": "VanEck Uranium and Nuclear ETF",
+      "sleeve": "AI Power - Nuclear",
+      "theory_ids": [
+        "T3"
+      ],
+      "buy_date": "2026-08-10",
+      "buy_price": 116.99,
+      "shares": 59.834174,
+      "cost": 7000.0,
+      "take_profit_pct": 0.35,
+      "stop_loss_pct": -0.18,
+      "status": "open",
+      "thesis": "B-TIER CONVICTION (T3). Data centers to 12% of US electricity by 2028; 20-yr hyperscaler PPAs (CEG/VST/Oklo) give revenue visibility. Recent 10-14% pullback = buying the fear. NOTE: growth, not a hedge - power-for-AI trades with tech in an AI valuation reset.",
+      "entry_note": "Structural power-demand story. Growth sleeve (Nuclear/Power) - correlates with tech in an AI reset."
+    },
+    {
+      "id": "NUKZ",
+      "ticker": "NUKZ",
+      "name": "Range Nuclear Renaissance ETF",
+      "sleeve": "AI Power - Nuclear",
+      "theory_ids": [
+        "T3"
+      ],
+      "buy_date": "2026-08-10",
+      "buy_price": 66.64,
+      "shares": 60.02401,
+      "cost": 4000.0,
+      "take_profit_pct": 0.45,
+      "stop_loss_pct": -0.25,
+      "status": "open",
+      "thesis": "B-TIER CONVICTION. High-beta full nuclear value chain (miners, SMR developers, utilities, fuel cycle). Reactor restarts (Palisades, TMI/Crane) + uranium $88/lb are hard catalysts. Satellite to NLR.",
+      "entry_note": "Reactor-restart catalysts are dated and specific."
+    },
+    {
+      "id": "IWM",
+      "ticker": "IWM",
+      "name": "iShares Russell 2000 ETF",
+      "sleeve": "Broadening / Value",
+      "theory_ids": [
+        "T10"
+      ],
+      "buy_date": "2026-08-10",
+      "buy_price": 299.98,
+      "shares": 10.000667,
+      "cost": 3000.0,
+      "take_profit_pct": 0.3,
+      "stop_loss_pct": -0.15,
+      "status": "open",
+      "thesis": "B-TIER CONVICTION (T10). The broadening trade has hard data behind it: S&P 500 EQUAL-WEIGHT made new highs while cap-weight slipped - money is rotating out of mega-cap tech into the rest of the market. Tariffs, reshoring and AI-spillover benefit small caps. Reduced to 3k in v5.",
+      "entry_note": "Anti-crowding play with verifiable breadth evidence."
+    },
+    {
+      "id": "IWDL",
+      "ticker": "IWDL",
+      "name": "ETRACS 2x Leveraged US Value Factor TR ETN",
+      "sleeve": "Broadening / Value",
+      "theory_ids": [
+        "T15"
+      ],
+      "buy_date": "2026-08-10",
+      "buy_price": 69.9752,
+      "shares": 35.726519,
+      "cost": 2500.0,
+      "take_profit_pct": 0.45,
+      "stop_loss_pct": -0.35,
+      "underlying": "IWD",
+      "underlying_stop_pct": -0.1,
+      "underlying_buy_price": 258.31,
+      "status": "open",
+      "thesis": "B-TIER CONVICTION, kept as an ANTI-GROWTH FACTOR HEDGE (the value factor offsets the growth-heavy book - covered by the hedge exemption since it is a factor counterweight, not a directional growth bet). Value beat growth by the widest margin in 25 years in July; widening should continue. Risk: ETN (UBS credit) + 2x daily decay. V5.1: stop is index-referenced (IWD -10%), the -35% wrapper level is only a backstop.",
+      "entry_note": "Factor-hedge justification. 1x alternative: IWD/VTV. Stop on IWD (1x), not the 2x ETN."
+    },
+    {
+      "id": "XLY",
+      "ticker": "XLY",
+      "name": "Consumer Discretionary Select Sector SPDR Fund",
+      "sleeve": "Contrarian Fear",
+      "theory_ids": [
+        "T13"
+      ],
+      "buy_date": "2026-08-10",
+      "buy_price": 119.67,
+      "shares": 20.890784,
+      "cost": 2500.0,
+      "take_profit_pct": 0.3,
+      "stop_loss_pct": -0.15,
+      "status": "open",
+      "thesis": "B-TIER CONVICTION (revised up from C). The sentiment-vs-spending divergence is documented (HB Wealth Aug 2026): sentiment 'very sour' while job growth improves and spending stays resilient. De-rated discretionary + resilient fundamentals + tariffs eased from extremes = concrete contrarian setup. Kept at 2.5k.",
+      "entry_note": "Fear buy WITH a catalyst (improving jobs), unlike KWEB."
+    },
+    {
+      "id": "EZU",
+      "ticker": "EZU",
+      "name": "iShares MSCI Eurozone ETF",
+      "sleeve": "Contrarian Fear",
+      "theory_ids": [
+        "T13"
+      ],
+      "buy_date": "2026-08-10",
+      "buy_price": 71.3,
+      "shares": 28.05049,
+      "cost": 2000.0,
+      "take_profit_pct": 0.3,
+      "stop_loss_pct": -0.15,
+      "status": "open",
+      "thesis": "B-TIER CONVICTION (revised up from C). Europe is the biggest US laggard (BNP), UBS just UPGRADED Eurozone to Attractive, Brent's -26% drop HELPS European consumers/industrials, and valuations are structurally cheaper. A mean-reversion value gap with a named catalyst. Kept at 2k.",
+      "entry_note": "Laggard + explicit UBS upgrade catalyst."
+    },
+    {
+      "id": "ZROZ",
+      "ticker": "ZROZ",
+      "name": "PIMCO 25+ Year Zero Coupon U.S. Treasury ETF",
+      "sleeve": "Crisis Alpha - AI Bust",
+      "theory_ids": [
+        "T6",
+        "T17"
+      ],
+      "buy_date": "2026-08-10",
+      "buy_price": 58.12,
+      "shares": 103.235092,
+      "cost": 6000.0,
+      "take_profit_pct": 0.3,
+      "stop_loss_pct": -0.15,
+      "status": "open",
+      "thesis": "HEDGE (allowed regardless of tier, but honestly the highest-conviction hedge in the stack): ~26yr zero-coupon = ~15-20% rally per 100bp of yield collapse in an AI-bust/Fed-cut scenario (dot-com analog). Also on the contrarian side: bond markets are FEARING a Fed-behind-the-curve hike, which is exactly what makes long bonds cheap. V5: boosted +1k.",
+      "entry_note": "Deflation-scenario insurance + cheap entry."
+    },
+    {
+      "id": "FXY",
+      "ticker": "FXY",
+      "name": "Invesco CurrencyShares Japanese Yen Trust",
+      "sleeve": "Crisis Alpha - Carry Unwind",
+      "theory_ids": [
+        "T6",
+        "T18",
+        "T21"
+      ],
+      "buy_date": "2026-08-10",
+      "buy_price": 57.62,
+      "shares": 69.42034,
+      "cost": 4000.0,
+      "take_profit_pct": 0.2,
+      "stop_loss_pct": -0.12,
+      "status": "open",
+      "thesis": "HEDGE. Carry-unwind insurance: a global de-risking forces leveraged yen-carry liquidation and the yen rallies violently (1998, 2007-08). Exactly the tail this leveraged book is exposed to.",
+      "entry_note": "Coiled-spring FX hedge."
+    },
+    {
+      "id": "VIXM",
+      "ticker": "VIXM",
+      "name": "ProShares VIX Mid-Term Futures ETF",
+      "sleeve": "Crisis Alpha - Vol Decay",
+      "theory_ids": [
+        "T6",
+        "T17",
+        "T21"
+      ],
+      "buy_date": "2026-08-10",
+      "buy_price": 14.28,
+      "shares": 280.112045,
+      "cost": 4000.0,
+      "take_profit_pct": 0.4,
+      "stop_loss_pct": -0.2,
+      "status": "open",
+      "thesis": "HEDGE. Targets the exact mechanism that kills the 3x funds: volatility chop / daily-decay. Mid-term VIX futures spike when realized vol surges - the fire insurance for the specific fire TQQQ/SOXL are exposed to.",
+      "entry_note": "Pairs mechanically with SOXL/TQQQ."
+    },
+    {
+      "id": "QFLR",
+      "ticker": "QFLR",
+      "name": "Innovator Nasdaq-100 Managed Floor ETF",
+      "sleeve": "Crisis Alpha - Down-Day Floor",
+      "theory_ids": [
+        "T6",
+        "T17"
+      ],
+      "buy_date": "2026-08-10",
+      "buy_price": 35.49,
+      "shares": 98.619327,
+      "cost": 3500.0,
+      "take_profit_pct": 0.2,
+      "stop_loss_pct": -0.12,
+      "status": "open",
+      "thesis": "HEDGE. Long Nasdaq-100 with an options-managed downside floor - not an inverse of anything (per user rule), but the down-day answer: on a -30% Nasdaq week it stops falling while TQQQ bleeds. V5: boosted +1.5k because the down-day floor is the user's stated #1 concern.",
+      "entry_note": "Put-floor construction; no inverse decay."
+    },
+    {
+      "id": "GLD",
+      "ticker": "GLD",
+      "name": "SPDR Gold Shares",
+      "sleeve": "Crisis Alpha - Real Assets",
+      "theory_ids": [
+        "T9",
+        "T6",
+        "T19",
+        "T20",
+        "T21"
+      ],
+      "buy_date": "2026-08-10",
+      "buy_price": 402.54,
+      "shares": 8.694794,
+      "cost": 3500.0,
+      "take_profit_pct": 0.2,
+      "stop_loss_pct": -0.12,
+      "status": "open",
+      "thesis": "HEDGE (T9, B-tier confidence in the MECHANISM). Pure bullion: rises on growth selloffs, geopolitical spikes (Iran), Fed-behind-the-curve inflation, debasement. The only sleeve non-correlated to both equities AND bonds.",
+      "entry_note": "Crisis alpha, not a return driver."
+    },
+    {
+      "id": "GDX",
+      "ticker": "GDX",
+      "name": "VanEck Gold Miners ETF",
+      "sleeve": "Crisis Alpha - Real Assets",
+      "theory_ids": [
+        "T9",
+        "T6",
+        "T19",
+        "T20",
+        "T21"
+      ],
+      "buy_date": "2026-08-10",
+      "buy_price": 90.49,
+      "shares": 38.678306,
+      "cost": 3500.0,
+      "take_profit_pct": 0.35,
+      "stop_loss_pct": -0.2,
+      "status": "open",
+      "thesis": "HEDGE. Gold miners = operating leverage to bullion - a hedge that can grow. Pairs with GLD as the growthier half of the real-asset sleeve.",
+      "entry_note": "Miners amplify gold moves."
+    },
+    {
+      "id": "BTAL",
+      "ticker": "BTAL",
+      "name": "AGF U.S. Market Neutral Anti-Beta Fund",
+      "sleeve": "Crisis Alpha - Anti-Beta",
+      "theory_ids": [
+        "T6",
+        "T17"
+      ],
+      "buy_date": "2026-08-10",
+      "buy_price": 12.08,
+      "shares": 455.298013,
+      "cost": 5500.0,
+      "take_profit_pct": 0.15,
+      "stop_loss_pct": -0.1,
+      "status": "open",
+      "thesis": "HEDGE. Long low-beta / short high-beta market-neutral - LOW-VOL stocks historically compound while high-beta crashes (2000-02, 2008). The definitive 'what if today is a down day' shield for the leveraged legs.",
+      "entry_note": "Profits from exactly the beta-crash that hits TQQQ/SOXL."
+    },
+    {
+      "id": "DBMF",
+      "ticker": "DBMF",
+      "name": "iMGP DBi Managed Futures Strategy ETF",
+      "sleeve": "Crisis Alpha - Trend",
+      "theory_ids": [
+        "T6",
+        "T18",
+        "T19",
+        "T21"
+      ],
+      "buy_date": "2026-08-10",
+      "buy_price": 31.32,
+      "shares": 175.606641,
+      "cost": 5500.0,
+      "take_profit_pct": 0.2,
+      "stop_loss_pct": -0.12,
+      "status": "open",
+      "thesis": "HEDGE. Trend-following across 100+ global futures - history shows it profits in sustained bull AND bear regimes with near-zero equity correlation. Robust whichever way the tape breaks.",
+      "entry_note": "Dual-direction robustness."
+    },
+    {
+      "id": "TIP",
+      "ticker": "TIP",
+      "name": "iShares TIPS Bond ETF",
+      "sleeve": "Crisis Alpha - Inflation",
+      "theory_ids": [
+        "T6",
+        "T20"
+      ],
+      "buy_date": "2026-08-13",
+      "buy_price": 107.22,
+      "shares": 23.316544,
+      "cost": 2500.0,
+      "take_profit_pct": 0.15,
+      "stop_loss_pct": -0.1,
+      "status": "open",
+      "thesis": "HEDGE (T20, inflation) - REVERSED, removal scheduled. TIP was trialed as the inflation leg, then rejected: in the Fed-hikes-in-response regime (2022 record) TIP lost ~12% on real-yield duration while SGOV's T-bill yield reset upward with zero downside - SGOV is the better inflation hedge, and GLD+GDX already own the debasement/stagflation case TIP would target. Sold at the next market-open update; proceeds sweep back to SGOV.",
+      "entry_note": "Direct real-rate/inflation instrument - funds T20's mechanism honestly. Funded by trimming SGOV dry powder.",
+      "scheduled_exit": {
+        "reason": "rebalance",
+        "note": "TIP removed (issue #6 follow-up): SGOV is the better inflation hedge - a Fed-hikes-in-response regime lifts T-bill yield with zero duration loss while TIP fell ~12% in 2022; GLD+GDX already cover the stagflation case. Sold at the next market-open update; proceeds swept back to SGOV."
+      }
+    },
+    {
+      "ticker": "SGOV",
+      "name": "iShares 0-3 Month Treasury Bond ETF",
+      "sleeve": "Short-Term Bonds (SGOV)",
+      "theory_ids": [],
+      "buy_date": "2026-08-11",
+      "buy_price": 100.505,
+      "shares": 129.390024,
+      "cost": 13004.24,
+      "take_profit_pct": 0.0,
+      "stop_loss_pct": -0.1,
+      "status": "open",
+      "thesis": "Dry powder: idle cash parked in ultra-short T-bills (no cash drag)."
     }
-   },
-   {
-    "date": "2026-08-13",
-    "total_value": 102253.05,
-    "cash": 25.0,
-    "invested_value": 102228.05,
-    "day_change": 753.03,
-    "prices": {
-     "TQQQ": 77.15,
-     "SOXL": 145.36,
-     "SMH": 589.12,
-     "DRAM": 56.93,
-     "PLTR": 179.01,
-     "NLR": 118.52,
-     "NUKZ": 68.09,
-     "IWM": 303.5,
-     "IWDL": 69.9874,
-     "XLY": 118.45,
-     "EZU": 71.88,
-     "ZROZ": 58.67,
-     "FXY": 57.53,
-     "VIXM": 14.22,
-     "QFLR": 35.818,
-     "GLD": 398.96,
-     "GDX": 88.27,
-     "BTAL": 11.81,
-     "DBMF": 31.32,
-     "TIP": 107.16,
-     "SGOV": 100.53
+  ],
+  "theories": [
+    {
+      "id": "T1",
+      "title": "AI infrastructure beats the S&P for the next 12 months",
+      "prediction": "Combined semis sleeve (SOXL, SMH, DRAM) outperforms SPY by >20pp over the next 12 months.",
+      "tier": "A",
+      "tier_reason": "Well-documented $1T AI capex + semis >40% of Q2 EPS growth, but >20pp bar is high and semis are crowded.",
+      "status": "pending",
+      "created": "2026-08-10",
+      "last_updated": "2026-08-10",
+      "evidence": [
+        "2026-08-10: $1T global AI capex in 2026 (Goldman); semis >40% of Q2 EPS growth (UBS). Late-June selloff technical, not fundamental."
+      ]
+    },
+    {
+      "id": "T2",
+      "title": "Memory (HBM) is the bottleneck - DRAM outperforms broad semis",
+      "prediction": "DRAM ETF outperforms SMH over the next 6 months.",
+      "tier": "B",
+      "tier_reason": "Bottleneck is concrete (full bookings) but DRAM already ran hard - some mean-reversion risk.",
+      "status": "pending",
+      "created": "2026-08-10",
+      "last_updated": "2026-08-10",
+      "evidence": [
+        "2026-08-10: Micron capacity fully booked; DRAM +161.5% since Apr 2026, $23B AUM."
+      ]
+    },
+    {
+      "id": "T3",
+      "title": "Nuclear/power is the next leg of the AI trade",
+      "prediction": "NLR + NUKZ combined outperform SPY over the next 12 months.",
+      "tier": "B",
+      "tier_reason": "Structural (data centers, 20-yr PPAs) but a rotation bet with pullback risk.",
+      "status": "pending",
+      "created": "2026-08-10",
+      "last_updated": "2026-08-10",
+      "evidence": [
+        "2026-08-10: Data centers 6.7-12% of US electricity by 2028; hyperscalers signed 20-yr PPAs; uranium $88/lb +34% YoY."
+      ]
+    },
+    {
+      "id": "T6",
+      "title": "Crisis-alpha stack cuts drawdown without killing upside",
+      "prediction": "Portfolio max drawdown over the next 12 months stays under -35% while the hedge stack (ZROZ+FXY+VIXM+QFLR+GLD+GDX+BTAL+DBMF) contributes a combined net return greater than -5%.",
+      "tier": "A",
+      "tier_reason": "Purpose-built to cut drawdown; the >-5% net hedge return is the only uncertain leg. This is the insurance-COST budget only; per-crash-case performance is scored in T17-T21 (issue #6).",
+      "status": "pending",
+      "created": "2026-08-10",
+      "last_updated": "2026-08-13",
+      "evidence": [
+        "2026-08-10: Hedges mapped to distinct crash mechanisms: deflation, carry-unwind, vol-spike, put-floor, real assets, anti-beta, trend.",
+        "2026-08-13 (issue #6): generic hedge claims split into scenario-specific theories T17 (AI pop), T18 (yen carry), T19 (China), T20 (inflation), T21 (war). T6 stays the book-level drag/drawdown budget."
+      ]
+    },
+    {
+      "id": "T7",
+      "title": "Leverage pays in a persistent trend",
+      "prediction": "SOXL + TQQQ combined beat a 1x equivalent (50% SMH + 50% QQQ) over the holding period because the AI trend persists and daily-decay losses are exceeded by trend gains.",
+      "tier": "B",
+      "tier_reason": "H1 2026 proof (SOXL +440%, TQQQ +43%) plus A-tier trend conviction; decay risk is the known cost. Re-rated C->B in v5.",
+      "status": "pending",
+      "created": "2026-08-10",
+      "last_updated": "2026-08-10",
+      "evidence": [
+        "2026-08-10: Leveraged products dominate when trends hard; decay is the offsetting risk."
+      ]
+    },
+    {
+      "id": "T8",
+      "title": "Diversification beats raw tech concentration",
+      "prediction": "The v5 book posts a materially shallower drawdown than the original v1 (12-position, 84% tech) book on the next -5% tech day, while still capturing at least 60% of the v1 upside over 12 months.",
+      "tier": "S",
+      "tier_reason": "Structural - cutting 84%->30% tech concentration MUST shallow drawdowns.",
+      "status": "pending",
+      "created": "2026-08-10",
+      "last_updated": "2026-08-10",
+      "evidence": [
+        "2026-08-10: Tech cut 84% -> 30%; crisis-alpha + cash enhance downside protection."
+      ]
+    },
+    {
+      "id": "T9",
+      "title": "Gold hedges tech drawdowns",
+      "prediction": "On days SPY falls >1%, GLD+GDX combined finish positive at least 40% of the time over the next 12 months.",
+      "tier": "B",
+      "tier_reason": "Historically common, not guaranteed - 40% bar is a fair, testable threshold.",
+      "status": "pending",
+      "created": "2026-08-10",
+      "last_updated": "2026-08-10",
+      "evidence": [
+        "2026-08-10: Gold resilient during Iran-war volatility; miners add downside-beta exposure tied to bullion."
+      ]
+    },
+    {
+      "id": "T10",
+      "title": "Small-cap broadening outperforms SPY while AI consolidates",
+      "prediction": "IWM outperforms SPY over the next 6 months as AI/hardware consolidates and breadth broadens.",
+      "tier": "B",
+      "tier_reason": "Equal-weight-vs-cap-weight divergence is verifiable breadth data; timing still not certain.",
+      "status": "pending",
+      "created": "2026-08-10",
+      "last_updated": "2026-08-10",
+      "evidence": [
+        "2026-08-10: S&P 500 equal-weight at highs while cap-weight slipped (July). XBI dropped from this bet in v5 (low catalyst)."
+      ]
+    },
+    {
+      "id": "T11",
+      "title": "Hedge stack halves the loss on a crash week",
+      "prediction": "OBSOLETE - replaced by scenario-specific hedge theories. The generic 'when the Nasdaq falls >=10%' framing could not attribute credit to the right instrument or falsify a specific crash case.",
+      "tier": "S",
+      "tier_reason": "Superseded by T17-T21 in issue #6: a single 'crash week' theory is untestable - AI pop, yen-carry unwind, China shock, inflation, and war each stress different instruments.",
+      "status": "abandoned",
+      "created": "2026-08-10",
+      "last_updated": "2026-08-13",
+      "evidence": [
+        "2026-08-10: Hedges mapped to distinct crash mechanisms.",
+        "2026-08-13 (issue #6): too general - 'when NASDAQ falls 10%' cannot distinguish which hedge pays or whether the theory is wrong. Split into T17 (AI pop), T18 (yen carry), T19 (China), T20 (inflation), T21 (war)."
+      ]
+    },
+    {
+      "id": "T12",
+      "title": "Covered-call income adds book-level yield",
+      "prediction": "JEPQ's cumulative distributions over 12 months are net-positive at the book level (distributions exceed JEPQ's own price/cap drag), i.e. the position pays to hold rather than costing the book.",
+      "tier": "B",
+      "tier_reason": "Test DISCONTINUED (issue #7): JEPQ removed at v5.2. Even the honest version of the claim could not clear the strategy's Sharpe bar - ~$250/yr income vs ~$1,200-2,000/yr hedge drag meant it never financed the insurance stack, and its capped upside + full Nasdaq downside beta duplicated the growth sleeve. Proceeds move to SGOV.",
+      "status": "abandoned",
+      "created": "2026-08-10",
+      "last_updated": "2026-08-12",
+      "evidence": [
+        "2026-08-10: JEPQ yield ~10% on a 2.5% position = ~0.25% book-level - small income sleeve, not a hedge-funding engine.",
+        "2026-08-11 (v5.1): 'JEPQ funds the hedges' narrative deleted. Hedge drag is explicitly priced insurance (T6).",
+        "2026-08-12 (issue #7): position removed - covered-call income could not finance the hedge stack (math illusion) and added no diversification. Sale scheduled at next market open, proceeds to SGOV."
+      ]
+    },
+    {
+      "id": "T13",
+      "title": "Fear buys with catalysts beat SPY",
+      "prediction": "XLY + EZU combined outperform SPY over the next 6 months, bought on the sentiment-vs-spending divergence and the Europe laggard+UBS-upgrade gap.",
+      "tier": "B",
+      "tier_reason": "Named catalysts (jobs improving; UBS upgrade; oil drop) lift conviction from C to B. KWEB excluded - fear without resolution.",
+      "status": "pending",
+      "created": "2026-08-10",
+      "last_updated": "2026-08-10",
+      "evidence": [
+        "2026-08-10: XLY = sour sentiment but resilient spending; EZU = laggard + UBS upgrade + cheaper valuations.",
+        "2026-08-10 (v5): KWEB CUT - China regulatory/geopolitical risk unfundable at C conviction."
+      ]
+    },
+    {
+      "id": "T14",
+      "title": "Selling the greed (PLTR trim) works",
+      "prediction": "Keeping PLTR at just 2% (146x P/E, the greediest holding) reduces portfolio drawdown without costing more than 1pp of 12-month total return.",
+      "tier": "B",
+      "tier_reason": "Drawdown benefit likely; the <1pp opportunity-cost claim is the less certain half.",
+      "status": "pending",
+      "created": "2026-08-10",
+      "last_updated": "2026-08-10",
+      "evidence": [
+        "2026-08-10: 'Sell when others are greedy.' PLTR at 146x trailing P/E priced for perfection."
+      ]
+    },
+    {
+      "id": "T15",
+      "title": "Value factor pays as rotation broadens",
+      "prediction": "IWDL (2x value factor, held as anti-growth factor-hedge) outperforms the growth sleeve on a risk-adjusted (Sharpe) basis over the next 6 months.",
+      "tier": "B",
+      "tier_reason": "July's value-vs-growth divergence is evidence; re-rated C->B on breadth support. 2x decay = the cost.",
+      "status": "pending",
+      "created": "2026-08-10",
+      "last_updated": "2026-08-10",
+      "evidence": [
+        "2026-08-10: Value beat growth by widest margin in 25 years (July, HB Wealth); equal-weight leadership should extend it."
+      ]
+    },
+    {
+      "id": "T16",
+      "title": "Conviction discipline beats over-building",
+      "prediction": "Cutting 4 low-conviction non-hedge positions (IGV, ARKQ, XBI, KWEB) and raising cash to 13% produces a lower max drawdown than v4 with no loss of up-capture over 12 months.",
+      "tier": "B",
+      "tier_reason": "Dropping darts and holding cash is almost always drawdown-friendly; up-capture is the testable half.",
+      "status": "pending",
+      "created": "2026-08-10",
+      "last_updated": "2026-08-10",
+      "evidence": [
+        "2026-08-10 (v5): Cut IGV (D), ARKQ (C), XBI (C), KWEB (C) - all non-hedges. Cash 3.5% -> 13%. No C/D allowed unless it is a hedge."
+      ]
+    },
+    {
+      "id": "T17",
+      "title": "AI-pop hedge: floor + vol + anti-beta cap the unwind",
+      "prediction": "On any week the Nasdaq-100 falls >=10% on an AI-valuation unwind (AI pop), QFLR + VIXM + BTAL + ZROZ combined finish positive and the book's drawdown stays below half of the identical unhedged book's loss.",
+      "tier": "S",
+      "tier_reason": "Four instruments target the SAME event's distinct mechanisms (QFLR put-floor stops the bleed, VIXM spikes on realized vol, BTAL profits from the high-beta crash, ZROZ reprices on Fed cuts) - close to structural.",
+      "status": "pending",
+      "created": "2026-08-13",
+      "last_updated": "2026-08-13",
+      "evidence": [
+        "2026-08-13 (issue #6): created to replace the generic T11. This is the 'when the Nasdaq pops' case the hedge stack was actually built for."
+      ]
+    },
+    {
+      "id": "T18",
+      "title": "Yen-carry unwind hedge",
+      "prediction": "On any week the yen strengthens violently on forced carry liquidation (USDJPY falls >3%), FXY + DBMF combined finish positive and offset the leveraged-growth sleeve's loss.",
+      "tier": "S",
+      "tier_reason": "FXY is direct yen exposure and DBMF catches the cross-market trend - the 1998 / 2007-08 carry-unwind analogs make the mechanism concrete.",
+      "status": "pending",
+      "created": "2026-08-13",
+      "last_updated": "2026-08-13",
+      "evidence": [
+        "2026-08-13 (issue #6): created to replace the generic T11. Carry-unwind is the specific tail a leveraged book must test on its own."
+      ]
+    },
+    {
+      "id": "T19",
+      "title": "China shock hedge",
+      "prediction": "On any China-specific shock week (Taiwan conflict escalation, renewed trade war, stimulus collapse), GLD + GDX + DBMF combined finish positive and cushion the book's Asia/China-linked beta.",
+      "tier": "B",
+      "tier_reason": "Gold and trend are historically positive on China risk-off, but the geopolitical trigger is the least predictable - conviction capped at B.",
+      "status": "pending",
+      "created": "2026-08-13",
+      "last_updated": "2026-08-13",
+      "evidence": [
+        "2026-08-13 (issue #6): created to replace the generic T11. China tail-risk was why KWEB was cut in v5; the hedge answer deserves its own test."
+      ]
+    },
+    {
+      "id": "T20",
+      "title": "Inflation surprise hedge",
+      "prediction": "On any month headline CPI prints materially above consensus (inflation/debasement regime), GLD + GDX combined finish positive while the growth sleeve declines.",
+      "tier": "B",
+      "tier_reason": "Gold is the classic inflation store of value and miners add operating leverage. ZROZ is deliberately excluded - long bonds LOSE in inflation.",
+      "status": "pending",
+      "created": "2026-08-13",
+      "last_updated": "2026-08-13",
+      "evidence": [
+        "2026-08-13 (issue #6): created to replace the generic T11. Fed-behind-the-curve is the scenario ZROZ names - but bonds, not gold, do the work there; gold takes the debasement case.",
+        "2026-08-14: TIP inflation-leg trial REVERSED before execution - in a Fed-hikes-in-response regime SGOV is the better inflation hedge (T-bill yield resets up, zero duration loss; TIP fell ~12% in the 2022 shock). T20 continues to be tested by GLD+GDX only."
+      ]
+    },
+    {
+      "id": "T21",
+      "title": "War / geopolitical-spike hedge",
+      "prediction": "On any war or geopolitical-escalation week (Middle East, Russia/Ukraine, Taiwan), GLD + GDX + FXY + DBMF combined finish positive, offsetting the equity sleeve's risk-off selloff.",
+      "tier": "B",
+      "tier_reason": "Safe-haven gold + yen and trend-following catch flight-to-safety and commodity spikes; several instruments, but event timing is uncertain.",
+      "status": "pending",
+      "created": "2026-08-13",
+      "last_updated": "2026-08-13",
+      "evidence": [
+        "2026-08-13 (issue #6): created to replace the generic T11. GLD's thesis already names the Iran-war spike; it deserves its own scored case."
+      ]
     }
-   }
   ]
- },
- "events": [
-  {
-   "date": "2026-08-12",
-   "ticker": "JEPQ",
-   "name": "JPMorgan Nasdaq Equity Premium Income ETF",
-   "reason": "rebalance",
-   "note": "issue #7: covered-call removed - premium-financing was a mathematical illusion (~$250/yr yield vs ~$1,200-2,000/yr hedge drag); capped upside + full Nasdaq downside beta duplicates the growth sleeve. Sale scheduled for next market open; proceeds swept to SGOV.",
-   "state": null,
-   "price": null,
-   "buy_price": null,
-   "shares": null,
-   "realized_pnl": 0
-  },
-  {
-   "date": "2026-08-11",
-   "ticker": "SGOV",
-   "name": "iShares 0-3 Month Treasury Bond ETF",
-   "reason": "deploy_cash",
-   "price": 100.5,
-   "buy_price": 100.5,
-   "shares": 129.1045,
-   "realized_pnl": 0
-  },
-  {
-   "date": "2026-08-11",
-   "ticker": "SGOV",
-   "name": "iShares 0-3 Month Treasury Bond ETF",
-   "reason": "deploy_cash",
-   "price": 100.505,
-   "buy_price": 100.505,
-   "shares": 129.0981,
-   "realized_pnl": 0
-  },
-  {
-   "date": "2026-08-13",
-   "ticker": "JEPQ",
-   "name": "JPMorgan Nasdaq Equity Premium Income ETF",
-   "reason": "rebalance",
-   "note": "issue #7: covered-call removed - premium-financing was a mathematical illusion (~$250/yr yield vs ~$1,200-2,000/yr hedge drag); capped upside + full Nasdaq downside beta duplicates the growth sleeve. Sold at next market open; proceeds swept to SGOV.",
-   "state": null,
-   "price": 60.38,
-   "buy_price": 59.68,
-   "shares": 41.890081,
-   "realized_pnl": 29.24
-  },
-  {
-   "date": "2026-08-13",
-   "ticker": "SGOV",
-   "name": "iShares 0-3 Month Treasury Bond ETF",
-   "reason": "deploy_cash",
-   "price": 100.5223,
-   "buy_price": 100.5223,
-   "shares": 25.161,
-   "realized_pnl": 0
-  },
-  {
-   "date": "2026-08-13",
-   "ticker": "TIP",
-   "name": "iShares TIPS Bond ETF",
-   "reason": "rebalance",
-   "note": "T20 inflation leg added (~2.5k, Hedge Stack): direct CPI-linked hedge closing the scenario gap flagged by the v5.3 scorecard - inflation was hedged only by GLD+GDX while ZROZ loses in that scenario. Funded by trimming SGOV.",
-   "state": null,
-   "price": 107.22,
-   "buy_price": 107.22,
-   "shares": 23.316544,
-   "realized_pnl": 0
-  }
- ],
- "positions": [
-  {
-   "id": "TQQQ",
-   "ticker": "TQQQ",
-   "name": "ProShares UltraPro QQQ (3x Nasdaq-100)",
-   "sleeve": "Tech/AI Growth",
-   "theory_ids": [
-    "T1",
-    "T7"
-   ],
-   "buy_date": "2026-08-10",
-   "buy_price": 73.8,
-   "shares": 121.95122,
-   "cost": 9000.0,
-   "take_profit_pct": 0.5,
-   "stop_loss_pct": -0.35,
-   "underlying": "QQQ",
-   "underlying_stop_pct": -0.08,
-   "underlying_buy_price": 720.87,
-   "status": "open",
-   "thesis": "A-TIER CONVICTION. Nasdaq mega-caps are the earnings engine: strongest Q1 EPS growth in 4 years, Q2 accelerating, Fed hikes not the base case, markets at all-time highs. 3x wrapper adds decay risk (offset by VIXM + QFLR floor) but the directional trend is the highest-conviction growth bet in the book. V5: boosted +2k from the conviction cuts. V5.1: stop is index-referenced (QQQ -8%), the -35% wrapper level is only a backstop.",
-   "entry_note": "Core A-tier; floored by QFLR, vol-chop hedged by VIXM. Stop on QQQ (1x), not the 3x wrapper."
-  },
-  {
-   "id": "SOXL",
-   "ticker": "SOXL",
-   "name": "Direxion Daily Semiconductor Bull 3X Shares",
-   "sleeve": "Tech/AI Growth",
-   "theory_ids": [
-    "T1",
-    "T7"
-   ],
-   "buy_date": "2026-08-10",
-   "buy_price": 130.0,
-   "shares": 53.846154,
-   "cost": 7000.0,
-   "take_profit_pct": 0.6,
-   "stop_loss_pct": -0.35,
-   "underlying": "SOXX",
-   "underlying_stop_pct": -0.09,
-   "underlying_buy_price": 529.39,
-   "status": "open",
-   "thesis": "A-TIER CONVICTION. Semis remain the epicenter of the $1T AI capex cycle (T1); backlogs expanding, earnings above estimates. The June selloff was technical, not fundamental. 3x leverage is the highest-octane expression with vol-decay risk offset by VIXM. V5: boosted +2k. V5.1: stop is index-referenced (SOXX -9%), the -35% wrapper level is only a backstop.",
-   "entry_note": "Crowded-trade risk accepted at A-tier conviction; stop on SOXX (1x), not the 3x wrapper."
-  },
-  {
-   "id": "SMH",
-   "ticker": "SMH",
-   "name": "VanEck Semiconductor ETF",
-   "sleeve": "Tech/AI Growth",
-   "theory_ids": [
-    "T1"
-   ],
-   "buy_date": "2026-08-10",
-   "buy_price": 569.41,
-   "shares": 8.781016,
-   "cost": 5000.0,
-   "take_profit_pct": 0.4,
-   "stop_loss_pct": -0.2,
-   "status": "open",
-   "thesis": "A-TIER CONVICTION (T1). 1x semis core, no leveraged-decay risk - the 'battle-tested' ballast that keeps AI exposure without a decay tail.",
-   "entry_note": "Core holding per 2026 semis guides."
-  },
-  {
-   "id": "DRAM",
-   "ticker": "DRAM",
-   "name": "Roundhill Memory ETF (HBM / Memory)",
-   "sleeve": "Tech/AI Growth",
-   "theory_ids": [
-    "T2",
-    "T1"
-   ],
-   "buy_date": "2026-08-10",
-   "buy_price": 49.6,
-   "shares": 100.806452,
-   "cost": 5000.0,
-   "take_profit_pct": 0.5,
-   "stop_loss_pct": -0.25,
-   "status": "open",
-   "thesis": "B-TIER CONVICTION (T2). Memory/high-bandwidth-DRAM is the single most supply-constrained link in the AI stack - Micron fully booked, record revenue. Concentrated and volatile, but the bottleneck thesis is concrete, not hopium. V5: boosted +1k.",
-   "entry_note": "Memory supercycle thesis."
-  },
-  {
-   "id": "PLTR",
-   "ticker": "PLTR",
-   "name": "Palantir Technologies Inc.",
-   "sleeve": "Tech/AI Growth",
-   "theory_ids": [
-    "T14",
-    "T1"
-   ],
-   "buy_date": "2026-08-10",
-   "buy_price": 175.23,
-   "shares": 11.413455,
-   "cost": 2000.0,
-   "take_profit_pct": 0.4,
-   "stop_loss_pct": -0.2,
-   "status": "open",
-   "thesis": "B-TIER CONVICTION (T14). Agentic/sovereign AI momentum is real (Q2 blowout, BofA PT $255), but the 146x P/E caps conviction at B and caps size at 2%. This is the greed-position, kept small on purpose - selling part of it into strength is the 'sell greed' bet.",
-   "entry_note": "Smallest single-stock size; valuation limits conviction to B."
-  },
-  {
-   "id": "NLR",
-   "ticker": "NLR",
-   "name": "VanEck Uranium and Nuclear ETF",
-   "sleeve": "AI Power - Nuclear",
-   "theory_ids": [
-    "T3"
-   ],
-   "buy_date": "2026-08-10",
-   "buy_price": 116.99,
-   "shares": 59.834174,
-   "cost": 7000.0,
-   "take_profit_pct": 0.35,
-   "stop_loss_pct": -0.18,
-   "status": "open",
-   "thesis": "B-TIER CONVICTION (T3). Data centers to 12% of US electricity by 2028; 20-yr hyperscaler PPAs (CEG/VST/Oklo) give revenue visibility. Recent 10-14% pullback = buying the fear. NOTE: growth, not a hedge - power-for-AI trades with tech in an AI valuation reset.",
-   "entry_note": "Structural power-demand story. Growth sleeve (Nuclear/Power) - correlates with tech in an AI reset."
-  },
-  {
-   "id": "NUKZ",
-   "ticker": "NUKZ",
-   "name": "Range Nuclear Renaissance ETF",
-   "sleeve": "AI Power - Nuclear",
-   "theory_ids": [
-    "T3"
-   ],
-   "buy_date": "2026-08-10",
-   "buy_price": 66.64,
-   "shares": 60.02401,
-   "cost": 4000.0,
-   "take_profit_pct": 0.45,
-   "stop_loss_pct": -0.25,
-   "status": "open",
-   "thesis": "B-TIER CONVICTION. High-beta full nuclear value chain (miners, SMR developers, utilities, fuel cycle). Reactor restarts (Palisades, TMI/Crane) + uranium $88/lb are hard catalysts. Satellite to NLR.",
-   "entry_note": "Reactor-restart catalysts are dated and specific."
-  },
-  {
-   "id": "IWM",
-   "ticker": "IWM",
-   "name": "iShares Russell 2000 ETF",
-   "sleeve": "Broadening / Value",
-   "theory_ids": [
-    "T10"
-   ],
-   "buy_date": "2026-08-10",
-   "buy_price": 299.98,
-   "shares": 10.000667,
-   "cost": 3000.0,
-   "take_profit_pct": 0.3,
-   "stop_loss_pct": -0.15,
-   "status": "open",
-   "thesis": "B-TIER CONVICTION (T10). The broadening trade has hard data behind it: S&P 500 EQUAL-WEIGHT made new highs while cap-weight slipped - money is rotating out of mega-cap tech into the rest of the market. Tariffs, reshoring and AI-spillover benefit small caps. Reduced to 3k in v5.",
-   "entry_note": "Anti-crowding play with verifiable breadth evidence."
-  },
-  {
-   "id": "IWDL",
-   "ticker": "IWDL",
-   "name": "ETRACS 2x Leveraged US Value Factor TR ETN",
-   "sleeve": "Broadening / Value",
-   "theory_ids": [
-    "T15"
-   ],
-   "buy_date": "2026-08-10",
-   "buy_price": 69.9752,
-   "shares": 35.726519,
-   "cost": 2500.0,
-   "take_profit_pct": 0.45,
-   "stop_loss_pct": -0.35,
-   "underlying": "IWD",
-   "underlying_stop_pct": -0.1,
-   "underlying_buy_price": 258.31,
-   "status": "open",
-   "thesis": "B-TIER CONVICTION, kept as an ANTI-GROWTH FACTOR HEDGE (the value factor offsets the growth-heavy book - covered by the hedge exemption since it is a factor counterweight, not a directional growth bet). Value beat growth by the widest margin in 25 years in July; widening should continue. Risk: ETN (UBS credit) + 2x daily decay. V5.1: stop is index-referenced (IWD -10%), the -35% wrapper level is only a backstop.",
-   "entry_note": "Factor-hedge justification. 1x alternative: IWD/VTV. Stop on IWD (1x), not the 2x ETN."
-  },
-  {
-   "id": "XLY",
-   "ticker": "XLY",
-   "name": "Consumer Discretionary Select Sector SPDR Fund",
-   "sleeve": "Contrarian Fear",
-   "theory_ids": [
-    "T13"
-   ],
-   "buy_date": "2026-08-10",
-   "buy_price": 119.67,
-   "shares": 20.890784,
-   "cost": 2500.0,
-   "take_profit_pct": 0.3,
-   "stop_loss_pct": -0.15,
-   "status": "open",
-   "thesis": "B-TIER CONVICTION (revised up from C). The sentiment-vs-spending divergence is documented (HB Wealth Aug 2026): sentiment 'very sour' while job growth improves and spending stays resilient. De-rated discretionary + resilient fundamentals + tariffs eased from extremes = concrete contrarian setup. Kept at 2.5k.",
-   "entry_note": "Fear buy WITH a catalyst (improving jobs), unlike KWEB."
-  },
-  {
-   "id": "EZU",
-   "ticker": "EZU",
-   "name": "iShares MSCI Eurozone ETF",
-   "sleeve": "Contrarian Fear",
-   "theory_ids": [
-    "T13"
-   ],
-   "buy_date": "2026-08-10",
-   "buy_price": 71.3,
-   "shares": 28.05049,
-   "cost": 2000.0,
-   "take_profit_pct": 0.3,
-   "stop_loss_pct": -0.15,
-   "status": "open",
-   "thesis": "B-TIER CONVICTION (revised up from C). Europe is the biggest US laggard (BNP), UBS just UPGRADED Eurozone to Attractive, Brent's -26% drop HELPS European consumers/industrials, and valuations are structurally cheaper. A mean-reversion value gap with a named catalyst. Kept at 2k.",
-   "entry_note": "Laggard + explicit UBS upgrade catalyst."
-  },
-  {
-   "id": "ZROZ",
-   "ticker": "ZROZ",
-   "name": "PIMCO 25+ Year Zero Coupon U.S. Treasury ETF",
-   "sleeve": "Crisis Alpha - AI Bust",
-   "theory_ids": [
-    "T6",
-    "T17"
-   ],
-   "buy_date": "2026-08-10",
-   "buy_price": 58.12,
-   "shares": 103.235092,
-   "cost": 6000.0,
-   "take_profit_pct": 0.3,
-   "stop_loss_pct": -0.15,
-   "status": "open",
-   "thesis": "HEDGE (allowed regardless of tier, but honestly the highest-conviction hedge in the stack): ~26yr zero-coupon = ~15-20% rally per 100bp of yield collapse in an AI-bust/Fed-cut scenario (dot-com analog). Also on the contrarian side: bond markets are FEARING a Fed-behind-the-curve hike, which is exactly what makes long bonds cheap. V5: boosted +1k.",
-   "entry_note": "Deflation-scenario insurance + cheap entry."
-  },
-  {
-   "id": "FXY",
-   "ticker": "FXY",
-   "name": "Invesco CurrencyShares Japanese Yen Trust",
-   "sleeve": "Crisis Alpha - Carry Unwind",
-   "theory_ids": [
-    "T6",
-    "T18",
-    "T21"
-   ],
-   "buy_date": "2026-08-10",
-   "buy_price": 57.62,
-   "shares": 69.42034,
-   "cost": 4000.0,
-   "take_profit_pct": 0.2,
-   "stop_loss_pct": -0.12,
-   "status": "open",
-   "thesis": "HEDGE. Carry-unwind insurance: a global de-risking forces leveraged yen-carry liquidation and the yen rallies violently (1998, 2007-08). Exactly the tail this leveraged book is exposed to.",
-   "entry_note": "Coiled-spring FX hedge."
-  },
-  {
-   "id": "VIXM",
-   "ticker": "VIXM",
-   "name": "ProShares VIX Mid-Term Futures ETF",
-   "sleeve": "Crisis Alpha - Vol Decay",
-   "theory_ids": [
-    "T6",
-    "T17",
-    "T21"
-   ],
-   "buy_date": "2026-08-10",
-   "buy_price": 14.28,
-   "shares": 280.112045,
-   "cost": 4000.0,
-   "take_profit_pct": 0.4,
-   "stop_loss_pct": -0.2,
-   "status": "open",
-   "thesis": "HEDGE. Targets the exact mechanism that kills the 3x funds: volatility chop / daily-decay. Mid-term VIX futures spike when realized vol surges - the fire insurance for the specific fire TQQQ/SOXL are exposed to.",
-   "entry_note": "Pairs mechanically with SOXL/TQQQ."
-  },
-  {
-   "id": "QFLR",
-   "ticker": "QFLR",
-   "name": "Innovator Nasdaq-100 Managed Floor ETF",
-   "sleeve": "Crisis Alpha - Down-Day Floor",
-   "theory_ids": [
-    "T6",
-    "T17"
-   ],
-   "buy_date": "2026-08-10",
-   "buy_price": 35.49,
-   "shares": 98.619327,
-   "cost": 3500.0,
-   "take_profit_pct": 0.2,
-   "stop_loss_pct": -0.12,
-   "status": "open",
-   "thesis": "HEDGE. Long Nasdaq-100 with an options-managed downside floor - not an inverse of anything (per user rule), but the down-day answer: on a -30% Nasdaq week it stops falling while TQQQ bleeds. V5: boosted +1.5k because the down-day floor is the user's stated #1 concern.",
-   "entry_note": "Put-floor construction; no inverse decay."
-  },
-  {
-   "id": "GLD",
-   "ticker": "GLD",
-   "name": "SPDR Gold Shares",
-   "sleeve": "Crisis Alpha - Real Assets",
-   "theory_ids": [
-    "T9",
-    "T6",
-    "T19",
-    "T20",
-    "T21"
-   ],
-   "buy_date": "2026-08-10",
-   "buy_price": 402.54,
-   "shares": 8.694794,
-   "cost": 3500.0,
-   "take_profit_pct": 0.2,
-   "stop_loss_pct": -0.12,
-   "status": "open",
-   "thesis": "HEDGE (T9, B-tier confidence in the MECHANISM). Pure bullion: rises on growth selloffs, geopolitical spikes (Iran), Fed-behind-the-curve inflation, debasement. The only sleeve non-correlated to both equities AND bonds.",
-   "entry_note": "Crisis alpha, not a return driver."
-  },
-  {
-   "id": "GDX",
-   "ticker": "GDX",
-   "name": "VanEck Gold Miners ETF",
-   "sleeve": "Crisis Alpha - Real Assets",
-   "theory_ids": [
-    "T9",
-    "T6",
-    "T19",
-    "T20",
-    "T21"
-   ],
-   "buy_date": "2026-08-10",
-   "buy_price": 90.49,
-   "shares": 38.678306,
-   "cost": 3500.0,
-   "take_profit_pct": 0.35,
-   "stop_loss_pct": -0.2,
-   "status": "open",
-   "thesis": "HEDGE. Gold miners = operating leverage to bullion - a hedge that can grow. Pairs with GLD as the growthier half of the real-asset sleeve.",
-   "entry_note": "Miners amplify gold moves."
-  },
-  {
-   "id": "BTAL",
-   "ticker": "BTAL",
-   "name": "AGF U.S. Market Neutral Anti-Beta Fund",
-   "sleeve": "Crisis Alpha - Anti-Beta",
-   "theory_ids": [
-    "T6",
-    "T17"
-   ],
-   "buy_date": "2026-08-10",
-   "buy_price": 12.08,
-   "shares": 455.298013,
-   "cost": 5500.0,
-   "take_profit_pct": 0.15,
-   "stop_loss_pct": -0.1,
-   "status": "open",
-   "thesis": "HEDGE. Long low-beta / short high-beta market-neutral - LOW-VOL stocks historically compound while high-beta crashes (2000-02, 2008). The definitive 'what if today is a down day' shield for the leveraged legs.",
-   "entry_note": "Profits from exactly the beta-crash that hits TQQQ/SOXL."
-  },
-  {
-   "id": "DBMF",
-   "ticker": "DBMF",
-   "name": "iMGP DBi Managed Futures Strategy ETF",
-   "sleeve": "Crisis Alpha - Trend",
-   "theory_ids": [
-    "T6",
-    "T18",
-    "T19",
-    "T21"
-   ],
-   "buy_date": "2026-08-10",
-   "buy_price": 31.32,
-   "shares": 175.606641,
-   "cost": 5500.0,
-   "take_profit_pct": 0.2,
-   "stop_loss_pct": -0.12,
-   "status": "open",
-   "thesis": "HEDGE. Trend-following across 100+ global futures - history shows it profits in sustained bull AND bear regimes with near-zero equity correlation. Robust whichever way the tape breaks.",
-   "entry_note": "Dual-direction robustness."
-  },
-  {
-   "id": "TIP",
-   "ticker": "TIP",
-   "name": "iShares TIPS Bond ETF",
-   "sleeve": "Crisis Alpha - Inflation",
-   "theory_ids": [
-    "T6",
-    "T20"
-   ],
-   "buy_date": "2026-08-13",
-   "buy_price": 107.22,
-   "shares": 23.316544,
-   "cost": 2500.0,
-   "take_profit_pct": 0.15,
-   "stop_loss_pct": -0.1,
-   "status": "open",
-   "thesis": "HEDGE (T20, inflation) - REVERSED, removal scheduled. TIP was trialed as the inflation leg, then rejected: in the Fed-hikes-in-response regime (2022 record) TIP lost ~12% on real-yield duration while SGOV's T-bill yield reset upward with zero downside - SGOV is the better inflation hedge, and GLD+GDX already own the debasement/stagflation case TIP would target. Sold at the next market-open update; proceeds sweep back to SGOV.",
-   "entry_note": "Direct real-rate/inflation instrument - funds T20's mechanism honestly. Funded by trimming SGOV dry powder.",
-   "scheduled_exit": {
-    "reason": "rebalance",
-    "note": "TIP removed (issue #6 follow-up): SGOV is the better inflation hedge - a Fed-hikes-in-response regime lifts T-bill yield with zero duration loss while TIP fell ~12% in 2022; GLD+GDX already cover the stagflation case. Sold at the next market-open update; proceeds swept back to SGOV."
-   }
-  },
-  {
-   "ticker": "SGOV",
-   "name": "iShares 0-3 Month Treasury Bond ETF",
-   "sleeve": "Short-Term Bonds (SGOV)",
-   "theory_ids": [],
-   "buy_date": "2026-08-11",
-   "buy_price": 100.505,
-   "shares": 129.390024,
-   "cost": 13004.24,
-   "take_profit_pct": 0.0,
-   "stop_loss_pct": -0.1,
-   "status": "open",
-   "thesis": "Dry powder: idle cash parked in ultra-short T-bills (no cash drag)."
-  }
- ],
- "theories": [
-  {
-   "id": "T1",
-   "title": "AI infrastructure beats the S&P for the next 12 months",
-   "prediction": "Combined semis sleeve (SOXL, SMH, DRAM) outperforms SPY by >20pp over the next 12 months.",
-   "tier": "A",
-   "tier_reason": "Well-documented $1T AI capex + semis >40% of Q2 EPS growth, but >20pp bar is high and semis are crowded.",
-   "status": "pending",
-   "created": "2026-08-10",
-   "last_updated": "2026-08-10",
-   "evidence": [
-    "2026-08-10: $1T global AI capex in 2026 (Goldman); semis >40% of Q2 EPS growth (UBS). Late-June selloff technical, not fundamental."
-   ]
-  },
-  {
-   "id": "T2",
-   "title": "Memory (HBM) is the bottleneck - DRAM outperforms broad semis",
-   "prediction": "DRAM ETF outperforms SMH over the next 6 months.",
-   "tier": "B",
-   "tier_reason": "Bottleneck is concrete (full bookings) but DRAM already ran hard - some mean-reversion risk.",
-   "status": "pending",
-   "created": "2026-08-10",
-   "last_updated": "2026-08-10",
-   "evidence": [
-    "2026-08-10: Micron capacity fully booked; DRAM +161.5% since Apr 2026, $23B AUM."
-   ]
-  },
-  {
-   "id": "T3",
-   "title": "Nuclear/power is the next leg of the AI trade",
-   "prediction": "NLR + NUKZ combined outperform SPY over the next 12 months.",
-   "tier": "B",
-   "tier_reason": "Structural (data centers, 20-yr PPAs) but a rotation bet with pullback risk.",
-   "status": "pending",
-   "created": "2026-08-10",
-   "last_updated": "2026-08-10",
-   "evidence": [
-    "2026-08-10: Data centers 6.7-12% of US electricity by 2028; hyperscalers signed 20-yr PPAs; uranium $88/lb +34% YoY."
-   ]
-  },
-  {
-   "id": "T6",
-   "title": "Crisis-alpha stack cuts drawdown without killing upside",
-   "prediction": "Portfolio max drawdown over the next 12 months stays under -35% while the hedge stack (ZROZ+FXY+VIXM+QFLR+GLD+GDX+BTAL+DBMF) contributes a combined net return greater than -5%.",
-   "tier": "A",
-   "tier_reason": "Purpose-built to cut drawdown; the >-5% net hedge return is the only uncertain leg. This is the insurance-COST budget only; per-crash-case performance is scored in T17-T21 (issue #6).",
-   "status": "pending",
-   "created": "2026-08-10",
-   "last_updated": "2026-08-13",
-   "evidence": [
-    "2026-08-10: Hedges mapped to distinct crash mechanisms: deflation, carry-unwind, vol-spike, put-floor, real assets, anti-beta, trend.",
-    "2026-08-13 (issue #6): generic hedge claims split into scenario-specific theories T17 (AI pop), T18 (yen carry), T19 (China), T20 (inflation), T21 (war). T6 stays the book-level drag/drawdown budget."
-   ]
-  },
-  {
-   "id": "T7",
-   "title": "Leverage pays in a persistent trend",
-   "prediction": "SOXL + TQQQ combined beat a 1x equivalent (50% SMH + 50% QQQ) over the holding period because the AI trend persists and daily-decay losses are exceeded by trend gains.",
-   "tier": "B",
-   "tier_reason": "H1 2026 proof (SOXL +440%, TQQQ +43%) plus A-tier trend conviction; decay risk is the known cost. Re-rated C->B in v5.",
-   "status": "pending",
-   "created": "2026-08-10",
-   "last_updated": "2026-08-10",
-   "evidence": [
-    "2026-08-10: Leveraged products dominate when trends hard; decay is the offsetting risk."
-   ]
-  },
-  {
-   "id": "T8",
-   "title": "Diversification beats raw tech concentration",
-   "prediction": "The v5 book posts a materially shallower drawdown than the original v1 (12-position, 84% tech) book on the next -5% tech day, while still capturing at least 60% of the v1 upside over 12 months.",
-   "tier": "S",
-   "tier_reason": "Structural - cutting 84%->30% tech concentration MUST shallow drawdowns.",
-   "status": "pending",
-   "created": "2026-08-10",
-   "last_updated": "2026-08-10",
-   "evidence": [
-    "2026-08-10: Tech cut 84% -> 30%; crisis-alpha + cash enhance downside protection."
-   ]
-  },
-  {
-   "id": "T9",
-   "title": "Gold hedges tech drawdowns",
-   "prediction": "On days SPY falls >1%, GLD+GDX combined finish positive at least 40% of the time over the next 12 months.",
-   "tier": "B",
-   "tier_reason": "Historically common, not guaranteed - 40% bar is a fair, testable threshold.",
-   "status": "pending",
-   "created": "2026-08-10",
-   "last_updated": "2026-08-10",
-   "evidence": [
-    "2026-08-10: Gold resilient during Iran-war volatility; miners add downside-beta exposure tied to bullion."
-   ]
-  },
-  {
-   "id": "T10",
-   "title": "Small-cap broadening outperforms SPY while AI consolidates",
-   "prediction": "IWM outperforms SPY over the next 6 months as AI/hardware consolidates and breadth broadens.",
-   "tier": "B",
-   "tier_reason": "Equal-weight-vs-cap-weight divergence is verifiable breadth data; timing still not certain.",
-   "status": "pending",
-   "created": "2026-08-10",
-   "last_updated": "2026-08-10",
-   "evidence": [
-    "2026-08-10: S&P 500 equal-weight at highs while cap-weight slipped (July). XBI dropped from this bet in v5 (low catalyst)."
-   ]
-  },
-  {
-   "id": "T11",
-   "title": "Hedge stack halves the loss on a crash week",
-   "prediction": "OBSOLETE - replaced by scenario-specific hedge theories. The generic 'when the Nasdaq falls >=10%' framing could not attribute credit to the right instrument or falsify a specific crash case.",
-   "tier": "S",
-   "tier_reason": "Superseded by T17-T21 in issue #6: a single 'crash week' theory is untestable - AI pop, yen-carry unwind, China shock, inflation, and war each stress different instruments.",
-   "status": "abandoned",
-   "created": "2026-08-10",
-   "last_updated": "2026-08-13",
-   "evidence": [
-    "2026-08-10: Hedges mapped to distinct crash mechanisms.",
-    "2026-08-13 (issue #6): too general - 'when NASDAQ falls 10%' cannot distinguish which hedge pays or whether the theory is wrong. Split into T17 (AI pop), T18 (yen carry), T19 (China), T20 (inflation), T21 (war)."
-   ]
-  },
-  {
-   "id": "T12",
-   "title": "Covered-call income adds book-level yield",
-   "prediction": "JEPQ's cumulative distributions over 12 months are net-positive at the book level (distributions exceed JEPQ's own price/cap drag), i.e. the position pays to hold rather than costing the book.",
-   "tier": "B",
-   "tier_reason": "Test DISCONTINUED (issue #7): JEPQ removed at v5.2. Even the honest version of the claim could not clear the strategy's Sharpe bar - ~$250/yr income vs ~$1,200-2,000/yr hedge drag meant it never financed the insurance stack, and its capped upside + full Nasdaq downside beta duplicated the growth sleeve. Proceeds move to SGOV.",
-   "status": "abandoned",
-   "created": "2026-08-10",
-   "last_updated": "2026-08-12",
-   "evidence": [
-    "2026-08-10: JEPQ yield ~10% on a 2.5% position = ~0.25% book-level - small income sleeve, not a hedge-funding engine.",
-    "2026-08-11 (v5.1): 'JEPQ funds the hedges' narrative deleted. Hedge drag is explicitly priced insurance (T6).",
-    "2026-08-12 (issue #7): position removed - covered-call income could not finance the hedge stack (math illusion) and added no diversification. Sale scheduled at next market open, proceeds to SGOV."
-   ]
-  },
-  {
-   "id": "T13",
-   "title": "Fear buys with catalysts beat SPY",
-   "prediction": "XLY + EZU combined outperform SPY over the next 6 months, bought on the sentiment-vs-spending divergence and the Europe laggard+UBS-upgrade gap.",
-   "tier": "B",
-   "tier_reason": "Named catalysts (jobs improving; UBS upgrade; oil drop) lift conviction from C to B. KWEB excluded - fear without resolution.",
-   "status": "pending",
-   "created": "2026-08-10",
-   "last_updated": "2026-08-10",
-   "evidence": [
-    "2026-08-10: XLY = sour sentiment but resilient spending; EZU = laggard + UBS upgrade + cheaper valuations.",
-    "2026-08-10 (v5): KWEB CUT - China regulatory/geopolitical risk unfundable at C conviction."
-   ]
-  },
-  {
-   "id": "T14",
-   "title": "Selling the greed (PLTR trim) works",
-   "prediction": "Keeping PLTR at just 2% (146x P/E, the greediest holding) reduces portfolio drawdown without costing more than 1pp of 12-month total return.",
-   "tier": "B",
-   "tier_reason": "Drawdown benefit likely; the <1pp opportunity-cost claim is the less certain half.",
-   "status": "pending",
-   "created": "2026-08-10",
-   "last_updated": "2026-08-10",
-   "evidence": [
-    "2026-08-10: 'Sell when others are greedy.' PLTR at 146x trailing P/E priced for perfection."
-   ]
-  },
-  {
-   "id": "T15",
-   "title": "Value factor pays as rotation broadens",
-   "prediction": "IWDL (2x value factor, held as anti-growth factor-hedge) outperforms the growth sleeve on a risk-adjusted (Sharpe) basis over the next 6 months.",
-   "tier": "B",
-   "tier_reason": "July's value-vs-growth divergence is evidence; re-rated C->B on breadth support. 2x decay = the cost.",
-   "status": "pending",
-   "created": "2026-08-10",
-   "last_updated": "2026-08-10",
-   "evidence": [
-    "2026-08-10: Value beat growth by widest margin in 25 years (July, HB Wealth); equal-weight leadership should extend it."
-   ]
-  },
-  {
-   "id": "T16",
-   "title": "Conviction discipline beats over-building",
-   "prediction": "Cutting 4 low-conviction non-hedge positions (IGV, ARKQ, XBI, KWEB) and raising cash to 13% produces a lower max drawdown than v4 with no loss of up-capture over 12 months.",
-   "tier": "B",
-   "tier_reason": "Dropping darts and holding cash is almost always drawdown-friendly; up-capture is the testable half.",
-   "status": "pending",
-   "created": "2026-08-10",
-   "last_updated": "2026-08-10",
-   "evidence": [
-    "2026-08-10 (v5): Cut IGV (D), ARKQ (C), XBI (C), KWEB (C) - all non-hedges. Cash 3.5% -> 13%. No C/D allowed unless it is a hedge."
-   ]
-  },
-  {
-   "id": "T17",
-   "title": "AI-pop hedge: floor + vol + anti-beta cap the unwind",
-   "prediction": "On any week the Nasdaq-100 falls >=10% on an AI-valuation unwind (AI pop), QFLR + VIXM + BTAL + ZROZ combined finish positive and the book's drawdown stays below half of the identical unhedged book's loss.",
-   "tier": "S",
-   "tier_reason": "Four instruments target the SAME event's distinct mechanisms (QFLR put-floor stops the bleed, VIXM spikes on realized vol, BTAL profits from the high-beta crash, ZROZ reprices on Fed cuts) - close to structural.",
-   "status": "pending",
-   "created": "2026-08-13",
-   "last_updated": "2026-08-13",
-   "evidence": [
-    "2026-08-13 (issue #6): created to replace the generic T11. This is the 'when the Nasdaq pops' case the hedge stack was actually built for."
-   ]
-  },
-  {
-   "id": "T18",
-   "title": "Yen-carry unwind hedge",
-   "prediction": "On any week the yen strengthens violently on forced carry liquidation (USDJPY falls >3%), FXY + DBMF combined finish positive and offset the leveraged-growth sleeve's loss.",
-   "tier": "S",
-   "tier_reason": "FXY is direct yen exposure and DBMF catches the cross-market trend - the 1998 / 2007-08 carry-unwind analogs make the mechanism concrete.",
-   "status": "pending",
-   "created": "2026-08-13",
-   "last_updated": "2026-08-13",
-   "evidence": [
-    "2026-08-13 (issue #6): created to replace the generic T11. Carry-unwind is the specific tail a leveraged book must test on its own."
-   ]
-  },
-  {
-   "id": "T19",
-   "title": "China shock hedge",
-   "prediction": "On any China-specific shock week (Taiwan conflict escalation, renewed trade war, stimulus collapse), GLD + GDX + DBMF combined finish positive and cushion the book's Asia/China-linked beta.",
-   "tier": "B",
-   "tier_reason": "Gold and trend are historically positive on China risk-off, but the geopolitical trigger is the least predictable - conviction capped at B.",
-   "status": "pending",
-   "created": "2026-08-13",
-   "last_updated": "2026-08-13",
-   "evidence": [
-    "2026-08-13 (issue #6): created to replace the generic T11. China tail-risk was why KWEB was cut in v5; the hedge answer deserves its own test."
-   ]
-  },
-  {
-   "id": "T20",
-   "title": "Inflation surprise hedge",
-   "prediction": "On any month headline CPI prints materially above consensus (inflation/debasement regime), GLD + GDX combined finish positive while the growth sleeve declines.",
-   "tier": "B",
-   "tier_reason": "Gold is the classic inflation store of value and miners add operating leverage. ZROZ is deliberately excluded - long bonds LOSE in inflation.",
-   "status": "pending",
-   "created": "2026-08-13",
-   "last_updated": "2026-08-13",
-   "evidence": [
-    "2026-08-13 (issue #6): created to replace the generic T11. Fed-behind-the-curve is the scenario ZROZ names - but bonds, not gold, do the work there; gold takes the debasement case.",
-    "2026-08-14: TIP inflation-leg trial REVERSED before execution - in a Fed-hikes-in-response regime SGOV is the better inflation hedge (T-bill yield resets up, zero duration loss; TIP fell ~12% in the 2022 shock). T20 continues to be tested by GLD+GDX only."
-   ]
-  },
-  {
-   "id": "T21",
-   "title": "War / geopolitical-spike hedge",
-   "prediction": "On any war or geopolitical-escalation week (Middle East, Russia/Ukraine, Taiwan), GLD + GDX + FXY + DBMF combined finish positive, offsetting the equity sleeve's risk-off selloff.",
-   "tier": "B",
-   "tier_reason": "Safe-haven gold + yen and trend-following catch flight-to-safety and commodity spikes; several instruments, but event timing is uncertain.",
-   "status": "pending",
-   "created": "2026-08-13",
-   "last_updated": "2026-08-13",
-   "evidence": [
-    "2026-08-13 (issue #6): created to replace the generic T11. GLD's thesis already names the Iran-war spike; it deserves its own scored case."
-   ]
-  }
- ]
 }

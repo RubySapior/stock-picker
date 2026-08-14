@@ -82,6 +82,11 @@ function render() {
   document.title = D.meta.name;
   document.getElementById('pname').textContent = D.meta.name;
   document.getElementById('asof').textContent = D.asof;
+  const verEl = document.getElementById('verLine');
+  if (verEl) {
+    const v = D.meta.version;
+    verEl.textContent = v ? `site v${v.site} · algo v${v.algo}` : '';
+  }
 
   /* ---- rebalance flags (passive drift alerts, never trades) ---- */
   const rebal = D.rebalance ? (Array.isArray(D.rebalance) ? D.rebalance : [D.rebalance]) : [];
