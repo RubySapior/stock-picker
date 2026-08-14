@@ -349,15 +349,17 @@ function render() {
     const thumb = document.getElementById('feedThumb');
     let idleT = null;
     function matchFeedHeight(){
-      const bs = document.getElementById('bigStories');
-      const bh = bs ? bs.scrollHeight : 0;
-      const sub = feedEl.previousElementSibling;
-      let off = 0;
-      if (sub) {
-        const mb = parseInt(getComputedStyle(sub).marginBottom) || 0;
-        off = sub.offsetHeight + mb;
-      }
-      feedEl.style.maxHeight = Math.max(bh - off, 160) + 'px';
+      const mb = el => (parseInt(getComputedStyle(el).marginBottom) || 0);
+      const bsPanel = bigEl.closest('.panel');
+      const bsH2 = bsPanel ? bsPanel.querySelector('h2') : null;
+      const bsHeader = (bsH2 ? bsH2.offsetHeight + mb(bsH2) : 0);
+      const bsContent = (bigEl.scrollHeight || 0) + bsHeader;
+      const fp = wrap.closest('.panel');
+      const fh2 = fp ? fp.querySelector('h2') : null;
+      const feedHeader = (fh2 ? fh2.offsetHeight + mb(fh2) : 0);
+      const sub = wrap.previousElementSibling;
+      const subH = (sub ? sub.offsetHeight + mb(sub) : 0);
+      feedEl.style.maxHeight = Math.max(bsContent - feedHeader - subH, 160) + 'px';
     }
     function updFeedBar(){
       const h = feedEl.clientHeight, sh = feedEl.scrollHeight, max = sh - h;
