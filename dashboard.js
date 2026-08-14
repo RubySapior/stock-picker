@@ -170,7 +170,7 @@ window.DASH = {
         "confirmed": false
       },
       "F4": {
-        "prev_score": 3.4,
+        "prev_score": 3.5,
         "score": 3.5,
         "days_above": 0,
         "confirmed": false
@@ -184,7 +184,7 @@ window.DASH = {
       "F6": {
         "prev_score": 4.8,
         "score": 4.8,
-        "days_above": 4,
+        "days_above": 5,
         "confirmed": true
       },
       "F7": {
@@ -237,7 +237,8 @@ window.DASH = {
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
-      "theory_ids": []
+      "theory_ids": [],
+      "scheduled_exit": null
     },
     {
       "ticker": "TQQQ",
@@ -263,7 +264,8 @@ window.DASH = {
       "theory_ids": [
         "T1",
         "T7"
-      ]
+      ],
+      "scheduled_exit": null
     },
     {
       "ticker": "SOXL",
@@ -289,7 +291,8 @@ window.DASH = {
       "theory_ids": [
         "T1",
         "T7"
-      ]
+      ],
+      "scheduled_exit": null
     },
     {
       "ticker": "NLR",
@@ -314,7 +317,8 @@ window.DASH = {
       "underlying_buy_price": null,
       "theory_ids": [
         "T3"
-      ]
+      ],
+      "scheduled_exit": null
     },
     {
       "ticker": "ZROZ",
@@ -340,7 +344,8 @@ window.DASH = {
       "theory_ids": [
         "T6",
         "T17"
-      ]
+      ],
+      "scheduled_exit": null
     },
     {
       "ticker": "DRAM",
@@ -366,7 +371,8 @@ window.DASH = {
       "theory_ids": [
         "T2",
         "T1"
-      ]
+      ],
+      "scheduled_exit": null
     },
     {
       "ticker": "DBMF",
@@ -394,7 +400,8 @@ window.DASH = {
         "T18",
         "T19",
         "T21"
-      ]
+      ],
+      "scheduled_exit": null
     },
     {
       "ticker": "BTAL",
@@ -420,7 +427,8 @@ window.DASH = {
       "theory_ids": [
         "T6",
         "T17"
-      ]
+      ],
+      "scheduled_exit": null
     },
     {
       "ticker": "SMH",
@@ -445,7 +453,8 @@ window.DASH = {
       "underlying_buy_price": null,
       "theory_ids": [
         "T1"
-      ]
+      ],
+      "scheduled_exit": null
     },
     {
       "ticker": "NUKZ",
@@ -470,7 +479,8 @@ window.DASH = {
       "underlying_buy_price": null,
       "theory_ids": [
         "T3"
-      ]
+      ],
+      "scheduled_exit": null
     },
     {
       "ticker": "FXY",
@@ -497,7 +507,8 @@ window.DASH = {
         "T6",
         "T18",
         "T21"
-      ]
+      ],
+      "scheduled_exit": null
     },
     {
       "ticker": "VIXM",
@@ -524,7 +535,8 @@ window.DASH = {
         "T6",
         "T17",
         "T21"
-      ]
+      ],
+      "scheduled_exit": null
     },
     {
       "ticker": "QFLR",
@@ -550,7 +562,8 @@ window.DASH = {
       "theory_ids": [
         "T6",
         "T17"
-      ]
+      ],
+      "scheduled_exit": null
     },
     {
       "ticker": "GLD",
@@ -579,7 +592,8 @@ window.DASH = {
         "T19",
         "T20",
         "T21"
-      ]
+      ],
+      "scheduled_exit": null
     },
     {
       "ticker": "GDX",
@@ -608,7 +622,8 @@ window.DASH = {
         "T19",
         "T20",
         "T21"
-      ]
+      ],
+      "scheduled_exit": null
     },
     {
       "ticker": "IWM",
@@ -633,7 +648,8 @@ window.DASH = {
       "underlying_buy_price": null,
       "theory_ids": [
         "T10"
-      ]
+      ],
+      "scheduled_exit": null
     },
     {
       "ticker": "IWDL",
@@ -658,7 +674,8 @@ window.DASH = {
       "underlying_buy_price": 258.31,
       "theory_ids": [
         "T15"
-      ]
+      ],
+      "scheduled_exit": null
     },
     {
       "ticker": "TIP",
@@ -684,7 +701,11 @@ window.DASH = {
       "theory_ids": [
         "T6",
         "T20"
-      ]
+      ],
+      "scheduled_exit": {
+        "reason": "rebalance",
+        "note": "TIP removed (issue #6 follow-up): SGOV is the better inflation hedge - a Fed-hikes-in-response regime lifts T-bill yield with zero duration loss while TIP fell ~12% in 2022; GLD+GDX already cover the stagflation case. Sold at the next market-open update; proceeds swept back to SGOV."
+      }
     },
     {
       "ticker": "XLY",
@@ -709,7 +730,8 @@ window.DASH = {
       "underlying_buy_price": null,
       "theory_ids": [
         "T13"
-      ]
+      ],
+      "scheduled_exit": null
     },
     {
       "ticker": "PLTR",
@@ -735,7 +757,8 @@ window.DASH = {
       "theory_ids": [
         "T14",
         "T1"
-      ]
+      ],
+      "scheduled_exit": null
     },
     {
       "ticker": "EZU",
@@ -760,7 +783,8 @@ window.DASH = {
       "underlying_buy_price": null,
       "theory_ids": [
         "T13"
-      ]
+      ],
+      "scheduled_exit": null
     }
   ],
   "sleeves": [
@@ -1362,17 +1386,17 @@ window.DASH = {
       "name": "War / energy shock",
       "type": "episodic",
       "score": 3.8,
-      "level": 0.577,
+      "level": 0.58,
       "velocity": {
         "label": "5d velocity",
-        "value": 0.0428,
-        "pct": 0.765
+        "value": 0.0448,
+        "pct": 0.769
       },
       "trend": null,
       "signals": [
         {
           "label": "Crude 5d momentum",
-          "value": 0.765
+          "value": 0.769
         },
         {
           "label": "Gold 1d momentum",
@@ -1532,7 +1556,7 @@ window.DASH = {
       "level": 0.2,
       "velocity": {
         "label": "5d velocity",
-        "value": -0.0054,
+        "value": -0.0056,
         "pct": 0.341
       },
       "trend": null,
@@ -1637,7 +1661,7 @@ window.DASH = {
   },
   "rebalance": null,
   "news": {
-    "asof": "2026-08-13 23:44:14",
+    "asof": "2026-08-13 23:47:32",
     "big_stories": [
       {
         "title": "The House Is Paid Off but the Property Tax Bill Never Retires. These 3 ETFs Pay It Every Year",
@@ -1692,10 +1716,10 @@ window.DASH = {
         "sent": "neutral"
       },
       {
-        "title": "Gold Rally Faces Moment of Truth",
-        "link": "https://finance.yahoo.com/markets/commodities/articles/gold-rally-faces-moment-truth-165917278.html?.tsrc=rss",
-        "ts": 1786640357,
-        "when": "Aug 13, 10:59 AM",
+        "title": "5 ETFs to Benefit From Cooling Inflation in the Near Term",
+        "link": "https://finance.yahoo.com/economy/policy/articles/5-etfs-benefit-cooling-inflation-140000926.html?.tsrc=rss",
+        "ts": 1786629600,
+        "when": "Aug 13, 08:00 AM",
         "ticker": "GLD",
         "industry": "Gold",
         "theory": [
@@ -1777,38 +1801,6 @@ window.DASH = {
         "sent": "neutral"
       },
       {
-        "title": "Gold Rally Faces Moment of Truth",
-        "link": "https://finance.yahoo.com/markets/commodities/articles/gold-rally-faces-moment-truth-165917278.html?.tsrc=rss",
-        "ts": 1786640357,
-        "when": "Aug 13, 10:59 AM",
-        "ticker": "GLD",
-        "industry": "Gold",
-        "theory": [
-          "T6",
-          "T9",
-          "T19",
-          "T20",
-          "T21"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "MoneyMasters Podcast 8-13-26- SP 500 Vs. TSX - Which Leads Next",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/moneymasters-podcast-8-13-26-163200205.html?.tsrc=rss",
-        "ts": 1786638720,
-        "when": "Aug 13, 10:32 AM",
-        "ticker": "GLD",
-        "industry": "Gold",
-        "theory": [
-          "T6",
-          "T9",
-          "T19",
-          "T20",
-          "T21"
-        ],
-        "sent": "neutral"
-      },
-      {
         "title": "Strength in Defense & Propulsion Unit Drives GE Aerospace: Can It Sustain?",
         "link": "https://finance.yahoo.com/markets/stocks/articles/strength-defense-propulsion-unit-drives-151700107.html?.tsrc=rss",
         "ts": 1786634220,
@@ -1853,22 +1845,6 @@ window.DASH = {
           "T21"
         ],
         "sent": "positive"
-      },
-      {
-        "title": "Exchange-Traded Funds, Equity Futures Higher Pre-Bell Thursday Amid Producer Inflation Data Release",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/exchange-traded-funds-equity-futures-131321660.html?.tsrc=rss",
-        "ts": 1786626801,
-        "when": "Aug 13, 07:13 AM",
-        "ticker": "GLD",
-        "industry": "Gold",
-        "theory": [
-          "T6",
-          "T9",
-          "T19",
-          "T20",
-          "T21"
-        ],
-        "sent": "neutral"
       },
       {
         "title": "Are Wall Street Analysts Bullish on Smurfit Westrock Stock?",
@@ -2145,6 +2121,48 @@ window.DASH = {
           "T14"
         ],
         "sent": "negative"
+      },
+      {
+        "title": "Sector Update: Consumer Stocks Mixed Late Afternoon",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-mixed-afternoon-195051183.html?.tsrc=rss",
+        "ts": 1786564251,
+        "when": "Aug 12, 01:50 PM",
+        "ticker": "XLY",
+        "industry": "Consumer Disc.",
+        "theory": [
+          "T13"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "Tesla, Palantir Fall as CPI Sends September Fed Hike Odds to 33%",
+        "link": "https://www.benzinga.com/markets/prediction-markets/26/08/61156417/tesla-palantir-july-cpi-fed-hike-odds?utm_source=yahooFinance&utm_campaign=partner_feed&utm_medium=referral&.tsrc=rss",
+        "ts": 1786563225,
+        "when": "Aug 12, 01:33 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "Michael Burry adds to Nvidia and Palantir shorts while loading up on Molina Healthcare, which is down 54% from its high",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/michael-burry-adds-nvidia-palantir-184500402.html?.tsrc=rss",
+        "ts": 1786560300,
+        "when": "Aug 12, 12:45 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
       }
     ]
   }

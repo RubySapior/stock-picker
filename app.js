@@ -188,7 +188,7 @@ function render() {
       const label = st==='open' ? 'OPEN' : (p.exit && p.exit.reason==='take_profit' ? 'TAKE PROFIT' : 'STOP LOSS');
       const pnl = p.pnl_pct===null ? '—' : sign(p.pnl_pct)+'%';
       return `<tr>
-        <td><strong><span class="tick" title="${escA(p.name)}">${p.ticker}</span></strong>${p.leverage > 1 ? `<span class="levBadge">${p.leverage}x</span>` : ''}${isNew.positions[p.ticker] ? '<span class="newTag">NEW</span>' : ''}</td>
+        <td><strong><span class="tick" title="${escA(p.name)}">${p.ticker}</span></strong>${p.leverage > 1 ? `<span class="levBadge">${p.leverage}x</span>` : ''}${isNew.positions[p.ticker] ? '<span class="newTag">NEW</span>' : ''}${p.scheduled_exit ? `<span class="schedTag" title="${escA((p.scheduled_exit.note || p.scheduled_exit.reason))}">SELL SCHEDULED</span>` : ''}</td>
         <td>${p.name}<div class="small muted">${p.sleeve}</div></td>
         <td>${fmtN(p.buy_price)}</td>
         <td>${fmtN(p.current_price)}</td>

@@ -773,6 +773,7 @@ def write_dashboard(data, benchmark=None, rebalance=None, fear_data=None):
             "underlying_stop_pct": pos.get("underlying_stop_pct"),
             "underlying_buy_price": pos.get("underlying_buy_price"),
             "theory_ids": pos.get("theory_ids", []),
+            "scheduled_exit": pos.get("scheduled_exit"),
         })
 
     sleeves = [{"sleeve": k, "value": round(v, 2)} for k, v in sorted(sleeve_totals.items(), key=lambda x: -x[1])]
