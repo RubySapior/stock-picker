@@ -35,6 +35,16 @@ milestones (or both if a prompt touches both sides), each with its own entry bel
 
 ## [Unreleased]
 
+## [site 0.4.4] — 2026-08-14
+
+### Fixed
+- The "blank card" behind the front card during a flip is gone for good:
+  the deck-back pseudo-cards were removed (they read as a hidden blank
+  card covering the side cards), and the card faces are now clearly
+  lighter than the page background with a stronger border — so the side
+  cards behind the flipping card are actually visible through its
+  footprint mid-flip, like a real deck.
+
 ## [site 0.4.3] — 2026-08-14
 
 ### Fixed
