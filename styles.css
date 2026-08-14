@@ -192,7 +192,7 @@
   .wheelStage{position:relative; height:min(460px, 64vh); perspective:1500px; overflow:hidden; touch-action:pan-y; cursor:grab; border-radius:16px; user-select:none; -webkit-user-select:none; -webkit-touch-callout:none;}
   .wheelStage.dragging{cursor:grabbing;}
   .wheel{position:absolute; inset:0;}
-  .wheelStage .card{position:absolute; left:50%; top:50%; width:min(320px, 82vw); height:min(420px, 56vh); transition:transform .7s cubic-bezier(.22,.9,.3,1), opacity .35s ease; cursor:pointer;}
+  .wheelStage .card{position:absolute; left:50%; top:50%; width:min(320px, 82vw); height:min(420px, 56vh); background:transparent; border:none; padding:0; transition:transform .7s cubic-bezier(.22,.9,.3,1), opacity .35s ease; cursor:pointer;}
   .wheelStage.dragging .card{transition:transform .25s cubic-bezier(.25,.85,.35,1), opacity .3s ease;}
   .cardInner{position:absolute; inset:0; z-index:1; perspective:1200px; transform-style:preserve-3d; transition:transform .7s cubic-bezier(.4,.1,.2,1);}
   .wheelStage .card.flipped .cardInner{transform:rotateY(180deg);}

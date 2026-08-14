@@ -35,6 +35,16 @@ milestones (or both if a prompt touches both sides), each with its own entry bel
 
 ## [Unreleased]
 
+## [site 0.4.5] — 2026-08-14
+
+### Fixed
+- THE blank layer: wheel cards were still matched by the shared
+  `.card{background:var(--panel)}` scorecard rule, so every wheel card
+  carried an opaque panel rectangle behind its faces — when a card was
+  flipped edge-on that slab covered the side cards. `.wheelStage .card`
+  now explicitly sets `background:transparent; border:none; padding:0`,
+  so a card is only ever its two faces.
+
 ## [site 0.4.4] — 2026-08-14
 
 ### Fixed
