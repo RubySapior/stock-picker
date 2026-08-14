@@ -83,9 +83,8 @@
   a.theoryTag{text-decoration:none; cursor:pointer; color:var(--violet);}
   .theoryTag{display:inline-block; font-size:10px; color:var(--violet); border:1px solid rgba(167,139,250,.35); border-radius:6px; padding:0 6px;}
   a.theoryTag:hover{background:rgba(167,139,250,.15);}
-  .news-grid .panel{display:flex; flex-direction:column;}
-  .feedWrap{flex:1; min-height:0; position:relative; display:flex; flex-direction:column;}
-  #newsFeed{flex:1; min-height:0; overflow-y:auto; scrollbar-width:none;}
+  .feedWrap{position:relative;}
+  #newsFeed{overflow-y:auto; scrollbar-width:none;}
   #newsFeed::-webkit-scrollbar{width:0; height:0;}
   .feedBar{position:absolute; right:1px; top:2px; bottom:2px; width:6px; pointer-events:none; z-index:5;}
   .feedThumb{position:absolute; left:0; right:0; border-radius:3px; background:rgba(56,189,248,.38); box-shadow:0 0 6px rgba(56,189,248,.18); opacity:0; transition:opacity .35s ease;}

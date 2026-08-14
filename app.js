@@ -348,6 +348,11 @@ function render() {
     const wrap = feedEl.parentElement;
     const thumb = document.getElementById('feedThumb');
     let idleT = null;
+    function matchFeedHeight(){
+      const bs = document.getElementById('bigStories');
+      const bh = bs ? bs.scrollHeight : 0;
+      feedEl.style.maxHeight = Math.max(bh, 260) + 'px';
+    }
     function updFeedBar(){
       const h = feedEl.clientHeight, sh = feedEl.scrollHeight, max = sh - h;
       const show = max > 4;
@@ -362,9 +367,10 @@ function render() {
       clearTimeout(idleT);
       idleT = setTimeout(() => wrap.classList.remove('scrolling'), 1100);
     }
+    matchFeedHeight();
     feedEl.addEventListener('scroll', () => { updFeedBar(); pokeFeed(); });
     feedEl.addEventListener('wheel', pokeFeed, { passive: true });
-    window.addEventListener('resize', updFeedBar);
+    window.addEventListener('resize', () => { matchFeedHeight(); updFeedBar(); });
     updFeedBar();
   }
 
