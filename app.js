@@ -264,18 +264,21 @@ function render() {
         const ta = tierOrder[a.tier] ?? 5, tb = tierOrder[b.tier] ?? 5;
         return ta - tb || a.id.localeCompare(b.id);
       });
+    const clamp = (s, n) => { const t = String(s==null?'':s); return t.length > n ? t.slice(0, n-1).trimEnd() + '…' : t; };
     const tRows = sortedTheories.map(t => {
       const st = t.status;
       const statusLabel = st==='pending' ? 'PENDING' : st==='right' ? 'RIGHT' : st==='wrong' ? 'WRONG' : st==='abandoned' ? 'ABANDONED' : st.toUpperCase();
       const badgeClass = st==='pending' ? 'pending' : st==='right' ? 'right' : st==='wrong' ? 'wrong' : st==='abandoned' ? 'abandoned' : st;
-      const evs = (t.evidence||[]).slice().reverse().map(e => `<div class="ev">${e}</div>`).join('');
+      const all = (t.evidence||[]).slice().reverse();
+      const evs = all.slice(0, 2).map(e => `<div class="ev" title="${escA(e)}">${clamp(e, 140)}</div>`).join('');
+      const more = all.length > 2 ? `<div class="ev muted small">+${all.length - 2} more &mdash; see archive</div>` : '';
       return `<tr id="theory-${t.id}">
         <td><span class="badge ${t.tier.toLowerCase()}">${t.tier}</span></td>
         <td><strong>${t.id}</strong></td>
-        <td>${t.title}<div class="thesis">${t.tier_reason || ''}</div></td>
-        <td class="small">${t.prediction}</td>
+        <td title="${escA(t.title)}">${clamp(t.title, 100)}<div class="thesis" title="${escA(t.tier_reason||'')}">${clamp(t.tier_reason||'', 150)}</div></td>
+        <td class="small" title="${escA(t.prediction)}">${clamp(t.prediction, 160)}</td>
         <td><span class="badge ${badgeClass}">${statusLabel}</span></td>
-        <td>${evs || '<span class="muted small">no evidence yet</span>'}</td>
+        <td>${evs || '<span class="muted small">no evidence yet</span>'}${more}</td>
       </tr>`;
     }).join('');
     document.querySelector('#theoryTable tbody').innerHTML = tRows;
