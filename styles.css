@@ -159,6 +159,16 @@
   .btnGroup{display:inline-flex; gap:4px; flex-wrap:wrap;}
   .fBtn.active{color:var(--txt); border-color:var(--blue); background:rgba(56,189,248,.12);}
 
+  /* ---- help page (help.html) ---- */
+  .helpTab{cursor:pointer; font-size:12px; font-weight:600; color:var(--muted); border:1px solid var(--border);
+    border-radius:8px; padding:6px 18px; background:var(--panel2); user-select:none;}
+  .helpTab:hover{color:var(--txt); border-color:var(--blue);}
+  .helpTab.active{color:#0b0e14; background:var(--blue); border-color:var(--blue);}
+  .helpText{font-size:13px; line-height:1.7; color:var(--txt); margin:0;}
+  .helpList{margin:0; padding-left:20px; font-size:13px; line-height:1.7; color:var(--txt);}
+  .helpList li{margin-bottom:8px;}
+  .helpList code, .helpText code, table code{background:var(--panel2); border:1px solid var(--border); border-radius:4px; padding:1px 5px; font-size:12px;}
+
   /* ---- theory archive flash-card wheel (theories.html) ---- */
   .wheelStage{position:relative; height:min(460px, 64vh); perspective:1500px; overflow:hidden; touch-action:none; cursor:grab; border-radius:16px; background:radial-gradient(ellipse at 50% 35%, rgba(56,189,248,.05), transparent 60%);}
   .wheelStage.dragging{cursor:grabbing;}

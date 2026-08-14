@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Help &amp; Notes — How This Site Works</title>
+<link rel="stylesheet" href="styles.css?v=8">
+</head>
+<!--
+  Help site: plain-language notes (Simple tab) + the math and details
+  (Advanced tab). Tab switching is handled by help.js. No dashboard data
+  is read here — it is a static explainer for the whole project.
+-->
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>Help &amp; Notes</h1>
+      <div class="sub">How the portfolio dashboard works &mdash; simply, then in detail</div>
+    </div>
+    <div class="asof"><a class="archiveBtn" href="index.html">&#8592; Dashboard</a> <a class="archiveBtn" href="theories.html">Theory Archive</a></div>
+  </header>
+
+  <div class="filterbar">
+    <div class="btnGroup" id="helpTabs">
+      <span class="helpTab active" data-tab="simple">Simple</span>
+      <span class="helpTab" data-tab="advanced">Advanced</span>
+    </div>
+  </div>
+
+  <!-- ================= SIMPLE ================= -->
+  <div id="helpSimple">
+
+    <div class="panel" style="margin-bottom:20px;">
+      <h2>What this site is</h2>
+      <p class="helpText">A <strong>simulated</strong> managed portfolio for tracking a trading strategy and learning from it. No real money, no real trades. The numbers come from live Yahoo Finance prices, but every buy and sell is decided by you and recorded by hand in <code>portfolio.json</code>.</p>
+    </div>
+
+    <div class="panel" style="margin-bottom:20px;">
+      <h2>Getting fresh data</h2>
+      <ul class="helpList">
+        <li><strong>Double-click <code>run.bat</code></strong> (or run <code>python update.py</code>) &mdash; fetches prices + news, checks take-profits and stop-losses, regenerates <code>dashboard.js</code>, prints a summary.</li>
+        <li><strong>Update button</strong> in the header &mdash; works when the page is served by <code>python serve.py</code> (localhost:8000). It runs the same update and reloads.</li>
+        <li><strong>Never edit <code>dashboard.js</code></strong> &mdash; it is overwritten on every update. All changes go through <code>portfolio.json</code> or the code.</li>
+      </ul>
+    </div>
+
+    <div class="panel" style="margin-bottom:20px;">
+      <h2>The summary cards</h2>
+      <ul class="helpList">
+        <li><strong>Total Value</strong> &mdash; the whole book right now.</li>
+        <li><strong>Day Change</strong> &mdash; up or down vs the previous trading day.</li>
+        <li><strong>Total Return</strong> &mdash; gain or loss vs the $100,000 starting point.</li>
+        <li><strong>Cash + SGOV</strong> &mdash; dry powder. SGOV (0&ndash;3 month T-bills) is where idle cash automatically parks.</li>
+        <li><strong>CAGR (ann.)</strong> &mdash; average yearly growth since the start date.</li>
+        <li>In the chart header: <strong>Realized P&amp;L</strong> (money locked in from closed trades), <strong>Max Drawdown</strong> (worst peak-to-trough dip so far), <strong>Sharpe</strong> (reward per unit of risk, higher is better).</li>
+      </ul>
+    </div>
+
+    <div class="panel" style="margin-bottom:20px;">
+      <h2>Portfolio Value History chart</h2>
+      <ul class="helpList">
+        <li><strong>Scroll</strong> to zoom in/out, <strong>drag</strong> to pan, <strong>double-click</strong> to reset.</li>
+        <li>Range buttons (MAX / 1Y / 6M / 3M / 1M) jump to a window.</li>
+        <li><strong>vs SPY</strong> overlay compares the book to the S&amp;P 500, both normalized to the same $100,000 start.</li>
+      </ul>
+    </div>
+
+    <div class="panel" style="margin-bottom:20px;">
+      <h2>Positions table</h2>
+      <ul class="helpList">
+        <li>Every holding: buy price, current price, value, share of the book, P&amp;L %.</li>
+        <li><strong>Take Profit</strong> &mdash; the gain level where the position auto-closes into cash (e.g. +40%).</li>
+        <li><strong>Stop Loss</strong> &mdash; the loss level where it auto-closes. Leveraged ETFs (3x/2x) are stopped against their <strong>1x index</strong> (e.g. TQQQ &rarr; QQQ) so a violent leveraged day can't falsely trigger the stop.</li>
+        <li>Status pills: <span class="pill open">OPEN</span> <span class="pill tp">TAKE PROFIT</span> <span class="pill sl">STOP LOSS</span>. Click any column header to sort.</li>
+      </ul>
+    </div>
+
+    <div class="panel" style="margin-bottom:20px;">
+      <h2>Sector Limits &amp; leverage</h2>
+      <p class="helpText">Each position belongs to a sector (Tech / AI Growth, Hedge Stack, etc.) and has a leverage (1x, 2x, 3x). <strong>Effective exposure</strong> = market value &times; leverage, and the sector caps are enforced on that effective number &mdash; so 3x funds count three times. Bars turn amber when a sector nears its cap, red when over.</p>
+    </div>
+
+    <div class="panel" style="margin-bottom:20px;">
+      <h2>Theories scorecard</h2>
+      <ul class="helpList">
+        <li>Theories are the testable claims the strategy is built on (e.g. &ldquo;gold hedges tech drawdowns&rdquo;). Each has a tier (S down to D) and a status: <span class="pill open">PENDING</span> <span class="pill tp">RIGHT</span> <span class="pill sl">WRONG</span> <span class="pill warn">PAUSED</span> <span class="pill closed">ABANDONED</span>.</li>
+        <li>The scorecard shows active theories only; the <strong>Theory Archive</strong> page shows every theory ever, with search and filters.</li>
+        <li>Long text is shortened on the page &mdash; <strong>hover</strong> any shortened line to read the full version.</li>
+      </ul>
+    </div>
+
+    <div class="panel" style="margin-bottom:20px;">
+      <h2>Trade events, news</h2>
+      <ul class="helpList">
+        <li><strong>Trade Events</strong> &mdash; the log of every closed trade (take-profit / stop-loss), including the realized P&amp;L, plus cash-deployment and re-entry actions.</li>
+        <li><strong>News</strong> &mdash; recent Yahoo headlines for your tickers, tagged with the theories they relate to and a sentiment chip (<span class="sent positive">positive</span> <span class="sent negative">negative</span> <span class="sent neutral">neutral</span>) from VADER.</li>
+      </ul>
+    </div>
+
+    <div class="panel" style="margin-bottom:20px;">
+      <h2>Market Fear Gauge</h2>
+      <ul class="helpList">
+        <li>Eight crash scenarios (F1&ndash;F8) &mdash; AI-pop, yen-carry unwind, China shock, inflation, war, rates, credit, recession &mdash; each scored <strong>1&ndash;5</strong> (5 = panic).</li>
+        <li>The arrow shows whether the fear is <strong>rising / falling / flat</strong>; the &ldquo;signals&rdquo; line names the top 2 market factors driving the score.</li>
+        <li><strong>Complacency</strong> is the opposite gauge: when the market is calm AND stretched, it warns you to keep your hedges on.</li>
+        <li><strong>Suggested hedge actions</strong> appears only when a fear is genuinely confirmed (high for several days). It is a recommendation for <em>you</em> to review &mdash; the system never trades by itself.</li>
+      </ul>
+    </div>
+
+    <div class="panel" style="margin-bottom:20px;">
+      <h2>Rebalance flags</h2>
+      <p class="helpText">If a sector&rsquo;s effective exposure drifts more than 5 percentage points from its target, a banner appears at the top. It only <em>asks</em> you to review the risk budget &mdash; it never rebalances on its own. You make the change in <code>portfolio.json</code>.</p>
+    </div>
+
+  </div>
+
+  <!-- ================= ADVANCED ================= -->
+  <div id="helpAdvanced" style="display:none;">
+
+    <div class="panel" style="margin-bottom:20px;">
+      <h2>Data flow &amp; file roles</h2>
+      <table>
+        <thead><tr><th>File</th><th>Role</th><th>Edit?</th></tr></thead>
+        <tbody>
+          <tr><td><code>portfolio.json</code></td><td>Source of truth: meta, account/cash, positions, theories, events, fear state</td><td><strong>Yes</strong> &mdash; hand-edit to rebalance / add / remove positions</td></tr>
+          <tr><td><code>update.py</code></td><td>Daily updater: fetch prices &rarr; check exits &rarr; deploy cash &rarr; snapshot &rarr; write <code>dashboard.js</code></td><td>Yes &mdash; all data-mutating logic</td></tr>
+          <tr><td><code>news.py</code></td><td>Yahoo RSS headlines for held tickers, theory tags, VADER sentiment</td><td>Yes</td></tr>
+          <tr><td><code>fears.py</code></td><td>Market Fear Gauge: F1&ndash;F8 scores, complacency, hedge sizing recommendations</td><td>Yes</td></tr>
+          <tr><td><code>dashboard.js</code></td><td>AUTO-GENERATED data file the browser reads (<code>window.DASH</code>)</td><td><strong>No</strong> &mdash; overwritten every run</td></tr>
+          <tr><td><code>app.js</code> / <code>index.html</code> / <code>styles.css</code></td><td>The dashboard UI</td><td>Yes &mdash; UI only</td></tr>
+          <tr><td><code>serve.py</code></td><td>Optional local server; <code>POST /refresh</code> runs <code>update.py</code> (the Update button)</td><td>Yes</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="panel" style="margin-bottom:20px;">
+      <h2>Metrics math (update.py)</h2>
+      <ul class="helpList">
+        <li><strong>Max drawdown</strong> &mdash; min over all snapshots of <code>(value &minus; running_peak) / running_peak</code>, returned as a negative % (update.py:459).</li>
+        <li><strong>Sharpe (annualized)</strong> &mdash; <code>mean(daily_returns) / sample_std(daily_returns) &times; &radic;252</code>. Needs &ge;3 snapshots, returns <code>null</code> when std is 0 (update.py:471).</li>
+        <li><strong>CAGR</strong> &mdash; <code>((total / start_value)^(365.25 / elapsed_days) &minus; 1)</code> (update.py:485).</li>
+        <li><strong>Benchmark</strong> &mdash; SPY 2y history normalized so its price at (or before) <code>start_date</code> equals <code>start_value</code>, then <em>aligned</em> to portfolio snapshot dates by carrying the last SPY close at or before each snapshot date (update.py:356). Same Sharpe / drawdown / total-return formulas run on the normalized SPY series.</li>
+        <li><strong>Total return</strong> is anchored to <code>meta.start_value</code> (100000) / <code>meta.start_date</code>, not to day one of the chart.</li>
+      </ul>
+    </div>
+
+    <div class="panel" style="margin-bottom:20px;">
+      <h2>Effective exposure &amp; leverage</h2>
+      <ul class="helpList">
+        <li>Per position: <code>effective_value = current_value &times; leverage</code> (leverage from <code>meta.limits.position_exposure.&lt;TICKER&gt;.leverage</code>).</li>
+        <li>Sector caps in <code>meta.limits.sector_limits</code> are checked on <strong>effective</strong> exposure, so a 3x fund consumes 3&times; its market value against the cap.</li>
+        <li><code>leverage_factor</code> in <code>dashboard.js</code> = book-wide effective exposure &divide; market value.</li>
+      </ul>
+    </div>
+
+    <div class="panel" style="margin-bottom:20px;">
+      <h2>Exits: take-profit, stop-loss, vol-halt</h2>
+      <ul class="helpList">
+        <li><strong>Take profit</strong> fires when <code>px &ge; buy_price &times; (1 + take_profit_pct)</code>; proceeds go to cash, event logged with realized P&amp;L (update.py:425).</li>
+        <li><strong>Index-referenced stops (v5.1)</strong>: leveraged funds carry <code>underlying</code> (the 1x index) + <code>underlying_stop_pct</code> + <code>underlying_buy_price</code>. The stop fires on the <strong>1x underlying</strong> crossing <code>underlying_buy_price &times; (1 + underlying_stop_pct)</code> &mdash; vol-aware, no whipsaw from leveraged daily decay. The wrapper <code>stop_loss_pct</code> remains only as a wide gap-through backstop (update.py:412).</li>
+        <li>Every stop is tagged <code>state: "vol_halt"</code> and records <code>reclaim_ticker</code>, <code>reclaim_level</code>, <code>reentry_amount</code> for the re-entry protocol.</li>
+        <li><strong>Re-entry protocol (v5.2)</strong>: a stop is a pause, not a death &mdash; the linked theory is marked <code>paused</code> (only if no open position still tests it), proceeds park in SGOV. If the 1x underlying closes back above the stop level for <strong>2 consecutive sessions</strong>, the theory is re-affirmed and the position re-entered with recovered capital. If no reclaim within <strong>60 days</strong>, the theory is formally abandoned (falsified). Prevents the &ldquo;silent-SGOV trap&rdquo; where the book quietly becomes a T-bill portfolio (portfolio.json <code>meta.limits.re_entry</code>).</li>
+      </ul>
+    </div>
+
+    <div class="panel" style="margin-bottom:20px;">
+      <h2>No idle cash policy</h2>
+      <p class="helpText">On every run, <code>update.py</code> auto-buys SGOV (0&ndash;3 month T-bills) with any cash above the <code>CASH_BUFFER</code> so dry powder never sits idle. Cash + SGOV on the cards is the full liquidity picture.</p>
+    </div>
+
+    <div class="panel" style="margin-bottom:20px;">
+      <h2>Fear Gauge math (fears.py)</h2>
+      <ul class="helpList">
+        <li><strong>Self-relative percentile ranking</strong>: every component value is percentile-ranked against its own trailing 260-trading-day window (<code>WINDOW</code>) &mdash; absolute levels mean nothing, only regime matters (fears.py:160).</li>
+        <li><strong>Level</strong> &mdash; weighted average of 1&ndash;2 components, normalized 0..1. Components: level of a price, drawdown from 52w high, distance below 200d MA, n-day momentum, or a ratio (e.g. TIP/IEF breakeven proxy, HYG/LQD credit proxy, QQQ/RSP concentration).</li>
+        <li><strong>Structural fears</strong> (F1/F4/F6/F8): <code>score_pct = 0.7 &times; level + 0.3 &times; 50d-trend percentile</code>.</li>
+        <li><strong>Episodic fears</strong> (F2/F3/F5/F7): <code>score_pct = 0.7 &times; 5d-velocity percentile + 0.3 &times; level</code>.</li>
+        <li><strong>Score</strong> = <code>1 + 4 &times; score_pct</code>, rounded to 1 decimal, clamped 1&ndash;5 (fears.py:282). The top-2 contributing components become the displayed signals.</li>
+        <li><strong>Confirmation</strong>: score &ge; <code>ACTIVE_THRESHOLD</code> (4.0) sustained for <code>confirm_days</code> &mdash; 3 for structural, 2 for episodic &mdash; tracked in <code>meta.fear_state</code> (<code>days_above</code>). Only <em>confirmed</em> fears trigger hedge sizing.</li>
+        <li><strong>trend_dir</strong> &mdash; rising if score changed +0.15 or more vs yesterday, falling at &minus;0.15, else flat.</li>
+        <li><strong>Degraded</strong> &mdash; a fear whose data sources failed to fetch is flagged rather than dropped silently.</li>
+      </ul>
+    </div>
+
+    <div class="panel" style="margin-bottom:20px;">
+      <h2>Complacency index math (fears.py:297)</h2>
+      <ul class="helpList">
+        <li><strong>Valuation stretch</strong> = 0.5 &times; (QQQ 20d momentum percentile) + 0.5 &times; (QQQ vs 200d MA distance percentile).</li>
+        <li><strong>Fear term</strong> = <code>1 &minus; (mean(top-3 fear scores) &minus; 1) / 4</code> &mdash; 1.0 when no fear, near 0 in a panic.</li>
+        <li><strong>Index</strong> = stretch &times; fear term, 0..1. &ge; 0.50 warns &ldquo;keep the hedge stack on&rdquo;; &ge; 0.70 &ldquo;do NOT trim baseline hedges&rdquo;.</li>
+      </ul>
+    </div>
+
+    <div class="panel" style="margin-bottom:20px;">
+      <h2>Hedge sizing math (fears.py:30)</h2>
+      <ul class="helpList">
+        <li>Each fear maps to instruments and a requested size in pp of book: F1 &rarr; QFLR +2 / BTAL +2; F2 &rarr; FXY +3 / DBMF +2; F3 &rarr; GLD +2 / DBMF +2; F4 &rarr; GLD +3 / SGOV +2; F5 &rarr; GLD +2 / DBMF +2; F6 &rarr; SGOV +4; F7 &rarr; BTAL +3 / DBMF +2; F8 &rarr; ZROZ +3 / BTAL +2.</li>
+        <li>For <strong>confirmed active</strong> fears, per-instrument demand = the max delta across fears; duplicates keep every contributing fear id as a reason.</li>
+        <li><strong>Headroom</strong> = <code>max(0, HEDGE_CAP (45%) &minus; current Hedge Stack effective share)</code>; scale = <code>min(1, headroom / total demand)</code>.</li>
+        <li>Final suggestions are scaled demand, floored at 0.5pp; empty list means nothing worth showing (fears.py:330).</li>
+        <li><strong>Recommendation-only</strong> &mdash; the dashboard displays it for review; nothing ever trades automatically.</li>
+      </ul>
+    </div>
+
+    <div class="panel" style="margin-bottom:20px;">
+      <h2>News sentiment (news.py)</h2>
+      <p class="helpText">VADER compound score over each headline: &ge; +0.05 &rarr; positive, &le; &minus;0.05 &rarr; negative, otherwise neutral. Headlines are tagged with the theories whose tickers appear, and industry/sector labels are matched by keyword.</p>
+    </div>
+
+    <div class="panel" style="margin-bottom:20px;">
+      <h2>Rebalance audit (update.py)</h2>
+      <ul class="helpList">
+        <li>Targets (effective %): Tech / AI Growth 60, Nuclear / Power 11, Broadening / Value 8, Contrarian Fear 4.5, Hedge Stack 35, Short-Term Bonds 15.5.</li>
+        <li>If a sector&rsquo;s effective exposure strays more than <code>tolerance_pct</code> (5pp) from its target, a <code>rebalance_recommended</code> event is logged and flagged in the UI banner. Flags never trade &mdash; they ask the conviction layer to review a risk-budget mismatch.</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <footer>Simulated managed portfolio for tracking &amp; learning. Not financial advice.</footer>
+</div>
+
+<script src="help.js?v=1"></script>
+</body>
+</html>
