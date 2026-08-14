@@ -5,18 +5,44 @@ All notable changes to the Stock Picker project (dashboard UI + strategy engine)
 Two independent versions, both shown in small text in the dashboard header and
 tracked in `portfolio.json` -> `meta.version`:
 
-- **site** — the website/UI (`app.js`, `index.html`, archive pages, `styles.css`)
-- **algo** — the strategy engine (`update.py`, `news.py`, `fears.py`, `portfolio.json` data rules)
+- **UI** (JSON key `site`) — the website/UI (`app.js`, `index.html`, archive pages, `styles.css`)
+- **Engine** (JSON key `algo`) — the strategy engine (`update.py`, `news.py`, `fears.py`, `portfolio.json` data rules)
+
+## Roadmap & version policy
+
+The versions mean something — they track how close each side is to its v1:
+
+- **UI v1.0** = accounts: sign-in, and every user gets a personalized AI tuned
+  to their risk tolerance and what they want the AI to focus on.
+- **Engine v1.0** = the AI makes **100% of the trades** from real-time
+  sentiment with AI analysis, rebalancing weekly across different hedges /
+  leading sectors (today AI, next week something else).
+
+Version bumps by side:
+- **UI** bumps on any UI change, as today.
+- **Engine stays 0.5.x and bumps RARELY** — only on real autonomy/AI
+  milestones (new AI decision layers, sentiment-driven trade logic, weekly
+  rebalance engine). UI-adjacent tweaks and data-rule adjustments do NOT
+  bump the engine. Approaching 1.0 is gated on the roadmap goals above.
 
 Convention: bump `meta.version.site` on any UI change, `meta.version.algo` on
-any engine/data-rule change, and add an entry below. Both stay below 1.0.0 —
-this project is not v1-ready yet.
+the (rare) engine milestones described above, and add an entry below. Both
+stay below 1.0.0 — this project is not v1-ready yet.
 
 **Per-prompt rule:** every prompt's change set (however small) counts as one
-version bump — `site` for UI-only changes, `algo` for engine/data changes
-(or both if a prompt touches both sides), each with its own entry below.
+version bump — `site` for UI-only changes, `algo` only for genuine engine
+milestones (or both if a prompt touches both sides), each with its own entry below.
 
 ## [Unreleased]
+
+## [site 0.3.8] — 2026-08-14
+
+### Changed
+- Header version line relabeled professionally: "UI v0.3.7 · Engine v0.5.7"
+  (JSON keys `site`/`algo` unchanged).
+- Version policy documented: engine stays 0.5.x, bumped only on real
+  autonomy milestones; roadmap (UI v1 = accounts + personalized AI, Engine
+  v1 = 100% AI trading with weekly rebalancing) now written in this file.
 
 ## [algo 0.5.7] — 2026-08-14
 

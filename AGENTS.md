@@ -60,9 +60,20 @@ open index.html      # also works directly via file:// double-click
 ## Versioning (per-prompt rule)
 
 - **Every prompt's change set counts as one version bump.** UI-only changes
-  bump `meta.version.site`; engine/data-rule changes bump
-  `meta.version.algo`; a prompt touching both bumps both. Each bump gets a
-  `CHANGELOG.md` entry under `[site x.y.z]` / `[algo x.y.z]` sections.
+  bump `meta.version.site`; **engine milestones** bump `meta.version.algo`.
+- **Engine (algo) bumps RARELY**: it stays 0.5.x and only moves on real
+  autonomy/AI milestones — e.g. an AI decision layer that makes trades from
+  real-time sentiment, weekly rebalancing across hedges/leading sectors.
+  UI-adjacent tweaks and small data-rule edits do NOT bump the engine.
+- Roadmap: **UI v1** = accounts/sign-in with a personalized AI per user
+  (risk tolerance + focus). **Engine v1** = AI makes 100% of trades
+  (real-time sentiment + AI analysis, weekly rebalance). Versions approach
+  1.0 only as these goals are hit. See CHANGELOG.md "Roadmap & version
+  policy".
+- Header displays the versions as "UI vX.Y.Z · Engine vX.Y.Z" (JSON keys
+  remain `site`/`algo`).
+- Each bump gets a `CHANGELOG.md` entry under `[site x.y.z]` / `[algo x.y.z]`
+  sections.
 - After editing `app.js` / `styles.css` / `index.html` / archive pages, bump
   the matching `?v=N` cache-bust query strings in the HTML files.
 - After bumping `meta.version` in `portfolio.json`, run `python update.py`

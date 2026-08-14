@@ -1,7 +1,7 @@
 {
   "meta": {
     "version": {
-      "site": "0.3.7",
+      "site": "0.3.8",
       "algo": "0.5.7"
     },
     "name": "HyperGrowth Sharpe Barbell v5 - Conviction-First",
@@ -172,13 +172,13 @@
       "F5": {
         "prev_score": 4.1,
         "score": 4.1,
-        "days_above": 9,
+        "days_above": 10,
         "confirmed": true
       },
       "F6": {
         "prev_score": 4.9,
         "score": 4.9,
-        "days_above": 23,
+        "days_above": 24,
         "confirmed": true
       },
       "F7": {
@@ -321,30 +321,30 @@
       },
       {
         "date": "2026-08-14",
-        "total_value": 101809.36,
+        "total_value": 101785.34,
         "cash": 25.0,
-        "invested_value": 101784.36,
-        "day_change": -443.69,
+        "invested_value": 101760.34,
+        "day_change": -467.71,
         "prices": {
-          "TQQQ": 76.13,
-          "SOXL": 140.199,
-          "SMH": 583.48,
-          "DRAM": 56.99,
-          "PLTR": 176.78,
-          "NLR": 118.57,
-          "NUKZ": 68.105,
-          "IWM": 304.495,
+          "TQQQ": 76.17,
+          "SOXL": 140.2,
+          "SMH": 583.41,
+          "DRAM": 56.995,
+          "PLTR": 176.81,
+          "NLR": 118.46,
+          "NUKZ": 67.97,
+          "IWM": 304.36,
           "IWDL": 69.9874,
-          "XLY": 118.215,
-          "EZU": 71.842,
-          "ZROZ": 57.77,
+          "XLY": 118.21,
+          "EZU": 71.845,
+          "ZROZ": 57.775,
           "FXY": 57.58,
-          "VIXM": 14.177,
+          "VIXM": 14.17,
           "QFLR": 35.79,
-          "GLD": 401.805,
-          "GDX": 89.905,
+          "GLD": 401.47,
+          "GDX": 89.71,
           "BTAL": 11.88,
-          "DBMF": 31.329,
+          "DBMF": 31.322,
           "SGOV": 100.56
         }
       }
