@@ -2,7 +2,7 @@
 window.DASH = {
   "meta": {
     "version": {
-      "site": "0.4.9",
+      "site": "0.4.10",
       "algo": "0.5.7"
     },
     "name": "HyperGrowth Sharpe Barbell v5 - Conviction-First",
@@ -173,13 +173,13 @@ window.DASH = {
       "F5": {
         "prev_score": 4.1,
         "score": 4.1,
-        "days_above": 34,
+        "days_above": 35,
         "confirmed": true
       },
       "F6": {
         "prev_score": 4.9,
         "score": 4.9,
-        "days_above": 48,
+        "days_above": 49,
         "confirmed": true
       },
       "F7": {
@@ -196,7 +196,7 @@ window.DASH = {
       }
     },
     "last_rebalance_quarter": "2026Q3",
-    "asof_ts": 1786748063,
+    "asof_ts": 1786749289,
     "refresh_interval": 60
   },
   "asof": "2026-08-14",
@@ -1914,7 +1914,7 @@ window.DASH = {
   },
   "rebalance": null,
   "news": {
-    "asof": "2026-08-14 16:54:24",
+    "asof": "2026-08-14 17:14:50",
     "big_stories": [
       {
         "title": "PLTR Jumped 31.53% in a Month. PLTY Holders Got 28.93%",
@@ -2080,6 +2080,21 @@ window.DASH = {
         "sent": "neutral"
       },
       {
+        "title": "Unusual Machines Soars 22%, Red Cat Climbs 8%, Ondas Gains 4% on Trump’s 100% Drone Tariff",
+        "link": "https://247wallst.com/investing/2026/08/14/unusual-machines-soars-22-red-cat-climbs-8-ondas-gains-4-on-trumps-100-drone-tariff/?.tsrc=rss",
+        "ts": 1786728122,
+        "when": "Aug 14, 11:22 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
+      {
         "title": "C3.ai Remains Turbulent: Why One Of Wall Street’s Most Outspoken Pros Expects 50% Returns From Here",
         "link": "https://247wallst.com/investing/2026/08/14/c3-ai-remains-turbulent-why-one-of-wall-streets-most-outspoken-pros-expects-50-returns-from-here/?.tsrc=rss",
         "ts": 1786725926,
@@ -2144,15 +2159,9 @@ window.DASH = {
         "link": "https://247wallst.com/investing/2026/08/14/the-gold-income-fund-that-turned-a-6-gold-dip-into-a-30-loss/?.tsrc=rss",
         "ts": 1786719036,
         "when": "Aug 14, 08:50 AM",
-        "ticker": "GLD",
-        "industry": "Gold",
-        "theory": [
-          "T6",
-          "T9",
-          "T19",
-          "T20",
-          "T21"
-        ],
+        "ticker": "SGOV",
+        "industry": "Equities",
+        "theory": [],
         "sent": "negative"
       },
       {
@@ -2210,6 +2219,19 @@ window.DASH = {
           "T15"
         ],
         "sent": "negative"
+      },
+      {
+        "title": "Exchange-Traded Funds Higher, Equity Futures Mixed Pre-Bell Friday Amid Retail Sales Data",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/exchange-traded-funds-higher-equity-131348296.html?.tsrc=rss",
+        "ts": 1786713228,
+        "when": "Aug 14, 07:13 AM",
+        "ticker": "IWM",
+        "industry": "Small Caps",
+        "theory": [
+          "T10",
+          "T15"
+        ],
+        "sent": "neutral"
       },
       {
         "title": "Chamath Palihapitiya Sees Palantir As A Potential Winner In 3-Year Shift To Model-Agnostic AI",
@@ -2294,21 +2316,6 @@ window.DASH = {
         "sent": "negative"
       },
       {
-        "title": "DRAM Movers: These Memory/Storage ETFs Are Soaring as Sandisk, Micron Rally",
-        "link": "https://247wallst.com/investing/2026/08/13/dram-movers-these-memory-storage-etfs-are-soaring-as-sandisk-micron-rally/?.tsrc=rss",
-        "ts": 1786644735,
-        "when": "Aug 13, 12:12 PM",
-        "ticker": "SMH",
-        "industry": "Semis",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
         "title": "Sector Update: Consumer Stocks Rise in Afternoon Trading",
         "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-rise-afternoon-173751918.html?.tsrc=rss",
         "ts": 1786642671,
@@ -2319,52 +2326,6 @@ window.DASH = {
           "T13"
         ],
         "sent": "neutral"
-      },
-      {
-        "title": "MoneyMasters Podcast 8-13-26- SP 500 Vs. TSX - Which Leads Next",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/moneymasters-podcast-8-13-26-163200205.html?.tsrc=rss",
-        "ts": 1786638720,
-        "when": "Aug 13, 10:32 AM",
-        "ticker": "GDX",
-        "industry": "Gold Miners",
-        "theory": [
-          "T6",
-          "T9",
-          "T19",
-          "T20",
-          "T21"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Strength in Defense & Propulsion Unit Drives GE Aerospace: Can It Sustain?",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/strength-defense-propulsion-unit-drives-151700107.html?.tsrc=rss",
-        "ts": 1786634220,
-        "when": "Aug 13, 09:17 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "If You Invested $10,000 in Palantir Before It Released Its AIP Platform, Here's What Your Stake Would Be Worth Today",
-        "link": "https://www.fool.com/investing/2026/08/13/if-you-invested-10000-in-palantir-before-it-releas/?.tsrc=rss",
-        "ts": 1786631400,
-        "when": "Aug 13, 08:30 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
       },
       {
         "title": "5 ETFs to Benefit From Cooling Inflation in the Near Term",
@@ -2383,6 +2344,19 @@ window.DASH = {
         "sent": "positive"
       },
       {
+        "title": "Exchange-Traded Funds, Equity Futures Higher Pre-Bell Thursday Amid Producer Inflation Data Release",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/exchange-traded-funds-equity-futures-131321660.html?.tsrc=rss",
+        "ts": 1786626801,
+        "when": "Aug 13, 07:13 AM",
+        "ticker": "IWM",
+        "industry": "Small Caps",
+        "theory": [
+          "T10",
+          "T15"
+        ],
+        "sent": "neutral"
+      },
+      {
         "title": "Are Wall Street Analysts Bullish on Smurfit Westrock Stock?",
         "link": "https://www.barchart.com/story/news/3827891/are-wall-street-analysts-bullish-on-smurfit-westrock-stock?.tsrc=rss",
         "ts": 1786623391,
@@ -2395,17 +2369,26 @@ window.DASH = {
         "sent": "neutral"
       },
       {
-        "title": "Dow Fixture Microsoft Breaks Out Along With These Stocks, But Datadog Triggers Sell Signals",
-        "link": "https://finance.yahoo.com/m/30b2aa92-4f90-32dc-bb78-62c5936e6613/dow-fixture-microsoft-breaks.html?.tsrc=rss",
-        "ts": 1786622479,
-        "when": "Aug 13, 06:01 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
+        "title": "Rollins Stock: Is Wall Street Bullish or Bearish?",
+        "link": "https://www.barchart.com/story/news/3823847/rollins-stock-is-wall-street-bullish-or-bearish?.tsrc=rss",
+        "ts": 1786616582,
+        "when": "Aug 13, 04:23 AM",
+        "ticker": "XLY",
+        "industry": "Consumer Disc.",
         "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
+          "T13"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "Are Wall Street Analysts Predicting Royal Caribbean Cruises Stock Will Climb or Sink?",
+        "link": "https://www.barchart.com/story/news/3822206/are-wall-street-analysts-predicting-royal-caribbean-cruises-stock-will-climb-or-sink?.tsrc=rss",
+        "ts": 1786609407,
+        "when": "Aug 13, 02:23 AM",
+        "ticker": "XLY",
+        "industry": "Consumer Disc.",
+        "theory": [
+          "T13"
         ],
         "sent": "neutral"
       }

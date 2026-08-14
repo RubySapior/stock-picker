@@ -92,7 +92,7 @@ function render() {
     const img = new Image();
     img.onload = () => mascot.classList.add('hasIcon');
     img.onerror = () => mascot.classList.remove('hasIcon');
-    img.src = 'icon.png';
+    img.src = 'temp-logo.jpg';
   }
 
   /* ---- next-refresh countdown (meta.asof_ts + meta.refresh_interval) ---- */

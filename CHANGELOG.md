@@ -35,6 +35,12 @@ milestones (or both if a prompt touches both sides), each with its own entry bel
 
 ## [Unreleased]
 
+## [site 0.4.10] — 2026-08-14
+
+### Added
+- Temp logo (Gemini-generated `temp-logo.jpg`) used for the header mascot
+  until the real logo is ready.
+
 ## [site 0.4.9] — 2026-08-14
 
 ### Added
