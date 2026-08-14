@@ -35,6 +35,13 @@ milestones (or both if a prompt touches both sides), each with its own entry bel
 
 ## [Unreleased]
 
+## [site 0.4.6] — 2026-08-14
+
+### Fixed
+- Reverted the 0.4.4 card-face lightening (faces are back to the original
+  dark gradients and `--border`); the transparent-card fix from 0.4.5
+  remains, which is what actually removed the blank layer.
+
 ## [site 0.4.5] — 2026-08-14
 
 ### Fixed
