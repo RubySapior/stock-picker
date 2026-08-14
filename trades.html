@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trade Archive — All Events</title>
+<link rel="stylesheet" href="styles.css?v=8">
+</head>
+<!--
+  Trade archive: every recorded event (exits, re-entries, cash deploys,
+  rebalance flags) in a plain table, newest first. Reads the same
+  AUTO-GENERATED dashboard.js (trades.js renders the table; never hand-edit
+  dashboard.js).
+-->
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>Trade Archive</h1>
+      <div class="sub">Every recorded event &mdash; exits, re-entries, cash deploys, rebalance flags</div>
+    </div>
+    <div class="asof">Data as of: <span id="asof">&mdash;</span> <a class="archiveBtn" href="help.html">Help</a> <a class="archiveBtn" href="index.html">&#8592; Back to dashboard</a></div>
+  </header>
+
+  <div class="panel">
+    <div class="charthead">
+      <h2>All Events <span class="muted small" style="font-weight:400;" id="eventCount"></span></h2>
+    </div>
+    <div class="scrollWrap">
+      <div class="scroll">
+        <table id="tradeTable">
+          <thead><tr><th>Date / Time</th><th>Ticker</th><th>Reason</th><th>Price</th><th>Buy</th><th>Shares</th><th>Realized P&amp;L</th><th>Note</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="hBar" aria-hidden="true"><div class="hThumb" id="tradeHThumb"></div></div>
+    </div>
+  </div>
+
+  <footer>Simulated managed portfolio for tracking &amp; learning. Not financial advice.</footer>
+</div>
+
+<script src="trades.js?v=1"></script>
+</body>
+</html>

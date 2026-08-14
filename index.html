@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HyperGrowth Sharpe Barbell — Portfolio</title>
-<link rel="stylesheet" href="styles.css?v=7">
+<link rel="stylesheet" href="styles.css?v=8">
 </head>
 <!--
   Page skeleton only. Every section below is filled by app.js from the
@@ -27,7 +27,7 @@
     <div>
       <h1 id="pname">Portfolio</h1>
     </div>
-    <div class="asof">Last updated: <span id="asof"></span> <button id="updateBtn" class="updateBtn" title="Run update.py to fetch fresh prices + news, then reload">Update</button></div>
+    <div class="asof">Last updated: <span id="asof"></span> <a class="archiveBtn" href="help.html">Help</a> <button id="updateBtn" class="updateBtn" title="Run update.py to fetch fresh prices + news, then reload">Update</button></div>
   </header>
 
   <div class="rebalBanner" id="rebalBanner" style="display:none;"></div>
@@ -115,7 +115,6 @@
   <div class="panel" style="margin-bottom:20px;">
     <div class="charthead">
       <h2>Theories Scorecard</h2>
-      <a class="archiveBtn" href="help.html">Help</a>
       <a class="archiveBtn" href="theories.html">All theories &#8599;</a>
     </div>
     <div class="scrollWrap">
@@ -129,14 +128,17 @@
     </div>
   </div>
 
-  <div class="panel">
-    <h2>Trade Events</h2>
+  <div class="panel" style="margin-bottom:20px;">
+    <div class="charthead">
+      <h2>Trade Events</h2>
+      <a class="archiveBtn" href="trades.html">All trades &#8599;</a>
+    </div>
     <div id="events"></div>
   </div>
 
   <footer>Simulated managed portfolio for tracking &amp; learning. Not financial advice. Served locally: run <code>python serve.py</code> then open <code>http://localhost:8000</code> - the Update button refreshes prices + news.</footer>
 </div>
 
-<script src="app.js?v=10" defer></script>
+<script src="app.js?v=11" defer></script>
 </body>
 </html>

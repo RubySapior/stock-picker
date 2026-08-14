@@ -110,7 +110,7 @@
 
     <div class="panel" style="margin-bottom:20px;">
       <h2>Rebalance flags</h2>
-      <p class="helpText">If a sector&rsquo;s effective exposure drifts more than 5 percentage points from its target, a banner appears at the top. It only <em>asks</em> you to review the risk budget &mdash; it never rebalances on its own. You make the change in <code>portfolio.json</code>.</p>
+      <p class="helpText">Once per calendar quarter (first market-open run of Jan/Apr/Jul/Oct), the book&rsquo;s sector exposure is checked against its targets; if a sector is off by more than 5 percentage points, a banner appears at the top. It only <em>asks</em> you to review the risk budget &mdash; it never rebalances on its own. You make the change in <code>portfolio.json</code>.</p>
     </div>
 
   </div>
@@ -212,7 +212,7 @@
       <h2>Rebalance audit (update.py)</h2>
       <ul class="helpList">
         <li>Targets (effective %): Tech / AI Growth 60, Nuclear / Power 11, Broadening / Value 8, Contrarian Fear 4.5, Hedge Stack 35, Short-Term Bonds 15.5.</li>
-        <li>If a sector&rsquo;s effective exposure strays more than <code>tolerance_pct</code> (5pp) from its target, a <code>rebalance_recommended</code> event is logged and flagged in the UI banner. Flags never trade &mdash; they ask the conviction layer to review a risk-budget mismatch.</li>
+        <li>The audit runs <strong>once per calendar quarter</strong> (first market-open run of Jan/Apr/Jul/Oct), tracked in <code>meta.last_rebalance_quarter</code> &mdash; there are no daily pp-drift flags. If a sector&rsquo;s effective exposure strays more than <code>tolerance_pct</code> (5pp) from its target on the quarterly check, a <code>rebalance_recommended</code> event is logged and flagged in the UI banner. Flags never trade &mdash; they ask the conviction layer to review a risk-budget mismatch.</li>
       </ul>
     </div>
 

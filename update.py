@@ -103,6 +103,7 @@ def deploy_cash_to_bonds(data, prices, today):
     data["account"]["cash"] = round(cash - deployed, 2)
     data["events"].append({
         "date": today,
+        "ts": time.strftime("%H:%M:%S"),
         "ticker": STB_TICKER,
         "name": pos["name"],
         "reason": "deploy_cash",
@@ -255,6 +256,7 @@ def re_entry_protocol(data, prices, today):
             data["account"]["cash"] = round(data["account"]["cash"] - buys, 2)
             data["events"].append({
                 "date": today,
+                "ts": time.strftime("%H:%M:%S"),
                 "ticker": pos["ticker"],
                 "name": pos["name"],
                 "reason": "re_entry",
@@ -282,18 +284,17 @@ def re_entry_protocol(data, prices, today):
 
 
 def rebalance_audit(data, today):
-    """Post-update exposure audit -> `rebalance_recommended` flags.
+    """Quarterly exposure audit -> `rebalance_recommended` flags.
 
-    Compares each sleeve's EFFECTIVE exposure (market value x leverage, as a
-    % of invested value) against the target allocations in
-    meta.limits.rebalance.targets. If |actual - target| > tolerance_pct a
-    rebalance_recommended event is logged (deduped: only re-flagged when the
-    drift materially changes) and surfaced on the dashboard payload.
+    Runs ONCE per calendar quarter (first market-open run of Jan/Apr/Jul/Oct)
+    instead of every EOD: no daily pp-drift flagging. On the quarterly check it
+    compares each sleeve's EFFECTIVE exposure (market value x leverage, as a %
+    of invested value) against the target allocations in
+    meta.limits.rebalance.targets, flagging any sleeve beyond tolerance_pct.
 
     Passive by design - it never trades, it only asks the conviction layer to
     review a risk-budget mismatch. No hidden reallocation, no attribution
-    pollution. Runs every EOD, which covers vol-halt resolutions and re-entries;
-    the dedup keeps it from spamming the event log.
+    pollution.
     """
     limits = data["meta"].get("limits") or {}
     cfg = limits.get("rebalance") or {}
@@ -301,6 +302,11 @@ def rebalance_audit(data, today):
     tol = float(cfg.get("tolerance_pct", 5.0))
     if not targets:
         return []
+    year, month, _ = today.split("-")
+    quarter = f"{year}Q{(int(month) - 1) // 3 + 1}"
+    if data["meta"].get("last_rebalance_quarter") == quarter:
+        return []
+    data["meta"]["last_rebalance_quarter"] = quarter
     prices = data["account"]["history"][-1].get("prices") or {}
     pex = limits.get("position_exposure", {})
     mv_tot, eff_tot = {}, {}
@@ -315,23 +321,17 @@ def rebalance_audit(data, today):
         eff_tot[sec] = eff_tot.get(sec, 0.0) + mv * lev
     tot_inv = sum(mv_tot.values()) or 1.0
 
-    stored = data["meta"].setdefault("rebalance_flags", {})
     flags = []
     for sec, target in targets.items():
         actual = eff_tot.get(sec, 0.0) / tot_inv * 100.0
         if abs(actual - target) <= tol:
-            stored.pop(sec, None)
             continue
-        prev = stored.get(sec)
-        if prev is not None and abs(prev - actual) <= 1.0:
-            stored[sec] = actual
-            continue
-        stored[sec] = actual
         msg = (f"{sec} effective exposure {actual:.1f}% vs {target:.1f}% target "
                f"(tolerance +/-{tol:g}%, off by {actual - target:+.1f}pp). "
-               f"Manual rebalance or conviction review required.")
+               f"Quarterly review - manual rebalance or conviction decision required.")
         data["events"].append({
             "date": today,
+            "ts": time.strftime("%H:%M:%S"),
             "ticker": sec,
             "name": "Rebalance flag",
             "reason": "rebalance_recommended",
@@ -546,6 +546,7 @@ def execute_scheduled_exits(data, prices, today):
         data["account"]["realized_pnl"] = round(data["account"]["realized_pnl"] + realized, 2)
         data["events"].append({
             "date": today,
+            "ts": time.strftime("%H:%M:%S"),
             "ticker": pos["ticker"],
             "name": pos["name"],
             "reason": plan.get("reason", "rebalance"),
@@ -634,6 +635,7 @@ def main():
             data["account"]["realized_pnl"] = round(data["account"]["realized_pnl"] + event["realized_pnl"], 2)
             data["events"].append({
                 "date": today,
+                "ts": time.strftime("%H:%M:%S"),
                 "ticker": pos["ticker"],
                 "name": pos["name"],
                 "reason": event["reason"],

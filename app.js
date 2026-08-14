@@ -288,15 +288,21 @@ function render() {
   function renderEvents(){
     const evBox = document.getElementById('events');
     if (!D.events.length) evBox.innerHTML = '<div class="muted small">No closed trades yet. Take-profit / stop-loss exits will appear here.</div>';
-    else evBox.innerHTML = D.events.slice().reverse().map(e =>
-      `<div class="eventline">
-         <div><strong title="${escA(NAME[e.ticker]||e.ticker)}">${e.ticker || 'SYSTEM'}</strong> <span class="muted small">${e.date}</span></div>
-         <div><span class="pill ${e.reason==='take_profit'?'tp':(e.reason==='stop_loss'?'sl':(e.reason==='rebalance_recommended'?'warn':'open'))}">${e.reason.toUpperCase()}</span>
-         <span class="muted small">@ ${fmtN(e.price)}</span>
-         <span class="${cls(e.realized_pnl)}"> ${sign(e.realized_pnl)}</span></div>
-         ${e.note ? `<div class="small muted">${e.note}</div>` : ''}
-       </div>`
-    ).join('');
+    else {
+      const asof = new Date(D.asof + 'T00:00:00');
+      const cutoff = new Date(asof); cutoff.setDate(cutoff.getDate() - 6);
+      let evs = D.events.filter(e => new Date(e.date + 'T00:00:00') >= cutoff);
+      if (evs.length < 2) evs = D.events.slice(-2);
+      evBox.innerHTML = evs.slice().reverse().map(e =>
+        `<div class="eventline">
+           <div class="evWho"><strong title="${escA(NAME[e.ticker]||e.ticker)}">${e.ticker || 'SYSTEM'}</strong> <span class="muted small">${e.date}${e.ts ? ' &middot; ' + e.ts : ''}</span></div>
+           <div><span class="pill ${e.reason==='take_profit'?'tp':(e.reason==='stop_loss'?'sl':(e.reason==='rebalance_recommended'?'warn':'open'))}">${e.reason.toUpperCase()}</span>
+           <span class="muted small">@ ${fmtN(e.price)}</span>
+           <span class="${cls(e.realized_pnl)}"> ${sign(e.realized_pnl)}</span></div>
+           ${e.note ? `<div class="small muted">${e.note}</div>` : ''}
+         </div>`
+      ).join('');
+    }
   }
 
   /* ---- sleeve list ---- */

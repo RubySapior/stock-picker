@@ -18,6 +18,8 @@ dashboard works by double-clicking `index.html`.
 | `app.js` | Renders `window.DASH` into every section of `index.html`. | **YES** — UI only |
 | `index.html` | Page skeleton; the sections `app.js` fills. | **YES** — UI only |
 | `theories.html` + `theories.js` | Theory Archive page: every theory (incl. abandoned) as a flash-card wheel with drag/swipe/wheel navigation, 3D flip to evidence log, plus a plain-table toggle for copy-paste; status/tier filters + free-text search. Reads the same `dashboard.js`. | **YES** — UI only |
+| `trades.html` + `trades.js` | Trade Archive page: every recorded event (exits, re-entries, cash deploys, rebalance flags) in a plain table with per-second timestamps. Reads the same `dashboard.js`. | **YES** — UI only |
+| `help.html` + `help.js` | Help site: plain-language notes (Simple tab) + the math and details (Advanced tab). Static explainer, no data. | **YES** — UI only |
 | `styles.css` | All styling (dark theme, panels, pills, charts). | **YES** |
 | `serve.py` | Optional local server. Exposes `POST /refresh` (runs `update.py`) used by the Update button. | **YES** |
 | `run.bat` | Double-click shortcut that runs `python update.py`. | **YES** |
@@ -118,19 +120,24 @@ Owned by `write_dashboard()` in `update.py`. `app.js` reads these fields:
 - `leverage_factor`: book-wide effective ÷ market value
 - `history[]`: `date`, `total_value`, `cash`, `invested_value`, `day_change`,
   `prices{ticker: px}`
-- `events[]`: `date`, `ticker`, `name`, `reason` ("take_profit"/"stop_loss"/
+- `events[]`: `date`, `ts` (HH:MM:SS local time the event was recorded),
+  `ticker`, `name`, `reason` ("take_profit"/"stop_loss"/
   "deploy_cash"/"re_entry"/"rebalance_recommended"/"rebalance"), `note`
   ("index_stop (TICKER x%)"/"backstop"/"re-affirmed (...)"/drift message/
   scheduled-exit note/null), `state`
-  (null/"vol_halt"), `price`, `buy_price`, `shares`, `realized_pnl`
+  (null/"vol_halt"), `price`, `buy_price`, `shares`, `realized_pnl`.
+  The dashboard's Trade Events card shows the last 7 days only (min 2
+  events); `trades.html` (Trade Archive) lists every event with time.
 - `theories[]`: `id`, `title`, `prediction`, `tier` (S/A/B/C/D), `tier_reason`,
   `status` ("pending"/"paused"/"right"/"wrong"/"abandoned"), `created`,
   `last_updated`, `evidence[]`. A `paused` theory also carries `paused_date`,
   `pause_reason`, `paused_ticker` (set by the vol-halt re-entry protocol).
 - `rebalance`: null or `[{type, sleeve, target_exposure, actual_exposure,
-  message}]` — passive drift flags from `rebalance_audit()` (see
-  `meta.limits.rebalance.targets` + `tolerance_pct`). Flags never trade; they
-  ask the conviction layer to review a risk-budget mismatch.
+  message}]` — quarterly drift flags from `rebalance_audit()` (see
+  `meta.limits.rebalance.targets` + `tolerance_pct`): the audit runs ONCE per
+  calendar quarter (tracked in `meta.last_rebalance_quarter`), not daily.
+  Flags never trade; they ask the conviction layer to review a risk-budget
+  mismatch.
 - `benchmark`: null or `label`, `start_value`, `history[]`, `aligned[]`,
   `summary{total_return_pct, max_drawdown_pct, sharpe_annualized}`
 - `news`: `asof`, `big_stories[]`, `feed[]` — items have `title`, `link`, `ts`,
