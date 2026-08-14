@@ -135,9 +135,9 @@
   .cmpTable tr:last-child td{border-bottom:none;}
   .levBadge{display:inline-block; margin-left:6px; font-size:9.5px; font-weight:700; color:var(--violet);
     border:1px solid rgba(167,139,250,.4); border-radius:4px; padding:0 5px; vertical-align:1px;}
-  .schedTag{display:inline-block; margin-left:6px; font-size:9.5px; font-weight:700; color:var(--amber);
-    border:1px solid rgba(245,158,11,.45); border-radius:4px; padding:0 5px; vertical-align:1px;}
-  .schedTag[title]{cursor:help;}
+  .schedTag{display:block; width:max-content; max-width:52px; margin-top:1px; font-size:8px; font-weight:700;
+    line-height:1.1; letter-spacing:.2px; text-align:center; color:var(--amber);
+    border:1px solid rgba(245,158,11,.45); border-radius:4px; padding:1px 3px; cursor:help;}
   @media (max-width:900px){ .grid{grid-template-columns:1fr;} .news-grid{grid-template-columns:1fr;} .cmp-grid{grid-template-columns:1fr;} }
 
   /* ---- market fear gauge ---- */

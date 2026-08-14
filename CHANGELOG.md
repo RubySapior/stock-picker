@@ -18,6 +18,13 @@ version bump — `site` for UI-only changes, `algo` for engine/data changes
 
 ## [Unreleased]
 
+## [site 0.3.4] — 2026-08-14
+
+### Changed
+- Positions table: the SELL SCHEDULED tag now sits on its own line under the
+  ticker and wraps to two lines ("SELL / SCHEDULED") with a slightly smaller
+  font — fits within the existing row height (no taller rows).
+
 ## [algo 0.5.5] — 2026-08-14
 
 ### Changed
