@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HyperGrowth Sharpe Barbell — Portfolio</title>
-<link rel="stylesheet" href="styles.css?v=3">
+<link rel="stylesheet" href="styles.css?v=4">
 </head>
 <!--
   Page skeleton only. Every section below is filled by app.js from the
@@ -89,7 +89,10 @@
     <div class="panel">
       <h2>Live News Feed</h2>
       <div class="muted small" style="margin-bottom:8px;">Headline sentiment for held tickers &amp; their theories</div>
-      <div id="newsFeed"></div>
+      <div class="feedWrap" id="feedWrap">
+        <div id="newsFeed"></div>
+        <div class="feedBar" aria-hidden="true"><div class="feedThumb" id="feedThumb"></div></div>
+      </div>
     </div>
   </div>
 

@@ -336,14 +336,36 @@ function render() {
           </div>`).join('')
       : empty;
 
-    const cap = (N.big_stories && N.big_stories.length) ? N.big_stories.length : N.feed.length;
     feedEl.innerHTML = (N.feed && N.feed.length)
-      ? N.feed.slice(0, cap).map(it=>`
+      ? N.feed.map(it=>`
           <div class="feedItem">
             <a class="fTitle" href="${href(it.link)}" target="_blank" rel="noopener">${esc(trunc20(it.title))}</a>
             <div class="fMeta">${meta(it)} ${chips(it)}</div>
           </div>`).join('')
       : empty;
+
+    /* ---- custom feed scrollbar: visible while scrolling, fades on idle ---- */
+    const wrap = feedEl.parentElement;
+    const thumb = document.getElementById('feedThumb');
+    let idleT = null;
+    function updFeedBar(){
+      const h = feedEl.clientHeight, sh = feedEl.scrollHeight, max = sh - h;
+      const show = max > 4;
+      thumb.style.display = show ? 'block' : 'none';
+      if (!show) return;
+      const th = Math.max(24, h * h / sh);
+      thumb.style.height = th + 'px';
+      thumb.style.top = (feedEl.scrollTop / max) * (h - th) + 'px';
+    }
+    function pokeFeed(){
+      wrap.classList.add('scrolling');
+      clearTimeout(idleT);
+      idleT = setTimeout(() => wrap.classList.remove('scrolling'), 1100);
+    }
+    feedEl.addEventListener('scroll', () => { updFeedBar(); pokeFeed(); });
+    feedEl.addEventListener('wheel', pokeFeed, { passive: true });
+    window.addEventListener('resize', updFeedBar);
+    updFeedBar();
   }
 
   /* ---- line chart (vs SPY, zoom/pan, range presets) ---- */
