@@ -25,6 +25,7 @@
 
     let focus = 0;
     let dragX = 0, dragging = false, dragStart = 0, dragPos = 0, suppressClick = false, wheelLock = 0;
+    let lockAxis = null, startY = 0, lastT = 0, lastX = 0;
 
     function buildCard(t) {
       const el = document.createElement('div');
@@ -100,12 +101,22 @@
       layout();
     }
 
-    /* ---- pointer drag / swipe (no capture: card clicks must stay intact) ---- */
+    /* ---- pointer drag / swipe ----
+       touch-action: pan-y on .wheelStage lets the browser own vertical
+       gestures, so a swipe that starts on the cards can still scroll the
+       page. We only claim the gesture once it commits to the horizontal
+       axis (SLOP px of travel); vertical gestures are abandoned at once.
+       Fast flicks advance by velocity even under the distance threshold. */
+    const SLOP = 8;          // px of travel before committing to an axis
+    const FLICK = 0.35;      // px/ms release velocity that counts as a flick
     stage.addEventListener('pointerdown', e => {
       if (e.target.closest('.wheelBtn')) return;
       dragging = true;
       suppressClick = false;
+      lockAxis = null;
       dragStart = dragPos = e.clientX;
+      startY = e.clientY;
+      lastT = e.timeStamp; lastX = e.clientX;
       stage.classList.add('dragging');
       window.addEventListener('pointermove', onMove);
       window.addEventListener('pointerup', onUp);
@@ -113,32 +124,53 @@
     });
     function onMove(e) {
       if (!dragging) return;
+      const dx = e.clientX - dragStart;
+      const dy = e.clientY - startY;
+      if (!lockAxis) {
+        if (Math.abs(dx) < SLOP && Math.abs(dy) < SLOP) return;
+        lockAxis = Math.abs(dx) > Math.abs(dy) ? 'h' : 'v';
+        if (lockAxis === 'v') { endDrag(); return; }   // page scroll, not cards
+        suppressClick = true;
+      }
+      if (lockAxis !== 'h') return;
       dragPos = e.clientX;
-      if (Math.abs(dragPos - dragStart) > 6) suppressClick = true;
-      dragX = dragPos - dragStart;
+      dragX = dx;
+      lastT = e.timeStamp; lastX = e.clientX;
       layout();
     }
-    function onUp() {
+    function onUp(e) {
       if (!dragging) return;
+      const gap = spacing();
+      const dt = e.timeStamp - lastT;
+      const vx = dt > 0 ? (dragPos - lastX) / dt : 0;
+      endDrag();
+      if (Math.abs(vx) > FLICK) goTo(focus + (vx < 0 ? 1 : -1));
+      else if (dragX < -gap * 0.28) goTo(focus + 1);
+      else if (dragX > gap * 0.28) goTo(focus - 1);
+      else { dragX = 0; layout(); }
+    }
+    function endDrag() {
       dragging = false;
+      lockAxis = null;
       stage.classList.remove('dragging');
       window.removeEventListener('pointermove', onMove);
       window.removeEventListener('pointerup', onUp);
       window.removeEventListener('pointercancel', onUp);
-      const gap = spacing();
-      if (dragX < -gap * 0.28) goTo(focus + 1);
-      else if (dragX > gap * 0.28) goTo(focus - 1);
-      else { dragX = 0; layout(); }
     }
 
-    /* ---- wheel scroll + keys + buttons ---- */
+    /* ---- wheel scroll + keys + buttons ----
+       Both axes rotate the deck: vertical wheel/trackpad scroll and
+       horizontal swipes (deltaX) are claimed with preventDefault so the
+       browser can never pan the page sideways from the stage. */
     stage.addEventListener('wheel', e => {
-      if (e.deltaY === 0) return;
+      const dx = e.deltaX, dy = e.deltaY;
+      if (Math.abs(dx) === 0 && Math.abs(dy) === 0) return;
       e.preventDefault();
       const now = Date.now();
       if (now - wheelLock < 90) return;
       wheelLock = now;
-      goTo(focus + (e.deltaY > 0 ? 1 : -1));
+      if (Math.abs(dy) >= Math.abs(dx)) goTo(focus + (dy > 0 ? 1 : -1));
+      else goTo(focus + (dx > 0 ? 1 : -1));
     }, { passive: false });
     window.addEventListener('keydown', e => {
       if (e.key === 'ArrowRight') goTo(focus + 1);

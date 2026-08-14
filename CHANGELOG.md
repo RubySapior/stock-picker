@@ -35,6 +35,35 @@ milestones (or both if a prompt touches both sides), each with its own entry bel
 
 ## [Unreleased]
 
+## [site 0.3.11] — 2026-08-14
+
+### Fixed
+- Issue #16 follow-up: the *page* itself could scroll horizontally, so
+  horizontal trackpad swipes / shift-wheel over the dashboard panned the
+  whole page ("menu moves left/right") instead of rotating cards. Body now
+  clips horizontal overflow (`overflow-x:hidden`) and the value/news/
+  comparison grids use `minmax(0,1fr)` so nothing can force the page wider
+  than the viewport.
+- Wheel gestures over the theory cards now rotate the deck on BOTH axes:
+  horizontal `deltaX` swipes (trackpad) rotate cards too instead of being
+  ignored — claimed with `preventDefault` so the page can never pan
+  sideways from the scorecard.
+
+## [site 0.3.10] — 2026-08-14
+
+### Fixed
+- Issue #16: theory-card wheel mobile gestures. The stage no longer blocks
+  page scroll (`touch-action: pan-y` instead of `none`) — vertical swipes
+  starting on the cards now scroll the page, and gestures are
+  direction-locked after 8px so a diagonal swipe never drags the cards.
+- Fast flicks now advance cards by release velocity even under the old
+  28%-gap threshold (previously a quick swipe just snapped back, feeling
+  dead); snap-back and advance still animate smoothly.
+- Tap-to-flip preserved: click is only suppressed after the gesture commits
+  to horizontal, so a clean tap on the front card still flips it.
+- Hint text updated to match: "swipe or scroll to browse · tap the front
+  card to flip · tap a side card to select".
+
 ## [site 0.3.9] — 2026-08-14
 
 ### Added
