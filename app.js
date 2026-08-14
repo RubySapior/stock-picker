@@ -85,7 +85,7 @@ function render() {
   const verEl = document.getElementById('verLine');
   if (verEl) {
     const v = D.meta.version;
-    verEl.textContent = `${D.meta.name}${v ? ` &middot; site v${v.site} · algo v${v.algo}` : ''}`;
+    verEl.textContent = v ? `site v${v.site} · algo v${v.algo}` : '';
   }
   const mascot = document.getElementById('mascot');
   if (mascot) {

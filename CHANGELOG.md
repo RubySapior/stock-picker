@@ -18,6 +18,13 @@ version bump — `site` for UI-only changes, `algo` for engine/data changes
 
 ## [Unreleased]
 
+## [site 0.3.3] — 2026-08-14
+
+### Changed
+- Header sub-line: dropped the old "HyperGrowth Sharpe Barbell v5 -
+  Conviction-First" strategy name — the line now shows only the site/algo
+  version numbers.
+
 ## [site 0.3.2] — 2026-08-14
 
 ### Added
