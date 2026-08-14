@@ -102,7 +102,7 @@ function render() {
       {label:'Total Value', val:fmt$(s.total_value), delta:'', dcls:''},
       {label:'Day Change', val:sign(s.day_change), delta:'', dcls:cls(s.day_change)},
       {label:'Total Return', val:sign(s.total_return_pct)+'%', delta:'', dcls:cls(s.total_return_pct)},
-      {label:'Cash + SGOV', val:fmt$(s.cash + stbVal), delta:'', dcls:''},
+      {label:'Cash + SGOV', val:fmt$(s.cash + stbVal), delta:fmt$(s.cash)+' cash', dcls:''},
       {label:'Realized P&L', val:sign(s.realized_pnl), delta:'', dcls:cls(s.realized_pnl)},
       {label:'Max Drawdown', val:fmtN(s.max_drawdown_pct)+'%', delta:'', dcls:''},
       {label:'Sharpe (ann.)', val: s.sharpe_annualized===null?'n/a':fmtN(s.sharpe_annualized), delta:'', dcls:''},
