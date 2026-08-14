@@ -114,6 +114,49 @@ function render() {
     ).join('');
   }
 
+  /* ---- market fear gauge (top 5) ---- */
+  function renderFears(){
+    const el = document.getElementById('fearSection');
+    const F = D.fears;
+    if (!el) return;
+    if (!F || !F.length) { el.style.display = 'none'; return; }
+    el.style.display = '';
+    const esc = x => String(x==null?'':x).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    const segColor = ['#27ae60','#7bb93c','#f1c40f','#e67e22','#e74c3c'];
+    const top = F.slice(0, 5);
+    document.getElementById('fearList').innerHTML = top.map((f, i) => {
+      const filled = Math.max(1, Math.min(5, Math.round(f.score)));
+      const segs = [1,2,3,4,5].map(k =>
+        `<span class="fearSeg" style="background:${k <= filled ? segColor[k-1] : 'var(--panel2)'}"></span>`).join('');
+      const arrow = f.trend_dir === 'rising' ? '&#9650;' : f.trend_dir === 'falling' ? '&#9660;' : '&#8226;';
+      const why = (f.signals||[]).map(s => esc(s.label)).join(' &middot; ');
+      const hedgeChips = (f.hedge_ticks||[]).map(t => `<span class="chip">${t}</span>`).join('');
+      const thLinks = (f.theory_ids||[]).map(t => `<a class="theoryTag" href="#theory-${t}">${t}</a>`).join('');
+      return `<div class="fearRow">
+        <span class="fearRank">${i+1}</span>
+        <div class="fearMain">
+          <div class="fearName">${esc(f.name)} <span class="muted small">${esc(f.type)}</span></div>
+          <div class="fearBar">${segs}</div>
+        </div>
+        <div class="fearScore" style="color:${segColor[filled-1]}">${fmtN(f.score,1)} <span class="fearArrow">${arrow}</span></div>
+        <div class="fearWhy">${why ? `<span class="muted small">${why}</span>` : ''}${hedgeChips ? '<span class="muted small"> &middot; hedges:</span> '+hedgeChips : ''} ${thLinks}</div>
+      </div>`;
+    }).join('');
+
+    const C = D.complacency;
+    document.getElementById('complacency').innerHTML = C
+      ? `<span class="${C.index >= 0.5 ? 'compHot' : (C.index >= 0.3 ? 'compMid' : 'compCool')}">Complacency ${fmtN(C.index,2)} &middot; ${esc(C.note)}</span>`
+      : '';
+
+    const S = D.fear_sizing;
+    const szEl = document.getElementById('fearSizing');
+    if (S && S.length) {
+      szEl.style.display = '';
+      szEl.innerHTML = `<strong>Suggested hedge actions (review only &mdash; not executed):</strong> ` +
+        S.map(x => `${x.instrument} +${fmtN(x.pct)}pp (${x.reasons.join(',')})`).join(' &middot; ');
+    } else szEl.style.display = 'none';
+  }
+
   /* ---- positions table (sortable) ---- */
   const posSort = {key:'current_value', dir:-1};
   function sortP(key){
@@ -643,6 +686,7 @@ function render() {
 
   /* ---- invoke every section renderer in DOM order ---- */
   renderCards();
+  renderFears();
   renderPositions();
   renderSectors();
   renderComparison();

@@ -12,6 +12,7 @@ dashboard works by double-clicking `index.html`.
 | `portfolio.json` | Source of truth: meta, account/cash, positions, theories, events. | **YES** — hand-edit to rebalance / add / remove positions |
 | `update.py` | Daily updater: fetch prices → check exits → deploy cash → snapshot → write `dashboard.js`. | **YES** — all data-mutating logic |
 | `news.py` | Fetch Yahoo RSS headlines for held tickers, tag theories, score sentiment (VADER). | **YES** |
+| `fears.py` | Market Fear Gauge: scores F1-F8 crash scenarios 1-5 (structural/episodic), complacency index, recommendation-only hedge sizing. | **YES** |
 | `vader/` | Vendored MIT-licensed VADER sentiment engine (`vader.py` + `vader_lexicon.txt` + `emoji_utf8_lexicon.txt` + `LICENSE`). Third-party code, kept verbatim; `news.py` maps its `compound` score to pos/neg/neutral. | **NO** — upstream dependency |
 | `dashboard.js` | **AUTO-GENERATED** output consumed by the browser (`window.DASH = {...}`). | **NO** — overwritten on every `update.py` run; edit `update.py`/`portfolio.json` instead |
 | `app.js` | Renders `window.DASH` into every section of `index.html`. | **YES** — UI only |
@@ -131,3 +132,17 @@ Owned by `write_dashboard()` in `update.py`. `app.js` reads these fields:
 - `news`: `asof`, `big_stories[]`, `feed[]` — items have `title`, `link`, `ts`,
   `when`, `ticker`, `industry`, `theory[]`, `sent` ("positive"/"negative"/
   "neutral")
+- `fears`: null or `asof`, `degraded[]`, `news_layer`, `fears[]` — each fear:
+  `id` (F1-F8), `name`, `type` ("structural"/"episodic"), `score` (1-5, 5 =
+  panic), `level`, `velocity`/`trend` (label/value/pct), `signals[]` (top
+  contributors), `theory_ids[]`, `hedge_ticks[]`, `trend_dir`
+  ("rising"/"falling"/"flat"), `degraded`. Structural = 0.7×level + 0.3×50d
+  trend; episodic = 0.7×5d velocity + 0.3×level; all percentile-ranked on
+  each fear's own trailing ~1y window (`fears.py`). `fear_sizing`: null or
+  `[{instrument, pct, demand_pct, reasons[]}]` — RECOMMENDATION-ONLY
+  per-instrument max demand from fears scoring ≥4.0 sustained `confirm_days`
+  (3 structural / 2 episodic), scaled to Hedge Stack headroom (45% cap minus
+  current share). Never trades. `complacency`: null or `{index, valuation_
+  stretch, fear_term, note}` — index = stretch×(1−(mean(top3)−1)/4); ≥0.5
+  warns to keep baseline hedges on. State persists in `meta.fear_state`
+  (score/prev_score/days_above/confirmed).

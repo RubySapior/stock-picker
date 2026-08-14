@@ -20,6 +20,7 @@ import urllib.request
 import datetime as _dt
 
 from news import build_news
+from fears import build_fears
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 PORTFOLIO = os.path.join(BASE, "portfolio.json")
@@ -606,6 +607,14 @@ def main():
                     tickers.append(tk)
     prices = fetch_prices(tickers) if tickers else {}
 
+    # Market Fear Gauge: score F1-F8, persist state, build recommendations.
+    # Never allowed to break the update - gauge failure degrades to no section.
+    fear_data = None
+    try:
+        fear_data = build_fears(data)
+    except Exception as exc:
+        print(f"  WARN: fear gauge failed: {exc}")
+
     # Deliberate rebalances (e.g. issue #7 JEPQ removal): sell at the first
     # market-open price, then let the no-idle-cash policy park proceeds in SGOV.
     execute_scheduled_exits(data, prices, today)
@@ -698,11 +707,11 @@ def main():
     except Exception as exc:
         print(f"  WARN: benchmark (SPY) fetch failed: {exc}")
 
-    write_dashboard(data, benchmark, rebalance)
+    write_dashboard(data, benchmark, rebalance, fear_data)
     print_summary(data, today, benchmark)
 
 
-def write_dashboard(data, benchmark=None, rebalance=None):
+def write_dashboard(data, benchmark=None, rebalance=None, fear_data=None):
     """Serialize the full dashboard payload to dashboard.js (window.DASH).
 
     This is the ONLY writer of dashboard.js. The payload shape is the
@@ -816,6 +825,9 @@ def write_dashboard(data, benchmark=None, rebalance=None):
         "history": history,
         "events": data["events"],
         "theories": data["theories"],
+        "fears": (fear_data or {}).get("fears") or None,
+        "complacency": (fear_data or {}).get("complacency") or None,
+        "fear_sizing": (fear_data or {}).get("fear_sizing") or None,
         "benchmark": benchmark,
         "rebalance": rebalance or None,
         "news": build_news(

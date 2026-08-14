@@ -145,7 +145,57 @@ window.DASH = {
     },
     "created_by": "opencode agent (simulated managed portfolio)",
     "disclaimer": "Simulated portfolio for tracking/learning. Not financial advice.",
-    "rebalance_flags": {}
+    "rebalance_flags": {},
+    "fear_state": {
+      "F1": {
+        "prev_score": null,
+        "score": 2.5,
+        "days_above": 0,
+        "confirmed": false
+      },
+      "F2": {
+        "prev_score": null,
+        "score": 2.1,
+        "days_above": 0,
+        "confirmed": false
+      },
+      "F3": {
+        "prev_score": null,
+        "score": 2.7,
+        "days_above": 0,
+        "confirmed": false
+      },
+      "F4": {
+        "prev_score": null,
+        "score": 3.5,
+        "days_above": 0,
+        "confirmed": false
+      },
+      "F5": {
+        "prev_score": null,
+        "score": 3.9,
+        "days_above": 0,
+        "confirmed": false
+      },
+      "F6": {
+        "prev_score": null,
+        "score": 4.8,
+        "days_above": 1,
+        "confirmed": false
+      },
+      "F7": {
+        "prev_score": null,
+        "score": 2.0,
+        "days_above": 0,
+        "confirmed": false
+      },
+      "F8": {
+        "prev_score": null,
+        "score": 2.8,
+        "days_above": 0,
+        "confirmed": false
+      }
+    }
   },
   "asof": "2026-08-13",
   "summary": {
@@ -158,7 +208,7 @@ window.DASH = {
     "start_value": 100000,
     "max_drawdown_pct": 0.0,
     "sharpe_annualized": 27.26,
-    "cagr_annualized": 664.83
+    "cagr_annualized": 1406.91
   },
   "positions": [
     {
@@ -1269,6 +1319,272 @@ window.DASH = {
       ]
     }
   ],
+  "fears": [
+    {
+      "id": "F6",
+      "name": "Rates shock / duration liquidation",
+      "type": "structural",
+      "score": 4.8,
+      "level": 0.968,
+      "velocity": null,
+      "trend": {
+        "label": "50d trend",
+        "value": 0.0343,
+        "pct": 0.886
+      },
+      "signals": [
+        {
+          "label": "TLT/SHY (long-vs-short duration)",
+          "value": 0.977
+        },
+        {
+          "label": "10y yield level",
+          "value": 0.954
+        }
+      ],
+      "theory_ids": [
+        "T6"
+      ],
+      "hedge_ticks": [
+        "SGOV"
+      ],
+      "asof": "2026-08-13",
+      "degraded": false,
+      "trend_dir": "flat"
+    },
+    {
+      "id": "F5",
+      "name": "War / energy shock",
+      "type": "episodic",
+      "score": 3.9,
+      "level": 0.582,
+      "velocity": {
+        "label": "5d velocity",
+        "value": 0.0454,
+        "pct": 0.773
+      },
+      "trend": null,
+      "signals": [
+        {
+          "label": "Crude 5d momentum",
+          "value": 0.773
+        },
+        {
+          "label": "Gold 1d momentum",
+          "value": 0.139
+        }
+      ],
+      "theory_ids": [
+        "T21"
+      ],
+      "hedge_ticks": [
+        "GLD",
+        "GDX",
+        "FXY",
+        "DBMF"
+      ],
+      "asof": "2026-08-13",
+      "degraded": false,
+      "trend_dir": "flat"
+    },
+    {
+      "id": "F4",
+      "name": "Inflation resurgence",
+      "type": "structural",
+      "score": 3.5,
+      "level": 0.785,
+      "velocity": null,
+      "trend": {
+        "label": "50d trend",
+        "value": -0.0055,
+        "pct": 0.257
+      },
+      "signals": [
+        {
+          "label": "TIP/IEF (breakevens proxy)",
+          "value": 0.785
+        }
+      ],
+      "theory_ids": [
+        "T20"
+      ],
+      "hedge_ticks": [
+        "GLD",
+        "GDX",
+        "SGOV"
+      ],
+      "asof": "2026-08-13",
+      "degraded": false,
+      "trend_dir": "flat"
+    },
+    {
+      "id": "F8",
+      "name": "Recession / growth freeze",
+      "type": "structural",
+      "score": 2.8,
+      "level": 0.365,
+      "velocity": null,
+      "trend": {
+        "label": "50d trend",
+        "value": 0.0462,
+        "pct": 0.686
+      },
+      "signals": [
+        {
+          "label": "XLY/XLP (cyclical vs staples)",
+          "value": 0.731
+        },
+        {
+          "label": "SPY below 200d MA",
+          "value": 0.0
+        }
+      ],
+      "theory_ids": [
+        "T6"
+      ],
+      "hedge_ticks": [
+        "ZROZ",
+        "BTAL"
+      ],
+      "asof": "2026-08-13",
+      "degraded": false,
+      "trend_dir": "flat"
+    },
+    {
+      "id": "F3",
+      "name": "China / Taiwan escalation",
+      "type": "episodic",
+      "score": 2.7,
+      "level": 0.149,
+      "velocity": {
+        "label": "5d velocity",
+        "value": -0.0004,
+        "pct": 0.545
+      },
+      "trend": null,
+      "signals": [
+        {
+          "label": "Gold 3d momentum",
+          "value": 0.268
+        },
+        {
+          "label": "HK equities drawdown",
+          "value": 0.069
+        }
+      ],
+      "theory_ids": [
+        "T19"
+      ],
+      "hedge_ticks": [
+        "GLD",
+        "GDX",
+        "DBMF"
+      ],
+      "asof": "2026-08-13",
+      "degraded": false,
+      "trend_dir": "flat"
+    },
+    {
+      "id": "F1",
+      "name": "AI / tech concentration pop",
+      "type": "structural",
+      "score": 2.5,
+      "level": 0.149,
+      "velocity": null,
+      "trend": {
+        "label": "50d trend",
+        "value": 0.0773,
+        "pct": 0.914
+      },
+      "signals": [
+        {
+          "label": "QQQ/RSP concentration ratio",
+          "value": 0.281
+        },
+        {
+          "label": "QQQ drawdown from 52w high",
+          "value": 0.018
+        }
+      ],
+      "theory_ids": [
+        "T17"
+      ],
+      "hedge_ticks": [
+        "QFLR",
+        "VIXM",
+        "BTAL",
+        "ZROZ"
+      ],
+      "asof": "2026-08-13",
+      "degraded": false,
+      "trend_dir": "flat"
+    },
+    {
+      "id": "F2",
+      "name": "Yen-carry unwind",
+      "type": "episodic",
+      "score": 2.1,
+      "level": 0.2,
+      "velocity": {
+        "label": "5d velocity",
+        "value": -0.0064,
+        "pct": 0.306
+      },
+      "trend": null,
+      "signals": [
+        {
+          "label": "Yen strength (FXY level)",
+          "value": 0.2
+        }
+      ],
+      "theory_ids": [
+        "T18"
+      ],
+      "hedge_ticks": [
+        "FXY",
+        "DBMF"
+      ],
+      "asof": "2026-08-13",
+      "degraded": false,
+      "trend_dir": "flat"
+    },
+    {
+      "id": "F7",
+      "name": "Credit stress / HY spread",
+      "type": "episodic",
+      "score": 2.0,
+      "level": 0.012,
+      "velocity": {
+        "label": "5d velocity",
+        "value": -0.0024,
+        "pct": 0.345
+      },
+      "trend": null,
+      "signals": [
+        {
+          "label": "HYG/LQD (credit spread proxy)",
+          "value": 0.012
+        }
+      ],
+      "theory_ids": [
+        "T6"
+      ],
+      "hedge_ticks": [
+        "BTAL",
+        "DBMF"
+      ],
+      "asof": "2026-08-13",
+      "degraded": false,
+      "trend_dir": "flat"
+    }
+  ],
+  "complacency": {
+    "index": 0.139,
+    "valuation_stretch": 0.594,
+    "fear_term": 0.233,
+    "note": "Stress regime - hedges should be paying."
+  },
+  "fear_sizing": null,
   "benchmark": {
     "label": "S&P 500 (SPY)",
     "start_value": 100000,
@@ -1316,13 +1632,13 @@ window.DASH = {
   },
   "rebalance": null,
   "news": {
-    "asof": "2026-08-14 01:57:58",
+    "asof": "2026-08-13 20:14:26",
     "big_stories": [
       {
         "title": "The House Is Paid Off but the Property Tax Bill Never Retires. These 3 ETFs Pay It Every Year",
         "link": "https://247wallst.com/investing/etf/2026/08/13/the-house-is-paid-off-but-the-property-tax-bill-never-retires-these-3-etfs-pay-it-every-year/?.tsrc=rss",
         "ts": 1786659944,
-        "when": "Aug 13, 10:25 PM",
+        "when": "Aug 13, 04:25 PM",
         "ticker": "SGOV",
         "industry": "Equities",
         "theory": [],
@@ -1332,7 +1648,7 @@ window.DASH = {
         "title": "Michael Burry Loads Up On QQQ Puts, Boosts MU Short As He Braces For ‘Larger Fall’ — Here’s What He Did To NVDA, PLTR And TSLA",
         "link": "https://stocktwits.com/news-articles/markets/equity/michael-burry-loads-up-on-qqq-puts-boosts-mu-short-as-he-braces-for-larger-fall-heres-what-he-did-to-nvda-pltr-and-tsla/cZoqVbeRJLw?.tsrc=rss",
         "ts": 1786651987,
-        "when": "Aug 13, 08:13 PM",
+        "when": "Aug 13, 02:13 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -1344,10 +1660,25 @@ window.DASH = {
         "sent": "positive"
       },
       {
+        "title": "DRAM Movers: These Memory/Storage ETFs Are Soaring as Sandisk, Micron Rally",
+        "link": "https://247wallst.com/investing/2026/08/13/dram-movers-these-memory-storage-etfs-are-soaring-as-sandisk-micron-rally/?.tsrc=rss",
+        "ts": 1786644735,
+        "when": "Aug 13, 12:12 PM",
+        "ticker": "SMH",
+        "industry": "Semis",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
         "title": "Sector Update: Consumer Stocks Rise in Afternoon Trading",
         "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-rise-afternoon-173751918.html?.tsrc=rss",
         "ts": 1786642671,
-        "when": "Aug 13, 05:37 PM",
+        "when": "Aug 13, 11:37 AM",
         "ticker": "XLY",
         "industry": "Consumer Disc.",
         "theory": [
@@ -1359,7 +1690,7 @@ window.DASH = {
         "title": "5 ETFs to Benefit From Cooling Inflation in the Near Term",
         "link": "https://finance.yahoo.com/economy/policy/articles/5-etfs-benefit-cooling-inflation-140000926.html?.tsrc=rss",
         "ts": 1786629600,
-        "when": "Aug 13, 02:00 PM",
+        "when": "Aug 13, 08:00 AM",
         "ticker": "GLD",
         "industry": "Gold",
         "theory": [
@@ -1370,19 +1701,6 @@ window.DASH = {
           "T21"
         ],
         "sent": "positive"
-      },
-      {
-        "title": "Small Caps Pay Too: The 42% Friday Payer Riding the Russell’s Big Year",
-        "link": "https://247wallst.com/investing/2026/08/12/small-caps-pay-too-the-42-friday-payer-riding-the-russells-big-year/?.tsrc=rss",
-        "ts": 1786570842,
-        "when": "Aug 12, 09:40 PM",
-        "ticker": "IWM",
-        "industry": "Small Caps",
-        "theory": [
-          "T10",
-          "T15"
-        ],
-        "sent": "negative"
       }
     ],
     "feed": [
@@ -1390,7 +1708,7 @@ window.DASH = {
         "title": "The House Is Paid Off but the Property Tax Bill Never Retires. These 3 ETFs Pay It Every Year",
         "link": "https://247wallst.com/investing/etf/2026/08/13/the-house-is-paid-off-but-the-property-tax-bill-never-retires-these-3-etfs-pay-it-every-year/?.tsrc=rss",
         "ts": 1786659944,
-        "when": "Aug 13, 10:25 PM",
+        "when": "Aug 13, 04:25 PM",
         "ticker": "SGOV",
         "industry": "Equities",
         "theory": [],
@@ -1400,7 +1718,7 @@ window.DASH = {
         "title": "Michael Burry Loads Up On QQQ Puts, Boosts MU Short As He Braces For ‘Larger Fall’ — Here’s What He Did To NVDA, PLTR And TSLA",
         "link": "https://stocktwits.com/news-articles/markets/equity/michael-burry-loads-up-on-qqq-puts-boosts-mu-short-as-he-braces-for-larger-fall-heres-what-he-did-to-nvda-pltr-and-tsla/cZoqVbeRJLw?.tsrc=rss",
         "ts": 1786651987,
-        "when": "Aug 13, 08:13 PM",
+        "when": "Aug 13, 02:13 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -1415,7 +1733,7 @@ window.DASH = {
         "title": "Revenue at Palantir-Backed Ondas Rises 1,236%. Stock Falls as Losses Widen.",
         "link": "https://finance.yahoo.com/m/5a8f0245-cf08-346b-9a59-873a8c7d16c1/revenue-at-palantir-backed.html?.tsrc=rss",
         "ts": 1786645980,
-        "when": "Aug 13, 06:33 PM",
+        "when": "Aug 13, 12:33 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -1427,10 +1745,25 @@ window.DASH = {
         "sent": "negative"
       },
       {
+        "title": "DRAM Movers: These Memory/Storage ETFs Are Soaring as Sandisk, Micron Rally",
+        "link": "https://247wallst.com/investing/2026/08/13/dram-movers-these-memory-storage-etfs-are-soaring-as-sandisk-micron-rally/?.tsrc=rss",
+        "ts": 1786644735,
+        "when": "Aug 13, 12:12 PM",
+        "ticker": "SMH",
+        "industry": "Semis",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
         "title": "Sector Update: Consumer Stocks Rise in Afternoon Trading",
         "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-rise-afternoon-173751918.html?.tsrc=rss",
         "ts": 1786642671,
-        "when": "Aug 13, 05:37 PM",
+        "when": "Aug 13, 11:37 AM",
         "ticker": "XLY",
         "industry": "Consumer Disc.",
         "theory": [
@@ -1442,7 +1775,7 @@ window.DASH = {
         "title": "Strength in Defense & Propulsion Unit Drives GE Aerospace: Can It Sustain?",
         "link": "https://finance.yahoo.com/markets/stocks/articles/strength-defense-propulsion-unit-drives-151700107.html?.tsrc=rss",
         "ts": 1786634220,
-        "when": "Aug 13, 03:17 PM",
+        "when": "Aug 13, 09:17 AM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -1457,7 +1790,7 @@ window.DASH = {
         "title": "If You Invested $10,000 in Palantir Before It Released Its AIP Platform, Here's What Your Stake Would Be Worth Today",
         "link": "https://www.fool.com/investing/2026/08/13/if-you-invested-10000-in-palantir-before-it-releas/?.tsrc=rss",
         "ts": 1786631400,
-        "when": "Aug 13, 02:30 PM",
+        "when": "Aug 13, 08:30 AM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -1472,7 +1805,7 @@ window.DASH = {
         "title": "5 ETFs to Benefit From Cooling Inflation in the Near Term",
         "link": "https://finance.yahoo.com/economy/policy/articles/5-etfs-benefit-cooling-inflation-140000926.html?.tsrc=rss",
         "ts": 1786629600,
-        "when": "Aug 13, 02:00 PM",
+        "when": "Aug 13, 08:00 AM",
         "ticker": "GLD",
         "industry": "Gold",
         "theory": [
@@ -1488,7 +1821,7 @@ window.DASH = {
         "title": "Are Wall Street Analysts Bullish on Smurfit Westrock Stock?",
         "link": "https://www.barchart.com/story/news/3827891/are-wall-street-analysts-bullish-on-smurfit-westrock-stock?.tsrc=rss",
         "ts": 1786623391,
-        "when": "Aug 13, 12:16 PM",
+        "when": "Aug 13, 06:16 AM",
         "ticker": "XLY",
         "industry": "Consumer Disc.",
         "theory": [
@@ -1500,7 +1833,7 @@ window.DASH = {
         "title": "Dow Fixture Microsoft Breaks Out Along With These Stocks, But Datadog Triggers Sell Signals",
         "link": "https://finance.yahoo.com/m/30b2aa92-4f90-32dc-bb78-62c5936e6613/dow-fixture-microsoft-breaks.html?.tsrc=rss",
         "ts": 1786622479,
-        "when": "Aug 13, 12:01 PM",
+        "when": "Aug 13, 06:01 AM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -1515,7 +1848,7 @@ window.DASH = {
         "title": "Market Would Fall by 12,152 Points in a ‘Black Monday’ Style Crash. Big Short Investor Says It’s Possible.",
         "link": "https://247wallst.com/investing/2026/08/13/market-would-fall-by-12152-points-in-a-black-monday-style-crash-big-short-investor-says-its-possible/?.tsrc=rss",
         "ts": 1786619915,
-        "when": "Aug 13, 11:18 AM",
+        "when": "Aug 13, 05:18 AM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -1530,7 +1863,7 @@ window.DASH = {
         "title": "Rollins Stock: Is Wall Street Bullish or Bearish?",
         "link": "https://www.barchart.com/story/news/3823847/rollins-stock-is-wall-street-bullish-or-bearish?.tsrc=rss",
         "ts": 1786616582,
-        "when": "Aug 13, 10:23 AM",
+        "when": "Aug 13, 04:23 AM",
         "ticker": "XLY",
         "industry": "Consumer Disc.",
         "theory": [
@@ -1542,7 +1875,7 @@ window.DASH = {
         "title": "Michael Burry Warns of a 1987-Style Crash. Here Are 2 Index ETFs to Buy Anyway.",
         "link": "https://www.fool.com/investing/2026/08/13/michael-burry-warns-of-a-1987-style-crash-2-index/?.tsrc=rss",
         "ts": 1786612800,
-        "when": "Aug 13, 09:20 AM",
+        "when": "Aug 13, 03:20 AM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -1557,7 +1890,7 @@ window.DASH = {
         "title": "PLTU: Palantir Already Soared. Buying It With 2X Leverage Now Is a Different Bet Entirely",
         "link": "https://247wallst.com/investing/etf/2026/08/13/pltu-palantir-already-soared-buying-it-with-2x-leverage-now-is-a-different-bet-entirely/?.tsrc=rss",
         "ts": 1786611716,
-        "when": "Aug 13, 09:01 AM",
+        "when": "Aug 13, 03:01 AM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -1572,7 +1905,7 @@ window.DASH = {
         "title": "Are Wall Street Analysts Predicting Royal Caribbean Cruises Stock Will Climb or Sink?",
         "link": "https://www.barchart.com/story/news/3822206/are-wall-street-analysts-predicting-royal-caribbean-cruises-stock-will-climb-or-sink?.tsrc=rss",
         "ts": 1786609407,
-        "when": "Aug 13, 08:23 AM",
+        "when": "Aug 13, 02:23 AM",
         "ticker": "XLY",
         "industry": "Consumer Disc.",
         "theory": [
@@ -1584,7 +1917,7 @@ window.DASH = {
         "title": "Bank of Korea Breaks 13-Year Streak With Gold ETF Purchase",
         "link": "https://beincrypto.com/bank-of-korea-gold-etf-purchase/?.tsrc=rss",
         "ts": 1786604786,
-        "when": "Aug 13, 07:06 AM",
+        "when": "Aug 13, 01:06 AM",
         "ticker": "GLD",
         "industry": "Gold",
         "theory": [
@@ -1600,7 +1933,7 @@ window.DASH = {
         "title": "Bank of Korea Makes First Gold-Linked Investment in 13 Years",
         "link": "https://finance.yahoo.com/markets/commodities/articles/bank-korea-makes-first-gold-043913070.html?.tsrc=rss",
         "ts": 1786595953,
-        "when": "Aug 13, 04:39 AM",
+        "when": "Aug 12, 10:39 PM",
         "ticker": "GLD",
         "industry": "Gold",
         "theory": [
@@ -1616,7 +1949,7 @@ window.DASH = {
         "title": "Palantir Technologies (PLTR) Is Up 8.0% After Raising 2026 Revenue Guidance On Stronger Q2 Results",
         "link": "https://finance.yahoo.com/markets/stocks/articles/palantir-technologies-pltr-8-0-043114044.html?.tsrc=rss",
         "ts": 1786595474,
-        "when": "Aug 13, 04:31 AM",
+        "when": "Aug 12, 10:31 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -1631,7 +1964,7 @@ window.DASH = {
         "title": "Inovio Pharmaceuticals Q2 Earnings Call Highlights",
         "link": "https://www.marketbeat.com/instant-alerts/inovio-pharmaceuticals-q2-earnings-call-highlights-2026-08-12/?utm_source=yahoofinance&utm_medium=yahoofinance&.tsrc=rss",
         "ts": 1786579438,
-        "when": "Aug 13, 12:03 AM",
+        "when": "Aug 12, 06:03 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -1646,7 +1979,7 @@ window.DASH = {
         "title": "Zeta Global’s Q2 Earnings Call: Our Top 5 Analyst Questions",
         "link": "https://finance.yahoo.com/markets/stocks/articles/zeta-global-q2-earnings-call-230100896.html?.tsrc=rss",
         "ts": 1786575660,
-        "when": "Aug 12, 11:01 PM",
+        "when": "Aug 12, 05:01 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -1661,7 +1994,7 @@ window.DASH = {
         "title": "Small Caps Pay Too: The 42% Friday Payer Riding the Russell’s Big Year",
         "link": "https://247wallst.com/investing/2026/08/12/small-caps-pay-too-the-42-friday-payer-riding-the-russells-big-year/?.tsrc=rss",
         "ts": 1786570842,
-        "when": "Aug 12, 09:40 PM",
+        "when": "Aug 12, 03:40 PM",
         "ticker": "IWM",
         "industry": "Small Caps",
         "theory": [
@@ -1674,7 +2007,7 @@ window.DASH = {
         "title": "You Skipped the AI Rally Because Retirement Felt Too Close. These 3 ETFs Get You In Without Betting Your Nest Egg",
         "link": "https://247wallst.com/investing/etf/2026/08/12/you-skipped-the-ai-rally-because-retirement-felt-too-close-these-3-etfs-get-you-in-without-betting-your-nest-egg/?.tsrc=rss",
         "ts": 1786570522,
-        "when": "Aug 12, 09:35 PM",
+        "when": "Aug 12, 03:35 PM",
         "ticker": "SMH",
         "industry": "Semis",
         "theory": [
@@ -1689,7 +2022,7 @@ window.DASH = {
         "title": "S&P500, Nasdaq End Higher As Fresh CPI Data Calms Earlier-Than-Expected Rate Hike Fears — GOOGL, DJT, WEN, BE, SNDK In Focus",
         "link": "https://stocktwits.com/news-articles/markets/equity/s-and-p500-nasdaq-end-higher-as-fresh-cpi-data-calms-rate-hike-fears/cZo808cRJWt?.tsrc=rss",
         "ts": 1786569626,
-        "when": "Aug 12, 09:20 PM",
+        "when": "Aug 12, 03:20 PM",
         "ticker": "SMH",
         "industry": "Semis",
         "theory": [
@@ -1704,7 +2037,7 @@ window.DASH = {
         "title": "Michael Burry delivers brutal verdict on $420 billion AI giant",
         "link": "https://www.thestreet.com/investing/stocks/pltr-palantir-stock-michael-burry-says-surging-ai-giant-is-worth-under-1-long-term-despite-strong-q2-2026-earnings?.tsrc=rss",
         "ts": 1786569420,
-        "when": "Aug 12, 09:17 PM",
+        "when": "Aug 12, 03:17 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -1719,7 +2052,7 @@ window.DASH = {
         "title": "Michael Burry Is Short Nebius and Palantir. Both Are Now Soaring and His Short Thesis Looks Broken.",
         "link": "https://247wallst.com/investing/2026/08/12/michael-burry-is-short-nebius-and-palantir-both-are-now-soaring-his-short-thesis-looks-broken/?.tsrc=rss",
         "ts": 1786569052,
-        "when": "Aug 12, 09:10 PM",
+        "when": "Aug 12, 03:10 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -1734,7 +2067,7 @@ window.DASH = {
         "title": "SpaceX, Nebius, Palantir, Super Micro, Quantinuum, Wendy’s, and More Stocks That Explain Today’s Market",
         "link": "https://finance.yahoo.com/m/ddf7e389-b308-33f6-a023-cd25665510d4/spacex%2C-nebius%2C-palantir%2C.html?.tsrc=rss",
         "ts": 1786568880,
-        "when": "Aug 12, 09:08 PM",
+        "when": "Aug 12, 03:08 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -1749,7 +2082,7 @@ window.DASH = {
         "title": "Palantir and Microsoft Drop. Why the AI Revival Is Hitting Software Stocks.",
         "link": "https://finance.yahoo.com/m/7f558cb1-ac00-3575-810c-26075b32b0c8/palantir-and-microsoft-drop..html?.tsrc=rss",
         "ts": 1786567500,
-        "when": "Aug 12, 08:45 PM",
+        "when": "Aug 12, 02:45 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -1764,7 +2097,7 @@ window.DASH = {
         "title": "Sector Update: Consumer Stocks Mixed Late Afternoon",
         "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-mixed-afternoon-195051183.html?.tsrc=rss",
         "ts": 1786564251,
-        "when": "Aug 12, 07:50 PM",
+        "when": "Aug 12, 01:50 PM",
         "ticker": "XLY",
         "industry": "Consumer Disc.",
         "theory": [
@@ -1776,7 +2109,7 @@ window.DASH = {
         "title": "Tesla, Palantir Fall as CPI Sends September Fed Hike Odds to 33%",
         "link": "https://www.benzinga.com/markets/prediction-markets/26/08/61156417/tesla-palantir-july-cpi-fed-hike-odds?utm_source=yahooFinance&utm_campaign=partner_feed&utm_medium=referral&.tsrc=rss",
         "ts": 1786563225,
-        "when": "Aug 12, 07:33 PM",
+        "when": "Aug 12, 01:33 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -1791,7 +2124,7 @@ window.DASH = {
         "title": "Michael Burry adds to Nvidia and Palantir shorts while loading up on Molina Healthcare, which is down 54% from its high",
         "link": "https://finance.yahoo.com/markets/stocks/articles/michael-burry-adds-nvidia-palantir-184500402.html?.tsrc=rss",
         "ts": 1786560300,
-        "when": "Aug 12, 06:45 PM",
+        "when": "Aug 12, 12:45 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -1801,21 +2134,6 @@ window.DASH = {
           "T14"
         ],
         "sent": "neutral"
-      },
-      {
-        "title": "U.S. ETF Investors at Odds: Chasing Returns or Playing the Long Game?",
-        "link": "http://www.etf.com/sections/advisor-center/us-etf-investors-odds-chasing-returns-or-playing-long-game?utm_source=yahoo-finance&utm_medium=rss&utm_campaign=yahoo-finance-rss&.tsrc=rss",
-        "ts": 1786558489,
-        "when": "Aug 12, 06:14 PM",
-        "ticker": "DRAM",
-        "industry": "AI Memory/HBM",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
       }
     ]
   }

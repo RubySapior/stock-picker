@@ -113,3 +113,23 @@
   .levBadge{display:inline-block; margin-left:6px; font-size:9.5px; font-weight:700; color:var(--violet);
     border:1px solid rgba(167,139,250,.4); border-radius:4px; padding:0 5px; vertical-align:1px;}
   @media (max-width:900px){ .grid{grid-template-columns:1fr;} .news-grid{grid-template-columns:1fr;} .cmp-grid{grid-template-columns:1fr;} }
+
+  /* ---- market fear gauge ---- */
+  .fearPanel{margin-bottom:18px;}
+  .fearRow{display:flex; align-items:center; gap:14px; padding:9px 4px; border-bottom:1px solid var(--border);}
+  .fearRow:last-child{border-bottom:none;}
+  .fearRank{width:22px; height:22px; border-radius:50%; background:var(--panel2); border:1px solid var(--border); color:var(--muted); font-size:12px; font-weight:700; display:flex; align-items:center; justify-content:center; flex:none;}
+  .fearMain{flex:1; min-width:0;}
+  .fearName{font-size:13px; font-weight:600; margin-bottom:4px;}
+  .fearBar{display:flex; gap:4px; max-width:260px;}
+  .fearSeg{flex:1; height:10px; border-radius:3px; opacity:.95;}
+  .fearScore{font-size:15px; font-weight:700; width:52px; text-align:right; flex:none;}
+  .fearArrow{font-size:12px; color:var(--muted);}
+  .fearWhy{font-size:11px; color:var(--muted); width:240px; flex:none; text-align:right;}
+  .chip{display:inline-block; font-size:10px; color:var(--blue); border:1px solid rgba(56,189,248,.3); border-radius:6px; padding:0 5px; margin-left:2px;}
+  .compLine{font-size:12px; text-align:right;}
+  .compHot{color:var(--red); font-weight:600;}
+  .compMid{color:var(--amber);}
+  .compCool{color:var(--green);}
+  .sizingBox{margin-top:10px; padding:9px 12px; border:1px solid rgba(245,158,11,.4); border-radius:8px; background:rgba(245,158,11,.08); font-size:12px; color:var(--amber);}
+  @media (max-width:900px){ .fearRow{flex-wrap:wrap;} .fearWhy{width:100%; text-align:left;} }
