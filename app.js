@@ -336,8 +336,9 @@ function render() {
           </div>`).join('')
       : empty;
 
+    const cap = (N.big_stories && N.big_stories.length) ? N.big_stories.length : N.feed.length;
     feedEl.innerHTML = (N.feed && N.feed.length)
-      ? N.feed.map(it=>`
+      ? N.feed.slice(0, cap).map(it=>`
           <div class="feedItem">
             <a class="fTitle" href="${href(it.link)}" target="_blank" rel="noopener">${esc(trunc20(it.title))}</a>
             <div class="fMeta">${meta(it)} ${chips(it)}</div>
