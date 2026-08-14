@@ -35,6 +35,15 @@ milestones (or both if a prompt touches both sides), each with its own entry bel
 
 ## [Unreleased]
 
+## [site 0.4.3] — 2026-08-14
+
+### Fixed
+- Deck stack behind the front card now sits flush (no offset), so it is
+  invisible at rest and only fills the card footprint mid-flip — no more
+  "bonus cards" peeking out, no more blank gap when flipping.
+- Rotation is calmer overall: card slide and flip both slow to 0.7s (from
+  0.55s), in-drag catch glide to 0.25s.
+
 ## [site 0.4.2] — 2026-08-14
 
 ### Fixed
