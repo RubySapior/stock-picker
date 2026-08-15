@@ -156,7 +156,7 @@ window.DASH = {
         "confirmed": false
       },
       "F2": {
-        "prev_score": 1.9,
+        "prev_score": 1.8,
         "score": 1.8,
         "days_above": 0,
         "confirmed": false
@@ -168,32 +168,32 @@ window.DASH = {
         "confirmed": false
       },
       "F4": {
-        "prev_score": 3.6,
-        "score": 2.8,
+        "prev_score": 2.8,
+        "score": 2.7,
         "days_above": 0,
         "confirmed": false
       },
       "F5": {
         "prev_score": 4.1,
         "score": 4.1,
-        "days_above": 79,
+        "days_above": 80,
         "confirmed": true
       },
       "F6": {
-        "prev_score": 4.9,
+        "prev_score": 4.7,
         "score": 4.7,
-        "days_above": 93,
+        "days_above": 94,
         "confirmed": true
       },
       "F7": {
-        "prev_score": 1.4,
-        "score": 1.6,
+        "prev_score": 1.6,
+        "score": 1.7,
         "days_above": 0,
         "confirmed": false
       },
       "F8": {
-        "prev_score": 2.8,
-        "score": 2.9,
+        "prev_score": 2.9,
+        "score": 2.8,
         "days_above": 0,
         "confirmed": false
       }
@@ -554,7 +554,7 @@ window.DASH = {
         "summary": "The portfolio operates in a neutral macro regime with Tech / AI Growth (46.3% vs 60.0%) and the Hedge Stack (25.4% vs 35.0%) sitting below target allocations while Rates Shock fear (F6 at 4.9) remains"
       }
     ],
-    "asof_ts": 1786818553,
+    "asof_ts": 1786819405,
     "refresh_interval": 6
   },
   "asof": "2026-08-14",
@@ -1783,7 +1783,7 @@ window.DASH = {
       ],
       "asof": "2026-08-15",
       "degraded": false,
-      "trend_dir": "falling"
+      "trend_dir": "flat"
     },
     {
       "id": "F5",
@@ -1858,18 +1858,18 @@ window.DASH = {
       "id": "F8",
       "name": "Recession / growth freeze",
       "type": "structural",
-      "score": 2.9,
-      "level": 0.369,
+      "score": 2.8,
+      "level": 0.371,
       "velocity": null,
       "trend": {
         "label": "50d trend",
-        "value": 0.0503,
-        "pct": 0.7
+        "value": 0.0384,
+        "pct": 0.652
       },
       "signals": [
         {
           "label": "XLY/XLP (cyclical vs staples)",
-          "value": 0.738
+          "value": 0.742
         },
         {
           "label": "SPY below 200d MA",
@@ -1891,18 +1891,18 @@ window.DASH = {
       "id": "F4",
       "name": "Inflation resurgence",
       "type": "structural",
-      "score": 2.8,
-      "level": 0.588,
+      "score": 2.7,
+      "level": 0.592,
       "velocity": null,
       "trend": {
         "label": "50d trend",
-        "value": -0.0113,
-        "pct": 0.09
+        "value": -0.0138,
+        "pct": 0.029
       },
       "signals": [
         {
           "label": "TIP/IEF (breakevens proxy)",
-          "value": 0.588
+          "value": 0.592
         }
       ],
       "theory_ids": [
@@ -1915,7 +1915,7 @@ window.DASH = {
       ],
       "asof": "2026-08-15",
       "degraded": false,
-      "trend_dir": "falling"
+      "trend_dir": "flat"
     },
     {
       "id": "F1",
@@ -1985,12 +1985,12 @@ window.DASH = {
       "id": "F7",
       "name": "Credit stress / HY spread",
       "type": "episodic",
-      "score": 1.6,
+      "score": 1.7,
       "level": 0.0,
       "velocity": {
         "label": "5d velocity",
         "value": -0.0053,
-        "pct": 0.22
+        "pct": 0.247
       },
       "trend": null,
       "signals": [
@@ -2008,7 +2008,7 @@ window.DASH = {
       ],
       "asof": "2026-08-15",
       "degraded": false,
-      "trend_dir": "rising"
+      "trend_dir": "flat"
     }
   ],
   "complacency": {
@@ -2618,7 +2618,7 @@ window.DASH = {
     "enabled": true
   },
   "news": {
-    "asof": "2026-08-15 18:29:14",
+    "asof": "2026-08-15 18:43:25",
     "big_stories": [
       {
         "title": "Cathie Wood sells $11.6 million of surging tech stock",
@@ -3030,6 +3030,18 @@ window.DASH = {
         "sent": "negative"
       },
       {
+        "title": "Exchange-Traded Funds Higher, Equity Futures Mixed Pre-Bell Friday Amid Retail Sales Data",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/exchange-traded-funds-higher-equity-131348296.html?.tsrc=rss",
+        "ts": 1786713228,
+        "when": "Aug 14, 01:13 PM",
+        "ticker": "XLY",
+        "industry": "Consumer Disc.",
+        "theory": [
+          "T13"
+        ],
+        "sent": "neutral"
+      },
+      {
         "title": "Chamath Palihapitiya Sees Palantir As A Potential Winner In 3-Year Shift To Model-Agnostic AI",
         "link": "https://stocktwits.com/news-articles/markets/equity/pltr-stock-chamath-palihapitiya-3rd-party-ai-harnesses-palantir/cZothJpRJiv?.tsrc=rss",
         "ts": 1786704946,
@@ -3067,6 +3079,18 @@ window.DASH = {
         "sent": "negative"
       },
       {
+        "title": "Sector Update: Consumer Stocks Advance Late Afternoon",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-advance-afternoon-193514616.html?.tsrc=rss",
+        "ts": 1786649714,
+        "when": "Aug 13, 07:35 PM",
+        "ticker": "XLY",
+        "industry": "Consumer Disc.",
+        "theory": [
+          "T13"
+        ],
+        "sent": "neutral"
+      },
+      {
         "title": "DRAM Movers: These Memory/Storage ETFs Are Soaring as Sandisk, Micron Rally",
         "link": "https://247wallst.com/investing/2026/08/13/dram-movers-these-memory-storage-etfs-are-soaring-as-sandisk-micron-rally/?.tsrc=rss",
         "ts": 1786644735,
@@ -3086,34 +3110,6 @@ window.DASH = {
         "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-rise-afternoon-173751918.html?.tsrc=rss",
         "ts": 1786642671,
         "when": "Aug 13, 05:37 PM",
-        "ticker": "XLY",
-        "industry": "Consumer Disc.",
-        "theory": [
-          "T13"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "5 ETFs to Benefit From Cooling Inflation in the Near Term",
-        "link": "https://finance.yahoo.com/economy/policy/articles/5-etfs-benefit-cooling-inflation-140000926.html?.tsrc=rss",
-        "ts": 1786629600,
-        "when": "Aug 13, 02:00 PM",
-        "ticker": "GLD",
-        "industry": "Gold",
-        "theory": [
-          "T6",
-          "T9",
-          "T19",
-          "T20",
-          "T21"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "Are Wall Street Analysts Bullish on Smurfit Westrock Stock?",
-        "link": "https://www.barchart.com/story/news/3827891/are-wall-street-analysts-bullish-on-smurfit-westrock-stock?.tsrc=rss",
-        "ts": 1786623391,
-        "when": "Aug 13, 12:16 PM",
         "ticker": "XLY",
         "industry": "Consumer Disc.",
         "theory": [
