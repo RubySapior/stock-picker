@@ -13,6 +13,7 @@ dashboard works by double-clicking `index.html`.
 | `update.py` | Daily updater: fetch prices → check exits → deploy cash → snapshot → write `dashboard.js`. | **YES** — all data-mutating logic |
 | `news.py` | Fetch Yahoo RSS headlines for held tickers, tag theories, score sentiment (VADER). | **YES** |
 | `fears.py` | Market Fear Gauge: scores F1-F8 crash scenarios 1-5 (structural/episodic), complacency index, recommendation-only hedge sizing. | **YES** |
+| `ai_sentiment.py` | AI Sentiment Decision Layer (algo 0.6.0): LLM verdict call (provider-routed: **gemini** via OpenRouter — `google/gemini-3.7-flash` extended thinking — / zen / deepseek) on Tier A market data, fact-delta ledger, schema validation, theories/fears/bullish layer translators. **WIRED into `update.py`, ENABLED** (`meta.ai.enabled: true`). | **YES** — engine layer; must stay read-only (evidence/events/fear-blend/orders-refresh only) |
 | `vader/` | Vendored MIT-licensed VADER sentiment engine (`vader.py` + `vader_lexicon.txt` + `emoji_utf8_lexicon.txt` + `LICENSE`). Third-party code, kept verbatim; `news.py` maps its `compound` score to pos/neg/neutral. | **NO** — upstream dependency |
 | `dashboard.js` | **AUTO-GENERATED** output consumed by the browser (`window.DASH = {...}`). | **NO** — overwritten on every `update.py` run; edit `update.py`/`portfolio.json` instead |
 | `app.js` | Renders `window.DASH` into every section of `index.html`. | **YES** — UI only |
@@ -94,6 +95,21 @@ open index.html      # also works directly via file:// double-click
   `leverage_factor` in `dashboard.js` is book-wide effective ÷ market value.
 - **No idle cash policy**: `update.py` auto-buys SGOV with any cash above
   `CASH_BUFFER` so dry powder never sits idle.
+- **Market orders (algo 0.6.0)**: portfolio.json `orders[]` holds
+  human-approved market orders `{ticker, action "buy"|"sell", amount,
+  status "pending"|"executed", source, created, note, exec_date,
+  exec_price, shares, realized_pnl}`. `execute_pending_orders()` runs
+  them at the LIVE price on market-open runs only — buys redeem SGOV,
+  sells realize into cash (then re-parked in SGOV). A successful AI
+  verdict REPLACES pending orders with its proposals (`meta.ai.orders_refresh`,
+  sized at `meta.ai.order_size`), so Monday's pre-open `python update.py --ai`
+  overwrites Friday's orders before any execution. Executed history is
+  pruned to the last 15.
+- **Sector limits, not targets**: `meta.limits.rebalance.limits` are
+  exposure LIMITS compared by the quarterly audit (old key `targets`
+  still read as fallback). `rebalance.exempt_sectors` (e.g.
+  "Short-Term Bonds"/SGOV) are never capped — dry powder grows freely so
+  liquidity is always available for an opportunity.
 - Returns are anchored to `meta.start_value` (100000) / `meta.start_date`;
   the SPY benchmark is normalized to the same start and aligned to portfolio
   dates.
@@ -106,7 +122,8 @@ open index.html      # also works directly via file:// double-click
 - `app.js`: `render()` delegates to one named function per UI section
   (`renderCards`, `renderPositions`, `renderSectors`, `renderComparison`,
   `renderTheories`, `renderEvents`, `renderSleeves`, `renderNews`,
-  `initValueChart`, `initDonut`). Each reads only from `window.DASH` plus the
+  `renderOrders`, `initValueChart`, `initDonut`). Each reads only from
+  `window.DASH` plus the
   `stockpicker.seen.v1` localStorage key (new-since-last-load badges).
 - Main-page scorecard shows **active theories only** (`pending`/`paused`);
   `theories.html` (Theory Archive) lists every theory incl. `abandoned` with
@@ -157,9 +174,11 @@ Owned by `write_dashboard()` in `update.py`. `app.js` reads these fields:
   `pause_reason`, `paused_ticker` (set by the vol-halt re-entry protocol).
 - `rebalance`: null or `[{type, sleeve, target_exposure, actual_exposure,
   message}]` — quarterly drift flags from `rebalance_audit()` (see
-  `meta.limits.rebalance.targets`): the audit runs ONCE per calendar quarter
+  `meta.limits.rebalance.limits`): the audit runs ONCE per calendar quarter
   (tracked in `meta.last_rebalance_quarter`), not daily. There is no
-  tolerance band — ANY drift from target is flagged, however small.
+  tolerance band — ANY drift from limit is flagged, however small.
+  `rebalance.exempt_sectors` (e.g. "Short-Term Bonds"/SGOV) are never
+  flagged — dry powder is uncapped by design.
   Flags never trade; they ask the conviction layer to review a risk-budget
   mismatch.
 - `benchmark`: null or `label`, `start_value`, `history[]`, `aligned[]`,
@@ -167,6 +186,19 @@ Owned by `write_dashboard()` in `update.py`. `app.js` reads these fields:
 - `news`: `asof`, `big_stories[]`, `feed[]` — items have `title`, `link`, `ts`,
   `when`, `ticker`, `industry`, `theory[]`, `sent` ("positive"/"negative"/
   "neutral")
+- `ai`: null (disabled/degraded) or `asof`, `macro_stance`
+  ("risk_on"/"neutral"/"risk_off"), `sector_bias[]`, `theories[]` (verdict/
+  confidence/evidence), `fears[]` (sentiment_score), `convictions[]`
+  (conviction_score -1..1, urgency, confidence, rationale), `proposals[]`
+  (action buy/sell/add/trim from `bullish_layer`, urgency-sorted),
+  `summary`, `ledger[]` (last 14 verdicts), `state` (cadence bookkeeping),
+  `enabled`. Recommendations only — the UI must never execute from it.
+- `orders[]`: human-approved market orders — `ticker`, `action`
+  ("buy"/"sell"), `amount` (USD), `status` ("pending"/"executed"), `source`
+  (e.g. `ai_YYYY-MM-DD`), `created`, `note`, and for executed orders
+  `exec_date`, `exec_price`, `shares`, `realized_pnl`. Pending orders
+  execute at the live price on market-open runs; AI refresh replaces
+  pending orders with the latest verdict (meta.ai.orders_refresh).
 - `fears`: null or `asof`, `degraded[]`, `news_layer`, `fears[]` — each fear:
   `id` (F1-F8), `name`, `type` ("structural"/"episodic"), `score` (1-5, 5 =
   panic), `level`, `velocity`/`trend` (label/value/pct), `signals[]` (top

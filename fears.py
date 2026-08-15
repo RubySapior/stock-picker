@@ -496,3 +496,32 @@ def build_fears(data, news_scores=None):
         "degraded": degraded,
         "news_layer": news_scores is not None,
     }
+
+
+def apply_ai_witnesses(fears, ai_scores):
+    """Blend AI sentiment scores into fear readings (two independent witnesses).
+
+    Same combination build_fears() would apply if news_scores were passed,
+    applied AFTER the market-only run so the AI (second witness) can raise a
+    fear the market already sees but cannot manufacture panic on its own:
+
+        raw = max(market, min(news, market + 1.5))
+        if market >= 3 and news >= 3: raw = min(raw + 0.5, 5)
+
+    Mutates the fear objects in place (display layer only). meta.fear_state
+    persistence keeps tracking the MARKET witness, so days_above/confirmed
+    logic stays purely market-driven.
+    """
+    if not ai_scores:
+        return fears
+    for f in fears:
+        news = ai_scores.get(f["id"])
+        if news is None:
+            continue
+        market = f["score"]
+        raw = max(market, min(news, market + 1.5))
+        if market >= 3 and news >= 3:
+            raw = min(raw + 0.5, 5)
+        f["score"] = round(raw, 1)
+        f["ai_adjusted"] = True
+    return fears

@@ -1,15 +1,15 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI Port-picker</title>
-<link rel="stylesheet" href="styles.css?v=24">
+<link rel="stylesheet" href="styles.css?v=26">
 </head>
 <!--
   Page skeleton only. Every section below is filled by app.js from the
   AUTO-GENERATED dashboard.js (window.DASH). To change what shows, edit
-  app.js or the data in portfolio.json/update.py — NOT dashboard.js.
+  app.js or the data in portfolio.json/update.py â€” NOT dashboard.js.
 
   Section -> render function in app.js:
     header/cards          renderCards()
@@ -25,13 +25,13 @@
 <div class="wrap">
   <header>
     <div style="display:flex; align-items:center; gap:12px;">
-      <div class="mascot" id="mascot" title="AI cherry-picker mascot — temp logo (replace with the real one later)"></div>
+      <div class="mascot" id="mascot" title="AI cherry-picker mascot â€” temp logo (replace with the real one later)"></div>
       <div>
         <h1 id="pname">Portfolio</h1>
         <div class="sub" id="verLine"></div>
       </div>
     </div>
-    <div class="asof">Last updated: <span id="asof"></span> <span class="nextRefresh">Next refresh: <span id="nextRefresh">–</span></span> <a class="archiveBtn" href="help.html">Help</a> <a class="archiveBtn" href="https://github.com/RubySapior/stock-picker" target="_blank" rel="noopener">GitHub &#8599;</a> <button id="updateBtn" class="updateBtn" title="Run update.py to fetch fresh prices + news, then reload">Update</button></div>
+    <div class="asof">Last updated: <span id="asof"></span> <span class="nextRefresh">Next refresh: <span id="nextRefresh">â€“</span></span> <a class="archiveBtn" href="help.html">Help</a> <a class="archiveBtn" href="https://github.com/RubySapior/stock-picker" target="_blank" rel="noopener">GitHub &#8599;</a> <button id="updateBtn" class="updateBtn" title="Run update.py to fetch fresh prices + news, then reload">Update</button></div>
   </header>
 
   <div class="rebalBanner" id="rebalBanner" style="display:none;"></div>
@@ -87,11 +87,34 @@
 
   <div class="panel fearPanel" id="fearSection" style="display:none;">
     <div class="charthead">
-      <h2>Market Fear Gauge <span class="muted small" style="font-weight:400;">Top 5 fears · 1 = calm · 5 = panic</span></h2>
+      <h2>Market Fear Gauge <span class="muted small" style="font-weight:400;">Top 5 fears Â· 1 = calm Â· 5 = panic</span></h2>
       <div id="complacency" class="compLine"></div>
     </div>
     <div id="fearList"></div>
     <div id="fearSizing" class="sizingBox" style="display:none;"></div>
+  </div>
+
+  <div class="panel" id="aiSection" style="margin-bottom:20px;">
+    <div class="charthead">
+      <h2>AI Sentiment <span class="aiBadge" id="aiStatus">OFF</span></h2>
+      <span class="muted small" id="aiSub"></span>
+    </div>
+    <div id="aiHeartbeat"></div>
+    <div class="aiGrid">
+      <div id="aiProposals" class="aiCol"></div>
+      <div id="aiMacro" class="aiCol"></div>
+    </div>
+    <div id="aiTheories" style="margin-top:14px;"></div>
+    <div id="aiCalib" style="margin-top:14px;"></div>
+  </div>
+
+  <div class="panel" id="ordersSection" style="margin-bottom:20px; display:none;">
+    <div class="charthead">
+      <h2>Market Orders</h2>
+      <span class="muted small" id="ordersSub"></span>
+    </div>
+    <div class="muted small" style="margin-bottom:10px;">Human-approved orders from the AI verdict. Executed at the live price on the next market-open run. AI refresh replaces pending orders with the latest verdict.</div>
+    <div id="ordersList"></div>
   </div>
 
   <div class="news-grid">
@@ -166,6 +189,6 @@
 </div>
 
 <script src="wheel.js?v=7"></script>
-<script src="app.js?v=22" defer></script>
+<script src="app.js?v=25" defer></script>
 </body>
 </html>

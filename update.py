@@ -10,8 +10,18 @@ What it does:
   5. Writes dashboard.js consumed by index.html (works via file:// double-click).
   6. Prints a compact summary of the day.
 
-Usage:  python update.py
+Usage:  python update.py [--ai]
+  --ai   force the AI sentiment call even when the market is closed
+         (pre-open ritual: refreshes pending market orders with the new
+         verdict; orders still only EXECUTE on market-open runs).
+
+Engine v0.6.0: AI proposals become HUMAN-APPROVED market orders in
+portfolio.json ("orders"), executed at the live price on the next
+market-open run. The AI never trades directly - it replaces pending
+orders (meta.ai.orders_refresh) with the latest verdict's proposals;
+execution is a deterministic market-order engine.
 """
+import argparse
 import json
 import os
 import sys
@@ -20,7 +30,8 @@ import urllib.request
 import datetime as _dt
 
 from news import build_news
-from fears import build_fears
+from fears import build_fears, apply_ai_witnesses
+import ai_sentiment
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 PORTFOLIO = os.path.join(BASE, "portfolio.json")
@@ -70,6 +81,42 @@ def fetch_chart_history(symbol, rng=SPY_RANGE, interval="1d"):
         if ts[i] is None or adj[i] is None:
             continue
         out.append({"date": time.strftime("%Y-%m-%d", time.gmtime(ts[i])), "px": round(adj[i], 4)})
+    return out
+
+
+# Macro indicators for the AI prompt (Tier A facts). Same Yahoo chart endpoint
+# as fetch_price; ^TNX is normalized to percent (Yahoo chart API returns the
+# yield x10, e.g. 41.80 = 4.18%).
+MACRO_SYMBOLS = ("SPY", "QQQ", "^VIX", "^TNX", "JPY=X", "HYG")
+
+
+def fetch_macro():
+    """Live macro snapshot: {symbol: {px, chg_1d_pct}}. Never raises.
+
+    Failures degrade per-symbol (skipped); a total failure returns {}.
+    'chg_1d_pct' is the regular-market 1-day % change (float percent).
+    """
+    out = {}
+    for sym in MACRO_SYMBOLS:
+        try:
+            url = (f"https://query1.finance.yahoo.com/v8/finance/chart/{sym}"
+                   "?range=1d&interval=1d")
+            req = urllib.request.Request(url, headers=USER_AGENT)
+            with urllib.request.urlopen(req, timeout=30) as r:
+                data = json.load(r)
+            meta = data["chart"]["result"][0]["meta"]
+            px = meta.get("regularMarketPrice") or meta.get("previousClose")
+            prev = meta.get("previousClose") or px
+            if px is None:
+                continue
+            if sym == "^TNX" and abs(px) > 20:
+                px = px / 10.0
+                prev = (prev / 10.0) if prev else px
+            chg = (px / prev - 1) * 100 if prev else 0.0
+            out[sym] = {"px": round(px, 4), "chg_1d_pct": round(chg, 2)}
+        except Exception as exc:
+            print(f"  WARN: macro fetch failed for {sym}: {exc}")
+        time.sleep(0.4)
     return out
 
 
@@ -295,9 +342,14 @@ def rebalance_audit(data, today):
     Runs ONCE per calendar quarter (first market-open run of Jan/Apr/Jul/Oct)
     instead of every EOD: no daily pp-drift flagging. On the quarterly check it
     compares each sleeve's EFFECTIVE exposure (market value x leverage, as a %
-    of invested value) against the target allocations in
-    meta.limits.rebalance.targets, flagging ANY drift from target - there is
+    of invested value) against the sector LIMITS in
+    meta.limits.rebalance.limits, flagging ANY drift from limit - there is
     no tolerance band, every mismatch is flagged no matter how small.
+
+    Exempt sectors (meta.limits.rebalance.exempt_sectors, e.g. Short-Term
+    Bonds/SGOV): no cap - dry powder may grow without limit so there is
+    always liquidity when an opportunity appears. Exempt sectors are never
+    flagged.
 
     Passive by design - it never trades, it only asks the conviction layer to
     review a risk-budget mismatch. No hidden reallocation, no attribution
@@ -305,7 +357,8 @@ def rebalance_audit(data, today):
     """
     limits = data["meta"].get("limits") or {}
     cfg = limits.get("rebalance") or {}
-    targets = cfg.get("targets") or {}
+    targets = cfg.get("limits") or cfg.get("targets") or {}
+    exempt = set(cfg.get("exempt_sectors") or [])
     if not targets:
         return []
     year, month, _ = today.split("-")
@@ -329,8 +382,10 @@ def rebalance_audit(data, today):
 
     flags = []
     for sec, target in targets.items():
+        if sec in exempt:
+            continue
         actual = eff_tot.get(sec, 0.0) / tot_inv * 100.0
-        msg = (f"{sec} effective exposure {actual:.1f}% vs {target:.1f}% target "
+        msg = (f"{sec} effective exposure {actual:.1f}% vs {target:.1f}% limit "
                f"(off by {actual - target:+.1f}pp). "
                f"Quarterly review - manual rebalance or conviction decision required.")
         data["events"].append({
@@ -353,7 +408,7 @@ def rebalance_audit(data, today):
             "actual_exposure": round(actual / 100.0, 3),
             "message": msg,
         })
-        print(f"  FLAG {sec}: {actual:.1f}% vs {target:.1f}% target (off by {actual - target:+.1f}pp)")
+        print(f"  FLAG {sec}: {actual:.1f}% vs {target:.1f}% limit (off by {actual - target:+.1f}pp)")
     return flags
 
 
@@ -579,15 +634,259 @@ def execute_scheduled_exits(data, prices, today):
                     if s["sector"] != sector
                 ]
                 (limits.setdefault("rebalance", {})
-                     .setdefault("targets", {}).pop(sector, None))
+                     .setdefault("limits", {}).pop(sector, None))
+                (limits.setdefault("rebalance", {})
+                     .get("targets", {}) or {}).pop(sector, None)
                 print(f"  SECTOR CLEANUP: removed empty sector '{sector}' from limits")
         pos.pop("scheduled_exit", None)
         data["positions"].remove(pos)
         print(f"  SCHEDULED EXIT {pos['ticker']}: sold @ {px:.2f} (pnl {realized:+,.2f})")
 
 
+def refresh_orders_from_ai(data, verdict, today):
+    """Replace PENDING market orders with the latest AI verdict's proposals.
+
+    Engine v0.6.0: the AI never trades directly - it proposes convictions
+    and this layer turns them into market orders (meta.ai.orders_refresh).
+    Each proposal is sized at meta.ai.order_size USD (direction only; the
+    engine sizes, the human approved the sizing). Executed orders stay as
+    history; only pending ones are replaced.
+    """
+    cfg = (data.get("meta") or {}).get("ai") or {}
+    if not cfg.get("orders_refresh"):
+        return
+    size = float(cfg.get("order_size", 2500))
+    proposals = ai_sentiment.bullish_layer(verdict, data)
+    keep = [o for o in data.setdefault("orders", [])
+            if o.get("status") != "pending"]
+    created = []
+    for p in proposals:
+        action = "buy" if p["conviction_score"] > 0 else "sell"
+        created.append({
+            "ticker": p["ticker"],
+            "action": action,
+            "amount": round(size, 2),
+            "status": "pending",
+            "source": f"ai_{today}",
+            "created": today,
+            "note": (p.get("rationale") or "")[:160],
+        })
+    data["orders"] = keep + created
+    if created:
+        print(f"  ORDERS REFRESHED from AI verdict: {len(created)} market orders "
+              f"({size:,.0f} each) - pending replaced, {len(keep)} executed kept")
+
+
+def execute_pending_orders(data, prices, today):
+    """Execute pending market orders at the LIVE price (market-open only).
+
+    - buy: funded by redeeming SGOV (no idle cash policy); shares are
+      added to the open position at the live price.
+    - sell: sells amount worth of shares at the live price; proceeds go
+      to cash, then the no-idle-cash policy parks them in SGOV. If the
+      order sells the whole position, it closes like a TP/SL exit.
+    Orders without a price, without an open position, or beyond SGOV
+    availability stay pending (deferred, never dropped).
+    """
+    if not market_is_open():
+        return
+    orders = data.setdefault("orders", [])
+    for order in list(orders):
+        if order.get("status") != "pending":
+            continue
+        tk = order.get("ticker")
+        action = order.get("action")
+        amount = float(order.get("amount", 0))
+        px = prices.get(tk)
+        if not px:
+            print(f"  WARN: order {tk} {action} - no live price, deferred")
+            continue
+        pos = next((p for p in data["positions"]
+                    if p["ticker"] == tk and p["status"] == "open"), None)
+        if action == "buy":
+            if not pos:
+                print(f"  WARN: order BUY {tk} - no open position to add to, deferred")
+                continue
+            sgov = next((p for p in data["positions"]
+                         if p["ticker"] == STB_TICKER and p["status"] == "open"), None)
+            sgov_px = prices.get(STB_TICKER)
+            if not sgov or not sgov_px or sgov["shares"] * sgov_px < amount - 1:
+                print(f"  WARN: order BUY {tk} - insufficient SGOV dry powder, deferred")
+                continue
+            sgov_shares = round(amount / sgov_px, 6)
+            sgov["shares"] = round(sgov["shares"] - sgov_shares, 6)
+            sgov["cost"] = round(sgov["cost"] - amount, 2)
+            buy_shares = round(amount / px, 6)
+            pos["shares"] = round(pos["shares"] + buy_shares, 6)
+            pos["cost"] = round(pos["cost"] + amount, 2)
+            order.update({
+                "status": "executed", "exec_date": today,
+                "exec_price": round(px, 4),
+                "shares": round(buy_shares, 4),
+                "realized_pnl": 0.0,
+            })
+            data["events"].append({
+                "date": today,
+                "ts": time.strftime("%H:%M:%S"),
+                "ticker": tk,
+                "name": pos["name"],
+                "reason": "market_order",
+                "note": f"BUY {amount:,.0f} ({order.get('source')})",
+                "state": None,
+                "price": round(px, 4),
+                "buy_price": round(px, 4),
+                "shares": round(buy_shares, 4),
+                "realized_pnl": 0,
+            })
+            print(f"  ORDER BUY {tk}: {amount:,.0f} @ {px:.2f} "
+                  f"(from SGOV {sgov_shares:,.2f} shares)")
+        elif action == "sell":
+            if not pos:
+                print(f"  WARN: order SELL {tk} - no open position, deferred")
+                continue
+            sell_shares = min(pos["shares"], round(amount / px, 6))
+            if sell_shares <= 0:
+                continue
+            proceeds = round(sell_shares * px, 2)
+            realized = round((px - pos["buy_price"]) * sell_shares, 2)
+            pos["shares"] = round(pos["shares"] - sell_shares, 6)
+            pos["cost"] = round(pos["cost"] - round(sell_shares * pos["buy_price"], 2), 2)
+            data["account"]["cash"] = round(data["account"]["cash"] + proceeds, 2)
+            data["account"]["realized_pnl"] = round(
+                data["account"]["realized_pnl"] + realized, 2)
+            order.update({
+                "status": "executed", "exec_date": today,
+                "exec_price": round(px, 4),
+                "shares": round(sell_shares, 4),
+                "realized_pnl": realized,
+            })
+            data["events"].append({
+                "date": today,
+                "ts": time.strftime("%H:%M:%S"),
+                "ticker": tk,
+                "name": pos["name"],
+                "reason": "market_order",
+                "note": f"SELL {amount:,.0f} ({order.get('source')})",
+                "state": None,
+                "price": round(px, 4),
+                "buy_price": pos["buy_price"],
+                "shares": round(sell_shares, 4),
+                "realized_pnl": realized,
+            })
+            print(f"  ORDER SELL {tk}: {amount:,.0f} @ {px:.2f} "
+                  f"(pnl {realized:+,.2f})")
+            if pos["shares"] <= 1e-6:
+                pos["status"] = "closed"
+                pos["exit"] = {
+                    "reason": "market_order",
+                    "price": round(px, 4),
+                    "state": None,
+                    "note": f"Market order sold full position ({order.get('source')})",
+                    "realized_pnl": realized,
+                }
+        # keep only the last 15 executed orders
+        executed = [o for o in data["orders"] if o.get("status") == "executed"]
+        if len(executed) > 15:
+            data["orders"] = ([o for o in data["orders"] if o.get("status") != "executed"]
+                              + executed[-15:])
+
+
+def run_ai_layer(data, prices, fear_data, today, macro=None, force=False):
+    """Wire the AI Sentiment Decision Layer (ai_sentiment.py) into the run.
+
+    Invariants (see CHANGELOG 'AI Sentiment Decision Layer'):
+      - AI is read-only: it appends theory EVIDENCE, one audit event, and
+        blends the DISPLAYED fear scores - it never touches positions,
+        theory statuses, or account state.
+      - Degraded mode: any failure leaves the book exactly as before.
+      - Cadence: one call per market-open day (meta.ai_state.last_call_date),
+        capped at meta.ai.max_daily_calls. Circuit-event re-runs (|dQQQ|>2.5%,
+        VIX +15%) are a later milestone.
+      - Engine v0.6.0: a successful verdict refreshes PENDING market orders
+        (meta.ai.orders_refresh) - execution still only happens on
+        market-open runs.
+
+    Returns (ai_verdict, fear_data) - fear_data may carry AI-blended scores.
+    macro: optional live {symbol: {px, chg_1d_pct}} from fetch_macro().
+    force: skip the market-is-open gate (pre-open ritual, python update.py --ai).
+    """
+    cfg = (data.get("meta") or {}).get("ai") or {}
+    if not cfg.get("enabled"):
+        return None, fear_data
+    try:
+        state = data.setdefault("meta", {}).setdefault("ai_state", {})
+        if not force and not market_is_open():
+            return None, fear_data
+        max_calls = int(cfg.get("max_daily_calls", 3))
+        if state.get("last_call_date") != today:
+            state["calls_today"] = 0
+        if state.get("calls_today", 0) >= max_calls:
+            return None, fear_data
+
+        verdict = ai_sentiment.run(data, prices, fear_data, macro)
+        if not verdict:
+            return None, fear_data
+
+        state["last_call_date"] = today
+        state["calls_today"] = state.get("calls_today", 0) + 1
+        state["last_call_ts"] = time.strftime("%H:%M:%S")
+        data["meta"]["ai_last_output"] = verdict
+
+        ledger = data["meta"].setdefault("ai_ledger", [])
+        ledger.append({
+            "date": today,
+            "ts": state["last_call_ts"],
+            "macro_stance": verdict["macro_stance"],
+            "theories": len(verdict["theories"]),
+            "convictions": len(verdict["convictions"]),
+            "prompt_hash": verdict.get("prompt_hash"),
+            "summary": verdict["summary"][:200],
+        })
+        ledger[:] = ledger[-28:]
+
+        for t in verdict["theories"]:
+            theo = next((x for x in data["theories"] if x["id"] == t["id"]), None)
+            if theo:
+                theo["last_updated"] = today
+                theo.setdefault("evidence", []).append(
+                    f"{today}: AI verdict {t['verdict'].upper()} (conf {t['confidence']}) "
+                    f"- {t['evidence']}"
+                )
+
+        ai_scores = ai_sentiment.fears_layer(verdict)
+        if ai_scores and fear_data:
+            apply_ai_witnesses(fear_data.get("fears") or [], ai_scores)
+            fear_data["news_layer"] = True
+
+        refresh_orders_from_ai(data, verdict, today)
+
+        data["events"].append({
+            "date": today,
+            "ts": state["last_call_ts"],
+            "ticker": "AI",
+            "name": "AI Sentiment",
+            "reason": "ai_sentiment",
+            "note": (f"{verdict['macro_stance']} - {len(verdict['theories'])} theories, "
+                     f"{len(verdict['convictions'])} convictions - {verdict['summary'][:120]}"),
+            "state": None,
+            "price": None,
+            "buy_price": None,
+            "shares": None,
+            "realized_pnl": 0,
+        })
+        print(f"  AI SENTIMENT: {verdict['macro_stance']} (call #{state['calls_today']} today)")
+        return verdict, fear_data
+    except Exception as exc:
+        print(f"  WARN: ai_sentiment layer failed (degraded): {exc}")
+        return None, fear_data
+
+
 def main():
     """Fetch prices -> check exits -> deploy cash -> snapshot -> write dashboard.js."""
+    parser = argparse.ArgumentParser(description="Stock Picker daily updater")
+    parser.add_argument("--ai", action="store_true",
+                        help="force the AI sentiment call even when the market is closed")
+    args = parser.parse_args()
     with open(PORTFOLIO, encoding="utf-8") as f:
         data = json.load(f)
 
@@ -612,6 +911,17 @@ def main():
                     tickers.append(tk)
     prices = fetch_prices(tickers) if tickers else {}
 
+    # Live macro indicators for the AI layer (SPY/QQQ/VIX/10Y/USDJPY/HYG).
+    # Never allowed to break the update - failure degrades to no macro block.
+    macro = {}
+    try:
+        macro = fetch_macro()
+        if macro:
+            print("  MACRO: " + " | ".join(
+                f"{k} {v['px']} ({v['chg_1d_pct']:+.2f}%)" for k, v in macro.items()))
+    except Exception as exc:
+        print(f"  WARN: macro fetch failed: {exc}")
+
     # Market Fear Gauge: score F1-F8, persist state, build recommendations.
     # Never allowed to break the update - gauge failure degrades to no section.
     fear_data = None
@@ -620,9 +930,25 @@ def main():
     except Exception as exc:
         print(f"  WARN: fear gauge failed: {exc}")
 
+    # AI Sentiment Decision Layer (disabled unless meta.ai.enabled). Reads the
+    # book + market-only fears, returns a verdict; blends fears, appends theory
+    # evidence + one audit event. Degrades silently - never breaks the run.
+    # --ai forces the call pre-open (refreshes pending orders); execution of
+    # orders is still gated by market_is_open().
+    ai_verdict, fear_data = run_ai_layer(data, prices, fear_data, today, macro,
+                                         force=args.ai)
+    # Market-closed / cadence-cap runs produce no live verdict, but the last
+    # persisted one (meta.ai_last_output) is still real data - show it.
+    if not ai_verdict:
+        ai_verdict = (data.get("meta") or {}).get("ai_last_output")
+
     # Deliberate rebalances (e.g. issue #7 JEPQ removal): sell at the first
     # market-open price, then let the no-idle-cash policy park proceeds in SGOV.
     execute_scheduled_exits(data, prices, today)
+
+    # Engine v0.6.0: execute human-approved market orders at the live price
+    # (market-open only). Buys redeem SGOV; sells realize into cash.
+    execute_pending_orders(data, prices, today)
     open_positions = [p for p in data["positions"] if p["status"] == "open"]
 
     # --- stop loss / take profit engine ---
@@ -720,11 +1046,31 @@ def main():
     except Exception as exc:
         print(f"  WARN: benchmark fetch failed: {exc}")
 
-    write_dashboard(data, benchmark, rebalance, fear_data, benchmarks)
+    write_dashboard(data, benchmark, rebalance, fear_data, benchmarks, ai_verdict)
     print_summary(data, today, benchmark)
 
 
-def write_dashboard(data, benchmark=None, rebalance=None, fear_data=None, benchmarks=None):
+def build_ai_payload(verdict, data):
+    """Serialize the AI verdict for the dashboard (null when offline/disabled)."""
+    if not verdict:
+        return None
+    meta = data.get("meta") or {}
+    return {
+        "asof": verdict["date"],
+        "macro_stance": verdict["macro_stance"],
+        "sector_bias": verdict["sector_bias"],
+        "theories": verdict["theories"],
+        "fears": verdict["fears"],
+        "convictions": verdict["convictions"],
+        "proposals": ai_sentiment.bullish_layer(verdict, data),
+        "summary": verdict["summary"],
+        "ledger": (meta.get("ai_ledger") or [])[-14:],
+        "state": meta.get("ai_state") or {},
+        "enabled": bool((meta.get("ai") or {}).get("enabled")),
+    }
+
+
+def write_dashboard(data, benchmark=None, rebalance=None, fear_data=None, benchmarks=None, ai_verdict=None):
     """Serialize the full dashboard payload to dashboard.js (window.DASH).
 
     This is the ONLY writer of dashboard.js. The payload shape is the
@@ -853,10 +1199,12 @@ def write_dashboard(data, benchmark=None, rebalance=None, fear_data=None, benchm
         "benchmark": benchmark,
         "benchmarks": benchmarks,
         "rebalance": rebalance or None,
+        "ai": build_ai_payload(ai_verdict, data),
         "news": build_news(
             [p for p in data["positions"] if p["status"] == "open"]
         ) if any(p["status"] == "open" for p in data["positions"])
         else {"asof": None, "big_stories": [], "feed": []},
+        "orders": (data.get("orders") or [])[-15:],
     }
     with open(DASHBOARD_JS, "w", encoding="utf-8") as f:
         # Banner warns AI agents / humans not to hand-edit this generated file.

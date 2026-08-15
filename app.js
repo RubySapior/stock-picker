@@ -854,9 +854,202 @@ function render() {
     upd();
   }
 
+  /* ---- AI Sentiment section (D.ai; null = disabled/degraded) ---- */
+  function copyText(t){
+    if(navigator.clipboard && window.isSecureContext){ navigator.clipboard.writeText(t).catch(()=>{}); return; }
+    const ta = document.createElement('textarea');
+    ta.value = t; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); }catch(e){}
+    document.body.removeChild(ta);
+  }
+  function renderAI(){
+    const A = D.ai, cfg = D.meta.ai || {};
+    const stEl = document.getElementById('aiStatus');
+    const subEl = document.getElementById('aiSub');
+    const hb = document.getElementById('aiHeartbeat');
+    const pr = document.getElementById('aiProposals');
+    const mc = document.getElementById('aiMacro');
+    const th = document.getElementById('aiTheories');
+    const cb = document.getElementById('aiCalib');
+    if(!stEl || !hb) return;
+    const model = cfg.provider ? `${String(cfg.provider).toUpperCase()} · ${cfg.model}` : '';
+    const stancePill = s => `<span class="stancePill ${s}">${String(s||'neutral').toUpperCase()}</span>`;
+
+    if(!A){
+      const degraded = !!cfg.enabled;
+      stEl.textContent = degraded ? 'DEGRADED' : 'OFF';
+      stEl.className = 'aiBadge ' + (degraded ? 'degraded' : 'off');
+      subEl.textContent = degraded ? 'Call failed or verdict invalid — book running on core rules' : 'Flip meta.ai.enabled to activate the layer';
+      hb.innerHTML = `<div class="aiSlate">AI Sentiment is ${degraded ? 'degraded' : 'offline'} — the portfolio runs on deterministic price rules (TP/SL, index-referenced vol-halts, no idle cash). The AI layer adds proposals, theory reads and fear blending only when active.${model ? ' · ' + escA(model) : ''}</div>`;
+      pr.innerHTML = ''; mc.innerHTML = ''; th.innerHTML = ''; cb.innerHTML = '';
+      return;
+    }
+
+    stEl.textContent = 'ACTIVE';
+    stEl.className = 'aiBadge active';
+    subEl.textContent = `Last read ${escA(A.asof)} · Tier A grounded (prices, fears, exposures) · Tier B news: display only`;
+
+    /* 1) heartbeat & regime bar */
+    const st = A.state || {};
+    hb.innerHTML = `
+      <div class="aiBar">
+        <span class="aiBarItem"><strong>Stance:</strong> ${stancePill(A.macro_stance)}</span>
+        <span class="aiBarItem"><strong>Last call:</strong> ${escA(st.last_call_date || '–')}${st.last_call_ts ? ' · ' + escA(st.last_call_ts) : ''}</span>
+        <span class="aiBarItem"><strong>Calls today:</strong> ${st.calls_today || 0}/${cfg.max_daily_calls || 3}</span>
+        <span class="aiBarItem"><strong>Model:</strong> ${escA(model)}</span>
+        <span class="aiBarItem"><strong>News:</strong> Tier B — display only</span>
+      </div>
+      <div class="muted small" style="margin:6px 0 2px;">${escA(A.summary)}</div>`;
+
+    /* 2) actionable proposal queue (snooze/dismiss in localStorage) */
+    const Q_KEY = 'stockpicker.ai.q1';
+    let q = {}; try{ q = JSON.parse(localStorage.getItem(Q_KEY)) || {}; }catch(e){}
+    const now = Date.now();
+    const pId = p => p.ticker + '|' + A.asof + '|' + p.action;
+    const visProps = (A.proposals||[]).filter(p => {
+      const id = pId(p);
+      if(q.dismiss?.[id]) return false;
+      if(q.snooze?.[id] && now < q.snooze[id]) return false;
+      return true;
+    });
+    const urgCls = p => p.urgency >= 75 ? 'red' : (p.urgency >= 50 ? 'amber' : 'low');
+    pr.innerHTML = `
+      <h3 class="aiColHead">Actionable Proposals <span class="muted small">(${visProps.length})</span></h3>
+      ${visProps.length ? visProps.map(p => `
+        <div class="propCard urg${urgCls(p)}" data-id="${escA(pId(p))}">
+          <div class="propTop">
+            <span class="pill ${p.action==='add'||p.action==='buy'?'tp':'sl'}">${String(p.action).toUpperCase()}</span>
+            <strong class="tick">${escA(p.ticker)}</strong>
+            <span class="muted small">conv ${p.conviction_score>0?'+':''}${fmtN(p.conviction_score,2)}</span>
+            <span class="urgTag urg${urgCls(p)}">URGENCY ${p.urgency}/100</span>
+          </div>
+          <div class="small muted" style="margin:6px 0;">${escA(p.rationale)}</div>
+          <div class="aiBtns">
+            <button class="aiBtn" data-act="copy">Review &amp; Copy Order</button>
+            <button class="aiBtn ghost" data-act="snooze">Snooze 24h</button>
+            <button class="aiBtn ghost" data-act="dismiss">Dismiss</button>
+          </div>
+        </div>`).join('')
+      : '<div class="muted small">No open proposals. Low-urgency (&lt;50) reads stay silent — see the ledger below.</div>'}`;
+    pr.querySelectorAll('.aiBtn').forEach(btn => {
+      const card = btn.closest('.propCard');
+      const id = card.dataset.id;
+      btn.addEventListener('click', () => {
+        const p = (A.proposals||[]).find(x => pId(x) === id);
+        if(!p) return;
+        const act = btn.dataset.act;
+        if(act === 'copy'){
+          copyText(`REVIEW: ${p.action.toUpperCase()} ${p.ticker} (conviction ${p.conviction_score}, urgency ${p.urgency}) — ${p.rationale} — Human confirmation required. No autonomous execution.`);
+        } else if(act === 'snooze'){
+          (q.snooze = q.snooze || {})[id] = now + 24*3600*1000;
+          localStorage.setItem(Q_KEY, JSON.stringify(q)); renderAI();
+        } else if(act === 'dismiss'){
+          (q.dismiss = q.dismiss || {})[id] = true;
+          localStorage.setItem(Q_KEY, JSON.stringify(q)); renderAI();
+        }
+      });
+    });
+
+    /* 3) macro stance + sector convictions + two-witness fear table */
+    const sectRows = (A.sector_bias||[]).map(s => {
+      const w = Math.round((s.conviction + 1) / 2 * 100);
+      return `<div class="sectRow"><span class="sectName" title="${escA(s.driver)}">${escA(s.sector)}</span>
+        <div class="sectBar"><div class="sectFill ${s.conviction>=0?'pos':'neg'}" style="width:${w}%;"></div></div>
+        <span class="sectVal ${s.conviction>0.1?'pos':(s.conviction<-0.1?'neg':'muted')}">${s.conviction>0?'+':''}${fmtN(s.conviction,2)} ${String(s.stance).toUpperCase()}</span></div>`;
+    }).join('');
+    const aiFears = {}; (A.fears||[]).forEach(f => aiFears[f.id] = f.sentiment_score);
+    const fearRows = (D.fears || []).map(f => {
+      const ai = aiFears[f.id];
+      return `<tr>
+        <td class="tick">${escA(f.id)}</td>
+        <td>${escA(f.name)}</td>
+        <td>${ai != null ? fmtN(ai,1) : '<span class="muted">—</span>'}</td>
+        <td>${fmtN(f.score,1)}${f.ai_adjusted ? ' <span class="aiWit">AI-adjusted</span>' : ''}</td>
+        <td class="${f.trend_dir==='rising'?'neg':'pos'}">${String(f.trend_dir||'flat').toUpperCase()}</td>
+      </tr>`;
+    }).join('');
+    mc.innerHTML = `
+      <h3 class="aiColHead">Macro &amp; Fear Gauge ${stancePill(A.macro_stance)}</h3>
+      <div class="muted small" style="margin-bottom:8px;">AI witness × market fears — news feed stays display-only</div>
+      ${sectRows || '<div class="muted small">No sector reads this run.</div>'}
+      <table class="aiFearTable">
+        <thead><tr><th>ID</th><th>Fear</th><th>AI Score</th><th>Blended</th><th>Trend</th></tr></thead>
+        <tbody>${fearRows || '<tr><td colspan="5" class="muted small">No fear data.</td></tr>'}</tbody>
+      </table>`;
+
+    /* 4) theory evolution ledger (AI reads — evidence only, no status changes) */
+    const thRows = (A.theories||[]).map(t => `
+      <tr>
+        <td class="tick">${escA(t.id)}</td>
+        <td><span class="pill ${t.verdict==='affirm'?'tp':(t.verdict==='abandon'?'sl':'warn')}">${String(t.verdict).toUpperCase()}</span></td>
+        <td>${t.confidence}%</td>
+        <td class="small">${escA(t.evidence)}</td>
+      </tr>`).join('');
+    th.innerHTML = `
+      <h3 class="aiColHead">Theory Evolution <span class="muted small">(AI reads — deterministic rules override, status changes need human confirmation)</span></h3>
+      <table class="aiFearTable">
+        <thead><tr><th>Theory</th><th>AI Verdict</th><th>Confidence</th><th>Evidence</th></tr></thead>
+        <tbody>${thRows || '<tr><td colspan="4" class="muted small">No theory reads this run.</td></tr>'}</tbody>
+      </table>`;
+
+    /* 5) calibration & safety monitor (the trust engine) */
+    const led = A.ledger || [];
+    const volHalts = (D.positions||[]).filter(p => p.status==='closed' && p.exit && p.exit.state==='vol_halt' && !p.exit.reentry_resolved).length;
+    cb.innerHTML = `
+      <h3 class="aiColHead">Calibration &amp; Safety Monitor</h3>
+      <div class="calibGrid">
+        <div>
+          <div class="calibHead">AI TRACK RECORD</div>
+          <div class="small" style="margin:6px 0;">Verdicts logged: <strong>${led.length}</strong> (rolling 28)</div>
+          <div class="small" style="margin-bottom:4px;">Stance history:</div>
+          <div style="margin-bottom:6px;">${led.map(l => `<span class="stancePill ${l.macro_stance}" title="${escA(l.date)}">${String(l.macro_stance).toUpperCase()}</span>`).join(' ') || '<span class="muted small">seeding track record…</span>'}</div>
+          <div class="small muted">Hit-rate &amp; calibration scores land with the outcome scorer (next milestone).</div>
+        </div>
+        <div>
+          <div class="calibHead">DETERMINISTIC GUARDRAILS (UN-BYPASSABLE)</div>
+          <div class="small" style="margin:6px 0;">Active vol-halts: <strong>${volHalts}</strong>${volHalts ? ' <span class="neg">— re-entry protocol engaged</span>' : ''}</div>
+          <div class="small">Book leverage factor: <strong>${fmtN(D.leverage_factor,2)}x</strong> <span class="muted">(effective ÷ market value)</span></div>
+          <div class="small">TP/SL engine: <strong>active</strong> · No idle cash: <strong>SGOV-parked</strong></div>
+          <div class="small">News (Tier B): <strong>display-only</strong>${cfg.news_to_sentiment ? ' — WARNING: feeding decisions' : ''}</div>
+        </div>
+      </div>`;
+  }
+
+  /* ---- market orders (D.orders; pending + recent executed) ---- */
+  function renderOrders(){
+    const el = document.getElementById('ordersSection');
+    if(!el) return;
+    const O = D.orders || [];
+    if(!O.length){ el.style.display = 'none'; return; }
+    el.style.display = '';
+    const pending = O.filter(o => o.status === 'pending');
+    const executed = O.filter(o => o.status !== 'pending');
+    document.getElementById('ordersSub').innerHTML =
+      `${pending.length} pending &middot; ${executed.length} executed (last ${executed.length})`;
+    document.getElementById('ordersList').innerHTML = O.map(o => {
+      const isBuy = o.action === 'buy';
+      const pill = o.status === 'pending'
+        ? `<span class="pill warn">PENDING</span>`
+        : `<span class="pill ${isBuy ? 'tp' : 'sl'}">EXECUTED</span>`;
+      const meta = o.status === 'executed'
+        ? `<div class="small muted">exec ${o.exec_date} @ ${fmtN(o.exec_price)} &middot; ${fmtN(o.shares)} sh &middot; ${o.realized_pnl ? 'pnl '+sign(o.realized_pnl) : ''}</div>`
+        : `<div class="small muted">created ${o.created} &middot; ${escA(o.source||'')}</div>`;
+      return `<div class="orderRow">
+        <span class="orderTicker">${o.ticker}</span>
+        <span class="orderAct ${isBuy ? 'pos' : 'neg'}">${isBuy ? 'BUY' : 'SELL'}</span>
+        <span class="orderAmt">${fmt$(o.amount)}</span>
+        <div class="orderNote">${escA(o.note||'')}${meta}</div>
+        ${pill}
+      </div>`;
+    }).join('');
+  }
+
   /* ---- invoke every section renderer in DOM order ---- */
   renderCards();
   renderFears();
+  renderAI();
+  renderOrders();
   renderPositions();
   renderSectors();
   renderComparison();

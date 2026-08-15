@@ -13,6 +13,7 @@ A conviction-first, leveraged growth book hedged with crisis-alpha sleeves, trac
 | `portfolio.json` | **Source of truth.** Positions, account, theories, events, limits, sector caps. Hand-edited. |
 | `update.py` | Daily updater: fetch prices → check TP/SL exits → deploy cash to SGOV → re-entry protocol → snapshot history → write `dashboard.js`. |
 | `news.py` | Fetches Yahoo Finance RSS for held tickers; sentiment-scored, theory-tagged stories for the dashboard. |
+| `ai_sentiment.py` | AI Sentiment Decision Layer (algo 0.5.9): LLM verdict call (Zen default — opencode.ai/zen, paid zero-retention model / DeepSeek / Gemini), fact-delta ledger, theories/fears/bullish translators. Wired into `update.py`, enabled via `meta.ai.enabled`. |
 | `dashboard.js` | **AUTO-GENERATED** `window.DASH` payload. Never hand-edit (regenerate with `update.py`). |
 | `index.html` | Dashboard skeleton (all sections filled by `app.js`). |
 | `app.js` | Renders every section of the dashboard from `window.DASH`. |

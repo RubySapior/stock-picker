@@ -33,7 +33,326 @@ stay below 1.0.0 — this project is not v1-ready yet.
 version bump — `site` for UI-only changes, `algo` only for genuine engine
 milestones (or both if a prompt touches both sides), each with its own entry below.
 
+## Path to v1 — business & legal staging (2026-08-14)
+
+Source: product/business planning session. The v1 goal is a **paid
+subscription service for OTHER users** — the tool is the product, not
+us trading to make money. No licensing blocks building Phase 1.
+
+- **Sell the tool, not the advice.** AI output ships as universal
+  signals/strategies the user operates (one-tap approval in their own
+  Alpaca account). Personalized advice ("based on YOUR risk profile, buy
+  X") = RIA territory; a universal tool everyone runs the same way =
+  TradingView/freqtrade model, no registration needed.
+- **Playbook: Composer / Autopilot.** Both launched as tools, built users +
+  public track record, then registered as RIAs. Launch before the license;
+  let the license catch up (Composer had paying users pre-registration).
+- **Phase 1 — now (unregistered):** signals + paper trading + user-authorized
+  live execution via **Alpaca** (Robinhood's official API is discontinued;
+  Alpaca is the standard — free API, paper trading, and the legal-safe lane
+  keeps a user approval step in the loop).
+- **Phase 2 — ~6 months before launch:** RIA registration: Form ADV (Parts
+  1 & 2), compliance program + CCO, code of ethics, cybersecurity policy,
+  business-continuity + trade-error procedures. Registration is NOT gated on
+  AUM — being paid for discretionary management is the trigger; a lean
+  state-level RIA with compliance-as-a-service runs ~$5-15k/yr.
+- **Phase 3 — registered:** flip the switch — AI may auto-execute
+  per-subscriber ("the Composer moment"); marketing may say the real words.
+- **On-ramp routes (each legal today, each feeds the next):**
+  1. Sell the software / universal signals (do this first — Phase 1 business)
+  2. B2B: white-label the engine to licensed RIAs/wealth managers (they are
+     the licensed party; we are just their software vendor)
+  3. Sell the data/API feed (fear gauge + strategy scores) to fintech
+  4. State RIA when revenue + track record justify it — the upgrade path to
+     full autonomy
+- **Trust is the moat.** "AI trading subscription" is the scam capital of the
+  internet; the differentiator is boring, honest, auditable: public track
+  record, paper-trading history, transparent methodology, no miracle claims.
+  First users come from proof (a 12-month public simulation log), not
+  marketing.
+- **Rebrand before ship:** "Market Fear Gauge" is one rename away from CNN's
+  trademarked "Fear & Greed Index."
+- **Budget reality:** finished-product-only = a long zero-revenue runway;
+  the survivors in this niche ship a boring, honest, auditable tool.
+
+### v1 launch checklist (todos)
+
+- [ ] Phase 1 legal framing decision: signals-with-approval vs
+      configurable-bot (determines the Alpaca integration design)
+- [ ] Alpaca integration (paper + live) with user one-tap approval flow
+- [ ] Public track record: 12-month public simulation log / leaderboard
+- [ ] Rebrand "Market Fear Gauge" away from the CNN trademark
+- [ ] Paid subscription tier (journal + simulation framing)
+- [ ] Phase 2 kickoff: RIA registration ~6 months before launch
+- [ ] Phase 3: autonomous per-subscriber execution behind the license
+
+## AI Sentiment Decision Layer — folded design (2026-08-14)
+
+The Engine v1 stepping stone. A fresh LLM call (Gemini, 1x/day at market
+open + circuit-event re-runs) reads Tier A market data, compares against
+its last verdict via FACT DELTAS (not its own prose), and emits a strict
+JSON verdict that feeds three deterministic layers. Nothing executes.
+
+### Grounding tiers
+
+- **Tier A — decision-grade (always on):** index/position deltas, VIX,
+  yields, F1-F8 fear levels, sector exposures vs targets, prior-verdict
+  outcomes (the ledger). All built from data `update.py` already fetches.
+- **Tier B — untrusted (display-only):** RSS news + VADER sentiment.
+  `meta.ai.news_to_sentiment: false` until the news layer is scored
+  against outcomes for months. Never enters the prompt.
+
+### The five invariants
+
+1. **AI thinks, the engine calculates.** The LLM outputs conviction
+   (-1..1), urgency (0-100), confidence (0-100) — never dollar sizing.
+   `bullish_layer` does all math (caps, leverage, vol scalars).
+2. **Deterministic rules override AI.** 60-day vol-halt circuit breaker,
+   TP/SL, sector caps are hard limits. AI can flag "probation"; it can
+   never revive a vol-halted position or move capital past a cap.
+3. **Fact-delta ledger, not prose.** The prompt gets verified numbers
+   about what happened after the last call ("conviction 0.8 on T17;
+   index -4.2% since; F4 2->4") — never its own past reasoning. The
+   ledger (meta.ai_last_output + meta.ai_ledger) survives GH Actions
+   runs and scores every stance against outcomes; scores feed UI badges.
+   Raw prompt hash stored per entry for reproducibility.
+4. **Urgency gates the UI.** Minor conviction twitches stay silent;
+   high-urgency (>= threshold) produces the review card / notification
+   button. Human confirmation required to act — proposals only.
+5. **AI is read-only until Engine v1.** It proposes; only deterministic
+   code + humans mutate `portfolio.json` positions. If the call fails or
+   returns junk, the book behaves EXACTLY like today (price rules +
+   market fears only) — degraded mode, zero pipeline disruption.
+
+### Cadence & cost guardrails
+
+- 1x daily call at ~09:35 ET (first market-open run of the day).
+- Circuit re-runs capped at `max_daily_calls` (default 3): |dQQQ| > 2.5%
+  or VIX spike > 15%; never on weekends/holidays (`market_is_open()`).
+- API key from env var only (never committed). 1 call/day default.
+
+### Merged verdict schema (final)
+
+```json
+{
+  "date": "2026-08-14",
+  "macro_stance": "risk_on|neutral|risk_off",
+  "sector_bias": [
+    { "sector": "Tech / AI Growth", "stance": "bullish", "conviction": 0.85, "driver": "..." }
+  ],
+  "theories": [
+    { "id": "T17", "verdict": "affirm|weaken|probation|abandon", "confidence": 80, "evidence": "..." }
+  ],
+  "fears": [
+    { "id": "F4", "sentiment_score": 3, "delta_reason": "..." }
+  ],
+  "convictions": [
+    { "ticker": "TQQQ", "conviction_score": 0.75, "urgency": 60, "confidence": 70, "rationale": "..." }
+  ],
+  "summary": "..."
+}
+```
+
+### The three downstream layers (deterministic calculators)
+
+- **Theories layer:** verdicts -> theory status/evidence candidates
+  (affirm = new evidence; weaken/probation = flag; abandon = human
+  confirm). Emits events with reason "ai_sentiment".
+- **Fears layer:** `fears[].sentiment_score` -> `build_fears(data,
+  ai_scores={F1:2, F4:4, ...})` — reuses the existing "two independent
+  witnesses" hook (fears.py:440) with the AI as the second witness.
+- **Bullish layer:** convictions x sleeve caps x leverage x vol scalar
+  -> target book diff -> "Buy TQQQ +$2k" review cards (buttons, never
+  execution).
+
 ## [Unreleased]
+
+## [site 0.5.1] — 2026-08-14
+
+### Fixed
+- **CRITICAL: 0.5.0 shipped with a broken render chain.** `renderOrders()`
+  called the `esc` helper, which only exists as a LOCAL const inside
+  `renderFears`/`renderNews` — every renderer after it (Positions, Sector
+  Limits, Portfolio vs SPY, Theories Scorecard, Trade Events, News,
+  Value History chart, donut) threw `ReferenceError` and rendered empty,
+  while the summary cards / fears / AI panel (which run first) survived.
+  Switched to the render-scoped `escA`. Full render-chain scope audit
+  (helpers vs local consts) now passes for all 10 renderers.
+- **Key moment logged (2026-08-14)**: the UI v0.5.0 / Engine v0.6.0
+  milestone deployed with this breakage; caught on first visual check,
+  fixed in 0.5.1. Full pre-milestone backup taken at
+  `Stock Picker Backup 2026-08-14 pre-0.5.0-0.6.0\` (sibling of this
+  project); git baseline remains commit `9ce0e7e` (site 0.4.10).
+- **Lesson**: never reference local-scope helpers (`esc`) from another
+  renderer; only the render-scope helpers (`escA`, `fmt$`, `fmtN`,
+  `cls`, `sign`) are safe everywhere.
+
+## [algo 0.6.0] — 2026-08-14
+
+**Engine v1 stepping stone: AI proposals become executable market orders.**
+The AI still never trades directly — a successful verdict REFRESHES the
+human-approved `orders` list in portfolio.json; execution is a
+deterministic market-order engine that runs at the LIVE price on
+market-open runs only.
+
+### Added
+- **`execute_pending_orders()`** (update.py): pending `orders`
+  `{ticker, action buy|sell, amount, status, source, created, note}`
+  execute at the live price on the next market-open run. Buys redeem
+  SGOV (no-idle-cash invariant holds); sells realize P&L into cash,
+  which the no-idle-cash policy then re-parks. Full-position sells close
+  the position like a TP/SL exit. Missing prices / positions /
+  insufficient SGOV defer the order (never dropped). Events logged as
+  `reason: "market_order"`. Executed history pruned to last 15.
+- **`refresh_orders_from_ai()`** (update.py): when a verdict succeeds and
+  `meta.ai.orders_refresh` is true, PENDING orders are replaced with the
+  verdict's proposals, each sized at `meta.ai.order_size` (2500) —
+  direction from AI, size from the human-approved config. Executed orders
+  stay as history.
+- **`python update.py --ai`**: forces the AI call even when the market is
+  closed (the Monday pre-open ritual) — refreshes pending orders with the
+  new verdict; execution still waits for a market-open run.
+- Dashboard payload: new `orders` section (pending + executed tail) with
+  the UI's new Market Orders panel.
+- 7 human-approved market orders seeded from the 2026-08-14 verdict
+  (TQQQ/SOXL/DRAM/NLR/BTAL/DBMF buy 2.5k, ZROZ sell 2.5k).
+
+### Changed
+- **Sector limits rename**: `meta.limits.rebalance.targets` ->
+  `meta.limits.rebalance.limits` (old key still read as fallback).
+  Prompt/AI snapshot field `target_pct` -> `limit_pct`; audit messages
+  now say "limit".
+- **SGOV exempt from sector limits**: `rebalance.exempt_sectors` =
+  ["Short-Term Bonds"] — dry powder has NO cap; the quarterly audit
+  never flags SGOV, so liquidity is always there when an opportunity
+  appears.
+- Version: **algo 0.5.9 -> 0.6.0** (sentiment-driven trade logic, the
+  first real step toward Engine v1).
+
+## [site 0.5.0] — 2026-08-14
+
+### Added
+- **Market Orders panel** on the main page: every order with
+  PENDING/EXECUTED status, action pill (BUY/SELL), amount, source, and
+  execution detail (price, shares, realized P&L). Empty state hides the
+  panel. Renders from the new `DASH.orders` payload.
+- Header now reads **UI v0.5.0 · Engine v0.6.0**.
+
+## [site 0.4.15] — 2026-08-14
+
+### Fixed
+- **Dashboard showed "AI Sentiment DEGRADED" after a successful call**:
+  `build_ai_payload()` only serialized the transient verdict of the
+  current run, which `run_ai_layer()` skips when the market is closed
+  (or the daily call cap is hit) - so the banner claimed failure even
+  with a fresh verdict persisted in `meta.ai_last_output`. `main()` now
+  falls back to the persisted verdict, so the AI section always shows
+  the latest real read. Proposals re-derive via `bullish_layer` (still
+  read-only, whitelisted to holdings).
+
+## [site 0.4.14] — 2026-08-14
+
+### Changed
+- **AI prompt hardening (review pass on the Monday-launch prompt):**
+  - `update.py` gains `fetch_macro()`: live SPY / QQQ / ^VIX / ^TNX /
+    JPY=X / HYG with 1-day % change (Tier A facts). `^TNX` normalized
+    from Yahoo's x10 format (41.80 -> 4.18). Failures degrade per-symbol,
+    never break the run. Wired through `run_ai_layer(data, ..., macro)`.
+  - `build_market_snapshot()` accepts `macro` and injects a flat
+    `macro` block (symbol px + `<SYM>_1d_pct`) into MARKET STATE so the
+    LLM can actually judge theories T1/T3/T9/T10/T13 (SPY), T17 (VIX),
+    T18 (USDJPY), F4/F6 (yields), F7 (HYG).
+  - `build_prompt()` now ships **active theories only** (pending/paused;
+    abandoned T11/T12 pruned, `status` field stripped) and a numbered
+    RULES block: explicit bounds (conviction -1..1 float, urgency/
+    confidence 0-100 int, sentiment 1-5), holdings-only ticker universe
+    (omission = hold), ticker-conviction-overrides-sector-bias, no
+    dollars/shares, JSON-object-only reply. Schema stays pure JSON (no
+    comments - the validator's `json.loads` rejects them).
+  - `bullish_layer()` whitelists convictions to open holdings - AI
+    hallucinated tickers (NVDA, TLT, ...) are discarded with a WARNING,
+    never rendered as review cards. Validator clamps were already in
+    place (ai_sentiment.py `_validate_verdict`).
+  - `_call_openrouter()` sends `response_format: {"type": "json_object"}`
+    so Gemini 3.7 Flash cannot wrap the verdict in prose or fences, and
+    uses a dedicated token budget (`meta.ai.max_tokens: 16000`) - the
+    previous 4000-char cap was exhausted by extended-thinking reasoning
+    tokens (finish_reason=length, truncated JSON -> degraded).
+
+## [site 0.4.13] — 2026-08-14
+
+### Changed
+- **AI provider switched to Gemini 3.7 via OpenRouter** (`meta.ai`):
+  `provider: "gemini"`, `router: "openrouter"`, `model:
+  google/gemini-3.7-flash` with **extended thinking**
+  (`reasoning_effort: "high"` — reasoning is mandatory on this model).
+  `ai_sentiment.py` gains `_call_openrouter()` (key from
+  `OPENROUTER_API_KEY` env var or opencode `auth.json` "openrouter"
+  entry) and `call_ai()` routes `provider=gemini + router=openrouter`
+  through it; direct Gemini (`GEMINI_API_KEY`) stays as fallback when
+  `router` is absent. `debug_free` reset to false.
+
+## [algo 0.5.9] — 2026-08-14
+
+### Added
+- **AI Sentiment Decision Layer WIRED into update.py** (behind
+  `meta.ai.enabled`, still false): `run_ai_layer()` gates cadence (1x per
+  market-open day, max_daily_calls cap), persists `meta.ai_last_output` +
+  `meta.ai_ledger` (28-day tail), appends theory evidence entries + one
+  `ai_sentiment` audit event, and blends AI fear scores into the DISPLAYED
+  fear gauge via the two-independent-witnesses formula
+  (`fears.apply_ai_witnesses`). `meta.fear_state` stays market-witness.
+- Dashboard payload: new `ai` section (verdict, proposals from
+  `bullish_layer`, ledger tail, state) — null/absent when disabled or
+  degraded. UI render is a later milestone.
+- Invariant kept: AI is read-only; any failure degrades to exactly today's
+  behavior. Circuit-event re-runs (|dQQQ|>2.5%, VIX +15%) deferred.
+
+## [algo 0.5.8] — 2026-08-14
+
+### Added
+- **ai_sentiment.py** (engine milestone, first AI decision-layer draft):
+  Tier A market snapshot + Gemini verdict call + schema validation +
+  fact-delta ledger + theories/fears/bullish layer translators.
+  **DISABLED by default** (`meta.ai.enabled: false`), not yet wired into
+  `update.py` — the book behaves exactly as before.
+- Roadmap: folded AI Sentiment Decision Layer design (grounding tiers,
+  five invariants, cadence guardrails, merged verdict schema).
+
+## [site 0.4.12] — 2026-08-14
+
+### Added
+- **AI Sentiment panel** on the main dashboard (renderAI in app.js): status
+  badge (ACTIVE/DEGRADED/OFF + degraded slate when the layer is off or
+  broken), heartbeat bar (stance, last call, calls today, model, Tier A/B
+  grounding), actionable proposal queue with urgency badges (>=75 red,
+  50-74 amber, <50 silent) + Review & Copy Order / Snooze 24h / Dismiss
+  buttons (persisted in `stockpicker.ai.q1`), macro & fear gauge
+  two-witness table (AI score vs blended level), theory evolution ledger
+  (AI reads only - statuses never auto-change), and calibration & safety
+  monitor (track-record ledger, vol-halt count, leverage factor, guardrail
+  status). Reads `window.DASH.ai`; renders the offline slate when null.
+- Engine plumbing (no algo bump - not a milestone): ai_sentiment.py now
+  routes providers - **deepseek** (default, `DEEPSEEK_API_KEY`,
+  OpenAI-compatible endpoint) or gemini (`GEMINI_API_KEY`); config in
+  `meta.ai.provider`/`model`.
+- Same-day provider change: **zen** is now the default provider
+  (`opencode.ai/zen/v1/chat/completions`, OpenAI-compatible; model
+  `deepseek-v4-flash` PAID = zero-retention). Key via `ZEN_API_KEY` env var
+  or falls back to opencode's `~/.local/share/opencode/auth.json`. The
+  free `deepseek-v4-flash-free` tier is deliberately NOT used — its data
+  may train the model. `meta.ai.enabled` flipped to true (first call fires
+  at the next market open).
+- Debug guard: `meta.ai.debug_free: true` routes dev/debug runs to the FREE
+  `deepseek-v4-flash-free` model ($0 spend, warning printed that request
+  data may be used for training); flip to false for production runs.
+
+## [site 0.4.11] — 2026-08-14
+
+### Added
+- Roadmap: v1 business & legal staging (tool-not-advice framing, Alpaca
+  integration, RIA phases 1-3, on-ramp routes, trust moat, Fear Gauge
+  rebrand note) + a v1 launch checklist.
 
 ## [site 0.4.10] — 2026-08-14
 
