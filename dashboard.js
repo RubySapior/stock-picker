@@ -157,7 +157,7 @@ window.DASH = {
       },
       "F2": {
         "prev_score": 1.9,
-        "score": 1.9,
+        "score": 1.8,
         "days_above": 0,
         "confirmed": false
       },
@@ -169,25 +169,25 @@ window.DASH = {
       },
       "F4": {
         "prev_score": 3.6,
-        "score": 3.6,
+        "score": 2.7,
         "days_above": 0,
         "confirmed": false
       },
       "F5": {
         "prev_score": 4.1,
         "score": 4.1,
-        "days_above": 62,
+        "days_above": 63,
         "confirmed": true
       },
       "F6": {
         "prev_score": 4.9,
-        "score": 4.9,
-        "days_above": 76,
+        "score": 4.8,
+        "days_above": 77,
         "confirmed": true
       },
       "F7": {
         "prev_score": 1.4,
-        "score": 1.4,
+        "score": 1.7,
         "days_above": 0,
         "confirmed": false
       },
@@ -554,8 +554,8 @@ window.DASH = {
         "summary": "The portfolio operates in a neutral macro regime with Tech / AI Growth (46.3% vs 60.0%) and the Hedge Stack (25.4% vs 35.0%) sitting below target allocations while Rates Shock fear (F6 at 4.9) remains"
       }
     ],
-    "asof_ts": 1786797431,
-    "refresh_interval": 60
+    "asof_ts": 1786800626,
+    "refresh_interval": 6
   },
   "asof": "2026-08-14",
   "summary": {
@@ -1757,18 +1757,18 @@ window.DASH = {
       "id": "F6",
       "name": "Rates shock / duration liquidation",
       "type": "structural",
-      "score": 4.9,
-      "level": 0.993,
+      "score": 4.8,
+      "level": 0.991,
       "velocity": null,
       "trend": {
         "label": "50d trend",
-        "value": 0.037,
-        "pct": 0.924
+        "value": 0.0336,
+        "pct": 0.895
       },
       "signals": [
         {
           "label": "TLT/SHY (long-vs-short duration)",
-          "value": 0.996
+          "value": 0.992
         },
         {
           "label": "10y yield level",
@@ -1815,36 +1815,6 @@ window.DASH = {
         "GDX",
         "FXY",
         "DBMF"
-      ],
-      "asof": "2026-08-15",
-      "degraded": false,
-      "trend_dir": "flat"
-    },
-    {
-      "id": "F4",
-      "name": "Inflation resurgence",
-      "type": "structural",
-      "score": 3.6,
-      "level": 0.815,
-      "velocity": null,
-      "trend": {
-        "label": "50d trend",
-        "value": -0.0051,
-        "pct": 0.29
-      },
-      "signals": [
-        {
-          "label": "TIP/IEF (breakevens proxy)",
-          "value": 0.815
-        }
-      ],
-      "theory_ids": [
-        "T20"
-      ],
-      "hedge_ticks": [
-        "GLD",
-        "GDX",
-        "SGOV"
       ],
       "asof": "2026-08-15",
       "degraded": false,
@@ -1918,21 +1888,51 @@ window.DASH = {
       "trend_dir": "flat"
     },
     {
+      "id": "F4",
+      "name": "Inflation resurgence",
+      "type": "structural",
+      "score": 2.7,
+      "level": 0.592,
+      "velocity": null,
+      "trend": {
+        "label": "50d trend",
+        "value": -0.0138,
+        "pct": 0.029
+      },
+      "signals": [
+        {
+          "label": "TIP/IEF (breakevens proxy)",
+          "value": 0.592
+        }
+      ],
+      "theory_ids": [
+        "T20"
+      ],
+      "hedge_ticks": [
+        "GLD",
+        "GDX",
+        "SGOV"
+      ],
+      "asof": "2026-08-15",
+      "degraded": false,
+      "trend_dir": "falling"
+    },
+    {
       "id": "F1",
       "name": "AI / tech concentration pop",
       "type": "structural",
       "score": 2.6,
-      "level": 0.163,
+      "level": 0.175,
       "velocity": null,
       "trend": {
         "label": "50d trend",
-        "value": 0.0798,
-        "pct": 0.924
+        "value": 0.08,
+        "pct": 0.895
       },
       "signals": [
         {
           "label": "QQQ/RSP concentration ratio",
-          "value": 0.308
+          "value": 0.331
         },
         {
           "label": "QQQ drawdown from 52w high",
@@ -1956,8 +1956,8 @@ window.DASH = {
       "id": "F2",
       "name": "Yen-carry unwind",
       "type": "episodic",
-      "score": 1.9,
-      "level": 0.235,
+      "score": 1.8,
+      "level": 0.231,
       "velocity": {
         "label": "5d velocity",
         "value": -0.009,
@@ -1967,7 +1967,7 @@ window.DASH = {
       "signals": [
         {
           "label": "Yen strength (FXY level)",
-          "value": 0.235
+          "value": 0.231
         }
       ],
       "theory_ids": [
@@ -1985,12 +1985,12 @@ window.DASH = {
       "id": "F7",
       "name": "Credit stress / HY spread",
       "type": "episodic",
-      "score": 1.4,
+      "score": 1.7,
       "level": 0.0,
       "velocity": {
         "label": "5d velocity",
         "value": -0.0053,
-        "pct": 0.149
+        "pct": 0.243
       },
       "trend": null,
       "signals": [
@@ -2008,21 +2008,21 @@ window.DASH = {
       ],
       "asof": "2026-08-15",
       "degraded": false,
-      "trend_dir": "flat"
+      "trend_dir": "rising"
     }
   ],
   "complacency": {
-    "index": 0.124,
+    "index": 0.14,
     "valuation_stretch": 0.621,
-    "fear_term": 0.2,
-    "divergence": 0.497,
-    "fear_avg": 4.2,
+    "fear_term": 0.225,
+    "divergence": 0.481,
+    "fear_avg": 4.1,
     "regime": "fragility",
     "note": "Fragility regime - macro divergence: equities stretched while macro fears run high. Equities expected to crack.",
     "pay_check": {
       "fear_id": "F6",
       "fear_name": "Rates shock / duration liquidation",
-      "score": 4.9,
+      "score": 4.8,
       "checks": [
         {
           "ticker": "SGOV",
@@ -2618,7 +2618,7 @@ window.DASH = {
     "enabled": true
   },
   "news": {
-    "asof": "2026-08-15 12:37:12",
+    "asof": "2026-08-15 13:30:27",
     "big_stories": [
       {
         "title": "SCHG vs QQQ vs VUG: We Compared the Three Biggest Growth ETFs and One Is the Clear Winner for the Next Decade",
@@ -2947,9 +2947,15 @@ window.DASH = {
         "link": "https://247wallst.com/investing/2026/08/14/the-gold-income-fund-that-turned-a-6-gold-dip-into-a-30-loss/?.tsrc=rss",
         "ts": 1786719036,
         "when": "Aug 14, 02:50 PM",
-        "ticker": "SGOV",
-        "industry": "Equities",
-        "theory": [],
+        "ticker": "GLD",
+        "industry": "Gold",
+        "theory": [
+          "T6",
+          "T9",
+          "T19",
+          "T20",
+          "T21"
+        ],
         "sent": "negative"
       },
       {
@@ -3013,10 +3019,11 @@ window.DASH = {
         "link": "https://finance.yahoo.com/markets/stocks/articles/exchange-traded-funds-higher-equity-131348296.html?.tsrc=rss",
         "ts": 1786713228,
         "when": "Aug 14, 01:13 PM",
-        "ticker": "XLY",
-        "industry": "Consumer Disc.",
+        "ticker": "IWM",
+        "industry": "Small Caps",
         "theory": [
-          "T13"
+          "T10",
+          "T15"
         ],
         "sent": "neutral"
       },
@@ -3073,33 +3080,6 @@ window.DASH = {
         "sent": "negative"
       },
       {
-        "title": "Sector Update: Consumer Stocks Advance Late Afternoon",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-advance-afternoon-193514616.html?.tsrc=rss",
-        "ts": 1786649714,
-        "when": "Aug 13, 07:35 PM",
-        "ticker": "XLY",
-        "industry": "Consumer Disc.",
-        "theory": [
-          "T13"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "DRAM Movers: These Memory/Storage ETFs Are Soaring as Sandisk, Micron Rally",
-        "link": "https://247wallst.com/investing/2026/08/13/dram-movers-these-memory-storage-etfs-are-soaring-as-sandisk-micron-rally/?.tsrc=rss",
-        "ts": 1786644735,
-        "when": "Aug 13, 06:12 PM",
-        "ticker": "SMH",
-        "industry": "Semis",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
         "title": "Sector Update: Consumer Stocks Rise in Afternoon Trading",
         "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-rise-afternoon-173751918.html?.tsrc=rss",
         "ts": 1786642671,
@@ -3108,6 +3088,35 @@ window.DASH = {
         "industry": "Consumer Disc.",
         "theory": [
           "T13"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "5 ETFs to Benefit From Cooling Inflation in the Near Term",
+        "link": "https://finance.yahoo.com/economy/policy/articles/5-etfs-benefit-cooling-inflation-140000926.html?.tsrc=rss",
+        "ts": 1786629600,
+        "when": "Aug 13, 02:00 PM",
+        "ticker": "GLD",
+        "industry": "Gold",
+        "theory": [
+          "T6",
+          "T9",
+          "T19",
+          "T20",
+          "T21"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "Exchange-Traded Funds, Equity Futures Higher Pre-Bell Thursday Amid Producer Inflation Data Release",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/exchange-traded-funds-equity-futures-131321660.html?.tsrc=rss",
+        "ts": 1786626801,
+        "when": "Aug 13, 01:13 PM",
+        "ticker": "IWM",
+        "industry": "Small Caps",
+        "theory": [
+          "T10",
+          "T15"
         ],
         "sent": "neutral"
       }
