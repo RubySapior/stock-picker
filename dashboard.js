@@ -176,13 +176,13 @@ window.DASH = {
       "F5": {
         "prev_score": 4.1,
         "score": 4.1,
-        "days_above": 59,
+        "days_above": 60,
         "confirmed": true
       },
       "F6": {
         "prev_score": 4.9,
         "score": 4.9,
-        "days_above": 73,
+        "days_above": 74,
         "confirmed": true
       },
       "F7": {
@@ -554,7 +554,7 @@ window.DASH = {
         "summary": "The portfolio operates in a neutral macro regime with Tech / AI Growth (46.3% vs 60.0%) and the Hedge Stack (25.4% vs 35.0%) sitting below target allocations while Rates Shock fear (F6 at 4.9) remains"
       }
     ],
-    "asof_ts": 1786785971,
+    "asof_ts": 1786789343,
     "refresh_interval": 60
   },
   "asof": "2026-08-14",
@@ -2618,7 +2618,7 @@ window.DASH = {
     "enabled": true
   },
   "news": {
-    "asof": "2026-08-15 09:26:12",
+    "asof": "2026-08-15 10:22:24",
     "big_stories": [
       {
         "title": "Up Over 35% Since Aug. 3, Is it Too Late to Buy Palantir Stock?",
@@ -2853,6 +2853,21 @@ window.DASH = {
         "sent": "neutral"
       },
       {
+        "title": "Unusual Machines Soars 22%, Red Cat Climbs 8%, Ondas Gains 4% on Trump’s 100% Drone Tariff",
+        "link": "https://247wallst.com/investing/2026/08/14/unusual-machines-soars-22-red-cat-climbs-8-ondas-gains-4-on-trumps-100-drone-tariff/?.tsrc=rss",
+        "ts": 1786728122,
+        "when": "Aug 14, 05:22 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
+      {
         "title": "C3.ai Remains Turbulent: Why One Of Wall Street’s Most Outspoken Pros Expects 50% Returns From Here",
         "link": "https://247wallst.com/investing/2026/08/14/c3-ai-remains-turbulent-why-one-of-wall-streets-most-outspoken-pros-expects-50-returns-from-here/?.tsrc=rss",
         "ts": 1786725926,
@@ -2989,10 +3004,11 @@ window.DASH = {
         "link": "https://finance.yahoo.com/markets/stocks/articles/exchange-traded-funds-higher-equity-131348296.html?.tsrc=rss",
         "ts": 1786713228,
         "when": "Aug 14, 01:13 PM",
-        "ticker": "XLY",
-        "industry": "Consumer Disc.",
+        "ticker": "IWM",
+        "industry": "Small Caps",
         "theory": [
-          "T13"
+          "T10",
+          "T15"
         ],
         "sent": "neutral"
       },
@@ -3049,48 +3065,6 @@ window.DASH = {
         "sent": "negative"
       },
       {
-        "title": "Michael Burry Loads Up On QQQ Puts, Boosts MU Short As He Braces For ‘Larger Fall’ — Here’s What He Did To NVDA, PLTR And TSLA",
-        "link": "https://stocktwits.com/news-articles/markets/equity/michael-burry-loads-up-on-qqq-puts-boosts-mu-short-as-he-braces-for-larger-fall-heres-what-he-did-to-nvda-pltr-and-tsla/cZoqVbeRJLw?.tsrc=rss",
-        "ts": 1786651987,
-        "when": "Aug 13, 08:13 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "Sector Update: Consumer Stocks Advance Late Afternoon",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-advance-afternoon-193514616.html?.tsrc=rss",
-        "ts": 1786649714,
-        "when": "Aug 13, 07:35 PM",
-        "ticker": "XLY",
-        "industry": "Consumer Disc.",
-        "theory": [
-          "T13"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Revenue at Palantir-Backed Ondas Rises 1,236%. Stock Falls as Losses Widen.",
-        "link": "https://finance.yahoo.com/m/5a8f0245-cf08-346b-9a59-873a8c7d16c1/revenue-at-palantir-backed.html?.tsrc=rss",
-        "ts": 1786645980,
-        "when": "Aug 13, 06:33 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "negative"
-      },
-      {
         "title": "DRAM Movers: These Memory/Storage ETFs Are Soaring as Sandisk, Micron Rally",
         "link": "https://247wallst.com/investing/2026/08/13/dram-movers-these-memory-storage-etfs-are-soaring-as-sandisk-micron-rally/?.tsrc=rss",
         "ts": 1786644735,
@@ -3114,6 +3088,35 @@ window.DASH = {
         "industry": "Consumer Disc.",
         "theory": [
           "T13"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "5 ETFs to Benefit From Cooling Inflation in the Near Term",
+        "link": "https://finance.yahoo.com/economy/policy/articles/5-etfs-benefit-cooling-inflation-140000926.html?.tsrc=rss",
+        "ts": 1786629600,
+        "when": "Aug 13, 02:00 PM",
+        "ticker": "GLD",
+        "industry": "Gold",
+        "theory": [
+          "T6",
+          "T9",
+          "T19",
+          "T20",
+          "T21"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "Exchange-Traded Funds, Equity Futures Higher Pre-Bell Thursday Amid Producer Inflation Data Release",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/exchange-traded-funds-equity-futures-131321660.html?.tsrc=rss",
+        "ts": 1786626801,
+        "when": "Aug 13, 01:13 PM",
+        "ticker": "IWM",
+        "industry": "Small Caps",
+        "theory": [
+          "T10",
+          "T15"
         ],
         "sent": "neutral"
       }
