@@ -156,7 +156,7 @@ window.DASH = {
         "confirmed": false
       },
       "F2": {
-        "prev_score": 1.8,
+        "prev_score": 1.9,
         "score": 1.9,
         "days_above": 0,
         "confirmed": false
@@ -168,7 +168,7 @@ window.DASH = {
         "confirmed": false
       },
       "F4": {
-        "prev_score": 2.8,
+        "prev_score": 3.6,
         "score": 3.6,
         "days_above": 0,
         "confirmed": false
@@ -176,23 +176,23 @@ window.DASH = {
       "F5": {
         "prev_score": 4.1,
         "score": 4.1,
-        "days_above": 58,
+        "days_above": 59,
         "confirmed": true
       },
       "F6": {
-        "prev_score": 4.7,
+        "prev_score": 4.9,
         "score": 4.9,
-        "days_above": 72,
+        "days_above": 73,
         "confirmed": true
       },
       "F7": {
-        "prev_score": 1.6,
+        "prev_score": 1.4,
         "score": 1.4,
         "days_above": 0,
         "confirmed": false
       },
       "F8": {
-        "prev_score": 2.9,
+        "prev_score": 2.8,
         "score": 2.8,
         "days_above": 0,
         "confirmed": false
@@ -554,7 +554,7 @@ window.DASH = {
         "summary": "The portfolio operates in a neutral macro regime with Tech / AI Growth (46.3% vs 60.0%) and the Hedge Stack (25.4% vs 35.0%) sitting below target allocations while Rates Shock fear (F6 at 4.9) remains"
       }
     ],
-    "asof_ts": 1786782541,
+    "asof_ts": 1786785971,
     "refresh_interval": 60
   },
   "asof": "2026-08-14",
@@ -1783,7 +1783,7 @@ window.DASH = {
       ],
       "asof": "2026-08-15",
       "degraded": false,
-      "trend_dir": "rising"
+      "trend_dir": "flat"
     },
     {
       "id": "F5",
@@ -1848,7 +1848,7 @@ window.DASH = {
       ],
       "asof": "2026-08-15",
       "degraded": false,
-      "trend_dir": "rising"
+      "trend_dir": "flat"
     },
     {
       "id": "F3",
@@ -2008,7 +2008,7 @@ window.DASH = {
       ],
       "asof": "2026-08-15",
       "degraded": false,
-      "trend_dir": "falling"
+      "trend_dir": "flat"
     }
   ],
   "complacency": {
@@ -2618,8 +2618,23 @@ window.DASH = {
     "enabled": true
   },
   "news": {
-    "asof": "2026-08-15 08:29:02",
+    "asof": "2026-08-15 09:26:12",
     "big_stories": [
+      {
+        "title": "Up Over 35% Since Aug. 3, Is it Too Late to Buy Palantir Stock?",
+        "link": "https://www.fool.com/investing/2026/08/15/up-over-35-since-aug-3-is-it-too-late-to-buy-palan/?.tsrc=rss",
+        "ts": 1786784700,
+        "when": "Aug 15, 09:05 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
       {
         "title": "Our Newmont Stock Pick Still Glitters After 66% Gains. Stay Bullish.",
         "link": "https://finance.yahoo.com/m/9065c924-f4bb-35f6-8d40-858ab0b53907/our-newmont-stock-pick-still.html?.tsrc=rss",
@@ -2635,21 +2650,6 @@ window.DASH = {
           "T21"
         ],
         "sent": "positive"
-      },
-      {
-        "title": "Jim Cramer Says Palantir (PLTR) Deserves a “Little Bit More Love” After a Massive Surge",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/jim-cramer-says-palantir-pltr-000702429.html?.tsrc=rss",
-        "ts": 1786752422,
-        "when": "Aug 15, 12:07 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
       },
       {
         "title": "Third Point Exited Nvidia and Broadcom, Made New Bet on Warner Bros. Discovery in Second Quarter",
@@ -2696,6 +2696,21 @@ window.DASH = {
       }
     ],
     "feed": [
+      {
+        "title": "Up Over 35% Since Aug. 3, Is it Too Late to Buy Palantir Stock?",
+        "link": "https://www.fool.com/investing/2026/08/15/up-over-35-since-aug-3-is-it-too-late-to-buy-palan/?.tsrc=rss",
+        "ts": 1786784700,
+        "when": "Aug 15, 09:05 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
       {
         "title": "Our Newmont Stock Pick Still Glitters After 66% Gains. Stay Bullish.",
         "link": "https://finance.yahoo.com/m/9065c924-f4bb-35f6-8d40-858ab0b53907/our-newmont-stock-pick-still.html?.tsrc=rss",
@@ -2902,9 +2917,15 @@ window.DASH = {
         "link": "https://247wallst.com/investing/2026/08/14/the-gold-income-fund-that-turned-a-6-gold-dip-into-a-30-loss/?.tsrc=rss",
         "ts": 1786719036,
         "when": "Aug 14, 02:50 PM",
-        "ticker": "SGOV",
-        "industry": "Equities",
-        "theory": [],
+        "ticker": "GLD",
+        "industry": "Gold",
+        "theory": [
+          "T6",
+          "T9",
+          "T19",
+          "T20",
+          "T21"
+        ],
         "sent": "negative"
       },
       {
@@ -2968,11 +2989,10 @@ window.DASH = {
         "link": "https://finance.yahoo.com/markets/stocks/articles/exchange-traded-funds-higher-equity-131348296.html?.tsrc=rss",
         "ts": 1786713228,
         "when": "Aug 14, 01:13 PM",
-        "ticker": "IWM",
-        "industry": "Small Caps",
+        "ticker": "XLY",
+        "industry": "Consumer Disc.",
         "theory": [
-          "T10",
-          "T15"
+          "T13"
         ],
         "sent": "neutral"
       },
@@ -3044,6 +3064,18 @@ window.DASH = {
         "sent": "positive"
       },
       {
+        "title": "Sector Update: Consumer Stocks Advance Late Afternoon",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-advance-afternoon-193514616.html?.tsrc=rss",
+        "ts": 1786649714,
+        "when": "Aug 13, 07:35 PM",
+        "ticker": "XLY",
+        "industry": "Consumer Disc.",
+        "theory": [
+          "T13"
+        ],
+        "sent": "neutral"
+      },
+      {
         "title": "Revenue at Palantir-Backed Ondas Rises 1,236%. Stock Falls as Losses Widen.",
         "link": "https://finance.yahoo.com/m/5a8f0245-cf08-346b-9a59-873a8c7d16c1/revenue-at-palantir-backed.html?.tsrc=rss",
         "ts": 1786645980,
@@ -3084,36 +3116,6 @@ window.DASH = {
           "T13"
         ],
         "sent": "neutral"
-      },
-      {
-        "title": "Strength in Defense & Propulsion Unit Drives GE Aerospace: Can It Sustain?",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/strength-defense-propulsion-unit-drives-151700107.html?.tsrc=rss",
-        "ts": 1786634220,
-        "when": "Aug 13, 03:17 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "If You Invested $10,000 in Palantir Before It Released Its AIP Platform, Here's What Your Stake Would Be Worth Today",
-        "link": "https://www.fool.com/investing/2026/08/13/if-you-invested-10000-in-palantir-before-it-releas/?.tsrc=rss",
-        "ts": 1786631400,
-        "when": "Aug 13, 02:30 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
       }
     ]
   },
