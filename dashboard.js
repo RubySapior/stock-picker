@@ -156,7 +156,7 @@ window.DASH = {
         "confirmed": false
       },
       "F2": {
-        "prev_score": 1.8,
+        "prev_score": 1.9,
         "score": 1.9,
         "days_above": 0,
         "confirmed": false
@@ -168,7 +168,7 @@ window.DASH = {
         "confirmed": false
       },
       "F4": {
-        "prev_score": 2.8,
+        "prev_score": 3.6,
         "score": 3.6,
         "days_above": 0,
         "confirmed": false
@@ -176,23 +176,23 @@ window.DASH = {
       "F5": {
         "prev_score": 4.1,
         "score": 4.1,
-        "days_above": 82,
+        "days_above": 83,
         "confirmed": true
       },
       "F6": {
-        "prev_score": 4.7,
+        "prev_score": 4.9,
         "score": 4.9,
-        "days_above": 96,
+        "days_above": 97,
         "confirmed": true
       },
       "F7": {
-        "prev_score": 1.6,
-        "score": 1.4,
+        "prev_score": 1.4,
+        "score": 1.7,
         "days_above": 0,
         "confirmed": false
       },
       "F8": {
-        "prev_score": 2.9,
+        "prev_score": 2.8,
         "score": 2.8,
         "days_above": 0,
         "confirmed": false
@@ -554,7 +554,7 @@ window.DASH = {
         "summary": "The portfolio operates in a neutral macro regime with Tech / AI Growth (46.3% vs 60.0%) and the Hedge Stack (25.4% vs 35.0%) sitting below target allocations while Rates Shock fear (F6 at 4.9) remains"
       }
     ],
-    "asof_ts": 1786821686,
+    "asof_ts": 1786822595,
     "refresh_interval": 6
   },
   "asof": "2026-08-14",
@@ -1783,7 +1783,7 @@ window.DASH = {
       ],
       "asof": "2026-08-15",
       "degraded": false,
-      "trend_dir": "rising"
+      "trend_dir": "flat"
     },
     {
       "id": "F5",
@@ -1848,7 +1848,7 @@ window.DASH = {
       ],
       "asof": "2026-08-15",
       "degraded": false,
-      "trend_dir": "rising"
+      "trend_dir": "flat"
     },
     {
       "id": "F3",
@@ -1985,12 +1985,12 @@ window.DASH = {
       "id": "F7",
       "name": "Credit stress / HY spread",
       "type": "episodic",
-      "score": 1.4,
+      "score": 1.7,
       "level": 0.0,
       "velocity": {
         "label": "5d velocity",
         "value": -0.0053,
-        "pct": 0.149
+        "pct": 0.243
       },
       "trend": null,
       "signals": [
@@ -2008,7 +2008,7 @@ window.DASH = {
       ],
       "asof": "2026-08-15",
       "degraded": false,
-      "trend_dir": "falling"
+      "trend_dir": "rising"
     }
   ],
   "complacency": {
@@ -2618,7 +2618,7 @@ window.DASH = {
     "enabled": true
   },
   "news": {
-    "asof": "2026-08-15 19:21:27",
+    "asof": "2026-08-15 19:36:36",
     "big_stories": [
       {
         "title": "Cathie Wood sells $11.6 million of surging tech stock",
