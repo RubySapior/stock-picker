@@ -1,6 +1,6 @@
-# Stock Picker — HyperGrowth Sharpe Barbell
+# Stock Picker
 
-A self-updating portfolio dashboard for the **HyperGrowth Sharpe Barbell** strategy. `update.py` fetches live prices, runs the take-profit / stop-loss engine, parks idle cash, and regenerates a static `dashboard.js` that `index.html` renders. Prices and news refresh automatically every hour via GitHub Actions.
+A self-updating portfolio dashboard for the  strategy. `update.py` fetches live prices, runs the take-profit / stop-loss engine, parks idle cash, and regenerates a static `dashboard.js` that `index.html` renders. Prices and news refresh automatically every hour via GitHub Actions.
 
 ## What it is
 
