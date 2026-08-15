@@ -157,7 +157,7 @@ window.DASH = {
       },
       "F2": {
         "prev_score": 1.8,
-        "score": 1.8,
+        "score": 1.9,
         "days_above": 0,
         "confirmed": false
       },
@@ -168,32 +168,32 @@ window.DASH = {
         "confirmed": false
       },
       "F4": {
-        "prev_score": 3.6,
-        "score": 2.8,
+        "prev_score": 2.8,
+        "score": 3.6,
         "days_above": 0,
         "confirmed": false
       },
       "F5": {
         "prev_score": 4.1,
         "score": 4.1,
-        "days_above": 54,
+        "days_above": 55,
         "confirmed": true
       },
       "F6": {
-        "prev_score": 4.8,
-        "score": 4.7,
-        "days_above": 68,
+        "prev_score": 4.7,
+        "score": 4.8,
+        "days_above": 69,
         "confirmed": true
       },
       "F7": {
-        "prev_score": 1.4,
-        "score": 1.6,
+        "prev_score": 1.6,
+        "score": 1.4,
         "days_above": 0,
         "confirmed": false
       },
       "F8": {
         "prev_score": 2.9,
-        "score": 2.9,
+        "score": 2.8,
         "days_above": 0,
         "confirmed": false
       }
@@ -554,7 +554,7 @@ window.DASH = {
         "summary": "The portfolio operates in a neutral macro regime with Tech / AI Growth (46.3% vs 60.0%) and the Hedge Stack (25.4% vs 35.0%) sitting below target allocations while Rates Shock fear (F6 at 4.9) remains"
       }
     ],
-    "asof_ts": 1786768277,
+    "asof_ts": 1786771471,
     "refresh_interval": 60
   },
   "asof": "2026-08-14",
@@ -1757,8 +1757,8 @@ window.DASH = {
       "id": "F6",
       "name": "Rates shock / duration liquidation",
       "type": "structural",
-      "score": 4.7,
-      "level": 0.945,
+      "score": 4.8,
+      "level": 0.991,
       "velocity": null,
       "trend": {
         "label": "50d trend",
@@ -1772,7 +1772,7 @@ window.DASH = {
         },
         {
           "label": "10y yield level",
-          "value": 0.875
+          "value": 0.988
         }
       ],
       "theory_ids": [
@@ -1821,6 +1821,36 @@ window.DASH = {
       "trend_dir": "flat"
     },
     {
+      "id": "F4",
+      "name": "Inflation resurgence",
+      "type": "structural",
+      "score": 3.6,
+      "level": 0.815,
+      "velocity": null,
+      "trend": {
+        "label": "50d trend",
+        "value": -0.0051,
+        "pct": 0.29
+      },
+      "signals": [
+        {
+          "label": "TIP/IEF (breakevens proxy)",
+          "value": 0.815
+        }
+      ],
+      "theory_ids": [
+        "T20"
+      ],
+      "hedge_ticks": [
+        "GLD",
+        "GDX",
+        "SGOV"
+      ],
+      "asof": "2026-08-15",
+      "degraded": false,
+      "trend_dir": "rising"
+    },
+    {
       "id": "F3",
       "name": "China / Taiwan escalation",
       "type": "episodic",
@@ -1858,18 +1888,18 @@ window.DASH = {
       "id": "F8",
       "name": "Recession / growth freeze",
       "type": "structural",
-      "score": 2.9,
-      "level": 0.369,
+      "score": 2.8,
+      "level": 0.371,
       "velocity": null,
       "trend": {
         "label": "50d trend",
-        "value": 0.0503,
-        "pct": 0.7
+        "value": 0.0384,
+        "pct": 0.652
       },
       "signals": [
         {
           "label": "XLY/XLP (cyclical vs staples)",
-          "value": 0.738
+          "value": 0.742
         },
         {
           "label": "SPY below 200d MA",
@@ -1888,51 +1918,21 @@ window.DASH = {
       "trend_dir": "flat"
     },
     {
-      "id": "F4",
-      "name": "Inflation resurgence",
-      "type": "structural",
-      "score": 2.8,
-      "level": 0.588,
-      "velocity": null,
-      "trend": {
-        "label": "50d trend",
-        "value": -0.0113,
-        "pct": 0.09
-      },
-      "signals": [
-        {
-          "label": "TIP/IEF (breakevens proxy)",
-          "value": 0.588
-        }
-      ],
-      "theory_ids": [
-        "T20"
-      ],
-      "hedge_ticks": [
-        "GLD",
-        "GDX",
-        "SGOV"
-      ],
-      "asof": "2026-08-15",
-      "degraded": false,
-      "trend_dir": "falling"
-    },
-    {
       "id": "F1",
       "name": "AI / tech concentration pop",
       "type": "structural",
       "score": 2.6,
-      "level": 0.175,
+      "level": 0.163,
       "velocity": null,
       "trend": {
         "label": "50d trend",
-        "value": 0.08,
-        "pct": 0.895
+        "value": 0.0798,
+        "pct": 0.924
       },
       "signals": [
         {
           "label": "QQQ/RSP concentration ratio",
-          "value": 0.331
+          "value": 0.308
         },
         {
           "label": "QQQ drawdown from 52w high",
@@ -1956,8 +1956,8 @@ window.DASH = {
       "id": "F2",
       "name": "Yen-carry unwind",
       "type": "episodic",
-      "score": 1.8,
-      "level": 0.231,
+      "score": 1.9,
+      "level": 0.235,
       "velocity": {
         "label": "5d velocity",
         "value": -0.009,
@@ -1967,7 +1967,7 @@ window.DASH = {
       "signals": [
         {
           "label": "Yen strength (FXY level)",
-          "value": 0.231
+          "value": 0.235
         }
       ],
       "theory_ids": [
@@ -1985,12 +1985,12 @@ window.DASH = {
       "id": "F7",
       "name": "Credit stress / HY spread",
       "type": "episodic",
-      "score": 1.6,
+      "score": 1.4,
       "level": 0.0,
       "velocity": {
         "label": "5d velocity",
         "value": -0.0053,
-        "pct": 0.22
+        "pct": 0.149
       },
       "trend": null,
       "signals": [
@@ -2008,21 +2008,21 @@ window.DASH = {
       ],
       "asof": "2026-08-15",
       "degraded": false,
-      "trend_dir": "rising"
+      "trend_dir": "falling"
     }
   ],
   "complacency": {
-    "index": 0.145,
+    "index": 0.129,
     "valuation_stretch": 0.621,
-    "fear_term": 0.233,
-    "divergence": 0.476,
-    "fear_avg": 4.07,
+    "fear_term": 0.208,
+    "divergence": 0.491,
+    "fear_avg": 4.17,
     "regime": "fragility",
     "note": "Fragility regime - macro divergence: equities stretched while macro fears run high. Equities expected to crack.",
     "pay_check": {
       "fear_id": "F6",
       "fear_name": "Rates shock / duration liquidation",
-      "score": 4.7,
+      "score": 4.8,
       "checks": [
         {
           "ticker": "SGOV",
@@ -2618,8 +2618,24 @@ window.DASH = {
     "enabled": true
   },
   "news": {
-    "asof": "2026-08-15 04:31:18",
+    "asof": "2026-08-15 05:24:32",
     "big_stories": [
+      {
+        "title": "Our Newmont Stock Pick Still Glitters After 66% Gains. Stay Bullish.",
+        "link": "https://finance.yahoo.com/m/9065c924-f4bb-35f6-8d40-858ab0b53907/our-newmont-stock-pick-still.html?.tsrc=rss",
+        "ts": 1786767960,
+        "when": "Aug 15, 04:26 AM",
+        "ticker": "GDX",
+        "industry": "Gold Miners",
+        "theory": [
+          "T6",
+          "T9",
+          "T19",
+          "T20",
+          "T21"
+        ],
+        "sent": "positive"
+      },
       {
         "title": "Jim Cramer Says Palantir (PLTR) Deserves a “Little Bit More Love” After a Massive Surge",
         "link": "https://finance.yahoo.com/markets/stocks/articles/jim-cramer-says-palantir-pltr-000702429.html?.tsrc=rss",
@@ -2677,19 +2693,25 @@ window.DASH = {
           "T21"
         ],
         "sent": "negative"
-      },
-      {
-        "title": "Cash Pays 3.8% and the Fed May Hike. This T-Bill Fund Pays the Same but Sends No Tax Bill Until You Sell",
-        "link": "https://247wallst.com/investing/2026/08/14/cash-pays-3-8-and-the-fed-may-hike-this-t-bill-fund-pays-the-same-but-sends-no-tax-bill-until-you-sell/?.tsrc=rss",
-        "ts": 1786736055,
-        "when": "Aug 14, 07:34 PM",
-        "ticker": "SGOV",
-        "industry": "Equities",
-        "theory": [],
-        "sent": "negative"
       }
     ],
     "feed": [
+      {
+        "title": "Our Newmont Stock Pick Still Glitters After 66% Gains. Stay Bullish.",
+        "link": "https://finance.yahoo.com/m/9065c924-f4bb-35f6-8d40-858ab0b53907/our-newmont-stock-pick-still.html?.tsrc=rss",
+        "ts": 1786767960,
+        "when": "Aug 15, 04:26 AM",
+        "ticker": "GDX",
+        "industry": "Gold Miners",
+        "theory": [
+          "T6",
+          "T9",
+          "T19",
+          "T20",
+          "T21"
+        ],
+        "sent": "positive"
+      },
       {
         "title": "Jim Cramer Says Palantir (PLTR) Deserves a “Little Bit More Love” After a Massive Surge",
         "link": "https://finance.yahoo.com/markets/stocks/articles/jim-cramer-says-palantir-pltr-000702429.html?.tsrc=rss",
@@ -2814,6 +2836,21 @@ window.DASH = {
           "T13"
         ],
         "sent": "neutral"
+      },
+      {
+        "title": "Unusual Machines Soars 22%, Red Cat Climbs 8%, Ondas Gains 4% on Trump’s 100% Drone Tariff",
+        "link": "https://247wallst.com/investing/2026/08/14/unusual-machines-soars-22-red-cat-climbs-8-ondas-gains-4-on-trumps-100-drone-tariff/?.tsrc=rss",
+        "ts": 1786728122,
+        "when": "Aug 14, 05:22 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
       },
       {
         "title": "C3.ai Remains Turbulent: Why One Of Wall Street’s Most Outspoken Pros Expects 50% Returns From Here",
@@ -3055,36 +3092,6 @@ window.DASH = {
           "T13"
         ],
         "sent": "neutral"
-      },
-      {
-        "title": "Strength in Defense & Propulsion Unit Drives GE Aerospace: Can It Sustain?",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/strength-defense-propulsion-unit-drives-151700107.html?.tsrc=rss",
-        "ts": 1786634220,
-        "when": "Aug 13, 03:17 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "If You Invested $10,000 in Palantir Before It Released Its AIP Platform, Here's What Your Stake Would Be Worth Today",
-        "link": "https://www.fool.com/investing/2026/08/13/if-you-invested-10000-in-palantir-before-it-releas/?.tsrc=rss",
-        "ts": 1786631400,
-        "when": "Aug 13, 02:30 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
       },
       {
         "title": "5 ETFs to Benefit From Cooling Inflation in the Near Term",
