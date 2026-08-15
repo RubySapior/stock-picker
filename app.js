@@ -161,23 +161,26 @@ function render() {
     el.style.display = '';
     const esc = x => String(x==null?'':x).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
     const segColor = ['#27ae60','#7bb93c','#f1c40f','#e67e22','#e74c3c'];
+    const aiFears = {}; (D.ai && D.ai.fears || []).forEach(f => aiFears[f.id] = f.sentiment_score);
     const top = F.slice(0, 5);
     document.getElementById('fearList').innerHTML = top.map((f, i) => {
       const filled = Math.max(1, Math.min(5, Math.round(f.score)));
       const segs = [1,2,3,4,5].map(k =>
         `<span class="fearSeg" style="background:${k <= filled ? segColor[k-1] : 'var(--panel2)'}"></span>`).join('');
       const arrow = f.trend_dir === 'rising' ? '&#9650;' : f.trend_dir === 'falling' ? '&#9660;' : '&#8226;';
+      const trendWord = `<span class="small ${f.trend_dir==='rising'?'neg':(f.trend_dir==='falling'?'pos':'muted')}">${String(f.trend_dir||'flat').toUpperCase()}</span>`;
+      const ai = aiFears[f.id];
       const why = (f.signals||[]).map(s => esc(s.label)).join(' &middot; ');
       const hedgeChips = (f.hedge_ticks||[]).map(t => `<span class="chip">${t}</span>`).join('');
       const thLinks = (f.theory_ids||[]).map(t => `<a class="theoryTag" href="#theory-${t}">${t}</a>`).join('');
       return `<div class="fearRow">
         <span class="fearRank">${i+1}</span>
         <div class="fearMain">
-          <div class="fearName">${esc(f.name)} <span class="muted small">${esc(f.type)}</span></div>
+          <div class="fearName">${esc(f.name)} <span class="muted small">${esc(f.type)}</span>${ai != null ? ` <span class="aiWit">AI ${fmtN(ai,1)}</span>` : ''}</div>
           <div class="fearBar">${segs}</div>
         </div>
         <div class="fearScore" style="color:${segColor[filled-1]}">${fmtN(f.score,1)} <span class="fearArrow">${arrow}</span></div>
-        <div class="fearWhy">${why ? `<span class="muted small">${why}</span>` : ''}${hedgeChips ? '<span class="muted small"> &middot; hedges:</span> '+hedgeChips : ''} ${thLinks}</div>
+        <div class="fearWhy">${trendWord}${f.ai_adjusted ? ' <span class="aiWit">blended&middot;AI-adjusted</span>' : ''}${why ? ` &middot; <span class="muted small">${why}</span>` : ''}${hedgeChips ? '<span class="muted small"> &middot; hedges:</span> '+hedgeChips : ''} ${thLinks}</div>
       </div>`;
     }).join('');
 
@@ -1041,25 +1044,10 @@ function render() {
         <div class="sectBar"><div class="sectFill ${s.conviction>=0?'pos':'neg'}" style="width:${w}%;"></div></div>
         <span class="sectVal ${s.conviction>0.1?'pos':(s.conviction<-0.1?'neg':'muted')}">${s.conviction>0?'+':''}${fmtN(s.conviction,2)} ${String(s.stance).toUpperCase()}</span></div>`;
     }).join('');
-    const aiFears = {}; (A.fears||[]).forEach(f => aiFears[f.id] = f.sentiment_score);
-    const fearRows = (D.fears || []).map(f => {
-      const ai = aiFears[f.id];
-      return `<tr>
-        <td class="tick">${escA(f.id)}</td>
-        <td>${escA(f.name)}</td>
-        <td>${ai != null ? fmtN(ai,1) : '<span class="muted">—</span>'}</td>
-        <td>${fmtN(f.score,1)}${f.ai_adjusted ? ' <span class="aiWit">AI-adjusted</span>' : ''}</td>
-        <td class="${f.trend_dir==='rising'?'neg':'pos'}">${String(f.trend_dir||'flat').toUpperCase()}</td>
-      </tr>`;
-    }).join('');
     mc.innerHTML = `
-      <h3 class="aiColHead">Macro &amp; Fear Gauge ${stancePill(A.macro_stance)}</h3>
-      <div class="muted small" style="margin-bottom:8px;">AI witness × market fears — news feed stays display-only</div>
-      ${sectRows || '<div class="muted small">No sector reads this run.</div>'}
-      <table class="aiFearTable">
-        <thead><tr><th>ID</th><th>Fear</th><th>AI Score</th><th>Blended</th><th>Trend</th></tr></thead>
-        <tbody>${fearRows || '<tr><td colspan="5" class="muted small">No fear data.</td></tr>'}</tbody>
-      </table>`;
+      <h3 class="aiColHead">Macro &amp; Sector Convictions ${stancePill(A.macro_stance)}</h3>
+      <div class="muted small" style="margin-bottom:8px;">AI witness on fears (AI score &middot; blended &middot; trend) is merged into the Market Fear Gauge panel above &mdash; news feed stays display-only</div>
+      ${sectRows || '<div class="muted small">No sector reads this run.</div>'}`;
 
     /* 4) theory evolution ledger (AI reads — evidence only, no status changes) */
     const thRows = (A.theories||[]).map(t => `
@@ -1116,7 +1104,6 @@ function render() {
         <div>
           <div class="calibHead">DETERMINISTIC GUARDRAILS (UN-BYPASSABLE)</div>
           <div class="small" style="margin:6px 0;">Active vol-halts: <strong>${volHalts}</strong>${volHalts ? ' <span class="neg">— re-entry protocol engaged</span>' : ''}</div>
-          <div class="small">Book leverage factor: <strong>${fmtN(D.leverage_factor,2)}x</strong> <span class="muted">(effective ÷ market value)</span></div>
           <div class="small">TP/SL engine: <strong>active</strong> · No idle cash: <strong>SGOV-parked</strong></div>
           <div class="small">News (Tier B): <strong>display-only</strong>${cfg.news_to_sentiment ? ' — WARNING: feeding decisions' : ''}</div>
         </div>

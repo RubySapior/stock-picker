@@ -167,6 +167,19 @@ JSON verdict that feeds three deterministic layers. Nothing executes.
 
 ## [Unreleased]
 
+## [site 0.5.3.00] — 2026-08-15
+
+### Changed
+- **AI witness merged into the Market Fear Gauge** (de-dup): the duplicate
+  fear table in the AI panel's right column is gone. Each fear row in the
+  classic gauge now carries the AI score (`AI 3.1` chip next to the name),
+  the blended tag (`blended·AI-adjusted`) and the trend word next to the
+  existing arrow. The AI column is renamed "Macro &amp; Sector
+  Convictions" and keeps only the sector bias bars.
+- Removed the duplicate "Book leverage factor" line from the
+  Calibration &amp; Safety Monitor (already shown in the Sector Limits
+  panel header).
+
 ## [site 0.5.2.00] — 2026-08-15
 
 ### Fixed

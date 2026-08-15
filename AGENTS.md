@@ -73,7 +73,7 @@ user-deemed milestones.
   - `F` (feature) — increments on every new feature (0.5.1 → 0.5.2).
   - `PP` (patch, two digits) — increments on bug fixes for a new feature
     (0.5.1.01 → 0.5.1.02); resets to 01 when the feature digit bumps.
-  - Current baseline: **v0.5.2.00**.
+  - Current baseline: **v0.5.3.00**.
 - **Engine (algo) bumps RARELY** — the user announces them explicitly. UI
   tweaks and small data-rule edits do NOT bump the engine.
 - Roadmap: **UI v1** = accounts/sign-in with a personalized AI per user
@@ -81,7 +81,7 @@ user-deemed milestones.
   (real-time sentiment + AI analysis, weekly rebalance). Versions approach
   1.0 only as these goals are hit. See CHANGELOG.md "Roadmap & version
   policy".
-- Header displays the versions as "UI v0.5.2.00 · Engine vX.Y.Z" (JSON keys
+- Header displays the versions as "UI v0.5.3.00 · Engine vX.Y.Z" (JSON keys
   remain `site`/`algo`).
 - Each bump gets a `CHANGELOG.md` entry under `[site 0.5.F.PP]` /
   `[algo x.y.z]` sections.
