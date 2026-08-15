@@ -176,13 +176,13 @@ window.DASH = {
       "F5": {
         "prev_score": 4.1,
         "score": 4.1,
-        "days_above": 61,
+        "days_above": 62,
         "confirmed": true
       },
       "F6": {
         "prev_score": 4.9,
         "score": 4.9,
-        "days_above": 75,
+        "days_above": 76,
         "confirmed": true
       },
       "F7": {
@@ -554,7 +554,7 @@ window.DASH = {
         "summary": "The portfolio operates in a neutral macro regime with Tech / AI Growth (46.3% vs 60.0%) and the Hedge Stack (25.4% vs 35.0%) sitting below target allocations while Rates Shock fear (F6 at 4.9) remains"
       }
     ],
-    "asof_ts": 1786792835,
+    "asof_ts": 1786797431,
     "refresh_interval": 60
   },
   "asof": "2026-08-14",
@@ -2618,13 +2618,13 @@ window.DASH = {
     "enabled": true
   },
   "news": {
-    "asof": "2026-08-15 11:20:35",
+    "asof": "2026-08-15 12:37:12",
     "big_stories": [
       {
-        "title": "Up Over 35% Since Aug. 3, Is it Too Late to Buy Palantir Stock?",
-        "link": "https://www.fool.com/investing/2026/08/15/up-over-35-since-aug-3-is-it-too-late-to-buy-palan/?.tsrc=rss",
-        "ts": 1786784700,
-        "when": "Aug 15, 09:05 AM",
+        "title": "SCHG vs QQQ vs VUG: We Compared the Three Biggest Growth ETFs and One Is the Clear Winner for the Next Decade",
+        "link": "https://247wallst.com/investing/2026/08/15/schg-vs-qqq-vs-vug-we-compared-the-three-biggest-growth-etfs-and-one-is-the-clear-winner-for-the-next-decade/?.tsrc=rss",
+        "ts": 1786796231,
+        "when": "Aug 15, 12:17 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -2633,7 +2633,7 @@ window.DASH = {
           "T2",
           "T14"
         ],
-        "sent": "neutral"
+        "sent": "positive"
       },
       {
         "title": "Our Newmont Stock Pick Still Glitters After 66% Gains. Stay Bullish.",
@@ -2696,6 +2696,21 @@ window.DASH = {
       }
     ],
     "feed": [
+      {
+        "title": "SCHG vs QQQ vs VUG: We Compared the Three Biggest Growth ETFs and One Is the Clear Winner for the Next Decade",
+        "link": "https://247wallst.com/investing/2026/08/15/schg-vs-qqq-vs-vug-we-compared-the-three-biggest-growth-etfs-and-one-is-the-clear-winner-for-the-next-decade/?.tsrc=rss",
+        "ts": 1786796231,
+        "when": "Aug 15, 12:17 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
       {
         "title": "Up Over 35% Since Aug. 3, Is it Too Late to Buy Palantir Stock?",
         "link": "https://www.fool.com/investing/2026/08/15/up-over-35-since-aug-3-is-it-too-late-to-buy-palan/?.tsrc=rss",
@@ -2932,15 +2947,9 @@ window.DASH = {
         "link": "https://247wallst.com/investing/2026/08/14/the-gold-income-fund-that-turned-a-6-gold-dip-into-a-30-loss/?.tsrc=rss",
         "ts": 1786719036,
         "when": "Aug 14, 02:50 PM",
-        "ticker": "GLD",
-        "industry": "Gold",
-        "theory": [
-          "T6",
-          "T9",
-          "T19",
-          "T20",
-          "T21"
-        ],
+        "ticker": "SGOV",
+        "industry": "Equities",
+        "theory": [],
         "sent": "negative"
       },
       {
@@ -3101,22 +3110,6 @@ window.DASH = {
           "T13"
         ],
         "sent": "neutral"
-      },
-      {
-        "title": "5 ETFs to Benefit From Cooling Inflation in the Near Term",
-        "link": "https://finance.yahoo.com/economy/policy/articles/5-etfs-benefit-cooling-inflation-140000926.html?.tsrc=rss",
-        "ts": 1786629600,
-        "when": "Aug 13, 02:00 PM",
-        "ticker": "GLD",
-        "industry": "Gold",
-        "theory": [
-          "T6",
-          "T9",
-          "T19",
-          "T20",
-          "T21"
-        ],
-        "sent": "positive"
       }
     ]
   },
