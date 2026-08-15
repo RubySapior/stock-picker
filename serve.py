@@ -17,6 +17,7 @@ browser can't run update.py by itself. This server:
       conviction-scaled (order_size x |conviction|).
    6. POST /execute_all -> "Book All Proposals": the whole queue at once.
    7. POST /bias -> sets meta.ai.user_bias (-5..+5 sentiment slider).
+   8. POST /park -> sets meta.park_mode ("sgov"|"cash" dry-powder toggle).
 
 Usage:  python serve.py
 Then open http://localhost:8000 in your browser.
@@ -68,6 +69,9 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             return
         if path == "/bias":
             self._set_bias()
+            return
+        if path == "/park":
+            self._set_park()
             return
         self.send_response(404)
         self.end_headers()
@@ -282,6 +286,26 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             return
         ok, output = self._run_update()
         self._json({"ok": ok, "value": value, "output": output})
+
+    def _set_park(self):
+        """POST /park {mode: "sgov"|"cash"} -> meta.park_mode (dry-powder
+        toggle; "sgov" parks idle cash in SGOV, "cash" leaves it idle)."""
+        body = self._read_body()
+        mode = str(body.get("mode") or "").lower()
+        if mode not in ("sgov", "cash"):
+            self._json({"ok": False, "error": "mode must be 'sgov' or 'cash'"}, 400)
+            return
+        try:
+            with open(PORTFOLIO, encoding="utf-8") as f:
+                data = json.load(f)
+            data["meta"]["park_mode"] = mode
+            with open(PORTFOLIO, "w", encoding="utf-8") as f:
+                json.dump(data, f, indent=2, ensure_ascii=False)
+        except Exception as exc:
+            self._json({"ok": False, "error": str(exc)}, 500)
+            return
+        ok, output = self._run_update()
+        self._json({"ok": ok, "mode": mode, "output": output})
 
 
 if __name__ == "__main__":

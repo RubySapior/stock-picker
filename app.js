@@ -144,7 +144,7 @@ function render() {
       {label:'Total Value', val:fmt$(s.total_value), delta:'', dcls:''},
       {label:'Day Change', val:sign(s.day_change), delta:'', dcls:cls(s.day_change)},
       {label:'Total Return', val:sign(s.total_return_pct)+'%', delta:'', dcls:cls(s.total_return_pct)},
-      {label:'Cash + SGOV', val:fmt$(s.cash + stbVal), delta:fmt$(s.cash)+' cash', dcls:''},
+      {label:'SGOV + Cash', val:fmt$(s.cash + stbVal), delta:fmt$(stbVal)+' SGOV · '+fmt$(s.cash)+' cash', dcls:''},
       {label:'CAGR (ann.)', val: s.cagr_annualized===null?'n/a':sign(s.cagr_annualized)+'%', delta:'', dcls:cls(s.cagr_annualized)},
     ];
     document.getElementById('cards').innerHTML = cards.map(c =>
@@ -374,9 +374,15 @@ function render() {
       evBox.innerHTML = evs.slice().reverse().map(e => {
         const buy = isBuy(e);
         const money = moneyOf(e);
+        const pos = (D.positions||[]).find(x => x.ticker === e.ticker);
+        const isNew = buy && pos && pos.status === 'open' && pos.buy_date === e.date;
+        const isClosed = !buy && pos && pos.status === 'closed';
+        const extra = isNew ? '<span class="pill open">NEW</span>'
+          : (isClosed ? '<span class="pill sl">CLOSED</span>' : '');
         return `<div class="eventline">
-          <div class="evWho"><strong title="${escA(NAME[e.ticker]||e.ticker)}">${e.ticker || 'SYSTEM'}</strong>
+          <div class="evWho"><strong class="${buy ? 'pos' : 'neg'}" title="${escA(NAME[e.ticker]||e.ticker)}">${e.ticker || 'SYSTEM'}</strong>
             <span class="pill ${buy ? 'tp' : 'sl'}">${buy ? 'BUY' : 'SELL'}</span>
+            ${extra}
             <span class="${buy ? 'pos' : 'neg'}">${buy ? '&minus;' : '+'}${fmt$(money)}</span>
             <span class="muted small">${e.date}</span></div>
         </div>`;
@@ -960,6 +966,21 @@ function render() {
         }, 700);
       });
     }
+    const parkTog = document.getElementById('parkTog');
+    if(parkTog && !parkTog.dataset.wired){
+      parkTog.dataset.wired = '1';
+      parkTog.addEventListener('click', async ev => {
+        const b = ev.target.closest('button');
+        if(!b) return;
+        try{
+          const j = await post('/park', {mode: b.dataset.m});
+          if(!j.ok) throw new Error(j.error || 'park switch failed');
+        }catch(e){
+          alert('Park toggle needs the local server: run `python serve.py` and open http://localhost:8000.');
+        }
+        location.reload();
+      });
+    }
     if(ctl) ctl.style.display = '';
 
     /* 1) heartbeat & regime bar */
@@ -967,9 +988,10 @@ function render() {
     const G = D.fear_greed || A.gauge;
     const gaugeTxt = G ? `<span class="aiBarItem"><strong>CNN Fear&Greed:</strong> <span class="${G.index>=75?'neg':(G.index<=25?'pos':'')}">${escA(G.label)} (${G.index}/100)</span></span>` : '';
     const sentIdx = A.sentiment_index;
+    const sentD = A.sentiment_delta != null ? A.sentiment_delta : 0;
     const sentTxt = sentIdx != null
       ? `<span class="aiBarItem"><strong>Sentiment:</strong> <span class="sentIdx ${sentIdx>0.05?'pos':(sentIdx<-0.05?'neg':'muted')}">${sentIdx>0?'Bullish':'Bearish'} ${Math.abs(sentIdx).toFixed(2)}</span>` +
-        (A.sentiment_delta != null ? ` <span class="muted small">(${A.sentiment_delta>0?'+':''}${A.sentiment_delta.toFixed(2)})</span>` : '') +
+        ` <span class="muted small">(Δ${sentD>=0?'+':''}${sentD.toFixed(2)})</span>` +
         `</span>` : '';
     hb.innerHTML = `
       <div class="aiBar">
@@ -1152,7 +1174,7 @@ function render() {
         <div>
           <div class="calibHead">DETERMINISTIC GUARDRAILS (UN-BYPASSABLE)</div>
           <div class="small" style="margin:6px 0;">Active vol-halts: <strong>${volHalts}</strong>${volHalts ? ' <span class="neg">— re-entry protocol engaged</span>' : ''}</div>
-          <div class="small">TP/SL engine: <strong>active</strong> · No idle cash: <strong>SGOV-parked</strong></div>
+          <div class="small">TP/SL engine: <strong>active</strong> · Dry powder: <span class="parkTog" id="parkTog"><button data-m="sgov" class="${(D.meta && D.meta.park_mode || 'sgov') === 'sgov' ? 'on' : ''}">SGOV</button><button data-m="cash" class="${(D.meta && D.meta.park_mode || 'sgov') === 'cash' ? 'on' : ''}">Cash</button></span> <span class="muted small" title="Where surplus cash above the buffer parks on each run">auto-park</span></div>
           <div class="small">News (Tier B): <strong>display-only</strong>${cfg.news_to_sentiment ? ' — WARNING: feeding decisions' : ''}</div>
         </div>
       </div>`;

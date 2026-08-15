@@ -62,7 +62,7 @@
         <li><strong>Total Value</strong> &mdash; the whole book right now.</li>
         <li><strong>Day Change</strong> &mdash; up or down vs the previous trading day.</li>
         <li><strong>Total Return</strong> &mdash; gain or loss vs the $100,000 starting point.</li>
-        <li><strong>Cash + SGOV</strong> &mdash; dry powder. SGOV (0&ndash;3 month T-bills) is where idle cash automatically parks.</li>
+        <li><strong>SGOV + Cash</strong> &mdash; dry powder. SGOV (0&ndash;3 month T-bills) is where idle cash automatically parks (toggleable in the AI panel &mdash; default SGOV).</li>
         <li><strong>CAGR (ann.)</strong> &mdash; average yearly growth since the start date.</li>
         <li>In the chart header: <strong>Realized P&amp;L</strong> (money locked in from closed trades), <strong>Max Drawdown</strong> (worst peak-to-trough dip so far), <strong>Sharpe</strong> (reward per unit of risk, higher is better).</li>
       </ul>
@@ -177,7 +177,7 @@
 
     <div class="panel" style="margin-bottom:20px;">
       <h2>No idle cash policy</h2>
-      <p class="helpText">On every run, <code>update.py</code> auto-buys SGOV (0&ndash;3 month T-bills) with any cash above the <code>CASH_BUFFER</code> so dry powder never sits idle. Cash + SGOV on the cards is the full liquidity picture.</p>
+      <p class="helpText">On every run, <code>update.py</code> auto-buys SGOV (0&ndash;3 month T-bills) with any cash above the <code>CASH_BUFFER</code> so dry powder never sits idle &mdash; unless the dry-powder toggle in the AI panel is set to <strong>Cash</strong>. SGOV + Cash on the cards is the full liquidity picture.</p>
     </div>
 
     <div class="panel" style="margin-bottom:20px;">

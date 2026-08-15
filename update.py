@@ -192,7 +192,13 @@ def compute_calibration(data, prices, today):
 
 
 def deploy_cash_to_bonds(data, prices, today):
-    """Park idle cash in SGOV so dry powder never sits as cash."""
+    """Park idle cash in SGOV so dry powder never sits as cash.
+
+    meta.park_mode ("sgov" default / "cash") is the dashboard's dry-powder
+    toggle: "cash" leaves surplus cash idle (no SGOV buy, no event).
+    """
+    if (data.get("meta", {}).get("park_mode") or "sgov") != "sgov":
+        return
     cash = data["account"]["cash"]
     if cash <= CASH_BUFFER + 5:
         return
@@ -937,6 +943,9 @@ def run_ai_layer(data, prices, fear_data, today, macro=None, force=False,
             conv = [c["conviction_score"] for c in v.get("convictions") or []]
             if conv:
                 state["last_sentiment_index"] = round(sum(conv) / len(conv), 2)
+                state["last_sentiment_delta"] = 0.0
+        elif state.get("last_sentiment_delta") is None:
+            state["last_sentiment_delta"] = 0.0
         if not force and not market_is_open():
             return None, fear_data
         max_calls = int(cfg.get("max_daily_calls", 3))

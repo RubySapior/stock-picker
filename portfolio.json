@@ -1,7 +1,7 @@
 {
   "meta": {
     "version": {
-      "site": "0.5.4.01",
+      "site": "0.5.4.02",
       "algo": "0.6.0"
     },
     "name": "HyperGrowth Sharpe Barbell v5 - Conviction-First",
@@ -175,13 +175,13 @@
       "F5": {
         "prev_score": 4.1,
         "score": 4.1,
-        "days_above": 99,
+        "days_above": 102,
         "confirmed": true
       },
       "F6": {
         "prev_score": 4.9,
         "score": 4.9,
-        "days_above": 113,
+        "days_above": 116,
         "confirmed": true
       },
       "F7": {
@@ -221,7 +221,8 @@
       "calls_today": 1,
       "last_call_ts": "19:40:10",
       "note": "manual run (market closed) - Friday data, first read",
-      "last_sentiment_index": 0.36
+      "last_sentiment_index": 0.36,
+      "last_sentiment_delta": 0.0
     },
     "ai_last_output": {
       "date": "2026-08-14",
@@ -555,7 +556,8 @@
         "summary": "The portfolio operates in a neutral macro regime with Tech / AI Growth (46.3% vs 60.0%) and the Hedge Stack (25.4% vs 35.0%) sitting below target allocations while Rates Shock fear (F6 at 4.9) remains"
       }
     ],
-    "ai_calibration": {}
+    "ai_calibration": {},
+    "park_mode": "sgov"
   },
   "account": {
     "cash": 25.0,

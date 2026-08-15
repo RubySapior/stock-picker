@@ -167,6 +167,26 @@ JSON verdict that feeds three deterministic layers. Nothing executes.
 
 ## [Unreleased]
 
+## [site 0.5.4.02] — 2026-08-15
+
+### Changed
+- **Liquidity card relabeled**: "Cash + SGOV" is now **SGOV + Cash**
+  (SGOV is always the bigger half); the sub-line shows both parts
+  (`$73k SGOV · $25 cash`). Same wording fix in Help.
+- **Sentiment delta always visible**: the heartbeat now always shows
+  `(Δ+0.00)` style signed delta vs the previous reading (0.00 until the
+  second call lands).
+- **Dry-powder toggle**: the "No idle cash: SGOV-parked" note is gone,
+  replaced by an inline **SGOV | Cash** toggle in the AI panel's
+  deterministic-guardrails block. `serve.py POST /park` writes
+  `meta.park_mode` (default `"sgov"`); in `"cash"` mode
+  `deploy_cash_to_bonds()` leaves surplus cash idle (no SGOV buy, no
+  deploy event). Data rule, not an engine milestone.
+- **Trade Events (main page)**: tickers are now colored green (position
+  grew / buy) or red (shrank / sell), and buys that opened a new position
+  get a **NEW** pill / sells that closed one get a **CLOSED** pill
+  (matched against `positions[].status` + `buy_date` / closed state).
+
 ## [site 0.5.4.01] — 2026-08-15
 
 ### Version policy change (user-decreed)

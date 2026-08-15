@@ -106,7 +106,9 @@ user-deemed milestones.
   (`meta.limits.sector_limits`) are checked on **effective** exposure, and
   `leverage_factor` in `dashboard.js` is book-wide effective ÷ market value.
 - **No idle cash policy**: `update.py` auto-buys SGOV with any cash above
-  `CASH_BUFFER` so dry powder never sits idle.
+  `CASH_BUFFER` so dry powder never sits idle — unless `meta.park_mode` is
+  `"cash"` (the dashboard's dry-powder toggle, `serve.py POST /park`;
+  default `"sgov"`).
 - **Market orders (algo 0.6.1.00)**: portfolio.json `orders[]` holds
   human-approved market orders `{ticker, action "buy"|"sell", amount,
   status "pending"|"executed", source, created, note, exec_date,
@@ -152,7 +154,8 @@ user-deemed milestones.
 
 Owned by `write_dashboard()` in `update.py`. `app.js` reads these fields:
 
-- `meta`: `name`, `strategy`, `start_date`, `start_value`, `limits`
+- `meta`: `name`, `strategy`, `start_date`, `start_value`, `limits`,
+  `park_mode` ("sgov"|"cash" dry-powder toggle)
 - `asof`: last snapshot date
 - `summary`: `total_value`, `cash`, `invested_value`, `day_change`,
   `total_return_pct`, `realized_pnl`, `start_value`, `max_drawdown_pct`,

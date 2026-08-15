@@ -2,7 +2,7 @@
 window.DASH = {
   "meta": {
     "version": {
-      "site": "0.5.4.01",
+      "site": "0.5.4.02",
       "algo": "0.6.0"
     },
     "name": "HyperGrowth Sharpe Barbell v5 - Conviction-First",
@@ -176,13 +176,13 @@ window.DASH = {
       "F5": {
         "prev_score": 4.1,
         "score": 4.1,
-        "days_above": 99,
+        "days_above": 102,
         "confirmed": true
       },
       "F6": {
         "prev_score": 4.9,
         "score": 4.9,
-        "days_above": 113,
+        "days_above": 116,
         "confirmed": true
       },
       "F7": {
@@ -222,7 +222,8 @@ window.DASH = {
       "calls_today": 1,
       "last_call_ts": "19:40:10",
       "note": "manual run (market closed) - Friday data, first read",
-      "last_sentiment_index": 0.36
+      "last_sentiment_index": 0.36,
+      "last_sentiment_delta": 0.0
     },
     "ai_last_output": {
       "date": "2026-08-14",
@@ -557,7 +558,8 @@ window.DASH = {
       }
     ],
     "ai_calibration": {},
-    "asof_ts": 1786837189,
+    "park_mode": "sgov",
+    "asof_ts": 1786837757,
     "refresh_interval": 1440
   },
   "asof": "2026-08-14",
@@ -2320,7 +2322,7 @@ window.DASH = {
     "asof": "2026-08-14",
     "macro_stance": "neutral",
     "sentiment_index": 0.36,
-    "sentiment_delta": null,
+    "sentiment_delta": 0.0,
     "sector_bias": [
       {
         "sector": "Tech / AI Growth",
@@ -2640,7 +2642,8 @@ window.DASH = {
       "calls_today": 1,
       "last_call_ts": "19:40:10",
       "note": "manual run (market closed) - Friday data, first read",
-      "last_sentiment_index": 0.36
+      "last_sentiment_index": 0.36,
+      "last_sentiment_delta": 0.0
     },
     "mode": "recommend",
     "gauge": {
@@ -2651,7 +2654,7 @@ window.DASH = {
     "enabled": true
   },
   "news": {
-    "asof": "2026-08-15 17:39:50",
+    "asof": "2026-08-15 17:49:17",
     "big_stories": [
       {
         "title": "Palantir Makes Its Case Against Frontier AI",
@@ -2904,6 +2907,22 @@ window.DASH = {
         "sent": "positive"
       },
       {
+        "title": "Gold Rally Is Missing One Key Ingredient",
+        "link": "https://finance.yahoo.com/markets/commodities/articles/gold-rally-missing-one-key-181859656.html?.tsrc=rss",
+        "ts": 1786731539,
+        "when": "Aug 14, 12:18 PM",
+        "ticker": "GLD",
+        "industry": "Gold",
+        "theory": [
+          "T6",
+          "T9",
+          "T19",
+          "T20",
+          "T21"
+        ],
+        "sent": "negative"
+      },
+      {
         "title": "Palantir's $442 Billion Valuation Faces a Test",
         "link": "https://finance.yahoo.com/markets/stocks/articles/palantirs-442-billion-valuation-faces-180950928.html?.tsrc=rss",
         "ts": 1786730990,
@@ -2995,15 +3014,9 @@ window.DASH = {
         "link": "https://247wallst.com/investing/2026/08/14/the-gold-income-fund-that-turned-a-6-gold-dip-into-a-30-loss/?.tsrc=rss",
         "ts": 1786719036,
         "when": "Aug 14, 08:50 AM",
-        "ticker": "GLD",
-        "industry": "Gold",
-        "theory": [
-          "T6",
-          "T9",
-          "T19",
-          "T20",
-          "T21"
-        ],
+        "ticker": "SGOV",
+        "industry": "Equities",
+        "theory": [],
         "sent": "negative"
       },
       {
@@ -3061,6 +3074,22 @@ window.DASH = {
           "T15"
         ],
         "sent": "negative"
+      },
+      {
+        "title": "Exchange-Traded Funds Higher, Equity Futures Mixed Pre-Bell Friday Amid Retail Sales Data",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/exchange-traded-funds-higher-equity-131348296.html?.tsrc=rss",
+        "ts": 1786713228,
+        "when": "Aug 14, 07:13 AM",
+        "ticker": "GLD",
+        "industry": "Gold",
+        "theory": [
+          "T6",
+          "T9",
+          "T19",
+          "T20",
+          "T21"
+        ],
+        "sent": "neutral"
       },
       {
         "title": "Chamath Palihapitiya Sees Palantir As A Potential Winner In 3-Year Shift To Model-Agnostic AI",
@@ -3128,36 +3157,6 @@ window.DASH = {
           "T14"
         ],
         "sent": "positive"
-      },
-      {
-        "title": "Revenue at Palantir-Backed Ondas Rises 1,236%. Stock Falls as Losses Widen.",
-        "link": "https://finance.yahoo.com/m/5a8f0245-cf08-346b-9a59-873a8c7d16c1/revenue-at-palantir-backed.html?.tsrc=rss",
-        "ts": 1786645980,
-        "when": "Aug 13, 12:33 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "negative"
-      },
-      {
-        "title": "DRAM Movers: These Memory/Storage ETFs Are Soaring as Sandisk, Micron Rally",
-        "link": "https://247wallst.com/investing/2026/08/13/dram-movers-these-memory-storage-etfs-are-soaring-as-sandisk-micron-rally/?.tsrc=rss",
-        "ts": 1786644735,
-        "when": "Aug 13, 12:12 PM",
-        "ticker": "SMH",
-        "industry": "Semis",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
       }
     ]
   },
