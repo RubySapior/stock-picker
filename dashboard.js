@@ -176,13 +176,13 @@ window.DASH = {
       "F5": {
         "prev_score": 4.1,
         "score": 4.1,
-        "days_above": 91,
+        "days_above": 92,
         "confirmed": true
       },
       "F6": {
         "prev_score": 4.9,
         "score": 4.9,
-        "days_above": 105,
+        "days_above": 106,
         "confirmed": true
       },
       "F7": {
@@ -554,7 +554,7 @@ window.DASH = {
         "summary": "The portfolio operates in a neutral macro regime with Tech / AI Growth (46.3% vs 60.0%) and the Hedge Stack (25.4% vs 35.0%) sitting below target allocations while Rates Shock fear (F6 at 4.9) remains"
       }
     ],
-    "asof_ts": 1786831956,
+    "asof_ts": 1786832478,
     "refresh_interval": 60
   },
   "asof": "2026-08-14",
@@ -2618,7 +2618,7 @@ window.DASH = {
     "enabled": true
   },
   "news": {
-    "asof": "2026-08-15 22:12:37",
+    "asof": "2026-08-15 22:21:18",
     "big_stories": [
       {
         "title": "Palantir Makes Its Case Against Frontier AI",
@@ -2871,6 +2871,22 @@ window.DASH = {
         "sent": "positive"
       },
       {
+        "title": "Gold Rally Is Missing One Key Ingredient",
+        "link": "https://finance.yahoo.com/markets/commodities/articles/gold-rally-missing-one-key-181859656.html?.tsrc=rss",
+        "ts": 1786731539,
+        "when": "Aug 14, 06:18 PM",
+        "ticker": "GLD",
+        "industry": "Gold",
+        "theory": [
+          "T6",
+          "T9",
+          "T19",
+          "T20",
+          "T21"
+        ],
+        "sent": "negative"
+      },
+      {
         "title": "Palantir's $442 Billion Valuation Faces a Test",
         "link": "https://finance.yahoo.com/markets/stocks/articles/palantirs-442-billion-valuation-faces-180950928.html?.tsrc=rss",
         "ts": 1786730990,
@@ -3043,11 +3059,14 @@ window.DASH = {
         "link": "https://finance.yahoo.com/markets/stocks/articles/exchange-traded-funds-higher-equity-131348296.html?.tsrc=rss",
         "ts": 1786713228,
         "when": "Aug 14, 01:13 PM",
-        "ticker": "IWM",
-        "industry": "Small Caps",
+        "ticker": "GLD",
+        "industry": "Gold",
         "theory": [
-          "T10",
-          "T15"
+          "T6",
+          "T9",
+          "T19",
+          "T20",
+          "T21"
         ],
         "sent": "neutral"
       },
@@ -3086,26 +3105,10 @@ window.DASH = {
         "sent": "neutral"
       },
       {
-        "title": "MoneyMasters Podcast 8-13-26- SP 500 Vs. TSX - Which Leads Next",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/moneymasters-podcast-8-13-26-163200205.html?.tsrc=rss",
-        "ts": 1786638720,
-        "when": "Aug 13, 04:32 PM",
-        "ticker": "GDX",
-        "industry": "Gold Miners",
-        "theory": [
-          "T6",
-          "T9",
-          "T19",
-          "T20",
-          "T21"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "5 ETFs to Benefit From Cooling Inflation in the Near Term",
-        "link": "https://finance.yahoo.com/economy/policy/articles/5-etfs-benefit-cooling-inflation-140000926.html?.tsrc=rss",
-        "ts": 1786629600,
-        "when": "Aug 13, 02:00 PM",
+        "title": "Gold Rally Faces Moment of Truth",
+        "link": "https://finance.yahoo.com/markets/commodities/articles/gold-rally-faces-moment-truth-165917278.html?.tsrc=rss",
+        "ts": 1786640357,
+        "when": "Aug 13, 04:59 PM",
         "ticker": "GLD",
         "industry": "Gold",
         "theory": [
