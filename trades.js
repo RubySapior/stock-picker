@@ -25,20 +25,28 @@
     document.getElementById('eventCount').textContent = `(${D.events.length} events)`;
 
     const pill = r => r==='take_profit' ? 'tp' : (r==='stop_loss' ? 'sl' : (r==='rebalance_recommended' ? 'warn' : 'open'));
+    const isBuy = e => e.reason === 'market_order'
+      ? /^BUY/.test(e.note || '') : (e.reason === 're_entry');
+    const moneyOf = e => e.amount != null ? e.amount
+      : (e.shares != null && e.price != null ? e.shares * e.price : null);
     const tbody = document.querySelector('#tradeTable tbody');
     tbody.innerHTML = D.events.length
-      ? D.events.slice().reverse().map(e => `
+      ? D.events.slice().reverse().map(e => {
+          const m = moneyOf(e);
+          return `
           <tr>
             <td style="white-space:nowrap;">${e.date}${e.ts ? ' <span class="muted small">' + escA(e.ts) + '</span>' : ''}</td>
             <td><strong title="${escA(NAME[e.ticker]||e.ticker)}">${e.ticker || 'SYSTEM'}</strong></td>
-            <td><span class="pill ${pill(e.reason)}">${e.reason.toUpperCase()}</span></td>
+            <td><span class="pill ${pill(e.reason)}">${e.reason.toUpperCase()}${isBuy(e) ? ' / BUY' : ''}</span></td>
             <td>${e.price == null ? '&mdash;' : fmtN(e.price)}</td>
             <td>${e.buy_price == null ? '&mdash;' : fmtN(e.buy_price)}</td>
             <td>${e.shares == null ? '&mdash;' : fmtN(e.shares, 4)}</td>
+            <td class="${isBuy(e) ? 'pos' : 'neg'}">${m == null ? '&mdash;' : (isBuy(e) ? '&minus;' : '+') + fmtN(m)}</td>
             <td class="${cls(e.realized_pnl)}">${e.realized_pnl == null ? '&mdash;' : sign(e.realized_pnl)}</td>
             <td class="small muted">${e.note ? escA(e.note) : '&mdash;'}</td>
-          </tr>`).join('')
-      : '<tr><td colspan="8" class="muted small">No events recorded yet.</td></tr>';
+          </tr>`;
+        }).join('')
+      : '<tr><td colspan="9" class="muted small">No events recorded yet.</td></tr>';
 
     const sc = tbody.closest('.scroll');
     const th = document.getElementById('tradeHThumb');

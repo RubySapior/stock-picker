@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI Port-picker</title>
-<link rel="stylesheet" href="styles.css?v=31">
+<link rel="stylesheet" href="styles.css?v=32">
 </head>
 <!--
   Page skeleton only. Every section below is filled by app.js from the
@@ -80,7 +80,7 @@
 
   <div class="panel fearPanel" id="fearSection" style="display:none;">
     <div class="charthead">
-      <h2>Market Fear Gauge <span class="muted small" style="font-weight:400;">Top 5 fears Â· 1 = calm Â· 5 = panic</span></h2>
+      <h2>Market Fear Gauge <span class="muted small" style="font-weight:400;">Top 5 fears</span></h2>
       <div id="complacency" class="compLine"></div>
     </div>
     <div id="fearList"></div>
@@ -95,7 +95,6 @@
         <span class="aiModeLabel">MODE</span>
         <button id="modeRecommend" class="modeBtn active">RECOMMEND</button>
         <button id="modeExecute" class="modeBtn">EXECUTE</button>
-        <button id="execAllBtn" class="execAllBtn" title="Turn the current AI proposals + rotations into human-approved pending market orders">Execute All &rarr; Orders</button>
       </span>
     </div>
     <div id="aiHeartbeat"></div>
@@ -189,6 +188,6 @@
 </div>
 
 <script src="wheel.js?v=8"></script>
-<script src="app.js?v=33" defer></script>
+<script src="app.js?v=34" defer></script>
 </body>
 </html>

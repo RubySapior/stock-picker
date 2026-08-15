@@ -23,7 +23,7 @@ dashboard works by double-clicking `index.html`.
 | `trades.html` + `trades.js` | Trade Archive page: every recorded event (exits, re-entries, cash deploys, rebalance flags) in a plain table with per-second timestamps. Reads the same `dashboard.js`. | **YES** — UI only |
 | `help.html` + `help.js` | Help site: plain-language notes (Simple tab) + the math and details (Advanced tab). Static explainer, no data. | **YES** — UI only |
 | `styles.css` | All styling (dark theme, panels, pills, charts). | **YES** |
-| `serve.py` | Optional local server. Exposes `POST /refresh` (runs `update.py`) used by the Update button. | **YES** |
+| `serve.py` | Optional local server. Exposes `POST /refresh` (Update button), `POST /mode`, `POST /book` (per-proposal order booking). | **YES** |
 | `run.bat` | Double-click shortcut that runs `python update.py`. | **YES** |
 
 ## Data flow
@@ -73,7 +73,7 @@ user-deemed milestones.
   - `F` (feature) — increments on every new feature (0.5.1 → 0.5.2).
   - `PP` (patch, two digits) — increments on bug fixes for a new feature
     (0.5.1.01 → 0.5.1.02); resets to 01 when the feature digit bumps.
-  - Current baseline: **v0.5.3.00**.
+  - Current baseline: **v0.5.4.00**.
 - **Engine (algo) bumps RARELY** — the user announces them explicitly. UI
   tweaks and small data-rule edits do NOT bump the engine.
 - Roadmap: **UI v1** = accounts/sign-in with a personalized AI per user
@@ -81,7 +81,7 @@ user-deemed milestones.
   (real-time sentiment + AI analysis, weekly rebalance). Versions approach
   1.0 only as these goals are hit. See CHANGELOG.md "Roadmap & version
   policy".
-- Header displays the versions as "UI v0.5.3.00 · Engine vX.Y.Z" (JSON keys
+- Header displays the versions as "UI v0.5.4.00 · Engine vX.Y.Z" (JSON keys
   remain `site`/`algo`).
 - Each bump gets a `CHANGELOG.md` entry under `[site 0.5.F.PP]` /
   `[algo x.y.z]` sections.
@@ -114,8 +114,9 @@ user-deemed milestones.
   (`meta.ai.mode`, default `recommend`): in **execute** mode a successful
   AI verdict REPLACES pending orders with its proposals + rotations
   (`meta.ai.orders_refresh`, sized at `meta.ai.order_size`); in
-  **recommend** mode orders are only written by the dashboard's
-  **Execute All** button (`serve.py POST /execute_all`, human approval).
+  **recommend** mode orders are written one at a time by the dashboard's
+  **Book Order** buttons (`serve.py POST /book`, human approval per
+  proposal / rotation legs).
   Executed history is pruned to the last 15.
 - **Sector limits, not targets**: `meta.limits.rebalance.limits` are
   exposure LIMITS compared by the quarterly audit (old key `targets`
@@ -215,11 +216,11 @@ Owned by `write_dashboard()` in `update.py`. `app.js` reads these fields:
   prompt as the euphoria gate.
 - `orders[]`: human-approved market orders — `ticker`, `action`
   ("buy"/"sell"), `amount` (USD), `status` ("pending"/"executed"), `source`
-  (e.g. `ai_YYYY-MM-DD` / `execute_all_YYYY-MM-DD`), `created`, `note`, and
+  (e.g. `ai_YYYY-MM-DD` / `book_YYYY-MM-DD`), `created`, `note`, and
   for executed orders `exec_date`, `exec_price`, `shares`, `realized_pnl`.
   Pending orders execute at the live price on market-open runs; in execute
   mode the AI refresh replaces pending orders with the latest verdict
-  (meta.ai.orders_refresh) — in recommend mode only Execute All writes them.
+  (meta.ai.orders_refresh) — in recommend mode only Book Order writes them.
 - `fears`: null or `asof`, `degraded[]`, `news_layer`, `fears[]` — each fear:
   `id` (F1-F8), `name`, `type` ("structural"/"episodic"), `score` (1-5, 5 =
   panic), `level`, `velocity`/`trend` (label/value/pct), `signals[]` (top

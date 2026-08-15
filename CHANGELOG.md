@@ -167,6 +167,28 @@ JSON verdict that feeds three deterministic layers. Nothing executes.
 
 ## [Unreleased]
 
+## [site 0.5.4.00] — 2026-08-15
+
+### Changed
+- **Booking flow**: the AI panel's "Execute All &rarr; Orders" button is
+  gone. Each proposal card now has a **Book Order** button and each
+  rotation row a **Book both legs** button &mdash; both write ONE
+  human-approved pending order (or the rotation's two legs) via
+  `serve.py POST /book` at `meta.ai.order_size` (source `book_<date>`).
+  The endpoint validates the order against the current AI verdict so only
+  AI-proposed actions can be booked.
+- **Trade Events card simplified** (main page): only buys/sells with the
+  money changed &mdash; `BUY TQQQ &minus;$2,500` / `SELL ZROZ +$2,498`.
+  Full details (price, shares, realized P&amp;L, notes, timestamps) live
+  in the Trade Archive, which gained a **Money** column. `market_order`
+  events now carry an `amount` field (engine data addition, not a
+  milestone).
+- **Market Fear Gauge header** dropped "&middot; 1 = calm &middot; 5 =
+  panic" &mdash; the bars speak for themselves.
+- **Theories Scorecard wheel**: cards raised again (18px &rarr; 24px) so
+  the `1 / N` counter is fully clear, plus a more compact counter with a
+  higher z-index so it stays readable even in short windows.
+
 ## [site 0.5.3.00] — 2026-08-15
 
 ### Changed

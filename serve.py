@@ -8,8 +8,12 @@ browser can't run update.py by itself. This server:
      then the page's Update button reloads the data.
   3. POST /mode -> toggles meta.ai.mode (recommend | execute) - how the
      AI verdict turns into orders.
-  4. POST /execute_all -> converts the latest verdict's proposals +
-     rotations into human-approved pending market orders (recommend mode).
+4. POST /mode -> toggles meta.ai.mode (recommend | execute) - how the
+      AI verdict turns into orders.
+   5. POST /book -> human approval per proposal / rotation: the dashboard's
+      "Book Order" buttons write ONE pending market order (or a rotation's
+      two legs) from the latest AI verdict into portfolio.json (recommend
+      mode). {ticker, action} or {sell, buy}.
 
 Usage:  python serve.py
 Then open http://localhost:8000 in your browser.
@@ -53,8 +57,8 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         if path == "/mode":
             self._set_mode()
             return
-        if path == "/execute_all":
-            self._execute_all()
+        if path == "/book":
+            self._book()
             return
         self.send_response(404)
         self.end_headers()
@@ -111,16 +115,20 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         ok, output = self._run_update()
         self._json({"ok": ok, "mode": mode, "output": output})
 
-    def _execute_all(self):
-        """POST /execute_all -> latest verdict's proposals become pending orders.
+    def _book(self):
+        """POST /book -> ONE human-approved order from the latest verdict.
 
-        Recommend-mode human approval: the dashboard button converts the
-        current AI proposals + rotations into portfolio.json 'orders'
-        (source 'execute_all_<date>'), then runs update.py so the page
-        reflects the new pending queue.
+        Body: {ticker, action: 'buy'|'sell'} for a proposal, or
+        {sell, buy} for a rotation's two legs. The order must exist in
+        the current AI verdict (ai_last_output) - the human approval gate
+        is the dashboard button, the check here is that the AI actually
+        proposed it. Written as a pending order at meta.ai.order_size
+        (source 'book_<date>'), then update.py runs so the page reflects
+        the new pending queue.
         """
         try:
             import ai_sentiment
+            body = self._read_body()
             with open(PORTFOLIO, encoding="utf-8") as f:
                 data = json.load(f)
             meta = data["meta"]
@@ -132,29 +140,52 @@ class Handler(http.server.SimpleHTTPRequestHandler):
                 raise ValueError("no AI verdict on record - run Update first")
             size = float(cfg.get("order_size", 2500))
             created = []
-            for p in ai_sentiment.bullish_layer(verdict, data):
-                action = "buy" if p["conviction_score"] > 0 else "sell"
+
+            def note_for(tk, action, pnl=None):
+                return (pnl or f"{action.upper()} {tk}")[:160]
+
+            proposals = ai_sentiment.bullish_layer(verdict, data)
+            rotations = ai_sentiment.rotation_layer(verdict, data)
+
+            if body.get("ticker"):
+                ticker = str(body["ticker"]).upper()
+                action = str(body.get("action") or "").lower()
+                if action not in ("buy", "sell"):
+                    raise ValueError("action must be buy|sell")
+                p = next((x for x in proposals
+                          if x["ticker"] == ticker
+                          and ((x["conviction_score"] > 0) == (action == "buy"))), None)
+                if not p:
+                    raise ValueError(f"'{ticker} {action}' is not in the current AI verdict")
                 created.append({
-                    "ticker": p["ticker"], "action": action,
+                    "ticker": ticker, "action": action,
                     "amount": round(size, 2), "status": "pending",
-                    "source": f"execute_all_{verdict['date']}",
+                    "source": f"book_{verdict['date']}",
                     "created": verdict["date"],
-                    "note": (p.get("rationale") or "")[:160],
+                    "note": note_for(ticker, action, p.get("rationale")),
                 })
-            for r in ai_sentiment.rotation_layer(verdict, data):
-                note = f"rotation {r['sell']}->{r['buy']}: {(r.get('rationale') or '')[:120]}"
+            elif body.get("sell") and body.get("buy"):
+                sell = str(body["sell"]).upper()
+                buy = str(body["buy"]).upper()
+                r = next((x for x in rotations
+                          if x["sell"] == sell and x["buy"] == buy), None)
+                if not r:
+                    raise ValueError(f"rotation {sell}->{buy} is not in the current AI verdict")
+                note = f"rotation {sell}->{buy}: {(r.get('rationale') or '')[:120]}"
                 created.append({
-                    "ticker": r["sell"], "action": "sell", "amount": round(size, 2),
-                    "status": "pending", "source": f"execute_all_{verdict['date']}",
+                    "ticker": sell, "action": "sell", "amount": round(size, 2),
+                    "status": "pending", "source": f"book_{verdict['date']}",
                     "created": verdict["date"], "note": note,
                 })
                 created.append({
-                    "ticker": r["buy"], "action": "buy", "amount": round(size, 2),
-                    "status": "pending", "source": f"execute_all_{verdict['date']}",
+                    "ticker": buy, "action": "buy", "amount": round(size, 2),
+                    "status": "pending", "source": f"book_{verdict['date']}",
                     "created": verdict["date"], "note": note,
                 })
+            else:
+                raise ValueError("send {ticker, action} or {sell, buy}")
             if not created:
-                raise ValueError("the current verdict has no proposals or rotations")
+                raise ValueError("nothing to book")
             orders = data.setdefault("orders", [])
             orders[:] = [o for o in orders if o.get("status") != "pending"] + created
             with open(PORTFOLIO, "w", encoding="utf-8") as f:
@@ -170,7 +201,7 @@ if __name__ == "__main__":
     server = http.server.ThreadingHTTPServer(("", PORT), Handler)
     print(f"Serving dashboard at http://localhost:{PORT}")
     print("Update button runs update.py via POST /refresh.")
-    print("Mode toggle + Execute All run POST /mode and /execute_all.")
+    print("Mode toggle + proposal Book buttons run POST /mode and /book.")
     try:
         server.serve_forever()
     except KeyboardInterrupt:

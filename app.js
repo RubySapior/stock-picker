@@ -356,24 +356,32 @@ function render() {
     applyThView();
   }
 
-  /* ---- trade events ---- */
+  /* ---- trade events (main page: bought / sold + money, nothing else) ---- */
   function renderEvents(){
     const evBox = document.getElementById('events');
-    if (!D.events.length) evBox.innerHTML = '<div class="muted small">No closed trades yet. Take-profit / stop-loss exits will appear here.</div>';
+    const isTrade = e => e.reason === 'market_order' || e.reason === 'take_profit' ||
+      e.reason === 'stop_loss' || e.reason === 're_entry';
+    const moneyOf = e => e.amount != null ? e.amount
+      : (e.shares != null && e.price != null ? e.shares * e.price : null);
+    const isBuy = e => e.reason === 'market_order'
+      ? /^BUY/.test(e.note || '') : (e.reason === 're_entry');
+    const trades = D.events.filter(isTrade);
+    if (!trades.length) evBox.innerHTML = '<div class="muted small">No trades yet. Buys and sells (AI orders, take-profits, stop-losses) will appear here.</div>';
     else {
       const asof = new Date(D.asof + 'T00:00:00');
       const cutoff = new Date(asof); cutoff.setDate(cutoff.getDate() - 6);
-      let evs = D.events.filter(e => new Date(e.date + 'T00:00:00') >= cutoff);
-      if (evs.length < 2) evs = D.events.slice(-2);
-      evBox.innerHTML = evs.slice().reverse().map(e =>
-        `<div class="eventline">
-           <div class="evWho"><strong title="${escA(NAME[e.ticker]||e.ticker)}">${e.ticker || 'SYSTEM'}</strong> <span class="muted small">${e.date}${e.ts ? ' &middot; ' + e.ts : ''}</span></div>
-           <div><span class="pill ${e.reason==='take_profit'?'tp':(e.reason==='stop_loss'?'sl':(e.reason==='rebalance_recommended'?'warn':'open'))}">${e.reason.toUpperCase()}</span>
-           <span class="muted small">@ ${fmtN(e.price)}</span>
-           <span class="${cls(e.realized_pnl)}"> ${sign(e.realized_pnl)}</span></div>
-           ${e.note ? `<div class="small muted">${e.note}</div>` : ''}
-         </div>`
-      ).join('');
+      let evs = trades.filter(e => new Date(e.date + 'T00:00:00') >= cutoff);
+      if (evs.length < 2) evs = trades.slice(-2);
+      evBox.innerHTML = evs.slice().reverse().map(e => {
+        const buy = isBuy(e);
+        const money = moneyOf(e);
+        return `<div class="eventline">
+          <div class="evWho"><strong title="${escA(NAME[e.ticker]||e.ticker)}">${e.ticker || 'SYSTEM'}</strong>
+            <span class="pill ${buy ? 'tp' : 'sl'}">${buy ? 'BUY' : 'SELL'}</span>
+            <span class="${buy ? 'pos' : 'neg'}">${buy ? '&minus;' : '+'}${fmt$(money)}</span>
+            <span class="muted small">${e.date}</span></div>
+        </div>`;
+      }).join('');
     }
   }
 
@@ -884,7 +892,7 @@ function render() {
     stEl.className = 'aiBadge active';
     subEl.textContent = `Last read ${escA(A.asof)} · Tier A grounded (prices, fears, exposures) · Tier B news: display only`;
 
-    /* 0) mode toggle + Execute All (serve.py endpoints; file:// degrades) */
+    /* 0) mode toggle + per-proposal booking (serve.py endpoints; file:// degrades) */
     const mode = A.mode || 'recommend';
     const mkBtn = (id, active) => {
       const b = document.getElementById(id);
@@ -893,12 +901,6 @@ function render() {
     };
     mkBtn('modeRecommend', mode === 'recommend');
     mkBtn('modeExecute', mode === 'execute');
-    const ea = document.getElementById('execAllBtn');
-    if(ea){
-      const hasActs = (A.proposals||[]).length > 0 || (A.rotations||[]).length > 0;
-      ea.disabled = !hasActs;
-      ea.title = hasActs ? 'Turn the current AI proposals + rotations into human-approved pending market orders' : 'No open proposals or rotations to execute';
-    }
     async function post(path, body){
       const r = await fetch(path, {
         method: 'POST',
@@ -913,18 +915,18 @@ function render() {
       el.dataset.wired = '1';
       el.addEventListener('click', fn);
     };
-    wireOnce(mkBtn('modeRecommend'), () => setMode('recommend'));
-    wireOnce(mkBtn('modeExecute'), () => setMode('execute'));
-    wireOnce(ea, async () => {
-      ea.disabled = true;
+    async function book(body){
       try{
-        const j = await post('/execute_all');
-        alert(`Execute All: ${j.created||0} order(s) written to portfolio.json (pending).\n\n` + (j.output||'').slice(-600));
+        const j = await post('/book', body);
+        if(!j.ok) throw new Error(j.error || 'booking failed');
+        alert(`${j.created} order(s) booked to portfolio.json (pending).\n\n` + (j.output||'').slice(-500));
       }catch(e){
-        alert('Execute All needs the local server: run `python serve.py` and open http://localhost:8000.');
+        alert('Booking needs the local server: run `python serve.py` and open http://localhost:8000.');
       }
       location.reload();
-    });
+    }
+    wireOnce(mkBtn('modeRecommend'), () => setMode('recommend'));
+    wireOnce(mkBtn('modeExecute'), () => setMode('execute'));
     async function setMode(m){
       try{
         const j = await post('/mode', {mode: m});
@@ -950,7 +952,7 @@ function render() {
       <div class="muted small" style="margin:6px 0 2px;">${escA(A.summary)}</div>`;
     const modeNote = mode === 'execute'
       ? '<div class="small" style="margin-top:4px;"><span class="pill sl">EXECUTE MODE</span> <span class="muted">AI refresh auto-replaces pending orders with the verdict. Deterministic TP/SL and vol-halts still overrule everything.</span></div>'
-      : '<div class="small" style="margin-top:4px;"><span class="pill warn">RECOMMEND MODE</span> <span class="muted">Proposals are advice — nothing becomes an order until you press Execute All. Change mode with the buttons above.</span></div>';
+      : '<div class="small" style="margin-top:4px;"><span class="pill warn">RECOMMEND MODE</span> <span class="muted">Proposals are advice — nothing becomes an order until you press <strong>Book Order</strong> on a proposal. Change mode with the buttons above.</span></div>';
     hb.innerHTML += modeNote;
 
     /* 2) actionable proposal queue (snooze/dismiss in localStorage) */
@@ -988,7 +990,7 @@ function render() {
               </div>
               <div class="small muted" style="margin:6px 0;">${escA(p.rationale)}</div>
               <div class="aiBtns">
-                <button class="aiBtn" data-act="copy">Review &amp; Copy Order</button>
+                <button class="aiBtn" data-act="book">Book Order</button>
                 <button class="aiBtn ghost" data-act="snooze">Snooze (temp 1m)</button>
                 <button class="aiBtn ghost" data-act="dismiss">Dismiss</button>
               </div>
@@ -1010,10 +1012,14 @@ function render() {
         <span class="rotArrow">&#8594;</span>
         <span class="pill tp">BUY</span> <strong class="tick">${escA(r.buy)}</strong>
         <span class="small muted" style="margin-left:8px;">${escA(r.rationale)}</span>
+        <button class="aiBtn ghost rotBook" data-sell="${escA(r.sell)}" data-buy="${escA(r.buy)}">Book both legs</button>
       </div>`).join('');
     pr.innerHTML += (rotRows ? `
       <h3 class="aiColHead" style="margin-top:12px;">Rotations <span class="muted small">(paired sell&#8594;buy, engine sizes both legs)</span></h3>
       ${rotRows}` : '');
+    pr.querySelectorAll('.rotBook').forEach(btn => {
+      btn.addEventListener('click', () => book({sell: btn.dataset.sell, buy: btn.dataset.buy}));
+    });
     pr.querySelectorAll('.aiBtn').forEach(btn => {
       const card = btn.closest('.propCard');
       const id = card.dataset.id;
@@ -1021,8 +1027,8 @@ function render() {
         const p = (A.proposals||[]).find(x => pId(x) === id);
         if(!p) return;
         const act = btn.dataset.act;
-        if(act === 'copy'){
-          copyText(`REVIEW: ${p.action.toUpperCase()} ${p.ticker} (conviction ${p.conviction_score}, urgency ${p.urgency}) — ${p.rationale} — Human confirmation required. No autonomous execution.`);
+        if(act === 'book'){
+          book({ticker: p.ticker, action: (p.action === 'trim' || p.action === 'sell') ? 'sell' : 'buy'});
         } else if(act === 'snooze'){
           (q.snooze = q.snooze || {})[id] = now + 60*1000; // TEMP: 1min for verification (revert to 24*3600*1000)
           localStorage.setItem(Q_KEY, JSON.stringify(q)); renderAI();
@@ -1126,7 +1132,7 @@ function render() {
     if(noteEl){
       noteEl.innerHTML = mode === 'execute'
         ? 'Human-approved orders. Executed at the live price on the next market-open run. <span class="pill sl">EXECUTE MODE</span> — AI refresh auto-replaces pending orders with each new verdict.'
-        : 'Human-approved orders. Executed at the live price on the next market-open run. <span class="pill warn">RECOMMEND MODE</span> — orders are only written when you press <strong>Execute All</strong> on the AI panel.';
+        : 'Human-approved orders. Executed at the live price on the next market-open run. <span class="pill warn">RECOMMEND MODE</span> — orders are written one at a time when you press <strong>Book Order</strong> on an AI proposal.';
     }
     document.getElementById('ordersList').innerHTML = O.map(o => {
       const isBuy = o.action === 'buy';

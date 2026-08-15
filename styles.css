@@ -193,7 +193,7 @@
   .wheelStage{position:relative; height:min(460px, 64vh); perspective:1500px; overflow:hidden; touch-action:pan-y; cursor:grab; border-radius:16px; background:radial-gradient(ellipse at 50% 35%, rgba(56,189,248,.05), transparent 60%); user-select:none; -webkit-user-select:none; -webkit-touch-callout:none;}
   .wheelStage.dragging{cursor:grabbing;}
   .wheel{position:absolute; inset:0;}
-  .wheelStage .card{position:absolute; left:50%; top:calc(50% - 18px); width:min(320px, 82vw); height:min(420px, 56vh); background:transparent; border:none; padding:0; transition:transform .85s cubic-bezier(.22,.9,.3,1), opacity .35s ease; cursor:pointer;}
+  .wheelStage .card{position:absolute; left:50%; top:calc(50% - 24px); width:min(320px, 82vw); height:min(420px, 56vh); background:transparent; border:none; padding:0; transition:transform .85s cubic-bezier(.22,.9,.3,1), opacity .35s ease; cursor:pointer;}
   .wheelStage.dragging .card{transition:transform .3s cubic-bezier(.25,.85,.35,1), opacity .3s ease;}
   .cardInner{position:absolute; inset:0; z-index:1; perspective:1200px; transform-style:preserve-3d; transition:transform .85s cubic-bezier(.4,.1,.2,1);}
   .wheelStage .card.flipped .cardInner{transform:rotateY(180deg);}
@@ -219,7 +219,7 @@
   .wheelBtn:hover{border-color:var(--blue); color:var(--blue); background:rgba(56,189,248,.1);}
   .wheelBtn.prev{left:14px;}
   .wheelBtn.next{right:14px;}
-  .wheelCounter{position:absolute; bottom:12px; left:50%; transform:translateX(-50%); background:rgba(11,14,20,.8); border:1px solid var(--border); border-radius:20px; padding:4px 14px; font-size:12px; color:var(--muted); z-index:60; pointer-events:none;}
+  .wheelCounter{position:absolute; bottom:10px; left:50%; transform:translateX(-50%); background:rgba(11,14,20,.8); border:1px solid var(--border); border-radius:20px; padding:2px 12px; font-size:11px; color:var(--muted); z-index:200; pointer-events:none;}
   .wheelHint{text-align:center; color:var(--muted); font-size:12px; margin-top:10px;}
   @media (max-width:700px){
     .wheelBtn{width:34px; height:34px; font-size:18px;}
@@ -276,9 +276,7 @@
 .modeBtn{background:transparent; color:var(--muted); border:1px solid var(--border); border-radius:8px; padding:4px 12px; font-size:11.5px; font-weight:700; letter-spacing:.05em; cursor:pointer;}
 .modeBtn:hover{color:var(--txt); border-color:var(--blue);}
 .modeBtn.active{background:rgba(56,189,248,.14); color:var(--blue); border-color:rgba(56,189,248,.5);}
-.execAllBtn{background:rgba(34,197,94,.12); color:var(--green); border:1px solid rgba(34,197,94,.4); border-radius:8px; padding:4px 12px; font-size:11.5px; font-weight:700; cursor:pointer;}
-.execAllBtn:hover:not(:disabled){background:rgba(34,197,94,.25);}
-.execAllBtn:disabled{opacity:.4; cursor:not-allowed;}
+.rotBook{margin-left:auto; flex:none;}
 .rotRow{display:flex; align-items:center; gap:8px; border:1px solid var(--border); border-left:3px solid var(--blue); border-radius:10px; padding:8px 12px; margin-bottom:8px; background:var(--panel2); font-size:12.5px; flex-wrap:wrap;}
 .rotArrow{color:var(--blue); font-weight:800;}
 .fpRow{border:1px dashed var(--border); border-radius:8px; padding:8px 12px; margin-bottom:8px; font-size:12.5px; background:var(--panel2);}

@@ -18,7 +18,7 @@ Usage:  python update.py [--ai]
 Engine v0.6.1.00: the AI reads a prior-verdict + fact-delta prompt and
 outputs ONLY changes (omission = agreement). Proposals become HUMAN-
 APPROVED market orders in portfolio.json ("orders") - recommend mode
-(default, Execute All button writes them) or execute mode (meta.ai.mode,
+(default, Book Order buttons write them) or execute mode (meta.ai.mode,
 AI refresh replaces pending orders automatically). Rotations become
 paired sell+buy orders. AI fear proposals persist into the editable
 fear_scenarios.json table (pending review). Execution is always a
@@ -736,8 +736,8 @@ def refresh_orders_from_ai(data, verdict, today):
                        verdict's proposals + rotations (auto mode).
       - "recommend" -> DEFAULT. Pending orders stay untouched; the
                        verdict's proposals are recommendations only and
-                       become orders via the dashboard's Execute All
-                       button (POST /execute_all), i.e. human approval.
+                       become orders via the dashboard's Book Order
+                       buttons (POST /book), i.e. per-proposal human approval.
     Each proposal is sized at meta.ai.order_size USD (direction only; the
     engine sizes, the human approved the sizing). Rotation pairs become
     TWO orders (sell leg + buy leg) at the same size. Executed orders
@@ -749,7 +749,7 @@ def refresh_orders_from_ai(data, verdict, today):
     mode = str(cfg.get("mode") or "recommend")
     if mode != "execute":
         print("  ORDERS: recommend mode - AI proposals are recommendations; "
-              "use Execute All to turn them into pending orders")
+              "book them one at a time via POST /book")
         return
     size = float(cfg.get("order_size", 2500))
     proposals = ai_sentiment.bullish_layer(verdict, data)
@@ -845,6 +845,7 @@ def execute_pending_orders(data, prices, today):
                 "price": round(px, 4),
                 "buy_price": round(px, 4),
                 "shares": round(buy_shares, 4),
+                "amount": round(amount, 2),
                 "realized_pnl": 0,
             })
             print(f"  ORDER BUY {tk}: {amount:,.0f} @ {px:.2f} "
@@ -880,6 +881,7 @@ def execute_pending_orders(data, prices, today):
                 "price": round(px, 4),
                 "buy_price": pos["buy_price"],
                 "shares": round(sell_shares, 4),
+                "amount": round(amount, 2),
                 "realized_pnl": realized,
             })
             print(f"  ORDER SELL {tk}: {amount:,.0f} @ {px:.2f} "
@@ -916,7 +918,7 @@ def run_ai_layer(data, prices, fear_data, today, macro=None, force=False,
       - Engine v0.6.1: in execute mode a successful verdict refreshes
         PENDING market orders (meta.ai.orders_refresh) - execution still
         only happens on market-open runs. Recommend mode (default) leaves
-        orders alone; Execute All writes them.
+        orders alone; per-proposal Book Order buttons write them.
 
     Returns (ai_verdict, fear_data) - fear_data may carry AI-blended scores.
     macro: optional live {symbol: {px, chg_1d_pct}} from fetch_macro().
