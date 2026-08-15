@@ -173,13 +173,13 @@ window.DASH = {
       "F5": {
         "prev_score": 4.1,
         "score": 4.1,
-        "days_above": 36,
+        "days_above": 37,
         "confirmed": true
       },
       "F6": {
         "prev_score": 4.9,
         "score": 4.9,
-        "days_above": 50,
+        "days_above": 51,
         "confirmed": true
       },
       "F7": {
@@ -196,7 +196,7 @@ window.DASH = {
       }
     },
     "last_rebalance_quarter": "2026Q3",
-    "asof_ts": 1786749711,
+    "asof_ts": 1786756503,
     "refresh_interval": 60
   },
   "asof": "2026-08-14",
@@ -210,7 +210,7 @@ window.DASH = {
     "start_value": 100000,
     "max_drawdown_pct": -0.05,
     "sharpe_annualized": 16.34,
-    "cagr_annualized": 632.44
+    "cagr_annualized": 391.83
   },
   "positions": [
     {
@@ -1393,7 +1393,7 @@ window.DASH = {
       "hedge_ticks": [
         "SGOV"
       ],
-      "asof": "2026-08-14",
+      "asof": "2026-08-15",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -1428,7 +1428,7 @@ window.DASH = {
         "FXY",
         "DBMF"
       ],
-      "asof": "2026-08-14",
+      "asof": "2026-08-15",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -1458,7 +1458,7 @@ window.DASH = {
         "GDX",
         "SGOV"
       ],
-      "asof": "2026-08-14",
+      "asof": "2026-08-15",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -1492,7 +1492,7 @@ window.DASH = {
         "GDX",
         "DBMF"
       ],
-      "asof": "2026-08-14",
+      "asof": "2026-08-15",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -1525,7 +1525,7 @@ window.DASH = {
         "ZROZ",
         "BTAL"
       ],
-      "asof": "2026-08-14",
+      "asof": "2026-08-15",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -1560,7 +1560,7 @@ window.DASH = {
         "BTAL",
         "ZROZ"
       ],
-      "asof": "2026-08-14",
+      "asof": "2026-08-15",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -1589,7 +1589,7 @@ window.DASH = {
         "FXY",
         "DBMF"
       ],
-      "asof": "2026-08-14",
+      "asof": "2026-08-15",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -1618,7 +1618,7 @@ window.DASH = {
         "BTAL",
         "DBMF"
       ],
-      "asof": "2026-08-14",
+      "asof": "2026-08-15",
       "degraded": false,
       "trend_dir": "flat"
     }
@@ -1914,15 +1914,30 @@ window.DASH = {
   },
   "rebalance": null,
   "news": {
-    "asof": "2026-08-14 23:21:52",
+    "asof": "2026-08-15 01:15:05",
     "big_stories": [
       {
-        "title": "PLTR Jumped 31.53% in a Month. PLTY Holders Got 28.93%",
-        "link": "https://247wallst.com/investing/etf/2026/08/14/pltr-jumped-31-53-in-a-month-plty-holders-got-28-93/?.tsrc=rss",
-        "ts": 1786744503,
-        "when": "Aug 14, 09:55 PM",
+        "title": "Jim Cramer Says Palantir (PLTR) Deserves a “Little Bit More Love” After a Massive Surge",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/jim-cramer-says-palantir-pltr-000702429.html?.tsrc=rss",
+        "ts": 1786752422,
+        "when": "Aug 15, 12:07 AM",
         "ticker": "PLTR",
         "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "Third Point Exited Nvidia and Broadcom, Made New Bet on Warner Bros. Discovery in Second Quarter",
+        "link": "https://finance.yahoo.com/m/64c7a299-0ef1-3afe-9888-95b3474ece56/third-point-exited-nvidia-and.html?.tsrc=rss",
+        "ts": 1786747380,
+        "when": "Aug 14, 10:43 PM",
+        "ticker": "SMH",
+        "industry": "Semis",
         "theory": [
           "T1",
           "T7",
@@ -1968,22 +1983,39 @@ window.DASH = {
         "industry": "Equities",
         "theory": [],
         "sent": "negative"
-      },
-      {
-        "title": "Prediction: This Small-Cap ETF Will Outperform the S&P 500 Through 2027",
-        "link": "https://www.fool.com/investing/2026/08/14/prediction-small-cap-etf-outperform-sp-500-by-2027/?.tsrc=rss",
-        "ts": 1786723980,
-        "when": "Aug 14, 04:13 PM",
-        "ticker": "IWM",
-        "industry": "Small Caps",
-        "theory": [
-          "T10",
-          "T15"
-        ],
-        "sent": "neutral"
       }
     ],
     "feed": [
+      {
+        "title": "Jim Cramer Says Palantir (PLTR) Deserves a “Little Bit More Love” After a Massive Surge",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/jim-cramer-says-palantir-pltr-000702429.html?.tsrc=rss",
+        "ts": 1786752422,
+        "when": "Aug 15, 12:07 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "Third Point Exited Nvidia and Broadcom, Made New Bet on Warner Bros. Discovery in Second Quarter",
+        "link": "https://finance.yahoo.com/m/64c7a299-0ef1-3afe-9888-95b3474ece56/third-point-exited-nvidia-and.html?.tsrc=rss",
+        "ts": 1786747380,
+        "when": "Aug 14, 10:43 PM",
+        "ticker": "SMH",
+        "industry": "Semis",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
       {
         "title": "PLTR Jumped 31.53% in a Month. PLTY Holders Got 28.93%",
         "link": "https://247wallst.com/investing/etf/2026/08/14/pltr-jumped-31-53-in-a-month-plty-holders-got-28-93/?.tsrc=rss",
@@ -2051,6 +2083,22 @@ window.DASH = {
           "T14"
         ],
         "sent": "positive"
+      },
+      {
+        "title": "Gold Rally Is Missing One Key Ingredient",
+        "link": "https://finance.yahoo.com/markets/commodities/articles/gold-rally-missing-one-key-181859656.html?.tsrc=rss",
+        "ts": 1786731539,
+        "when": "Aug 14, 06:18 PM",
+        "ticker": "GLD",
+        "industry": "Gold",
+        "theory": [
+          "T6",
+          "T9",
+          "T19",
+          "T20",
+          "T21"
+        ],
+        "sent": "negative"
       },
       {
         "title": "Palantir's $442 Billion Valuation Faces a Test",
@@ -2159,15 +2207,9 @@ window.DASH = {
         "link": "https://247wallst.com/investing/2026/08/14/the-gold-income-fund-that-turned-a-6-gold-dip-into-a-30-loss/?.tsrc=rss",
         "ts": 1786719036,
         "when": "Aug 14, 02:50 PM",
-        "ticker": "GLD",
-        "industry": "Gold",
-        "theory": [
-          "T6",
-          "T9",
-          "T19",
-          "T20",
-          "T21"
-        ],
+        "ticker": "SGOV",
+        "industry": "Equities",
+        "theory": [],
         "sent": "negative"
       },
       {
@@ -2349,10 +2391,10 @@ window.DASH = {
         "sent": "neutral"
       },
       {
-        "title": "5 ETFs to Benefit From Cooling Inflation in the Near Term",
-        "link": "https://finance.yahoo.com/economy/policy/articles/5-etfs-benefit-cooling-inflation-140000926.html?.tsrc=rss",
-        "ts": 1786629600,
-        "when": "Aug 13, 02:00 PM",
+        "title": "Gold Rally Faces Moment of Truth",
+        "link": "https://finance.yahoo.com/markets/commodities/articles/gold-rally-faces-moment-truth-165917278.html?.tsrc=rss",
+        "ts": 1786640357,
+        "when": "Aug 13, 04:59 PM",
         "ticker": "GLD",
         "industry": "Gold",
         "theory": [
@@ -2363,43 +2405,6 @@ window.DASH = {
           "T21"
         ],
         "sent": "positive"
-      },
-      {
-        "title": "Exchange-Traded Funds, Equity Futures Higher Pre-Bell Thursday Amid Producer Inflation Data Release",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/exchange-traded-funds-equity-futures-131321660.html?.tsrc=rss",
-        "ts": 1786626801,
-        "when": "Aug 13, 01:13 PM",
-        "ticker": "IWM",
-        "industry": "Small Caps",
-        "theory": [
-          "T10",
-          "T15"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Are Wall Street Analysts Bullish on Smurfit Westrock Stock?",
-        "link": "https://www.barchart.com/story/news/3827891/are-wall-street-analysts-bullish-on-smurfit-westrock-stock?.tsrc=rss",
-        "ts": 1786623391,
-        "when": "Aug 13, 12:16 PM",
-        "ticker": "XLY",
-        "industry": "Consumer Disc.",
-        "theory": [
-          "T13"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Rollins Stock: Is Wall Street Bullish or Bearish?",
-        "link": "https://www.barchart.com/story/news/3823847/rollins-stock-is-wall-street-bullish-or-bearish?.tsrc=rss",
-        "ts": 1786616582,
-        "when": "Aug 13, 10:23 AM",
-        "ticker": "XLY",
-        "industry": "Consumer Disc.",
-        "theory": [
-          "T13"
-        ],
-        "sent": "neutral"
       }
     ]
   }
