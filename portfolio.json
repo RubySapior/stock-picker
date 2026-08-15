@@ -155,8 +155,8 @@
         "confirmed": false
       },
       "F2": {
-        "prev_score": 1.9,
-        "score": 1.8,
+        "prev_score": 1.8,
+        "score": 1.9,
         "days_above": 0,
         "confirmed": false
       },
@@ -168,20 +168,20 @@
       },
       "F4": {
         "prev_score": 2.8,
-        "score": 2.8,
+        "score": 3.6,
         "days_above": 0,
         "confirmed": false
       },
       "F5": {
         "prev_score": 4.1,
         "score": 4.1,
-        "days_above": 88,
+        "days_above": 89,
         "confirmed": true
       },
       "F6": {
-        "prev_score": 4.7,
-        "score": 4.8,
-        "days_above": 102,
+        "prev_score": 4.8,
+        "score": 4.9,
+        "days_above": 103,
         "confirmed": true
       },
       "F7": {
@@ -192,7 +192,7 @@
       },
       "F8": {
         "prev_score": 2.9,
-        "score": 2.9,
+        "score": 2.8,
         "days_above": 0,
         "confirmed": false
       }
