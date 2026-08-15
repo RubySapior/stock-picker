@@ -552,7 +552,8 @@
         "prompt_hash": "9458accc5ffe86be",
         "summary": "The portfolio operates in a neutral macro regime with Tech / AI Growth (46.3% vs 60.0%) and the Hedge Stack (25.4% vs 35.0%) sitting below target allocations while Rates Shock fear (F6 at 4.9) remains"
       }
-    ]
+    ],
+    "ai_calibration": {}
   },
   "account": {
     "cash": 25.0,
