@@ -167,15 +167,13 @@ JSON verdict that feeds three deterministic layers. Nothing executes.
 
 ## [Unreleased]
 
-## [site 0.5.2.01] — 2026-08-15
+## [site 0.5.2.00] — 2026-08-15
 
 ### Fixed
 - **Theories Scorecard card overlap**: wheel cards were covering the
   card counter (`1 / N`) at the bottom of the stage — cards now sit
   18px higher (`top: calc(50% - 18px)`) with no change to the panel's
   row height.
-
-## [site 0.5.2.00] — 2026-08-15
 
 ### Added
 - **Mode toggle (Recommend | Execute)** in the AI Sentiment panel header,
