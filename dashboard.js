@@ -157,7 +157,7 @@ window.DASH = {
       },
       "F2": {
         "prev_score": 1.9,
-        "score": 1.9,
+        "score": 1.8,
         "days_above": 0,
         "confirmed": false
       },
@@ -168,7 +168,7 @@ window.DASH = {
         "confirmed": false
       },
       "F4": {
-        "prev_score": 3.6,
+        "prev_score": 2.8,
         "score": 2.8,
         "days_above": 0,
         "confirmed": false
@@ -176,13 +176,13 @@ window.DASH = {
       "F5": {
         "prev_score": 4.1,
         "score": 4.1,
-        "days_above": 87,
+        "days_above": 88,
         "confirmed": true
       },
       "F6": {
-        "prev_score": 4.9,
-        "score": 4.7,
-        "days_above": 101,
+        "prev_score": 4.7,
+        "score": 4.8,
+        "days_above": 102,
         "confirmed": true
       },
       "F7": {
@@ -192,7 +192,7 @@ window.DASH = {
         "confirmed": false
       },
       "F8": {
-        "prev_score": 2.8,
+        "prev_score": 2.9,
         "score": 2.9,
         "days_above": 0,
         "confirmed": false
@@ -554,7 +554,7 @@ window.DASH = {
         "summary": "The portfolio operates in a neutral macro regime with Tech / AI Growth (46.3% vs 60.0%) and the Hedge Stack (25.4% vs 35.0%) sitting below target allocations while Rates Shock fear (F6 at 4.9) remains"
       }
     ],
-    "asof_ts": 1786827317,
+    "asof_ts": 1786828877,
     "refresh_interval": 6
   },
   "asof": "2026-08-14",
@@ -1757,8 +1757,8 @@ window.DASH = {
       "id": "F6",
       "name": "Rates shock / duration liquidation",
       "type": "structural",
-      "score": 4.7,
-      "level": 0.945,
+      "score": 4.8,
+      "level": 0.991,
       "velocity": null,
       "trend": {
         "label": "50d trend",
@@ -1772,7 +1772,7 @@ window.DASH = {
         },
         {
           "label": "10y yield level",
-          "value": 0.875
+          "value": 0.988
         }
       ],
       "theory_ids": [
@@ -1783,7 +1783,7 @@ window.DASH = {
       ],
       "asof": "2026-08-15",
       "degraded": false,
-      "trend_dir": "falling"
+      "trend_dir": "flat"
     },
     {
       "id": "F5",
@@ -1915,7 +1915,7 @@ window.DASH = {
       ],
       "asof": "2026-08-15",
       "degraded": false,
-      "trend_dir": "falling"
+      "trend_dir": "flat"
     },
     {
       "id": "F1",
@@ -1956,8 +1956,8 @@ window.DASH = {
       "id": "F2",
       "name": "Yen-carry unwind",
       "type": "episodic",
-      "score": 1.9,
-      "level": 0.235,
+      "score": 1.8,
+      "level": 0.231,
       "velocity": {
         "label": "5d velocity",
         "value": -0.009,
@@ -1967,7 +1967,7 @@ window.DASH = {
       "signals": [
         {
           "label": "Yen strength (FXY level)",
-          "value": 0.235
+          "value": 0.231
         }
       ],
       "theory_ids": [
@@ -2012,17 +2012,17 @@ window.DASH = {
     }
   ],
   "complacency": {
-    "index": 0.145,
+    "index": 0.14,
     "valuation_stretch": 0.621,
-    "fear_term": 0.233,
-    "divergence": 0.476,
-    "fear_avg": 4.07,
+    "fear_term": 0.225,
+    "divergence": 0.481,
+    "fear_avg": 4.1,
     "regime": "fragility",
     "note": "Fragility regime - macro divergence: equities stretched while macro fears run high. Equities expected to crack.",
     "pay_check": {
       "fear_id": "F6",
       "fear_name": "Rates shock / duration liquidation",
-      "score": 4.7,
+      "score": 4.8,
       "checks": [
         {
           "ticker": "SGOV",
@@ -2618,7 +2618,7 @@ window.DASH = {
     "enabled": true
   },
   "news": {
-    "asof": "2026-08-15 20:55:18",
+    "asof": "2026-08-15 21:21:18",
     "big_stories": [
       {
         "title": "Cathie Wood sells $11.6 million of surging tech stock",
@@ -2856,6 +2856,22 @@ window.DASH = {
         "sent": "positive"
       },
       {
+        "title": "Gold Rally Is Missing One Key Ingredient",
+        "link": "https://finance.yahoo.com/markets/commodities/articles/gold-rally-missing-one-key-181859656.html?.tsrc=rss",
+        "ts": 1786731539,
+        "when": "Aug 14, 06:18 PM",
+        "ticker": "GLD",
+        "industry": "Gold",
+        "theory": [
+          "T6",
+          "T9",
+          "T19",
+          "T20",
+          "T21"
+        ],
+        "sent": "negative"
+      },
+      {
         "title": "Palantir's $442 Billion Valuation Faces a Test",
         "link": "https://finance.yahoo.com/markets/stocks/articles/palantirs-442-billion-valuation-faces-180950928.html?.tsrc=rss",
         "ts": 1786730990,
@@ -2962,15 +2978,9 @@ window.DASH = {
         "link": "https://247wallst.com/investing/2026/08/14/the-gold-income-fund-that-turned-a-6-gold-dip-into-a-30-loss/?.tsrc=rss",
         "ts": 1786719036,
         "when": "Aug 14, 02:50 PM",
-        "ticker": "GLD",
-        "industry": "Gold",
-        "theory": [
-          "T6",
-          "T9",
-          "T19",
-          "T20",
-          "T21"
-        ],
+        "ticker": "SGOV",
+        "industry": "Equities",
+        "theory": [],
         "sent": "negative"
       },
       {
@@ -3034,10 +3044,14 @@ window.DASH = {
         "link": "https://finance.yahoo.com/markets/stocks/articles/exchange-traded-funds-higher-equity-131348296.html?.tsrc=rss",
         "ts": 1786713228,
         "when": "Aug 14, 01:13 PM",
-        "ticker": "XLY",
-        "industry": "Consumer Disc.",
+        "ticker": "GLD",
+        "industry": "Gold",
         "theory": [
-          "T13"
+          "T6",
+          "T9",
+          "T19",
+          "T20",
+          "T21"
         ],
         "sent": "neutral"
       },
@@ -3079,18 +3093,6 @@ window.DASH = {
         "sent": "negative"
       },
       {
-        "title": "Sector Update: Consumer Stocks Advance Late Afternoon",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-advance-afternoon-193514616.html?.tsrc=rss",
-        "ts": 1786649714,
-        "when": "Aug 13, 07:35 PM",
-        "ticker": "XLY",
-        "industry": "Consumer Disc.",
-        "theory": [
-          "T13"
-        ],
-        "sent": "neutral"
-      },
-      {
         "title": "Sector Update: Consumer Stocks Rise in Afternoon Trading",
         "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-rise-afternoon-173751918.html?.tsrc=rss",
         "ts": 1786642671,
@@ -3103,10 +3105,10 @@ window.DASH = {
         "sent": "neutral"
       },
       {
-        "title": "5 ETFs to Benefit From Cooling Inflation in the Near Term",
-        "link": "https://finance.yahoo.com/economy/policy/articles/5-etfs-benefit-cooling-inflation-140000926.html?.tsrc=rss",
-        "ts": 1786629600,
-        "when": "Aug 13, 02:00 PM",
+        "title": "Gold Rally Faces Moment of Truth",
+        "link": "https://finance.yahoo.com/markets/commodities/articles/gold-rally-faces-moment-truth-165917278.html?.tsrc=rss",
+        "ts": 1786640357,
+        "when": "Aug 13, 04:59 PM",
         "ticker": "GLD",
         "industry": "Gold",
         "theory": [
