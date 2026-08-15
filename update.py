@@ -738,9 +738,10 @@ def refresh_orders_from_ai(data, verdict, today):
                        verdict's proposals are recommendations only and
                        become orders via the dashboard's Book Order
                        buttons (POST /book), i.e. per-proposal human approval.
-    Each proposal is sized at meta.ai.order_size USD (direction only; the
-    engine sizes, the human approved the sizing). Rotation pairs become
-    TWO orders (sell leg + buy leg) at the same size. Executed orders
+    Each proposal is sized at order_size x |conviction_score| (conviction-
+    scaled, see ai_sentiment.bullish_layer - the amount lives on the
+    proposal). Rotation pairs become TWO orders (sell leg + buy leg) at
+    the flat order_size (no conviction on a rotation). Executed orders
     stay as history; only pending ones are replaced.
     """
     cfg = (data.get("meta") or {}).get("ai") or {}
@@ -762,7 +763,7 @@ def refresh_orders_from_ai(data, verdict, today):
         created.append({
             "ticker": p["ticker"],
             "action": action,
-            "amount": round(size, 2),
+            "amount": round(float(p.get("amount") or size), 2),
             "status": "pending",
             "source": f"ai_{today}",
             "created": today,
@@ -931,6 +932,11 @@ def run_ai_layer(data, prices, fear_data, today, macro=None, force=False,
         return None, fear_data
     try:
         state = data.setdefault("meta", {}).setdefault("ai_state", {})
+        if state.get("last_sentiment_index") is None:
+            v = (data["meta"].get("ai_last_output") or {})
+            conv = [c["conviction_score"] for c in v.get("convictions") or []]
+            if conv:
+                state["last_sentiment_index"] = round(sum(conv) / len(conv), 2)
         if not force and not market_is_open():
             return None, fear_data
         max_calls = int(cfg.get("max_daily_calls", 3))
@@ -948,6 +954,15 @@ def run_ai_layer(data, prices, fear_data, today, macro=None, force=False,
         state["last_call_date"] = today
         state["calls_today"] = state.get("calls_today", 0) + 1
         state["last_call_ts"] = time.strftime("%H:%M:%S")
+
+        conv = [c["conviction_score"] for c in verdict.get("convictions") or []]
+        sent_idx = round(sum(conv) / len(conv), 2) if conv else None
+        prev_idx = state.get("last_sentiment_index")
+        sent_delta = (round(sent_idx - prev_idx, 2)
+                      if sent_idx is not None and prev_idx is not None else None)
+        if sent_idx is not None:
+            state["last_sentiment_index"] = sent_idx
+        state["last_sentiment_delta"] = sent_delta
         data["meta"]["ai_last_output"] = verdict
 
         ledger = data["meta"].setdefault("ai_ledger", [])
@@ -1208,9 +1223,12 @@ def build_ai_payload(verdict, data, gauge=None):
         return None
     meta = data.get("meta") or {}
     calib = meta.get("ai_calibration") or {}
+    state = meta.get("ai_state") or {}
     return {
         "asof": verdict["date"],
         "macro_stance": verdict["macro_stance"],
+        "sentiment_index": state.get("last_sentiment_index"),
+        "sentiment_delta": state.get("last_sentiment_delta"),
         "sector_bias": verdict["sector_bias"],
         "theories": verdict["theories"],
         "fears": verdict["fears"],

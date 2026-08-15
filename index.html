@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI Port-picker</title>
-<link rel="stylesheet" href="styles.css?v=32">
+<link rel="stylesheet" href="styles.css?v=33">
 </head>
 <!--
   Page skeleton only. Every section below is filled by app.js from the
@@ -92,9 +92,12 @@
       <h2>AI Sentiment <span class="aiBadge" id="aiStatus">OFF</span></h2>
       <span class="muted small" id="aiSub"></span>
       <span class="aiCtl" id="aiCtl">
-        <span class="aiModeLabel">MODE</span>
-        <button id="modeRecommend" class="modeBtn active">RECOMMEND</button>
-        <button id="modeExecute" class="modeBtn">EXECUTE</button>
+        <span class="biasWrap" title="Your sentiment lean (-5 fearful ... +5 bullish) — fed into the AI prompt, shown separately from the CNN gauge">
+          <label class="aiModeLabel" for="biasSlider">BIAS</label>
+          <input type="range" id="biasSlider" min="-5" max="5" step="1" value="0">
+          <span class="biasVal" id="biasVal">0</span>
+        </span>
+        <button id="execAllBtn" class="execAllBtn" title="Turn all current AI proposals + rotations into human-approved pending market orders (conviction-scaled amounts)">Book All Proposals &rarr; Orders</button>
       </span>
     </div>
     <div id="aiHeartbeat"></div>
@@ -188,6 +191,6 @@
 </div>
 
 <script src="wheel.js?v=8"></script>
-<script src="app.js?v=34" defer></script>
+<script src="app.js?v=35" defer></script>
 </body>
 </html>

@@ -167,6 +167,46 @@ JSON verdict that feeds three deterministic layers. Nothing executes.
 
 ## [Unreleased]
 
+## [site 0.5.4.01] — 2026-08-15
+
+### Version policy change (user-decreed)
+- From now on the AI only bumps the **patch digits**: `site` moves
+  `0.5.4.00 &rarr; 0.5.4.01 &rarr; 0.5.4.02 ...`. The user alone bumps the
+  feature digit (`0.5.4 &rarr; 0.5.5`) and the stage marker; the engine
+  (`algo`) only on user-announced milestones. `AGENTS.md` rewritten to
+  match.
+
+### Changed
+- **Booking flow restored + relabeled**: the EXECUTE-mode toggle is gone.
+  "Execute All" is back as **Book All Proposals &rarr; Orders** (restored
+  `serve.py POST /execute_all`, books the whole verdict queue at once) and
+  each proposal card's button is now **Book Proposal** (the per-card
+  `POST /book`). Recommend mode is the only mode.
+- **Conviction-scaled order sizing**: proposal amounts are now
+  `order_size &times; |conviction_score|` (e.g. TQQQ 0.65 &rarr; $1,625 of
+  the $2,500 size), computed in `ai_sentiment.bullish_layer()` and carried
+  on the proposal; `refresh_orders_from_ai`, `/book` and `/execute_all`
+  book that amount. Rotation legs stay flat at `order_size`.
+- **Port-weight line on proposal cards**: `Port 4.0% &rarr; 4.1% (+$1,625)`
+  in green (growing exposure) / red (trimming), computed against the live
+  book value.
+- **Sentiment slider (BIAS)**: a &minus;5..+5 slider in the AI panel posts
+  `serve.py POST /bias` &rarr; `meta.ai.user_bias`, embedded in the Gemini
+  prompt as "USER SENTIMENT BIAS" (tilts stance + convictions, never
+  overrides the skews). The heartbeat bar now also shows a **Sentiment
+  index**: mean conviction score of the last verdict with the &Delta;
+  vs the previous verdict.
+- **AI subtitle trimmed** to `Last read <asof>` (Tier A/B line removed);
+  news disclaimers elsewhere unchanged.
+- **CNN Fear &amp; Greed labels**: gauge and heartbeat now read "CNN
+  Fear&amp;Greed".
+- **Trade Events fallback**: if no trades happened in the 7-day window the
+  card now lists the latest non-trade events (deploy cash, rebalance
+  flags, AI reads) instead of showing empty.
+- `update.py` records `sentiment_index` / `sentiment_delta` in
+  `meta.ai_state`; `build_ai_payload()` exposes them; `meta.ai.user_bias`
+  added (default 0).
+
 ## [site 0.5.4.00] — 2026-08-15
 
 ### Changed

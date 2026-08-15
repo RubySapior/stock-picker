@@ -172,7 +172,7 @@ def build_fact_deltas(last, snapshot):
 # ---------------------------------------------------------------- prompt
 
 def build_prompt(cfg, snapshot, deltas, theories=None, calibration=None,
-                 last=None):
+                 last=None, user_bias=0):
     """Assemble the fixed-structure prompt from Tier A facts only.
 
     Engine v0.6.1: this is a CHANGE-DETECT pass. The previous verdict is
@@ -276,6 +276,16 @@ def build_prompt(cfg, snapshot, deltas, theories=None, calibration=None,
                   "starts DISCOUNTED - weigh evidence over ego; a fresh "
                   "correct run restores it.\n"
                   % json.dumps(calib))
+    if user_bias:
+        rules += ("\nUSER SENTIMENT BIAS (the human operator's lean - your "
+                  "override on top of the CNN crowding gauge): %+d on a "
+                  "-5..+5 scale (+ = the operator is bullish, - = bearish). "
+                  "Tilt your macro_stance and conviction scores accordingly: "
+                  "bias >= 2 leans risk_on with slightly more positive "
+                  "convictions; bias <= -2 leans risk_off with trimmed "
+                  "convictions. A bias skews - it never overrides hard "
+                  "facts: do not flip a conviction against the evidence.\n"
+                  % user_bias)
     body = (
         "You are the sentiment/conviction layer of a barbell portfolio engine.\n"
         "Answer with ONLY a single valid JSON object - no markdown fences, no "
@@ -664,21 +674,23 @@ def bullish_layer(verdict, data, prices=None):
     Ticker whitelist: only OPEN holdings from `data` survive - hallucinated
     tickers (NVDA, TLT, ...) are dropped with a warning, never fatal.
     Omitted holdings need no action by construction (the engine assumes
-    conviction 0.0). The engine's sizing math lives here later (caps,
-    leverage, vol scalars).
+    conviction 0.0).
 
-    The engine's sizing math lives here later (caps, leverage, vol
-    scalars). For the draft this returns the raw conviction proposals
-    plus their urgency/confidence so the UI can gate them.
+    Sizing (UI v0.5.4): amount = meta.ai.order_size x |conviction_score| -
+    the conviction scales the dollar size (conv 0.65 -> $1,625 of a $2,500
+    order_size); direction comes from the sign. The UI displays the
+    port-weight impact from this amount; booking uses the same number.
     """
     whitelist = {p["ticker"] for p in data.get("positions") or []
                  if p.get("status") == "open"}
+    size = float(((data.get("meta") or {}).get("ai") or {}).get("order_size", 2500))
     proposals = []
     for c in verdict.get("convictions") or []:
         if whitelist and c["ticker"] not in whitelist:
             print(f"  WARN: AI conviction for {c['ticker']} not in holdings - discarded")
             continue
         p = dict(c)
+        p["amount"] = int(round(size * abs(float(p.get("conviction_score", 0)))))
         if p["conviction_score"] > 0:
             p["action"] = "add" if p["conviction_score"] >= 0.5 else "buy"
         else:
@@ -732,7 +744,8 @@ def run(data, prices, fear_data=None, macro=None, sentiment=None,
         pass
     prompt = build_prompt(cfg, snapshot, deltas,
                           theories=data.get("theories"),
-                          calibration=calibration, last=last)
+                          calibration=calibration, last=last,
+                          user_bias=int(cfg.get("user_bias") or 0))
     raw = call_ai(cfg, prompt)
     obj = _extract_json(raw)
     verdict = _validate_verdict(obj, allowed_fears=allowed_fears)

@@ -196,7 +196,7 @@ function render() {
       ].map(([c,_,n,lo,hi]) => `<span class="fgZone" style="background:${c}" title="${n} (${lo}-${hi})"></span>`).join('');
       const pos = Math.max(0, Math.min(94, (idx/100)*94));
       cLine = `<span class="fgWrap" title="Crowding check: at >=75 additions are crowded; <=25 is panic-dip territory (CNN-style Fear &amp; Greed)">
-        <span class="fgLabel">Fear &amp; Greed</span>
+        <span class="fgLabel">CNN Fear &amp; Greed</span>
         <span class="fgTrack">${zoned}<span class="fgNeedle" style="left:${pos}%"></span></span>
         <span class="fgVal ${idx>=75?'neg':(idx<=25?'pos':'')}">${esc(FG.label)} ${idx}/100</span>
       </span>`;
@@ -356,7 +356,7 @@ function render() {
     applyThView();
   }
 
-  /* ---- trade events (main page: bought / sold + money, nothing else) ---- */
+  /* ---- trade events (main page: bought / sold + money; fallback to recent events) ---- */
   function renderEvents(){
     const evBox = document.getElementById('events');
     const isTrade = e => e.reason === 'market_order' || e.reason === 'take_profit' ||
@@ -365,13 +365,12 @@ function render() {
       : (e.shares != null && e.price != null ? e.shares * e.price : null);
     const isBuy = e => e.reason === 'market_order'
       ? /^BUY/.test(e.note || '') : (e.reason === 're_entry');
-    const trades = D.events.filter(isTrade);
-    if (!trades.length) evBox.innerHTML = '<div class="muted small">No trades yet. Buys and sells (AI orders, take-profits, stop-losses) will appear here.</div>';
-    else {
-      const asof = new Date(D.asof + 'T00:00:00');
-      const cutoff = new Date(asof); cutoff.setDate(cutoff.getDate() - 6);
-      let evs = trades.filter(e => new Date(e.date + 'T00:00:00') >= cutoff);
-      if (evs.length < 2) evs = trades.slice(-2);
+    const asof = new Date(D.asof + 'T00:00:00');
+    const cutoff = new Date(asof); cutoff.setDate(cutoff.getDate() - 6);
+    const recent = D.events.filter(e => new Date(e.date + 'T00:00:00') >= cutoff);
+    const trades = recent.filter(isTrade);
+    if (trades.length) {
+      let evs = trades.length >= 2 ? trades : D.events.filter(isTrade).slice(-2);
       evBox.innerHTML = evs.slice().reverse().map(e => {
         const buy = isBuy(e);
         const money = moneyOf(e);
@@ -382,6 +381,16 @@ function render() {
             <span class="muted small">${e.date}</span></div>
         </div>`;
       }).join('');
+    } else if (recent.length) {
+      evBox.innerHTML = recent.slice().reverse().slice(0, 6).map(e => `
+        <div class="eventline">
+          <div class="evWho"><strong title="${escA(NAME[e.ticker]||e.ticker)}">${e.ticker || 'SYSTEM'}</strong>
+            <span class="pill ${e.reason==='take_profit'?'tp':(e.reason==='stop_loss'?'sl':(e.reason==='rebalance_recommended'?'warn':'open'))}">${e.reason.toUpperCase()}</span>
+            <span class="muted small">${e.date}</span></div>
+          ${e.note ? `<div class="small muted">${escA(e.note)}</div>` : ''}
+        </div>`).join('');
+    } else {
+      evBox.innerHTML = '<div class="muted small">No recent activity. Buys and sells will appear here.</div>';
     }
   }
 
@@ -890,17 +899,10 @@ function render() {
 
     stEl.textContent = 'ACTIVE';
     stEl.className = 'aiBadge active';
-    subEl.textContent = `Last read ${escA(A.asof)} · Tier A grounded (prices, fears, exposures) · Tier B news: display only`;
+    subEl.textContent = `Last read ${escA(A.asof)}`;
 
-    /* 0) mode toggle + per-proposal booking (serve.py endpoints; file:// degrades) */
+    /* 0) booking controls + sentiment slider (serve.py endpoints; file:// degrades) */
     const mode = A.mode || 'recommend';
-    const mkBtn = (id, active) => {
-      const b = document.getElementById(id);
-      if(b){ b.classList.toggle('active', active); b.dataset.mode = mode; }
-      return b;
-    };
-    mkBtn('modeRecommend', mode === 'recommend');
-    mkBtn('modeExecute', mode === 'execute');
     async function post(path, body){
       const r = await fetch(path, {
         method: 'POST',
@@ -925,25 +927,54 @@ function render() {
       }
       location.reload();
     }
-    wireOnce(mkBtn('modeRecommend'), () => setMode('recommend'));
-    wireOnce(mkBtn('modeExecute'), () => setMode('execute'));
-    async function setMode(m){
+    const ea = document.getElementById('execAllBtn');
+    wireOnce(ea, async () => {
+      ea.disabled = true;
       try{
-        const j = await post('/mode', {mode: m});
-        if(j.ok){ location.reload(); } else { alert('Mode switch failed:\n' + (j.error || (j.output||'').slice(-400))); }
+        const j = await post('/execute_all');
+        if(!j.ok) throw new Error(j.error || 'booking failed');
+        alert(`Booked all proposals: ${j.created||0} order(s) written to portfolio.json (pending).\n\n` + (j.output||'').slice(-500));
       }catch(e){
-        alert('Mode toggle needs the local server: run `python serve.py` and open http://localhost:8000.');
+        alert('Book All Proposals needs the local server: run `python serve.py` and open http://localhost:8000.');
       }
+      location.reload();
+    });
+    const biasEl = document.getElementById('biasSlider');
+    const biasVal = document.getElementById('biasVal');
+    const bias = cfg.user_bias != null ? Number(cfg.user_bias) : 0;
+    if(biasEl){ biasEl.value = bias; if(biasVal) biasVal.textContent = (bias>0?'+':'') + bias; }
+    if(biasEl && !biasEl.dataset.wired){
+      biasEl.dataset.wired = '1';
+      let biasTimer = null;
+      biasEl.addEventListener('input', () => {
+        if(biasVal) biasVal.textContent = (biasEl.value>0?'+':'') + biasEl.value;
+        clearTimeout(biasTimer);
+        biasTimer = setTimeout(async () => {
+          try{
+            const j = await post('/bias', {value: Number(biasEl.value)});
+            if(!j.ok) throw new Error(j.error || 'bias failed');
+          }catch(e){
+            alert('Sentiment slider needs the local server: run `python serve.py` and open http://localhost:8000.');
+          }
+          location.reload();
+        }, 700);
+      });
     }
     if(ctl) ctl.style.display = '';
 
     /* 1) heartbeat & regime bar */
     const st = A.state || {};
     const G = D.fear_greed || A.gauge;
-    const gaugeTxt = G ? `<span class="aiBarItem"><strong>Fear&Greed:</strong> <span class="${G.index>=75?'neg':(G.index<=25?'pos':'')}">${escA(G.label)} (${G.index}/100)</span></span>` : '';
+    const gaugeTxt = G ? `<span class="aiBarItem"><strong>CNN Fear&Greed:</strong> <span class="${G.index>=75?'neg':(G.index<=25?'pos':'')}">${escA(G.label)} (${G.index}/100)</span></span>` : '';
+    const sentIdx = A.sentiment_index;
+    const sentTxt = sentIdx != null
+      ? `<span class="aiBarItem"><strong>Sentiment:</strong> <span class="sentIdx ${sentIdx>0.05?'pos':(sentIdx<-0.05?'neg':'muted')}">${sentIdx>0?'Bullish':'Bearish'} ${Math.abs(sentIdx).toFixed(2)}</span>` +
+        (A.sentiment_delta != null ? ` <span class="muted small">(${A.sentiment_delta>0?'+':''}${A.sentiment_delta.toFixed(2)})</span>` : '') +
+        `</span>` : '';
     hb.innerHTML = `
       <div class="aiBar">
         <span class="aiBarItem"><strong>Stance:</strong> ${stancePill(A.macro_stance)}</span>
+        ${sentTxt}
         <span class="aiBarItem"><strong>Last call:</strong> ${escA(st.last_call_date || '–')}${st.last_call_ts ? ' · ' + escA(st.last_call_ts) : ''}</span>
         <span class="aiBarItem"><strong>Calls today:</strong> ${st.calls_today || 0}/${cfg.max_daily_calls || 3}</span>
         ${gaugeTxt}
@@ -952,7 +983,7 @@ function render() {
       <div class="muted small" style="margin:6px 0 2px;">${escA(A.summary)}</div>`;
     const modeNote = mode === 'execute'
       ? '<div class="small" style="margin-top:4px;"><span class="pill sl">EXECUTE MODE</span> <span class="muted">AI refresh auto-replaces pending orders with the verdict. Deterministic TP/SL and vol-halts still overrule everything.</span></div>'
-      : '<div class="small" style="margin-top:4px;"><span class="pill warn">RECOMMEND MODE</span> <span class="muted">Proposals are advice — nothing becomes an order until you press <strong>Book Order</strong> on a proposal. Change mode with the buttons above.</span></div>';
+      : '<div class="small" style="margin-top:4px;"><span class="pill warn">RECOMMEND MODE</span> <span class="muted">Proposals are advice — nothing becomes an order until you press <strong>Book Proposal</strong> (or <strong>Book All Proposals</strong>).</span></div>';
     hb.innerHTML += modeNote;
 
     /* 2) actionable proposal queue (snooze/dismiss in localStorage) */
@@ -978,7 +1009,16 @@ function render() {
     const urgCls = p => p.urgency >= 75 ? 'red' : (p.urgency >= 50 ? 'amber' : 'low');
     pr.innerHTML = `
       <h3 class="aiColHead">Actionable Proposals <span class="muted small">(${visProps.length})</span></h3>
-      ${visProps.length ? visProps.map(p => `
+      ${visProps.length ? visProps.map(p => {
+        const pos = (D.positions||[]).find(x => x.ticker === p.ticker);
+        const tv = (s && s.total_value) || 1;
+        const pct = pos ? pos.current_value / tv * 100 : 0;
+        const dAmt = (p.amount != null ? p.amount : 0) * ((p.action === 'trim' || p.action === 'sell') ? -1 : 1);
+        const newPct = pct + dAmt / tv * 100;
+        const portLine = (p.amount != null && p.amount > 0)
+          ? `<div class="portChg ${dAmt >= 0 ? 'pos' : 'neg'}">Port ${pct.toFixed(1)}% &rarr; ${newPct.toFixed(1)}% <span class="muted small">(${dAmt >= 0 ? '+' : '&minus;'}${fmt$(Math.abs(dAmt))})</span></div>`
+          : '';
+        return `
         <div class="propCard urg${urgCls(p)}" data-id="${escA(pId(p))}">
           <div class="propInner">
             <div class="propFace propFront">
@@ -988,9 +1028,10 @@ function render() {
                 <span class="muted small">conv ${p.conviction_score>0?'+':''}${fmtN(p.conviction_score,2)}</span>
                 <span class="urgTag urg${urgCls(p)}">URGENCY ${p.urgency}/100</span>
               </div>
+              ${portLine}
               <div class="small muted" style="margin:6px 0;">${escA(p.rationale)}</div>
               <div class="aiBtns">
-                <button class="aiBtn" data-act="book">Book Order</button>
+                <button class="aiBtn" data-act="book">Book Proposal</button>
                 <button class="aiBtn ghost" data-act="snooze">Snooze (temp 1m)</button>
                 <button class="aiBtn ghost" data-act="dismiss">Dismiss</button>
               </div>
@@ -1004,7 +1045,8 @@ function render() {
               </div>
             </div>
           </div>
-        </div>`).join('')
+        </div>`;
+      }).join('')
       : '<div class="muted small">No open proposals. Low-urgency (&lt;50) reads stay silent — see the ledger below.</div>'}`;
     const rotRows = (A.rotations||[]).map(r => `
       <div class="rotRow">
@@ -1132,7 +1174,7 @@ function render() {
     if(noteEl){
       noteEl.innerHTML = mode === 'execute'
         ? 'Human-approved orders. Executed at the live price on the next market-open run. <span class="pill sl">EXECUTE MODE</span> — AI refresh auto-replaces pending orders with each new verdict.'
-        : 'Human-approved orders. Executed at the live price on the next market-open run. <span class="pill warn">RECOMMEND MODE</span> — orders are written one at a time when you press <strong>Book Order</strong> on an AI proposal.';
+        : 'Human-approved orders. Executed at the live price on the next market-open run. <span class="pill warn">RECOMMEND MODE</span> — orders are written when you press <strong>Book Proposal</strong> on an AI proposal, or <strong>Book All Proposals</strong> for the whole queue.';
     }
     document.getElementById('ordersList').innerHTML = O.map(o => {
       const isBuy = o.action === 'buy';

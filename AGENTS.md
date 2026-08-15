@@ -70,10 +70,12 @@ user-deemed milestones.
 - **Site notation `v0.5.F.PP`**:
   - `0.5` — the big stage marker; bumped ONLY when the user says so
     ("increment 0.5 -> 6"). Never bump it on your own.
-  - `F` (feature) — increments on every new feature (0.5.1 → 0.5.2).
-  - `PP` (patch, two digits) — increments on bug fixes for a new feature
-    (0.5.1.01 → 0.5.1.02); resets to 01 when the feature digit bumps.
-  - Current baseline: **v0.5.4.00**.
+  - `F` (feature) — incremented ONLY BY THE USER (v0.5.4 → v0.5.5).
+    Never bump it on your own.
+  - `PP` (patch, two digits) — the ONLY part the AI bumps: every prompt's
+    UI change set increments it (0.5.4.00 → 0.5.4.01 → 0.5.4.02); it resets
+    to 00 when the user bumps the feature digit.
+  - Current baseline: **v0.5.4.01**.
 - **Engine (algo) bumps RARELY** — the user announces them explicitly. UI
   tweaks and small data-rule edits do NOT bump the engine.
 - Roadmap: **UI v1** = accounts/sign-in with a personalized AI per user
@@ -81,7 +83,7 @@ user-deemed milestones.
   (real-time sentiment + AI analysis, weekly rebalance). Versions approach
   1.0 only as these goals are hit. See CHANGELOG.md "Roadmap & version
   policy".
-- Header displays the versions as "UI v0.5.4.00 · Engine vX.Y.Z" (JSON keys
+- Header displays the versions as "UI v0.5.4.01 · Engine vX.Y.Z" (JSON keys
   remain `site`/`algo`).
 - Each bump gets a `CHANGELOG.md` entry under `[site 0.5.F.PP]` /
   `[algo x.y.z]` sections.
@@ -115,8 +117,12 @@ user-deemed milestones.
   AI verdict REPLACES pending orders with its proposals + rotations
   (`meta.ai.orders_refresh`, sized at `meta.ai.order_size`); in
   **recommend** mode orders are written one at a time by the dashboard's
-  **Book Order** buttons (`serve.py POST /book`, human approval per
-  proposal / rotation legs).
+  **Book Proposal** buttons (`serve.py POST /book`) or all at once by
+  **Book All Proposals** (`POST /execute_all`), human approval per
+  proposal / rotation legs. Proposal amounts are conviction-scaled
+  (`order_size × |conviction_score|`); rotation legs use the flat
+  `order_size`. `meta.ai.user_bias` (-5..+5, `POST /bias`) is the user's
+  sentiment lean embedded in the AI prompt.
   Executed history is pruned to the last 15.
 - **Sector limits, not targets**: `meta.limits.rebalance.limits` are
   exposure LIMITS compared by the quarterly audit (old key `targets`
@@ -203,10 +209,14 @@ Owned by `write_dashboard()` in `update.py`. `app.js` reads these fields:
   ("risk_on"/"neutral"/"risk_off"), `sector_bias[]`, `theories[]` (verdict/
   confidence/evidence), `fears[]` (sentiment_score), `convictions[]`
   (conviction_score -1..1, urgency, confidence, rationale), `proposals[]`
-  (action buy/sell/add/trim from `bullish_layer`, urgency-sorted),
+  (action buy/sell/add/trim from `bullish_layer`, urgency-sorted, each
+  carrying `amount` = order_size × |conviction_score|, rounded),
   `rotations[]` (`{sell, buy, rationale}` — paired orders, engine sizes
-  both legs), `fear_proposals[]` (staged AI scenarios, pending review),
-  `mode` ("recommend"/"execute"), `gauge` (null or `{index, label}` CNN-
+  both legs at flat order_size), `sentiment_index` (mean conviction of the
+  last verdict) + `sentiment_delta` (vs previous verdict, from
+  `meta.ai_state.last_sentiment_index`), `fear_proposals[]` (staged AI
+  scenarios, pending review), `mode` ("recommend"/"execute"),
+  `gauge` (null or `{index, label}` CNN-
   style Fear & Greed), `calibration` (`{ticker: {wrong, total,
   last_wrong}}` — wrong-call track record), `summary`, `ledger[]` (last
   14 verdicts), `state` (cadence bookkeeping),

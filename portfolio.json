@@ -1,7 +1,7 @@
 {
   "meta": {
     "version": {
-      "site": "0.5.4.00",
+      "site": "0.5.4.01",
       "algo": "0.6.0"
     },
     "name": "HyperGrowth Sharpe Barbell v5 - Conviction-First",
@@ -175,13 +175,13 @@
       "F5": {
         "prev_score": 4.1,
         "score": 4.1,
-        "days_above": 95,
+        "days_above": 99,
         "confirmed": true
       },
       "F6": {
         "prev_score": 4.9,
         "score": 4.9,
-        "days_above": 109,
+        "days_above": 113,
         "confirmed": true
       },
       "F7": {
@@ -213,13 +213,15 @@
       "urgency_threshold": 65,
       "orders_refresh": true,
       "order_size": 2500,
-      "note": "AI Sentiment Decision Layer (algo 0.6.0). ENABLED. 1x daily LLM call at market open + circuit re-runs (max 3/day), Tier A data only - the RSS news feed (Tier B) never enters the prompt while news_to_sentiment is false. Provider: gemini via OpenRouter (router=openrouter) - model google/gemini-3.7-flash with EXTENDED THINKING (reasoning_effort=high; mandatory reasoning on this model). Key: OPENROUTER_API_KEY env var, else opencode auth.json 'openrouter' entry. Engine v0.6.0: on a successful verdict, pending MARKET ORDERS (portfolio.json 'orders') are replaced with the verdict's proposals, sized at order_size (2500) - the AI never trades directly; orders execute at the LIVE price on market-open runs only. Orders are human-approved: hand-edit portfolio.json to cancel/modify. AI is read-only otherwise: appends theory evidence + one audit event, blends DISPLAYED fear scores (meta.fear_state stays market-witness); it never touches positions or statuses."
+      "note": "AI Sentiment Decision Layer (algo 0.6.0). ENABLED. 1x daily LLM call at market open + circuit re-runs (max 3/day), Tier A data only - the RSS news feed (Tier B) never enters the prompt while news_to_sentiment is false. Provider: gemini via OpenRouter (router=openrouter) - model google/gemini-3.7-flash with EXTENDED THINKING (reasoning_effort=high; mandatory reasoning on this model). Key: OPENROUTER_API_KEY env var, else opencode auth.json 'openrouter' entry. Engine v0.6.0: on a successful verdict, pending MARKET ORDERS (portfolio.json 'orders') are replaced with the verdict's proposals, sized at order_size (2500) - the AI never trades directly; orders execute at the LIVE price on market-open runs only. Orders are human-approved: hand-edit portfolio.json to cancel/modify. AI is read-only otherwise: appends theory evidence + one audit event, blends DISPLAYED fear scores (meta.fear_state stays market-witness); it never touches positions or statuses.",
+      "user_bias": 0
     },
     "ai_state": {
       "last_call_date": "2026-08-14",
       "calls_today": 1,
       "last_call_ts": "19:40:10",
-      "note": "manual run (market closed) - Friday data, first read"
+      "note": "manual run (market closed) - Friday data, first read",
+      "last_sentiment_index": 0.36
     },
     "ai_last_output": {
       "date": "2026-08-14",

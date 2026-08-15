@@ -271,11 +271,17 @@
 .aiFearTable th{text-align:left; color:var(--muted); font-weight:600; font-size:11px; text-transform:uppercase; letter-spacing:.05em; padding:5px 8px; border-bottom:1px solid var(--border);}
 .aiFearTable td{padding:5px 8px; border-bottom:1px solid rgba(128,138,152,.12);}
 .aiWit{font-size:10.5px; color:var(--amber); font-weight:600;}
-.aiCtl{display:inline-flex; align-items:center; gap:6px; margin-left:auto;}
+.aiCtl{display:inline-flex; align-items:center; gap:8px; margin-left:auto;}
 .aiModeLabel{font-size:10px; font-weight:700; letter-spacing:.08em; color:var(--muted);}
-.modeBtn{background:transparent; color:var(--muted); border:1px solid var(--border); border-radius:8px; padding:4px 12px; font-size:11.5px; font-weight:700; letter-spacing:.05em; cursor:pointer;}
-.modeBtn:hover{color:var(--txt); border-color:var(--blue);}
-.modeBtn.active{background:rgba(56,189,248,.14); color:var(--blue); border-color:rgba(56,189,248,.5);}
+.biasWrap{display:inline-flex; align-items:center; gap:6px; background:rgba(11,14,20,.5); border:1px solid var(--border); border-radius:20px; padding:3px 10px;}
+.biasWrap input[type=range]{width:74px; accent-color:var(--blue); cursor:pointer;}
+.biasVal{font-size:12px; font-weight:800; color:var(--blue); min-width:14px; text-align:center;}
+.execAllBtn{background:rgba(34,197,94,.12); color:var(--green); border:1px solid rgba(34,197,94,.4); border-radius:8px; padding:4px 12px; font-size:11.5px; font-weight:700; cursor:pointer;}
+.execAllBtn:hover:not(:disabled){background:rgba(34,197,94,.25);}
+.execAllBtn:disabled{opacity:.4; cursor:not-allowed;}
+.portChg{font-size:11.5px; font-weight:600; margin-top:6px;}
+.portChg.pos{color:var(--green);} .portChg.neg{color:var(--red);}
+.sentIdx{font-weight:800;}
 .rotBook{margin-left:auto; flex:none;}
 .rotRow{display:flex; align-items:center; gap:8px; border:1px solid var(--border); border-left:3px solid var(--blue); border-radius:10px; padding:8px 12px; margin-bottom:8px; background:var(--panel2); font-size:12.5px; flex-wrap:wrap;}
 .rotArrow{color:var(--blue); font-weight:800;}
