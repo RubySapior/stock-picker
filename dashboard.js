@@ -156,7 +156,7 @@ window.DASH = {
         "confirmed": false
       },
       "F2": {
-        "prev_score": 1.9,
+        "prev_score": 1.8,
         "score": 1.8,
         "days_above": 0,
         "confirmed": false
@@ -169,25 +169,25 @@ window.DASH = {
       },
       "F4": {
         "prev_score": 3.6,
-        "score": 3.6,
+        "score": 2.8,
         "days_above": 0,
         "confirmed": false
       },
       "F5": {
         "prev_score": 4.1,
         "score": 4.1,
-        "days_above": 53,
+        "days_above": 54,
         "confirmed": true
       },
       "F6": {
         "prev_score": 4.8,
-        "score": 4.8,
-        "days_above": 67,
+        "score": 4.7,
+        "days_above": 68,
         "confirmed": true
       },
       "F7": {
-        "prev_score": 1.7,
-        "score": 1.4,
+        "prev_score": 1.4,
+        "score": 1.6,
         "days_above": 0,
         "confirmed": false
       },
@@ -554,7 +554,7 @@ window.DASH = {
         "summary": "The portfolio operates in a neutral macro regime with Tech / AI Growth (46.3% vs 60.0%) and the Hedge Stack (25.4% vs 35.0%) sitting below target allocations while Rates Shock fear (F6 at 4.9) remains"
       }
     ],
-    "asof_ts": 1786765146,
+    "asof_ts": 1786768277,
     "refresh_interval": 60
   },
   "asof": "2026-08-14",
@@ -1757,18 +1757,18 @@ window.DASH = {
       "id": "F6",
       "name": "Rates shock / duration liquidation",
       "type": "structural",
-      "score": 4.8,
-      "level": 0.948,
+      "score": 4.7,
+      "level": 0.945,
       "velocity": null,
       "trend": {
         "label": "50d trend",
-        "value": 0.037,
-        "pct": 0.924
+        "value": 0.0336,
+        "pct": 0.895
       },
       "signals": [
         {
           "label": "TLT/SHY (long-vs-short duration)",
-          "value": 0.996
+          "value": 0.992
         },
         {
           "label": "10y yield level",
@@ -1815,36 +1815,6 @@ window.DASH = {
         "GDX",
         "FXY",
         "DBMF"
-      ],
-      "asof": "2026-08-15",
-      "degraded": false,
-      "trend_dir": "flat"
-    },
-    {
-      "id": "F4",
-      "name": "Inflation resurgence",
-      "type": "structural",
-      "score": 3.6,
-      "level": 0.815,
-      "velocity": null,
-      "trend": {
-        "label": "50d trend",
-        "value": -0.0051,
-        "pct": 0.29
-      },
-      "signals": [
-        {
-          "label": "TIP/IEF (breakevens proxy)",
-          "value": 0.815
-        }
-      ],
-      "theory_ids": [
-        "T20"
-      ],
-      "hedge_ticks": [
-        "GLD",
-        "GDX",
-        "SGOV"
       ],
       "asof": "2026-08-15",
       "degraded": false,
@@ -1918,21 +1888,51 @@ window.DASH = {
       "trend_dir": "flat"
     },
     {
+      "id": "F4",
+      "name": "Inflation resurgence",
+      "type": "structural",
+      "score": 2.8,
+      "level": 0.588,
+      "velocity": null,
+      "trend": {
+        "label": "50d trend",
+        "value": -0.0113,
+        "pct": 0.09
+      },
+      "signals": [
+        {
+          "label": "TIP/IEF (breakevens proxy)",
+          "value": 0.588
+        }
+      ],
+      "theory_ids": [
+        "T20"
+      ],
+      "hedge_ticks": [
+        "GLD",
+        "GDX",
+        "SGOV"
+      ],
+      "asof": "2026-08-15",
+      "degraded": false,
+      "trend_dir": "falling"
+    },
+    {
       "id": "F1",
       "name": "AI / tech concentration pop",
       "type": "structural",
       "score": 2.6,
-      "level": 0.163,
+      "level": 0.175,
       "velocity": null,
       "trend": {
         "label": "50d trend",
-        "value": 0.0798,
-        "pct": 0.924
+        "value": 0.08,
+        "pct": 0.895
       },
       "signals": [
         {
           "label": "QQQ/RSP concentration ratio",
-          "value": 0.308
+          "value": 0.331
         },
         {
           "label": "QQQ drawdown from 52w high",
@@ -1985,12 +1985,12 @@ window.DASH = {
       "id": "F7",
       "name": "Credit stress / HY spread",
       "type": "episodic",
-      "score": 1.4,
+      "score": 1.6,
       "level": 0.0,
       "velocity": {
         "label": "5d velocity",
         "value": -0.0053,
-        "pct": 0.149
+        "pct": 0.22
       },
       "trend": null,
       "signals": [
@@ -2008,21 +2008,21 @@ window.DASH = {
       ],
       "asof": "2026-08-15",
       "degraded": false,
-      "trend_dir": "falling"
+      "trend_dir": "rising"
     }
   ],
   "complacency": {
-    "index": 0.129,
+    "index": 0.145,
     "valuation_stretch": 0.621,
-    "fear_term": 0.208,
-    "divergence": 0.491,
-    "fear_avg": 4.17,
+    "fear_term": 0.233,
+    "divergence": 0.476,
+    "fear_avg": 4.07,
     "regime": "fragility",
     "note": "Fragility regime - macro divergence: equities stretched while macro fears run high. Equities expected to crack.",
     "pay_check": {
       "fear_id": "F6",
       "fear_name": "Rates shock / duration liquidation",
-      "score": 4.8,
+      "score": 4.7,
       "checks": [
         {
           "ticker": "SGOV",
@@ -2618,7 +2618,7 @@ window.DASH = {
     "enabled": true
   },
   "news": {
-    "asof": "2026-08-15 03:39:07",
+    "asof": "2026-08-15 04:31:18",
     "big_stories": [
       {
         "title": "Jim Cramer Says Palantir (PLTR) Deserves a “Little Bit More Love” After a Massive Surge",
@@ -2814,21 +2814,6 @@ window.DASH = {
           "T13"
         ],
         "sent": "neutral"
-      },
-      {
-        "title": "Unusual Machines Soars 22%, Red Cat Climbs 8%, Ondas Gains 4% on Trump’s 100% Drone Tariff",
-        "link": "https://247wallst.com/investing/2026/08/14/unusual-machines-soars-22-red-cat-climbs-8-ondas-gains-4-on-trumps-100-drone-tariff/?.tsrc=rss",
-        "ts": 1786728122,
-        "when": "Aug 14, 05:22 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
       },
       {
         "title": "C3.ai Remains Turbulent: Why One Of Wall Street’s Most Outspoken Pros Expects 50% Returns From Here",
@@ -3072,6 +3057,36 @@ window.DASH = {
         "sent": "neutral"
       },
       {
+        "title": "Strength in Defense & Propulsion Unit Drives GE Aerospace: Can It Sustain?",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/strength-defense-propulsion-unit-drives-151700107.html?.tsrc=rss",
+        "ts": 1786634220,
+        "when": "Aug 13, 03:17 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "If You Invested $10,000 in Palantir Before It Released Its AIP Platform, Here's What Your Stake Would Be Worth Today",
+        "link": "https://www.fool.com/investing/2026/08/13/if-you-invested-10000-in-palantir-before-it-releas/?.tsrc=rss",
+        "ts": 1786631400,
+        "when": "Aug 13, 02:30 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
+      {
         "title": "5 ETFs to Benefit From Cooling Inflation in the Near Term",
         "link": "https://finance.yahoo.com/economy/policy/articles/5-etfs-benefit-cooling-inflation-140000926.html?.tsrc=rss",
         "ts": 1786629600,
@@ -3092,18 +3107,6 @@ window.DASH = {
         "link": "https://www.barchart.com/story/news/3827891/are-wall-street-analysts-bullish-on-smurfit-westrock-stock?.tsrc=rss",
         "ts": 1786623391,
         "when": "Aug 13, 12:16 PM",
-        "ticker": "XLY",
-        "industry": "Consumer Disc.",
-        "theory": [
-          "T13"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Rollins Stock: Is Wall Street Bullish or Bearish?",
-        "link": "https://www.barchart.com/story/news/3823847/rollins-stock-is-wall-street-bullish-or-bearish?.tsrc=rss",
-        "ts": 1786616582,
-        "when": "Aug 13, 10:23 AM",
         "ticker": "XLY",
         "industry": "Consumer Disc.",
         "theory": [
