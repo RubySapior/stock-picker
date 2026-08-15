@@ -156,8 +156,8 @@ window.DASH = {
         "confirmed": false
       },
       "F2": {
-        "prev_score": 1.9,
-        "score": 1.8,
+        "prev_score": 1.8,
+        "score": 1.9,
         "days_above": 0,
         "confirmed": false
       },
@@ -168,26 +168,26 @@ window.DASH = {
         "confirmed": false
       },
       "F4": {
-        "prev_score": 3.6,
-        "score": 2.7,
+        "prev_score": 2.7,
+        "score": 3.6,
         "days_above": 0,
         "confirmed": false
       },
       "F5": {
         "prev_score": 4.1,
         "score": 4.1,
-        "days_above": 63,
+        "days_above": 64,
         "confirmed": true
       },
       "F6": {
-        "prev_score": 4.9,
-        "score": 4.8,
-        "days_above": 77,
+        "prev_score": 4.8,
+        "score": 4.9,
+        "days_above": 78,
         "confirmed": true
       },
       "F7": {
-        "prev_score": 1.4,
-        "score": 1.7,
+        "prev_score": 1.7,
+        "score": 1.4,
         "days_above": 0,
         "confirmed": false
       },
@@ -554,7 +554,7 @@ window.DASH = {
         "summary": "The portfolio operates in a neutral macro regime with Tech / AI Growth (46.3% vs 60.0%) and the Hedge Stack (25.4% vs 35.0%) sitting below target allocations while Rates Shock fear (F6 at 4.9) remains"
       }
     ],
-    "asof_ts": 1786800626,
+    "asof_ts": 1786800982,
     "refresh_interval": 6
   },
   "asof": "2026-08-14",
@@ -1757,18 +1757,18 @@ window.DASH = {
       "id": "F6",
       "name": "Rates shock / duration liquidation",
       "type": "structural",
-      "score": 4.8,
-      "level": 0.991,
+      "score": 4.9,
+      "level": 0.993,
       "velocity": null,
       "trend": {
         "label": "50d trend",
-        "value": 0.0336,
-        "pct": 0.895
+        "value": 0.037,
+        "pct": 0.924
       },
       "signals": [
         {
           "label": "TLT/SHY (long-vs-short duration)",
-          "value": 0.992
+          "value": 0.996
         },
         {
           "label": "10y yield level",
@@ -1819,6 +1819,36 @@ window.DASH = {
       "asof": "2026-08-15",
       "degraded": false,
       "trend_dir": "flat"
+    },
+    {
+      "id": "F4",
+      "name": "Inflation resurgence",
+      "type": "structural",
+      "score": 3.6,
+      "level": 0.815,
+      "velocity": null,
+      "trend": {
+        "label": "50d trend",
+        "value": -0.0051,
+        "pct": 0.29
+      },
+      "signals": [
+        {
+          "label": "TIP/IEF (breakevens proxy)",
+          "value": 0.815
+        }
+      ],
+      "theory_ids": [
+        "T20"
+      ],
+      "hedge_ticks": [
+        "GLD",
+        "GDX",
+        "SGOV"
+      ],
+      "asof": "2026-08-15",
+      "degraded": false,
+      "trend_dir": "rising"
     },
     {
       "id": "F3",
@@ -1888,51 +1918,21 @@ window.DASH = {
       "trend_dir": "flat"
     },
     {
-      "id": "F4",
-      "name": "Inflation resurgence",
-      "type": "structural",
-      "score": 2.7,
-      "level": 0.592,
-      "velocity": null,
-      "trend": {
-        "label": "50d trend",
-        "value": -0.0138,
-        "pct": 0.029
-      },
-      "signals": [
-        {
-          "label": "TIP/IEF (breakevens proxy)",
-          "value": 0.592
-        }
-      ],
-      "theory_ids": [
-        "T20"
-      ],
-      "hedge_ticks": [
-        "GLD",
-        "GDX",
-        "SGOV"
-      ],
-      "asof": "2026-08-15",
-      "degraded": false,
-      "trend_dir": "falling"
-    },
-    {
       "id": "F1",
       "name": "AI / tech concentration pop",
       "type": "structural",
       "score": 2.6,
-      "level": 0.175,
+      "level": 0.163,
       "velocity": null,
       "trend": {
         "label": "50d trend",
-        "value": 0.08,
-        "pct": 0.895
+        "value": 0.0798,
+        "pct": 0.924
       },
       "signals": [
         {
           "label": "QQQ/RSP concentration ratio",
-          "value": 0.331
+          "value": 0.308
         },
         {
           "label": "QQQ drawdown from 52w high",
@@ -1956,8 +1956,8 @@ window.DASH = {
       "id": "F2",
       "name": "Yen-carry unwind",
       "type": "episodic",
-      "score": 1.8,
-      "level": 0.231,
+      "score": 1.9,
+      "level": 0.235,
       "velocity": {
         "label": "5d velocity",
         "value": -0.009,
@@ -1967,7 +1967,7 @@ window.DASH = {
       "signals": [
         {
           "label": "Yen strength (FXY level)",
-          "value": 0.231
+          "value": 0.235
         }
       ],
       "theory_ids": [
@@ -1985,12 +1985,12 @@ window.DASH = {
       "id": "F7",
       "name": "Credit stress / HY spread",
       "type": "episodic",
-      "score": 1.7,
+      "score": 1.4,
       "level": 0.0,
       "velocity": {
         "label": "5d velocity",
         "value": -0.0053,
-        "pct": 0.243
+        "pct": 0.149
       },
       "trend": null,
       "signals": [
@@ -2008,21 +2008,21 @@ window.DASH = {
       ],
       "asof": "2026-08-15",
       "degraded": false,
-      "trend_dir": "rising"
+      "trend_dir": "falling"
     }
   ],
   "complacency": {
-    "index": 0.14,
+    "index": 0.124,
     "valuation_stretch": 0.621,
-    "fear_term": 0.225,
-    "divergence": 0.481,
-    "fear_avg": 4.1,
+    "fear_term": 0.2,
+    "divergence": 0.497,
+    "fear_avg": 4.2,
     "regime": "fragility",
     "note": "Fragility regime - macro divergence: equities stretched while macro fears run high. Equities expected to crack.",
     "pay_check": {
       "fear_id": "F6",
       "fear_name": "Rates shock / duration liquidation",
-      "score": 4.8,
+      "score": 4.9,
       "checks": [
         {
           "ticker": "SGOV",
@@ -2618,7 +2618,7 @@ window.DASH = {
     "enabled": true
   },
   "news": {
-    "asof": "2026-08-15 13:30:27",
+    "asof": "2026-08-15 13:36:23",
     "big_stories": [
       {
         "title": "SCHG vs QQQ vs VUG: We Compared the Three Biggest Growth ETFs and One Is the Clear Winner for the Next Decade",
@@ -3015,19 +3015,6 @@ window.DASH = {
         "sent": "negative"
       },
       {
-        "title": "Exchange-Traded Funds Higher, Equity Futures Mixed Pre-Bell Friday Amid Retail Sales Data",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/exchange-traded-funds-higher-equity-131348296.html?.tsrc=rss",
-        "ts": 1786713228,
-        "when": "Aug 14, 01:13 PM",
-        "ticker": "IWM",
-        "industry": "Small Caps",
-        "theory": [
-          "T10",
-          "T15"
-        ],
-        "sent": "neutral"
-      },
-      {
         "title": "Chamath Palihapitiya Sees Palantir As A Potential Winner In 3-Year Shift To Model-Agnostic AI",
         "link": "https://stocktwits.com/news-articles/markets/equity/pltr-stock-chamath-palihapitiya-3rd-party-ai-harnesses-palantir/cZothJpRJiv?.tsrc=rss",
         "ts": 1786704946,
@@ -3108,15 +3095,26 @@ window.DASH = {
         "sent": "positive"
       },
       {
-        "title": "Exchange-Traded Funds, Equity Futures Higher Pre-Bell Thursday Amid Producer Inflation Data Release",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/exchange-traded-funds-equity-futures-131321660.html?.tsrc=rss",
-        "ts": 1786626801,
-        "when": "Aug 13, 01:13 PM",
-        "ticker": "IWM",
-        "industry": "Small Caps",
+        "title": "Are Wall Street Analysts Bullish on Smurfit Westrock Stock?",
+        "link": "https://www.barchart.com/story/news/3827891/are-wall-street-analysts-bullish-on-smurfit-westrock-stock?.tsrc=rss",
+        "ts": 1786623391,
+        "when": "Aug 13, 12:16 PM",
+        "ticker": "XLY",
+        "industry": "Consumer Disc.",
         "theory": [
-          "T10",
-          "T15"
+          "T13"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "Rollins Stock: Is Wall Street Bullish or Bearish?",
+        "link": "https://www.barchart.com/story/news/3823847/rollins-stock-is-wall-street-bullish-or-bearish?.tsrc=rss",
+        "ts": 1786616582,
+        "when": "Aug 13, 10:23 AM",
+        "ticker": "XLY",
+        "industry": "Consumer Disc.",
+        "theory": [
+          "T13"
         ],
         "sent": "neutral"
       }
