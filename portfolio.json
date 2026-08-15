@@ -175,13 +175,13 @@
       "F5": {
         "prev_score": 4.1,
         "score": 4.1,
-        "days_above": 70,
+        "days_above": 71,
         "confirmed": true
       },
       "F6": {
-        "prev_score": 4.9,
-        "score": 4.8,
-        "days_above": 84,
+        "prev_score": 4.8,
+        "score": 4.9,
+        "days_above": 85,
         "confirmed": true
       },
       "F7": {
