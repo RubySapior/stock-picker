@@ -156,7 +156,7 @@ window.DASH = {
         "confirmed": false
       },
       "F2": {
-        "prev_score": 1.8,
+        "prev_score": 1.9,
         "score": 1.9,
         "days_above": 0,
         "confirmed": false
@@ -168,7 +168,7 @@ window.DASH = {
         "confirmed": false
       },
       "F4": {
-        "prev_score": 2.8,
+        "prev_score": 3.6,
         "score": 3.6,
         "days_above": 0,
         "confirmed": false
@@ -176,23 +176,23 @@ window.DASH = {
       "F5": {
         "prev_score": 4.1,
         "score": 4.1,
-        "days_above": 73,
+        "days_above": 74,
         "confirmed": true
       },
       "F6": {
-        "prev_score": 4.7,
-        "score": 4.9,
-        "days_above": 87,
+        "prev_score": 4.9,
+        "score": 4.8,
+        "days_above": 88,
         "confirmed": true
       },
       "F7": {
-        "prev_score": 1.6,
+        "prev_score": 1.4,
         "score": 1.4,
         "days_above": 0,
         "confirmed": false
       },
       "F8": {
-        "prev_score": 2.9,
+        "prev_score": 2.8,
         "score": 2.8,
         "days_above": 0,
         "confirmed": false
@@ -554,7 +554,7 @@ window.DASH = {
         "summary": "The portfolio operates in a neutral macro regime with Tech / AI Growth (46.3% vs 60.0%) and the Hedge Stack (25.4% vs 35.0%) sitting below target allocations while Rates Shock fear (F6 at 4.9) remains"
       }
     ],
-    "asof_ts": 1786811037,
+    "asof_ts": 1786812596,
     "refresh_interval": 6
   },
   "asof": "2026-08-14",
@@ -1757,18 +1757,18 @@ window.DASH = {
       "id": "F6",
       "name": "Rates shock / duration liquidation",
       "type": "structural",
-      "score": 4.9,
-      "level": 0.993,
+      "score": 4.8,
+      "level": 0.991,
       "velocity": null,
       "trend": {
         "label": "50d trend",
-        "value": 0.037,
-        "pct": 0.924
+        "value": 0.0336,
+        "pct": 0.895
       },
       "signals": [
         {
           "label": "TLT/SHY (long-vs-short duration)",
-          "value": 0.996
+          "value": 0.992
         },
         {
           "label": "10y yield level",
@@ -1783,7 +1783,7 @@ window.DASH = {
       ],
       "asof": "2026-08-15",
       "degraded": false,
-      "trend_dir": "rising"
+      "trend_dir": "flat"
     },
     {
       "id": "F5",
@@ -1848,7 +1848,7 @@ window.DASH = {
       ],
       "asof": "2026-08-15",
       "degraded": false,
-      "trend_dir": "rising"
+      "trend_dir": "flat"
     },
     {
       "id": "F3",
@@ -2008,21 +2008,21 @@ window.DASH = {
       ],
       "asof": "2026-08-15",
       "degraded": false,
-      "trend_dir": "falling"
+      "trend_dir": "flat"
     }
   ],
   "complacency": {
-    "index": 0.124,
+    "index": 0.129,
     "valuation_stretch": 0.621,
-    "fear_term": 0.2,
-    "divergence": 0.497,
-    "fear_avg": 4.2,
+    "fear_term": 0.208,
+    "divergence": 0.491,
+    "fear_avg": 4.17,
     "regime": "fragility",
     "note": "Fragility regime - macro divergence: equities stretched while macro fears run high. Equities expected to crack.",
     "pay_check": {
       "fear_id": "F6",
       "fear_name": "Rates shock / duration liquidation",
-      "score": 4.9,
+      "score": 4.8,
       "checks": [
         {
           "ticker": "SGOV",
@@ -2618,7 +2618,7 @@ window.DASH = {
     "enabled": true
   },
   "news": {
-    "asof": "2026-08-15 16:23:58",
+    "asof": "2026-08-15 16:49:57",
     "big_stories": [
       {
         "title": "Cathie Wood sells $11.6 million of surging tech stock",
@@ -3030,6 +3030,19 @@ window.DASH = {
         "sent": "negative"
       },
       {
+        "title": "Exchange-Traded Funds Higher, Equity Futures Mixed Pre-Bell Friday Amid Retail Sales Data",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/exchange-traded-funds-higher-equity-131348296.html?.tsrc=rss",
+        "ts": 1786713228,
+        "when": "Aug 14, 01:13 PM",
+        "ticker": "IWM",
+        "industry": "Small Caps",
+        "theory": [
+          "T10",
+          "T15"
+        ],
+        "sent": "neutral"
+      },
+      {
         "title": "Chamath Palihapitiya Sees Palantir As A Potential Winner In 3-Year Shift To Model-Agnostic AI",
         "link": "https://stocktwits.com/news-articles/markets/equity/pltr-stock-chamath-palihapitiya-3rd-party-ai-harnesses-palantir/cZothJpRJiv?.tsrc=rss",
         "ts": 1786704946,
@@ -3067,6 +3080,21 @@ window.DASH = {
         "sent": "negative"
       },
       {
+        "title": "DRAM Movers: These Memory/Storage ETFs Are Soaring as Sandisk, Micron Rally",
+        "link": "https://247wallst.com/investing/2026/08/13/dram-movers-these-memory-storage-etfs-are-soaring-as-sandisk-micron-rally/?.tsrc=rss",
+        "ts": 1786644735,
+        "when": "Aug 13, 06:12 PM",
+        "ticker": "SMH",
+        "industry": "Semis",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
         "title": "Sector Update: Consumer Stocks Rise in Afternoon Trading",
         "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-rise-afternoon-173751918.html?.tsrc=rss",
         "ts": 1786642671,
@@ -3093,30 +3121,6 @@ window.DASH = {
           "T21"
         ],
         "sent": "positive"
-      },
-      {
-        "title": "Are Wall Street Analysts Bullish on Smurfit Westrock Stock?",
-        "link": "https://www.barchart.com/story/news/3827891/are-wall-street-analysts-bullish-on-smurfit-westrock-stock?.tsrc=rss",
-        "ts": 1786623391,
-        "when": "Aug 13, 12:16 PM",
-        "ticker": "XLY",
-        "industry": "Consumer Disc.",
-        "theory": [
-          "T13"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Rollins Stock: Is Wall Street Bullish or Bearish?",
-        "link": "https://www.barchart.com/story/news/3823847/rollins-stock-is-wall-street-bullish-or-bearish?.tsrc=rss",
-        "ts": 1786616582,
-        "when": "Aug 13, 10:23 AM",
-        "ticker": "XLY",
-        "industry": "Consumer Disc.",
-        "theory": [
-          "T13"
-        ],
-        "sent": "neutral"
       }
     ]
   },
