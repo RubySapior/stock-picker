@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI Port-picker</title>
-<link rel="stylesheet" href="styles.css?v=26">
+<link rel="stylesheet" href="styles.css?v=31">
 </head>
 <!--
   Page skeleton only. Every section below is filled by app.js from the
@@ -13,9 +13,8 @@
 
   Section -> render function in app.js:
     header/cards          renderCards()
-    chart + donut         initValueChart() / initDonut()
-    sector limits         renderSectors()
-    portfolio vs SPY      renderComparison()
+    chart                 initValueChart()
+    sector limits + pie   renderSectors() / initDonut()
     news                  renderNews()
     positions table       renderPositions()
     theories scorecard    renderTheories()
@@ -38,39 +37,31 @@
 
   <div class="cards" id="cards"></div>
 
-  <div class="grid">
-    <div class="panel" style="position:relative;">
-      <div class="charthead">
-        <h2>Portfolio Value History</h2>
-        <span class="chartstat" id="chartStat"></span>
-        <div class="chartbar">
-          <span class="rangeBtn active" data-days="0">MAX</span>
-          <span class="rangeBtn" data-days="365">1Y</span>
-          <span class="rangeBtn" data-days="183">6M</span>
-          <span class="rangeBtn" data-days="92">3M</span>
-          <span class="rangeBtn" data-days="30">1M</span>
-          <span class="rangeBtn" data-days="7">1W</span>
-          <span class="rangeBtn" data-days="ytd">YTD</span>
-          <label class="bmLabel" title="Overlay a benchmark, normalized to the same $100,000 start">
-            <select id="bmSelect" class="bmSelect">
-              <option value="SPY">vs SPY</option>
-              <option value="QQQ">vs QQQ</option>
-              <option value="TQQQ">vs TQQQ</option>
-              <option value="MUU">vs MUU</option>
-            </select>
-          </label>
-        </div>
+  <div class="panel" style="position:relative; margin-bottom:20px;">
+    <div class="charthead">
+      <h2>Portfolio Value History</h2>
+      <span class="chartstat" id="chartStat"></span>
+      <div class="chartbar">
+        <span class="rangeBtn active" data-days="0">MAX</span>
+        <span class="rangeBtn" data-days="365">1Y</span>
+        <span class="rangeBtn" data-days="183">6M</span>
+        <span class="rangeBtn" data-days="92">3M</span>
+        <span class="rangeBtn" data-days="30">1M</span>
+        <span class="rangeBtn" data-days="7">1W</span>
+        <span class="rangeBtn" data-days="ytd">YTD</span>
+        <label class="bmLabel" title="Overlay a benchmark, normalized to the same $100,000 start">
+          <select id="bmSelect" class="bmSelect">
+            <option value="SPY">vs SPY</option>
+            <option value="QQQ">vs QQQ</option>
+            <option value="TQQQ">vs TQQQ</option>
+            <option value="MUU">vs MUU</option>
+          </select>
+        </label>
       </div>
-      <canvas id="chart" height="280"></canvas>
-      <div id="chartTip"></div>
-      <div class="muted small" style="margin-top:6px;">scroll to zoom &middot; drag to pan &middot; double-click to reset</div>
     </div>
-    <div class="panel" style="position:relative;">
-      <h2>PortPie</h2>
-      <canvas id="donut" height="200"></canvas>
-      <div id="donutTip"></div>
-      <div id="sleeveList" style="margin-top:10px;"></div>
-    </div>
+    <canvas id="chart" height="280"></canvas>
+    <div id="chartTip"></div>
+    <div class="muted small" style="margin-top:6px;">scroll to zoom &middot; drag to pan &middot; double-click to reset</div>
   </div>
 
   <div class="cmp-grid">
@@ -79,9 +70,11 @@
       <div class="muted small" style="margin-bottom:10px;">Effective exposure = market value &times; ETF leverage. Book leverage: <strong id="levFactor" class="txt" style="color:var(--txt);"></strong></div>
       <div id="sectorList"></div>
     </div>
-    <div class="panel">
-      <h2>Portfolio vs SPY</h2>
-      <div id="cmpWrap"></div>
+    <div class="panel" style="position:relative;">
+      <h2>PortPie</h2>
+      <canvas id="donut" height="200"></canvas>
+      <div id="donutTip"></div>
+      <div id="sleeveList" style="margin-top:10px;"></div>
     </div>
   </div>
 
@@ -98,6 +91,12 @@
     <div class="charthead">
       <h2>AI Sentiment <span class="aiBadge" id="aiStatus">OFF</span></h2>
       <span class="muted small" id="aiSub"></span>
+      <span class="aiCtl" id="aiCtl">
+        <span class="aiModeLabel">MODE</span>
+        <button id="modeRecommend" class="modeBtn active">RECOMMEND</button>
+        <button id="modeExecute" class="modeBtn">EXECUTE</button>
+        <button id="execAllBtn" class="execAllBtn" title="Turn the current AI proposals + rotations into human-approved pending market orders">Execute All &rarr; Orders</button>
+      </span>
     </div>
     <div id="aiHeartbeat"></div>
     <div class="aiGrid">
@@ -105,6 +104,7 @@
       <div id="aiMacro" class="aiCol"></div>
     </div>
     <div id="aiTheories" style="margin-top:14px;"></div>
+    <div id="aiFearProps" style="margin-top:14px;"></div>
     <div id="aiCalib" style="margin-top:14px;"></div>
   </div>
 
@@ -113,7 +113,7 @@
       <h2>Market Orders</h2>
       <span class="muted small" id="ordersSub"></span>
     </div>
-    <div class="muted small" style="margin-bottom:10px;">Human-approved orders from the AI verdict. Executed at the live price on the next market-open run. AI refresh replaces pending orders with the latest verdict.</div>
+    <div class="muted small" style="margin-bottom:10px;" id="ordersNote">Human-approved orders from the AI verdict. Executed at the live price on the next market-open run.</div>
     <div id="ordersList"></div>
   </div>
 
@@ -124,7 +124,7 @@
     </div>
     <div class="panel">
       <h2>Live News Feed</h2>
-      <div class="muted small" style="margin-bottom:8px;">Headline sentiment for held tickers &amp; their theories</div>
+      <div class="muted small" style="margin-bottom:8px;">Headline sentiment for held tickers &amp; their theories &middot; display only — news is not used by the AI (yet)</div>
       <div class="feedWrap" id="feedWrap">
         <div id="newsFeed"></div>
         <div class="feedBar" aria-hidden="true"><div class="feedThumb" id="feedThumb"></div></div>
@@ -188,7 +188,7 @@
   <footer>Simulated managed portfolio for tracking &amp; learning. Not financial advice. Served locally: run <code>python serve.py</code> then open <code>http://localhost:8000</code> - the Update button refreshes prices + news.</footer>
 </div>
 
-<script src="wheel.js?v=7"></script>
-<script src="app.js?v=25" defer></script>
+<script src="wheel.js?v=8"></script>
+<script src="app.js?v=32" defer></script>
 </body>
 </html>

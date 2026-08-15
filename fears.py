@@ -1,9 +1,9 @@
 """
 Market Fear Gauge engine (v1 - market-only).
 
-Computes a 1-5 "fear score" for a fixed catalog of macro crash scenarios
-(F1-F8) from free Yahoo daily history, using the design converged in the
-issue-#6/#7 brainstorm:
+Computes a 1-5 "fear score" for a catalog of macro crash scenarios (F1-F8,
+extensible via the EDITABLE fear_scenarios.json table) from free Yahoo daily
+history, using the design converged in the issue-#6/#7 brainstorm:
 
   - structural fears (F1/F4/F6/F8): 0.7 x level + 0.3 x slow trend (50d)
   - episodic fears  (F2/F3/F5/F7): 0.7 x velocity (5d) + 0.3 x level
@@ -20,8 +20,12 @@ Consumed by update.py (write_dashboard) and rendered by app.js.
 """
 import concurrent.futures
 import json
+import os
 import time
 import urllib.request
+
+BASE = os.path.dirname(os.path.abspath(__file__))
+SCENARIO_FILE = os.path.join(BASE, "fear_scenarios.json")
 
 USER_AGENT = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
 RNG = "2y"          # history window (percentile bases need 1y + 50/200d warmup)
@@ -42,7 +46,7 @@ HEDGE_CAP = 0.45     # Hedge Stack sector cap (book-wide, effective exposure)
 ACTIVE_THRESHOLD = 4.0
 CONFIRM_DAYS = {"structural": 3, "episodic": 2}
 
-FEARS = [
+FEARS = _DEFAULT_FEARS = [
     {
         "id": "F1", "name": "AI / tech concentration pop", "type": "structural",
         "theory_ids": ["T17"], "hedge_ticks": ["QFLR", "VIXM", "BTAL", "ZROZ"],
@@ -130,6 +134,103 @@ FEARS = [
 ]
 
 
+def load_scenarios():
+    """Load the EDITABLE fear scenario table from fear_scenarios.json.
+
+    Engine v0.6.1: scenarios (id/name/type/components/hedges/links) live in
+    fear_scenarios.json - hand-edit to tune, and AI fear_proposals land here
+    staged as `pending_review` (scored only after a human clears the flag).
+    Falls back to the embedded _DEFAULT_FEARS list if the file is missing or
+    corrupt, so the gauge never goes offline.
+    """
+    try:
+        with open(SCENARIO_FILE, encoding="utf-8") as f:
+            data = json.load(f)
+        sc = data.get("fears")
+        if not isinstance(sc, list) or not sc:
+            raise ValueError("no scenarios")
+        return [s for s in sc if isinstance(s, dict) and s.get("id")]
+    except Exception as exc:
+        print(f"  WARN: fear_scenarios.json unreadable ({exc}) - using embedded defaults")
+        return list(_DEFAULT_FEARS)
+
+
+def _next_fear_id(scenarios):
+    """Next free scenario id (F1..F9..)."""
+    n = 0
+    for s in scenarios:
+        try:
+            n = max(n, int(s["id"].lstrip("F")))
+        except (ValueError, KeyError):
+            pass
+    return f"F{n + 1}"
+
+
+def apply_fear_proposals(verdict, today):
+    """Write the AI verdict's fear_proposals / fear_edits into the table.
+
+    Engine v0.6.1: the AI RESPONDS WITH an editable data table edit - this
+    function persists it to fear_scenarios.json. New scenarios are appended
+    as `pending_review: true` (staged - build_fears skips them until a human
+    clears the flag in the JSON); safe edits (name/hedge_ticks/note) apply
+    immediately. Components/velocity/trend math stays human-written - the AI
+    supplies name, rationale, watch signals and hedge ticks only.
+
+    Returns the pending proposals list for the dashboard, or [].
+    """
+    if not verdict:
+        return []
+    try:
+        with open(SCENARIO_FILE, encoding="utf-8") as f:
+            table = json.load(f)
+    except Exception:
+        table = {"fears": list(_DEFAULT_FEARS), "proposals": []}
+    fears = table.setdefault("fears", [])
+    changed = False
+    pending = []
+    for p in verdict.get("fear_proposals") or []:
+        name = str(p.get("name") or "").strip()[:80]
+        if not name:
+            continue
+        if any(f["name"] == name for f in fears):
+            continue
+        fid = _next_fear_id(fears)
+        entry = {
+            "id": fid, "name": name,
+            "type": p.get("type") if p.get("type") in ("structural", "episodic") else "structural",
+            "theory_ids": [], "hedge_ticks": [str(t).upper() for t in (p.get("hedge_ticks") or [])],
+            "components": [],
+            "velocity": {"a": "QQQ", "sign": -1, "n": 5},
+            "pending_review": True, "source": "ai", "created": today,
+            "note": str(p.get("rationale") or "")[:300],
+            "watch_signals": [str(s)[:80] for s in (p.get("watch_signals") or [])][:6],
+        }
+        fears.append(entry)
+        pending.append(entry)
+        changed = True
+        print(f"  FEAR PROPOSAL {fid}: {name} staged in fear_scenarios.json (pending review)")
+    for e in verdict.get("fear_edits") or []:
+        fid = str(e.get("id") or "").upper()
+        f = next((x for x in fears if x.get("id") == fid), None)
+        if not f:
+            continue
+        note = str(e.get("note") or "").strip()[:200]
+        if e.get("name"):
+            f["name"] = str(e["name"]).strip()[:80]
+            changed = True
+        if e.get("hedge_ticks"):
+            f["hedge_ticks"] = [str(t).upper() for t in e["hedge_ticks"]][:8]
+            changed = True
+        if note:
+            f["note"] = note
+            changed = True
+        print(f"  FEAR EDIT {fid}: {e.get('name') and ('name, ') or ''}{e.get('hedge_ticks') and 'hedge_ticks, ' or ''}{note and 'note' or ''} applied")
+    if changed:
+        with open(SCENARIO_FILE, "w", encoding="utf-8") as f:
+            json.dump(table, f, indent=2, ensure_ascii=False)
+    return pending
+
+
 def fetch_history(symbol, rng=RNG):
     """Daily close history [{date, px}, ...] oldest-first (Yahoo chart endpoint)."""
     url = (f"https://query1.finance.yahoo.com/v8/finance/chart/{symbol}"
@@ -150,12 +251,14 @@ def fetch_history(symbol, rng=RNG):
     return out
 
 
-SYMBOLS = sorted({s for f in FEARS for c in f["components"]
-                  for s in (c.get("a"), c.get("b")) if s} |
-                 {s for f in FEARS for s in (f["velocity"].get("a"),
-                                             f["velocity"].get("b")) if s} |
-                 {s for f in FEARS for s in f.get("hedge_ticks", []) if s} |
-                 {"QQQ"})
+def _scenario_symbols(scenarios):
+    """All tickers referenced by the scenario table (fetch list)."""
+    return sorted({s for f in scenarios for c in f.get("components", [])
+                   for s in (c.get("a"), c.get("b")) if s} |
+                  {s for f in scenarios for s in (f.get("velocity", {}).get("a"),
+                                                  f.get("velocity", {}).get("b")) if s} |
+                  {s for f in scenarios for s in f.get("hedge_ticks", []) if s} |
+                  {"QQQ"})
 
 
 def _pct_rank(value, series):
@@ -291,6 +394,7 @@ def _fear_score(fear, hist_map, today):
         "signals": signals,
         "theory_ids": fear["theory_ids"],
         "hedge_ticks": fear["hedge_ticks"],
+        "sizing": fear.get("sizing"),
         "asof": today,
     }
 
@@ -401,7 +505,8 @@ def _sizing(fears, fear_state, hedge_share):
     demand = {}
     reasons = {}
     for f in active:
-        for inst, pp in SIZING_DELTAS.get(f["id"], {}).items():
+        deltas = f.get("sizing") or SIZING_DELTAS.get(f["id"], {})
+        for inst, pp in deltas.items():
             if pp > (demand.get(inst) or 0):
                 demand[inst] = pp
                 reasons[inst] = [f["id"]]
@@ -444,12 +549,19 @@ def build_fears(data, news_scores=None):
     provided, applies the 'two independent witnesses' combination:
         raw = max(market, min(news, market + 1.5))
         if market >= 3 and news >= 3: raw = min(raw + 0.5, 5)
+
+    Engine v0.6.1: scenarios come from the EDITABLE fear_scenarios.json
+    table. Entries staged with `pending_review: true` (AI proposals) are
+    skipped until a human clears the flag - the gauge only scores scenarios
+    that earned their place.
     """
     today = time.strftime("%Y-%m-%d")
+    scenarios = load_scenarios()
     hist_map = {}
     degraded = []
+    symbols = _scenario_symbols(scenarios)
     with concurrent.futures.ThreadPoolExecutor(max_workers=8) as ex:
-        fut = {ex.submit(fetch_history, s): s for s in SYMBOLS}
+        fut = {ex.submit(fetch_history, s): s for s in symbols}
         for f in concurrent.futures.as_completed(fut):
             sym = fut[f]
             try:
@@ -458,7 +570,9 @@ def build_fears(data, news_scores=None):
                 degraded.append(sym)
 
     fears = []
-    for fear in FEARS:
+    for fear in scenarios:
+        if fear.get("pending_review"):
+            continue
         needed = {c.get("a") for c in fear["components"]} | {fear["velocity"]["a"]}
         if fear.get("trend"):
             needed |= {fear["trend"]["a"]}

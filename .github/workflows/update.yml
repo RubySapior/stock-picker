@@ -2,13 +2,17 @@ name: Live portfolio update
 
 on:
   schedule:
-    # Every hour at :00 (covers post-market → pre-open, ~1 run/hr off-hours).
-    - cron: '0 * * * *'
-    # Every 6 minutes during 13:00–21:59 UTC = 10 runs/hr. This envelope covers
-    # US market hours in BOTH DST regimes (EDT 13:30–20:00, EST 14:30–21:00 UTC).
-    # The :00 minute overlaps with the hourly line, so market hours never exceed
-    # 10 runs/hour (matches the GitHub Pages ~10 builds/hour cap).
-    - cron: '*/6 13-21 * * *'
+    # Once daily at 01:00 UTC — the ONLY run when the market is closed
+    # (nights/weekends): keeps the snapshot + news fresh without flooding
+    # Yahoo or burning Actions minutes. 01:00 UTC is deep in the US night in
+    # both DST regimes (EDT 21:00, EST 20:00).
+    - cron: '0 1 * * *'
+    # Every 6 minutes during 13:00–21:59 UTC, Mon-Fri = 10 runs/hr. This
+    # envelope covers the 30-min pre-open window + market hours in BOTH DST
+    # regimes (EDT 09:00–17:00, EST 08:00–16:00). update.py --preopen skips
+    # any run that lands outside the true pre-open/market window (the DST
+    # envelope edges), so out-of-window runs are cheap no-ops.
+    - cron: '*/6 13-21 * * 1-5'
   workflow_dispatch:
 
 permissions:
@@ -19,19 +23,45 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  update:
+  # Closed-market cadence: exactly one full update per day (01:00 UTC).
+  daily:
+    if: github.event.schedule == '0 1 * * *' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-
-      - name: Fetch prices, run exits, regenerate dashboard
+      - name: Daily update (market closed)
         run: python update.py
+      - name: Commit changes if any
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add dashboard.js portfolio.json
+          if git diff --cached --quiet; then
+            echo "No data changes this run."
+          else
+            git commit -m "Live update $(date -u +%Y-%m-%dT%H:%MZ)"
+            git pull --rebase --autostash origin main
+            git push
+          fi
 
+  # Pre-open + market hours: every 6 min, gated to the true window. --preopen
+  # forces the AI verdict refresh in the 30 min before the bell so orders land
+  # fresh right before execution (daily AI cadence is otherwise untouched).
+  schedule6:
+    if: github.event.schedule == '*/6 13-21 * * 1-5'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: 6-min update (pre-open / market hours)
+        run: python update.py --preopen
       - name: Commit changes if any
         run: |
           git config user.name 'github-actions[bot]'

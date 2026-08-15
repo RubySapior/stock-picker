@@ -12,8 +12,9 @@ dashboard works by double-clicking `index.html`.
 | `portfolio.json` | Source of truth: meta, account/cash, positions, theories, events. | **YES** — hand-edit to rebalance / add / remove positions |
 | `update.py` | Daily updater: fetch prices → check exits → deploy cash → snapshot → write `dashboard.js`. | **YES** — all data-mutating logic |
 | `news.py` | Fetch Yahoo RSS headlines for held tickers, tag theories, score sentiment (VADER). | **YES** |
-| `fears.py` | Market Fear Gauge: scores F1-F8 crash scenarios 1-5 (structural/episodic), complacency index, recommendation-only hedge sizing. | **YES** |
-| `ai_sentiment.py` | AI Sentiment Decision Layer (algo 0.6.0): LLM verdict call (provider-routed: **gemini** via OpenRouter — `google/gemini-3.7-flash` extended thinking — / zen / deepseek) on Tier A market data, fact-delta ledger, schema validation, theories/fears/bullish layer translators. **WIRED into `update.py`, ENABLED** (`meta.ai.enabled: true`). | **YES** — engine layer; must stay read-only (evidence/events/fear-blend/orders-refresh only) |
+| `fears.py` | Market Fear Gauge: scores crash scenarios 1-5 (structural/episodic), complacency index, recommendation-only hedge sizing. Reads the EDITABLE scenario table; persists AI fear proposals/edits. | **YES** |
+| `fear_scenarios.json` | **EDITABLE fear table** (algo 0.6.1): F1-F8 scenario definitions (name, type, components, velocity/trend, hedge_ticks, theory links, optional `sizing`) + AI-staged proposals flagged `pending_review` (skipped by the scorer until a human clears the flag and writes components). | **YES** — hand-edit to add/tune fears |
+| `ai_sentiment.py` | AI Sentiment Decision Layer (algo 0.6.1.00): change-detect LLM verdict call (prior verdict + fact deltas embedded; outputs ONLY changes — omission = agreement). Provider-routed: **gemini** via OpenRouter — `google/gemini-3.7-flash` extended thinking — / zen / deepseek. Tier A market data + CNN Fear&Greed crowding gate + calibration track record. Rotations (paired sell/buy), fear proposals/edits (staged into `fear_scenarios.json`), schema validation, theories/fears/bullish/rotation layer translators. **WIRED into `update.py`, ENABLED** (`meta.ai.enabled: true`, `meta.ai.mode: recommend`). | **YES** — engine layer; must stay read-only (evidence/events/fear-blend/orders-refresh only) |
 | `vader/` | Vendored MIT-licensed VADER sentiment engine (`vader.py` + `vader_lexicon.txt` + `emoji_utf8_lexicon.txt` + `LICENSE`). Third-party code, kept verbatim; `news.py` maps its `compound` score to pos/neg/neutral. | **NO** — upstream dependency |
 | `dashboard.js` | **AUTO-GENERATED** output consumed by the browser (`window.DASH = {...}`). | **NO** — overwritten on every `update.py` run; edit `update.py`/`portfolio.json` instead |
 | `app.js` | Renders `window.DASH` into every section of `index.html`. | **YES** — UI only |
@@ -60,21 +61,30 @@ open index.html      # also works directly via file:// double-click
 
 ## Versioning (per-prompt rule)
 
-- **Every prompt's change set counts as one version bump.** UI-only changes
-  bump `meta.version.site`; **engine milestones** bump `meta.version.algo`.
-- **Engine (algo) bumps RARELY**: it stays 0.5.x and only moves on real
-  autonomy/AI milestones — e.g. an AI decision layer that makes trades from
-  real-time sentiment, weekly rebalancing across hedges/leading sectors.
-  UI-adjacent tweaks and small data-rule edits do NOT bump the engine.
+The UI version uses four-part notation: **`v0.5.<feature>.<patch>`** (JSON key
+`site`). The engine version (JSON key `algo`) is separate and bumps only on
+user-deemed milestones.
+
+- **Every prompt's change set counts as one version bump** (site unless it's
+  a user-deemed engine milestone).
+- **Site notation `v0.5.F.PP`**:
+  - `0.5` — the big stage marker; bumped ONLY when the user says so
+    ("increment 0.5 -> 6"). Never bump it on your own.
+  - `F` (feature) — increments on every new feature (0.5.1 → 0.5.2).
+  - `PP` (patch, two digits) — increments on bug fixes for a new feature
+    (0.5.1.01 → 0.5.1.02); resets to 01 when the feature digit bumps.
+  - Current baseline: **v0.5.2.01**.
+- **Engine (algo) bumps RARELY** — the user announces them explicitly. UI
+  tweaks and small data-rule edits do NOT bump the engine.
 - Roadmap: **UI v1** = accounts/sign-in with a personalized AI per user
   (risk tolerance + focus). **Engine v1** = AI makes 100% of trades
   (real-time sentiment + AI analysis, weekly rebalance). Versions approach
   1.0 only as these goals are hit. See CHANGELOG.md "Roadmap & version
   policy".
-- Header displays the versions as "UI vX.Y.Z · Engine vX.Y.Z" (JSON keys
+- Header displays the versions as "UI v0.5.2.01 · Engine vX.Y.Z" (JSON keys
   remain `site`/`algo`).
-- Each bump gets a `CHANGELOG.md` entry under `[site x.y.z]` / `[algo x.y.z]`
-  sections.
+- Each bump gets a `CHANGELOG.md` entry under `[site 0.5.F.PP]` /
+  `[algo x.y.z]` sections.
 - After editing `app.js` / `styles.css` / `index.html` / archive pages, bump
   the matching `?v=N` cache-bust query strings in the HTML files.
 - After bumping `meta.version` in `portfolio.json`, run `python update.py`
@@ -95,16 +105,18 @@ open index.html      # also works directly via file:// double-click
   `leverage_factor` in `dashboard.js` is book-wide effective ÷ market value.
 - **No idle cash policy**: `update.py` auto-buys SGOV with any cash above
   `CASH_BUFFER` so dry powder never sits idle.
-- **Market orders (algo 0.6.0)**: portfolio.json `orders[]` holds
+- **Market orders (algo 0.6.1.00)**: portfolio.json `orders[]` holds
   human-approved market orders `{ticker, action "buy"|"sell", amount,
   status "pending"|"executed", source, created, note, exec_date,
   exec_price, shares, realized_pnl}`. `execute_pending_orders()` runs
   them at the LIVE price on market-open runs only — buys redeem SGOV,
-  sells realize into cash (then re-parked in SGOV). A successful AI
-  verdict REPLACES pending orders with its proposals (`meta.ai.orders_refresh`,
-  sized at `meta.ai.order_size`), so Monday's pre-open `python update.py --ai`
-  overwrites Friday's orders before any execution. Executed history is
-  pruned to the last 15.
+  sells realize into cash (then re-parked in SGOV). **Mode-aware**
+  (`meta.ai.mode`, default `recommend`): in **execute** mode a successful
+  AI verdict REPLACES pending orders with its proposals + rotations
+  (`meta.ai.orders_refresh`, sized at `meta.ai.order_size`); in
+  **recommend** mode orders are only written by the dashboard's
+  **Execute All** button (`serve.py POST /execute_all`, human approval).
+  Executed history is pruned to the last 15.
 - **Sector limits, not targets**: `meta.limits.rebalance.limits` are
   exposure LIMITS compared by the quarterly audit (old key `targets`
   still read as fallback). `rebalance.exempt_sectors` (e.g.
@@ -191,14 +203,23 @@ Owned by `write_dashboard()` in `update.py`. `app.js` reads these fields:
   confidence/evidence), `fears[]` (sentiment_score), `convictions[]`
   (conviction_score -1..1, urgency, confidence, rationale), `proposals[]`
   (action buy/sell/add/trim from `bullish_layer`, urgency-sorted),
-  `summary`, `ledger[]` (last 14 verdicts), `state` (cadence bookkeeping),
+  `rotations[]` (`{sell, buy, rationale}` — paired orders, engine sizes
+  both legs), `fear_proposals[]` (staged AI scenarios, pending review),
+  `mode` ("recommend"/"execute"), `gauge` (null or `{index, label}` CNN-
+  style Fear & Greed), `calibration` (`{ticker: {wrong, total,
+  last_wrong}}` — wrong-call track record), `summary`, `ledger[]` (last
+  14 verdicts), `state` (cadence bookkeeping),
   `enabled`. Recommendations only — the UI must never execute from it.
+- `fear_greed`: null or `{index` (0-100), `label`} — CNN-style crowding
+  gauge fetched every run, displayed in the Fear panel and fed to the AI
+  prompt as the euphoria gate.
 - `orders[]`: human-approved market orders — `ticker`, `action`
   ("buy"/"sell"), `amount` (USD), `status` ("pending"/"executed"), `source`
-  (e.g. `ai_YYYY-MM-DD`), `created`, `note`, and for executed orders
-  `exec_date`, `exec_price`, `shares`, `realized_pnl`. Pending orders
-  execute at the live price on market-open runs; AI refresh replaces
-  pending orders with the latest verdict (meta.ai.orders_refresh).
+  (e.g. `ai_YYYY-MM-DD` / `execute_all_YYYY-MM-DD`), `created`, `note`, and
+  for executed orders `exec_date`, `exec_price`, `shares`, `realized_pnl`.
+  Pending orders execute at the live price on market-open runs; in execute
+  mode the AI refresh replaces pending orders with the latest verdict
+  (meta.ai.orders_refresh) — in recommend mode only Execute All writes them.
 - `fears`: null or `asof`, `degraded[]`, `news_layer`, `fears[]` — each fear:
   `id` (F1-F8), `name`, `type` ("structural"/"episodic"), `score` (1-5, 5 =
   panic), `level`, `velocity`/`trend` (label/value/pct), `signals[]` (top

@@ -64,7 +64,7 @@
 
     function spacing() {
       const w = stage.clientWidth;
-      return Math.min(320, Math.max(110, w * 0.30));
+      return Math.min(290, Math.max(100, w * 0.24));
     }
 
     function layout() {
@@ -74,7 +74,7 @@
         const el = listEl[i];
         const d = i - focus;
         const x = d * gap + dragX;
-        const scale = 1 - Math.min(Math.abs(d), 3) * 0.14;
+        const scale = 1 - Math.min(Math.abs(d), 3) * 0.12;
         const tilt = Math.max(-18, Math.min(18, d * -10));
         el.style.transform = `translate(-50%,-50%) translateX(${x}px) scale(${scale}) rotateY(${tilt}deg)`;
         el.style.opacity = Math.abs(d) <= 1 ? 1 : (Math.abs(d) === 2 ? 0.30 : 0);

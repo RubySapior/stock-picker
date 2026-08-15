@@ -15,11 +15,14 @@ Usage:  python update.py [--ai]
          (pre-open ritual: refreshes pending market orders with the new
          verdict; orders still only EXECUTE on market-open runs).
 
-Engine v0.6.0: AI proposals become HUMAN-APPROVED market orders in
-portfolio.json ("orders"), executed at the live price on the next
-market-open run. The AI never trades directly - it replaces pending
-orders (meta.ai.orders_refresh) with the latest verdict's proposals;
-execution is a deterministic market-order engine.
+Engine v0.6.1.00: the AI reads a prior-verdict + fact-delta prompt and
+outputs ONLY changes (omission = agreement). Proposals become HUMAN-
+APPROVED market orders in portfolio.json ("orders") - recommend mode
+(default, Execute All button writes them) or execute mode (meta.ai.mode,
+AI refresh replaces pending orders automatically). Rotations become
+paired sell+buy orders. AI fear proposals persist into the editable
+fear_scenarios.json table (pending review). Execution is always a
+deterministic market-order engine at the live price on market-open runs.
 """
 import argparse
 import json
@@ -30,7 +33,7 @@ import urllib.request
 import datetime as _dt
 
 from news import build_news
-from fears import build_fears, apply_ai_witnesses
+from fears import build_fears, apply_ai_witnesses, apply_fear_proposals
 import ai_sentiment
 
 BASE = os.path.dirname(os.path.abspath(__file__))
@@ -118,6 +121,74 @@ def fetch_macro():
             print(f"  WARN: macro fetch failed for {sym}: {exc}")
         time.sleep(0.4)
     return out
+
+
+# Crowding gate for the AI prompt: CNN-style Fear & Greed (0 = extreme fear,
+# 100 = extreme greed). Free endpoint, no key. Never allowed to break a run.
+FEAR_GREED_URL = "https://production.dataviz.cnn.io/index/fearandgreed/graphdata"
+
+
+def fetch_fear_greed():
+    """Live crowding gauge: {'index': 0-100, 'label': '...'} or None.
+
+    The 'don't buy the top' check: at >=75 additions are crowded and the
+    AI must justify them extra; <=25 panic dips become opportunity. Never
+    raises - any failure returns None (the prompt just omits the gate).
+    """
+    try:
+        req = urllib.request.Request(FEAR_GREED_URL, headers={
+            "User-Agent": ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                           "AppleWebKit/537.36 (KHTML, like Gecko) "
+                           "Chrome/125.0.0.0 Safari/537.36"),
+            "Accept": "application/json, text/plain, */*",
+            "Referer": "https://www.cnn.com/markets/fear-and-greed",
+            "Accept-Language": "en-US,en;q=0.9",
+        })
+        with urllib.request.urlopen(req, timeout=30) as r:
+            data = json.load(r)
+        fg = data["fear_and_greed"]
+        idx = int(round(float(fg["score"])))
+        return {"index": max(0, min(100, idx)),
+                "label": str(fg.get("rating") or "Neutral").title()}
+    except Exception as exc:
+        print(f"  WARN: fear & greed fetch failed: {exc}")
+        return None
+
+
+def compute_calibration(data, prices, today):
+    """Outcome scoring: mark the AI wrong where its conviction sign lost.
+
+    Engine v0.6.1: compares each conviction in the LAST verdict against
+    the price move since it was written. |move| < 0.5% counts as noise
+    (no call). Wrong = the sign of the move contradicts the conviction
+    sign. Accumulates into meta.ai_calibration {ticker: {wrong, total,
+    last_wrong}} - fed to the next prompt so confidence on a repeatedly
+    wrong ticker starts discounted. Never raises.
+    """
+    meta = data.setdefault("meta", {})
+    last = meta.get("ai_last_output")
+    if not isinstance(last, dict):
+        return {}
+    old_px = last.get("prices") or {}
+    rec = meta.setdefault("ai_calibration", {})
+    for conv in last.get("convictions") or []:
+        tk = conv.get("ticker")
+        old = old_px.get(tk)
+        new = prices.get(tk)
+        if not old or not new:
+            continue
+        chg = (new / old - 1) * 100
+        if abs(chg) < 0.5:
+            continue
+        r = rec.setdefault(tk, {"wrong": 0, "total": 0, "last_wrong": None})
+        r["total"] = r.get("total", 0) + 1
+        wrong = (conv["conviction_score"] > 0) != (chg > 0)
+        if wrong:
+            r["wrong"] = r.get("wrong", 0) + 1
+            r["last_wrong"] = today
+            print(f"  CALIBRATION: {tk} - AI was WRONG (conv {conv['conviction_score']:+.2f}, "
+                  f"moved {chg:+.2f}%) -> {r['wrong']}/{r['total']} wrong")
+    return rec
 
 
 def deploy_cash_to_bonds(data, prices, today):
@@ -561,12 +632,12 @@ def _nth_sunday(year, month, nth):
     return first_sun + _dt.timedelta(days=7 * (nth - 1))
 
 
-def market_is_open(now_utc=None):
-    """NYSE session open? Mon-Fri 09:30-16:00 ET, DST handled manually.
+def market_state(now_utc=None):
+    """'open' | 'preopen' | 'closed' — NYSE session logic, DST handled manually.
 
-    Used so overnight/pre-market runs do NOT start a fresh history day with a
-    zero day-change; the last completed trading day keeps showing until the
-    next open.
+    - open:    Mon-Fri 09:30-16:00 ET
+    - preopen: Mon-Fri 09:00-09:30 ET (the 30-min window before the bell)
+    - closed:  everything else (nights, pre-9am, post-4pm, weekends)
     """
     now_utc = now_utc or _dt.datetime.utcnow()
     year = now_utc.year
@@ -575,9 +646,23 @@ def market_is_open(now_utc=None):
     et_offset = -4 if dst_start <= now_utc < dst_end else -5
     et = now_utc + _dt.timedelta(hours=et_offset)
     if et.weekday() >= 5:
-        return False
+        return "closed"
     hm = et.hour * 60 + et.minute
-    return 9 * 60 + 30 <= hm <= 16 * 60
+    if 9 * 60 + 30 <= hm <= 16 * 60:
+        return "open"
+    if 9 * 60 <= hm < 9 * 60 + 30:
+        return "preopen"
+    return "closed"
+
+
+def market_is_open(now_utc=None):
+    """NYSE session open? Mon-Fri 09:30-16:00 ET, DST handled manually.
+
+    Used so overnight/pre-market runs do NOT start a fresh history day with a
+    zero day-change; the last completed trading day keeps showing until the
+    next open.
+    """
+    return market_state(now_utc) == "open"
 
 
 def execute_scheduled_exits(data, prices, today):
@@ -646,17 +731,29 @@ def execute_scheduled_exits(data, prices, today):
 def refresh_orders_from_ai(data, verdict, today):
     """Replace PENDING market orders with the latest AI verdict's proposals.
 
-    Engine v0.6.0: the AI never trades directly - it proposes convictions
-    and this layer turns them into market orders (meta.ai.orders_refresh).
+    Engine v0.6.1: mode-aware. meta.ai.mode:
+      - "execute"   -> the AI refresh replaces pending orders with the
+                       verdict's proposals + rotations (auto mode).
+      - "recommend" -> DEFAULT. Pending orders stay untouched; the
+                       verdict's proposals are recommendations only and
+                       become orders via the dashboard's Execute All
+                       button (POST /execute_all), i.e. human approval.
     Each proposal is sized at meta.ai.order_size USD (direction only; the
-    engine sizes, the human approved the sizing). Executed orders stay as
-    history; only pending ones are replaced.
+    engine sizes, the human approved the sizing). Rotation pairs become
+    TWO orders (sell leg + buy leg) at the same size. Executed orders
+    stay as history; only pending ones are replaced.
     """
     cfg = (data.get("meta") or {}).get("ai") or {}
     if not cfg.get("orders_refresh"):
         return
+    mode = str(cfg.get("mode") or "recommend")
+    if mode != "execute":
+        print("  ORDERS: recommend mode - AI proposals are recommendations; "
+              "use Execute All to turn them into pending orders")
+        return
     size = float(cfg.get("order_size", 2500))
     proposals = ai_sentiment.bullish_layer(verdict, data)
+    rotations = ai_sentiment.rotation_layer(verdict, data)
     keep = [o for o in data.setdefault("orders", [])
             if o.get("status") != "pending"]
     created = []
@@ -671,10 +768,22 @@ def refresh_orders_from_ai(data, verdict, today):
             "created": today,
             "note": (p.get("rationale") or "")[:160],
         })
+    for r in rotations:
+        created.append({
+            "ticker": r["sell"], "action": "sell", "amount": round(size, 2),
+            "status": "pending", "source": f"ai_{today}", "created": today,
+            "note": f"rotation {r['sell']}->{r['buy']}: {(r.get('rationale') or '')[:120]}",
+        })
+        created.append({
+            "ticker": r["buy"], "action": "buy", "amount": round(size, 2),
+            "status": "pending", "source": f"ai_{today}", "created": today,
+            "note": f"rotation {r['sell']}->{r['buy']}: {(r.get('rationale') or '')[:120]}",
+        })
     data["orders"] = keep + created
     if created:
-        print(f"  ORDERS REFRESHED from AI verdict: {len(created)} market orders "
-              f"({size:,.0f} each) - pending replaced, {len(keep)} executed kept")
+        print(f"  ORDERS REFRESHED from AI verdict (execute mode): "
+              f"{len(created)} market orders ({size:,.0f} each) - "
+              f"pending replaced, {len(keep)} executed kept")
 
 
 def execute_pending_orders(data, prices, today):
@@ -791,23 +900,28 @@ def execute_pending_orders(data, prices, today):
                               + executed[-15:])
 
 
-def run_ai_layer(data, prices, fear_data, today, macro=None, force=False):
+def run_ai_layer(data, prices, fear_data, today, macro=None, force=False,
+                 sentiment=None, calibration=None):
     """Wire the AI Sentiment Decision Layer (ai_sentiment.py) into the run.
 
     Invariants (see CHANGELOG 'AI Sentiment Decision Layer'):
       - AI is read-only: it appends theory EVIDENCE, one audit event, and
         blends the DISPLAYED fear scores - it never touches positions,
-        theory statuses, or account state.
+        theory statuses, or account state. Fear proposals persist to the
+        EDITABLE fear_scenarios.json table staged pending_review.
       - Degraded mode: any failure leaves the book exactly as before.
       - Cadence: one call per market-open day (meta.ai_state.last_call_date),
         capped at meta.ai.max_daily_calls. Circuit-event re-runs (|dQQQ|>2.5%,
         VIX +15%) are a later milestone.
-      - Engine v0.6.0: a successful verdict refreshes PENDING market orders
-        (meta.ai.orders_refresh) - execution still only happens on
-        market-open runs.
+      - Engine v0.6.1: in execute mode a successful verdict refreshes
+        PENDING market orders (meta.ai.orders_refresh) - execution still
+        only happens on market-open runs. Recommend mode (default) leaves
+        orders alone; Execute All writes them.
 
     Returns (ai_verdict, fear_data) - fear_data may carry AI-blended scores.
     macro: optional live {symbol: {px, chg_1d_pct}} from fetch_macro().
+    sentiment: optional {index, label} crowding gauge (fetch_fear_greed()).
+    calibration: optional {ticker: {wrong, total}} outcome track record.
     force: skip the market-is-open gate (pre-open ritual, python update.py --ai).
     """
     cfg = (data.get("meta") or {}).get("ai") or {}
@@ -823,7 +937,9 @@ def run_ai_layer(data, prices, fear_data, today, macro=None, force=False):
         if state.get("calls_today", 0) >= max_calls:
             return None, fear_data
 
-        verdict = ai_sentiment.run(data, prices, fear_data, macro)
+        verdict = ai_sentiment.run(data, prices, fear_data, macro,
+                                   sentiment=sentiment,
+                                   calibration=calibration)
         if not verdict:
             return None, fear_data
 
@@ -858,6 +974,10 @@ def run_ai_layer(data, prices, fear_data, today, macro=None, force=False):
             apply_ai_witnesses(fear_data.get("fears") or [], ai_scores)
             fear_data["news_layer"] = True
 
+        pending_fears = apply_fear_proposals(verdict, today)
+        if pending_fears:
+            data["meta"]["ai_fear_proposals"] = pending_fears
+
         refresh_orders_from_ai(data, verdict, today)
 
         data["events"].append({
@@ -886,7 +1006,14 @@ def main():
     parser = argparse.ArgumentParser(description="Stock Picker daily updater")
     parser.add_argument("--ai", action="store_true",
                         help="force the AI sentiment call even when the market is closed")
+    parser.add_argument("--preopen", action="store_true",
+                        help="GitHub Actions 6-min schedule: skip unless market open or within "
+                             "the 30-min pre-open window; forces the AI refresh pre-open so "
+                             "Monday's orders are refreshed before the bell")
     args = parser.parse_args()
+    if args.preopen and market_state() == "closed":
+        print("Outside update window (market closed, not pre-open) - skipping.")
+        return
     with open(PORTFOLIO, encoding="utf-8") as f:
         data = json.load(f)
 
@@ -930,13 +1057,35 @@ def main():
     except Exception as exc:
         print(f"  WARN: fear gauge failed: {exc}")
 
+    # Crowding gate for the AI layer (CNN-style Fear & Greed). Never breaks
+    # the update - failure degrades to no gauge (the prompt omits the gate).
+    gauge = None
+    try:
+        gauge = fetch_fear_greed()
+        if gauge:
+            print(f"  SENTIMENT GAUGE: {gauge['label']} ({gauge['index']}/100)")
+    except Exception as exc:
+        print(f"  WARN: fear & greed fetch failed: {exc}")
+
+    # Outcome calibration: mark the AI wrong where its last convictions
+    # moved against it. Fed to this run's prompt; persisted to meta.
+    try:
+        calibration = compute_calibration(data, prices, today)
+    except Exception as exc:
+        print(f"  WARN: calibration failed: {exc}")
+        calibration = {}
+
     # AI Sentiment Decision Layer (disabled unless meta.ai.enabled). Reads the
     # book + market-only fears, returns a verdict; blends fears, appends theory
     # evidence + one audit event. Degrades silently - never breaks the run.
     # --ai forces the call pre-open (refreshes pending orders); execution of
-    # orders is still gated by market_is_open().
+    # orders is still gated by market_is_open(). --preopen forces the refresh
+    # ONLY in the 30-min pre-open window (not during market hours, so the
+    # daily AI cadence is untouched mid-session).
+    force_ai = args.ai or (args.preopen and market_state() == "preopen")
     ai_verdict, fear_data = run_ai_layer(data, prices, fear_data, today, macro,
-                                         force=args.ai)
+                                         force=force_ai, sentiment=gauge,
+                                         calibration=calibration)
     # Market-closed / cadence-cap runs produce no live verdict, but the last
     # persisted one (meta.ai_last_output) is still real data - show it.
     if not ai_verdict:
@@ -1046,15 +1195,17 @@ def main():
     except Exception as exc:
         print(f"  WARN: benchmark fetch failed: {exc}")
 
-    write_dashboard(data, benchmark, rebalance, fear_data, benchmarks, ai_verdict)
+    write_dashboard(data, benchmark, rebalance, fear_data, benchmarks,
+                    ai_verdict, gauge=gauge)
     print_summary(data, today, benchmark)
 
 
-def build_ai_payload(verdict, data):
+def build_ai_payload(verdict, data, gauge=None):
     """Serialize the AI verdict for the dashboard (null when offline/disabled)."""
     if not verdict:
         return None
     meta = data.get("meta") or {}
+    calib = meta.get("ai_calibration") or {}
     return {
         "asof": verdict["date"],
         "macro_stance": verdict["macro_stance"],
@@ -1062,15 +1213,22 @@ def build_ai_payload(verdict, data):
         "theories": verdict["theories"],
         "fears": verdict["fears"],
         "convictions": verdict["convictions"],
+        "rotations": verdict.get("rotations") or [],
+        "fear_proposals": (meta.get("ai_fear_proposals") or [])[:5],
         "proposals": ai_sentiment.bullish_layer(verdict, data),
         "summary": verdict["summary"],
         "ledger": (meta.get("ai_ledger") or [])[-14:],
         "state": meta.get("ai_state") or {},
+        "mode": str((meta.get("ai") or {}).get("mode") or "recommend"),
+        "gauge": gauge,
+        "calibration": {k: v for k, v in calib.items()
+                        if v.get("wrong", 0) > 0},
         "enabled": bool((meta.get("ai") or {}).get("enabled")),
     }
 
 
-def write_dashboard(data, benchmark=None, rebalance=None, fear_data=None, benchmarks=None, ai_verdict=None):
+def write_dashboard(data, benchmark=None, rebalance=None, fear_data=None,
+                    benchmarks=None, ai_verdict=None, gauge=None):
     """Serialize the full dashboard payload to dashboard.js (window.DASH).
 
     This is the ONLY writer of dashboard.js. The payload shape is the
@@ -1164,9 +1322,10 @@ def write_dashboard(data, benchmark=None, rebalance=None, fear_data=None, benchm
     total_eff = sum(v[1] for v in sec_tot.values())
 
     # Refresh cadence for the dashboard countdown: matches the GitHub Action
-    # cron (`*/6 13-21 UTC`, hourly otherwise).
+    # cron (`*/6 13-21 UTC` weekdays for pre-open + market hours, once daily
+    # otherwise — closed market runs once a day, never floods the servers).
     now_utc = time.gmtime()
-    refresh_interval = 6 if 13 <= now_utc.tm_hour <= 21 else 60
+    refresh_interval = 6 if 13 <= now_utc.tm_hour <= 21 else 1440
     meta = dict(data["meta"])
     meta["asof_ts"] = int(time.time())
     meta["refresh_interval"] = refresh_interval
@@ -1194,12 +1353,13 @@ def write_dashboard(data, benchmark=None, rebalance=None, fear_data=None, benchm
         "events": data["events"],
         "theories": data["theories"],
         "fears": (fear_data or {}).get("fears") or None,
+        "fear_greed": gauge,
         "complacency": (fear_data or {}).get("complacency") or None,
         "fear_sizing": (fear_data or {}).get("fear_sizing") or None,
         "benchmark": benchmark,
         "benchmarks": benchmarks,
         "rebalance": rebalance or None,
-        "ai": build_ai_payload(ai_verdict, data),
+        "ai": build_ai_payload(ai_verdict, data, gauge=gauge),
         "news": build_news(
             [p for p in data["positions"] if p["status"] == "open"]
         ) if any(p["status"] == "open" for p in data["positions"])

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Help &amp; Notes — How This Site Works</title>
-<link rel="stylesheet" href="styles.css?v=8">
+<link rel="stylesheet" href="styles.css?v=11">
 </head>
 <!--
   Help site: plain-language notes (Simple tab) + the math and details
@@ -34,6 +34,17 @@
     <div class="panel" style="margin-bottom:20px;">
       <h2>What this site is</h2>
       <p class="helpText">A <strong>simulated</strong> managed portfolio for tracking a trading strategy and learning from it. No real money, no real trades. The numbers come from live Yahoo Finance prices, but every buy and sell is decided by you and recorded by hand in <code>portfolio.json</code>.</p>
+    </div>
+
+    <div class="panel" style="margin-bottom:20px;">
+      <h2>Where this is going</h2>
+      <p class="helpText">This dashboard is the first step toward a real product: a <strong>paid subscription service for other users</strong>. The tool is the product &mdash; not us trading to make money.</p>
+      <ul class="helpList">
+        <li><strong>Sell the tool, not the advice.</strong> The AI ships universal signals and strategies the user operates &mdash; one-tap approval in their own Alpaca account. A tool everyone runs the same way (TradingView / freqtrade model) needs no RIA registration to launch.</li>
+        <li><strong>Alpaca integration</strong> (Phase 1) &mdash; free API with paper trading, then user-authorized live execution. Every trade keeps a human approval step in the loop.</li>
+        <li><strong>Public track record</strong> &mdash; a 12-month public simulation log is the pitch. Trust is the moat: boring, honest, auditable, no miracle claims.</li>
+        <li><strong>RIA licensing later</strong> (Phases 2&ndash;3) &mdash; register ~6 months before launch, then flip the switch to autonomous per-subscriber execution.</li>
+      </ul>
     </div>
 
     <div class="panel" style="margin-bottom:20px;">
@@ -222,6 +233,23 @@
       <ul class="helpList">
         <li>Targets (effective %): Tech / AI Growth 60, Nuclear / Power 11, Broadening / Value 8, Contrarian Fear 4.5, Hedge Stack 35, Short-Term Bonds 15.5.</li>
         <li>The audit runs <strong>once per calendar quarter</strong> (first market-open run of Jan/Apr/Jul/Oct), tracked in <code>meta.last_rebalance_quarter</code> &mdash; there are no daily pp-drift flags. On the quarterly check, <strong>any</strong> sector whose effective exposure drifts from its target is flagged &mdash; no tolerance band, however small the gap (v5.5). A <code>rebalance_recommended</code> event is logged and flagged in the UI banner. Flags never trade &mdash; they ask the conviction layer to review a risk-budget mismatch.</li>
+      </ul>
+    </div>
+
+    <div class="panel" style="margin-bottom:20px;">
+      <h2>End goal &amp; roadmap</h2>
+      <ul class="helpList">
+        <li><strong>UI v1.0</strong> &mdash; accounts: sign-in, and every user gets a personalized AI tuned to their risk tolerance and focus.</li>
+        <li><strong>Engine v1.0</strong> &mdash; the AI makes <strong>100% of the trades</strong> from real-time sentiment with AI analysis, rebalancing weekly across hedges / leading sectors.</li>
+        <li><strong>Business staging (v1 goal = paid subscription for other users)</strong>:
+          <ul class="helpList">
+            <li><strong>Phase 1 (now, unregistered)</strong> &mdash; universal signals + paper trading + user-authorized live execution via <strong>Alpaca</strong> (Robinhood's official API is discontinued; Alpaca is the standard). The AI stays read-only; its proposals become human-approved market orders, executed deterministically at the live price.</li>
+            <li><strong>Phase 2 (~6 months before launch)</strong> &mdash; RIA registration: Form ADV (Parts 1 &amp; 2), compliance program + CCO, code of ethics, cybersecurity, business-continuity + trade-error procedures. Registration is NOT gated on AUM &mdash; being paid for discretionary management is the trigger.</li>
+            <li><strong>Phase 3 (registered)</strong> &mdash; flip the switch: AI may auto-execute per-subscriber; marketing may say the real words.</li>
+          </ul>
+        </li>
+        <li><strong>On-ramp routes</strong> (each legal today): sell the software / universal signals first; B2B white-label to licensed RIAs; sell the data/API feed; state RIA when revenue + track record justify it.</li>
+        <li><strong>Trust is the moat</strong> &mdash; "AI trading subscription" is the scam capital of the internet; the differentiator is a public track record, paper-trading history, transparent methodology, no miracle claims.</li>
       </ul>
     </div>
 

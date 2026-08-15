@@ -167,6 +167,147 @@ JSON verdict that feeds three deterministic layers. Nothing executes.
 
 ## [Unreleased]
 
+## [site 0.5.2.01] — 2026-08-15
+
+### Fixed
+- **Theories Scorecard card overlap**: wheel cards were covering the
+  card counter (`1 / N`) at the bottom of the stage — cards now sit
+  18px higher (`top: calc(50% - 18px)`) with no change to the panel's
+  row height.
+
+## [site 0.5.2.00] — 2026-08-15
+
+### Added
+- **Mode toggle (Recommend | Execute)** in the AI Sentiment panel header,
+  default **RECOMMEND**: proposals stay advice until the new **Execute All
+  &rarr; Orders** button converts them (proposals + rotations) into
+  human-approved pending market orders. EXECUTE mode makes AI refresh
+  auto-replace pending orders (the old algo-0.6.0 behavior). Buttons post
+  to `serve.py` (`/mode`, `/execute_all`) and need the local server.
+- **Fear &amp; Greed gauge on the page**: CNN-style 0-100 needle bar
+  (Extreme Fear &rarr; Extreme Greed zones) in the Market Fear Gauge panel
+  header plus a heartbeat item in the AI bar; drives the AI prompt's
+  "don't buy the top" crowding gate.
+- **Rotations card**: paired sell&rarr;buy proposals render under
+  Actionable Proposals.
+- **Fear Scenario Proposals box**: AI-proposed crash scenarios staged
+  pending review in `fear_scenarios.json`, with watch signals and hedges.
+- **Calibration track record**: directionally-wrong conviction badges
+  (TQQQ 2/3 wrong) in the Calibration &amp; Safety Monitor.
+
+### Changed
+- Orders section note now explains the active mode's semantics.
+- Cache-bust `?v` bumped (`app.js?v=32`, `styles.css?v=30`).
+
+## [algo 0.6.1.00] — 2026-08-15
+
+### Added
+- **Change-detect prompt** (`ai_sentiment.py`): embeds `YOUR PREVIOUS
+  VERDICT` (prior stance, sector biases, fear overrides, convictions,
+  summary) plus fact deltas; the AI outputs **ONLY changes** - omission
+  means agreement, the engine merges silently. Rules renumbered with the
+  explicit **barbell mandate** (hyper-growth core + hedge-stack
+  insurance, no idle cash, never chase euphoria).
+- **Crowding gate**: `update.fetch_fear_greed()` pulls the CNN-style
+  Fear &amp; Greed index (free endpoint, no key, never breaks a run) into
+  the snapshot; the prompt warns when additions are crowded (&ge;75) or
+  dips may be opportunities (&le;25).
+- **Calibration**: `update.compute_calibration()` scores each prior
+  conviction against the move since it was written (&lt;0.5% = noise);
+  wrong calls accumulate into `meta.ai_calibration` and are fed back to
+  the next prompt so confidence on a repeatedly-wrong ticker starts
+  discounted. Displayed in the UI.
+- **Rotations**: verdict schema gains `rotations[{sell, buy,
+  rationale}]`; `rotation_layer()` whitelists both legs to open
+  holdings; orders become a matched sell+buy pair at `order_size` each.
+- **Editable fear table**: scenarios moved from the hardcoded `FEARS`
+  list into **`fear_scenarios.json`** (F1-F8 verbatim). `fears.py`
+  loads it (falls back to embedded defaults), and `apply_fear_proposals()`
+  persists the AI's `fear_proposals`/`fear_edits` - new scenarios are
+  staged `pending_review: true` and skipped by `build_fears()` until a
+  human clears the flag and writes components; safe edits (name / hedge
+  ticks) apply immediately. Per-scenario `sizing` dicts are honored.
+- **Mode-aware orders**: `meta.ai.mode` (default `recommend`). In
+  recommend mode `refresh_orders_from_ai()` leaves pending orders
+  untouched (Execute All writes them via `serve.py POST /execute_all`);
+  in execute mode it replaces pending orders with proposals + rotations
+  as before.
+
+### Changed
+- `_validate_verdict()` accepts dynamic fear ids from the scenario table
+  (F9+ proposals validate after approval).
+- Verdict/dashboard payload gains `rotations`, `fear_proposals`,
+  `mode`, `gauge`, `calibration`.
+
+## [site 0.5.1.03] — 2026-08-14
+
+### Changed
+- **Header mascot image swapped** for the zoomed-in version the user
+  supplied (temp-logo.jpg) + `?v=2` cache-bust so stale browser copies
+  can't hide it.
+
+## [site 0.5.1.02] — 2026-08-14
+
+### Changed
+- **News disclaimer moved to the Live News Feed card**: "display only — news
+  is not used by the AI (yet)" now sits with the headlines it describes,
+  instead of cluttering the AI heartbeat bar.
+
+## [site 0.5.1.01] — 2026-08-14
+
+### Changed
+- **Versioning re-baselined** to the four-part notation **`v0.5.F.PP`** (per
+  user rule): feature digit increments on new features (0.5.1 → 0.5.2), the
+  two-digit patch increments on bug fixes for a feature (0.5.1.01 → 0.5.1.02),
+  and the leading `0.5` only moves (→ 0.6) when the user deems it. Prior
+  entries under the old `0.5.2/0.5.3/0.5.4` notation remain as history.
+- **Header mascot fixed**: now a plain 54px box (no CSS transform) — the
+  largest size that fits the header row, which the title block already sets.
+  (The previous scale-transform looked unchanged because the page being
+  viewed was a stale cached v0.5.1 build — hard-refresh to see new builds.)
+
+## [site 0.5.4] — 2026-08-14
+
+### Changed
+- **Header mascot bigger** via CSS scale (layout box unchanged — row height untouched).
+- **GitHub update cadence**: market closed → ONE run/day at 01:00 UTC (was hourly —
+  no more server flooding); pre-open window (09:00–09:30 ET) + market hours →
+  every 6 min via `python update.py --preopen`, which forces the AI verdict
+  refresh right before the bell so orders land fresh pre-execution. Out-of-window
+  6-min runs are cheap no-ops (new `market_state()` helper in update.py; DST-aware).
+  Dashboard countdown now shows a 24h next-refresh when closed.
+- **AI heartbeat "News" label** rewritten: "shown here only · not used by the AI"
+  (was "Tier B — display only").
+- **Portfolio vs SPY card removed** (the SPY overlay on the history chart stays).
+- **Layout**: Portfolio Value History now owns its full-width row; Sector Limits
+  and PortPie share the row beneath (two cards side by side).
+- **Theory wheel**: side cards sit closer to the front card (smaller gap, less
+  shrink) — deck no longer looks spread out.
+
+## [site 0.5.3] — 2026-08-14
+
+### Changed
+- **Dismiss on AI proposals now asks first**: clicking Dismiss flips the
+  proposal card over (3D flip) to an "Are you sure?" confirm with
+  Yes, Dismiss / Keep — no more accidental one-click dismissal.
+- **Snoozed proposals auto-restore**: a 10s poller prunes expired snoozes
+  from localStorage and re-renders, so cards come back without a reload.
+
+## [site 0.5.2] — 2026-08-14
+
+### Added
+- **Help site now documents the end goal**: "Where this is going" panel on the
+  Simple tab and an "End goal & roadmap" section on the Advanced tab — paid
+  subscription service for other users (sell the tool, not the advice),
+  Alpaca Phase 1 integration, RIA Phases 2–3 staging, trust-moat framing.
+- **README rewritten** for the new end goal: live GitHub Pages URL, roadmap
+  (UI v1 = accounts + personalized AI, Engine v1 = 100% AI trades), market
+  orders (algo 0.6.0), quarterly no-tolerance rebalance audit, `fears.py` and
+  archive pages in the file table.
+
+### Changed
+- GitHub repo About: added description + homepage (GitHub Pages site).
+
 ## [site 0.5.1] — 2026-08-14
 
 ### Fixed

@@ -1,11 +1,18 @@
 """
-AI Sentiment Decision Layer - draft (algo 0.5.8).
+AI Sentiment Decision Layer (algo 0.6.1.00).
 
 The Engine v1 stepping stone: a fresh LLM call (Gemini) reads TIER A
 market data (prices, fear levels, exposures - never the Tier B RSS news
-feed), compares against its last verdict via FACT DELTAS, and emits a
-strict JSON verdict. Three deterministic layers (theories / fears /
-bullish) translate that verdict into proposals. Nothing executes.
+feed), compares against its last verdict via FACT DELTAS plus the prior
+verdict block, and emits a strict JSON verdict of ONLY changes. Three
+deterministic layers (theories / fears / bullish) translate that verdict
+into proposals. Nothing executes directly.
+
+Engine v0.6.1: change-detect semantics (omission = agreement with the
+prior read), paired rotations, AI fear proposals/edits that persist into
+the editable fear_scenarios.json table, a crowding sentiment-gauge gate,
+and a calibration track record that discounts confidence on repeatedly
+wrong tickers.
 
 Invariants (see CHANGELOG "AI Sentiment Decision Layer"):
   1. AI thinks, the engine calculates - the LLM outputs conviction /
@@ -13,21 +20,19 @@ Invariants (see CHANGELOG "AI Sentiment Decision Layer"):
   2. Deterministic rules override AI (TP/SL, vol-halt, sector caps).
   3. Fact-delta ledger, not prose - the prompt gets verified numbers
      about what happened after the last call, never its own reasoning.
-  4. Urgency gates the UI - proposals only, human confirmation required.
-  5. AI is read-only until Engine v1 - if the call fails or returns
-     junk, the book behaves exactly as before (degraded mode).
+  4. Urgency gates the UI - proposals only, human confirmation required
+     (recommend mode default; execute mode is a human-set override).
+  5. AI is read-only - if the call fails or returns junk, the book
+     behaves exactly as before (degraded mode).
 
-Status: DISABLED by default (meta.ai.enabled: false) and NOT wired into
-update.py. This module is importable and self-contained; wiring happens
-in a later milestone.
-
-Usage (future wiring):
+Usage (wired into update.py):
     from ai_sentiment import run
-    verdict = run(data, prices, fear_data)
+    verdict = run(data, prices, fear_data, macro, sentiment, calibration)
     if verdict:
         theories_deltas = theories_layer(verdict)      # -> theory updates
         ai_scores      = fears_layer(verdict)          # -> build_fears(ai_scores=...)
         proposals      = bullish_layer(verdict, data)  # -> review cards
+        rotations      = rotation_layer(verdict, data) # -> paired orders
 """
 import hashlib
 import json
@@ -58,12 +63,14 @@ KNOWN_FEARS = ("F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8")
 
 # ---------------------------------------------------------------- snapshot
 
-def build_market_snapshot(data, prices, fear_data=None, macro=None):
+def build_market_snapshot(data, prices, fear_data=None, macro=None, sentiment=None):
     """Tier A facts for the prompt: exposures, fear levels, prices, macro.
 
     Deliberately NO position P&L (disposition effect) and NO news.
     prices: dict ticker -> last price, as fetched by update.py.
     macro: optional live {symbol: {px, chg_1d_pct}} from update.fetch_macro().
+    sentiment: optional {index: 0-100, label} crowding gauge (CNN-style
+    Fear & Greed) - the 'don't buy the top' euphoria check.
     Sector limits: meta.limits.rebalance.limits (exempt sectors, e.g. SGOV,
     carry no cap - dry powder grows freely).
     """
@@ -112,6 +119,10 @@ def build_market_snapshot(data, prices, fear_data=None, macro=None):
         for sym, mv in macro.items():
             snapshot["macro"][sym] = mv["px"]
             snapshot["macro"][sym + "_1d_pct"] = mv["chg_1d_pct"]
+    if sentiment:
+        snapshot["sentiment_gauge"] = {
+            "index": sentiment.get("index"), "label": sentiment.get("label"),
+        }
     return snapshot
 
 
@@ -160,8 +171,16 @@ def build_fact_deltas(last, snapshot):
 
 # ---------------------------------------------------------------- prompt
 
-def build_prompt(cfg, snapshot, deltas, theories=None):
-    """Assemble the fixed-structure prompt from Tier A facts only."""
+def build_prompt(cfg, snapshot, deltas, theories=None, calibration=None,
+                 last=None):
+    """Assemble the fixed-structure prompt from Tier A facts only.
+
+    Engine v0.6.1: this is a CHANGE-DETECT pass. The previous verdict is
+    embedded (last) plus the fact deltas since it, and the AI outputs ONLY
+    changes - omission means agreement with the previous read (the engine
+    merges silently). calibration: {ticker: {wrong, total, last_wrong}}
+    outcome track record for conviction discounting.
+    """
     active = [t for t in theories or []
               if t.get("status") in ("pending", "paused")]
     themes = [
@@ -171,37 +190,106 @@ def build_prompt(cfg, snapshot, deltas, theories=None):
         }
         for t in active
     ]
-    return (
-        "You are the sentiment/conviction layer of a barbell portfolio engine.\n"
-        "Answer with ONLY a single valid JSON object - no markdown fences, no "
-        "prose before or after it. JSON comments are not allowed.\n\n"
+    prior = None
+    if last and isinstance(last, dict):
+        prior = {
+            "date": last.get("date"),
+            "macro_stance": last.get("macro_stance"),
+            "sector_bias": [
+                {"sector": s.get("sector"), "stance": s.get("stance"),
+                 "conviction": s.get("conviction")}
+                for s in last.get("sector_bias") or []
+            ],
+            "fears": [
+                {"id": f.get("id"), "sentiment_score": f.get("sentiment_score")}
+                for f in last.get("fears") or []
+            ],
+            "convictions": [
+                {"ticker": c.get("ticker"), "conviction_score": c.get("conviction_score"),
+                 "urgency": c.get("urgency")}
+                for c in last.get("convictions") or []
+            ],
+            "summary": last.get("summary"),
+        }
+    calib = sorted(
+        [{"ticker": k, "wrong": v.get("wrong", 0), "total": v.get("total", 0),
+          "last_wrong": v.get("last_wrong")}
+         for k, v in (calibration or {}).items() if v.get("wrong", 0) > 0],
+        key=lambda x: -x["wrong"])
+    rules = (
         "RULES\n"
+        "0. BARBELL MANDATE: the book is a barbell - hyper-growth core "
+        "(leveraged tech/semis/nuclear + A/B-tier convictions) with a "
+        "hedge-stack insurance sleeve (ZROZ/FXY/VIXM/QFLR/GLD/GDX/BTAL/"
+        "DBMF), no idle cash (dry powder parks in SGOV), deterministic "
+        "TP/SL/vol-halt rules. Never chase euphoria: high sentiment alone "
+        "is NOT a reason to add; the hedge stack exists to be USED when "
+        "fears spike.\n"
         "1. Sector biases: rate EVERY sector in sector_exposures. Stance is "
         "bullish/neutral/bearish; conviction is a float 0.0 to 1.0 (1.0 = "
-        "maximum confidence).\n"
-        "2. Fears: score ALL F1-F8 as a number 1.0 to 5.0 (5.0 = panic). "
-        "Your score is your sentiment read on the deterministic fear level "
-        "shown in fear_levels - do not contradict a 4.9 level with a 2.0 "
-        "sentiment score without a delta_reason.\n"
+        "maximum confidence). Output ONLY sectors whose stance or "
+        "conviction CHANGED vs YOUR PREVIOUS VERDICT - an omitted sector "
+        "keeps its previous read (agreement needs no output).\n"
+        "2. Fears: score EVERY fear in fear_levels where YOUR sentiment read "
+        "differs from the deterministic level - omitted fears keep the "
+        "deterministic level (you agree). Scores are 1.0 to 5.0 (5.0 = "
+        "panic). Do not contradict a 4.9 level with a 2.0 sentiment score "
+        "without a delta_reason.\n"
         "3. Theories: review EVERY theory in CURRENT THEORIES: affirm / "
-        "weaken / probation / abandon, confidence integer 0-100.\n"
+        "weaken / probation / abandon, confidence integer 0-100. Prior "
+        "verdicts and outcomes appear in the fact deltas - argue with the "
+        "evidence, not the prior opinion.\n"
         "4. Convictions: rate ONLY tickers present in holdings. conviction_"
         "score is a float -1.0 (max trim) to +1.0 (max add); urgency and "
         "confidence are integers 0-100. Tickers needing no action are "
         "OMITTED - omission means hold (the engine assumes 0.0). Never "
         "invent tickers outside holdings.\n"
-        "5. A ticker-level conviction overrides a sector stance wherever "
+        "5. Rotations: a paired {sell, buy} conviction change (risk "
+        "rotation between holdings - e.g. trim a crowded winner into a "
+        "cheaper conviction). Both tickers MUST be in holdings; never "
+        "list either rotation leg as a standalone conviction in the same "
+        "run. The engine sizes both legs.\n"
+        "6. Fear proposals/edits: propose NEW crash scenarios you think the "
+        "book is unhedged for (name, type, rationale, watch_signals, "
+        "hedge_ticks). The engine stages them PENDING HUMAN REVIEW - they "
+        "are scored only after approval. fear_edits tune existing "
+        "scenarios' name/hedge_ticks only.\n"
+        "7. A ticker-level conviction overrides a sector stance wherever "
         "they conflict - conviction is the final word, sector bias is the "
         "macro-level view.\n"
-        "6. Never output dollar amounts, share counts, or prices - you set "
+        "8. Never output dollar amounts, share counts, or prices - you set "
         "conviction, urgency and confidence; the engine calculates sizing.\n"
-        "7. summary: 2-4 sentences synthesizing stance, fear adjustments, "
-        "theory verdicts, and execution priorities.\n\n"
-        "MARKET STATE (Tier A facts, decision-grade)\n"
+        "9. summary: 2-4 sentences synthesizing stance, fear adjustments, "
+        "theory verdicts, and execution priorities.\n"
+    )
+    if snapshot.get("sentiment_gauge"):
+        g = snapshot["sentiment_gauge"]
+        rules += ("\nSENTIMENT GAUGE (crowding check - 0 = extreme fear, "
+                  "100 = extreme greed): index %s (%s). At index >= 75 "
+                  "additions are CROWDED and need extra justification; at "
+                  "index <= 25 panic dips may be opportunities, but the "
+                  "barbell mandate always wins.\n" % (g.get("index"), g.get("label")))
+    if calib:
+        rules += ("\nCALIBRATION (your outcome track record - facts): you "
+                  "were directionally WRONG on these tickers in recent "
+                  "verdicts: %s. Confidence on a repeatedly-wrong ticker "
+                  "starts DISCOUNTED - weigh evidence over ego; a fresh "
+                  "correct run restores it.\n"
+                  % json.dumps(calib))
+    body = (
+        "You are the sentiment/conviction layer of a barbell portfolio engine.\n"
+        "Answer with ONLY a single valid JSON object - no markdown fences, no "
+        "prose before or after it. JSON comments are not allowed.\n\n"
+        + rules
+        + "\nMARKET STATE (Tier A facts, decision-grade)\n"
         + json.dumps(snapshot, indent=2)
-        + ("\n\nWHAT HAPPENED SINCE YOUR LAST VERDICT (fact deltas)\n"
-           + json.dumps(deltas, indent=2)
-           if deltas else "\n\n(No prior verdict on record - this is your first read.)")
+        + (("\n\nYOUR PREVIOUS VERDICT (compare against it - output ONLY "
+            "changes; omission means you still agree)\n"
+            + json.dumps(prior, indent=2))
+           if prior else "\n\n(No prior verdict on record - this is your first read.)")
+        + (("\n\nWHAT HAPPENED SINCE YOUR LAST VERDICT (fact deltas)\n"
+            + json.dumps(deltas, indent=2))
+           if deltas else "")
         + ("\n\nCURRENT THEORIES (active only)\n" + json.dumps(themes, indent=2)
            if themes else "")
         + "\n\nSCHEMA (return exactly this shape)\n"
@@ -215,9 +303,16 @@ def build_prompt(cfg, snapshot, deltas, theories=None):
             "fears": [{"id": "F4", "sentiment_score": 3.0, "delta_reason": "..."}],
             "convictions": [{"ticker": "TQQQ", "conviction_score": 0.75,
                              "urgency": 60, "confidence": 70, "rationale": "..."}],
+            "rotations": [{"sell": "SOXL", "buy": "NLR", "rationale": "..."}],
+            "fear_proposals": [{"name": "...", "type": "structural|episodic",
+                                "rationale": "...", "watch_signals": ["..."],
+                                "hedge_ticks": ["GLD"]}],
+            "fear_edits": [{"id": "F3", "name": "...", "hedge_ticks": ["..."],
+                            "note": "..."}],
             "summary": "2-4 sentences",
         }, indent=2)
     )
+    return body
 
 
 # ---------------------------------------------------------------- API call
@@ -444,10 +539,15 @@ def _clamp(v, lo, hi, default=0.0):
         return default
 
 
-def _validate_verdict(obj):
-    """Whitelist + clamp every field. Malformed = None (degraded)."""
+def _validate_verdict(obj, allowed_fears=None):
+    """Whitelist + clamp every field. Malformed = None (degraded).
+
+    allowed_fears: valid fear ids (from the editable fear_scenarios.json
+    table, e.g. F1-F9+). Defaults to the F1-F8 legacy set.
+    """
     if not isinstance(obj, dict):
         return None
+    fear_ids = set(allowed_fears) if allowed_fears else set(KNOWN_FEARS)
     v = {}
     v["date"] = str(obj.get("date") or time.strftime("%Y-%m-%d"))
     stance = obj.get("macro_stance")
@@ -477,7 +577,7 @@ def _validate_verdict(obj):
     v["fears"] = []
     for f in obj.get("fears") or []:
         fid = str(f.get("id") or "")
-        if fid not in KNOWN_FEARS:
+        if fid not in fear_ids:
             continue
         v["fears"].append({
             "id": fid,
@@ -494,6 +594,39 @@ def _validate_verdict(obj):
             "urgency": int(_clamp(c.get("urgency"), 0, 100)),
             "confidence": int(_clamp(c.get("confidence"), 0, 100)),
             "rationale": str(c.get("rationale") or "")[:400],
+        })
+    v["rotations"] = []
+    for r in obj.get("rotations") or []:
+        if not isinstance(r, dict):
+            continue
+        sell = str(r.get("sell") or "").strip().upper()
+        buy = str(r.get("buy") or "").strip().upper()
+        if not sell or not buy or sell == buy:
+            continue
+        v["rotations"].append({
+            "sell": sell, "buy": buy,
+            "rationale": str(r.get("rationale") or "")[:400],
+        })
+    v["fear_proposals"] = []
+    for p in obj.get("fear_proposals") or []:
+        if not isinstance(p, dict) or not str(p.get("name") or "").strip():
+            continue
+        v["fear_proposals"].append({
+            "name": str(p["name"]).strip()[:80],
+            "type": p.get("type") if p.get("type") in ("structural", "episodic") else "structural",
+            "rationale": str(p.get("rationale") or "")[:400],
+            "watch_signals": [str(s)[:80] for s in (p.get("watch_signals") or [])][:6],
+            "hedge_ticks": [str(t).upper() for t in (p.get("hedge_ticks") or [])][:8],
+        })
+    v["fear_edits"] = []
+    for e in obj.get("fear_edits") or []:
+        if not isinstance(e, dict) or not str(e.get("id") or "").strip():
+            continue
+        v["fear_edits"].append({
+            "id": str(e["id"]).strip().upper()[:8],
+            "name": str(e.get("name") or "").strip()[:80] or None,
+            "hedge_ticks": [str(t).upper() for t in (e.get("hedge_ticks") or [])][:8] or None,
+            "note": str(e.get("note") or "")[:200] or None,
         })
     v["summary"] = str(obj.get("summary") or "")[:1000]
     return v
@@ -554,26 +687,55 @@ def bullish_layer(verdict, data, prices=None):
     return sorted(proposals, key=lambda x: -x["urgency"])
 
 
+def rotation_layer(verdict, data):
+    """Rotations -> paired {sell, buy} proposals (engine sizes both legs).
+
+    Engine v0.6.1: a rotation is a paired conviction change between two
+    holdings. Both legs must be OPEN positions - anything else is dropped
+    with a warning (the AI is told this, but validation never trusts it).
+    """
+    whitelist = {p["ticker"] for p in data.get("positions") or []
+                 if p.get("status") == "open"}
+    out = []
+    for r in verdict.get("rotations") or []:
+        sell, buy = r.get("sell"), r.get("buy")
+        if sell not in whitelist or buy not in whitelist:
+            print(f"  WARN: AI rotation {sell}->{buy} outside holdings - discarded")
+            continue
+        out.append(r)
+    return out
+
+
 # ---------------------------------------------------------------- entry
 
-def run(data, prices, fear_data=None, macro=None):
+def run(data, prices, fear_data=None, macro=None, sentiment=None,
+        calibration=None):
     """Full layer run. Returns the validated verdict or None (degraded).
 
     Never raises. The caller (update.py, future wiring) decides whether
     to persist it into meta.ai_last_output + meta.ai_ledger.
     macro: optional live {symbol: {px, chg_1d_pct}} from update.fetch_macro().
+    sentiment: optional {index, label} crowding gauge (CNN-style).
+    calibration: optional {ticker: {wrong, total, last_wrong}} track record.
     """
     cfg = (data.get("meta") or {}).get("ai") or {}
     if not cfg.get("enabled"):
         return None
-    snapshot = build_market_snapshot(data, prices, fear_data, macro)
+    snapshot = build_market_snapshot(data, prices, fear_data, macro, sentiment)
     last = (data.get("meta") or {}).get("ai_last_output")
     deltas = build_fact_deltas(last, snapshot)
+    allowed_fears = set(KNOWN_FEARS)
+    try:
+        import fears as _fears_mod
+        allowed_fears = {f["id"] for f in _fears_mod.load_scenarios()}
+    except Exception:
+        pass
     prompt = build_prompt(cfg, snapshot, deltas,
-                          theories=data.get("theories"))
+                          theories=data.get("theories"),
+                          calibration=calibration, last=last)
     raw = call_ai(cfg, prompt)
     obj = _extract_json(raw)
-    verdict = _validate_verdict(obj)
+    verdict = _validate_verdict(obj, allowed_fears=allowed_fears)
     if not verdict:
         print("  WARN: ai_sentiment: verdict invalid/missing - AI offline")
         return None
@@ -582,11 +744,13 @@ def run(data, prices, fear_data=None, macro=None):
     verdict["fear_levels"] = snapshot["fear_levels"]
     print(f"  AI SENTIMENT: {verdict['macro_stance']} | "
           f"{len(verdict['theories'])} theories | "
-          f"{len(verdict['convictions'])} convictions")
+          f"{len(verdict['convictions'])} convictions | "
+          f"{len(verdict['rotations'])} rotations")
     return verdict
 
 
 if __name__ == "__main__":
     # Smoke test with no live data: prints what a degraded run looks like.
-    print("ai_sentiment: module (algo 0.5.9) - providers: zen / deepseek / gemini")
-    print("run(data, prices, fear_data) -> verdict dict or None (degraded)")
+    print("ai_sentiment: module (algo 0.6.1.00) - providers: zen / deepseek / gemini")
+    print("run(data, prices, fear_data, macro, sentiment, calibration) "
+          "-> verdict dict or None (degraded)")

@@ -45,6 +45,7 @@
  * single entry point called once dashboard.js has loaded.
  */
 "use strict";
+var snoozeTick = null;
 
 /* Load dashboard.js (cache-busted), then run the callback. */
 function loadDash(cb) {
@@ -92,7 +93,7 @@ function render() {
     const img = new Image();
     img.onload = () => mascot.classList.add('hasIcon');
     img.onerror = () => mascot.classList.remove('hasIcon');
-    img.src = 'temp-logo.jpg';
+    img.src = 'temp-logo.jpg?v=2';
   }
 
   /* ---- next-refresh countdown (meta.asof_ts + meta.refresh_interval) ---- */
@@ -181,9 +182,24 @@ function render() {
     }).join('');
 
     const C = D.complacency;
+    const FG = D.fear_greed;
     let cLine = '';
+    if (FG) {
+      const idx = Math.max(0, Math.min(100, FG.index));
+      const zoned = [
+        ['#27ae60','greed','Extreme Greed',75,100], ['#7bb93c','greed','Greed',55,75],
+        ['#f1c40f','neutral','Neutral',45,55], ['#e67e22','fear','Fear',25,45],
+        ['#e74c3c','fear','Extreme Fear',0,25],
+      ].map(([c,_,n,lo,hi]) => `<span class="fgZone" style="background:${c}" title="${n} (${lo}-${hi})"></span>`).join('');
+      const pos = Math.max(0, Math.min(94, (idx/100)*94));
+      cLine = `<span class="fgWrap" title="Crowding check: at >=75 additions are crowded; <=25 is panic-dip territory (CNN-style Fear &amp; Greed)">
+        <span class="fgLabel">Fear &amp; Greed</span>
+        <span class="fgTrack">${zoned}<span class="fgNeedle" style="left:${pos}%"></span></span>
+        <span class="fgVal ${idx>=75?'neg':(idx<=25?'pos':'')}">${esc(FG.label)} ${idx}/100</span>
+      </span>`;
+    }
     if (C) {
-      cLine = `<span class="${C.index >= 0.5 ? 'compHot' : (C.index >= 0.3 ? 'compMid' : 'compCool')}">Complacency ${fmtN(C.index,2)} &middot; ${esc(C.note)}</span>`;
+      cLine += `<span class="${C.index >= 0.5 ? 'compHot' : (C.index >= 0.3 ? 'compMid' : 'compCool')}">Complacency ${fmtN(C.index,2)} &middot; ${esc(C.note)}</span>`;
       const pay = C.pay_check;
       if (pay && pay.checks.length) {
         const chips = pay.checks.map(x =>
@@ -274,34 +290,6 @@ function render() {
         <span class="sstat stat ${sr.status}">${label}</span>
       </div>`;
     }).join('');
-  }
-
-  /* ---- portfolio vs SPY ---- */
-  function renderComparison(){
-    const bm = D.benchmark;
-    const cmpEl = document.getElementById('cmpWrap');
-    const row = (label, p, b, fmt) => {
-      const ps = (p === null || p === undefined) ? 'n/a' : fmt(p);
-      const bs = (b === null || b === undefined) ? 'n/a' : fmt(b);
-      const d = (typeof p === 'number' && typeof b === 'number') ? fmt(p - b) : '—';
-      return `<tr>
-        <td>${label}</td>
-        <td class="${cls(p)}">${ps}</td>
-        <td>${bs}</td>
-        <td class="${(typeof p === 'number' && typeof b === 'number') ? cls(p - b) : 'muted'}">${d}</td>
-      </tr>`;
-    };
-    cmpEl.innerHTML = bm ? `
-      <table class="cmpTable">
-        <thead><tr><th>Metric</th><th>Portfolio</th><th>SPY</th><th>&Delta;</th></tr></thead>
-        <tbody>
-          ${row('Total Return', s.total_return_pct, bm.summary.total_return_pct, v => sign(v) + '%')}
-          ${row('Max Drawdown', s.max_drawdown_pct, bm.summary.max_drawdown_pct, v => fmtN(v) + '%')}
-          ${row('Sharpe (ann.)', s.sharpe_annualized, bm.summary.sharpe_annualized, v => fmtN(v))}
-        </tbody>
-      </table>
-      <div class="muted small" style="margin-top:8px;">Both normalized to $${fmtN(s.start_value, 0)} at ${D.meta.start_date}. SPY overlay is toggled on the history chart.</div>`
-      : '<div class="muted small">Benchmark unavailable — run <code>python update.py</code> with internet access.</div>';
   }
 
   /* ---- theories scorecard (flash-card wheel + plain-table toggle) ---- */
@@ -872,6 +860,8 @@ function render() {
     const mc = document.getElementById('aiMacro');
     const th = document.getElementById('aiTheories');
     const cb = document.getElementById('aiCalib');
+    const fp = document.getElementById('aiFearProps');
+    const ctl = document.getElementById('aiCtl');
     if(!stEl || !hb) return;
     const model = cfg.provider ? `${String(cfg.provider).toUpperCase()} · ${cfg.model}` : '';
     const stancePill = s => `<span class="stancePill ${s}">${String(s||'neutral').toUpperCase()}</span>`;
@@ -882,7 +872,8 @@ function render() {
       stEl.className = 'aiBadge ' + (degraded ? 'degraded' : 'off');
       subEl.textContent = degraded ? 'Call failed or verdict invalid — book running on core rules' : 'Flip meta.ai.enabled to activate the layer';
       hb.innerHTML = `<div class="aiSlate">AI Sentiment is ${degraded ? 'degraded' : 'offline'} — the portfolio runs on deterministic price rules (TP/SL, index-referenced vol-halts, no idle cash). The AI layer adds proposals, theory reads and fear blending only when active.${model ? ' · ' + escA(model) : ''}</div>`;
-      pr.innerHTML = ''; mc.innerHTML = ''; th.innerHTML = ''; cb.innerHTML = '';
+      pr.innerHTML = ''; mc.innerHTML = ''; th.innerHTML = ''; cb.innerHTML = ''; fp.innerHTML = '';
+      if(ctl) ctl.style.display = 'none';
       return;
     }
 
@@ -890,17 +881,74 @@ function render() {
     stEl.className = 'aiBadge active';
     subEl.textContent = `Last read ${escA(A.asof)} · Tier A grounded (prices, fears, exposures) · Tier B news: display only`;
 
+    /* 0) mode toggle + Execute All (serve.py endpoints; file:// degrades) */
+    const mode = A.mode || 'recommend';
+    const mkBtn = (id, active) => {
+      const b = document.getElementById(id);
+      if(b){ b.classList.toggle('active', active); b.dataset.mode = mode; }
+      return b;
+    };
+    mkBtn('modeRecommend', mode === 'recommend');
+    mkBtn('modeExecute', mode === 'execute');
+    const ea = document.getElementById('execAllBtn');
+    if(ea){
+      const hasActs = (A.proposals||[]).length > 0 || (A.rotations||[]).length > 0;
+      ea.disabled = !hasActs;
+      ea.title = hasActs ? 'Turn the current AI proposals + rotations into human-approved pending market orders' : 'No open proposals or rotations to execute';
+    }
+    async function post(path, body){
+      const r = await fetch(path, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: body ? JSON.stringify(body) : undefined,
+      });
+      if(!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    }
+    const wireOnce = (el, fn) => {
+      if(!el || el.dataset.wired) return;
+      el.dataset.wired = '1';
+      el.addEventListener('click', fn);
+    };
+    wireOnce(mkBtn('modeRecommend'), () => setMode('recommend'));
+    wireOnce(mkBtn('modeExecute'), () => setMode('execute'));
+    wireOnce(ea, async () => {
+      ea.disabled = true;
+      try{
+        const j = await post('/execute_all');
+        alert(`Execute All: ${j.created||0} order(s) written to portfolio.json (pending).\n\n` + (j.output||'').slice(-600));
+      }catch(e){
+        alert('Execute All needs the local server: run `python serve.py` and open http://localhost:8000.');
+      }
+      location.reload();
+    });
+    async function setMode(m){
+      try{
+        const j = await post('/mode', {mode: m});
+        if(j.ok){ location.reload(); } else { alert('Mode switch failed:\n' + (j.error || (j.output||'').slice(-400))); }
+      }catch(e){
+        alert('Mode toggle needs the local server: run `python serve.py` and open http://localhost:8000.');
+      }
+    }
+    if(ctl) ctl.style.display = '';
+
     /* 1) heartbeat & regime bar */
     const st = A.state || {};
+    const G = D.fear_greed || A.gauge;
+    const gaugeTxt = G ? `<span class="aiBarItem"><strong>Fear&Greed:</strong> <span class="${G.index>=75?'neg':(G.index<=25?'pos':'')}">${escA(G.label)} (${G.index}/100)</span></span>` : '';
     hb.innerHTML = `
       <div class="aiBar">
         <span class="aiBarItem"><strong>Stance:</strong> ${stancePill(A.macro_stance)}</span>
         <span class="aiBarItem"><strong>Last call:</strong> ${escA(st.last_call_date || '–')}${st.last_call_ts ? ' · ' + escA(st.last_call_ts) : ''}</span>
         <span class="aiBarItem"><strong>Calls today:</strong> ${st.calls_today || 0}/${cfg.max_daily_calls || 3}</span>
+        ${gaugeTxt}
         <span class="aiBarItem"><strong>Model:</strong> ${escA(model)}</span>
-        <span class="aiBarItem"><strong>News:</strong> Tier B — display only</span>
       </div>
       <div class="muted small" style="margin:6px 0 2px;">${escA(A.summary)}</div>`;
+    const modeNote = mode === 'execute'
+      ? '<div class="small" style="margin-top:4px;"><span class="pill sl">EXECUTE MODE</span> <span class="muted">AI refresh auto-replaces pending orders with the verdict. Deterministic TP/SL and vol-halts still overrule everything.</span></div>'
+      : '<div class="small" style="margin-top:4px;"><span class="pill warn">RECOMMEND MODE</span> <span class="muted">Proposals are advice — nothing becomes an order until you press Execute All. Change mode with the buttons above.</span></div>';
+    hb.innerHTML += modeNote;
 
     /* 2) actionable proposal queue (snooze/dismiss in localStorage) */
     const Q_KEY = 'stockpicker.ai.q1';
@@ -913,25 +961,56 @@ function render() {
       if(q.snooze?.[id] && now < q.snooze[id]) return false;
       return true;
     });
+    /* Auto-restore: poll for expired snoozes so cards return without a reload. */
+    if(!snoozeTick){
+      snoozeTick = setInterval(() => {
+        let qq = {}; try{ qq = JSON.parse(localStorage.getItem(Q_KEY)) || {}; }catch(e){}
+        const t = Date.now(); const s = qq.snooze || {}; let hit = false;
+        Object.keys(s).forEach(id => { if(t >= s[id]){ delete s[id]; hit = true; } });
+        if(hit){ localStorage.setItem(Q_KEY, JSON.stringify(qq)); renderAI(); }
+      }, 10000);
+    }
     const urgCls = p => p.urgency >= 75 ? 'red' : (p.urgency >= 50 ? 'amber' : 'low');
     pr.innerHTML = `
       <h3 class="aiColHead">Actionable Proposals <span class="muted small">(${visProps.length})</span></h3>
       ${visProps.length ? visProps.map(p => `
         <div class="propCard urg${urgCls(p)}" data-id="${escA(pId(p))}">
-          <div class="propTop">
-            <span class="pill ${p.action==='add'||p.action==='buy'?'tp':'sl'}">${String(p.action).toUpperCase()}</span>
-            <strong class="tick">${escA(p.ticker)}</strong>
-            <span class="muted small">conv ${p.conviction_score>0?'+':''}${fmtN(p.conviction_score,2)}</span>
-            <span class="urgTag urg${urgCls(p)}">URGENCY ${p.urgency}/100</span>
-          </div>
-          <div class="small muted" style="margin:6px 0;">${escA(p.rationale)}</div>
-          <div class="aiBtns">
-            <button class="aiBtn" data-act="copy">Review &amp; Copy Order</button>
-            <button class="aiBtn ghost" data-act="snooze">Snooze 24h</button>
-            <button class="aiBtn ghost" data-act="dismiss">Dismiss</button>
+          <div class="propInner">
+            <div class="propFace propFront">
+              <div class="propTop">
+                <span class="pill ${p.action==='add'||p.action==='buy'?'tp':'sl'}">${String(p.action).toUpperCase()}</span>
+                <strong class="tick">${escA(p.ticker)}</strong>
+                <span class="muted small">conv ${p.conviction_score>0?'+':''}${fmtN(p.conviction_score,2)}</span>
+                <span class="urgTag urg${urgCls(p)}">URGENCY ${p.urgency}/100</span>
+              </div>
+              <div class="small muted" style="margin:6px 0;">${escA(p.rationale)}</div>
+              <div class="aiBtns">
+                <button class="aiBtn" data-act="copy">Review &amp; Copy Order</button>
+                <button class="aiBtn ghost" data-act="snooze">Snooze (temp 1m)</button>
+                <button class="aiBtn ghost" data-act="dismiss">Dismiss</button>
+              </div>
+            </div>
+            <div class="propFace propBack">
+              <strong>Dismiss this proposal?</strong>
+              <div class="small muted" style="margin:6px 0;">It disappears from this page (and stays gone on reload) until the next data refresh.</div>
+              <div class="aiBtns">
+                <button class="aiBtn" data-act="dismiss-yes">Yes, Dismiss</button>
+                <button class="aiBtn ghost" data-act="dismiss-no">Keep</button>
+              </div>
+            </div>
           </div>
         </div>`).join('')
       : '<div class="muted small">No open proposals. Low-urgency (&lt;50) reads stay silent — see the ledger below.</div>'}`;
+    const rotRows = (A.rotations||[]).map(r => `
+      <div class="rotRow">
+        <span class="pill sl">SELL</span> <strong class="tick">${escA(r.sell)}</strong>
+        <span class="rotArrow">&#8594;</span>
+        <span class="pill tp">BUY</span> <strong class="tick">${escA(r.buy)}</strong>
+        <span class="small muted" style="margin-left:8px;">${escA(r.rationale)}</span>
+      </div>`).join('');
+    pr.innerHTML += (rotRows ? `
+      <h3 class="aiColHead" style="margin-top:12px;">Rotations <span class="muted small">(paired sell&#8594;buy, engine sizes both legs)</span></h3>
+      ${rotRows}` : '');
     pr.querySelectorAll('.aiBtn').forEach(btn => {
       const card = btn.closest('.propCard');
       const id = card.dataset.id;
@@ -942,11 +1021,15 @@ function render() {
         if(act === 'copy'){
           copyText(`REVIEW: ${p.action.toUpperCase()} ${p.ticker} (conviction ${p.conviction_score}, urgency ${p.urgency}) — ${p.rationale} — Human confirmation required. No autonomous execution.`);
         } else if(act === 'snooze'){
-          (q.snooze = q.snooze || {})[id] = now + 24*3600*1000;
+          (q.snooze = q.snooze || {})[id] = now + 60*1000; // TEMP: 1min for verification (revert to 24*3600*1000)
           localStorage.setItem(Q_KEY, JSON.stringify(q)); renderAI();
         } else if(act === 'dismiss'){
+          card.classList.add('flipped');
+        } else if(act === 'dismiss-yes'){
           (q.dismiss = q.dismiss || {})[id] = true;
           localStorage.setItem(Q_KEY, JSON.stringify(q)); renderAI();
+        } else if(act === 'dismiss-no'){
+          card.classList.remove('flipped');
         }
       });
     });
@@ -993,8 +1076,31 @@ function render() {
         <tbody>${thRows || '<tr><td colspan="4" class="muted small">No theory reads this run.</td></tr>'}</tbody>
       </table>`;
 
+    /* 4b) AI fear proposals (staged in the editable fear_scenarios.json) */
+    const fprops = A.fear_proposals || [];
+    if(fp){
+      fp.innerHTML = fprops.length ? `
+        <h3 class="aiColHead">Fear Scenario Proposals <span class="pill warn">PENDING REVIEW</span></h3>
+        <div class="muted small" style="margin-bottom:6px;">The AI suggested these new crash scenarios — staged in fear_scenarios.json and NOT scored until you clear each entry's <code>pending_review</code> flag (and write its components).</div>
+        ${fprops.map(f => `
+          <div class="fpRow">
+            <strong>${escA(f.id)}</strong> <span class="pill ${f.type==='structural'?'warn':'tp'}">${String(f.type).toUpperCase()}</span>
+            <span class="tick">${escA(f.name)}</span>
+            <div class="small muted">${escA(f.note||'')}</div>
+            ${(f.watch_signals||[]).length ? `<div class="small muted">watch: ${f.watch_signals.map(escA).join(' &middot; ')}</div>` : ''}
+            ${(f.hedge_ticks||[]).length ? `<div class="small muted">hedges: ${f.hedge_ticks.map(escA).join(' &middot; ')}</div>` : ''}
+          </div>`).join('')}`
+      : '';
+    }
+
     /* 5) calibration & safety monitor (the trust engine) */
     const led = A.ledger || [];
+    const calib = A.calibration || {};
+    const calibRows = Object.keys(calib).map(tk => {
+      const c = calib[tk];
+      const rate = c.total ? Math.round(c.wrong / c.total * 100) : 0;
+      return `<span class="calibBadge ${rate >= 50 ? 'neg' : (c.wrong >= 2 ? 'amber' : '')}" title="wrong ${c.wrong}/${c.total} verdicts${c.last_wrong ? ' · last ' + escA(c.last_wrong) : ''}">${escA(tk)} ${c.wrong}/${c.total} wrong</span>`;
+    }).join(' ');
     const volHalts = (D.positions||[]).filter(p => p.status==='closed' && p.exit && p.exit.state==='vol_halt' && !p.exit.reentry_resolved).length;
     cb.innerHTML = `
       <h3 class="aiColHead">Calibration &amp; Safety Monitor</h3>
@@ -1004,7 +1110,8 @@ function render() {
           <div class="small" style="margin:6px 0;">Verdicts logged: <strong>${led.length}</strong> (rolling 28)</div>
           <div class="small" style="margin-bottom:4px;">Stance history:</div>
           <div style="margin-bottom:6px;">${led.map(l => `<span class="stancePill ${l.macro_stance}" title="${escA(l.date)}">${String(l.macro_stance).toUpperCase()}</span>`).join(' ') || '<span class="muted small">seeding track record…</span>'}</div>
-          <div class="small muted">Hit-rate &amp; calibration scores land with the outcome scorer (next milestone).</div>
+          <div class="small" style="margin-bottom:4px;">Directionally wrong convictions <span class="muted">(confidence starts discounted — fed to the next prompt):</span></div>
+          <div>${calibRows || '<span class="muted small">No wrong calls recorded yet.</span>'}</div>
         </div>
         <div>
           <div class="calibHead">DETERMINISTIC GUARDRAILS (UN-BYPASSABLE)</div>
@@ -1027,6 +1134,13 @@ function render() {
     const executed = O.filter(o => o.status !== 'pending');
     document.getElementById('ordersSub').innerHTML =
       `${pending.length} pending &middot; ${executed.length} executed (last ${executed.length})`;
+    const mode = (D.ai && D.ai.mode) || 'recommend';
+    const noteEl = document.getElementById('ordersNote');
+    if(noteEl){
+      noteEl.innerHTML = mode === 'execute'
+        ? 'Human-approved orders. Executed at the live price on the next market-open run. <span class="pill sl">EXECUTE MODE</span> — AI refresh auto-replaces pending orders with each new verdict.'
+        : 'Human-approved orders. Executed at the live price on the next market-open run. <span class="pill warn">RECOMMEND MODE</span> — orders are only written when you press <strong>Execute All</strong> on the AI panel.';
+    }
     document.getElementById('ordersList').innerHTML = O.map(o => {
       const isBuy = o.action === 'buy';
       const pill = o.status === 'pending'
@@ -1052,7 +1166,6 @@ function render() {
   renderOrders();
   renderPositions();
   renderSectors();
-  renderComparison();
   renderTheories();
   renderEvents();
   renderSleeves();
