@@ -156,7 +156,7 @@ window.DASH = {
         "confirmed": false
       },
       "F2": {
-        "prev_score": 1.8,
+        "prev_score": 1.9,
         "score": 1.9,
         "days_above": 0,
         "confirmed": false
@@ -168,7 +168,7 @@ window.DASH = {
         "confirmed": false
       },
       "F4": {
-        "prev_score": 2.8,
+        "prev_score": 3.6,
         "score": 3.6,
         "days_above": 0,
         "confirmed": false
@@ -176,13 +176,13 @@ window.DASH = {
       "F5": {
         "prev_score": 4.1,
         "score": 4.1,
-        "days_above": 89,
+        "days_above": 90,
         "confirmed": true
       },
       "F6": {
-        "prev_score": 4.8,
+        "prev_score": 4.9,
         "score": 4.9,
-        "days_above": 103,
+        "days_above": 104,
         "confirmed": true
       },
       "F7": {
@@ -192,7 +192,7 @@ window.DASH = {
         "confirmed": false
       },
       "F8": {
-        "prev_score": 2.9,
+        "prev_score": 2.8,
         "score": 2.8,
         "days_above": 0,
         "confirmed": false
@@ -554,7 +554,7 @@ window.DASH = {
         "summary": "The portfolio operates in a neutral macro regime with Tech / AI Growth (46.3% vs 60.0%) and the Hedge Stack (25.4% vs 35.0%) sitting below target allocations while Rates Shock fear (F6 at 4.9) remains"
       }
     ],
-    "asof_ts": 1786829245,
+    "asof_ts": 1786830582,
     "refresh_interval": 6
   },
   "asof": "2026-08-14",
@@ -1848,7 +1848,7 @@ window.DASH = {
       ],
       "asof": "2026-08-15",
       "degraded": false,
-      "trend_dir": "rising"
+      "trend_dir": "flat"
     },
     {
       "id": "F3",
@@ -2618,7 +2618,7 @@ window.DASH = {
     "enabled": true
   },
   "news": {
-    "asof": "2026-08-15 21:27:26",
+    "asof": "2026-08-15 21:49:43",
     "big_stories": [
       {
         "title": "Cathie Wood sells $11.6 million of surging tech stock",
@@ -2962,15 +2962,9 @@ window.DASH = {
         "link": "https://247wallst.com/investing/2026/08/14/the-gold-income-fund-that-turned-a-6-gold-dip-into-a-30-loss/?.tsrc=rss",
         "ts": 1786719036,
         "when": "Aug 14, 02:50 PM",
-        "ticker": "GLD",
-        "industry": "Gold",
-        "theory": [
-          "T6",
-          "T9",
-          "T19",
-          "T20",
-          "T21"
-        ],
+        "ticker": "SGOV",
+        "industry": "Equities",
+        "theory": [],
         "sent": "negative"
       },
       {
@@ -3094,22 +3088,6 @@ window.DASH = {
         "sent": "neutral"
       },
       {
-        "title": "MoneyMasters Podcast 8-13-26- SP 500 Vs. TSX - Which Leads Next",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/moneymasters-podcast-8-13-26-163200205.html?.tsrc=rss",
-        "ts": 1786638720,
-        "when": "Aug 13, 04:32 PM",
-        "ticker": "GDX",
-        "industry": "Gold Miners",
-        "theory": [
-          "T6",
-          "T9",
-          "T19",
-          "T20",
-          "T21"
-        ],
-        "sent": "neutral"
-      },
-      {
         "title": "5 ETFs to Benefit From Cooling Inflation in the Near Term",
         "link": "https://finance.yahoo.com/economy/policy/articles/5-etfs-benefit-cooling-inflation-140000926.html?.tsrc=rss",
         "ts": 1786629600,
@@ -3124,6 +3102,18 @@ window.DASH = {
           "T21"
         ],
         "sent": "positive"
+      },
+      {
+        "title": "Are Wall Street Analysts Bullish on Smurfit Westrock Stock?",
+        "link": "https://www.barchart.com/story/news/3827891/are-wall-street-analysts-bullish-on-smurfit-westrock-stock?.tsrc=rss",
+        "ts": 1786623391,
+        "when": "Aug 13, 12:16 PM",
+        "ticker": "XLY",
+        "industry": "Consumer Disc.",
+        "theory": [
+          "T13"
+        ],
+        "sent": "neutral"
       }
     ]
   },
