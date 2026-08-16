@@ -388,13 +388,25 @@ function render() {
         </div>`;
       }).join('');
     } else if (recent.length) {
-      evBox.innerHTML = recent.slice().reverse().slice(0, 6).map(e => `
-        <div class="eventline">
-          <div class="evWho"><strong title="${escA(NAME[e.ticker]||e.ticker)}">${e.ticker || 'SYSTEM'}</strong>
-            <span class="pill ${e.reason==='take_profit'?'tp':(e.reason==='stop_loss'?'sl':(e.reason==='rebalance_recommended'?'warn':'open'))}">${e.reason.toUpperCase()}</span>
+      evBox.innerHTML = recent.slice().reverse().slice(0, 6).map(e => {
+        const r = e.reason;
+        const cls = r === 'take_profit' ? 'tp'
+          : (r === 'stop_loss' ? 'sl'
+          : ((r === 'rebalance' || r === 'rebalance_recommended') ? 'warn'
+          : (r === 'deploy_cash' ? 'tp' : 'open')));
+        const lbl = r === 'deploy_cash' ? 'DEPLOY'
+          : (r === 'rebalance' ? 'REBAL'
+          : (r === 'rebalance_recommended' ? 'DRIFT'
+          : (r === 'ai_sentiment' ? 'AI READ' : r.toUpperCase())));
+        const tkCls = r === 'deploy_cash' ? 'pos'
+          : ((r === 'rebalance' || r === 'rebalance_recommended') ? 'amber' : '');
+        return `<div class="eventline">
+          <div class="evWho"><strong class="${tkCls}" title="${escA(NAME[e.ticker]||e.ticker)}">${e.ticker || 'SYSTEM'}</strong>
+            <span class="pill ${cls}">${lbl}</span>
             <span class="muted small">${e.date}</span></div>
           ${e.note ? `<div class="small muted">${escA(e.note)}</div>` : ''}
-        </div>`).join('');
+        </div>`;
+      }).join('');
     } else {
       evBox.innerHTML = '<div class="muted small">No recent activity. Buys and sells will appear here.</div>';
     }
@@ -966,21 +978,6 @@ function render() {
         }, 700);
       });
     }
-    const parkTog = document.getElementById('parkTog');
-    if(parkTog && !parkTog.dataset.wired){
-      parkTog.dataset.wired = '1';
-      parkTog.addEventListener('click', async ev => {
-        const b = ev.target.closest('button');
-        if(!b) return;
-        try{
-          const j = await post('/park', {mode: b.dataset.m});
-          if(!j.ok) throw new Error(j.error || 'park switch failed');
-        }catch(e){
-          alert('Park toggle needs the local server: run `python serve.py` and open http://localhost:8000.');
-        }
-        location.reload();
-      });
-    }
     if(ctl) ctl.style.display = '';
 
     /* 1) heartbeat & regime bar */
@@ -1178,6 +1175,21 @@ function render() {
           <div class="small">News (Tier B): <strong>display-only</strong>${cfg.news_to_sentiment ? ' — WARNING: feeding decisions' : ''}</div>
         </div>
       </div>`;
+    const parkTog = document.getElementById('parkTog');
+    if(parkTog && !parkTog.dataset.wired){
+      parkTog.dataset.wired = '1';
+      parkTog.addEventListener('click', async ev => {
+        const b = ev.target.closest('button');
+        if(!b) return;
+        try{
+          const j = await post('/park', {mode: b.dataset.m});
+          if(!j.ok) throw new Error(j.error || 'park switch failed');
+        }catch(e){
+          alert('Park toggle needs the local server (python serve.py on localhost:8000) to persist to portfolio.json.');
+        }
+        location.reload();
+      });
+    }
   }
 
   /* ---- market orders (D.orders; pending + recent executed) ---- */

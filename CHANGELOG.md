@@ -167,6 +167,20 @@ JSON verdict that feeds three deterministic layers. Nothing executes.
 
 ## [Unreleased]
 
+## [site 0.5.4.03] — 2026-08-15
+
+### Fixed
+- **Dry-powder toggle actually wired**: the SGOV | Cash toggle was being
+  wired before its panel rendered, so clicks did nothing. Wiring now runs
+  right after the calibration panel is built. On `file://` (no local
+  server) it alerts that `python serve.py` is needed to persist —
+  the toggle itself is a server-write to `meta.park_mode` by design.
+- **Trade Events fallback colored**: when no trades happened in the
+  7-day window, the fallback lines were all-blue with no visible pills.
+  Now every line has a color-coded pill and ticker: `DEPLOY` green
+  (SGOV parking), `REBAL`/`DRIFT` amber, `AI READ` blue, plus the
+  existing green/red + NEW/CLOSED treatment once real trades land.
+
 ## [site 0.5.4.02] — 2026-08-15
 
 ### Changed

@@ -45,7 +45,7 @@
   th{color:var(--muted); text-align:left; padding:8px 8px; border-bottom:1px solid var(--border); font-weight:600; font-size:11px; text-transform:uppercase; letter-spacing:.5px;}
   td{padding:9px 8px; border-bottom:1px solid var(--border);}
   tr:last-child td{border-bottom:none;}
-  .pos{color:var(--green);} .neg{color:var(--red);}
+  .pos{color:var(--green);} .neg{color:var(--red);} .amber{color:var(--amber);}
   .pill{display:inline-block; padding:2px 8px; border-radius:20px; font-size:11px; font-weight:600;}
   .pill.open{background:rgba(56,189,248,.12); color:var(--blue);}
   .pill.closed{background:rgba(148,163,184,.12); color:var(--muted);}
