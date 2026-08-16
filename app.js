@@ -259,8 +259,8 @@ function render() {
         <td>${fmt$(p.current_value)}</td>
         <td>${fmtN(p.current_value / s.total_value * 100, 1)}%</td>
         <td class="${cls(p.pnl_pct)}">${pnl}</td>
-        <td class="pos">${p.take_profit_pct ? (p.take_profit_pct*100).toFixed(0)+'%' : '—'}</td>
-        <td class="neg">${p.underlying ? p.underlying+' '+(p.underlying_stop_pct*100).toFixed(0)+'%' : (p.stop_loss_pct ? (p.stop_loss_pct*100).toFixed(0)+'%' : '—')}</td>
+        <td class="pos">${p.underlying ? (p.runner_active ? 'runner' : '50% trim') : (p.take_profit_pct ? (p.take_profit_pct*100).toFixed(0)+'%' : '—')}</td>
+        <td class="neg">${p.underlying ? p.underlying+' '+(Math.abs(p.dynamic_stop_pct != null ? p.dynamic_stop_pct : p.underlying_stop_pct)*100).toFixed(1)+'%' + (p.runner_active ? ' <span class="small pos" title="runner trail armed (base trim done)">R</span>' : '') : (p.stop_loss_pct ? (p.stop_loss_pct*100).toFixed(0)+'%' : '—')}</td>
         <td><span class="pill ${badge}">${label}</span></td>
       </tr>`;
     }).join('');
@@ -1172,6 +1172,12 @@ function render() {
           <div class="small" style="margin:6px 0;">Active vol-halts: <strong>${volHalts}</strong>${volHalts ? ' <span class="neg">— re-entry protocol engaged</span>' : ''}</div>
           <div class="small">TP/SL engine: <strong>active</strong> · Dry powder: <span class="parkTog" id="parkTog"><button data-m="sgov" class="${(D.meta && D.meta.park_mode || 'sgov') === 'sgov' ? 'on' : ''}">SGOV</button><button data-m="cash" class="${(D.meta && D.meta.park_mode || 'sgov') === 'cash' ? 'on' : ''}">Cash</button></span> <span class="muted small" title="Where surplus cash above the buffer parks on each run">auto-park</span></div>
           <div class="small">News (Tier B): <strong>display-only</strong>${cfg.news_to_sentiment ? ' — WARNING: feeding decisions' : ''}</div>
+          <div class="small">Consensus exits: <strong>dynamic stops</strong> (2.5x ATR14, floored) · runner trails armed: <strong>${(D.positions||[]).filter(p => p.runner_active).length}</strong></div>
+          <div class="small">Hedge harvester: ${(() => {
+            const hh = D.hedge_harvest;
+            if (!hh || !hh.items || !hh.items.length) return '<strong>standby</strong> <span class="muted small">(fires only while a growth vol-halt is active)</span>';
+            return hh.items.map(h => `<strong class="pos">${escA(h.ticker)} +${h.z}σ &rarr; trim ${h.pct}%</strong> <span class="muted small">(recommendation only)</span>`).join(' · ');
+          })()}</div>
         </div>
       </div>`;
     const parkTog = document.getElementById('parkTog');

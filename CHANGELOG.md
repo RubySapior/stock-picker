@@ -167,6 +167,50 @@ JSON verdict that feeds three deterministic layers. Nothing executes.
 
 ## [Unreleased]
 
+## [site 0.5.4.05] — 2026-08-16
+
+### Consensus exit engine (five-round design review, full build)
+
+The vol-halt / take-profit engine was redesigned in a five-round
+argue-agree-improve review (human + AI) and is now fully implemented.
+All indicator math runs on COMPLETED daily sessions only; only the
+vol-halt uses the live 6-min price. Engine data rules, not an algo
+milestone (algo bump at user discretion).
+
+### Added (engine rules)
+- **Dynamic vol stops**: leveraged positions stop at
+  `-max(|static|, 2.5 x ATR14%)` on the 1x underlying (e.g. TQQQ->QQQ).
+  Widens in high vol, floored at the static level; recomputed every run.
+  The halt freezes `reclaim_level` at the level in force.
+- **Base trim**: leveraged positions harvest **50% of shares** at +50%
+  wrapper PnL (one-shot, `base_trimmed`), proceeds to SGOV, arms the
+  runner trail (`runner_active`, one-way).
+- **Runner trail**: exits the remaining position on **2 consecutive
+  completed closes < EMA20(1x)** OR a single completed close
+  `<= EMA20 - 1.5 x ATR14` (emergency; intraday wicks never count).
+- **Re-entry trend gate**: vol-halted theories re-enter only when the
+  underlying posts 2+ consecutive closes above the frozen
+  `reclaim_level` AND the last close is above its EMA20 (no dead-cat
+  re-entries). The level stays pinned at halt time.
+- **Hedge harvester (recommendation-only)**: while a growth vol-halt is
+  active, a Crisis Alpha hedge >= +2 sigma above its 50d mean gets a
+  recommended 50% trim into the re-entry pool — never an order, and
+  never when the hedge is claimed by a confirmed fear scenario
+  (score >= 4.0 in its hedge_ticks). Surfaces as `DASH.hedge_harvest`.
+- **Leverage mapping guard**: positions with `leverage > 1` and no 1x
+  `underlying` now print a loud WARNING each run (wrapper backstop only).
+
+### Added (data / UI)
+- 1y daily OHLC for underlyings + hedges, cached in `ohlc_cache.json`
+  (fetched once per day, outside the repo payload).
+- `positions[]` telemetry: `dynamic_stop_pct`, `underlying_ema20`,
+  `underlying_atr14`, `runner_active`, `base_trimmed`. Positions table
+  shows the dynamic stop % and an `R` badge for armed runners; the
+  calibration panel shows runner count + harvester status.
+- Base trims emit partial-exit `take_profit` events with `partial`
+  shares; runner exits emit `take_profit` events with
+  `runner_2close` / `runner_emergency` notes.
+
 ## [site 0.5.4.04] — 2026-08-16
 
 ### Changed

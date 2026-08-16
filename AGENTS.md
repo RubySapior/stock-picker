@@ -166,11 +166,24 @@ Owned by `write_dashboard()` in `update.py`. `app.js` reads these fields:
   {reason:"take_profit"|"stop_loss", price, state, note, ...}), `sector`,
   `leverage`, `effective_value`, `theory_ids[]`. Leveraged funds (3x/2x) also
   carry index-referenced stops: `underlying`, `underlying_stop_pct`,
-  `underlying_buy_price`. `check_exits()` in `update.py` stops them on the
-  **1x underlying** (vol-aware, no whipsaw); `stop_loss_pct` is then only a
-  wide wrapper backstop. Stop exits are tagged `state:"vol_halt"` with
-  `reclaim_ticker` / `reclaim_level` / `reentry_amount` for the re-entry
-  protocol (see `meta.limits.re_entry`). A position may carry a one-shot
+  `underlying_buy_price`. **Consensus exit engine (site 0.5.4.05)**:
+  leveraged positions stop on the **1x underlying** at a DYNAMIC level
+  `-max(|static|, 2.5 x ATR14%)` (widens in high vol, floored; recomputed
+  every run, telemetry `dynamic_stop_pct`); `stop_loss_pct` is then only a
+  wide wrapper backstop. Take-profit on leveraged positions is the runner
+  system: a one-shot **base trim** of 50% of shares at +50% wrapper PnL
+  (`base_trimmed`, proceeds to SGOV, arms `runner_active`), then a trailing
+  **runner exit** on 2 consecutive completed closes < `underlying_ema20`
+  or a single completed close <= EMA20 - 1.5 x ATR14 (`runner_2close` /
+  `runner_emergency` notes). 1x positions keep fixed `take_profit_pct`.
+  Indicator math (EMA20/ATR14, Wilder RMA with gap-inclusive True Range)
+  evaluates COMPLETED daily sessions only (1y OHLC cached once per day in
+  `ohlc_cache.json`); only the vol-halt uses the live 6-min price. Stop
+  exits are tagged `state:"vol_halt"` with `reclaim_ticker` /
+  `reclaim_level` (frozen at halt time) / `reentry_amount` for the re-entry
+  protocol (see `meta.limits.re_entry`): re-entry now requires 2+
+  consecutive closes above the frozen level **AND** the last close above
+  the underlying's EMA20 (trend gate). A position may carry a one-shot
   `scheduled_exit` `{reason, note}` tag (e.g. a deliberate rebalance): on the
   FIRST market-open run `execute_scheduled_exits()` sells it at the live open
   price, realizes proceeds into cash, removes the position, and prunes its
@@ -244,7 +257,13 @@ Owned by `write_dashboard()` in `update.py`. `app.js` reads these fields:
   `[{instrument, pct, demand_pct, reasons[]}]` — RECOMMENDATION-ONLY
   per-instrument max demand from fears scoring ≥4.0 sustained `confirm_days`
   (3 structural / 2 episodic), scaled to Hedge Stack headroom (45% cap minus
-  current share). Never trades. `complacency`: null or `{index, valuation_
+  current share). Never trades. `hedge_harvest`: null or `{asof,
+  items:[{ticker, pct, z, reasons[]}]}` — RECOMMENDATION-ONLY hedge
+  monetization (consensus 0.5.4.05): a Crisis Alpha hedge ≥ +2σ above its
+  50d mean while a growth vol-halt is ACTIVE, proposing a 50% trim into the
+  re-entry pool; never fires for a hedge claimed by a confirmed fear
+  scenario (score ≥ 4.0, in its `hedge_ticks`). Never trades.
+  `complacency`: null or `{index, valuation_
   stretch, fear_term, divergence, fear_avg, regime, note, pay_check}` —
   index = stretch×(1−(mean(top3)−1)/4), but the reading is a 2D regime
   matrix (equity stretch × top-3 fear avg): fragility (stretch≥0.5 +

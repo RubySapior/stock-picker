@@ -87,6 +87,145 @@ def fetch_chart_history(symbol, rng=SPY_RANGE, interval="1d"):
     return out
 
 
+# ---------------------------------------------------------------------------
+# Consensus volatility/trend indicators (engine rules, site 0.5.4.05):
+#   - dynamic vol stop:  stop = max(static, 2.5 x ATR14%) on the 1x underlying
+#   - base trim:         50% of shares at +50% wrapper PnL (one-shot)
+#   - runner trail:      armed by the base trim; exits on 2 consecutive closes
+#                        < EMA20(1x) OR a single close <= EMA20 - 1.5 x ATR14
+#   - re-entry trend gate: 2 closes > reclaim_level AND close > EMA20(1x)
+#   - hedge harvester:   recommend-only; hedge >= +2 sigma above 50d mean
+#                        while a growth vol-halt is active, unless the hedge
+#                        is claimed by a confirmed fear scenario.
+# All indicator math runs on COMPLETED daily sessions only (date < today);
+# vol-halts alone use the live 6-min price.
+# ---------------------------------------------------------------------------
+ATR_WINDOW = 14
+EMA_WINDOW = 20
+STOP_ATR_MULT = 2.5
+RUNNER_BREACH_ATR_MULT = 1.5
+BASE_TRIM_PNL = 0.50
+RUNNER_GATE_PNL = 0.30
+HEDGE_HARVEST_Z = 2.0
+HEDGE_HARVEST_TRIM_PCT = 0.50
+HEDGE_HARVEST_FEAR_MIN = 4.0
+OHLC_CACHE = os.path.join(BASE, "ohlc_cache.json")
+
+
+def fetch_bars_ohlc(ticker, rng="1y"):
+    """Daily OHLC bars (not adjusted): [{'date','c','h','l'}, ...] oldest first."""
+    url = (f"https://query1.finance.yahoo.com/v8/finance/chart/{ticker}"
+           f"?range={rng}&interval=1d")
+    req = urllib.request.Request(url, headers=USER_AGENT)
+    with urllib.request.urlopen(req, timeout=30) as r:
+        raw = json.load(r)
+    res = raw["chart"]["result"][0]
+    ts = res["timestamp"]
+    q = res["indicators"]["quote"][0]
+    out = []
+    for i in range(len(ts)):
+        if ts[i] is None or q["close"][i] is None:
+            continue
+        out.append({"date": time.strftime("%Y-%m-%d", time.gmtime(ts[i])),
+                    "c": q["close"][i], "h": q["high"][i] or q["close"][i],
+                    "l": q["low"][i] or q["close"][i]})
+    return out
+
+
+def load_ohlc_cache():
+    try:
+        with open(OHLC_CACHE, encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:
+        return {}
+
+
+def save_ohlc_cache(cache):
+    with open(OHLC_CACHE, "w", encoding="utf-8") as f:
+        json.dump(cache, f, indent=1)
+
+
+def ensure_ohlc_bars(tickers, today):
+    """Daily OHLC bars per ticker, fetched once per calendar day (completed
+    sessions only; today's partial bar is excluded by indicators())."""
+    cache = load_ohlc_cache()
+    bars = cache.get("bars") or {}
+    if cache.get("date") != today:
+        bars = {}
+        cache["date"] = today
+    for t in tickers:
+        if t in bars:
+            continue
+        try:
+            bars[t] = fetch_bars_ohlc(t)
+            print(f"  INDICATORS: fetched 1y bars for {t} ({len(bars[t])} sessions)")
+        except Exception as exc:
+            print(f"  WARN: indicator history fetch failed for {t}: {exc}")
+        time.sleep(0.3)
+    cache["bars"] = bars
+    save_ohlc_cache(cache)
+    return bars
+
+
+def _sma(vals, n):
+    return sum(vals[-n:]) / n if len(vals) >= n else None
+
+
+def ema_series(closes, n=EMA_WINDOW):
+    """Exponential MA seeded with the first n-bar SMA; None if too short."""
+    if len(closes) < n:
+        return None
+    ema = _sma(closes[:n], n)
+    out = [ema]
+    k = 2.0 / (n + 1)
+    for c in closes[n:]:
+        ema = c * k + ema * (1 - k)
+        out.append(ema)
+    return out
+
+
+def atr_series(bars, n=ATR_WINDOW):
+    """Wilder's ATR14 from full True Range (overnight gaps included)."""
+    if len(bars) < n + 1:
+        return None
+    trs = []
+    for i in range(1, len(bars)):
+        h, l = bars[i]["h"], bars[i]["l"]
+        pc = bars[i - 1]["c"]
+        trs.append(max(h - l, abs(h - pc), abs(l - pc)))
+    if len(trs) < n:
+        return None
+    atr = sum(trs[:n]) / n
+    out = [atr]
+    for t in trs[n:]:
+        atr = (atr * (n - 1) + t) / n
+        out.append(atr)
+    return out
+
+
+def indicators_for(bars, today):
+    """Completed-session indicators: {closes, last_close, ema20, atr14}."""
+    sess = [b for b in bars if b["date"] < today]
+    closes = [b["c"] for b in sess]
+    ema = ema_series(closes)
+    atr = atr_series(sess)
+    return {
+        "closes": closes,
+        "last_close": closes[-1] if closes else None,
+        "ema20": ema[-1] if ema else None,
+        "atr14": atr[-1] if atr else None,
+    }
+
+
+def dynamic_stop_pct(static_pct, gi):
+    """Stop distance in % (negative): -max(|static|, 2.5 x ATR14%) - the
+    ATR leg only ever WIDENS the stop, never tightens below the floor."""
+    if not gi or not gi.get("atr14") or not gi.get("last_close"):
+        return static_pct
+    dyn = STOP_ATR_MULT * gi["atr14"] / gi["last_close"]
+    return -max(abs(static_pct), dyn)
+
+
 # Macro indicators for the AI prompt (Tier A facts). Same Yahoo chart endpoint
 # as fetch_price; ^TNX is normalized to percent (Yahoo chart API returns the
 # yield x10, e.g. 41.80 = 4.18%).
@@ -245,6 +384,60 @@ def deploy_cash_to_bonds(data, prices, today):
     print(f"  CASH->BONDS: parked ${deployed:,.2f} in {STB_TICKER}")
 
 
+def hedge_harvester(data, ind, fear_data, today):
+    """Recommendation-only hedge monetization (consensus, site 0.5.4.05).
+
+    Fires ONLY when a growth vol-halt is ACTIVE (unresolved) and a Crisis
+    Alpha hedge sits >= +2 sigma above its 50d mean - the hedge's job is
+    done, so its gains are redeployable at the growth bottom. NEVER trades:
+    the output is a recommendation (payload `hedge_harvest`) for human or
+    AI review. A hedge claimed by a confirmed fear scenario (score >= 4.0,
+    listed in its hedge_ticks) is never recommended - it stays in place.
+    """
+    halted = [p for p in data["positions"]
+              if p["status"] == "closed"
+              and (p.get("exit") or {}).get("state") == "vol_halt"
+              and not (p.get("exit") or {}).get("reentry_resolved")]
+    if not halted:
+        return None
+    blocked = set()
+    for f in (fear_data or {}).get("fears") or []:
+        if (f.get("score") or 0) >= HEDGE_HARVEST_FEAR_MIN:
+            blocked.update(f.get("hedge_ticks") or [])
+    items = []
+    for p in data["positions"]:
+        if p["status"] != "open" or not str(p.get("sleeve", "")).startswith("Crisis Alpha"):
+            continue
+        gi = (ind or {}).get(p["ticker"]) or {}
+        closes = gi.get("closes") or []
+        if len(closes) < 50:
+            continue
+        mean = sum(closes[-50:]) / 50
+        var = sum((c - mean) ** 2 for c in closes[-50:]) / 49
+        sd = var ** 0.5
+        if sd <= 0:
+            continue
+        z = (closes[-1] - mean) / sd
+        if z < HEDGE_HARVEST_Z:
+            continue
+        if p["ticker"] in blocked:
+            print(f"  HEDGE-HARVEST: {p['ticker']} at {z:.1f}sigma but claimed by an "
+                  f"active fear scenario - holding")
+            continue
+        items.append({
+            "ticker": p["ticker"],
+            "pct": round(HEDGE_HARVEST_TRIM_PCT * 100),
+            "z": round(z, 2),
+            "reasons": [
+                f"{p['ticker']} {z:.1f}sigma above 50d mean",
+                f"growth vol-halt ACTIVE ({halted[0]['ticker']} halted) - redeploy at the bottom",
+            ],
+        })
+        print(f"  HEDGE-HARVEST: {p['ticker']} {z:.1f}sigma above 50d mean -> recommend "
+              f"{round(HEDGE_HARVEST_TRIM_PCT * 100)}% trim into re-entry pool (RECOMMENDATION ONLY)")
+    return {"asof": today, "items": items} if items else None
+
+
 def _sell_sgov(data, amount, px, today):
     """Redeem SGOV shares to free up `amount` of raw cash (re-entry funding)."""
     pos = next((p for p in data["positions"]
@@ -264,16 +457,17 @@ def _sell_sgov(data, amount, px, today):
     return round(amount, 2)
 
 
-def re_entry_protocol(data, prices, today):
+def re_entry_protocol(data, prices, today, ind=None):
     """Research-integrity protocol (v5.2): a stop is a VOL-HALT, not a death.
 
     Prevents the silent-SGOV trap from corrupting multi-month theory testing:
       1. When a position exits via index_stop/backstop, its linked theories are
          marked PAUSED (only when no open position still tests that theory).
-      2. Daily re-validation: if the 1x underlying (or wrapper, for backstops)
-         closes back above the stop level for `confirm_bars` consecutive
-         sessions, the theory is RE-AFFIRMED and the position is re-entered
-         with the recovered capital.
+      2. Daily re-validation (consensus, site 0.5.4.05): the 1x underlying
+         must close back above the frozen `reclaim_level` for `confirm_bars`
+         consecutive completed sessions AND the last close must be above the
+         underlying's EMA20 (trend gate - no dead-cat re-entries). The level
+         is pinned at halt time, never recomputed.
       3. If no reclaim within `max_pause_days`, the theory is formally marked
          ABANDONED (falsified) and the capital stays reallocated.
 
@@ -343,15 +537,24 @@ def re_entry_protocol(data, prices, today):
             resolved += 1
             continue
 
-        # Reclaim check: trailing consecutive closes >= the stop level.
-        hist = fetch_chart_history(rt, rng="1mo") if rt else []
+        # Reclaim check (consensus): 2+ consecutive completed closes >= the
+        # frozen level AND the last close above EMA20 (trend gate - no
+        # dead-cat re-entries). The level is pinned at halt time, never
+        # recomputed against the current price.
+        gi = (ind or {}).get(rt) or {}
+        closes = gi.get("closes") or []
+        ema = gi.get("ema20")
         back = 0
-        for h in reversed(hist):
-            if h["px"] >= level:
+        for c in reversed(closes):
+            if c >= level:
                 back += 1
             else:
                 break
         if back < confirm:
+            continue
+        if ema is None or gi.get("last_close") is None or gi["last_close"] <= ema:
+            print(f"  RE-VALIDATE {pos['ticker']}: {rt} reclaimed {level} ({back} close(s)) "
+                  f"but close {gi.get('last_close')} <= EMA20 {ema} - trend gate blocks re-entry")
             continue
 
         wrapper_px = prices.get(pos["ticker"])
@@ -545,38 +748,88 @@ def fetch_prices(tickers):
     return prices
 
 
-def check_exits(pos, px, today, under_prices=None):
+def check_exits(pos, px, today, under_prices=None, ind=None):
     """Returns (event_or_None).
 
-    Stop discipline (v5.1, index-referenced):
-    - Leveraged funds (3x/2x) are stopped against the 1x UNDERLYING index
-      (e.g. TQQQ -> QQQ), so a violent leveraged day or daily-decay drift
-      cannot whipsaw the hard stop. The stop fires on a genuine correction
-      in the actual market exposure.
-    - The wrapper-level stop_loss_pct is kept only as a WIDE backstop for
-      gap-through / stale-index protection.
-    Take-profit stays on the wrapper.
+    Consensus exit engine (site 0.5.4.05):
+    - 1x positions: legacy fixed take_profit_pct / stop_loss_pct (unchanged).
+    - Leveraged (underlying-mapped): the index-referenced vol-halt stop is
+      DYNAMIC - max(static, 2.5 x ATR14%) on the 1x underlying, recomputed
+      every run (widens in high vol, floored at the static level). The
+      halt freezes reclaim_level at the level in force.
+    - Base trim (leveraged): one-shot 50% share harvest at +50% wrapper
+      PnL; arms the runner trail.
+    - Runner trail (leveraged): exits the remaining position on 2
+      consecutive completed closes < EMA20(1x) OR a single completed
+      close <= EMA20 - 1.5 x ATR14 (no intraday wicks).
+    - stop_loss_pct stays a wide wrapper backstop for everyone.
     """
     under_prices = under_prices or {}
+    ind = ind or {}
+    underlying = pos.get("underlying")
+
+    if underlying:
+        u_px = under_prices.get(underlying)
+        u_entry = pos.get("underlying_buy_price")
+        u_pct = pos.get("underlying_stop_pct")
+        gi = ind.get(underlying) or {}
+        if u_pct:
+            dyn = dynamic_stop_pct(u_pct, gi)
+            pos["dynamic_stop_pct"] = round(dyn, 4)
+            if u_px is not None and u_entry and u_px <= u_entry * (1 + dyn):
+                return {"date": today, "price": round(px, 2), "reason": "stop_loss",
+                        "note": f"index_stop ({underlying} {round((u_px / u_entry - 1) * 100, 2)}%)",
+                        "state": "vol_halt",
+                        "reclaim_ticker": underlying,
+                        "reclaim_level": round(u_entry * (1 + dyn), 4),
+                        "reentry_amount": round(px * pos["shares"], 2),
+                        "realized_pnl": round((px - pos["buy_price"]) * pos["shares"], 2)}
+        if not pos.get("base_trimmed") and px is not None and pos.get("buy_price"):
+            pnl = (px / pos["buy_price"]) - 1
+            if pnl >= BASE_TRIM_PNL:
+                pos["base_trimmed"] = True
+                pos["runner_active"] = True
+                return {"date": today, "price": round(px, 2), "reason": "take_profit",
+                        "note": f"base_trim (+{round(pnl * 100, 1)}% -> 50% of shares harvested, runner armed)",
+                        "partial": 0.5,
+                        "realized_pnl": round((px - pos["buy_price"]) * pos["shares"] * 0.5, 2)}
+        if pos.get("runner_active") and gi:
+            ema = gi.get("ema20")
+            atr = gi.get("atr14")
+            closes = gi.get("closes") or []
+            if ema is not None and atr is not None and closes:
+                last = closes[-1]
+                if last <= ema - RUNNER_BREACH_ATR_MULT * atr:
+                    return {"date": today, "price": round(px, 2), "reason": "take_profit",
+                            "note": f"runner_emergency ({underlying} close {last:.2f} <= EMA20 {ema:.2f} - 1.5xATR {atr:.2f})",
+                            "realized_pnl": round((px - pos["buy_price"]) * pos["shares"], 2)}
+                back = 0
+                for c in reversed(closes):
+                    if c < ema:
+                        back += 1
+                    else:
+                        break
+                if back >= 2:
+                    return {"date": today, "price": round(px, 2), "reason": "take_profit",
+                            "note": f"runner_2close ({underlying} {back} completed closes < EMA20 {ema:.2f})",
+                            "realized_pnl": round((px - pos["buy_price"]) * pos["shares"], 2)}
+        if pos.get("stop_loss_pct") and px is not None:
+            sl = pos["buy_price"] * (1 + pos["stop_loss_pct"])
+            if px <= sl:
+                return {"date": today, "price": round(px, 2), "reason": "stop_loss",
+                        "note": "backstop",
+                        "state": "vol_halt",
+                        "reclaim_ticker": pos["ticker"],
+                        "reclaim_level": round(sl, 4),
+                        "reentry_amount": round(px * pos["shares"], 2),
+                        "realized_pnl": round((px - pos["buy_price"]) * pos["shares"], 2)}
+        return None
+
     if pos.get("take_profit_pct"):
         tp = pos["buy_price"] * (1 + pos["take_profit_pct"])
         if px is not None and px >= tp:
             return {"date": today, "price": round(px, 2), "reason": "take_profit",
                     "note": "take_profit",
-                    "realized_pnl": round((px - pos["buy_price"]) * pos["shares"], 2)}
-
-    underlying = pos.get("underlying")
-    if underlying:
-        u_px = under_prices.get(underlying)
-        u_entry = pos.get("underlying_buy_price")
-        u_pct = pos.get("underlying_stop_pct")
-        if u_px is not None and u_entry and u_pct and u_px <= u_entry * (1 + u_pct):
-            return {"date": today, "price": round(px, 2), "reason": "stop_loss",
-                    "note": f"index_stop ({underlying} {round((u_px / u_entry - 1) * 100, 2)}%)",
-                    "state": "vol_halt",
-                    "reclaim_ticker": underlying,
-                    "reclaim_level": round(u_entry * (1 + u_pct), 4),
-                    "reentry_amount": round(px * pos["shares"], 2),
                     "realized_pnl": round((px - pos["buy_price"]) * pos["shares"], 2)}
 
     if pos.get("stop_loss_pct"):
@@ -1064,6 +1317,38 @@ def main():
                     tickers.append(tk)
     prices = fetch_prices(tickers) if tickers else {}
 
+    # Consensus indicators (site 0.5.4.05): once-daily 1y OHLC for the 1x
+    # underlyings of leveraged positions + Crisis Alpha hedges + unresolved
+    # reclaim tickers. EMA20/ATR14 evaluate completed sessions only.
+    ind_tickers = []
+    for p in open_positions:
+        if p.get("underlying") and p["underlying"] not in ind_tickers:
+            ind_tickers.append(p["underlying"])
+        if str(p.get("sleeve", "")).startswith("Crisis Alpha") and p["ticker"] not in ind_tickers:
+            ind_tickers.append(p["ticker"])
+    for p in data["positions"]:
+        if p.get("status") != "closed":
+            continue
+        ex = p.get("exit") or {}
+        if ex.get("state") == "vol_halt" and not ex.get("reentry_resolved"):
+            rt = ex.get("reclaim_ticker")
+            if rt and rt not in ind_tickers:
+                ind_tickers.append(rt)
+    ind = {}
+    try:
+        bars = ensure_ohlc_bars(ind_tickers, today)
+        ind = {t: indicators_for(b, today) for t, b in bars.items() if b}
+    except Exception as exc:
+        print(f"  WARN: indicator build failed: {exc}")
+
+    # Leveraged position without a 1x underlying mapping -> loud warning.
+    for p in open_positions:
+        info = (data["meta"].get("limits", {}).get("position_exposure", {})
+                .get(p["ticker"], {}))
+        if (info.get("leverage") or 1) > 1 and not p.get("underlying"):
+            print(f"  WARNING: {p['ticker']} has leverage > 1 but lacks a 1x underlying "
+                  f"mapping - wrapper backstop only (no index stop, no runner)")
+
     # Live macro indicators for the AI layer (SPY/QQQ/VIX/10Y/USDJPY/HYG).
     # Never allowed to break the update - failure degrades to no macro block.
     macro = {}
@@ -1131,8 +1416,31 @@ def main():
         px = prices.get(pos["ticker"])
         if px is None:
             continue
-        event = check_exits(pos, px, today, prices)
+        event = check_exits(pos, px, today, prices, ind)
         if event:
+            if event.get("partial"):
+                # Consensus base trim: sell half the shares, position stays open.
+                sell_sh = round(pos["shares"] * event["partial"], 6)
+                cash_in = round(sell_sh * event["price"], 2)
+                pos["shares"] = round(pos["shares"] - sell_sh, 6)
+                pos["cost"] = round(pos["cost"] * (1 - event["partial"]), 2)
+                data["account"]["cash"] = round(data["account"]["cash"] + cash_in, 2)
+                data["account"]["realized_pnl"] = round(
+                    data["account"]["realized_pnl"] + event["realized_pnl"], 2)
+                data["events"].append({
+                    "date": today,
+                    "ts": time.strftime("%H:%M:%S"),
+                    "ticker": pos["ticker"],
+                    "name": pos["name"],
+                    "reason": event["reason"],
+                    "note": event.get("note"),
+                    "price": event["price"],
+                    "buy_price": pos["buy_price"],
+                    "shares": sell_sh,
+                    "realized_pnl": event["realized_pnl"],
+                })
+                print(f"  TRIM {pos['ticker']}: {event['note']} @ {event['price']} (pnl {event['realized_pnl']:+,.2f})")
+                continue
             pos["status"] = "closed"
             pos["exit"] = event
             cash_in = pos["shares"] * event["price"]
@@ -1154,7 +1462,15 @@ def main():
             print(f"  EXIT {pos['ticker']}: {event['reason']} @ {event['price']} [{event.get('note')}] (pnl {event['realized_pnl']:+,.2f})")
 
     # Research-integrity protocol: pause / re-affirm / abandon linked theories.
-    re_entry_protocol(data, prices, today)
+    re_entry_protocol(data, prices, today, ind)
+
+    # Consensus hedge harvester: recommendation-only monetization of hedge
+    # spikes while a growth vol-halt is active (respects fear scenarios).
+    hedge_rec = None
+    try:
+        hedge_rec = hedge_harvester(data, ind, fear_data, today)
+    except Exception as exc:
+        print(f"  WARN: hedge harvester failed: {exc}")
 
     # No-idle-cash policy: park any free cash in SGOV.
     deploy_cash_to_bonds(data, prices, today)
@@ -1222,7 +1538,7 @@ def main():
         print(f"  WARN: benchmark fetch failed: {exc}")
 
     write_dashboard(data, benchmark, rebalance, fear_data, benchmarks,
-                    ai_verdict, gauge=gauge)
+                    ai_verdict, gauge=gauge, hedge_harvest=hedge_rec, ind=ind)
     print_summary(data, today, benchmark)
 
 
@@ -1257,7 +1573,8 @@ def build_ai_payload(verdict, data, gauge=None):
 
 
 def write_dashboard(data, benchmark=None, rebalance=None, fear_data=None,
-                    benchmarks=None, ai_verdict=None, gauge=None):
+                    benchmarks=None, ai_verdict=None, gauge=None,
+                    hedge_harvest=None, ind=None):
     """Serialize the full dashboard payload to dashboard.js (window.DASH).
 
     This is the ONLY writer of dashboard.js. The payload shape is the
@@ -1316,6 +1633,13 @@ def write_dashboard(data, benchmark=None, rebalance=None, fear_data=None,
             "underlying": pos.get("underlying"),
             "underlying_stop_pct": pos.get("underlying_stop_pct"),
             "underlying_buy_price": pos.get("underlying_buy_price"),
+            "dynamic_stop_pct": pos.get("dynamic_stop_pct"),
+            "underlying_ema20": (ind.get(pos.get("underlying")) or {}).get("ema20")
+                                if pos.get("underlying") else None,
+            "underlying_atr14": (ind.get(pos.get("underlying")) or {}).get("atr14")
+                                if pos.get("underlying") else None,
+            "runner_active": pos.get("runner_active") or False,
+            "base_trimmed": pos.get("base_trimmed") or False,
             "theory_ids": pos.get("theory_ids", []),
             "scheduled_exit": pos.get("scheduled_exit"),
         })
@@ -1385,6 +1709,7 @@ def write_dashboard(data, benchmark=None, rebalance=None, fear_data=None,
         "fear_greed": gauge,
         "complacency": (fear_data or {}).get("complacency") or None,
         "fear_sizing": (fear_data or {}).get("fear_sizing") or None,
+        "hedge_harvest": hedge_harvest,
         "benchmark": benchmark,
         "benchmarks": benchmarks,
         "rebalance": rebalance or None,

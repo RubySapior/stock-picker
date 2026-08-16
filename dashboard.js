@@ -2,7 +2,7 @@
 window.DASH = {
   "meta": {
     "version": {
-      "site": "0.5.4.04",
+      "site": "0.5.4.05",
       "algo": "0.6.0"
     },
     "name": "HyperGrowth Sharpe Barbell v5 - Conviction-First",
@@ -176,13 +176,13 @@ window.DASH = {
       "F5": {
         "prev_score": 4.1,
         "score": 4.1,
-        "days_above": 105,
+        "days_above": 107,
         "confirmed": true
       },
       "F6": {
         "prev_score": 4.9,
         "score": 4.9,
-        "days_above": 119,
+        "days_above": 121,
         "confirmed": true
       },
       "F7": {
@@ -559,7 +559,7 @@ window.DASH = {
     ],
     "ai_calibration": {},
     "park_mode": "sgov",
-    "asof_ts": 1786848151,
+    "asof_ts": 1786849727,
     "refresh_interval": 1440
   },
   "asof": "2026-08-14",
@@ -597,6 +597,11 @@ window.DASH = {
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
+      "dynamic_stop_pct": null,
+      "underlying_ema20": null,
+      "underlying_atr14": null,
+      "runner_active": false,
+      "base_trimmed": false,
       "theory_ids": [],
       "scheduled_exit": null
     },
@@ -621,6 +626,11 @@ window.DASH = {
       "underlying": "QQQ",
       "underlying_stop_pct": -0.08,
       "underlying_buy_price": 720.87,
+      "dynamic_stop_pct": -0.08,
+      "underlying_ema20": 712.863017814422,
+      "underlying_atr14": 12.650016562692256,
+      "runner_active": false,
+      "base_trimmed": false,
       "theory_ids": [
         "T1",
         "T7"
@@ -648,6 +658,11 @@ window.DASH = {
       "underlying": "SOXX",
       "underlying_stop_pct": -0.09,
       "underlying_buy_price": 529.39,
+      "dynamic_stop_pct": -0.1129,
+      "underlying_ema20": 537.3592584449824,
+      "underlying_atr14": 24.867338307168666,
+      "runner_active": false,
+      "base_trimmed": false,
       "theory_ids": [
         "T1",
         "T7"
@@ -675,6 +690,11 @@ window.DASH = {
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
+      "dynamic_stop_pct": null,
+      "underlying_ema20": null,
+      "underlying_atr14": null,
+      "runner_active": false,
+      "base_trimmed": false,
       "theory_ids": [
         "T3"
       ],
@@ -701,6 +721,11 @@ window.DASH = {
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
+      "dynamic_stop_pct": null,
+      "underlying_ema20": null,
+      "underlying_atr14": null,
+      "runner_active": false,
+      "base_trimmed": false,
       "theory_ids": [
         "T6",
         "T17"
@@ -728,6 +753,11 @@ window.DASH = {
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
+      "dynamic_stop_pct": null,
+      "underlying_ema20": null,
+      "underlying_atr14": null,
+      "runner_active": false,
+      "base_trimmed": false,
       "theory_ids": [
         "T2",
         "T1"
@@ -755,6 +785,11 @@ window.DASH = {
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
+      "dynamic_stop_pct": null,
+      "underlying_ema20": null,
+      "underlying_atr14": null,
+      "runner_active": false,
+      "base_trimmed": false,
       "theory_ids": [
         "T6",
         "T18",
@@ -784,6 +819,11 @@ window.DASH = {
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
+      "dynamic_stop_pct": null,
+      "underlying_ema20": null,
+      "underlying_atr14": null,
+      "runner_active": false,
+      "base_trimmed": false,
       "theory_ids": [
         "T6",
         "T17"
@@ -811,6 +851,11 @@ window.DASH = {
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
+      "dynamic_stop_pct": null,
+      "underlying_ema20": null,
+      "underlying_atr14": null,
+      "runner_active": false,
+      "base_trimmed": false,
       "theory_ids": [
         "T1"
       ],
@@ -837,6 +882,11 @@ window.DASH = {
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
+      "dynamic_stop_pct": null,
+      "underlying_ema20": null,
+      "underlying_atr14": null,
+      "runner_active": false,
+      "base_trimmed": false,
       "theory_ids": [
         "T3"
       ],
@@ -863,6 +913,11 @@ window.DASH = {
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
+      "dynamic_stop_pct": null,
+      "underlying_ema20": null,
+      "underlying_atr14": null,
+      "runner_active": false,
+      "base_trimmed": false,
       "theory_ids": [
         "T6",
         "T18",
@@ -891,6 +946,11 @@ window.DASH = {
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
+      "dynamic_stop_pct": null,
+      "underlying_ema20": null,
+      "underlying_atr14": null,
+      "runner_active": false,
+      "base_trimmed": false,
       "theory_ids": [
         "T6",
         "T17",
@@ -919,6 +979,11 @@ window.DASH = {
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
+      "dynamic_stop_pct": null,
+      "underlying_ema20": null,
+      "underlying_atr14": null,
+      "runner_active": false,
+      "base_trimmed": false,
       "theory_ids": [
         "T6",
         "T17"
@@ -946,6 +1011,11 @@ window.DASH = {
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
+      "dynamic_stop_pct": null,
+      "underlying_ema20": null,
+      "underlying_atr14": null,
+      "runner_active": false,
+      "base_trimmed": false,
       "theory_ids": [
         "T9",
         "T6",
@@ -976,6 +1046,11 @@ window.DASH = {
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
+      "dynamic_stop_pct": null,
+      "underlying_ema20": null,
+      "underlying_atr14": null,
+      "runner_active": false,
+      "base_trimmed": false,
       "theory_ids": [
         "T9",
         "T6",
@@ -1006,6 +1081,11 @@ window.DASH = {
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
+      "dynamic_stop_pct": null,
+      "underlying_ema20": null,
+      "underlying_atr14": null,
+      "runner_active": false,
+      "base_trimmed": false,
       "theory_ids": [
         "T10"
       ],
@@ -1032,6 +1112,11 @@ window.DASH = {
       "underlying": "IWD",
       "underlying_stop_pct": -0.1,
       "underlying_buy_price": 258.31,
+      "dynamic_stop_pct": -0.1,
+      "underlying_ema20": 253.99116634775976,
+      "underlying_atr14": 2.035709859885821,
+      "runner_active": false,
+      "base_trimmed": false,
       "theory_ids": [
         "T15"
       ],
@@ -1058,6 +1143,11 @@ window.DASH = {
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
+      "dynamic_stop_pct": null,
+      "underlying_ema20": null,
+      "underlying_atr14": null,
+      "runner_active": false,
+      "base_trimmed": false,
       "theory_ids": [
         "T13"
       ],
@@ -1084,6 +1174,11 @@ window.DASH = {
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
+      "dynamic_stop_pct": null,
+      "underlying_ema20": null,
+      "underlying_atr14": null,
+      "runner_active": false,
+      "base_trimmed": false,
       "theory_ids": [
         "T13"
       ],
@@ -1110,6 +1205,11 @@ window.DASH = {
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
+      "dynamic_stop_pct": null,
+      "underlying_ema20": null,
+      "underlying_atr14": null,
+      "runner_active": false,
+      "base_trimmed": false,
       "theory_ids": [
         "T14",
         "T1"
@@ -2050,6 +2150,7 @@ window.DASH = {
     }
   },
   "fear_sizing": null,
+  "hedge_harvest": null,
   "benchmark": {
     "label": "S&P 500 (SPY)",
     "start_value": 100000,
@@ -2654,7 +2755,7 @@ window.DASH = {
     "enabled": true
   },
   "news": {
-    "asof": "2026-08-15 20:42:32",
+    "asof": "2026-08-15 21:08:48",
     "big_stories": [
       {
         "title": "Which Gold ETF Is the Better Buy: iShares' IAU or State Street's GLD?",
@@ -3082,18 +3183,6 @@ window.DASH = {
         "sent": "negative"
       },
       {
-        "title": "Exchange-Traded Funds Higher, Equity Futures Mixed Pre-Bell Friday Amid Retail Sales Data",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/exchange-traded-funds-higher-equity-131348296.html?.tsrc=rss",
-        "ts": 1786713228,
-        "when": "Aug 14, 07:13 AM",
-        "ticker": "XLY",
-        "industry": "Consumer Disc.",
-        "theory": [
-          "T13"
-        ],
-        "sent": "neutral"
-      },
-      {
         "title": "Is Wall Street Bullish or Bearish on Lowe's Stock?",
         "link": "https://www.barchart.com/story/news/3848054/is-wall-street-bullish-or-bearish-on-lowe-s-stock?.tsrc=rss",
         "ts": 1786703068,
@@ -3116,14 +3205,17 @@ window.DASH = {
         "sent": "negative"
       },
       {
-        "title": "Sector Update: Consumer Stocks Advance Late Afternoon",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-advance-afternoon-193514616.html?.tsrc=rss",
-        "ts": 1786649714,
-        "when": "Aug 13, 01:35 PM",
-        "ticker": "XLY",
-        "industry": "Consumer Disc.",
+        "title": "DRAM Movers: These Memory/Storage ETFs Are Soaring as Sandisk, Micron Rally",
+        "link": "https://247wallst.com/investing/2026/08/13/dram-movers-these-memory-storage-etfs-are-soaring-as-sandisk-micron-rally/?.tsrc=rss",
+        "ts": 1786644735,
+        "when": "Aug 13, 12:12 PM",
+        "ticker": "SMH",
+        "industry": "Semis",
         "theory": [
-          "T13"
+          "T1",
+          "T7",
+          "T2",
+          "T14"
         ],
         "sent": "neutral"
       },
@@ -3154,6 +3246,18 @@ window.DASH = {
           "T21"
         ],
         "sent": "positive"
+      },
+      {
+        "title": "Are Wall Street Analysts Bullish on Smurfit Westrock Stock?",
+        "link": "https://www.barchart.com/story/news/3827891/are-wall-street-analysts-bullish-on-smurfit-westrock-stock?.tsrc=rss",
+        "ts": 1786623391,
+        "when": "Aug 13, 06:16 AM",
+        "ticker": "XLY",
+        "industry": "Consumer Disc.",
+        "theory": [
+          "T13"
+        ],
+        "sent": "neutral"
       }
     ]
   },

@@ -1,7 +1,7 @@
 {
   "meta": {
     "version": {
-      "site": "0.5.4.04",
+      "site": "0.5.4.05",
       "algo": "0.6.0"
     },
     "name": "HyperGrowth Sharpe Barbell v5 - Conviction-First",
@@ -175,13 +175,13 @@
       "F5": {
         "prev_score": 4.1,
         "score": 4.1,
-        "days_above": 105,
+        "days_above": 107,
         "confirmed": true
       },
       "F6": {
         "prev_score": 4.9,
         "score": 4.9,
-        "days_above": 119,
+        "days_above": 121,
         "confirmed": true
       },
       "F7": {
@@ -904,7 +904,8 @@
       "underlying_buy_price": 720.87,
       "status": "open",
       "thesis": "A-TIER CONVICTION. Nasdaq mega-caps are the earnings engine: strongest Q1 EPS growth in 4 years, Q2 accelerating, Fed hikes not the base case, markets at all-time highs. 3x wrapper adds decay risk (offset by VIXM + QFLR floor) but the directional trend is the highest-conviction growth bet in the book. V5: boosted +2k from the conviction cuts. V5.1: stop is index-referenced (QQQ -8%), the -35% wrapper level is only a backstop.",
-      "entry_note": "Core A-tier; floored by QFLR, vol-chop hedged by VIXM. Stop on QQQ (1x), not the 3x wrapper."
+      "entry_note": "Core A-tier; floored by QFLR, vol-chop hedged by VIXM. Stop on QQQ (1x), not the 3x wrapper.",
+      "dynamic_stop_pct": -0.08
     },
     {
       "id": "SOXL",
@@ -926,7 +927,8 @@
       "underlying_buy_price": 529.39,
       "status": "open",
       "thesis": "A-TIER CONVICTION. Semis remain the epicenter of the $1T AI capex cycle (T1); backlogs expanding, earnings above estimates. The June selloff was technical, not fundamental. 3x leverage is the highest-octane expression with vol-decay risk offset by VIXM. V5: boosted +2k. V5.1: stop is index-referenced (SOXX -9%), the -35% wrapper level is only a backstop.",
-      "entry_note": "Crowded-trade risk accepted at A-tier conviction; stop on SOXX (1x), not the 3x wrapper."
+      "entry_note": "Crowded-trade risk accepted at A-tier conviction; stop on SOXX (1x), not the 3x wrapper.",
+      "dynamic_stop_pct": -0.1129
     },
     {
       "id": "SMH",
@@ -1057,7 +1059,8 @@
       "underlying_buy_price": 258.31,
       "status": "open",
       "thesis": "B-TIER CONVICTION, kept as an ANTI-GROWTH FACTOR HEDGE (the value factor offsets the growth-heavy book - covered by the hedge exemption since it is a factor counterweight, not a directional growth bet). Value beat growth by the widest margin in 25 years in July; widening should continue. Risk: ETN (UBS credit) + 2x daily decay. V5.1: stop is index-referenced (IWD -10%), the -35% wrapper level is only a backstop.",
-      "entry_note": "Factor-hedge justification. 1x alternative: IWD/VTV. Stop on IWD (1x), not the 2x ETN."
+      "entry_note": "Factor-hedge justification. 1x alternative: IWD/VTV. Stop on IWD (1x), not the 2x ETN.",
+      "dynamic_stop_pct": -0.1
     },
     {
       "id": "XLY",
