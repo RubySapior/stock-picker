@@ -119,8 +119,8 @@ user-deemed milestones.
   AI verdict REPLACES pending orders with its proposals + rotations
   (`meta.ai.orders_refresh`, sized at `meta.ai.order_size`); in
   **recommend** mode orders are written one at a time by the dashboard's
-  **Book Proposal** buttons (`serve.py POST /book`) or all at once by
-  **Book All Proposals** (`POST /execute_all`), human approval per
+  **Submit this Order** buttons (`serve.py POST /book`) or all at once by
+  **Submit all Orders** (`POST /execute_all`), human approval per
   proposal / rotation legs. Proposal amounts are conviction-scaled
   (`order_size × |conviction_score|`); rotation legs use the flat
   `order_size`. `meta.ai.user_bias` (-5..+5, `POST /bias`) is the user's

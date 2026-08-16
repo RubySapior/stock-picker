@@ -2,7 +2,7 @@
 window.DASH = {
   "meta": {
     "version": {
-      "site": "0.5.4.03",
+      "site": "0.5.4.04",
       "algo": "0.6.0"
     },
     "name": "HyperGrowth Sharpe Barbell v5 - Conviction-First",
@@ -176,13 +176,13 @@ window.DASH = {
       "F5": {
         "prev_score": 4.1,
         "score": 4.1,
-        "days_above": 104,
+        "days_above": 105,
         "confirmed": true
       },
       "F6": {
         "prev_score": 4.9,
         "score": 4.9,
-        "days_above": 118,
+        "days_above": 119,
         "confirmed": true
       },
       "F7": {
@@ -559,7 +559,7 @@ window.DASH = {
     ],
     "ai_calibration": {},
     "park_mode": "sgov",
-    "asof_ts": 1786847842,
+    "asof_ts": 1786848151,
     "refresh_interval": 1440
   },
   "asof": "2026-08-14",
@@ -2654,7 +2654,7 @@ window.DASH = {
     "enabled": true
   },
   "news": {
-    "asof": "2026-08-15 20:37:23",
+    "asof": "2026-08-15 20:42:32",
     "big_stories": [
       {
         "title": "Which Gold ETF Is the Better Buy: iShares' IAU or State Street's GLD?",
@@ -2950,6 +2950,21 @@ window.DASH = {
         "sent": "neutral"
       },
       {
+        "title": "Unusual Machines Soars 22%, Red Cat Climbs 8%, Ondas Gains 4% on Trump’s 100% Drone Tariff",
+        "link": "https://247wallst.com/investing/2026/08/14/unusual-machines-soars-22-red-cat-climbs-8-ondas-gains-4-on-trumps-100-drone-tariff/?.tsrc=rss",
+        "ts": 1786728122,
+        "when": "Aug 14, 11:22 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
+      {
         "title": "C3.ai Remains Turbulent: Why One Of Wall Street’s Most Outspoken Pros Expects 50% Returns From Here",
         "link": "https://247wallst.com/investing/2026/08/14/c3-ai-remains-turbulent-why-one-of-wall-streets-most-outspoken-pros-expects-50-returns-from-here/?.tsrc=rss",
         "ts": 1786725926,
@@ -3054,21 +3069,6 @@ window.DASH = {
         "sent": "negative"
       },
       {
-        "title": "Prediction: 1 AI Stock That Could Be a Monster Winner",
-        "link": "https://247wallst.com/investing/2026/08/14/prediction-1-ai-stock-that-could-be-a-monster-winner/?.tsrc=rss",
-        "ts": 1786716020,
-        "when": "Aug 14, 08:00 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
         "title": "'Economic Isolation' for Iran? ETFs to Gain/Lose",
         "link": "https://finance.yahoo.com/economy/policy/articles/economic-isolation-iran-etfs-gain-140000350.html?.tsrc=rss",
         "ts": 1786716000,
@@ -3082,19 +3082,16 @@ window.DASH = {
         "sent": "negative"
       },
       {
-        "title": "Chamath Palihapitiya Sees Palantir As A Potential Winner In 3-Year Shift To Model-Agnostic AI",
-        "link": "https://stocktwits.com/news-articles/markets/equity/pltr-stock-chamath-palihapitiya-3rd-party-ai-harnesses-palantir/cZothJpRJiv?.tsrc=rss",
-        "ts": 1786704946,
-        "when": "Aug 14, 04:55 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
+        "title": "Exchange-Traded Funds Higher, Equity Futures Mixed Pre-Bell Friday Amid Retail Sales Data",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/exchange-traded-funds-higher-equity-131348296.html?.tsrc=rss",
+        "ts": 1786713228,
+        "when": "Aug 14, 07:13 AM",
+        "ticker": "XLY",
+        "industry": "Consumer Disc.",
         "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
+          "T13"
         ],
-        "sent": "positive"
+        "sent": "neutral"
       },
       {
         "title": "Is Wall Street Bullish or Bearish on Lowe's Stock?",
@@ -3109,21 +3106,6 @@ window.DASH = {
         "sent": "neutral"
       },
       {
-        "title": "Wall Street's riskiest trades are suddenly back on top: Chart of the Day",
-        "link": "https://finance.yahoo.com/markets/article/wall-streets-riskiest-trades-are-suddenly-back-on-top-chart-of-the-day-100100027.html?.tsrc=rss",
-        "ts": 1786701660,
-        "when": "Aug 14, 04:01 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "negative"
-      },
-      {
         "title": "The House Is Paid Off but the Property Tax Bill Never Retires. These 3 ETFs Pay It Every Year",
         "link": "https://247wallst.com/investing/etf/2026/08/13/the-house-is-paid-off-but-the-property-tax-bill-never-retires-these-3-etfs-pay-it-every-year/?.tsrc=rss",
         "ts": 1786659944,
@@ -3134,34 +3116,44 @@ window.DASH = {
         "sent": "negative"
       },
       {
-        "title": "Michael Burry Loads Up On QQQ Puts, Boosts MU Short As He Braces For ‘Larger Fall’ — Here’s What He Did To NVDA, PLTR And TSLA",
-        "link": "https://stocktwits.com/news-articles/markets/equity/michael-burry-loads-up-on-qqq-puts-boosts-mu-short-as-he-braces-for-larger-fall-heres-what-he-did-to-nvda-pltr-and-tsla/cZoqVbeRJLw?.tsrc=rss",
-        "ts": 1786651987,
-        "when": "Aug 13, 02:13 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
+        "title": "Sector Update: Consumer Stocks Advance Late Afternoon",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-advance-afternoon-193514616.html?.tsrc=rss",
+        "ts": 1786649714,
+        "when": "Aug 13, 01:35 PM",
+        "ticker": "XLY",
+        "industry": "Consumer Disc.",
         "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
+          "T13"
         ],
-        "sent": "positive"
+        "sent": "neutral"
       },
       {
-        "title": "Revenue at Palantir-Backed Ondas Rises 1,236%. Stock Falls as Losses Widen.",
-        "link": "https://finance.yahoo.com/m/5a8f0245-cf08-346b-9a59-873a8c7d16c1/revenue-at-palantir-backed.html?.tsrc=rss",
-        "ts": 1786645980,
-        "when": "Aug 13, 12:33 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
+        "title": "Sector Update: Consumer Stocks Rise in Afternoon Trading",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-rise-afternoon-173751918.html?.tsrc=rss",
+        "ts": 1786642671,
+        "when": "Aug 13, 11:37 AM",
+        "ticker": "XLY",
+        "industry": "Consumer Disc.",
         "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
+          "T13"
         ],
-        "sent": "negative"
+        "sent": "neutral"
+      },
+      {
+        "title": "5 ETFs to Benefit From Cooling Inflation in the Near Term",
+        "link": "https://finance.yahoo.com/economy/policy/articles/5-etfs-benefit-cooling-inflation-140000926.html?.tsrc=rss",
+        "ts": 1786629600,
+        "when": "Aug 13, 08:00 AM",
+        "ticker": "GLD",
+        "industry": "Gold",
+        "theory": [
+          "T6",
+          "T9",
+          "T19",
+          "T20",
+          "T21"
+        ],
+        "sent": "positive"
       }
     ]
   },

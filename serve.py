@@ -11,11 +11,11 @@ browser can't run update.py by itself. This server:
 4. POST /mode -> toggles meta.ai.mode (recommend | execute) - how the
       AI verdict turns into orders.
    5. POST /book -> human approval per proposal / rotation: the dashboard's
-      "Book Proposal" buttons write ONE pending market order (or a
+      "Submit this Order" buttons write ONE pending market order (or a
       rotation's two legs) from the latest AI verdict into portfolio.json
       (recommend mode). {ticker, action} or {sell, buy}. Amounts are
       conviction-scaled (order_size x |conviction|).
-   6. POST /execute_all -> "Book All Proposals": the whole queue at once.
+   6. POST /execute_all -> "Submit all Orders": the whole queue at once.
    7. POST /bias -> sets meta.ai.user_bias (-5..+5 sentiment slider).
    8. POST /park -> sets meta.park_mode ("sgov"|"cash" dry-powder toggle).
 
@@ -211,7 +211,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 
     def _execute_all(self):
         """POST /execute_all -> ALL of the latest verdict's proposals +
-        rotations become pending orders (the "Book All Proposals" button).
+        rotations become pending orders (the "Submit all Orders" button).
 
         Recommend-mode human approval for the whole queue at once. Amounts
         are conviction-scaled (order_size x |conviction| from

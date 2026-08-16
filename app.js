@@ -953,7 +953,7 @@ function render() {
         if(!j.ok) throw new Error(j.error || 'booking failed');
         alert(`Booked all proposals: ${j.created||0} order(s) written to portfolio.json (pending).\n\n` + (j.output||'').slice(-500));
       }catch(e){
-        alert('Book All Proposals needs the local server: run `python serve.py` and open http://localhost:8000.');
+        alert('Submit all Orders needs the local server: run `python serve.py` and open http://localhost:8000.');
       }
       location.reload();
     });
@@ -998,11 +998,10 @@ function render() {
         <span class="aiBarItem"><strong>Calls today:</strong> ${st.calls_today || 0}/${cfg.max_daily_calls || 3}</span>
         ${gaugeTxt}
         <span class="aiBarItem"><strong>Model:</strong> ${escA(model)}</span>
-      </div>
-      <div class="muted small" style="margin:6px 0 2px;">${escA(A.summary)}</div>`;
+      </div>`;
     const modeNote = mode === 'execute'
       ? '<div class="small" style="margin-top:4px;"><span class="pill sl">EXECUTE MODE</span> <span class="muted">AI refresh auto-replaces pending orders with the verdict. Deterministic TP/SL and vol-halts still overrule everything.</span></div>'
-      : '<div class="small" style="margin-top:4px;"><span class="pill warn">RECOMMEND MODE</span> <span class="muted">Proposals are advice — nothing becomes an order until you press <strong>Book Proposal</strong> (or <strong>Book All Proposals</strong>).</span></div>';
+      : '<div class="small" style="margin-top:4px;"><span class="pill warn">RECOMMEND MODE</span> <span class="muted">Proposals are advice — nothing becomes an order until you press <strong>Submit this Order</strong> (or <strong>Submit all Orders</strong>).</span></div>';
     hb.innerHTML += modeNote;
 
     /* 2) actionable proposal queue (snooze/dismiss in localStorage) */
@@ -1050,7 +1049,7 @@ function render() {
               ${portLine}
               <div class="small muted" style="margin:6px 0;">${escA(p.rationale)}</div>
               <div class="aiBtns">
-                <button class="aiBtn" data-act="book">Book Proposal</button>
+                <button class="aiBtn" data-act="book">Submit this Order</button>
                 <button class="aiBtn ghost" data-act="snooze">Snooze (temp 1m)</button>
                 <button class="aiBtn ghost" data-act="dismiss">Dismiss</button>
               </div>
@@ -1208,7 +1207,7 @@ function render() {
     if(noteEl){
       noteEl.innerHTML = mode === 'execute'
         ? 'Human-approved orders. Executed at the live price on the next market-open run. <span class="pill sl">EXECUTE MODE</span> — AI refresh auto-replaces pending orders with each new verdict.'
-        : 'Human-approved orders. Executed at the live price on the next market-open run. <span class="pill warn">RECOMMEND MODE</span> — orders are written when you press <strong>Book Proposal</strong> on an AI proposal, or <strong>Book All Proposals</strong> for the whole queue.';
+        : 'Human-approved orders. Executed at the live price on the next market-open run. <span class="pill warn">RECOMMEND MODE</span> — orders are written when you press <strong>Submit this Order</strong> on an AI proposal, or <strong>Submit all Orders</strong> for the whole queue.';
     }
     document.getElementById('ordersList').innerHTML = O.map(o => {
       const isBuy = o.action === 'buy';

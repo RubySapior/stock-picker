@@ -167,6 +167,16 @@ JSON verdict that feeds three deterministic layers. Nothing executes.
 
 ## [Unreleased]
 
+## [site 0.5.4.04] — 2026-08-16
+
+### Changed
+- **AI summary paragraph removed from the GUI**: the heartbeat no longer
+  shows the verdict's prose summary (`ai.summary` stays in the data for
+  the ledger / future use, it just isn't rendered).
+- **Booking buttons renamed**: "Book All Proposals &rarr; Orders" is now
+  **Submit all Orders** and the per-proposal card button is **Submit this
+  Order** (endpoints unchanged: `POST /execute_all` and `POST /book`).
+
 ## [site 0.5.4.03] — 2026-08-15
 
 ### Fixed
