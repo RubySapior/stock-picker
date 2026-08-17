@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Community Leaderboards — AI Port-picker</title>
+<link rel="stylesheet" href="styles.css?v=14">
+</head>
+<!--
+  Community leaderboards site: the Top-10 ranking of every published
+  strategy, weekly / monthly / quarterly / yearly / all-time. Loads the
+  AUTO-GENERATED leaderboards.js (window.LEADERBOARDS) via lbpage.js +
+  community.js (tables). Never hand-edit leaderboards.js.
+-->
+<body>
+<div class="wrap">
+  <header>
+    <div style="display:flex; align-items:center; gap:12px;">
+      <div class="mascot" title="AI cherry-picker mascot"></div>
+      <div>
+        <h1>Community Leaderboards</h1>
+        <div class="sub">Every strategy is copy-ready &mdash; follow the exact book and every change, scaled to your capital &middot; <span id="verLine"></span></div>
+      </div>
+    </div>
+    <div class="asof">Data as of: <span id="lbAsof">&mdash;</span> <a class="archiveBtn" href="index.html">Home</a> <a class="archiveBtn" href="dashboard.html">Live demo</a> <a class="archiveBtn" href="help.html">Help</a></div>
+  </header>
+
+  <div class="cards" id="lbCards">
+    <div class="card"><div class="label">Strategies ranked</div><div class="val" id="lcCount">&mdash;</div></div>
+    <div class="card"><div class="label">Top weekly return</div><div class="val" id="lcWeekly">&mdash;</div><div class="delta" id="lcWeeklyWho"></div></div>
+    <div class="card"><div class="label">Top monthly return</div><div class="val" id="lcMonthly">&mdash;</div><div class="delta" id="lcMonthlyWho"></div></div>
+    <div class="card"><div class="label">Top all-time return</div><div class="val" id="lcAlltime">&mdash;</div><div class="delta" id="lcAlltimeWho"></div></div>
+  </div>
+
+  <div class="panel" style="margin-bottom:20px;">
+    <div class="charthead">
+      <h2>Top 10 Strategies</h2>
+      <span class="muted small">Windows cover the last 5 / 21 / 63 / 252 trading sessions &middot; all-time is since each strategy's inception</span>
+    </div>
+    <div id="communityLb"></div>
+  </div>
+
+  <div class="landSec" style="padding-top:0;">
+    <h2 class="secTitle" style="font-size:20px;">How copying works</h2>
+    <div class="landSteps">
+      <div class="step">
+        <div class="stepNum">1</div>
+        <h3>Pick a strategy</h3>
+        <p>Ranked by honest window returns &mdash; weekly, monthly, quarterly, yearly, all-time. Every strategy shows who runs it and how it's been doing.</p>
+      </div>
+      <div class="stepArrow">&rarr;</div>
+      <div class="step">
+        <div class="stepNum">2</div>
+        <h3>Choose your scale</h3>
+        <p>Copy at any multiplier &mdash; your account mirrors the publisher's exact positions and every change they make, sized to your capital.</p>
+      </div>
+      <div class="stepArrow">&rarr;</div>
+      <div class="step">
+        <div class="stepNum">3</div>
+        <h3>Follow the book</h3>
+        <p>Every buy, sell, rebalance and re-entry replays automatically. You're not trading signals &mdash; you're holding the same book.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>Simulated managed portfolios for tracking &amp; learning. Not financial advice. Copying mirrors the publisher's book and changes &mdash; past performance does not predict future results.</footer>
+</div>
+
+<script src="lbpage.js?v=3"></script>
+</body>
+</html>

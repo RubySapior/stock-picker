@@ -1,6 +1,6 @@
 # AI Port-picker — Stock Picker
 
-A self-updating, AI-assisted portfolio dashboard built on the **HyperGrowth Sharpe Barbell** strategy. `update.py` fetches live prices, runs the take-profit / stop-loss engine, parks idle cash, executes human-approved market orders from the AI verdict, and regenerates a static `dashboard.js` that `index.html` renders. Prices and news refresh automatically every hour via GitHub Actions.
+A self-updating, AI-assisted portfolio dashboard built on the **HyperGrowth Sharpe Barbell** strategy. `update.py` fetches live prices, runs the take-profit / stop-loss engine, parks idle cash, executes human-approved market orders from the AI verdict, and regenerates a static `dashboard.js` that `dashboard.html` renders. Prices and news refresh automatically every hour via GitHub Actions.
 
 Live site: **https://rubysapior.github.io/stock-picker/** (GitHub Pages, served from `main`).
 
@@ -31,7 +31,8 @@ Full design notes: `CHANGELOG.md` → "Path to v1 — business & legal staging" 
 | `fears.py` | Market Fear Gauge: F1–F8 crash scenarios, complacency regime, hedge-sizing recommendations. |
 | `ai_sentiment.py` | AI Sentiment Decision Layer (algo 0.6.0): Gemini verdict call via OpenRouter, fact-delta ledger, theories/fears/bullish translators. Read-only — proposals only. |
 | `dashboard.js` | **AUTO-GENERATED** `window.DASH` payload. Never hand-edit (regenerate with `update.py`). |
-| `index.html` | Dashboard skeleton (all sections filled by `app.js`). |
+| `index.html` | Landing/marketing page (site default — GitHub Pages serves this first). |
+| `dashboard.html` | Dashboard skeleton (all sections filled by `app.js`). |
 | `app.js` | Renders every section of the dashboard from `window.DASH`. |
 | `help.html` / `theories.html` / `trades.html` | Help site, Theory Archive (flash-card wheel), Trade Archive. |
 | `serve.py` | Optional local server: serves the page and exposes `POST /refresh` so the Update button runs `update.py`. |
@@ -47,7 +48,7 @@ portfolio.json (source of truth)
 dashboard.js (window.DASH)  ← AUTO-GENERATED, never hand-edit
       │
       ▼
-index.html + app.js  (renders the dashboard)
+index.html (landing) → dashboard.html + app.js  (renders the dashboard)
 ```
 
 ## Run it
@@ -57,7 +58,7 @@ python update.py     # fetch prices + news, regenerate dashboard.js
 python serve.py      # optional: http://localhost:8000 (Update button posts /refresh)
 ```
 
-Or just open `index.html` via file:// double-click — it works with the last-generated `dashboard.js`.
+Or just open `index.html` (landing) via file:// double-click — the dashboard is `dashboard.html`, both work with the last-generated `dashboard.js`.
 
 ## Strategy mechanics (in `update.py`)
 

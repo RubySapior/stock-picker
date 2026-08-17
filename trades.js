@@ -15,6 +15,10 @@
 
   function init() {
     const D = window.DASH;
+    const verEl = document.getElementById('verLine');
+    if (verEl && D.meta && D.meta.version) {
+      verEl.textContent = 'UI v' + D.meta.version.site + ' \u00b7 Engine v' + D.meta.version.algo;
+    }
     const escA = v => String(v==null?'':v).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
     const fmtN = (v,d=2) => Number(v).toLocaleString(undefined,{minimumFractionDigits:d, maximumFractionDigits:d});
     const sign = v => (v > 0 ? '+' : '') + fmtN(v);

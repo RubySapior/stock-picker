@@ -1,7 +1,8 @@
 """
 Local server for the stock-picker dashboard.
 
-Why: the dashboard is a static page (index.html + dashboard.js), and the
+Why: the site is a static pair of pages (index.html landing + dashboard.html
++ dashboard.js), and the
 browser can't run update.py by itself. This server:
   1. Serves the folder so you can open http://localhost:8000
   2. Provides POST /refresh -> runs update.py (fresh prices + news),
@@ -36,7 +37,7 @@ PORTFOLIO = os.path.join(BASE, "portfolio.json")
 class Handler(http.server.SimpleHTTPRequestHandler):
     """Serves static files, plus POST endpoints that run update.py.
 
-    The Update button in index.html POSTs to /refresh; the handler runs
+    The Update button in dashboard.html POSTs to /refresh; the handler runs
     `python update.py` in this folder and returns its stdout as JSON so the
     page can log it before reloading. GET /refresh is also allowed for
     convenience (curl / browser address bar).
@@ -310,7 +311,8 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 
 if __name__ == "__main__":
     server = http.server.ThreadingHTTPServer(("", PORT), Handler)
-    print(f"Serving dashboard at http://localhost:{PORT}")
+    print(f"Serving site at http://localhost:{PORT} (landing page)")
+    print(f"Dashboard: http://localhost:{PORT}/dashboard.html")
     print("Update button runs update.py via POST /refresh.")
     print("Book buttons + sentiment slider run POST /book, /execute_all, /bias, /mode.")
     try:

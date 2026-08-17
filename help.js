@@ -13,3 +13,18 @@
   }
   tabs.forEach(b => b.addEventListener('click', () => show(b.dataset.tab)));
 })();
+
+/* Help page: version + engine line from the AUTO-GENERATED dashboard.js. */
+(function(){
+  const el = document.getElementById('verLine');
+  if(!el) return;
+  const s = document.createElement('script');
+  s.src = 'dashboard.js?t=' + Date.now();
+  s.onload = () => {
+    const D = window.DASH;
+    if (D && D.meta && D.meta.version) {
+      el.textContent = 'UI v' + D.meta.version.site + ' \u00b7 Engine v' + D.meta.version.algo;
+    }
+  };
+  document.head.appendChild(s);
+})();

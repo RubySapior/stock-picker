@@ -3,7 +3,8 @@
 A simulated managed-portfolio dashboard. A small Python backend fetches prices
 and news, runs take-profit / stop-loss checks, and emits a static JS "data
 file". A plain HTML/CSS/JS page renders it. No framework, no build step — the
-dashboard works by double-clicking `index.html`.
+site opens on the landing page (`index.html`); the dashboard is
+`dashboard.html`, both work by double-clicking.
 
 ## Files at a glance
 
@@ -17,8 +18,15 @@ dashboard works by double-clicking `index.html`.
 | `ai_sentiment.py` | AI Sentiment Decision Layer (algo 0.6.1.00): change-detect LLM verdict call (prior verdict + fact deltas embedded; outputs ONLY changes — omission = agreement). Provider-routed: **gemini** via OpenRouter — `google/gemini-3.7-flash` extended thinking — / zen / deepseek. Tier A market data + CNN Fear&Greed crowding gate + calibration track record. Rotations (paired sell/buy), fear proposals/edits (staged into `fear_scenarios.json`), schema validation, theories/fears/bullish/rotation layer translators. **WIRED into `update.py`, ENABLED** (`meta.ai.enabled: true`, `meta.ai.mode: recommend`). | **YES** — engine layer; must stay read-only (evidence/events/fear-blend/orders-refresh only) |
 | `vader/` | Vendored MIT-licensed VADER sentiment engine (`vader.py` + `vader_lexicon.txt` + `emoji_utf8_lexicon.txt` + `LICENSE`). Third-party code, kept verbatim; `news.py` maps its `compound` score to pos/neg/neutral. | **NO** — upstream dependency |
 | `dashboard.js` | **AUTO-GENERATED** output consumed by the browser (`window.DASH = {...}`). | **NO** — overwritten on every `update.py` run; edit `update.py`/`portfolio.json` instead |
-| `app.js` | Renders `window.DASH` into every section of `index.html`. | **YES** — UI only |
-| `index.html` | Page skeleton; the sections `app.js` fills. | **YES** — UI only |
+| `mirror.json` | **AUTO-GENERATED** copy contract (site 0.5.5.29): the book as `positions[{ticker, sleeve, buy_date, shares, current_value, pct_of_book, theory_ids}]` + `changes[]` (normalized trade log: ts/type/ticker/action/shares/price/amount from `events[]`). What a follower replays to mirror the book exactly. | **NO** — written by `build_mirror()` in `update.py` every run |
+| `leaderboards.py` | Community Top-10 leaderboard builder (weekly 5d / monthly 21d / quarterly 63d / yearly 252d / all-time since inception). Sources (deduped): `community/strategies/*/stats.json` + benchmark strategies (SPY / QQQ / TQQQ / TQQQ60-TMF40 — 2y Yahoo daily closes normalized to 100000 at their own first close; trailing windows over the full history) + the local book. | **YES** |
+| `leaderboards.js` | **AUTO-GENERATED** `window.LEADERBOARDS = {...}` — script-tag format like `dashboard.js` so it loads from `file://`. | **NO** — written by `leaderboards.py` every `update.py` run |
+| `community.js` | Shared leaderboard renderer (tab switcher + top-10 table) used by the Community section on `index.html` and `dashboard.html`. | **YES** — UI only |
+| `leaderboards.html` + `lbpage.js` | Community Leaderboards site: full page (mascot header + nav, hero stat cards, tabbed Top-10 table, copy explainer, footer) reading the same `leaderboards.js` via `community.js`. | **YES** — UI only |
+| `community/` | Leaderboard sources (site 0.5.5.33): `strategies/<id>/stats.json` (`{strategy_id, name, author, kind, start_value, start_date, history[]}` — snapshots also carry `parent_id` + `positions[]`). Written by `leaderboards.py` (benchmarks) and `update.py` (version snapshots, gated by `meta.community.snapshot_versions` — an experiment, normally OFF). `users.json` registry + publish/follow API planned. | — |
+| `app.js` | Renders `window.DASH` into every section of `dashboard.html`. | **YES** — UI only |
+| `dashboard.html` | Dashboard page skeleton; the sections `app.js` fills. | **YES** — UI only |
+| `index.html` + `landing.js` | Landing/marketing page (the site's default page — GitHub Pages, serve.py and double-click all land here): hero with live stats from `dashboard.js`, features, how-it-works, roadmap, and a sign-up preview (localStorage only, no backend — UI rehearsal for v1 accounts). | **YES** — UI only |
 | `theories.html` + `theories.js` | Theory Archive page: every theory (incl. abandoned) as a flash-card wheel with drag/swipe/wheel navigation, 3D flip to evidence log, plus a plain-table toggle for copy-paste; status/tier filters + free-text search. Reads the same `dashboard.js`. | **YES** — UI only |
 | `trades.html` + `trades.js` | Trade Archive page: every recorded event (exits, re-entries, cash deploys, rebalance flags) in a plain table with per-second timestamps. Reads the same `dashboard.js`. | **YES** — UI only |
 | `help.html` + `help.js` | Help site: plain-language notes (Simple tab) + the math and details (Advanced tab). Static explainer, no data. | **YES** — UI only |
@@ -36,7 +44,7 @@ portfolio.json  (source of truth)
       ▼
 dashboard.js  (window.DASH = <json>)   ← AUTO-GENERATED
       │
-      │  index.html loads app.js → app.js loads dashboard.js (cache-busted)
+      │  dashboard.html loads app.js → app.js loads dashboard.js (cache-busted)
       ▼
 browser render (cards, charts, tables, news)
 ```
@@ -55,8 +63,8 @@ browser render (cards, charts, tables, news)
 
 ```
 python update.py     # fetch prices + news, regenerate dashboard.js, print summary
-python serve.py      # serve at http://localhost:8000 (Update button works here)
-open index.html      # also works directly via file:// double-click
+python serve.py      # serve at http://localhost:8000 (landing page; dashboard at /dashboard.html, Update button works here)
+open index.html      # landing page — also works directly via file:// double-click (dashboard is dashboard.html)
 ```
 
 ## Versioning (per-prompt rule)
@@ -75,7 +83,7 @@ user-deemed milestones.
   - `PP` (patch, two digits) — the ONLY part the AI bumps: every prompt's
     UI change set increments it (0.5.4.00 → 0.5.4.01 → 0.5.4.02); it resets
     to 00 when the user bumps the feature digit.
-  - Current baseline: **v0.5.4.01**.
+  - Current baseline: **v0.5.5.28**.
 - **Engine (algo) bumps RARELY** — the user announces them explicitly. UI
   tweaks and small data-rule edits do NOT bump the engine.
 - Roadmap: **UI v1** = accounts/sign-in with a personalized AI per user
@@ -87,7 +95,7 @@ user-deemed milestones.
   remain `site`/`algo`).
 - Each bump gets a `CHANGELOG.md` entry under `[site 0.5.F.PP]` /
   `[algo x.y.z]` sections.
-- After editing `app.js` / `styles.css` / `index.html` / archive pages, bump
+- After editing `app.js` / `styles.css` / `index.html` / `dashboard.html` / archive pages, bump
   the matching `?v=N` cache-bust query strings in the HTML files.
 - After bumping `meta.version` in `portfolio.json`, run `python update.py`
   so `dashboard.js` (and the header version line) picks it up. Never hand-

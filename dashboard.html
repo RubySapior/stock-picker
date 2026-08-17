@@ -1,0 +1,199 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Port-picker</title>
+<link rel="stylesheet" href="styles.css?v=53">
+</head>
+<!--
+  Page skeleton only. Every section below is filled by app.js from the
+  AUTO-GENERATED dashboard.js (window.DASH). To change what shows, edit
+  app.js or the data in portfolio.json/update.py â€” NOT dashboard.js.
+
+  Section -> render function in app.js:
+    header/cards          renderCards()
+    chart                 initValueChart()
+    AI sentiment          renderAi() (aiSection)
+    fear gauge            renderFears() (fearSection)
+    news                  renderNews()
+    market orders         renderOrders()
+    sector limits + pie   renderSectors() / initDonut()
+    positions table       renderPositions()
+    theories scorecard    renderTheories()
+    trade events          renderEvents()
+-->
+<body>
+<div class="wrap">
+  <header>
+    <div style="display:flex; align-items:center; gap:12px;">
+      <div class="mascot" id="mascot" title="AI cherry-picker mascot â€” temp logo (replace with the real one later)"></div>
+      <div>
+        <h1 id="pname">Portfolio</h1>
+        <div class="sub" id="verLine"></div>
+      </div>
+    </div>
+    <div class="asof">Last updated: <span id="asof"></span> <span class="nextRefresh">Next refresh: <span id="nextRefresh">â€“</span></span> <a class="archiveBtn" href="index.html">Home</a> <a class="archiveBtn" href="leaderboards.html">Leaderboards</a> <a class="archiveBtn" href="help.html">Help</a> <a class="archiveBtn" href="https://github.com/RubySapior/stock-picker" target="_blank" rel="noopener">GitHub &#8599;</a> <button id="updateBtn" class="updateBtn" title="Run update.py to fetch fresh prices + news, then reload">Update</button></div>
+  </header>
+
+  <div class="rebalBanner" id="rebalBanner" style="display:none;"></div>
+
+  <div class="cards" id="cards"></div>
+
+  <div class="panel" style="position:relative; margin-bottom:20px;">
+    <div class="charthead">
+      <h2>Portfolio Value History</h2>
+      <span class="chartstat" id="chartStat"></span>
+      <div class="chartbar">
+        <span class="rangeBtn active" data-days="0">MAX</span>
+        <span class="rangeBtn" data-days="365">1Y</span>
+        <span class="rangeBtn" data-days="183">6M</span>
+        <span class="rangeBtn" data-days="92">3M</span>
+        <span class="rangeBtn" data-days="30">1M</span>
+        <span class="rangeBtn" data-days="7">1W</span>
+        <span class="rangeBtn" data-days="ytd">YTD</span>
+        <label class="bmLabel" title="Overlay a benchmark, normalized to the same $100,000 start">
+          <select id="bmSelect" class="bmSelect">
+            <option value="SPY">vs SPY</option>
+            <option value="QQQ">vs QQQ</option>
+            <option value="TQQQ">vs TQQQ</option>
+            <option value="MUU">vs MUU</option>
+          </select>
+        </label>
+      </div>
+    </div>
+    <canvas id="chart" height="280"></canvas>
+    <div id="chartTip"></div>
+    <div class="muted small" style="margin-top:6px;">scroll to zoom &middot; drag to pan &middot; double-click to reset</div>
+  </div>
+
+  <div class="panel" id="aiSection" style="margin-bottom:20px;">
+    <div class="charthead">
+      <h2>AI Sentiment <span class="aiBadge" id="aiStatus">OFF</span></h2>
+      <span class="muted small" id="aiSub"></span>
+      <span class="aiCtl" id="aiCtl">
+        <span class="biasWrap" title="Your sentiment lean (-5 fearful ... +5 bullish) — fed into the AI prompt, shown separately from the CNN gauge">
+          <label class="aiModeLabel" for="biasSlider">BIAS</label>
+          <input type="range" id="biasSlider" min="-5" max="5" step="1" value="0">
+          <span class="biasVal" id="biasVal">0</span>
+        </span>
+        <button id="execAllBtn" class="execAllBtn" title="Turn all current AI proposals + rotations into human-approved pending market orders (conviction-scaled amounts)">Submit all Orders &rarr;</button>
+      </span>
+    </div>
+    <div id="aiHeartbeat"></div>
+    <div class="aiGrid">
+      <div id="aiMacro" class="aiCol"></div>
+      <div id="aiProposals" class="aiCol"></div>
+    </div>
+    <div id="aiTheories" style="margin-top:14px;"></div>
+    <div id="aiFearProps" style="margin-top:14px;"></div>
+    <div id="aiCalib" style="margin-top:14px;"></div>
+  </div>
+
+  <div class="panel fearPanel" id="fearSection" style="display:none;">
+    <div class="charthead">
+      <h2>Market Fear Gauge <span class="muted small" style="font-weight:400;">Top 5 fears &middot; rated 0&ndash;5 (5 = panic)</span></h2>
+      <div id="complacency" class="compLine"></div>
+    </div>
+    <div id="fearList"></div>
+    <div id="fearSizing" class="sizingBox" style="display:none;"></div>
+  </div>
+
+  <div class="news-grid">
+    <div class="panel">
+      <h2>Big Stories</h2>
+      <div id="bigStories"></div>
+    </div>
+    <div class="panel">
+      <h2>Live News Feed</h2>
+      <div class="muted small" style="margin-bottom:8px;">Headline sentiment for held tickers &amp; their theories &middot; display only — news is not used by the AI (yet)</div>
+      <div class="feedWrap" id="feedWrap">
+        <div id="newsFeed"></div>
+        <div class="feedBar" aria-hidden="true"><div class="feedThumb" id="feedThumb"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel" id="ordersSection" style="margin-bottom:20px; display:none;">
+    <div class="charthead">
+      <h2>Market Orders</h2>
+      <span class="muted small" id="ordersSub"></span>
+    </div>
+    <div class="muted small" style="margin-bottom:10px;" id="ordersNote">Human-approved orders from the AI verdict. Executed at the live price on the next market-open run.</div>
+    <div id="ordersList"></div>
+  </div>
+
+  <div class="cmp-grid">
+    <div class="panel">
+      <h2>Sector Limits <span class="muted small" style="font-weight:400;">(incl. leverage)</span></h2>
+      <div class="muted small" style="margin-bottom:10px;">Effective exposure = market value &times; ETF leverage. Book leverage: <strong id="levFactor" class="txt" style="color:var(--txt);"></strong></div>
+      <div id="sectorList"></div>
+    </div>
+    <div class="panel" style="position:relative;">
+      <h2>PortPie</h2>
+      <canvas id="donut" height="200"></canvas>
+      <div id="donutTip"></div>
+      <div id="sleeveList" style="margin-top:10px;"></div>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-bottom:20px;">
+    <h2>Positions</h2>
+    <div class="scrollWrap">
+      <div class="scroll">
+        <table id="posTable">
+          <thead><tr>
+            <th data-key="ticker">Ticker</th><th data-key="name">Name / Sleeve</th><th data-key="buy_price">Buy</th><th data-key="current_price">Current</th><th data-key="current_value">Value</th><th data-key="pct">% of Port</th>
+            <th data-key="pnl_pct">P&amp;L %</th><th data-key="take_profit_pct">Take Profit</th><th data-key="stop_loss_pct">Stop Loss</th><th data-key="status">Status</th>
+          </tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="hBar" aria-hidden="true"><div class="hThumb" id="posHThumb"></div></div>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-bottom:20px;">
+    <div class="charthead">
+      <h2>Theories Scorecard</h2>
+      <div class="chartbar">
+        <span class="muted small" id="tCount"></span>
+        <button id="viewToggle" class="rangeBtn" title="Switch between the flash-card wheel and the plain table">Table view &#8596;</button>
+        <a class="archiveBtn" href="theories.html">All theories &#8599;</a>
+      </div>
+    </div>
+    <div class="wheelStage" id="wheelStage">
+      <div class="wheel" id="wheel"></div>
+      <button class="wheelBtn prev" id="wPrev" title="Previous card">&#8249;</button>
+      <button class="wheelBtn next" id="wNext" title="Next card">&#8250;</button>
+      <div class="wheelCounter" id="wCounter"></div>
+    </div>
+    <div class="wheelHint" id="wheelHint">swipe or scroll to browse &middot; tap the front card to flip &middot; tap a side card to select</div>
+    <div id="tableView" style="display:none;">
+      <div class="scrollWrap">
+        <div class="scroll">
+          <table id="theoryTable">
+            <thead><tr><th>Rank</th><th>ID</th><th>Theory</th><th>Prediction</th><th>Status</th><th>Evidence Log</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <div class="hBar" aria-hidden="true"><div class="hThumb" id="theoryHThumb"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-bottom:20px;">
+    <div class="charthead">
+      <h2>Trade Events</h2>
+      <a class="archiveBtn" href="trades.html">All trades &#8599;</a>
+    </div>
+    <div id="events"></div>
+  </div>
+
+  <footer>Simulated managed portfolio for tracking &amp; learning. Not financial advice. Served locally: run <code>python serve.py</code> then open <code>http://localhost:8000</code> - the Update button refreshes prices + news.</footer>
+</div>
+
+<script src="wheel.js?v=8"></script>
+<script src="app.js?v=58" defer></script>
+</body>
+</html>

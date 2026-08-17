@@ -1,196 +1,178 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Port-picker</title>
-<link rel="stylesheet" href="styles.css?v=35">
+<title>AI Port-picker — Your Goals, Your Convictions, AI-Managed</title>
+<link rel="stylesheet" href="styles.css?v=54">
 </head>
 <!--
-  Page skeleton only. Every section below is filled by app.js from the
-  AUTO-GENERATED dashboard.js (window.DASH). To change what shows, edit
-  app.js or the data in portfolio.json/update.py â€” NOT dashboard.js.
-
-  Section -> render function in app.js:
-    header/cards          renderCards()
-    chart                 initValueChart()
-    sector limits + pie   renderSectors() / initDonut()
-    news                  renderNews()
-    positions table       renderPositions()
-    theories scorecard    renderTheories()
-    trade events          renderEvents()
+  Landing / marketing page. Static explainer + a sign-up preview (localStorage
+  only, no backend). Loads the AUTO-GENERATED dashboard.js to show live
+  numbers in the hero stats strip. Product talk lives here; the dashboard
+  itself is dashboard.html.
 -->
 <body>
-<div class="wrap">
-  <header>
-    <div style="display:flex; align-items:center; gap:12px;">
-      <div class="mascot" id="mascot" title="AI cherry-picker mascot â€” temp logo (replace with the real one later)"></div>
+<div class="landWrap">
+
+  <!-- ================= NAV ================= -->
+  <nav class="landNav">
+    <div class="landBrand">
+      <div class="mascot" id="mascot" title="AI cherry-picker mascot"></div>
       <div>
-        <h1 id="pname">Portfolio</h1>
-        <div class="sub" id="verLine"></div>
+        <div class="landName">AI Port-picker</div>
+        <div class="landTag">AI-managed portfolios</div>
       </div>
     </div>
-    <div class="asof">Last updated: <span id="asof"></span> <span class="nextRefresh">Next refresh: <span id="nextRefresh">â€“</span></span> <a class="archiveBtn" href="help.html">Help</a> <a class="archiveBtn" href="https://github.com/RubySapior/stock-picker" target="_blank" rel="noopener">GitHub &#8599;</a> <button id="updateBtn" class="updateBtn" title="Run update.py to fetch fresh prices + news, then reload">Update</button></div>
+    <div class="landLinks">
+      <a href="#features">Features</a>
+      <a href="#how">How it works</a>
+      <a href="leaderboards.html">Leaderboards</a>
+      <a href="#roadmap">Coming next</a>
+      <a href="#signup">Sign up</a>
+    </div>
+    <div class="landAuth">
+      <span id="authChip" class="authChip" style="display:none;"></span>
+      <button id="signInBtn" class="landBtn ghost">Sign in</button>
+      <a class="landBtn solid" href="dashboard.html">Live demo &rarr;</a>
+    </div>
+  </nav>
+
+  <!-- ================= HERO ================= -->
+  <header class="landHero">
+    <div class="heroBadge">Your goals &middot; your convictions &middot; an AI that runs the rest</div>
+    <h1 class="landTitle">Tell it what you want.<br>It builds the <span class="grad">portfolio</span>.</h1>
+    <p class="landSub">Say you're bullish on AI, hate banks, and want to fat FIRE in 10 years &mdash; the AI tunes its strategy to exactly that. It researches the market daily, manages risk, and turns its calls into recommendations you approve (or hands-free auto-trade, when you're ready).</p>
+    <div class="landCta">
+      <a class="landBtn solid big" href="dashboard.html">View the live demo &rarr;</a>
+      <a class="landBtn ghost big" href="#how">How it works</a>
+    </div>
+    <div class="heroStats" id="heroStats">
+      <div class="hStat"><div class="hVal" id="hsValue">&mdash;</div><div class="hLab">Portfolio value</div></div>
+      <div class="hStat"><div class="hVal" id="hsDay">&mdash;</div><div class="hLab">Day change</div></div>
+      <div class="hStat"><div class="hVal" id="hsReturn">&mdash;</div><div class="hLab">Total return</div></div>
+      <div class="hStat"><div class="hVal" id="hsStrategy">&mdash;</div><div class="hLab">vs S&amp;P 500</div></div>
+    </div>
+    <div class="heroChartPanel">
+      <div class="heroChartHead">What your portfolio could look like <span class="heroChartTag">illustrative</span></div>
+      <canvas id="heroChart" height="220"></canvas>
+      <div class="heroChartCap">A simulated example of the AI-managed approach climbing from $100,000 &mdash; not a prediction of returns.</div>
+    </div>
   </header>
 
-  <div class="rebalBanner" id="rebalBanner" style="display:none;"></div>
-
-  <div class="cards" id="cards"></div>
-
-  <div class="panel" style="position:relative; margin-bottom:20px;">
-    <div class="charthead">
-      <h2>Portfolio Value History</h2>
-      <span class="chartstat" id="chartStat"></span>
-      <div class="chartbar">
-        <span class="rangeBtn active" data-days="0">MAX</span>
-        <span class="rangeBtn" data-days="365">1Y</span>
-        <span class="rangeBtn" data-days="183">6M</span>
-        <span class="rangeBtn" data-days="92">3M</span>
-        <span class="rangeBtn" data-days="30">1M</span>
-        <span class="rangeBtn" data-days="7">1W</span>
-        <span class="rangeBtn" data-days="ytd">YTD</span>
-        <label class="bmLabel" title="Overlay a benchmark, normalized to the same $100,000 start">
-          <select id="bmSelect" class="bmSelect">
-            <option value="SPY">vs SPY</option>
-            <option value="QQQ">vs QQQ</option>
-            <option value="TQQQ">vs TQQQ</option>
-            <option value="MUU">vs MUU</option>
-          </select>
-        </label>
+  <!-- ================= FEATURES ================= -->
+  <section class="landSec" id="features">
+    <h2 class="secTitle">Not a signal service. A portfolio manager built around you.</h2>
+    <p class="secSub">Your playbook sets the guardrails; the AI does the daily work and shows its reasoning behind every number.</p>
+    <div class="landGrid">
+      <div class="fCard">
+        <div class="fIcon">&#127919;</div>
+        <h3>Built around your goals</h3>
+        <p>FIRE, fat FIRE, get rich in a year, retirement &mdash; pick your target and time horizon. The AI sets its risk guardrails to match, not a one-size-fits-all signal.</p>
+      </div>
+      <div class="fCard">
+        <div class="fIcon">&#128161;</div>
+        <h3>Tell it what you believe</h3>
+        <p>Bullish on AI? Nuclear power? Boring dividends? Feed in your convictions and the AI weighs them against its own research &mdash; your edge, quantified.</p>
+      </div>
+      <div class="fCard">
+        <div class="fIcon">&#129302;</div>
+        <h3>An AI that researches daily</h3>
+        <p>Every day it reads the macro picture, sectors, news and the fear gauge &mdash; then updates your plan with reasons for every move, right or wrong.</p>
+      </div>
+      <div class="fCard">
+        <div class="fIcon">&#9889;</div>
+        <h3>Exits that never sleep</h3>
+        <p>Take-profits lock in winners, stop-losses cut losers, and risky moments get flagged before they happen &mdash; no emotion, no hesitation, no 3am panic.</p>
+      </div>
+      <div class="fCard">
+        <div class="fIcon">&#128221;</div>
+        <h3>You approve every call</h3>
+        <p>Recommendations, not surprises. One click turns a proposal into an order; every decision stays on an auditable record. Auto-trade comes when you say so.</p>
+      </div>
+      <div class="fCard">
+        <div class="fIcon">&#128200;</div>
+        <h3>A track record, not promises</h3>
+        <p>Every thesis is scored right or wrong with evidence. Wrong calls get abandoned with receipts &mdash; because trust is the whole point.</p>
       </div>
     </div>
-    <canvas id="chart" height="280"></canvas>
-    <div id="chartTip"></div>
-    <div class="muted small" style="margin-top:6px;">scroll to zoom &middot; drag to pan &middot; double-click to reset</div>
-  </div>
+  </section>
 
-  <div class="cmp-grid">
-    <div class="panel">
-      <h2>Sector Limits <span class="muted small" style="font-weight:400;">(incl. leverage)</span></h2>
-      <div class="muted small" style="margin-bottom:10px;">Effective exposure = market value &times; ETF leverage. Book leverage: <strong id="levFactor" class="txt" style="color:var(--txt);"></strong></div>
-      <div id="sectorList"></div>
+  <!-- ================= HOW IT WORKS ================= -->
+  <section class="landSec" id="how">
+    <h2 class="secTitle">Three steps to a portfolio that runs itself</h2>
+    <div class="landSteps">
+      <div class="step">
+        <div class="stepNum">1</div>
+        <h3>Set your playbook</h3>
+        <p>Pick your goal (FIRE, fat FIRE, get rich, retirement&hellip;), your risk tolerance, and what you're bullish on. The AI builds its guardrails around you.</p>
+      </div>
+      <div class="stepArrow">&rarr;</div>
+      <div class="step">
+        <div class="stepNum">2</div>
+        <h3>The AI researches &amp; manages</h3>
+        <p>It reads the market daily, scores opportunities against your playbook, and rebalances your plan as the world changes. Nothing trades without you.</p>
+      </div>
+      <div class="stepArrow">&rarr;</div>
+      <div class="step">
+        <div class="stepNum">3</div>
+        <h3>Approve &mdash; or go hands-free</h3>
+        <p>Turn recommendations into orders with one click today. Auto-trade mode is on the roadmap: the AI runs the book, and you set how much autonomy it gets.</p>
+      </div>
     </div>
-    <div class="panel" style="position:relative;">
-      <h2>PortPie</h2>
-      <canvas id="donut" height="200"></canvas>
-      <div id="donutTip"></div>
-      <div id="sleeveList" style="margin-top:10px;"></div>
-    </div>
-  </div>
+  </section>
 
-  <div class="panel fearPanel" id="fearSection" style="display:none;">
-    <div class="charthead">
-      <h2>Market Fear Gauge <span class="muted small" style="font-weight:400;">Top 5 fears</span></h2>
-      <div id="complacency" class="compLine"></div>
+  <!-- ================= ROADMAP ================= -->
+  <section class="landSec" id="roadmap">
+    <h2 class="secTitle">What's coming</h2>
+    <div class="landGrid two">
+      <div class="fCard">
+        <h3>Your playbook, live</h3>
+        <p>The goals-and-convictions setup above, personalized per account &mdash; every user's AI tuned to their own risk tolerance and focus areas.</p>
+      </div>
+      <div class="fCard">
+        <h3>Hands-free mode</h3>
+        <p>Full auto-trade: the AI executes its own research and rebalances weekly across sectors and hedges &mdash; with an autonomy dial you control.</p>
+      </div>
+      <div class="fCard">
+        <h3>Copy the best</h3>
+        <p>One-click copying of any published strategy &mdash; your account mirrors their exact book and changes, at a scale you choose.</p>
+      </div>
     </div>
-    <div id="fearList"></div>
-    <div id="fearSizing" class="sizingBox" style="display:none;"></div>
-  </div>
+    <p class="secSub">Join early, shape the roadmap, and follow an honest public track record as we grow.</p>
+  </section>
 
-  <div class="panel" id="aiSection" style="margin-bottom:20px;">
-    <div class="charthead">
-      <h2>AI Sentiment <span class="aiBadge" id="aiStatus">OFF</span></h2>
-      <span class="muted small" id="aiSub"></span>
-      <span class="aiCtl" id="aiCtl">
-        <span class="biasWrap" title="Your sentiment lean (-5 fearful ... +5 bullish) — fed into the AI prompt, shown separately from the CNN gauge">
-          <label class="aiModeLabel" for="biasSlider">BIAS</label>
-          <input type="range" id="biasSlider" min="-5" max="5" step="1" value="0">
-          <span class="biasVal" id="biasVal">0</span>
-        </span>
-        <button id="execAllBtn" class="execAllBtn" title="Turn all current AI proposals + rotations into human-approved pending market orders (conviction-scaled amounts)">Submit all Orders &rarr;</button>
+  <footer>
+    <div class="landFoot">
+      <span>Investing involves risk. Not financial advice.</span>
+      <span class="verLine" id="verLine"></span>
+      <span class="footLinks">
+        <a href="dashboard.html">Live demo</a> &middot; <a href="leaderboards.html">Leaderboards</a> &middot; <a href="help.html">Help</a> &middot; <a href="#signup">Sign up</a>
       </span>
     </div>
-    <div id="aiHeartbeat"></div>
-    <div class="aiGrid">
-      <div id="aiProposals" class="aiCol"></div>
-      <div id="aiMacro" class="aiCol"></div>
-    </div>
-    <div id="aiTheories" style="margin-top:14px;"></div>
-    <div id="aiFearProps" style="margin-top:14px;"></div>
-    <div id="aiCalib" style="margin-top:14px;"></div>
-  </div>
-
-  <div class="panel" id="ordersSection" style="margin-bottom:20px; display:none;">
-    <div class="charthead">
-      <h2>Market Orders</h2>
-      <span class="muted small" id="ordersSub"></span>
-    </div>
-    <div class="muted small" style="margin-bottom:10px;" id="ordersNote">Human-approved orders from the AI verdict. Executed at the live price on the next market-open run.</div>
-    <div id="ordersList"></div>
-  </div>
-
-  <div class="news-grid">
-    <div class="panel">
-      <h2>Big Stories</h2>
-      <div id="bigStories"></div>
-    </div>
-    <div class="panel">
-      <h2>Live News Feed</h2>
-      <div class="muted small" style="margin-bottom:8px;">Headline sentiment for held tickers &amp; their theories &middot; display only — news is not used by the AI (yet)</div>
-      <div class="feedWrap" id="feedWrap">
-        <div id="newsFeed"></div>
-        <div class="feedBar" aria-hidden="true"><div class="feedThumb" id="feedThumb"></div></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="panel" style="margin-bottom:20px;">
-    <h2>Positions</h2>
-    <div class="scrollWrap">
-      <div class="scroll">
-        <table id="posTable">
-          <thead><tr>
-            <th data-key="ticker">Ticker</th><th data-key="name">Name / Sleeve</th><th data-key="buy_price">Buy</th><th data-key="current_price">Current</th><th data-key="current_value">Value</th><th data-key="pct">% of Port</th>
-            <th data-key="pnl_pct">P&amp;L %</th><th data-key="take_profit_pct">Take Profit</th><th data-key="stop_loss_pct">Stop Loss</th><th data-key="status">Status</th>
-          </tr></thead>
-          <tbody></tbody>
-        </table>
-      </div>
-      <div class="hBar" aria-hidden="true"><div class="hThumb" id="posHThumb"></div></div>
-    </div>
-  </div>
-
-  <div class="panel" style="margin-bottom:20px;">
-    <div class="charthead">
-      <h2>Theories Scorecard</h2>
-      <div class="chartbar">
-        <span class="muted small" id="tCount"></span>
-        <button id="viewToggle" class="rangeBtn" title="Switch between the flash-card wheel and the plain table">Table view &#8596;</button>
-        <a class="archiveBtn" href="theories.html">All theories &#8599;</a>
-      </div>
-    </div>
-    <div class="wheelStage" id="wheelStage">
-      <div class="wheel" id="wheel"></div>
-      <button class="wheelBtn prev" id="wPrev" title="Previous card">&#8249;</button>
-      <button class="wheelBtn next" id="wNext" title="Next card">&#8250;</button>
-      <div class="wheelCounter" id="wCounter"></div>
-    </div>
-    <div class="wheelHint" id="wheelHint">swipe or scroll to browse &middot; tap the front card to flip &middot; tap a side card to select</div>
-    <div id="tableView" style="display:none;">
-      <div class="scrollWrap">
-        <div class="scroll">
-          <table id="theoryTable">
-            <thead><tr><th>Rank</th><th>ID</th><th>Theory</th><th>Prediction</th><th>Status</th><th>Evidence Log</th></tr></thead>
-            <tbody></tbody>
-          </table>
-        </div>
-        <div class="hBar" aria-hidden="true"><div class="hThumb" id="theoryHThumb"></div></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="panel" style="margin-bottom:20px;">
-    <div class="charthead">
-      <h2>Trade Events</h2>
-      <a class="archiveBtn" href="trades.html">All trades &#8599;</a>
-    </div>
-    <div id="events"></div>
-  </div>
-
-  <footer>Simulated managed portfolio for tracking &amp; learning. Not financial advice. Served locally: run <code>python serve.py</code> then open <code>http://localhost:8000</code> - the Update button refreshes prices + news.</footer>
+  </footer>
 </div>
 
-<script src="wheel.js?v=8"></script>
-<script src="app.js?v=39" defer></script>
+<!-- ================= SIGN-UP MODAL ================= -->
+<div class="landModal" id="authModal" style="display:none;">
+  <div class="landModalCard">
+    <button class="modalX" id="modalX" title="Close">&times;</button>
+    <div class="mascot" style="margin:0 auto 10px;"></div>
+    <h3 id="modalTitle">Create your account</h3>
+    <p class="modalSub">Start free &mdash; no credit card required.</p>
+    <form id="authForm" autocomplete="off">
+      <label class="authLabel" for="authEmail">Email</label>
+      <input class="authInput" id="authEmail" type="email" placeholder="you@example.com" required>
+      <label class="authLabel" for="authPass">Password</label>
+      <input class="authInput" id="authPass" type="password" placeholder="Choose a password" required>
+      <div class="authErr" id="authErr"></div>
+      <button type="submit" class="landBtn solid big" style="width:100%;">Sign up</button>
+    </form>
+    <button class="landBtn ghost big" id="guestBtn" style="width:100%; margin-top:8px;">Browse as guest</button>
+    <div class="modalNote" id="authState"></div>
+  </div>
+</div>
+
+<script src="landing.js?v=24" defer></script>
 </body>
 </html>

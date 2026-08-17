@@ -1,0 +1,137 @@
+{
+  "strategy_id": "hypergrowth-sharpe-barbell-v2026-08-17",
+  "name": "HyperGrowth Sharpe Barbell v5 - Conviction-First 2026-08-17",
+  "author": "Snapshot",
+  "kind": "snapshot",
+  "parent_id": "hypergrowth-sharpe-barbell",
+  "start_value": 103655.06,
+  "start_date": "2026-08-17",
+  "positions": [
+    {
+      "ticker": "BTAL",
+      "shares": 666.357532,
+      "buy_date": "2026-08-10"
+    },
+    {
+      "ticker": "DBMF",
+      "shares": 255.287916,
+      "buy_date": "2026-08-10"
+    },
+    {
+      "ticker": "DRAM",
+      "shares": 142.487012,
+      "buy_date": "2026-08-10"
+    },
+    {
+      "ticker": "EZU",
+      "shares": 28.05049,
+      "buy_date": "2026-08-10"
+    },
+    {
+      "ticker": "FXY",
+      "shares": 69.42034,
+      "buy_date": "2026-08-10"
+    },
+    {
+      "ticker": "GDX",
+      "shares": 38.678306,
+      "buy_date": "2026-08-10"
+    },
+    {
+      "ticker": "GLD",
+      "shares": 8.694794,
+      "buy_date": "2026-08-10"
+    },
+    {
+      "ticker": "IWDL",
+      "shares": 35.726519,
+      "buy_date": "2026-08-10"
+    },
+    {
+      "ticker": "IWM",
+      "shares": 10.000667,
+      "buy_date": "2026-08-10"
+    },
+    {
+      "ticker": "NLR",
+      "shares": 81.048481,
+      "buy_date": "2026-08-10"
+    },
+    {
+      "ticker": "NUKZ",
+      "shares": 60.02401,
+      "buy_date": "2026-08-10"
+    },
+    {
+      "ticker": "PLTR",
+      "shares": 11.413455,
+      "buy_date": "2026-08-10"
+    },
+    {
+      "ticker": "QFLR",
+      "shares": 98.619327,
+      "buy_date": "2026-08-10"
+    },
+    {
+      "ticker": "SMH",
+      "shares": 8.781016,
+      "buy_date": "2026-08-10"
+    },
+    {
+      "ticker": "SOXL",
+      "shares": 70.607129,
+      "buy_date": "2026-08-10"
+    },
+    {
+      "ticker": "TQQQ",
+      "shares": 154.372436,
+      "buy_date": "2026-08-10"
+    },
+    {
+      "ticker": "VIXM",
+      "shares": 280.112045,
+      "buy_date": "2026-08-10"
+    },
+    {
+      "ticker": "XLY",
+      "shares": 20.890784,
+      "buy_date": "2026-08-10"
+    },
+    {
+      "ticker": "ZROZ",
+      "shares": 59.76817,
+      "buy_date": "2026-08-10"
+    }
+  ],
+  "history": [
+    {
+      "date": "2026-08-17",
+      "total_value": 103655.06,
+      "cash": 25.0,
+      "invested_value": 103630.06,
+      "day_change": 1450.45,
+      "prices": {
+        "TQQQ": 77.405,
+        "SOXL": 155.19,
+        "SMH": 598.4,
+        "DRAM": 61.47,
+        "PLTR": 175.84,
+        "NLR": 119.305,
+        "NUKZ": 67.99,
+        "IWM": 303.61,
+        "IWDL": 70.25,
+        "XLY": 117.11,
+        "EZU": 71.91,
+        "ZROZ": 57.44,
+        "FXY": 57.565,
+        "VIXM": 14.315,
+        "QFLR": 35.89,
+        "GLD": 405.48,
+        "GDX": 92.335,
+        "BTAL": 11.77,
+        "DBMF": 31.395,
+        "SGOV": 100.565
+      }
+    }
+  ]
+}

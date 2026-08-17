@@ -55,6 +55,27 @@ function loadDash(cb) {
   document.head.appendChild(s);
 }
 
+/* ---- soft refresh: re-fetch dashboard.js and re-render without a full
+   page reload. Falls back to a reload on failure (file:// or offline). ---- */
+async function softRefresh() {
+  if (softRefresh.busy) return false;
+  softRefresh.busy = true;
+  try {
+    const r = await fetch('dashboard.js?t=' + Date.now());
+    if (!r.ok) return false;
+    const txt = await r.text();
+    const i = txt.indexOf('{'), j = txt.lastIndexOf('}');
+    if (i < 0 || j <= i) return false;
+    window.DASH = JSON.parse(txt.slice(i, j + 1));
+    render();
+    return true;
+  } catch (e) {
+    return false;
+  } finally {
+    softRefresh.busy = false;
+  }
+}
+
 function render() {
   const D = window.DASH;
   const escA = v => String(v==null?'':v).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
@@ -111,18 +132,27 @@ function render() {
       const r = target - Date.now();
       if (r <= 0) {
         const last = +(sessionStorage.getItem(LAST_KEY) || 0);
-        if (Date.now() - last > 20000) {
+        const tries = +(sessionStorage.getItem(LAST_KEY + '.tries') || 0);
+        if (tries < 2 && Date.now() - last > 20000) {
           sessionStorage.setItem(LAST_KEY, String(Date.now()));
-          location.reload();
+          sessionStorage.setItem(LAST_KEY + '.tries', String(tries + 1));
+          softRefresh().then(ok => { if (!ok) location.reload(); });
         } else {
           nrEl.textContent = 'waiting for new data';
         }
         return;
       }
+      /* fresh data arrived -> reset the auto-reload budget */
+      if (sessionStorage.getItem(LAST_KEY + '.tries')) {
+        sessionStorage.removeItem(LAST_KEY + '.tries');
+      }
       nrEl.textContent = fmt(r / 1000);
     };
     tick();
-    setInterval(tick, 1000);
+    if (!document.body.dataset.countdown) {
+      document.body.dataset.countdown = '1';
+      setInterval(tick, 1000);
+    }
   }
 
   /* ---- rebalance flags (passive drift alerts, never trades) ---- */
@@ -161,7 +191,6 @@ function render() {
     el.style.display = '';
     const esc = x => String(x==null?'':x).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
     const segColor = ['#27ae60','#7bb93c','#f1c40f','#e67e22','#e74c3c'];
-    const aiFears = {}; (D.ai && D.ai.fears || []).forEach(f => aiFears[f.id] = f.sentiment_score);
     const top = F.slice(0, 5);
     document.getElementById('fearList').innerHTML = top.map((f, i) => {
       const filled = Math.max(1, Math.min(5, Math.round(f.score)));
@@ -169,17 +198,16 @@ function render() {
         `<span class="fearSeg" style="background:${k <= filled ? segColor[k-1] : 'var(--panel2)'}"></span>`).join('');
       const arrow = f.trend_dir === 'rising' ? '&#9650;' : f.trend_dir === 'falling' ? '&#9660;' : '&#8226;';
       const trendWord = `<span class="small ${f.trend_dir==='rising'?'neg':(f.trend_dir==='falling'?'pos':'muted')}">${String(f.trend_dir||'flat').toUpperCase()}</span>`;
-      const ai = aiFears[f.id];
       const why = (f.signals||[]).map(s => esc(s.label)).join(' &middot; ');
       const hedgeChips = (f.hedge_ticks||[]).map(t => `<span class="chip">${t}</span>`).join('');
       const thLinks = (f.theory_ids||[]).map(t => `<a class="theoryTag" href="#theory-${t}">${t}</a>`).join('');
       return `<div class="fearRow">
         <span class="fearRank">${i+1}</span>
         <div class="fearMain">
-          <div class="fearName">${esc(f.name)} <span class="muted small">${esc(f.type)}</span>${ai != null ? ` <span class="aiWit">AI ${fmtN(ai,1)}</span>` : ''}</div>
+          <div class="fearName">${esc(f.name)} <span class="muted small">${esc(f.type)}</span></div>
           <div class="fearBar">${segs}</div>
         </div>
-        <div class="fearScore" style="color:${segColor[filled-1]}">${fmtN(f.score,1)} <span class="fearArrow">${arrow}</span></div>
+        <div class="fearScore" title="Gauge score: deterministic market-data read (0-5, 5 = panic)" style="color:${segColor[filled-1]}">${fmtN(f.score,1)} <span class="fearArrow">${arrow}</span></div>
         <div class="fearWhy">${trendWord}${f.ai_adjusted ? ' <span class="aiWit">blended&middot;AI-adjusted</span>' : ''}${why ? ` &middot; <span class="muted small">${why}</span>` : ''}${hedgeChips ? '<span class="muted small"> &middot; hedges:</span> '+hedgeChips : ''} ${thLinks}</div>
       </div>`;
     }).join('');
@@ -614,6 +642,8 @@ function render() {
       draw();
     }
 
+    if(!c.dataset.wired){
+      c.dataset.wired = '1';
     document.querySelectorAll('.rangeBtn').forEach(b =>
       b.addEventListener('click', ()=> setRange(b.dataset.days)));
     if (bmSel) bmSel.addEventListener('change', ev=>{
@@ -691,6 +721,7 @@ function render() {
 
     let rsT;
     window.addEventListener('resize', ()=>{ clearTimeout(rsT); rsT = setTimeout(draw, 120); });
+    }
 
     draw();
   }
@@ -817,6 +848,8 @@ function render() {
       failT = setTimeout(finishLoad, LOAD_MS + STAG*(radii.length||12) + 500);
     }
 
+    if(!c.dataset.wired){
+      c.dataset.wired = '1';
     c.addEventListener('mousemove', ev=>{
       const r = c.getBoundingClientRect();
       const mx = ev.clientX - r.left, my = ev.clientY - r.top;
@@ -852,6 +885,7 @@ function render() {
       if(document.visibilityState === 'visible' && !loaded){ setSize(); startLoad(); }
     });
     document.addEventListener('pageshow', ()=>{ setSize(); draw(); if(!loaded) startLoad(); });
+    }
 
     startLoad();
   }
@@ -1004,17 +1038,29 @@ function render() {
       : '<div class="small" style="margin-top:4px;"><span class="pill warn">RECOMMEND MODE</span> <span class="muted">Proposals are advice — nothing becomes an order until you press <strong>Submit this Order</strong> (or <strong>Submit all Orders</strong>).</span></div>';
     hb.innerHTML += modeNote;
 
-    /* 2) actionable proposal queue (snooze/dismiss in localStorage) */
+    /* 2) actionable proposal queue (snooze/dismiss in localStorage).
+       Proposals persist across AI verdicts (engine queue in meta.ai_state.
+       proposals): each ticker|direction entry keeps its state until the
+       NEXT AI run overwrites/improves it. Booked ones move under a
+       collapsible "Click to show Submitted Orders" submenu. */
     const Q_KEY = 'stockpicker.ai.q1';
     let q = {}; try{ q = JSON.parse(localStorage.getItem(Q_KEY)) || {}; }catch(e){}
     const now = Date.now();
-    const pId = p => p.ticker + '|' + A.asof + '|' + p.action;
-    const visProps = (A.proposals||[]).filter(p => {
+    const sideOf = p => p.side || ((p.action === 'trim' || p.action === 'sell') ? 'sell' : 'buy');
+    const pId = p => p.ticker + '|' + sideOf(p);
+    const pendSet = new Set((D.orders||[]).filter(o => o.status === 'pending')
+      .map(o => o.ticker + '|' + (o.action === 'sell' ? 'sell' : 'buy')));
+    const booked = p => !!p.booked || pendSet.has(p.ticker + '|' + sideOf(p));
+    const allProps = A.proposals || [];
+    const activeProps = allProps.filter(p => {
       const id = pId(p);
-      if(q.dismiss?.[id]) return false;
-      if(q.snooze?.[id] && now < q.snooze[id]) return false;
-      return true;
+      return !booked(p) && !q.dismiss?.[id] && !(q.snooze?.[id] && now < q.snooze[id]);
     });
+    const bookedProps = allProps.filter(p => booked(p));
+    const vDates = [...new Set(allProps.map(p => p.verdict_date).filter(Boolean))].sort();
+    const multiNote = vDates.length > 1
+      ? `<div class="small" style="margin:4px 0 10px;"><span class="pill warn">${vDates.length} AI READS</span> <span class="muted">the newest read (${escA(vDates[vDates.length-1])}) overwrites &amp; improves earlier reads for the same ticker — modified proposals show their old &rarr; new size below. Not responding to an update never cancels your last booked order — it still executes at the next market open.</span></div>`
+      : '';
     /* Auto-restore: poll for expired snoozes so cards return without a reload. */
     if(!snoozeTick){
       snoozeTick = setInterval(() => {
@@ -1025,18 +1071,24 @@ function render() {
       }, 10000);
     }
     const urgCls = p => p.urgency >= 75 ? 'red' : (p.urgency >= 50 ? 'amber' : 'low');
-    pr.innerHTML = `
-      <h3 class="aiColHead">Actionable Proposals <span class="muted small">(${visProps.length})</span></h3>
-      ${visProps.length ? visProps.map(p => {
-        const pos = (D.positions||[]).find(x => x.ticker === p.ticker);
-        const tv = (s && s.total_value) || 1;
-        const pct = pos ? pos.current_value / tv * 100 : 0;
-        const dAmt = (p.amount != null ? p.amount : 0) * ((p.action === 'trim' || p.action === 'sell') ? -1 : 1);
-        const newPct = pct + dAmt / tv * 100;
-        const portLine = (p.amount != null && p.amount > 0)
-          ? `<div class="portChg ${dAmt >= 0 ? 'pos' : 'neg'}">Port ${pct.toFixed(1)}% &rarr; ${newPct.toFixed(1)}% <span class="muted small">(${dAmt >= 0 ? '+' : '&minus;'}${fmt$(Math.abs(dAmt))})</span></div>`
-          : '';
-        return `
+    const cardHtml = p => {
+      const pos = (D.positions||[]).find(x => x.ticker === p.ticker);
+      const tv = (s && s.total_value) || 1;
+      const pct = pos ? pos.current_value / tv * 100 : 0;
+      const dAmt = (p.amount != null ? p.amount : 0) * (sideOf(p) === 'sell' ? -1 : 1);
+      const newPct = pct + dAmt / tv * 100;
+      const portLine = (p.amount != null && p.amount > 0)
+        ? `<div class="portChg ${dAmt >= 0 ? 'pos' : 'neg'}">Port ${pct.toFixed(1)}% &rarr; ${newPct.toFixed(1)}% <span class="muted small">(${dAmt >= 0 ? '+' : '&minus;'}${fmt$(Math.abs(dAmt))})</span></div>`
+        : '';
+      const updBadge = (p.updated_from != null && p.updated_on)
+        ? `<div class="updBadge small">${escA(p.updated_on)} read modified this order: ${fmt$(p.updated_from)} &rarr; ${fmt$(p.amount)} — newer reads overwrite &amp; improve earlier ones.</div>`
+        : '';
+      const btns = booked(p)
+        ? '<button class="aiBtn booked" disabled>Order Submitted</button>'
+        : '<button class="aiBtn" data-act="book">Submit this Order</button>'
+          + '<button class="aiBtn ghost" data-act="snooze">Snooze (temp 1m)</button>'
+          + '<button class="aiBtn ghost" data-act="dismiss">Dismiss</button>';
+      return `
         <div class="propCard urg${urgCls(p)}" data-id="${escA(pId(p))}">
           <div class="propInner">
             <div class="propFace propFront">
@@ -1047,11 +1099,10 @@ function render() {
                 <span class="urgTag urg${urgCls(p)}">URGENCY ${p.urgency}/100</span>
               </div>
               ${portLine}
+              ${updBadge}
               <div class="small muted" style="margin:6px 0;">${escA(p.rationale)}</div>
               <div class="aiBtns">
-                <button class="aiBtn" data-act="book">Submit this Order</button>
-                <button class="aiBtn ghost" data-act="snooze">Snooze (temp 1m)</button>
-                <button class="aiBtn ghost" data-act="dismiss">Dismiss</button>
+                ${btns}
               </div>
             </div>
             <div class="propFace propBack">
@@ -1064,24 +1115,65 @@ function render() {
             </div>
           </div>
         </div>`;
-      }).join('')
-      : '<div class="muted small">No open proposals. Low-urgency (&lt;50) reads stay silent — see the ledger below.</div>'}`;
-    const rotRows = (A.rotations||[]).map(r => `
+    };
+    pr.innerHTML = `
+      <h3 class="aiColHead">Actionable Proposals <span class="muted small">(${activeProps.length})</span></h3>
+      ${multiNote}
+      ${activeProps.length ? activeProps.map(cardHtml).join('')
+        : '<div class="muted small">No open proposals. Low-urgency (&lt;50) reads stay silent — see the ledger below.</div>'}
+      ${bookedProps.length ? `
+        <div class="propSub">
+          <button class="aiBtn ghost propSubBtn" type="button">Click to show Submitted Orders (${bookedProps.length})</button>
+          <div class="propSubList" hidden>${bookedProps.map(cardHtml).join('')}</div>
+        </div>` : ''}`;
+    const rotRows = (A.rotations||[]).map(r => {
+      const booked = pendSet.has(r.sell + '|sell') && pendSet.has(r.buy + '|buy');
+      return `
       <div class="rotRow">
         <span class="pill sl">SELL</span> <strong class="tick">${escA(r.sell)}</strong>
         <span class="rotArrow">&#8594;</span>
         <span class="pill tp">BUY</span> <strong class="tick">${escA(r.buy)}</strong>
         <span class="small muted" style="margin-left:8px;">${escA(r.rationale)}</span>
-        <button class="aiBtn ghost rotBook" data-sell="${escA(r.sell)}" data-buy="${escA(r.buy)}">Book both legs</button>
-      </div>`).join('');
+        ${booked
+          ? '<button class="aiBtn ghost rotBook" disabled>Both legs Submitted</button>'
+          : `<button class="aiBtn ghost rotBook" data-sell="${escA(r.sell)}" data-buy="${escA(r.buy)}">Book both legs</button>`}
+      </div>`;
+    }).join('');
     pr.innerHTML += (rotRows ? `
       <h3 class="aiColHead" style="margin-top:12px;">Rotations <span class="muted small">(paired sell&#8594;buy, engine sizes both legs)</span></h3>
       ${rotRows}` : '');
+    /* Wired AFTER the rotations append: innerHTML += re-parses the whole
+       container, so any listener attached before it is destroyed. */
+    const subBtn = pr.querySelector('.propSubBtn');
+    if(subBtn){
+      const list = pr.querySelector('.propSubList');
+      let subOpen = false, subTimer = null;
+      subBtn.addEventListener('click', () => {
+        subOpen = !subOpen;
+        subBtn.classList.toggle('open', subOpen);
+        subBtn.innerHTML = (subOpen ? 'Hide' : 'Click to show')
+          + ` Submitted Orders (${bookedProps.length}) <span class="chev">&#9654;</span>`;
+        if(subOpen){
+          clearTimeout(subTimer);
+          list.hidden = false;
+          list.style.maxHeight = '0px';
+          list.classList.add('open');
+          requestAnimationFrame(() => {
+            list.style.maxHeight = list.scrollHeight + 'px';
+          });
+        } else {
+          list.classList.remove('open');
+          list.style.maxHeight = '0px';
+          subTimer = setTimeout(() => { list.hidden = true; }, 460);
+        }
+      });
+    }
     pr.querySelectorAll('.rotBook').forEach(btn => {
       btn.addEventListener('click', () => book({sell: btn.dataset.sell, buy: btn.dataset.buy}));
     });
     pr.querySelectorAll('.aiBtn').forEach(btn => {
       const card = btn.closest('.propCard');
+      if(!card) return;
       const id = card.dataset.id;
       btn.addEventListener('click', () => {
         const p = (A.proposals||[]).find(x => pId(x) === id);
@@ -1105,14 +1197,15 @@ function render() {
 
     /* 3) macro stance + sector convictions + two-witness fear table */
     const sectRows = (A.sector_bias||[]).map(s => {
-      const w = Math.round((s.conviction + 1) / 2 * 100);
-      return `<div class="sectRow"><span class="sectName" title="${escA(s.driver)}">${escA(s.sector)}</span>
-        <div class="sectBar"><div class="sectFill ${s.conviction>=0?'pos':'neg'}" style="width:${w}%;"></div></div>
-        <span class="sectVal ${s.conviction>0.1?'pos':(s.conviction<-0.1?'neg':'muted')}">${s.conviction>0?'+':''}${fmtN(s.conviction,2)} ${String(s.stance).toUpperCase()}</span></div>`;
+      const cv = Math.max(-1, Math.min(1, Number(s.conviction) || 0));
+      const cls = cv > 0.1 ? 'pos' : (cv < -0.1 ? 'neg' : 'neu');
+      return `<div class="sectRow">
+        <span class="sectName" title="${escA(s.driver)}">${escA(s.sector)}</span>
+        <span class="sectVal ${cls}" title="Directional conviction: sign = direction, magnitude = strength (-1.0 max bearish ... +1.0 max bullish)">${cv > 0 ? '+' : ''}${fmtN(cv,2)}</span>
+      </div>`;
     }).join('');
     mc.innerHTML = `
       <h3 class="aiColHead">Macro &amp; Sector Convictions ${stancePill(A.macro_stance)}</h3>
-      <div class="muted small" style="margin-bottom:8px;">AI witness on fears (AI score &middot; blended &middot; trend) is merged into the Market Fear Gauge panel above &mdash; news feed stays display-only</div>
       ${sectRows || '<div class="muted small">No sector reads this run.</div>'}`;
 
     /* 4) theory evolution ledger (AI reads — evidence only, no status changes) */
@@ -1246,12 +1339,14 @@ function render() {
   renderNews();
   initValueChart();
   initDonut();
-  initHScrollBar(document.querySelector('#posTable').closest('.scroll'), document.getElementById('posHThumb'));
-  initHScrollBar(document.querySelector('#theoryTable').closest('.scroll'), document.getElementById('theoryHThumb'));
+  const posSc = document.querySelector('#posTable').closest('.scroll');
+  if(posSc && !posSc.dataset.hsb){ posSc.dataset.hsb = '1'; initHScrollBar(posSc, document.getElementById('posHThumb')); }
+  const thSc = document.querySelector('#theoryTable').closest('.scroll');
+  if(thSc && !thSc.dataset.hsb){ thSc.dataset.hsb = '1'; initHScrollBar(thSc, document.getElementById('theoryHThumb')); }
 }
 loadDash(render);
 
-/* ---- update button: POST /refresh (runs update.py), then reload ---- */
+/* ---- update button: POST /refresh (runs update.py), then soft-refresh ---- */
 (function(){
   const btn = document.getElementById('updateBtn');
   if(!btn) return;
@@ -1266,6 +1361,9 @@ loadDash(render);
         if(window.console && j.output) console.log(j.output);
       }
     }catch(e){ /* file:// or offline -> just refresh the page */ }
-    location.reload();
+    const ok = await softRefresh();
+    if(!ok) location.reload();
+    btn.innerHTML = old;
+    btn.disabled = false;
   });
 })();

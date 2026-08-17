@@ -167,6 +167,564 @@ JSON verdict that feeds three deterministic layers. Nothing executes.
 
 ## [Unreleased]
 
+## [site 0.5.5.41] — 2026-08-17
+
+### Fixed — leaderboard sort was ascending (least->greatest) the whole time
+- The comparator sign was inverted: `(vb - va) * -1` = `va - vb` = ascending.
+  Now `dir = 1` sorts descending: **Return** greatest->least (default after
+  every page load), **Max DD** least drawdown first, **Sharpe** largest first.
+- Sort choice no longer persists in localStorage — every page reset restores
+  the default Return order, greatest to least.
+
+## [site 0.5.5.40] — 2026-08-17
+
+### Added — version + engine line on all main pages
+- "UI vX · Engine vY" now renders on **index** (footer), **leaderboards**
+  (header sub), **theories**, **trades**, and **help** (header subs) —
+  dashboard already had it. Every page reads it live from `dashboard.js`,
+  so the header always tells you which build you're actually running.
+
+### Fixed — leaderboard sort served stale JS
+- `community.js` was a static include; browsers kept serving the cached
+  old version (flip-toggle behavior). It's now injected by `lbpage.js`
+  with a timestamp query (`?t=Date.now()`), same cache-bust pattern as
+  `leaderboards.js` — every page load gets the current sort logic.
+
+## [site 0.5.5.39] — 2026-08-17
+
+### Fixed — stale community.js cache served the old flip-toggle sort
+- The page loaded `community.js?v=1` (never bumped), so browsers kept the
+  old version where clicking the active column reversed the order.
+  Cache-bust bumped to `?v=2`; fixed-direction sorting now actually ships.
+
+## [site 0.5.5.38] — 2026-08-17
+
+### Changed — fixed per-column leaderboard sort directions
+- **Return** (default): highest first, lowest last.
+- **Max DD**: least drawdown first (0.00% → deepest) — no flip on re-click.
+- **Sharpe**: largest first, smallest last.
+- Column choice still persists (`aipp.lb.sort.v2`); directions are fixed so
+  the ordering always matches the column's convention.
+
+## [site 0.5.5.37] — 2026-08-17
+
+### Fixed — benchmark windows were truncated to the book's start date
+- Benchmark histories now span the FULL 2y Yahoo fetch (normalized to 100000
+  at their own first close). Weekly/monthly/quarterly/yearly are true
+  trailing windows over that history, and all-time = the real 2y return
+  (e.g. TQQQ now shows +8.55% monthly / +61.90% yearly / +124.34% all-time
+  instead of +4.05% everywhere). Max DD and Sharpe now also cover the full
+  history.
+
+### Changed — sort buttons → clickable column headers
+- Sort buttons removed; click the **Return / Max DD / Sharpe** column
+  headers to sort (default Return, high-to-low). Clicking the active column
+  again flips the direction (▼/▲); choice persists in localStorage.
+
+## [site 0.5.5.36] — 2026-08-16
+
+### Added — leaderboard sort control
+- Sort buttons (Return / Max DD / Sharpe) above the table; **Return** is the
+  default, matching the server-side ranking. Client-side re-sort with
+  re-numbered ranks; choice persists in localStorage (`aipp.lb.sort.v1`).
+  Strategies with a missing metric drop to the bottom.
+
+## [site 0.5.5.35] — 2026-08-16
+
+### Changed — risk-adjusted column: Calmar → Sharpe
+- The leaderboard's risk-adjusted column now shows the **annualized Sharpe
+  ratio** (mean daily return ÷ daily std × √252, same math as the
+  dashboard's summary card). Max DD column stays.
+
+## [site 0.5.5.34] — 2026-08-16
+
+### Added — risk columns on the leaderboard
+- **Max drawdown** column (peak-to-trough, same sign convention as the
+  dashboard summary).
+- **Calmar ratio** column (annualized return ÷ |max drawdown|) — the
+  risk-adjusted pick for leveraged/hedge-style strategies: it prices the
+  worst-case pain directly and doesn't punish upside volatility the way
+  Sharpe does. Numbers stabilize as histories grow past a few sessions.
+
+## [site 0.5.5.33] — 2026-08-16
+
+### Added — leaderboard population: benchmarks + version snapshots
+- **Benchmark strategies** on the leaderboard: SPY, QQQ, TQQQ, and a
+  daily-rebalanced TQQQ 60% / TMF 40% — fetched from Yahoo daily closes by
+  `leaderboards.py` and anchored to the book's start date/value so the
+  all-time window compares fairly with the live book.
+- **Version snapshots** (`meta.community.snapshot_versions`, experiment —
+  normally OFF by design): whenever the book's positions change,
+  `update.py` freezes the book as a new version strategy named
+  `<strategy> <creation date>` (e.g. "HyperGrowth Sharpe Barbell v5 -
+  Conviction-First 2026-08-16"), so the leaderboard shows whether a change
+  led to better results. SGOV auto-parking is excluded from change
+  detection; at most one version per day; every run appends the day's
+  snapshot to all active versions.
+- **`meta.community` config block** enables both experiments.
+- Leaderboard now deduplicates sources: community strategies + benchmarks
+  + the local flagship book.
+
+## [site 0.5.5.32] — 2026-08-16
+
+### Changed — leaderboards is its own site, cards removed
+- **Removed the embedded Community Leaderboard cards** from the dashboard
+  (`dashboard.html`) and the landing page (`index.html`). The leaderboard
+  lives only on its own site: `leaderboards.html`.
+- **Top-bar links added**: "Leaderboards" in the dashboard header (next to
+  Home/Help) and in the landing nav + footer — same prominence as the
+  other top-level pages.
+
+## [site 0.5.5.31] — 2026-08-16
+
+### Changed — leaderboards as a full site
+- **`leaderboards.html` rebuilt as a first-class site** (same league as
+  dashboard/index): mascot + brand header with nav (Home / Live demo /
+  Help), hero stat cards (strategies ranked, top weekly / monthly /
+  all-time return with the leading strategy's name), the tabbed Top-10
+  panel, a "How copying works" three-step section, and the standard
+  footer. `lbpage.js` fills the header + hero cards from
+  `window.LEADERBOARDS`.
+
+## [site 0.5.5.30] — 2026-08-16
+
+### Added — dedicated leaderboards site
+- **`leaderboards.html`** — the community leaderboard now has its own page
+  (archive-page pattern like trades.html): header with as-of + strategy
+  count, the tabbed Top-10 table, and a footer noting copy semantics.
+- **`lbpage.js`** — fills the page header from `window.LEADERBOARDS` (the
+  tables themselves stay rendered by the shared `community.js`).
+- Linked from the dashboard's Community panel ("All leaderboards"), the
+  landing page's Community section + footer, and the Help page nav.
+
+## [site 0.5.5.29] — 2026-08-16
+
+### Added — community foundation: copy + leaderboards
+- **Strategy identity** in `portfolio.json` meta: `strategy_id`,
+  `author`, `strategy_tags`, `strategy_short`, `is_public`, and a `copy`
+  config block (multiplier, min follow value, fee_bps) — inert metadata
+  until the copy engine lands.
+- **`mirror.json`** — the copy contract, written by `update.py` every run:
+  current positions as `pct_of_book` (the exact allocation a follower
+  mirrors) + a normalized `changes[]` feed (every deploy, re-entry, exit
+  and executed order with ts/ticker/action/shares/price/amount).
+- **`leaderboards.py`** — computes per-strategy window returns
+  (weekly 5d / monthly 21d / quarterly 63d / yearly 252d / all-time since
+  inception) and writes the **Top-10** leaderboard to `leaderboards.js`
+  (`window.LEADERBOARDS`, script-tag format like `dashboard.js`).
+  Sources: `community/strategies/*/stats.json` when present, else the
+  local book. Called from `update.py` at the end of every run.
+- **Community section** on the landing page (`index.html`, new nav link)
+  and the dashboard (`dashboard.html`): tabbed leaderboard (Weekly /
+  Monthly / Quarterly / Yearly / All time) rendered by the new shared
+  `community.js` — top-10 table with gold/silver/bronze ranks, author,
+  return %, active tab persisted in localStorage. Works from `file://`.
+- **GitHub Actions** now commits `mirror.json` + `leaderboards.js` so the
+  live site stays in sync.
+
+## [site 0.5.5.28] — 2026-08-16
+
+### Changed
+- **Hero chart reveal is now linear**: the drawing animation used cubic
+  ease-out (`1-(1-t)^3`), which speeds through the first part and crawls
+  over the last ~10% — that was the perceived end-of-chart slowdown. The
+  reveal now progresses at a constant rate (ease = t) over the same 2.4s.
+
+## [site 0.5.5.27] — 2026-08-16
+
+### Changed
+- **Hero mock chart enlarged**: canvas height increased from 220px to
+  300px (the width already filled the panel), so the line, grid, "AI ON"
+  marker and endpoint read more clearly.
+
+## [site 0.5.5.26] — 2026-08-16
+
+### Changed
+- **Hero mock chart tail lag root-caused and fixed**: the dips in the
+  post-AI section dragged the walk ~14% below the target, leaving the
+  endpoint dot floating above the line (the "lag"). The last 12 points now
+  receive a linear lift so the line rallies smoothly INTO the target —
+  final segment ~1%, jagged shape preserved, no stall, no jump, no dip.
+
+## [site 0.5.5.25] — 2026-08-16
+
+### Changed
+- **Hero mock chart tail lag finally fixed**: the tail is no longer always
+  blended toward the target (which sagged the line whenever the walk ended
+  above it). Now the last two points are only adjusted when they sit ABOVE
+  the target — mirrored below it so the final segment always rises into
+  the endpoint. When the walk naturally ends below the target the line is
+  completely untouched.
+
+## [site 0.5.5.24] — 2026-08-16
+
+### Changed
+- **Hero mock chart tail no longer lags**: the 4-point blend that pulled
+  the last ~10% of the line toward the target (making it stall) is
+  replaced with a light 2-point ease — only the final two points nudge
+  toward the endpoint, so the line keeps its natural shape all the way to
+  the end while still landing cleanly on the target.
+
+## [site 0.5.5.23] — 2026-08-16
+
+### Changed
+- **Hero mock chart post-AI a bit more volatile**: jitter raised to ±2.25%
+  with slightly bigger/frequent dips and spikes (still calmer than the
+  pre-AI section). The final 4 points are now blended up into the target
+  so the line ends cleanly at the endpoint instead of on a random dip.
+
+## [site 0.5.5.22] — 2026-08-16
+
+### Changed
+- **Hero mock chart post-AI livelier**: pre-AI section untouched (still the
+  super-volatile slow drift). After the "AI ON" marker the jitter doubled
+  to ±1.5% with more frequent 2–4% dips and occasional spikes — clearly
+  jagged, though still calmer and faster-growing than the pre-AI section.
+  Still deterministic via the fixed seed.
+
+## [site 0.5.5.21] — 2026-08-16
+
+### Changed
+- **"AI ON" marker is back, deterministic**: the first 30% of the chart is
+  super volatile (big ±2.5% swings, sharp dips and spikes) while still
+  drifting slowly upward, then the green dashed "AI ON" marker appears and
+  the line calms down (±0.75% jitter) and climbs faster to the +38..66%
+  target. All driven by the fixed-seed PRNG, so the same line renders
+  every load.
+
+## [site 0.5.5.20] — 2026-08-16
+
+### Changed
+- **Hero mock chart is now deterministic**: the random walk uses a fixed-
+  seed PRNG (mulberry32, seed 20260816) instead of `Math.random()`, so the
+  exact same line renders on every load/refresh. The chart no longer
+  re-randomizes between visits.
+
+## [site 0.5.5.19] — 2026-08-16
+
+### Changed
+- **Hero mock chart y-axis snapped to clean numbers**: the auto-scaled axis
+  now snaps to a $20k grid (e.g. $80k/$100k/$120k/$140k/$160k) instead of
+  odd $89.5k-style labels. The line itself is unchanged.
+
+## [site 0.5.5.18] — 2026-08-16
+
+### Changed
+- **Hero mock chart reverted to the original**: the "AI ON" marker, the
+  staged pre/post-AI volatility experiments, and the $600k ending are all
+  gone. Back to the original smooth random walk from $100,000 to
+  +38..66% (gentle dips, auto-scaled axis, 5 grid lines, endpoint dot and
+  value/% label, 2.4s eased reveal + 3.5s pulse). Caption restored.
+
+## [site 0.5.5.17] — 2026-08-16
+
+### Changed
+- **Hero mock chart realistic + back to original scale**: the $600k ending
+  and sine-wave curves are gone. The walk is now jagged and realistic —
+  pre-AI (30%) zigzags hard in a $85k–$115k band with sharp dips and
+  spikes, post-AI climbs with per-step jitter (±1%) and occasional
+  pullbacks to the original +38..66% ending. Y-axis is a fixed
+  $0–$200k grid (labels at $0/$50k/$100k/$150k/$200k) — the 5-digit
+  portfolio growing into 6 digits, matching the target customer.
+
+## [site 0.5.5.16] — 2026-08-16
+
+### Changed
+- **Hero mock chart volatility fixed**: the 0→$700k axis made ±2% noise
+  invisible, so the walk was redrawn with scale-aware movement. Pre-AI (30%)
+  now swings hard in a $62k–$145k band (±4% steps with −4..9% dips and
+  +3..7% spikes); post-AI climbs to **$621k** with multi-frequency sine
+  waves (±3.5% + ±2% of value) plus small jitter and occasional 1.5–3%
+  pullbacks — visibly wavy, not a straight line.
+
+## [site 0.5.5.15] — 2026-08-16
+
+### Changed
+- **Hero mock chart re-staged**: the "AI ON" marker moved to 30%. The first
+  30% is high-noise with dips and spikes but no value growth (flat around
+  $100k); after the marker the noise drops and the portfolio climbs all the
+  way to **$600k** (+500%). Y-axis is now a fixed $0–$700k grid so the
+  $100k start and $600k finish read cleanly.
+
+## [site 0.5.5.14] — 2026-08-16
+
+### Changed
+- **Hero mock chart back to the original character**: pre-AI (20% of the
+  chart) is a flat sideways jitter in a narrow band with small dips (no
+  trend), and post-AI is the original smooth constant climb — now slightly
+  more volatile (±1.5% noise + pullbacks) and still never leveling off at
+  the end. "AI ON" marker unchanged at 20%.
+
+## [site 0.5.5.13] — 2026-08-16
+
+### Changed
+- **Hero mock chart retuned**: the "AI ON" marker now sits at 20% of the
+  chart. The pre-AI section is volatile but trending up (big swings with
+  dips and spikes on a rising drift, no more flat chopping band), and the
+  post-AI section keeps a constant slope with visible noise and small
+  pullbacks — livelier than before and it never levels off at the end.
+
+## [site 0.5.5.12] — 2026-08-16
+
+### Changed
+- **Hero mock chart tells the AI story**: the pre-AI section of the walk is
+  now far more volatile (big swings, sharp drops and spikes in a choppy
+  band), and a green dashed **"AI ON"** marker (vertical line + dot + chip)
+  appears as the animation reaches it — from there the line gets smoother
+  and compounds faster toward the target. Caption updated to match.
+
+## [site 0.5.5.11] — 2026-08-16
+
+### Added
+- **Hero mock chart animation**: on page load, a canvas chart in the hero
+  ("What your portfolio could look like") draws a rising portfolio line from
+  $100k over ~2.4s with a gradient fill, grid, and a pulsing endpoint dot
+  with the final value and % gain. Each load generates a fresh (but always
+  upward) random walk; clearly tagged "illustrative" with a caption that it
+  is not a prediction. Honors `prefers-reduced-motion` (static frame).
+
+## [site 0.5.5.10] — 2026-08-16
+
+### Changed
+- **Landing page copy re-pitched around the real product**: the hero and
+  sections now sell the goals-and-convictions flow — the user picks a
+  playbook (FIRE / fat FIRE / get rich / retirement, risk tolerance, bullish
+  convictions), the AI tunes its guardrails to that playbook, researches the
+  market daily, and manages the portfolio via recommendations the user
+  approves (hands-free auto-trade on the roadmap, with an autonomy dial).
+  Feature cards reworked ("Built around your goals", "Tell it what you
+  believe", "An AI that researches daily", "You approve every call") and the
+  how-it-works steps are now Set your playbook → AI researches & manages →
+  Approve or go hands-free. No internals leaked; sign-up UI unchanged.
+
+## [site 0.5.5.09] — 2026-08-16
+
+### Changed
+- **Landing page is now the site's default page**: `landing.html` became
+  `index.html` and the dashboard became `dashboard.html`. GitHub Pages,
+  `serve.py` (localhost:8000) and file:// double-click all land on the
+  landing page first; the dashboard lives at `dashboard.html` (its Home
+  button goes back to `index.html`). All cross-links, docstrings, README and
+  AGENTS.md updated.
+- **Sign in → Sign up**: the nav button and modal are now worded as sign-up
+  (matches "Create your account"). Still UI-only — no backend, per the
+  current stage.
+
+## [site 0.5.5.08] — 2026-08-16
+
+### Changed
+- **Landing page rewritten as a proper marketing page**: all internal
+  details are gone (no "simulated", no Yahoo/Python/VADER/SGOV/T-bills, no
+  strategy names like HyperGrowth, no Alpaca/RIA roadmap, no "mock" sign-in
+  wording). Copy now pitches the product to outsiders — automated exits, an
+  AI daily read, a fear gauge, theories with receipts, no idle cash — and
+  the hero's fourth stat is now "vs S&P 500" (excess return) instead of the
+  internal strategy name. "Sign up" links open the sign-up modal; the footer
+  no longer links to the internal Theory/Trade archives.
+
+## [site 0.5.5.07] — 2026-08-16
+
+### Added
+- **Soft refresh**: the 6-minute auto-refresh (and the Update button) no
+  longer reload the whole page — they re-fetch `dashboard.js` in place and
+  re-render every section from the new data. Chart/donut/scrollbar listeners
+  are now wired once (`dataset.wired` guards) so re-renders don't stack
+  duplicate handlers; a failed fetch still falls back to a full reload.
+  This is client-side only — on GitHub Pages the data is static until you
+  push a new `dashboard.js`, so there is nothing new to pick up there either
+  way (the countdown then shows "waiting for new data" as before).
+
+## [site 0.5.5.06] — 2026-08-16
+
+### Changed
+- **Dashboard section order**: AI Sentiment now sits directly below Portfolio
+  Value History (before the Fear Gauge), and the Sector Limits + PortPie grid
+  moved down to sit directly above the Positions table.
+
+## [site 0.5.5.05] — 2026-08-16
+
+### Added
+- **Landing page** (`landing.html` + `landing.js`): a marketing front door for
+  the site — hero with live portfolio stats pulled from `dashboard.js`
+  (value, day change, total return, strategy name), feature cards
+  (auto exits, AI sentiment layer, fear gauge, theories, no-idle-cash, news),
+  a 3-step "how it works" strip, a roadmap section, and a **mock sign-in**
+  modal (email/password stored in localStorage only, no backend — a preview
+  of the UI v1 accounts roadmap). Guest mode and sign-out included.
+- **Home button** in the dashboard header links back to `landing.html`; the
+  landing page links to the dashboard, help, theories and trades.
+
+## [site 0.5.5.04] — 2026-08-16
+
+### Fixed
+- **Auto-reload loop**: the next-refresh countdown reloaded the page every
+  20s forever when `dashboard.js` was older than the refresh interval (e.g.
+  local serve without a fresh update.py run) — each reload re-expired the
+  same stale timestamp. Auto-reloads are now capped at 2 tries per stale
+  data set, then the header shows "waiting for new data" until the Update
+  button (or a fresh run) supplies new data.
+
+## [site 0.5.5.03] — 2026-08-16
+
+### Added
+- **Submitted Orders submenu animation**: the drawer now slides open with a
+  smooth max-height expand + fade, a rotating chevron on the button
+  (▶ → ▼), and a per-card cascade (cards drop in one-by-one, 50ms apart).
+
+## [site 0.5.5.02] — 2026-08-16
+
+### Changed
+- **Market Orders moved below the news cards** (Big Stories + Live News
+  Feed) and above the Positions table on the main page.
+
+## [site 0.5.5.01] — 2026-08-16
+
+### Fixed
+- **Submitted Orders submenu toggle**: the "Click to show Submitted Orders"
+  button did nothing — its click listener was attached before the rotations
+  `innerHTML +=` append, which re-parses the container and destroys the
+  element (and its listener). The toggle is now wired after the final
+  append.
+
+## [site 0.5.5.00] — 2026-08-16
+
+Feature milestone (user bump 0.5.4 → 0.5.5): the order lifecycle is now a
+first-class UI citizen — submitted state, a persistent proposal queue that
+survives AI runs, and visible order-versioning when the AI improves a read.
+
+### Added
+- **Proposal queue persists across AI verdicts** (`meta.ai_state.proposals`,
+  engine-side merge in update.py): proposals are kept until the next AI run
+  supersedes them, instead of vanishing with the verdict that produced them.
+  The newest verdict **overwrites & improves** an existing entry for the
+  same ticker/direction — a changed amount becomes a NEW actionable
+  proposal with an `updated_from` badge (old → new size). The multi-read
+  note explains the overwrite rule and that an unsubmitted update never
+  cancels your last booked order — it still executes at the next market
+  open.
+- **Submitted Orders submenu**: booked proposals are hidden under a
+  "Click to show Submitted Orders (N)" collapsible button inside Actionable
+  Proposals; the header count now shows only open (not-yet-submitted)
+  proposals. Booked state is derived from the pending order queue on every
+  dashboard write (amount-matched, so a modified size re-arms the Submit
+  button), so serve.py's /book and /execute_all flows are untouched.
+- Snooze/dismiss keys are now ticker|direction (verdict-independent), so
+  they survive across AI runs.
+
+## [site 0.5.4.19] — 2026-08-16
+
+### Added
+- **Submitted-order state on proposals**: once a proposal (or rotation pair)
+  is booked, its "Submit this Order" / "Book both legs" button is grayed out
+  and shows "Order Submitted" / "Both legs Submitted" — matched against the
+  pending queue in `D.orders`, so the state persists across reloads until the
+  order executes.
+
+## [site 0.5.4.18] — 2026-08-16
+
+### Changed
+- **Macro & Sector Convictions**: divider lines removed between rows —
+  just the slim name/number list.
+
+## [site 0.5.4.17] — 2026-08-16
+
+### Changed
+- **Macro & Sector Convictions compacted**: removed the explanatory
+  sub-line, tightened row padding (9px → 4px), smaller name/value fonts —
+  the card is now a slim list.
+
+## [site 0.5.4.16] — 2026-08-16
+
+### Changed
+- **Sector conviction segment bars removed**: Macro & Sector Convictions
+  rows are now a clean two-column list — sector name left, directional
+  number right (+0.85 green / -0.35 red / 0.00 gray), tooltip on hover.
+
+## [site 0.5.4.15] — 2026-08-15
+
+### Changed
+- **Sector conviction rows now mirror the Market Fear Gauge row structure
+  exactly**: name on top, 5-block bar below it (two-line rows with
+  divider), value right-aligned at 15px bold — identical styling to the
+  fear rows, only the fill color encodes direction (green/red/gray).
+
+## [site 0.5.4.14] — 2026-08-15
+
+### Changed
+- **Sector conviction bars capped at the fear-gauge width** (260px) so
+  both use the identical bar style — previously the sector bars stretched
+  across the whole row.
+
+## [site 0.5.4.13] — 2026-08-15
+
+### Fixed
+- **Sector conviction segment bars invisible**: `.fearBar` inside a flex
+  `.sectRow` collapsed to zero width (flex children with no container
+  width). `.sectRow .fearBar` now grows (`flex:1 1 auto`). Diagnosed via
+  headless-Chrome screenshot + vision review.
+
+## [site 0.5.4.12] — 2026-08-15
+
+### Changed
+- **Sector conviction bars now use the Market Fear Gauge segment style**:
+  5-block segments (filled = strength, color = direction: green bullish,
+  red bearish, gray neutral) instead of the single green bar.
+
+## [site 0.5.4.11] — 2026-08-15
+
+### Changed
+- **Sector convictions are now single directional scores (-1..+1)**: sign
+  = direction, magnitude = strength, neutral sits near 0 — one number,
+  no stance words. Prompt rule 1 reworded (`ai_sentiment.py`); the panel
+  shows `+0.85` / `-0.35` / `0.00` style values (green/red/gray) with a
+  hover tooltip. Old confidence-style reads self-heal on the next AI
+  verdict (omitted sectors keep the last read until then).
+
+## [site 0.5.4.10] — 2026-08-15
+
+### Changed
+- **AI Sentiment layout is now single-column**: Actionable Proposals sits
+  as its own full-width group BELOW Macro & Sector Convictions (no more
+  side-by-side columns).
+
+## [site 0.5.4.09] — 2026-08-15
+
+### Changed
+- **Sector conviction rows fixed**: the number was the AI's CONFIDENCE
+  (0-1), but the UI rendered it as a directional -1..+1 score with a `+`
+  sign — everything looked bullish. Rows now show full words:
+  `BULLISH · 85% confidence` (bar/color driven by stance: green/red/amber).
+- **AI Sentiment card order**: Macro & Sector Convictions column now sits
+  ABOVE (before) Actionable Proposals — left on desktop, first on mobile.
+
+## [site 0.5.4.08] — 2026-08-15
+
+### Changed
+- **Market Fear Gauge shows ONE rating per fear**: the separate "AI read"
+  badge is removed — each Top-5 fear row now shows only the single
+  deterministic gauge score (0-5, 5 = panic), with the scale explained in
+  the panel header. AI sentiment on fears remains visible in the AI
+  Sentiment panel's witness table.
+
+## [site 0.5.4.07] — 2026-08-15
+
+### Changed
+- **Market Fear Gauge dual-rating clarity**: each Top-5 fear row shows two
+  0-5 ratings (deterministic gauge score + AI sentiment read), which
+  customers misread as duplicate scores. Added a legend above the list
+  ("Score = market-data gauge · AI = AI sentiment read — both 0-5, 5 =
+  panic"), relabeled the badge to "AI read", and added tooltips to both
+  ratings.
+
+## [site 0.5.4.06] — 2026-08-15
+
+### Changed
+- **Quarterly rebalance audit DISABLED** (`meta.limits.rebalance.enabled:
+  false`): the AI sentiment layer continuously re-sizes sector weights, so
+  a once-per-quarter drift flag is noise, not signal. `rebalance_audit()`
+  now honors the flag and returns no flags while disabled; set
+  `enabled: true` in `portfolio.json` to re-arm it.
+
 ## [site 0.5.4.05] — 2026-08-16
 
 ### Consensus exit engine (five-round design review, full build)

@@ -17,6 +17,10 @@
 
   function init() {
     const D = window.DASH;
+    const verEl = document.getElementById('verLine');
+    if (verEl && D.meta && D.meta.version) {
+      verEl.textContent = 'UI v' + D.meta.version.site + ' \u00b7 Engine v' + D.meta.version.algo;
+    }
     const escA = v => String(v==null?'':v).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
     const ST_STATUS = ['pending', 'paused', 'right', 'wrong', 'abandoned'];
     const ST_TIERS = ['S', 'A', 'B', 'C', 'D'];

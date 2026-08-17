@@ -225,11 +225,16 @@ def build_prompt(cfg, snapshot, deltas, theories=None, calibration=None,
         "TP/SL/vol-halt rules. Never chase euphoria: high sentiment alone "
         "is NOT a reason to add; the hedge stack exists to be USED when "
         "fears spike.\n"
-        "1. Sector biases: rate EVERY sector in sector_exposures. Stance is "
-        "bullish/neutral/bearish; conviction is a float 0.0 to 1.0 (1.0 = "
-        "maximum confidence). Output ONLY sectors whose stance or "
-        "conviction CHANGED vs YOUR PREVIOUS VERDICT - an omitted sector "
-        "keeps its previous read (agreement needs no output).\n"
+        "1. Sector biases: rate EVERY sector in sector_exposures. conviction "
+        "is a DIRECTIONAL score -1.0 to +1.0 (-1.0 = maximum bearishness, "
+        "+1.0 = maximum bullishness); the sign IS the direction and the "
+        "magnitude IS the strength, so a neutral view sits near 0.0 "
+        "(e.g. -0.2 to +0.2 means 'no opinion worth acting on'). stance is "
+        "only the rounded label of the sign (bullish if positive, bearish if "
+        "negative, neutral if near zero) - never contradict it. Output ONLY "
+        "sectors whose stance or conviction CHANGED vs YOUR PREVIOUS VERDICT "
+        "- an omitted sector keeps its previous read (agreement needs no "
+        "output).\n"
         "2. Fears: score EVERY fear in fear_levels where YOUR sentiment read "
         "differs from the deterministic level - omitted fears keep the "
         "deterministic level (you agree). Scores are 1.0 to 5.0 (5.0 = "
@@ -307,7 +312,7 @@ def build_prompt(cfg, snapshot, deltas, theories=None, calibration=None,
             "date": "YYYY-MM-DD",
             "macro_stance": "risk_on|neutral|risk_off",
             "sector_bias": [{"sector": "...", "stance": "bullish|neutral|bearish",
-                             "conviction": 0.85, "driver": "..."}],
+                             "conviction": -0.2, "driver": "..."}],
             "theories": [{"id": "T17", "verdict": "affirm|weaken|probation|abandon",
                           "confidence": 80, "evidence": "..."}],
             "fears": [{"id": "F4", "sentiment_score": 3.0, "delta_reason": "..."}],

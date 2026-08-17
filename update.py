@@ -39,6 +39,7 @@ import ai_sentiment
 BASE = os.path.dirname(os.path.abspath(__file__))
 PORTFOLIO = os.path.join(BASE, "portfolio.json")
 DASHBOARD_JS = os.path.join(BASE, "dashboard.js")
+MIRROR = os.path.join(BASE, "mirror.json")
 
 USER_AGENT = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
 
@@ -641,6 +642,8 @@ def rebalance_audit(data, today):
     exempt = set(cfg.get("exempt_sectors") or [])
     if not targets:
         return []
+    if cfg.get("enabled", True) is False:
+        return []
     year, month, _ = today.split("-")
     quarter = f"{year}Q{(int(month) - 1) // 3 + 1}"
     if data["meta"].get("last_rebalance_quarter") == quarter:
@@ -1046,6 +1049,97 @@ def refresh_orders_from_ai(data, verdict, today):
               f"pending replaced, {len(keep)} executed kept")
 
 
+def merge_proposal_queue(data, verdict, today):
+    """Persist AI proposals ACROSS verdicts (site 0.5.4.20).
+
+    The queue lives in meta.ai_state.proposals, keyed by ticker + direction
+    (buy|sell). The newest verdict OVERWRITES an existing entry for the same
+    key: a changed amount is a NEW actionable proposal (updated_from records
+    the previous amount, and the booked flag resets at dashboard-write time
+    so the human must approve the new size). Entries the verdict no longer
+    mentions KEEP their state - they stay actionable until the next AI run
+    supersedes them. Tickers that left the book are pruned. Booked state is
+    NOT stored here - it is derived from the pending order queue on every
+    dashboard write, so serve.py's /book and /execute_all flows stay
+    untouched. A never-booked proposal simply lives on; the last booked
+    order for that ticker still executes at the next market open.
+    """
+    state = data.setdefault("meta", {}).setdefault("ai_state", {})
+    queue = state.setdefault("proposals", [])
+    whitelist = {p["ticker"] for p in data.get("positions") or []
+                 if p.get("status") == "open"}
+    fresh = {}
+    for p in ai_sentiment.bullish_layer(verdict, data):
+        side = "sell" if p["action"] in ("trim", "sell") else "buy"
+        fresh[(p["ticker"], side)] = p
+
+    merged, seen = [], set()
+    for (ticker, side), p in fresh.items():
+        seen.add((ticker, side))
+        old = next((e for e in queue
+                    if e["ticker"] == ticker
+                    and (e.get("side") or "buy") == side), None)
+        entry = {
+            "ticker": ticker, "action": p["action"], "side": side,
+            "amount": p.get("amount"), "conviction_score": p.get("conviction_score"),
+            "urgency": p.get("urgency"), "confidence": p.get("confidence"),
+            "rationale": p.get("rationale"),
+            "verdict_date": today, "last_seen": today,
+        }
+        if old:
+            entry["first_seen"] = old.get("first_seen") or today
+            if (old.get("amount") != entry["amount"]
+                    or old.get("action") != entry["action"]):
+                entry["updated_from"] = old.get("amount")
+                entry["updated_on"] = today
+            else:
+                entry["updated_from"] = old.get("updated_from")
+                entry["updated_on"] = old.get("updated_on")
+        else:
+            entry["first_seen"] = today
+            entry["updated_from"] = None
+            entry["updated_on"] = None
+        merged.append(entry)
+    for e in queue:
+        key = (e["ticker"], e.get("side") or "buy")
+        if key in seen or e["ticker"] not in whitelist:
+            continue
+        merged.append(dict(e))
+    merged.sort(key=lambda e: -(e.get("urgency") or 0))
+    state["proposals"] = merged[:20]
+
+
+def proposal_queue(verdict, data):
+    """Merged, persistent proposal queue for the dashboard (site 0.5.4.20).
+
+    Falls back to the fresh bullish_layer read when the queue is empty
+    (first run / legacy data). Booked flags are DERIVED from the pending
+    order queue on every dashboard write - never stored, so serve.py flows
+    stay unchanged. Entries carry first_seen / verdict_date / updated_from /
+    updated_on so the UI can show "kept until the next AI run" and
+    "newer read overwrites & improves" states.
+    """
+    state = (data.get("meta") or {}).get("ai_state") or {}
+    queue = state.get("proposals")
+    if not queue:
+        queue = ai_sentiment.bullish_layer(verdict, data)
+    orders = data.get("orders") or []
+    out = []
+    for e in queue:
+        entry = dict(e)
+        side = entry.get("side") or (
+            "sell" if entry.get("action") in ("trim", "sell") else "buy")
+        entry["booked"] = any(
+            o.get("status") == "pending" and o.get("ticker") == entry["ticker"]
+            and (o.get("action") == "sell") == (side == "sell")
+            and (not entry.get("amount")
+                 or abs(float(o.get("amount") or 0)
+                        - float(entry["amount"] or 0)) < 0.01)
+            for o in orders)
+        out.append(entry)
+    return out
+
+
 def execute_pending_orders(data, prices, today):
     """Execute pending market orders at the LIVE price (market-open only).
 
@@ -1226,6 +1320,7 @@ def run_ai_layer(data, prices, fear_data, today, macro=None, force=False,
             state["last_sentiment_index"] = sent_idx
         state["last_sentiment_delta"] = sent_delta
         data["meta"]["ai_last_output"] = verdict
+        merge_proposal_queue(data, verdict, today)
 
         ledger = data["meta"].setdefault("ai_ledger", [])
         ledger.append({
@@ -1524,6 +1619,13 @@ def main():
     with open(PORTFOLIO, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
 
+    # Community experiment: freeze the book as a new version strategy when
+    # the positions change (gated by meta.community.snapshot_versions).
+    try:
+        sync_version_snapshots(data, snapshot, today)
+    except Exception as exc:
+        print(f"  WARN: version snapshots failed: {exc}")
+
     benchmark = None
     benchmarks = {}
     try:
@@ -1539,6 +1641,25 @@ def main():
 
     write_dashboard(data, benchmark, rebalance, fear_data, benchmarks,
                     ai_verdict, gauge=gauge, hedge_harvest=hedge_rec, ind=ind)
+
+    # Community copy foundation: mirror.json is the copy contract (positions
+    # as pct of book + every change). Never breaks the run.
+    try:
+        mirror = build_mirror(data)
+        with open(MIRROR, "w", encoding="utf-8") as f:
+            json.dump(mirror, f, indent=2, ensure_ascii=False)
+    except Exception as exc:
+        print(f"  WARN: mirror export failed: {exc}")
+
+    # Community leaderboards: weekly/monthly/quarterly/yearly/all-time top 10.
+    # Sources: community/strategies/*/stats.json + benchmark strategies +
+    # the local book (see leaderboards.py).
+    try:
+        from leaderboards import build_leaderboards, write_leaderboards
+        write_leaderboards(build_leaderboards(data))
+    except Exception as exc:
+        print(f"  WARN: leaderboards failed: {exc}")
+
     print_summary(data, today, benchmark)
 
 
@@ -1560,7 +1681,7 @@ def build_ai_payload(verdict, data, gauge=None):
         "convictions": verdict["convictions"],
         "rotations": verdict.get("rotations") or [],
         "fear_proposals": (meta.get("ai_fear_proposals") or [])[:5],
-        "proposals": ai_sentiment.bullish_layer(verdict, data),
+        "proposals": proposal_queue(verdict, data),
         "summary": verdict["summary"],
         "ledger": (meta.get("ai_ledger") or [])[-14:],
         "state": meta.get("ai_state") or {},
@@ -1569,6 +1690,140 @@ def build_ai_payload(verdict, data, gauge=None):
         "calibration": {k: v for k, v in calib.items()
                         if v.get("wrong", 0) > 0},
         "enabled": bool((meta.get("ai") or {}).get("enabled")),
+    }
+
+
+def sync_version_snapshots(data, snapshot, today):
+    """Community experiment (site 0.5.5.33): freeze the book as a new
+    version strategy whenever its positions change, so the leaderboard can
+    compare branches ("did my change lead to better?"). Gated on
+    meta.community.snapshot_versions — normally OFF by design, this is a
+    leaderboard-filling experiment, not product behavior. SGOV auto-parking
+    is excluded from change detection so daily cash sweeps don't spam
+    versions. At most one version per day; every run appends today's
+    snapshot to all active versions.
+    """
+    cfg = (data.get("meta") or {}).get("community") or {}
+    if not cfg.get("snapshot_versions"):
+        return
+    root = os.path.join(BASE, "community", "strategies")
+    if not os.path.isdir(root):
+        os.makedirs(root)
+    base_id = (data.get("meta") or {}).get("strategy_id", "hypergrowth-sharpe-barbell")
+    prefix = base_id + "-v"
+
+    versions = []
+    for sid in sorted(os.listdir(root)):
+        if not sid.startswith(prefix):
+            continue
+        fp = os.path.join(root, sid, "stats.json")
+        if not os.path.isfile(fp):
+            continue
+        try:
+            with open(fp, encoding="utf-8") as f:
+                versions.append(json.load(f))
+        except Exception:
+            pass
+    versions.sort(key=lambda v: v.get("start_date", ""))
+
+    def save(v):
+        d = os.path.join(root, v["strategy_id"])
+        if not os.path.isdir(d):
+            os.makedirs(d)
+        with open(os.path.join(d, "stats.json"), "w", encoding="utf-8") as f:
+            json.dump(v, f, indent=2, ensure_ascii=False)
+
+    current_positions = sorted(
+        ({"ticker": p["ticker"], "shares": p["shares"], "buy_date": p.get("buy_date")}
+         for p in data["positions"]
+         if p["status"] == "open" and p["ticker"] != STB_TICKER),
+        key=lambda q: q["ticker"],
+    )
+
+    latest = versions[-1] if versions else None
+    if latest is None or latest.get("positions") != current_positions:
+        v = {
+            "strategy_id": prefix + today,
+            "name": f"{data['meta']['name']} {today}",
+            "author": "Snapshot",
+            "kind": "snapshot",
+            "parent_id": base_id,
+            "start_value": snapshot["total_value"],
+            "start_date": today,
+            "positions": current_positions,
+            "history": [snapshot],
+        }
+        save(v)
+        print(f"  SNAPSHOT: new strategy version {v['strategy_id']} "
+              f"({len(current_positions)} positions)")
+    else:
+        for v in versions:
+            hist = v.get("history") or []
+            if hist and hist[-1].get("date") == today:
+                hist[-1] = snapshot
+            else:
+                hist.append(snapshot)
+            save(v)
+
+
+def build_mirror(data):
+    """Export the book as a copyable mirror (site 0.5.5.29, community copy).
+
+    The mirror is the copy contract: a follower replays `changes` scaled to
+    their own capital to reproduce the publisher's book EXACTLY (same
+    positions, same allocation percentages, same changes). `positions` is the
+    current target allocation; `changes` is the normalized trade log derived
+    from events[] (deploys, re-entries, exits, executed orders).
+    """
+    meta = data.get("meta", {})
+    history = data["account"]["history"]
+    total = round(history[-1]["total_value"], 2) if history else 0.0
+    last_px = history[-1].get("prices", {}) if history else {}
+
+    positions = []
+    for pos in data["positions"]:
+        if pos["status"] != "open":
+            continue
+        value = round((last_px.get(pos["ticker"]) or pos["buy_price"]) * pos["shares"], 2)
+        positions.append({
+            "ticker": pos["ticker"],
+            "sleeve": pos["sleeve"],
+            "buy_date": pos["buy_date"],
+            "shares": pos["shares"],
+            "current_value": value,
+            "pct_of_book": round(value / total * 100, 2) if total else 0.0,
+            "theory_ids": pos.get("theory_ids", []),
+        })
+
+    TRADE_REASONS = {"take_profit", "stop_loss", "deploy_cash", "re_entry",
+                     "rebalance", "market_order"}
+    changes = []
+    for ev in data.get("events", []):
+        reason = ev.get("reason")
+        if reason not in TRADE_REASONS:
+            continue
+        shares = ev.get("shares") or 0.0
+        price = ev.get("price") or 0.0
+        changes.append({
+            "ts": f"{ev.get('date')} {ev.get('ts', '')}".strip(),
+            "type": reason,
+            "ticker": ev.get("ticker"),
+            "action": "sell" if reason in ("take_profit", "stop_loss") else "buy",
+            "shares": shares,
+            "price": price,
+            "amount": round(shares * price, 2),
+            "reason": ev.get("note"),
+        })
+    changes.sort(key=lambda c: c["ts"])
+
+    return {
+        "asof": history[-1]["date"] if history else None,
+        "strategy_id": meta.get("strategy_id", "hypergrowth-sharpe-barbell"),
+        "strategy_name": meta.get("name"),
+        "author": meta.get("author"),
+        "total_value": total,
+        "positions": sorted(positions, key=lambda p: -p["pct_of_book"]),
+        "changes": changes,
     }
 
 
@@ -1745,7 +2000,7 @@ def print_summary(data, today, benchmark=None):
         b = benchmark["summary"]
         print(f"vs SPY: return {b['total_return_pct']:+,.2f}%  (excess {ret - b['total_return_pct']:+,.2f}pp)  "
               f"| SPY max DD {b['max_drawdown_pct']}%")
-    print("Dashboard: open index.html")
+    print("Dashboard: open dashboard.html")
     print("=== END ===")
 
 

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Help &amp; Notes — How This Site Works</title>
-<link rel="stylesheet" href="styles.css?v=11">
+<link rel="stylesheet" href="styles.css?v=13">
 </head>
 <!--
   Help site: plain-language notes (Simple tab) + the math and details
@@ -16,9 +16,9 @@
   <header>
     <div>
       <h1>Help &amp; Notes</h1>
-      <div class="sub">How the portfolio dashboard works &mdash; simply, then in detail</div>
+      <div class="sub">How the portfolio dashboard works &mdash; simply, then in detail &middot; <span id="verLine"></span></div>
     </div>
-    <div class="asof"><a class="archiveBtn" href="index.html">&#8592; Dashboard</a> <a class="archiveBtn" href="theories.html">Theory Archive</a></div>
+    <div class="asof"><a class="archiveBtn" href="dashboard.html">&#8592; Dashboard</a> <a class="archiveBtn" href="theories.html">Theory Archive</a> <a class="archiveBtn" href="leaderboards.html">Leaderboards</a></div>
   </header>
 
   <div class="filterbar">
@@ -139,7 +139,7 @@
           <tr><td><code>news.py</code></td><td>Yahoo RSS headlines for held tickers, theory tags, VADER sentiment</td><td>Yes</td></tr>
           <tr><td><code>fears.py</code></td><td>Market Fear Gauge: F1&ndash;F8 scores, complacency, hedge sizing recommendations</td><td>Yes</td></tr>
           <tr><td><code>dashboard.js</code></td><td>AUTO-GENERATED data file the browser reads (<code>window.DASH</code>)</td><td><strong>No</strong> &mdash; overwritten every run</td></tr>
-          <tr><td><code>app.js</code> / <code>index.html</code> / <code>styles.css</code></td><td>The dashboard UI</td><td>Yes &mdash; UI only</td></tr>
+          <tr><td><code>app.js</code> / <code>dashboard.html</code> / <code>styles.css</code></td><td>The dashboard UI</td><td>Yes &mdash; UI only</td></tr>
           <tr><td><code>serve.py</code></td><td>Optional local server; <code>POST /refresh</code> runs <code>update.py</code> (the Update button)</td><td>Yes</td></tr>
         </tbody>
       </table>
@@ -258,6 +258,6 @@
   <footer>Simulated managed portfolio for tracking &amp; learning. Not financial advice.</footer>
 </div>
 
-<script src="help.js?v=1"></script>
+<script src="help.js?v=2"></script>
 </body>
 </html>

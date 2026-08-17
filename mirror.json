@@ -1,0 +1,411 @@
+{
+  "asof": "2026-08-17",
+  "strategy_id": "hypergrowth-sharpe-barbell",
+  "strategy_name": "HyperGrowth Sharpe Barbell v5 - Conviction-First",
+  "author": "RubySapior",
+  "total_value": 103655.06,
+  "positions": [
+    {
+      "ticker": "TQQQ",
+      "sleeve": "Tech/AI Growth",
+      "buy_date": "2026-08-10",
+      "shares": 154.372436,
+      "current_value": 11949.2,
+      "pct_of_book": 11.53,
+      "theory_ids": [
+        "T1",
+        "T7"
+      ]
+    },
+    {
+      "ticker": "SOXL",
+      "sleeve": "Tech/AI Growth",
+      "buy_date": "2026-08-10",
+      "shares": 70.607129,
+      "current_value": 10957.52,
+      "pct_of_book": 10.57,
+      "theory_ids": [
+        "T1",
+        "T7"
+      ]
+    },
+    {
+      "ticker": "NLR",
+      "sleeve": "AI Power - Nuclear",
+      "buy_date": "2026-08-10",
+      "shares": 81.048481,
+      "current_value": 9669.49,
+      "pct_of_book": 9.33,
+      "theory_ids": [
+        "T3"
+      ]
+    },
+    {
+      "ticker": "DRAM",
+      "sleeve": "Tech/AI Growth",
+      "buy_date": "2026-08-10",
+      "shares": 142.487012,
+      "current_value": 8758.68,
+      "pct_of_book": 8.45,
+      "theory_ids": [
+        "T2",
+        "T1"
+      ]
+    },
+    {
+      "ticker": "DBMF",
+      "sleeve": "Crisis Alpha - Trend",
+      "buy_date": "2026-08-10",
+      "shares": 255.287916,
+      "current_value": 8014.76,
+      "pct_of_book": 7.73,
+      "theory_ids": [
+        "T6",
+        "T18",
+        "T19",
+        "T21"
+      ]
+    },
+    {
+      "ticker": "BTAL",
+      "sleeve": "Crisis Alpha - Anti-Beta",
+      "buy_date": "2026-08-10",
+      "shares": 666.357532,
+      "current_value": 7843.03,
+      "pct_of_book": 7.57,
+      "theory_ids": [
+        "T6",
+        "T17"
+      ]
+    },
+    {
+      "ticker": "SMH",
+      "sleeve": "Tech/AI Growth",
+      "buy_date": "2026-08-10",
+      "shares": 8.781016,
+      "current_value": 5254.56,
+      "pct_of_book": 5.07,
+      "theory_ids": [
+        "T1"
+      ]
+    },
+    {
+      "ticker": "NUKZ",
+      "sleeve": "AI Power - Nuclear",
+      "buy_date": "2026-08-10",
+      "shares": 60.02401,
+      "current_value": 4081.03,
+      "pct_of_book": 3.94,
+      "theory_ids": [
+        "T3"
+      ]
+    },
+    {
+      "ticker": "VIXM",
+      "sleeve": "Crisis Alpha - Vol Decay",
+      "buy_date": "2026-08-10",
+      "shares": 280.112045,
+      "current_value": 4009.8,
+      "pct_of_book": 3.87,
+      "theory_ids": [
+        "T6",
+        "T17",
+        "T21"
+      ]
+    },
+    {
+      "ticker": "FXY",
+      "sleeve": "Crisis Alpha - Carry Unwind",
+      "buy_date": "2026-08-10",
+      "shares": 69.42034,
+      "current_value": 3996.18,
+      "pct_of_book": 3.86,
+      "theory_ids": [
+        "T6",
+        "T18",
+        "T21"
+      ]
+    },
+    {
+      "ticker": "GDX",
+      "sleeve": "Crisis Alpha - Real Assets",
+      "buy_date": "2026-08-10",
+      "shares": 38.678306,
+      "current_value": 3571.36,
+      "pct_of_book": 3.45,
+      "theory_ids": [
+        "T9",
+        "T6",
+        "T19",
+        "T20",
+        "T21"
+      ]
+    },
+    {
+      "ticker": "QFLR",
+      "sleeve": "Crisis Alpha - Down-Day Floor",
+      "buy_date": "2026-08-10",
+      "shares": 98.619327,
+      "current_value": 3539.45,
+      "pct_of_book": 3.41,
+      "theory_ids": [
+        "T6",
+        "T17"
+      ]
+    },
+    {
+      "ticker": "GLD",
+      "sleeve": "Crisis Alpha - Real Assets",
+      "buy_date": "2026-08-10",
+      "shares": 8.694794,
+      "current_value": 3525.57,
+      "pct_of_book": 3.4,
+      "theory_ids": [
+        "T9",
+        "T6",
+        "T19",
+        "T20",
+        "T21"
+      ]
+    },
+    {
+      "ticker": "ZROZ",
+      "sleeve": "Crisis Alpha - AI Bust",
+      "buy_date": "2026-08-10",
+      "shares": 59.76817,
+      "current_value": 3433.08,
+      "pct_of_book": 3.31,
+      "theory_ids": [
+        "T6",
+        "T17"
+      ]
+    },
+    {
+      "ticker": "IWM",
+      "sleeve": "Broadening / Value",
+      "buy_date": "2026-08-10",
+      "shares": 10.000667,
+      "current_value": 3036.3,
+      "pct_of_book": 2.93,
+      "theory_ids": [
+        "T10"
+      ]
+    },
+    {
+      "ticker": "SGOV",
+      "sleeve": "Short-Term Bonds (SGOV)",
+      "buy_date": "2026-08-11",
+      "shares": 29.927715,
+      "current_value": 3009.68,
+      "pct_of_book": 2.9,
+      "theory_ids": []
+    },
+    {
+      "ticker": "IWDL",
+      "sleeve": "Broadening / Value",
+      "buy_date": "2026-08-10",
+      "shares": 35.726519,
+      "current_value": 2509.79,
+      "pct_of_book": 2.42,
+      "theory_ids": [
+        "T15"
+      ]
+    },
+    {
+      "ticker": "XLY",
+      "sleeve": "Contrarian Fear",
+      "buy_date": "2026-08-10",
+      "shares": 20.890784,
+      "current_value": 2446.52,
+      "pct_of_book": 2.36,
+      "theory_ids": [
+        "T13"
+      ]
+    },
+    {
+      "ticker": "EZU",
+      "sleeve": "Contrarian Fear",
+      "buy_date": "2026-08-10",
+      "shares": 28.05049,
+      "current_value": 2017.11,
+      "pct_of_book": 1.95,
+      "theory_ids": [
+        "T13"
+      ]
+    },
+    {
+      "ticker": "PLTR",
+      "sleeve": "Tech/AI Growth",
+      "buy_date": "2026-08-10",
+      "shares": 11.413455,
+      "current_value": 2006.94,
+      "pct_of_book": 1.94,
+      "theory_ids": [
+        "T14",
+        "T1"
+      ]
+    }
+  ],
+  "changes": [
+    {
+      "ts": "2026-08-11",
+      "type": "deploy_cash",
+      "ticker": "SGOV",
+      "action": "buy",
+      "shares": 129.1045,
+      "price": 100.5,
+      "amount": 12975.0,
+      "reason": null
+    },
+    {
+      "ts": "2026-08-11",
+      "type": "deploy_cash",
+      "ticker": "SGOV",
+      "action": "buy",
+      "shares": 129.0981,
+      "price": 100.505,
+      "amount": 12975.0,
+      "reason": null
+    },
+    {
+      "ts": "2026-08-12",
+      "type": "rebalance",
+      "ticker": "JEPQ",
+      "action": "buy",
+      "shares": 0.0,
+      "price": 0.0,
+      "amount": 0.0,
+      "reason": "issue #7: covered-call removed - premium-financing was a mathematical illusion (~$250/yr yield vs ~$1,200-2,000/yr hedge drag); capped upside + full Nasdaq downside beta duplicates the growth sleeve. Sale scheduled for next market open; proceeds swept to SGOV."
+    },
+    {
+      "ts": "2026-08-13",
+      "type": "rebalance",
+      "ticker": "JEPQ",
+      "action": "buy",
+      "shares": 41.890081,
+      "price": 60.38,
+      "amount": 2529.32,
+      "reason": "issue #7: covered-call removed - premium-financing was a mathematical illusion (~$250/yr yield vs ~$1,200-2,000/yr hedge drag); capped upside + full Nasdaq downside beta duplicates the growth sleeve. Sold at next market open; proceeds swept to SGOV."
+    },
+    {
+      "ts": "2026-08-13",
+      "type": "deploy_cash",
+      "ticker": "SGOV",
+      "action": "buy",
+      "shares": 25.161,
+      "price": 100.5223,
+      "amount": 2529.24,
+      "reason": null
+    },
+    {
+      "ts": "2026-08-13",
+      "type": "rebalance",
+      "ticker": "TIP",
+      "action": "buy",
+      "shares": 23.316544,
+      "price": 107.22,
+      "amount": 2500.0,
+      "reason": "T20 inflation leg added (~2.5k, Hedge Stack): direct CPI-linked hedge closing the scenario gap flagged by the v5.3 scorecard - inflation was hedged only by GLD+GDX while ZROZ loses in that scenario. Funded by trimming SGOV."
+    },
+    {
+      "ts": "2026-08-14 14:18:16",
+      "type": "rebalance",
+      "ticker": "TIP",
+      "action": "buy",
+      "shares": 23.316544,
+      "price": 107.1,
+      "amount": 2497.2,
+      "reason": "TIP removed (issue #6 follow-up): SGOV is the better inflation hedge - a Fed-hikes-in-response regime lifts T-bill yield with zero duration loss while TIP fell ~12% in 2022; GLD+GDX already cover the stagflation case. Sold at the next market-open update; proceeds swept back to SGOV."
+    },
+    {
+      "ts": "2026-08-14 14:18:16",
+      "type": "deploy_cash",
+      "ticker": "SGOV",
+      "action": "buy",
+      "shares": 24.8329,
+      "price": 100.56,
+      "amount": 2497.2,
+      "reason": null
+    },
+    {
+      "ts": "2026-08-17 13:39:31",
+      "type": "market_order",
+      "ticker": "TQQQ",
+      "action": "buy",
+      "shares": 32.4212,
+      "price": 77.11,
+      "amount": 2500.0,
+      "reason": "BUY 2,500 (ai_2026-08-14)"
+    },
+    {
+      "ts": "2026-08-17 13:39:31",
+      "type": "market_order",
+      "ticker": "SOXL",
+      "action": "buy",
+      "shares": 16.761,
+      "price": 149.156,
+      "amount": 2500.0,
+      "reason": "BUY 2,500 (ai_2026-08-14)"
+    },
+    {
+      "ts": "2026-08-17 13:39:31",
+      "type": "market_order",
+      "ticker": "ZROZ",
+      "action": "buy",
+      "shares": 43.4669,
+      "price": 57.515,
+      "amount": 2500.0,
+      "reason": "SELL 2,500 (ai_2026-08-14)"
+    },
+    {
+      "ts": "2026-08-17 13:39:31",
+      "type": "market_order",
+      "ticker": "DBMF",
+      "action": "buy",
+      "shares": 79.6813,
+      "price": 31.375,
+      "amount": 2500.0,
+      "reason": "BUY 2,500 (ai_2026-08-14)"
+    },
+    {
+      "ts": "2026-08-17 13:39:31",
+      "type": "market_order",
+      "ticker": "DRAM",
+      "action": "buy",
+      "shares": 41.6806,
+      "price": 59.98,
+      "amount": 2500.0,
+      "reason": "BUY 2,500 (ai_2026-08-14)"
+    },
+    {
+      "ts": "2026-08-17 13:39:31",
+      "type": "market_order",
+      "ticker": "NLR",
+      "action": "buy",
+      "shares": 21.2143,
+      "price": 117.845,
+      "amount": 2500.0,
+      "reason": "BUY 2,500 (ai_2026-08-14)"
+    },
+    {
+      "ts": "2026-08-17 13:39:31",
+      "type": "market_order",
+      "ticker": "BTAL",
+      "action": "buy",
+      "shares": 211.0595,
+      "price": 11.845,
+      "amount": 2500.0,
+      "reason": "BUY 2,500 (ai_2026-08-14)"
+    },
+    {
+      "ts": "2026-08-17 13:39:31",
+      "type": "deploy_cash",
+      "ticker": "SGOV",
+      "action": "buy",
+      "shares": 24.859,
+      "price": 100.567,
+      "amount": 2500.0,
+      "reason": null
+    }
+  ]
+}
