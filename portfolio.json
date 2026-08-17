@@ -156,7 +156,7 @@
       },
       "F2": {
         "prev_score": 1.9,
-        "score": 1.9,
+        "score": 2.1,
         "days_above": 0,
         "confirmed": false
       },
@@ -174,14 +174,14 @@
       },
       "F5": {
         "prev_score": 4.1,
-        "score": 4.1,
-        "days_above": 107,
-        "confirmed": true
+        "score": 3.3,
+        "days_above": 0,
+        "confirmed": false
       },
       "F6": {
         "prev_score": 4.9,
         "score": 4.9,
-        "days_above": 121,
+        "days_above": 122,
         "confirmed": true
       },
       "F7": {

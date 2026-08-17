@@ -157,7 +157,7 @@ window.DASH = {
       },
       "F2": {
         "prev_score": 1.9,
-        "score": 1.9,
+        "score": 2.1,
         "days_above": 0,
         "confirmed": false
       },
@@ -175,14 +175,14 @@ window.DASH = {
       },
       "F5": {
         "prev_score": 4.1,
-        "score": 4.1,
-        "days_above": 107,
-        "confirmed": true
+        "score": 3.3,
+        "days_above": 0,
+        "confirmed": false
       },
       "F6": {
         "prev_score": 4.9,
         "score": 4.9,
-        "days_above": 121,
+        "days_above": 122,
         "confirmed": true
       },
       "F7": {
@@ -559,7 +559,7 @@ window.DASH = {
     ],
     "ai_calibration": {},
     "park_mode": "sgov",
-    "asof_ts": 1786849727,
+    "asof_ts": 1786933171,
     "refresh_interval": 1440
   },
   "asof": "2026-08-14",
@@ -573,7 +573,7 @@ window.DASH = {
     "start_value": 100000,
     "max_drawdown_pct": -0.05,
     "sharpe_annualized": 16.34,
-    "cagr_annualized": 391.83
+    "cagr_annualized": 212.0
   },
   "positions": [
     {
@@ -1887,43 +1887,7 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-08-15",
-      "degraded": false,
-      "trend_dir": "flat"
-    },
-    {
-      "id": "F5",
-      "name": "War / energy shock",
-      "type": "episodic",
-      "score": 4.1,
-      "level": 0.739,
-      "velocity": {
-        "label": "5d velocity",
-        "value": 0.054,
-        "pct": 0.788
-      },
-      "trend": null,
-      "signals": [
-        {
-          "label": "Crude 5d momentum",
-          "value": 0.788
-        },
-        {
-          "label": "Gold 1d momentum",
-          "value": 0.625
-        }
-      ],
-      "theory_ids": [
-        "T21"
-      ],
-      "hedge_ticks": [
-        "GLD",
-        "GDX",
-        "FXY",
-        "DBMF"
-      ],
-      "sizing": null,
-      "asof": "2026-08-15",
+      "asof": "2026-08-17",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -1954,7 +1918,7 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-08-15",
+      "asof": "2026-08-17",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -1989,9 +1953,45 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-08-15",
+      "asof": "2026-08-17",
       "degraded": false,
       "trend_dir": "flat"
+    },
+    {
+      "id": "F5",
+      "name": "War / energy shock",
+      "type": "episodic",
+      "score": 3.3,
+      "level": 0.577,
+      "velocity": {
+        "label": "5d velocity",
+        "value": 0.0082,
+        "pct": 0.557
+      },
+      "trend": null,
+      "signals": [
+        {
+          "label": "Crude 5d momentum",
+          "value": 0.557
+        },
+        {
+          "label": "Gold 1d momentum",
+          "value": 0.625
+        }
+      ],
+      "theory_ids": [
+        "T21"
+      ],
+      "hedge_ticks": [
+        "GLD",
+        "GDX",
+        "FXY",
+        "DBMF"
+      ],
+      "sizing": null,
+      "asof": "2026-08-17",
+      "degraded": false,
+      "trend_dir": "falling"
     },
     {
       "id": "F8",
@@ -2023,7 +2023,7 @@ window.DASH = {
         "BTAL"
       ],
       "sizing": null,
-      "asof": "2026-08-15",
+      "asof": "2026-08-17",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2059,7 +2059,7 @@ window.DASH = {
         "ZROZ"
       ],
       "sizing": null,
-      "asof": "2026-08-15",
+      "asof": "2026-08-17",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2067,12 +2067,12 @@ window.DASH = {
       "id": "F2",
       "name": "Yen-carry unwind",
       "type": "episodic",
-      "score": 1.9,
+      "score": 2.1,
       "level": 0.235,
       "velocity": {
         "label": "5d velocity",
-        "value": -0.009,
-        "pct": 0.204
+        "value": -0.0068,
+        "pct": 0.286
       },
       "trend": null,
       "signals": [
@@ -2089,9 +2089,9 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-08-15",
+      "asof": "2026-08-17",
       "degraded": false,
-      "trend_dir": "flat"
+      "trend_dir": "rising"
     },
     {
       "id": "F7",
@@ -2119,7 +2119,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-08-15",
+      "asof": "2026-08-17",
       "degraded": false,
       "trend_dir": "flat"
     }
@@ -2129,11 +2129,11 @@ window.DASH = {
     "label": "Greed"
   },
   "complacency": {
-    "index": 0.124,
+    "index": 0.16,
     "valuation_stretch": 0.621,
-    "fear_term": 0.2,
-    "divergence": 0.497,
-    "fear_avg": 4.2,
+    "fear_term": 0.258,
+    "divergence": 0.46,
+    "fear_avg": 3.97,
     "regime": "fragility",
     "note": "Fragility regime - macro divergence: equities stretched while macro fears run high. Equities expected to crack.",
     "pay_check": {
@@ -2755,13 +2755,59 @@ window.DASH = {
     "enabled": true
   },
   "news": {
-    "asof": "2026-08-15 21:08:48",
+    "asof": "2026-08-17 02:19:32",
     "big_stories": [
+      {
+        "title": "This Software Stock Just Produced a Rule of 40 Score Nearly as High as Palantir's, and Its Valuation Is Much More Attractive",
+        "link": "https://www.fool.com/investing/2026/08/16/this-software-stock-just-produced-a-rule-of-40-sco/?.tsrc=rss",
+        "ts": 1786927800,
+        "when": "Aug 17, 12:50 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "Wall Street’s Biggest Funds Are Dumping Broadcom and Adding Taiwan Semiconductor. Time to Follow the ‘Smart Money?’",
+        "link": "https://247wallst.com/investing/2026/08/16/wall-streets-biggest-funds-are-dumping-broadcom-and-adding-taiwan-semiconductor-time-to-follow-the-smart-money/?.tsrc=rss",
+        "ts": 1786918394,
+        "when": "Aug 16, 10:13 PM",
+        "ticker": "SMH",
+        "industry": "Semis",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "negative"
+      },
+      {
+        "title": "Gold Just Hit $4,400 and the Miners Are Finally Catching Up",
+        "link": "https://247wallst.com/investing/etf/2026/08/16/gold-just-hit-4400-and-the-miners-are-finally-catching-up/?.tsrc=rss",
+        "ts": 1786890104,
+        "when": "Aug 16, 02:21 PM",
+        "ticker": "GDX",
+        "industry": "Gold Miners",
+        "theory": [
+          "T6",
+          "T9",
+          "T19",
+          "T20",
+          "T21"
+        ],
+        "sent": "neutral"
+      },
       {
         "title": "Which Gold ETF Is the Better Buy: iShares' IAU or State Street's GLD?",
         "link": "https://www.fool.com/coverage/etfs/2026/08/15/which-gold-etf-is-the-better-buy-ishares-iau-or-state-street-s-gld/?.tsrc=rss",
         "ts": 1786840741,
-        "when": "Aug 15, 06:39 PM",
+        "when": "Aug 16, 12:39 AM",
         "ticker": "GLD",
         "industry": "Gold",
         "theory": [
@@ -2774,10 +2820,54 @@ window.DASH = {
         "sent": "positive"
       },
       {
-        "title": "Palantir Makes Its Case Against Frontier AI",
-        "link": "https://www.fool.com/investing/2026/08/15/palantir-makes-its-case-against-frontier-ai/?.tsrc=rss",
-        "ts": 1786830619,
-        "when": "Aug 15, 03:50 PM",
+        "title": "Sector Update: Consumer Stocks Mixed Late Afternoon",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-mixed-afternoon-194726434.html?.tsrc=rss",
+        "ts": 1786736846,
+        "when": "Aug 14, 07:47 PM",
+        "ticker": "XLY",
+        "industry": "Consumer Disc.",
+        "theory": [
+          "T13"
+        ],
+        "sent": "neutral"
+      }
+    ],
+    "feed": [
+      {
+        "title": "This Software Stock Just Produced a Rule of 40 Score Nearly as High as Palantir's, and Its Valuation Is Much More Attractive",
+        "link": "https://www.fool.com/investing/2026/08/16/this-software-stock-just-produced-a-rule-of-40-sco/?.tsrc=rss",
+        "ts": 1786927800,
+        "when": "Aug 17, 12:50 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "Wall Street’s Biggest Funds Are Dumping Broadcom and Adding Taiwan Semiconductor. Time to Follow the ‘Smart Money?’",
+        "link": "https://247wallst.com/investing/2026/08/16/wall-streets-biggest-funds-are-dumping-broadcom-and-adding-taiwan-semiconductor-time-to-follow-the-smart-money/?.tsrc=rss",
+        "ts": 1786918394,
+        "when": "Aug 16, 10:13 PM",
+        "ticker": "SMH",
+        "industry": "Semis",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "negative"
+      },
+      {
+        "title": "Peter Thiel invests $118 million in surging big tech stock",
+        "link": "https://www.thestreet.com/investing/stocks/thiel-macro-amazon-stock?.tsrc=rss",
+        "ts": 1786893420,
+        "when": "Aug 16, 03:17 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -2789,10 +2879,10 @@ window.DASH = {
         "sent": "neutral"
       },
       {
-        "title": "Our Newmont Stock Pick Still Glitters After 66% Gains. Stay Bullish.",
-        "link": "https://finance.yahoo.com/m/9065c924-f4bb-35f6-8d40-858ab0b53907/our-newmont-stock-pick-still.html?.tsrc=rss",
-        "ts": 1786767960,
-        "when": "Aug 14, 10:26 PM",
+        "title": "Gold Just Hit $4,400 and the Miners Are Finally Catching Up",
+        "link": "https://247wallst.com/investing/etf/2026/08/16/gold-just-hit-4400-and-the-miners-are-finally-catching-up/?.tsrc=rss",
+        "ts": 1786890104,
+        "when": "Aug 16, 02:21 PM",
         "ticker": "GDX",
         "industry": "Gold Miners",
         "theory": [
@@ -2802,42 +2892,43 @@ window.DASH = {
           "T20",
           "T21"
         ],
-        "sent": "positive"
+        "sent": "neutral"
       },
       {
-        "title": "Third Point Exited Nvidia and Broadcom, Made New Bet on Warner Bros. Discovery in Second Quarter",
-        "link": "https://finance.yahoo.com/m/64c7a299-0ef1-3afe-9888-95b3474ece56/third-point-exited-nvidia-and.html?.tsrc=rss",
-        "ts": 1786747380,
-        "when": "Aug 14, 04:43 PM",
-        "ticker": "SMH",
-        "industry": "Semis",
+        "title": "Here's What a $10,000 Palantir Investment Could Be Worth by 2028",
+        "link": "https://www.fool.com/investing/2026/08/16/heres-what-a-10000-palantir-investment-could-be-wo/?.tsrc=rss",
+        "ts": 1786864800,
+        "when": "Aug 16, 07:20 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
         "theory": [
           "T1",
           "T7",
           "T2",
           "T14"
         ],
-        "sent": "neutral"
+        "sent": "positive"
       },
       {
-        "title": "Sector Update: Consumer Stocks Mixed Late Afternoon",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-mixed-afternoon-194726434.html?.tsrc=rss",
-        "ts": 1786736846,
-        "when": "Aug 14, 01:47 PM",
-        "ticker": "XLY",
-        "industry": "Consumer Disc.",
+        "title": "Intuit, MongoDB, Cloudflare, Palantir Technologies, and The Trade Desk Shares Are Soaring, What You Need To Know",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/intuit-mongodb-cloudflare-palantir-technologies-062900428.html?.tsrc=rss",
+        "ts": 1786861740,
+        "when": "Aug 16, 06:29 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
         "theory": [
-          "T13"
+          "T1",
+          "T7",
+          "T2",
+          "T14"
         ],
-        "sent": "neutral"
-      }
-    ],
-    "feed": [
+        "sent": "positive"
+      },
       {
         "title": "Which Gold ETF Is the Better Buy: iShares' IAU or State Street's GLD?",
         "link": "https://www.fool.com/coverage/etfs/2026/08/15/which-gold-etf-is-the-better-buy-ishares-iau-or-state-street-s-gld/?.tsrc=rss",
         "ts": 1786840741,
-        "when": "Aug 15, 06:39 PM",
+        "when": "Aug 16, 12:39 AM",
         "ticker": "GLD",
         "industry": "Gold",
         "theory": [
@@ -2853,7 +2944,7 @@ window.DASH = {
         "title": "Palantir Makes Its Case Against Frontier AI",
         "link": "https://www.fool.com/investing/2026/08/15/palantir-makes-its-case-against-frontier-ai/?.tsrc=rss",
         "ts": 1786830619,
-        "when": "Aug 15, 03:50 PM",
+        "when": "Aug 15, 09:50 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -2868,7 +2959,7 @@ window.DASH = {
         "title": "Cathie Wood sells $11.6 million of surging tech stock",
         "link": "https://www.thestreet.com/investing/stocks/cathie-wood-sells-palantir-pltr-11-6-million-of-surging-tech-stock?.tsrc=rss",
         "ts": 1786806420,
-        "when": "Aug 15, 09:07 AM",
+        "when": "Aug 15, 03:07 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -2883,7 +2974,7 @@ window.DASH = {
         "title": "SCHG vs QQQ vs VUG: We Compared the Three Biggest Growth ETFs and One Is the Clear Winner for the Next Decade",
         "link": "https://247wallst.com/investing/2026/08/15/schg-vs-qqq-vs-vug-we-compared-the-three-biggest-growth-etfs-and-one-is-the-clear-winner-for-the-next-decade/?.tsrc=rss",
         "ts": 1786796231,
-        "when": "Aug 15, 06:17 AM",
+        "when": "Aug 15, 12:17 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -2898,7 +2989,7 @@ window.DASH = {
         "title": "Up Over 35% Since Aug. 3, Is it Too Late to Buy Palantir Stock?",
         "link": "https://www.fool.com/investing/2026/08/15/up-over-35-since-aug-3-is-it-too-late-to-buy-palan/?.tsrc=rss",
         "ts": 1786784700,
-        "when": "Aug 15, 03:05 AM",
+        "when": "Aug 15, 09:05 AM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -2913,7 +3004,7 @@ window.DASH = {
         "title": "Our Newmont Stock Pick Still Glitters After 66% Gains. Stay Bullish.",
         "link": "https://finance.yahoo.com/m/9065c924-f4bb-35f6-8d40-858ab0b53907/our-newmont-stock-pick-still.html?.tsrc=rss",
         "ts": 1786767960,
-        "when": "Aug 14, 10:26 PM",
+        "when": "Aug 15, 04:26 AM",
         "ticker": "GDX",
         "industry": "Gold Miners",
         "theory": [
@@ -2929,7 +3020,7 @@ window.DASH = {
         "title": "Jim Cramer Says Palantir (PLTR) Deserves a “Little Bit More Love” After a Massive Surge",
         "link": "https://finance.yahoo.com/markets/stocks/articles/jim-cramer-says-palantir-pltr-000702429.html?.tsrc=rss",
         "ts": 1786752422,
-        "when": "Aug 14, 06:07 PM",
+        "when": "Aug 15, 12:07 AM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -2944,7 +3035,7 @@ window.DASH = {
         "title": "Third Point Exited Nvidia and Broadcom, Made New Bet on Warner Bros. Discovery in Second Quarter",
         "link": "https://finance.yahoo.com/m/64c7a299-0ef1-3afe-9888-95b3474ece56/third-point-exited-nvidia-and.html?.tsrc=rss",
         "ts": 1786747380,
-        "when": "Aug 14, 04:43 PM",
+        "when": "Aug 14, 10:43 PM",
         "ticker": "SMH",
         "industry": "Semis",
         "theory": [
@@ -2959,7 +3050,7 @@ window.DASH = {
         "title": "PLTR Jumped 31.53% in a Month. PLTY Holders Got 28.93%",
         "link": "https://247wallst.com/investing/etf/2026/08/14/pltr-jumped-31-53-in-a-month-plty-holders-got-28-93/?.tsrc=rss",
         "ts": 1786744503,
-        "when": "Aug 14, 03:55 PM",
+        "when": "Aug 14, 09:55 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -2974,7 +3065,7 @@ window.DASH = {
         "title": "Sector Update: Consumer Stocks Mixed Late Afternoon",
         "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-mixed-afternoon-194726434.html?.tsrc=rss",
         "ts": 1786736846,
-        "when": "Aug 14, 01:47 PM",
+        "when": "Aug 14, 07:47 PM",
         "ticker": "XLY",
         "industry": "Consumer Disc.",
         "theory": [
@@ -2986,7 +3077,7 @@ window.DASH = {
         "title": "Gold Just Ripped Higher on an Ugly Jobs Report, and It’s Still Well Off Its Record. Buy GLDM Now?",
         "link": "https://247wallst.com/investing/etf/2026/08/14/gold-just-ripped-higher-on-an-ugly-jobs-report-and-its-still-well-off-its-record-buy-gldm-now/?.tsrc=rss",
         "ts": 1786736748,
-        "when": "Aug 14, 01:45 PM",
+        "when": "Aug 14, 07:45 PM",
         "ticker": "GLD",
         "industry": "Gold",
         "theory": [
@@ -3002,47 +3093,33 @@ window.DASH = {
         "title": "Cash Pays 3.8% and the Fed May Hike. This T-Bill Fund Pays the Same but Sends No Tax Bill Until You Sell",
         "link": "https://247wallst.com/investing/2026/08/14/cash-pays-3-8-and-the-fed-may-hike-this-t-bill-fund-pays-the-same-but-sends-no-tax-bill-until-you-sell/?.tsrc=rss",
         "ts": 1786736055,
-        "when": "Aug 14, 01:34 PM",
+        "when": "Aug 14, 07:34 PM",
         "ticker": "SGOV",
         "industry": "Equities",
         "theory": [],
         "sent": "negative"
       },
       {
-        "title": "The Best House On The Block Costs The Most: PLTR",
-        "link": "https://www.trefis.com/articles/611491/the-best-house-on-the-block-costs-the-most-pltr/2026-08-14?.tsrc=rss",
-        "ts": 1786735696,
-        "when": "Aug 14, 01:28 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
+        "title": "Gold Rally Is Missing One Key Ingredient",
+        "link": "https://finance.yahoo.com/markets/commodities/articles/gold-rally-missing-one-key-181859656.html?.tsrc=rss",
+        "ts": 1786731539,
+        "when": "Aug 14, 06:18 PM",
+        "ticker": "GLD",
+        "industry": "Gold",
         "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
+          "T6",
+          "T9",
+          "T19",
+          "T20",
+          "T21"
         ],
-        "sent": "positive"
-      },
-      {
-        "title": "Palantir's $442 Billion Valuation Faces a Test",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/palantirs-442-billion-valuation-faces-180950928.html?.tsrc=rss",
-        "ts": 1786730990,
-        "when": "Aug 14, 12:09 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
+        "sent": "negative"
       },
       {
         "title": "Sector Update: Consumer Stocks Mixed in Afternoon Trading",
         "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-mixed-afternoon-173803183.html?.tsrc=rss",
         "ts": 1786729083,
-        "when": "Aug 14, 11:38 AM",
+        "when": "Aug 14, 05:38 PM",
         "ticker": "XLY",
         "industry": "Consumer Disc.",
         "theory": [
@@ -3051,40 +3128,10 @@ window.DASH = {
         "sent": "neutral"
       },
       {
-        "title": "Unusual Machines Soars 22%, Red Cat Climbs 8%, Ondas Gains 4% on Trump’s 100% Drone Tariff",
-        "link": "https://247wallst.com/investing/2026/08/14/unusual-machines-soars-22-red-cat-climbs-8-ondas-gains-4-on-trumps-100-drone-tariff/?.tsrc=rss",
-        "ts": 1786728122,
-        "when": "Aug 14, 11:22 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "C3.ai Remains Turbulent: Why One Of Wall Street’s Most Outspoken Pros Expects 50% Returns From Here",
-        "link": "https://247wallst.com/investing/2026/08/14/c3-ai-remains-turbulent-why-one-of-wall-streets-most-outspoken-pros-expects-50-returns-from-here/?.tsrc=rss",
-        "ts": 1786725926,
-        "when": "Aug 14, 10:45 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
         "title": "Prediction: This Small-Cap ETF Will Outperform the S&P 500 Through 2027",
         "link": "https://www.fool.com/investing/2026/08/14/prediction-small-cap-etf-outperform-sp-500-by-2027/?.tsrc=rss",
         "ts": 1786723980,
-        "when": "Aug 14, 10:13 AM",
+        "when": "Aug 14, 04:13 PM",
         "ticker": "IWM",
         "industry": "Small Caps",
         "theory": [
@@ -3097,7 +3144,7 @@ window.DASH = {
         "title": "Investors Are Betting Big on Gold Again, but Silver Is Still the Better Buy",
         "link": "https://247wallst.com/investing/2026/08/14/investors-are-betting-big-on-gold-again-but-silver-is-still-the-better-buy/?.tsrc=rss",
         "ts": 1786722462,
-        "when": "Aug 14, 09:47 AM",
+        "when": "Aug 14, 03:47 PM",
         "ticker": "GDX",
         "industry": "Gold Miners",
         "theory": [
@@ -3113,7 +3160,7 @@ window.DASH = {
         "title": "U.S. Dollar to Slip Ahead? ETFs in Focus",
         "link": "https://finance.yahoo.com/markets/currencies/articles/u-dollar-slip-ahead-etfs-150000297.html?.tsrc=rss",
         "ts": 1786719600,
-        "when": "Aug 14, 09:00 AM",
+        "when": "Aug 14, 03:00 PM",
         "ticker": "GLD",
         "industry": "Gold",
         "theory": [
@@ -3129,23 +3176,17 @@ window.DASH = {
         "title": "The Gold “Income” Fund That Turned a 6% Gold Dip Into a 30% Loss",
         "link": "https://247wallst.com/investing/2026/08/14/the-gold-income-fund-that-turned-a-6-gold-dip-into-a-30-loss/?.tsrc=rss",
         "ts": 1786719036,
-        "when": "Aug 14, 08:50 AM",
-        "ticker": "GLD",
-        "industry": "Gold",
-        "theory": [
-          "T6",
-          "T9",
-          "T19",
-          "T20",
-          "T21"
-        ],
+        "when": "Aug 14, 02:50 PM",
+        "ticker": "SGOV",
+        "industry": "Equities",
+        "theory": [],
         "sent": "negative"
       },
       {
         "title": "Cooling Inflation Likely to Aid These ETF Areas",
         "link": "https://finance.yahoo.com/economy/policy/articles/cooling-inflation-likely-aid-etf-144100361.html?.tsrc=rss",
         "ts": 1786718460,
-        "when": "Aug 14, 08:41 AM",
+        "when": "Aug 14, 02:41 PM",
         "ticker": "IWM",
         "industry": "Small Caps",
         "theory": [
@@ -3155,25 +3196,10 @@ window.DASH = {
         "sent": "neutral"
       },
       {
-        "title": "Michael Burry Ramped Up His Bets Against Micron and the QQQ ETF. Is the ‘Big Short’ Investor Asking for Trouble?",
-        "link": "https://247wallst.com/investing/2026/08/14/michael-burry-ramped-up-his-bets-against-micron-and-the-qqq-etf-is-the-big-short-investor-asking-for-trouble/?.tsrc=rss",
-        "ts": 1786718407,
-        "when": "Aug 14, 08:40 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "negative"
-      },
-      {
         "title": "'Economic Isolation' for Iran? ETFs to Gain/Lose",
         "link": "https://finance.yahoo.com/economy/policy/articles/economic-isolation-iran-etfs-gain-140000350.html?.tsrc=rss",
         "ts": 1786716000,
-        "when": "Aug 14, 08:00 AM",
+        "when": "Aug 14, 02:00 PM",
         "ticker": "IWM",
         "industry": "Small Caps",
         "theory": [
@@ -3183,10 +3209,22 @@ window.DASH = {
         "sent": "negative"
       },
       {
+        "title": "Exchange-Traded Funds Higher, Equity Futures Mixed Pre-Bell Friday Amid Retail Sales Data",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/exchange-traded-funds-higher-equity-131348296.html?.tsrc=rss",
+        "ts": 1786713228,
+        "when": "Aug 14, 01:13 PM",
+        "ticker": "XLY",
+        "industry": "Consumer Disc.",
+        "theory": [
+          "T13"
+        ],
+        "sent": "neutral"
+      },
+      {
         "title": "Is Wall Street Bullish or Bearish on Lowe's Stock?",
         "link": "https://www.barchart.com/story/news/3848054/is-wall-street-bullish-or-bearish-on-lowe-s-stock?.tsrc=rss",
         "ts": 1786703068,
-        "when": "Aug 14, 04:24 AM",
+        "when": "Aug 14, 10:24 AM",
         "ticker": "XLY",
         "industry": "Consumer Disc.",
         "theory": [
@@ -3198,60 +3236,17 @@ window.DASH = {
         "title": "The House Is Paid Off but the Property Tax Bill Never Retires. These 3 ETFs Pay It Every Year",
         "link": "https://247wallst.com/investing/etf/2026/08/13/the-house-is-paid-off-but-the-property-tax-bill-never-retires-these-3-etfs-pay-it-every-year/?.tsrc=rss",
         "ts": 1786659944,
-        "when": "Aug 13, 04:25 PM",
+        "when": "Aug 13, 10:25 PM",
         "ticker": "SGOV",
         "industry": "Equities",
         "theory": [],
         "sent": "negative"
       },
       {
-        "title": "DRAM Movers: These Memory/Storage ETFs Are Soaring as Sandisk, Micron Rally",
-        "link": "https://247wallst.com/investing/2026/08/13/dram-movers-these-memory-storage-etfs-are-soaring-as-sandisk-micron-rally/?.tsrc=rss",
-        "ts": 1786644735,
-        "when": "Aug 13, 12:12 PM",
-        "ticker": "SMH",
-        "industry": "Semis",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Sector Update: Consumer Stocks Rise in Afternoon Trading",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-rise-afternoon-173751918.html?.tsrc=rss",
-        "ts": 1786642671,
-        "when": "Aug 13, 11:37 AM",
-        "ticker": "XLY",
-        "industry": "Consumer Disc.",
-        "theory": [
-          "T13"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "5 ETFs to Benefit From Cooling Inflation in the Near Term",
-        "link": "https://finance.yahoo.com/economy/policy/articles/5-etfs-benefit-cooling-inflation-140000926.html?.tsrc=rss",
-        "ts": 1786629600,
-        "when": "Aug 13, 08:00 AM",
-        "ticker": "GLD",
-        "industry": "Gold",
-        "theory": [
-          "T6",
-          "T9",
-          "T19",
-          "T20",
-          "T21"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "Are Wall Street Analysts Bullish on Smurfit Westrock Stock?",
-        "link": "https://www.barchart.com/story/news/3827891/are-wall-street-analysts-bullish-on-smurfit-westrock-stock?.tsrc=rss",
-        "ts": 1786623391,
-        "when": "Aug 13, 06:16 AM",
+        "title": "Sector Update: Consumer Stocks Advance Late Afternoon",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-advance-afternoon-193514616.html?.tsrc=rss",
+        "ts": 1786649714,
+        "when": "Aug 13, 07:35 PM",
         "ticker": "XLY",
         "industry": "Consumer Disc.",
         "theory": [
