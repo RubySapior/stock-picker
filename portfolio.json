@@ -149,7 +149,7 @@
     "disclaimer": "Simulated portfolio for tracking/learning. Not financial advice.",
     "fear_state": {
       "F1": {
-        "prev_score": 2.4,
+        "prev_score": 2.5,
         "score": 2.5,
         "days_above": 0,
         "confirmed": false
@@ -167,31 +167,31 @@
         "confirmed": false
       },
       "F4": {
-        "prev_score": 2.8,
-        "score": 4.0,
-        "days_above": 1,
+        "prev_score": 4.0,
+        "score": 2.7,
+        "days_above": 0,
         "confirmed": false
       },
       "F5": {
-        "prev_score": 3.2,
+        "prev_score": 3.1,
         "score": 3.1,
         "days_above": 0,
         "confirmed": false
       },
       "F6": {
-        "prev_score": 4.8,
+        "prev_score": 4.9,
         "score": 4.9,
-        "days_above": 146,
+        "days_above": 147,
         "confirmed": true
       },
       "F7": {
-        "prev_score": 2.2,
+        "prev_score": 2.3,
         "score": 2.3,
         "days_above": 0,
         "confirmed": false
       },
       "F8": {
-        "prev_score": 2.8,
+        "prev_score": 2.7,
         "score": 2.7,
         "days_above": 0,
         "confirmed": false
@@ -570,13 +570,13 @@
         "last_wrong": null
       },
       "TQQQ": {
-        "wrong": 15,
-        "total": 20,
+        "wrong": 16,
+        "total": 21,
         "last_wrong": "2026-08-18"
       },
       "NLR": {
-        "wrong": 15,
-        "total": 19,
+        "wrong": 16,
+        "total": 20,
         "last_wrong": "2026-08-18"
       },
       "BTAL": {
@@ -799,31 +799,31 @@
       },
       {
         "date": "2026-08-18",
-        "total_value": 98861.95,
+        "total_value": 98986.34,
         "cash": 25.0,
-        "invested_value": 98836.95,
-        "day_change": -4186.59,
+        "invested_value": 98961.34,
+        "day_change": -4062.2,
         "prices": {
-          "TQQQ": 72.435,
-          "SOXL": 124.12,
-          "SMH": 565.25,
-          "DRAM": 54.92,
-          "PLTR": 173.1,
-          "NLR": 114.475,
-          "NUKZ": 65.92,
-          "IWM": 300.5,
+          "TQQQ": 72.47,
+          "SOXL": 125.62,
+          "SMH": 566.73,
+          "DRAM": 55.1,
+          "PLTR": 172.67,
+          "NLR": 114.14,
+          "NUKZ": 65.98,
+          "IWM": 300.44,
           "IWDL": 70.24,
-          "XLY": 117.035,
-          "EZU": 71.165,
-          "ZROZ": 57.54,
-          "FXY": 57.48,
-          "VIXM": 14.37,
-          "QFLR": 35.33,
-          "GLD": 399.68,
-          "GDX": 89.29,
-          "BTAL": 12.13,
-          "DBMF": 31.242,
-          "SGOV": 100.575
+          "XLY": 116.88,
+          "EZU": 71.15,
+          "ZROZ": 57.53,
+          "FXY": 57.478,
+          "VIXM": 14.365,
+          "QFLR": 35.39,
+          "GLD": 399.345,
+          "GDX": 89.535,
+          "BTAL": 12.12,
+          "DBMF": 31.255,
+          "SGOV": 100.58
         }
       }
     ]
