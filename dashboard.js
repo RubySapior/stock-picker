@@ -151,7 +151,7 @@ window.DASH = {
     "fear_state": {
       "F1": {
         "prev_score": 2.4,
-        "score": 2.4,
+        "score": 2.5,
         "days_above": 0,
         "confirmed": false
       },
@@ -169,31 +169,31 @@ window.DASH = {
       },
       "F4": {
         "prev_score": 2.8,
-        "score": 2.8,
-        "days_above": 0,
+        "score": 4.0,
+        "days_above": 1,
         "confirmed": false
       },
       "F5": {
-        "prev_score": 3.1,
-        "score": 3.2,
+        "prev_score": 3.2,
+        "score": 3.1,
         "days_above": 0,
         "confirmed": false
       },
       "F6": {
         "prev_score": 4.8,
-        "score": 4.8,
-        "days_above": 145,
+        "score": 4.9,
+        "days_above": 146,
         "confirmed": true
       },
       "F7": {
-        "prev_score": 2.1,
-        "score": 2.2,
+        "prev_score": 2.2,
+        "score": 2.3,
         "days_above": 0,
         "confirmed": false
       },
       "F8": {
         "prev_score": 2.8,
-        "score": 2.8,
+        "score": 2.7,
         "days_above": 0,
         "confirmed": false
       }
@@ -571,13 +571,13 @@ window.DASH = {
         "last_wrong": null
       },
       "TQQQ": {
-        "wrong": 14,
-        "total": 19,
+        "wrong": 15,
+        "total": 20,
         "last_wrong": "2026-08-18"
       },
       "NLR": {
-        "wrong": 14,
-        "total": 18,
+        "wrong": 15,
+        "total": 19,
         "last_wrong": "2026-08-18"
       },
       "BTAL": {
@@ -616,21 +616,21 @@ window.DASH = {
       ],
       "note": "Community experiment (site 0.5.5.33): benchmark strategies fill the leaderboard for comparison; snapshot_versions freezes the book as a new version strategy whenever the positions change (SGOV auto-parking excluded from change detection). Both are experiments to populate the board - normally OFF by design, not the product behavior."
     },
-    "asof_ts": 1787075149,
+    "asof_ts": 1787076909,
     "refresh_interval": 6
   },
   "asof": "2026-08-18",
   "summary": {
-    "total_value": 99204.43,
+    "total_value": 98861.95,
     "cash": 25.0,
-    "invested_value": 99179.43,
-    "day_change": -3844.11,
-    "total_return_pct": -0.8,
+    "invested_value": 98836.95,
+    "day_change": -4186.59,
+    "total_return_pct": -1.14,
     "realized_pnl": 0.14,
     "start_value": 100000,
-    "max_drawdown_pct": -3.73,
-    "sharpe_annualized": -1.04,
-    "cagr_annualized": -30.56
+    "max_drawdown_pct": -4.06,
+    "sharpe_annualized": -1.42,
+    "cagr_annualized": -40.7
   },
   "positions": [
     {
@@ -641,16 +641,16 @@ window.DASH = {
       "buy_price": 73.8,
       "shares": 154.372436,
       "cost": 11500.0,
-      "current_price": 72.72,
-      "current_value": 11225.96,
-      "pnl_pct": -1.46,
+      "current_price": 72.435,
+      "current_value": 11181.97,
+      "pnl_pct": -1.85,
       "take_profit_pct": 0.5,
       "stop_loss_pct": -0.35,
       "status": "open",
       "exit": null,
       "sector": "Tech / AI Growth",
       "leverage": 3.0,
-      "effective_value": 33677.88,
+      "effective_value": 33545.91,
       "underlying": "QQQ",
       "underlying_stop_pct": -0.08,
       "underlying_buy_price": 720.87,
@@ -673,16 +673,16 @@ window.DASH = {
       "buy_price": 116.99,
       "shares": 81.048481,
       "cost": 9500.0,
-      "current_price": 115.025,
-      "current_value": 9322.6,
-      "pnl_pct": -1.68,
+      "current_price": 114.475,
+      "current_value": 9278.02,
+      "pnl_pct": -2.15,
       "take_profit_pct": 0.35,
       "stop_loss_pct": -0.18,
       "status": "open",
       "exit": null,
       "sector": "Nuclear / Power",
       "leverage": 1.0,
-      "effective_value": 9322.6,
+      "effective_value": 9278.02,
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
@@ -704,16 +704,16 @@ window.DASH = {
       "buy_price": 130.0,
       "shares": 70.607129,
       "cost": 9500.0,
-      "current_price": 126.16,
-      "current_value": 8907.8,
-      "pnl_pct": -2.95,
+      "current_price": 124.12,
+      "current_value": 8763.76,
+      "pnl_pct": -4.52,
       "take_profit_pct": 0.6,
       "stop_loss_pct": -0.35,
       "status": "open",
       "exit": null,
       "sector": "Tech / AI Growth",
       "leverage": 3.0,
-      "effective_value": 26723.4,
+      "effective_value": 26291.28,
       "underlying": "SOXX",
       "underlying_stop_pct": -0.09,
       "underlying_buy_price": 529.39,
@@ -736,16 +736,16 @@ window.DASH = {
       "buy_price": 12.08,
       "shares": 666.357532,
       "cost": 8000.0,
-      "current_price": 12.12,
-      "current_value": 8076.25,
-      "pnl_pct": 0.33,
+      "current_price": 12.13,
+      "current_value": 8082.92,
+      "pnl_pct": 0.41,
       "take_profit_pct": 0.15,
       "stop_loss_pct": -0.1,
       "status": "open",
       "exit": null,
       "sector": "Hedge Stack",
       "leverage": 1.0,
-      "effective_value": 8076.25,
+      "effective_value": 8082.92,
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
@@ -768,16 +768,16 @@ window.DASH = {
       "buy_price": 31.32,
       "shares": 255.287916,
       "cost": 8000.0,
-      "current_price": 31.275,
-      "current_value": 7984.13,
-      "pnl_pct": -0.14,
+      "current_price": 31.242,
+      "current_value": 7975.71,
+      "pnl_pct": -0.25,
       "take_profit_pct": 0.2,
       "stop_loss_pct": -0.12,
       "status": "open",
       "exit": null,
       "sector": "Hedge Stack",
       "leverage": 1.0,
-      "effective_value": 7984.13,
+      "effective_value": 7975.71,
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
@@ -802,16 +802,16 @@ window.DASH = {
       "buy_price": 49.6,
       "shares": 142.487012,
       "cost": 7500.0,
-      "current_price": 55.365,
-      "current_value": 7888.79,
-      "pnl_pct": 11.62,
+      "current_price": 54.92,
+      "current_value": 7825.39,
+      "pnl_pct": 10.73,
       "take_profit_pct": 0.5,
       "stop_loss_pct": -0.25,
       "status": "open",
       "exit": null,
       "sector": "Tech / AI Growth",
       "leverage": 1.0,
-      "effective_value": 7888.79,
+      "effective_value": 7825.39,
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
@@ -834,16 +834,16 @@ window.DASH = {
       "buy_price": 569.41,
       "shares": 8.781016,
       "cost": 5000.0,
-      "current_price": 567.49,
-      "current_value": 4983.14,
-      "pnl_pct": -0.34,
+      "current_price": 565.25,
+      "current_value": 4963.47,
+      "pnl_pct": -0.73,
       "take_profit_pct": 0.4,
       "stop_loss_pct": -0.2,
       "status": "open",
       "exit": null,
       "sector": "Tech / AI Growth",
       "leverage": 1.0,
-      "effective_value": 4983.14,
+      "effective_value": 4963.47,
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
@@ -865,16 +865,16 @@ window.DASH = {
       "buy_price": 14.28,
       "shares": 280.112045,
       "cost": 4000.0,
-      "current_price": 14.349,
-      "current_value": 4019.33,
-      "pnl_pct": 0.48,
+      "current_price": 14.37,
+      "current_value": 4025.21,
+      "pnl_pct": 0.63,
       "take_profit_pct": 0.4,
       "stop_loss_pct": -0.2,
       "status": "open",
       "exit": null,
       "sector": "Hedge Stack",
       "leverage": 1.0,
-      "effective_value": 4019.33,
+      "effective_value": 4025.21,
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
@@ -898,16 +898,16 @@ window.DASH = {
       "buy_price": 57.62,
       "shares": 69.42034,
       "cost": 4000.0,
-      "current_price": 57.475,
-      "current_value": 3989.93,
-      "pnl_pct": -0.25,
+      "current_price": 57.48,
+      "current_value": 3990.28,
+      "pnl_pct": -0.24,
       "take_profit_pct": 0.2,
       "stop_loss_pct": -0.12,
       "status": "open",
       "exit": null,
       "sector": "Hedge Stack",
       "leverage": 1.0,
-      "effective_value": 3989.93,
+      "effective_value": 3990.28,
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
@@ -931,16 +931,16 @@ window.DASH = {
       "buy_price": 66.64,
       "shares": 60.02401,
       "cost": 4000.0,
-      "current_price": 66.355,
-      "current_value": 3982.89,
-      "pnl_pct": -0.43,
+      "current_price": 65.92,
+      "current_value": 3956.78,
+      "pnl_pct": -1.08,
       "take_profit_pct": 0.45,
       "stop_loss_pct": -0.25,
       "status": "open",
       "exit": null,
       "sector": "Nuclear / Power",
       "leverage": 1.0,
-      "effective_value": 3982.89,
+      "effective_value": 3956.78,
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
@@ -962,16 +962,16 @@ window.DASH = {
       "buy_price": 35.49,
       "shares": 98.619327,
       "cost": 3500.0,
-      "current_price": 35.37,
-      "current_value": 3488.17,
-      "pnl_pct": -0.34,
+      "current_price": 35.33,
+      "current_value": 3484.22,
+      "pnl_pct": -0.45,
       "take_profit_pct": 0.2,
       "stop_loss_pct": -0.12,
       "status": "open",
       "exit": null,
       "sector": "Hedge Stack",
       "leverage": 1.0,
-      "effective_value": 3488.17,
+      "effective_value": 3484.22,
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
@@ -994,16 +994,16 @@ window.DASH = {
       "buy_price": 402.54,
       "shares": 8.694794,
       "cost": 3500.0,
-      "current_price": 399.765,
-      "current_value": 3475.87,
-      "pnl_pct": -0.69,
+      "current_price": 399.68,
+      "current_value": 3475.14,
+      "pnl_pct": -0.71,
       "take_profit_pct": 0.2,
       "stop_loss_pct": -0.12,
       "status": "open",
       "exit": null,
       "sector": "Hedge Stack",
       "leverage": 1.0,
-      "effective_value": 3475.87,
+      "effective_value": 3475.14,
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
@@ -1029,16 +1029,16 @@ window.DASH = {
       "buy_price": 90.49,
       "shares": 38.678306,
       "cost": 3500.0,
-      "current_price": 89.34,
-      "current_value": 3455.52,
-      "pnl_pct": -1.27,
+      "current_price": 89.29,
+      "current_value": 3453.59,
+      "pnl_pct": -1.33,
       "take_profit_pct": 0.35,
       "stop_loss_pct": -0.2,
       "status": "open",
       "exit": null,
       "sector": "Hedge Stack",
       "leverage": 1.0,
-      "effective_value": 3455.52,
+      "effective_value": 3453.59,
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
@@ -1064,16 +1064,16 @@ window.DASH = {
       "buy_price": 58.12,
       "shares": 59.76817,
       "cost": 3473.7,
-      "current_price": 57.5,
-      "current_value": 3436.67,
-      "pnl_pct": -1.07,
+      "current_price": 57.54,
+      "current_value": 3439.06,
+      "pnl_pct": -1.0,
       "take_profit_pct": 0.3,
       "stop_loss_pct": -0.15,
       "status": "open",
       "exit": null,
       "sector": "Hedge Stack",
       "leverage": 1.0,
-      "effective_value": 3436.67,
+      "effective_value": 3439.06,
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
@@ -1096,16 +1096,16 @@ window.DASH = {
       "buy_price": 100.505,
       "shares": 29.927715,
       "cost": 3001.44,
-      "current_price": 100.57,
-      "current_value": 3009.83,
-      "pnl_pct": 0.06,
+      "current_price": 100.575,
+      "current_value": 3009.98,
+      "pnl_pct": 0.07,
       "take_profit_pct": 0.0,
       "stop_loss_pct": -0.1,
       "status": "open",
       "exit": null,
       "sector": "Short-Term Bonds",
       "leverage": 1.0,
-      "effective_value": 3009.83,
+      "effective_value": 3009.98,
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
@@ -1125,16 +1125,16 @@ window.DASH = {
       "buy_price": 299.98,
       "shares": 10.000667,
       "cost": 3000.0,
-      "current_price": 300.605,
-      "current_value": 3006.25,
-      "pnl_pct": 0.21,
+      "current_price": 300.5,
+      "current_value": 3005.2,
+      "pnl_pct": 0.17,
       "take_profit_pct": 0.3,
       "stop_loss_pct": -0.15,
       "status": "open",
       "exit": null,
       "sector": "Broadening / Value",
       "leverage": 1.0,
-      "effective_value": 3006.25,
+      "effective_value": 3005.2,
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
@@ -1187,16 +1187,16 @@ window.DASH = {
       "buy_price": 119.67,
       "shares": 20.890784,
       "cost": 2500.0,
-      "current_price": 116.99,
-      "current_value": 2444.01,
-      "pnl_pct": -2.24,
+      "current_price": 117.035,
+      "current_value": 2444.95,
+      "pnl_pct": -2.2,
       "take_profit_pct": 0.3,
       "stop_loss_pct": -0.15,
       "status": "open",
       "exit": null,
       "sector": "Contrarian Fear",
       "leverage": 1.0,
-      "effective_value": 2444.01,
+      "effective_value": 2444.95,
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
@@ -1218,16 +1218,16 @@ window.DASH = {
       "buy_price": 71.3,
       "shares": 28.05049,
       "cost": 2000.0,
-      "current_price": 71.175,
-      "current_value": 1996.49,
-      "pnl_pct": -0.18,
+      "current_price": 71.165,
+      "current_value": 1996.21,
+      "pnl_pct": -0.19,
       "take_profit_pct": 0.3,
       "stop_loss_pct": -0.15,
       "status": "open",
       "exit": null,
       "sector": "Contrarian Fear",
       "leverage": 1.0,
-      "effective_value": 1996.49,
+      "effective_value": 1996.21,
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
@@ -1249,16 +1249,16 @@ window.DASH = {
       "buy_price": 175.23,
       "shares": 11.413455,
       "cost": 2000.0,
-      "current_price": 173.16,
-      "current_value": 1976.35,
-      "pnl_pct": -1.18,
+      "current_price": 173.1,
+      "current_value": 1975.67,
+      "pnl_pct": -1.22,
       "take_profit_pct": 0.4,
       "stop_loss_pct": -0.2,
       "status": "open",
       "exit": null,
       "sector": "Tech / AI Growth",
       "leverage": 1.0,
-      "effective_value": 1976.35,
+      "effective_value": 1975.67,
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
@@ -1277,68 +1277,68 @@ window.DASH = {
   "sleeves": [
     {
       "sleeve": "Tech/AI Growth",
-      "value": 34982.04
+      "value": 34710.26
     },
     {
       "sleeve": "AI Power - Nuclear",
-      "value": 13305.49
+      "value": 13234.8
     },
     {
       "sleeve": "Crisis Alpha - Anti-Beta",
-      "value": 8076.25
+      "value": 8082.92
     },
     {
       "sleeve": "Crisis Alpha - Trend",
-      "value": 7984.13
+      "value": 7975.71
     },
     {
       "sleeve": "Crisis Alpha - Real Assets",
-      "value": 6931.39
+      "value": 6928.73
     },
     {
       "sleeve": "Broadening / Value",
-      "value": 5515.68
+      "value": 5514.63
     },
     {
       "sleeve": "Contrarian Fear",
-      "value": 4440.5
+      "value": 4441.16
     },
     {
       "sleeve": "Crisis Alpha - Vol Decay",
-      "value": 4019.33
+      "value": 4025.21
     },
     {
       "sleeve": "Crisis Alpha - Carry Unwind",
-      "value": 3989.93
+      "value": 3990.28
     },
     {
       "sleeve": "Crisis Alpha - Down-Day Floor",
-      "value": 3488.17
+      "value": 3484.22
     },
     {
       "sleeve": "Crisis Alpha - AI Bust",
-      "value": 3436.67
+      "value": 3439.06
     },
     {
       "sleeve": "Short-Term Bonds (SGOV)",
-      "value": 3009.83
+      "value": 3009.98
     }
   ],
   "sectors": [
     {
       "sector": "Tech / AI Growth",
-      "value": 34982.04,
-      "effective": 75249.56,
+      "value": 34710.26,
+      "effective": 74601.72,
       "leverage": 2.15,
-      "pct": 75.9,
+      "pct": 75.5,
       "max_pct": 70,
       "status": "over",
       "note": "v5-expanded for 3x TQQQ/SOXL"
     },
     {
       "sector": "Nuclear / Power",
-      "value": 13305.49,
-      "effective": 13305.49,
+      "value": 13234.8,
+      "effective": 13234.8,
       "leverage": 1.0,
       "pct": 13.4,
       "max_pct": 16,
@@ -1347,9 +1347,9 @@ window.DASH = {
     },
     {
       "sector": "Broadening / Value",
-      "value": 5515.68,
-      "effective": 8025.11,
-      "leverage": 1.45,
+      "value": 5514.63,
+      "effective": 8024.06,
+      "leverage": 1.46,
       "pct": 8.1,
       "max_pct": 16,
       "status": "ok",
@@ -1357,8 +1357,8 @@ window.DASH = {
     },
     {
       "sector": "Contrarian Fear",
-      "value": 4440.5,
-      "effective": 4440.5,
+      "value": 4441.16,
+      "effective": 4441.16,
       "leverage": 1.0,
       "pct": 4.5,
       "max_pct": 12,
@@ -1367,18 +1367,18 @@ window.DASH = {
     },
     {
       "sector": "Hedge Stack",
-      "value": 37925.87,
-      "effective": 37925.87,
+      "value": 37926.13,
+      "effective": 37926.13,
       "leverage": 1.0,
-      "pct": 38.2,
+      "pct": 38.4,
       "max_pct": 45,
       "status": "ok",
       "note": ""
     },
     {
       "sector": "Short-Term Bonds",
-      "value": 3009.83,
-      "effective": 3009.83,
+      "value": 3009.98,
+      "effective": 3009.98,
       "leverage": 1.0,
       "pct": 3.0,
       "max_pct": 20,
@@ -1567,31 +1567,31 @@ window.DASH = {
     },
     {
       "date": "2026-08-18",
-      "total_value": 99204.43,
+      "total_value": 98861.95,
       "cash": 25.0,
-      "invested_value": 99179.43,
-      "day_change": -3844.11,
+      "invested_value": 98836.95,
+      "day_change": -4186.59,
       "prices": {
-        "TQQQ": 72.72,
-        "SOXL": 126.16,
-        "SMH": 567.49,
-        "DRAM": 55.365,
-        "PLTR": 173.16,
-        "NLR": 115.025,
-        "NUKZ": 66.355,
-        "IWM": 300.605,
+        "TQQQ": 72.435,
+        "SOXL": 124.12,
+        "SMH": 565.25,
+        "DRAM": 54.92,
+        "PLTR": 173.1,
+        "NLR": 114.475,
+        "NUKZ": 65.92,
+        "IWM": 300.5,
         "IWDL": 70.24,
-        "XLY": 116.99,
-        "EZU": 71.175,
-        "ZROZ": 57.5,
-        "FXY": 57.475,
-        "VIXM": 14.349,
-        "QFLR": 35.37,
-        "GLD": 399.765,
-        "GDX": 89.34,
-        "BTAL": 12.12,
-        "DBMF": 31.275,
-        "SGOV": 100.57
+        "XLY": 117.035,
+        "EZU": 71.165,
+        "ZROZ": 57.54,
+        "FXY": 57.48,
+        "VIXM": 14.37,
+        "QFLR": 35.33,
+        "GLD": 399.68,
+        "GDX": 89.29,
+        "BTAL": 12.13,
+        "DBMF": 31.242,
+        "SGOV": 100.575
       }
     }
   ],
@@ -2116,13 +2116,13 @@ window.DASH = {
       "id": "F6",
       "name": "Rates shock / duration liquidation",
       "type": "structural",
-      "score": 4.8,
-      "level": 0.973,
+      "score": 4.9,
+      "level": 0.992,
       "velocity": null,
       "trend": {
         "label": "50d trend",
-        "value": 0.0356,
-        "pct": 0.91
+        "value": 0.0394,
+        "pct": 0.933
       },
       "signals": [
         {
@@ -2131,7 +2131,7 @@ window.DASH = {
         },
         {
           "label": "10y yield level",
-          "value": 0.944
+          "value": 0.992
         }
       ],
       "theory_ids": [
@@ -2146,25 +2146,56 @@ window.DASH = {
       "trend_dir": "flat"
     },
     {
+      "id": "F4",
+      "name": "Inflation resurgence",
+      "type": "structural",
+      "score": 4.0,
+      "level": 0.831,
+      "velocity": null,
+      "trend": {
+        "label": "50d trend",
+        "value": 0.0015,
+        "pct": 0.567
+      },
+      "signals": [
+        {
+          "label": "TIP/IEF (breakevens proxy)",
+          "value": 0.831
+        }
+      ],
+      "theory_ids": [
+        "T20"
+      ],
+      "hedge_ticks": [
+        "GLD",
+        "GDX",
+        "SGOV"
+      ],
+      "sizing": null,
+      "asof": "2026-08-18",
+      "degraded": false,
+      "trend_dir": "rising"
+    },
+    {
       "id": "F5",
       "name": "War / energy shock",
       "type": "episodic",
-      "score": 3.2,
-      "level": 0.45,
+      "score": 3.1,
+      "level": 0.445,
       "velocity": {
         "label": "5d velocity",
-        "value": 0.0119,
-        "pct": 0.576
+        "value": 0.0115,
+        "pct": 0.573
       },
       "trend": null,
       "signals": [
         {
           "label": "Crude 5d momentum",
-          "value": 0.576
+          "value": 0.573
         },
         {
           "label": "Gold 1d momentum",
-          "value": 0.154
+          "value": 0.147
         }
       ],
       "theory_ids": [
@@ -2186,17 +2217,17 @@ window.DASH = {
       "name": "China / Taiwan escalation",
       "type": "episodic",
       "score": 2.8,
-      "level": 0.228,
+      "level": 0.225,
       "velocity": {
         "label": "5d velocity",
         "value": -0.0007,
-        "pct": 0.537
+        "pct": 0.533
       },
       "trend": null,
       "signals": [
         {
           "label": "Gold 3d momentum",
-          "value": 0.467
+          "value": 0.459
         },
         {
           "label": "HK equities drawdown",
@@ -2217,52 +2248,21 @@ window.DASH = {
       "trend_dir": "flat"
     },
     {
-      "id": "F4",
-      "name": "Inflation resurgence",
-      "type": "structural",
-      "score": 2.8,
-      "level": 0.615,
-      "velocity": null,
-      "trend": {
-        "label": "50d trend",
-        "value": -0.0123,
-        "pct": 0.062
-      },
-      "signals": [
-        {
-          "label": "TIP/IEF (breakevens proxy)",
-          "value": 0.615
-        }
-      ],
-      "theory_ids": [
-        "T20"
-      ],
-      "hedge_ticks": [
-        "GLD",
-        "GDX",
-        "SGOV"
-      ],
-      "sizing": null,
-      "asof": "2026-08-18",
-      "degraded": false,
-      "trend_dir": "flat"
-    },
-    {
       "id": "F8",
       "name": "Recession / growth freeze",
       "type": "structural",
-      "score": 2.8,
-      "level": 0.4,
+      "score": 2.7,
+      "level": 0.394,
       "velocity": null,
       "trend": {
         "label": "50d trend",
-        "value": 0.0299,
-        "pct": 0.571
+        "value": 0.0157,
+        "pct": 0.514
       },
       "signals": [
         {
           "label": "XLY/XLP (cyclical vs staples)",
-          "value": 0.8
+          "value": 0.788
         },
         {
           "label": "SPY below 200d MA",
@@ -2286,17 +2286,17 @@ window.DASH = {
       "name": "Yen-carry unwind",
       "type": "episodic",
       "score": 2.6,
-      "level": 0.169,
+      "level": 0.177,
       "velocity": {
         "label": "5d velocity",
-        "value": -0.0028,
-        "pct": 0.486
+        "value": -0.0027,
+        "pct": 0.49
       },
       "trend": null,
       "signals": [
         {
           "label": "Yen strength (FXY level)",
-          "value": 0.169
+          "value": 0.177
         }
       ],
       "theory_ids": [
@@ -2315,22 +2315,22 @@ window.DASH = {
       "id": "F1",
       "name": "AI / tech concentration pop",
       "type": "structural",
-      "score": 2.4,
-      "level": 0.216,
+      "score": 2.5,
+      "level": 0.226,
       "velocity": null,
       "trend": {
         "label": "50d trend",
-        "value": 0.0368,
-        "pct": 0.676
+        "value": 0.0386,
+        "pct": 0.695
       },
       "signals": [
         {
           "label": "QQQ/RSP concentration ratio",
-          "value": 0.396
+          "value": 0.415
         },
         {
           "label": "QQQ drawdown from 52w high",
-          "value": 0.036
+          "value": 0.038
         }
       ],
       "theory_ids": [
@@ -2351,12 +2351,12 @@ window.DASH = {
       "id": "F7",
       "name": "Credit stress / HY spread",
       "type": "episodic",
-      "score": 2.2,
+      "score": 2.3,
       "level": 0.004,
       "velocity": {
         "label": "5d velocity",
-        "value": -0.002,
-        "pct": 0.443
+        "value": -0.0016,
+        "pct": 0.478
       },
       "trend": null,
       "signals": [
@@ -2379,21 +2379,21 @@ window.DASH = {
     }
   ],
   "fear_greed": {
-    "index": 55,
+    "index": 54,
     "label": "Neutral"
   },
   "complacency": {
-    "index": 0.128,
-    "valuation_stretch": 0.367,
-    "fear_term": 0.35,
-    "divergence": 0.238,
-    "fear_avg": 3.6,
+    "index": 0.09,
+    "valuation_stretch": 0.358,
+    "fear_term": 0.25,
+    "divergence": 0.269,
+    "fear_avg": 4.0,
     "regime": "stress",
     "note": "Stress regime - broad equity drawdown active. Hedges should be paying.",
     "pay_check": {
       "fear_id": "F6",
       "fear_name": "Rates shock / duration liquidation",
-      "score": 4.8,
+      "score": 4.9,
       "checks": [
         {
           "ticker": "SGOV",
@@ -2435,7 +2435,7 @@ window.DASH = {
       },
       {
         "date": "2026-08-18",
-        "value": 99371.31
+        "value": 99361.99
       }
     ],
     "aligned": [
@@ -2465,13 +2465,13 @@ window.DASH = {
       },
       {
         "date": "2026-08-18",
-        "value": 99371.31
+        "value": 99361.99
       }
     ],
     "summary": {
-      "total_return_pct": -0.63,
-      "max_drawdown_pct": -1.25,
-      "sharpe_annualized": -3.39
+      "total_return_pct": -0.64,
+      "max_drawdown_pct": -1.26,
+      "sharpe_annualized": -3.43
     }
   },
   "benchmarks": {
@@ -2505,7 +2505,7 @@ window.DASH = {
         },
         {
           "date": "2026-08-18",
-          "value": 99371.31
+          "value": 99361.99
         }
       ],
       "aligned": [
@@ -2535,13 +2535,13 @@ window.DASH = {
         },
         {
           "date": "2026-08-18",
-          "value": 99371.31
+          "value": 99361.99
         }
       ],
       "summary": {
-        "total_return_pct": -0.63,
-        "max_drawdown_pct": -1.25,
-        "sharpe_annualized": -3.39
+        "total_return_pct": -0.64,
+        "max_drawdown_pct": -1.26,
+        "sharpe_annualized": -3.43
       }
     },
     "QQQ": {
@@ -2574,7 +2574,7 @@ window.DASH = {
         },
         {
           "date": "2026-08-18",
-          "value": 99633.78
+          "value": 99516.85
         }
       ],
       "aligned": [
@@ -2604,13 +2604,13 @@ window.DASH = {
         },
         {
           "date": "2026-08-18",
-          "value": 99633.78
+          "value": 99516.85
         }
       ],
       "summary": {
-        "total_return_pct": -0.37,
-        "max_drawdown_pct": -1.89,
-        "sharpe_annualized": -0.95
+        "total_return_pct": -0.48,
+        "max_drawdown_pct": -2.01,
+        "sharpe_annualized": -1.23
       }
     },
     "TQQQ": {
@@ -2643,7 +2643,7 @@ window.DASH = {
         },
         {
           "date": "2026-08-18",
-          "value": 98556.91
+          "value": 98170.73
         }
       ],
       "aligned": [
@@ -2673,13 +2673,13 @@ window.DASH = {
         },
         {
           "date": "2026-08-18",
-          "value": 98556.91
+          "value": 98170.73
         }
       ],
       "summary": {
-        "total_return_pct": -1.44,
-        "max_drawdown_pct": -5.72,
-        "sharpe_annualized": -1.16
+        "total_return_pct": -1.83,
+        "max_drawdown_pct": -6.09,
+        "sharpe_annualized": -1.45
       }
     },
     "MUU": {
@@ -2712,7 +2712,7 @@ window.DASH = {
         },
         {
           "date": "2026-08-18",
-          "value": 116237.7
+          "value": 114402.81
         }
       ],
       "aligned": [
@@ -2742,13 +2742,13 @@ window.DASH = {
         },
         {
           "date": "2026-08-18",
-          "value": 116237.7
+          "value": 114402.81
         }
       ],
       "summary": {
-        "total_return_pct": 16.24,
-        "max_drawdown_pct": -14.94,
-        "sharpe_annualized": 4.99
+        "total_return_pct": 14.4,
+        "max_drawdown_pct": -16.28,
+        "sharpe_annualized": 4.36
       }
     }
   },
@@ -3074,18 +3074,18 @@ window.DASH = {
     },
     "mode": "recommend",
     "gauge": {
-      "index": 55,
+      "index": 54,
       "label": "Neutral"
     },
     "calibration": {
       "TQQQ": {
-        "wrong": 14,
-        "total": 19,
+        "wrong": 15,
+        "total": 20,
         "last_wrong": "2026-08-18"
       },
       "NLR": {
-        "wrong": 14,
-        "total": 18,
+        "wrong": 15,
+        "total": 19,
         "last_wrong": "2026-08-18"
       },
       "BTAL": {
@@ -3097,7 +3097,7 @@ window.DASH = {
     "enabled": true
   },
   "news": {
-    "asof": "2026-08-18 17:45:50",
+    "asof": "2026-08-18 18:15:09",
     "big_stories": [
       {
         "title": "Stock Market Today: Nasdaq Weighed Down By Chip Names; Credo Plunges With Micron, Sandisk (Live Coverage)",
