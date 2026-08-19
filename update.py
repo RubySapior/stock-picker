@@ -25,6 +25,7 @@ fear_scenarios.json table (pending review). Execution is always a
 deterministic market-order engine at the live price on market-open runs.
 """
 import argparse
+import concurrent.futures
 import json
 import os
 import sys
@@ -41,6 +42,7 @@ import store
 BASE = os.path.dirname(os.path.abspath(__file__))
 DASHBOARD_JS = os.path.join(BASE, "dashboard.js")
 MIRROR = os.path.join(BASE, "mirror.json")
+NEWS_CACHE = os.path.join(BASE, "news_cache.json")
 
 USER_AGENT = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
 
@@ -60,6 +62,11 @@ BENCH_TICKERS = {
 }
 
 
+# Last-fetch meta per ticker ({px, prev}), populated by fetch_price and reused
+# by fetch_macro so a held/underlying symbol isn't fetched twice per run.
+_PRICE_META = {}
+
+
 def fetch_price(ticker):
     """Latest regular-market price for one ticker (float) via Yahoo Finance."""
     url = f"https://query1.finance.yahoo.com/v8/finance/chart/{ticker}?range=1d&interval=1d"
@@ -68,6 +75,7 @@ def fetch_price(ticker):
         data = json.load(r)
     meta = data["chart"]["result"][0]["meta"]
     price = meta.get("regularMarketPrice") or meta.get("previousClose")
+    _PRICE_META[ticker] = {"px": price, "prev": meta.get("previousClose") or price}
     return price
 
 
@@ -155,15 +163,23 @@ def ensure_ohlc_bars(tickers, today):
     if cache.get("date") != today:
         bars = {}
         cache["date"] = today
-    for t in tickers:
-        if t in bars:
-            continue
+    missing = [t for t in tickers if t not in bars]
+
+    def one(t):
+        time.sleep(0.15)
         try:
-            bars[t] = fetch_bars_ohlc(t)
-            print(f"  INDICATORS: fetched 1y bars for {t} ({len(bars[t])} sessions)")
+            b = fetch_bars_ohlc(t)
+            print(f"  INDICATORS: fetched 1y bars for {t} ({len(b)} sessions)")
+            return t, b
         except Exception as exc:
             print(f"  WARN: indicator history fetch failed for {t}: {exc}")
-        time.sleep(0.3)
+            return t, None
+
+    if missing:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=8) as ex:
+            for t, b in ex.map(one, missing):
+                if b:
+                    bars[t] = b
     cache["bars"] = bars
     save_ohlc_cache(cache)
     return bars
@@ -260,14 +276,22 @@ def dynamic_stop_pct(static_pct, gi):
 MACRO_SYMBOLS = ("SPY", "QQQ", "^VIX", "^TNX", "JPY=X", "HYG")
 
 
-def fetch_macro():
+def fetch_macro(prices=None):
     """Live macro snapshot: {symbol: {px, chg_1d_pct}}. Never raises.
 
     Failures degrade per-symbol (skipped); a total failure returns {}.
     'chg_1d_pct' is the regular-market 1-day % change (float percent).
+    prices: the dict from fetch_prices - symbols already fetched there
+    (e.g. SPY/QQQ when held or a leveraged fund's 1x underlying) are reused
+    via _PRICE_META instead of being fetched twice per run. Remaining
+    symbols are fetched concurrently with a small politeness gap.
     """
+    prices = prices or {}
     out = {}
-    for sym in MACRO_SYMBOLS:
+    todo = []
+
+    def one(sym):
+        time.sleep(0.15)
         try:
             url = (f"https://query1.finance.yahoo.com/v8/finance/chart/{sym}"
                    "?range=1d&interval=1d")
@@ -277,16 +301,31 @@ def fetch_macro():
             meta = data["chart"]["result"][0]["meta"]
             px = meta.get("regularMarketPrice") or meta.get("previousClose")
             prev = meta.get("previousClose") or px
-            if px is None:
-                continue
-            if sym == "^TNX" and abs(px) > 20:
-                px = px / 10.0
-                prev = (prev / 10.0) if prev else px
-            chg = (px / prev - 1) * 100 if prev else 0.0
-            out[sym] = {"px": round(px, 4), "chg_1d_pct": round(chg, 2)}
+            return sym, px, prev
         except Exception as exc:
             print(f"  WARN: macro fetch failed for {sym}: {exc}")
-        time.sleep(0.4)
+            return sym, None, None
+
+    def record(sym, px, prev):
+        if px is None:
+            return
+        if sym == "^TNX" and abs(px) > 20:
+            px = px / 10.0
+            prev = (prev / 10.0) if prev else px
+        chg = (px / prev - 1) * 100 if prev else 0.0
+        out[sym] = {"px": round(px, 4), "chg_1d_pct": round(chg, 2)}
+
+    for sym in MACRO_SYMBOLS:
+        meta = _PRICE_META.get(sym)
+        if meta and prices.get(sym):
+            record(sym, meta["px"], meta.get("prev"))
+        else:
+            todo.append(sym)
+
+    if todo:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=6) as ex:
+            for sym, px, prev in ex.map(one, todo):
+                record(sym, px, prev)
     return out
 
 
@@ -333,11 +372,30 @@ def compute_calibration(data, prices, today):
     wrong ticker starts discounted. Never raises.
     """
     meta = data.setdefault("meta", {})
+    rec = meta.setdefault("ai_calibration", {})
+    # One-time migration: counts accumulated before the per-verdict fix were
+    # inflated because the same verdict was re-scored against every intraday
+    # run's price (the every-6-min cron). Reset them so the track record that
+    # feeds the prompt starts clean.
+    if not meta.get("ai_calibrated_verdict_date") and rec:
+        print("  CALIBRATION: resetting pre-fix counts "
+              "(the same verdict was re-scored on every run)")
+        rec.clear()
     last = meta.get("ai_last_output")
     if not isinstance(last, dict):
-        return {}
+        return rec
+    # Score each verdict exactly ONCE, on the first run of a later day: the
+    # verdict's `date` is the day it was written, and a same-day verdict is
+    # still the current one (re-scoring it on every 6-min intraday run would
+    # inflate wrong/total again). Prior-day verdicts are scored against the
+    # next day's price, then marked done.
+    last_date = last.get("date")
+    if not last_date or last_date >= today:
+        return rec
+    if meta.get("ai_calibrated_verdict_date") == last_date:
+        return rec
+    meta["ai_calibrated_verdict_date"] = last_date
     old_px = last.get("prices") or {}
-    rec = meta.setdefault("ai_calibration", {})
     for conv in last.get("convictions") or []:
         tk = conv.get("ticker")
         old = old_px.get(tk)
@@ -488,7 +546,7 @@ def _sell_sgov(data, amount, px, today):
         # Clamp to the position's real shares instead of driving them negative.
         shares = round(pos["shares"], 6)
     pos["shares"] = round(pos["shares"] - shares, 6)
-    pos["cost"] = round(pos["cost"] - shares * px, 2)
+    pos["cost"] = round(pos["cost"] - shares * (pos["buy_price"] or px), 2)
     if pos["shares"] <= 0.01:
         # Fully drained: remove the position instead of leaving a closed
         # ghost without an exit record (which made deploy_cash_to_bonds
@@ -690,6 +748,11 @@ def rebalance_audit(data, today):
         return []
     if cfg.get("enabled", True) is False:
         return []
+    # Only a market-open run may flag: closed-market runs (weekends/holidays,
+    # the every-6-min cron after hours) would otherwise stamp the audit with
+    # a stale-priced snapshot and consume the quarterly marker early.
+    if not market_is_open():
+        return []
     year, month, _ = today.split("-")
     quarter = f"{year}Q{(int(month) - 1) // 3 + 1}"
     if data["meta"].get("last_rebalance_quarter") == quarter:
@@ -785,15 +848,25 @@ def build_benchmark(data, hist, label):
 
 
 def fetch_prices(tickers):
-    """Fetch {ticker: price} for many tickers; failures become None (logged)."""
+    """Fetch {ticker: price} for many tickers concurrently; failures become
+    None (logged). The old sequential loop with a sleep per ticker made every
+    6-min cron run wait ~N seconds on Yahoo; a bounded thread pool (same
+    pattern news.py uses) cuts that to a few waves. A small per-request gap
+    keeps the polite rate-limit spacing without serializing the batch.
+    """
     prices = {}
-    for t in tickers:
+
+    def one(t):
+        time.sleep(0.15)
         try:
-            prices[t] = fetch_price(t)
+            return t, fetch_price(t)
         except Exception as exc:
             print(f"  WARN: could not fetch {t}: {exc}")
-            prices[t] = None
-        time.sleep(0.4)
+            return t, None
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=8) as ex:
+        for t, px in ex.map(one, tickers):
+            prices[t] = px
     return prices
 
 
@@ -920,11 +993,16 @@ def compute_sharpe(history):
     return round((mean / std) * (252 ** 0.5), 2)
 
 
-def compute_cagr(total, start, start_date):
-    """Annualized return % since start_date; None when elapsed time is ~0."""
+def compute_cagr(total, start, start_date, end_date=None):
+    """Annualized return % since start_date; None when elapsed time is ~0.
+
+    end_date defaults to the last snapshot's date (the asof), never the
+    wall-clock today - a run for a past/closed day must not skew CAGR.
+    """
     from datetime import date
     try:
-        days = (date.today() - date.fromisoformat(start_date)).days
+        end_date = end_date or _dt.date.today().isoformat()
+        days = (date.fromisoformat(end_date) - date.fromisoformat(start_date)).days
     except Exception:
         days = 0
     if days <= 0 or start <= 0 or total <= 0:
@@ -947,10 +1025,12 @@ def market_state(now_utc=None):
     - preopen: Mon-Fri 09:00-09:30 ET (the 30-min window before the bell)
     - closed:  everything else (nights, pre-9am, post-4pm, weekends)
     """
-    now_utc = now_utc or _dt.datetime.utcnow()
+    now_utc = now_utc or _dt.datetime.now(_dt.timezone.utc)
     year = now_utc.year
-    dst_start = _dt.datetime.combine(_nth_sunday(year, 3, 2), _dt.time(7, 0))    # 2am EST -> 07:00 UTC
-    dst_end = _dt.datetime.combine(_nth_sunday(year, 11, 1), _dt.time(6, 0))     # 2am EDT -> 06:00 UTC
+    dst_start = _dt.datetime.combine(_nth_sunday(year, 3, 2), _dt.time(7, 0),
+                                     tzinfo=_dt.timezone.utc)   # 2am EST -> 07:00 UTC
+    dst_end = _dt.datetime.combine(_nth_sunday(year, 11, 1), _dt.time(6, 0),
+                                   tzinfo=_dt.timezone.utc)     # 2am EDT -> 06:00 UTC
     et_offset = -4 if dst_start <= now_utc < dst_end else -5
     et = now_utc + _dt.timedelta(hours=et_offset)
     if et.weekday() >= 5:
@@ -1435,6 +1515,7 @@ _UPDATER_META_KEYS = (
     "ai_ledger",
     "ai_fear_proposals",
     "ai_calibration",
+    "ai_calibrated_verdict_date",
     "fear_state",
 )
 
@@ -1565,7 +1646,7 @@ def main():
     try:
         ai_cfg = (data.get("meta") or {}).get("ai") or {}
         if ai_cfg.get("enabled"):
-            macro = fetch_macro()
+            macro = fetch_macro(prices)
             if macro:
                 print("  MACRO: " + " | ".join(
                     f"{k} {v['px']} ({v['chg_1d_pct']:+.2f}%)" for k, v in macro.items()))
@@ -1822,6 +1903,30 @@ def build_ai_payload(verdict, data, gauge=None):
     }
 
 
+def build_news_cached(positions):
+    """build_news with a once-per-calendar-day cache (news_cache.json).
+
+    The 6-min intraday cron would otherwise re-fetch every ticker's RSS feed
+    ~80x/day; feeds only meaningfully change across days, so one fetch per
+    day (same semantics as the OHLC/bench/fear caches) is enough.
+    """
+    today = time.strftime("%Y-%m-%d")
+    try:
+        with open(NEWS_CACHE, encoding="utf-8") as f:
+            cache = json.load(f)
+    except Exception:
+        cache = {}
+    if cache.get("date") == today and cache.get("news") is not None:
+        return cache["news"]
+    news = build_news(positions)
+    try:
+        with open(NEWS_CACHE, "w", encoding="utf-8") as f:
+            json.dump({"date": today, "news": news}, f, ensure_ascii=False)
+    except Exception:
+        pass
+    return news
+
+
 def write_dashboard(data, benchmark=None, rebalance=None, fear_data=None,
                     benchmarks=None, ai_verdict=None, gauge=None,
                     hedge_harvest=None, ind=None):
@@ -1946,7 +2051,8 @@ def write_dashboard(data, benchmark=None, rebalance=None, fear_data=None,
             "start_value": start,
             "max_drawdown_pct": compute_drawdown(history),
             "sharpe_annualized": compute_sharpe(history),
-            "cagr_annualized": compute_cagr(total, start, data["meta"]["start_date"]),
+            "cagr_annualized": compute_cagr(total, start, data["meta"]["start_date"],
+                                            history[-1]["date"]),
         },
         "positions": sorted(positions, key=lambda x: -x["current_value"]),
         "sleeves": sleeves,
@@ -1964,7 +2070,7 @@ def write_dashboard(data, benchmark=None, rebalance=None, fear_data=None,
         "benchmarks": benchmarks,
         "rebalance": rebalance or None,
         "ai": build_ai_payload(ai_verdict, data, gauge=gauge),
-        "news": build_news(
+        "news": build_news_cached(
             [p for p in data["positions"] if p["status"] == "open"]
         ) if any(p["status"] == "open" for p in data["positions"])
         else {"asof": None, "big_stories": [], "feed": []},
@@ -1988,7 +2094,8 @@ def print_summary(data, today, benchmark=None):
     print(f"Total value: ${total:,.2f}   (return {ret:+,.2f}%)")
     print(f"Cash: ${data['account']['cash']:,.2f}  |  Realized P&L: ${data['account']['realized_pnl']:+,.2f}")
     print(f"Max drawdown: {compute_drawdown(history)}%   |   Sharpe (annualized): {compute_sharpe(history)}")
-    cagr = compute_cagr(total, start, data["meta"]["start_date"])
+    cagr = compute_cagr(total, start, data["meta"]["start_date"],
+                        history[-1]["date"] if history else None)
     if cagr is not None:
         print(f"Est. CAGR: {cagr:+,.2f}%  (since {data['meta']['start_date']})")
     if benchmark and benchmark.get("summary"):

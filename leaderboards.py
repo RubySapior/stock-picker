@@ -89,15 +89,43 @@ def _fetch_closes(symbol):
     return out
 
 
+def _update_bench_closes(today):
+    """update.py's daily 2y closes from ohlc_cache.json "bench" (a list of
+    {date, px} per symbol) as a {sym: {date: close}} dict - but only for
+    symbols update.py actually refreshed TODAY, else {} so the caller falls
+    back to its own fetch. SPY/QQQ/TQQQ are fetched by BOTH modules; reusing
+    update's (adjusted) closes here avoids a second Yahoo fetch per symbol
+    per day and keeps the leaderboard consistent with the dashboard chart.
+    """
+    try:
+        cache = store.read_json(os.path.join(BASE, "ohlc_cache.json"), {})
+        fetched = cache.get("bench_fetched") or {}
+        bench = cache.get("bench") or {}
+        return {
+            sym: {p["date"]: p["px"] for p in rows}
+            for sym, rows in bench.items()
+            if fetched.get(sym) == today and isinstance(rows, list)
+        }
+    except Exception:
+        return {}
+
+
 def _ensure_bench_closes(symbols, cache):
     """Per-symbol 2y closes, refreshed once per calendar day. A failed fetch
     keeps the cached closes (stale fallback) so the leaderboard never loses
-    a benchmark row to a transient Yahoo error. Returns changed (bool)."""
+    a benchmark row to a transient Yahoo error. Symbols that update.py already
+    fetched today (ohlc_cache.json "bench") are reused instead of fetched
+    again. Returns changed (bool)."""
     today = time.strftime("%Y-%m-%d")
     fetched = cache.setdefault("fetched", {})
     closes = cache.setdefault("closes", {})
     changed = False
+    update_bench = _update_bench_closes(today)
     for sym in symbols:
+        if sym in update_bench:
+            closes[sym] = update_bench[sym]
+            fetched[sym] = today
+            continue
         if fetched.get(sym) == today and sym in closes:
             continue
         try:

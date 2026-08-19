@@ -300,8 +300,11 @@ function render() {
       ca.textContent = th.dataset.key===posSort.key ? (dir===1 ? '▲' : '▼') : '';
     });
   }
-  document.querySelectorAll('#posTable thead th').forEach(th =>
-    th.addEventListener('click', ()=> sortP(th.dataset.key)));
+  document.querySelectorAll('#posTable thead th').forEach(th => {
+    if (th._sortH) th.removeEventListener('click', th._sortH);
+    th._sortH = () => sortP(th.dataset.key);
+    th.addEventListener('click', th._sortH);
+  });
 
   /* ---- sector limits (incl. leverage) ---- */
   function renderSectors(){
@@ -516,9 +519,16 @@ function render() {
       idleT = setTimeout(() => wrap.classList.remove('scrolling'), 1100);
     }
     matchFeedHeight();
-    feedEl.addEventListener('scroll', () => { updFeedBar(); pokeFeed(); });
-    feedEl.addEventListener('wheel', pokeFeed, { passive: true });
-    window.addEventListener('resize', () => { matchFeedHeight(); updFeedBar(); });
+    if (!feedEl.dataset.newsWired) {
+      /* Wire scroll/wheel/resize ONCE: render() re-runs on every soft refresh
+         (Update button / 6-min countdown), and re-adding these listeners each
+         time accumulated handlers. The closures read live DOM state, so the
+         first wiring stays correct across refreshes. */
+      feedEl.dataset.newsWired = '1';
+      feedEl.addEventListener('scroll', () => { updFeedBar(); pokeFeed(); });
+      feedEl.addEventListener('wheel', pokeFeed, { passive: true });
+      window.addEventListener('resize', () => { matchFeedHeight(); updFeedBar(); });
+    }
     updFeedBar();
   }
 

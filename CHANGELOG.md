@@ -165,6 +165,51 @@ JSON verdict that feeds three deterministic layers. Nothing executes.
   -> target book diff -> "Buy TQQQ +$2k" review cards (buttons, never
   execution).
 
+## [site 0.5.6.04] — 2026-08-18
+
+### Fixed — calibration over-counting, frontend listener leaks, quarterly audit gating
+
+Engine (no algo bump — correctness fixes):
+- **AI calibration scored every run, not every verdict**: `compute_calibration`
+  compared the SAME `meta.ai_last_output` verdict against every 6-min intraday
+  run's price, inflating wrong/total (TQQQ had reached 20/25 wrong after ~8
+  days of runs). Each verdict is now scored exactly once — on the first run of
+  a later day (`meta.ai_calibrated_verdict_date` gate). Pre-fix inflated
+  counts are reset once on the first fixed run.
+- **Quarterly rebalance audit ran on closed-market days**: `rebalance_audit`
+  now waits for a market-open run before flagging (no stale-priced flags or
+  early quarter marker on weekends/holidays).
+- `compute_cagr` now anchors to the last snapshot date (the asof), not the
+  wall-clock today, so closed-day / backdated runs don't skew CAGR.
+- `_sell_sgov` writes down SGOV cost basis at `buy_price`, not the current
+  redemption price.
+- `market_state()` uses tz-aware `datetime.now(timezone.utc)` instead of the
+  deprecated naive `utcnow()` (DST math unchanged).
+
+Efficiency (network):
+- `fetch_prices` / `fetch_macro` / `ensure_ohlc_bars` now fetch concurrently
+  (bounded thread pools, small politeness gap) instead of one-serial-Yahoo-call
+  with a sleep each — every cron run's price phase drops from ~N seconds to a
+  few waves.
+- `fetch_macro` reuses prices already fetched for held/underlying symbols
+  (SPY/QQQ) instead of a second fetch per run.
+- News is day-cached (`news_cache.json`): RSS feeds refetched once per calendar
+  day instead of ~80x/day on the intraday cron (same semantics as the OHLC /
+  benchmark / fear caches).
+- Leaderboards reuse update.py's daily 2y benchmark closes (`ohlc_cache.json`
+  `bench`) for shared symbols (SPY/QQQ/TQQQ), so those aren't fetched twice per
+  day; only leaderboard-only symbols (e.g. TMF) still fetch in
+  `benchmark_cache.json`.
+
+UI:
+- **Positions table sort broke after a soft refresh**: the sort click handler
+  was re-attached on every `render()`, so a single click toggled the direction
+  twice (no visible change). Handlers are now replaced each render instead of
+  accumulated.
+- **News feed scroll/wheel + window-resize handlers accumulated on every
+  render** (soft refresh / 6-min countdown). They're now wired once and read
+  live DOM state.
+
 ## [site 0.5.6.03] — 2026-08-18
 
 ### Added — `server/` deployment snapshot for TrueNAS SCALE (Docker)
