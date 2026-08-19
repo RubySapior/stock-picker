@@ -11,6 +11,10 @@ Sources (deduplicated by strategy_id):
     returns, not anchored to the book's start date)
   - the local book (portfolio.json account.history)
 
+Benchmark closes are cached in benchmark_cache.json and refreshed once per
+calendar day (site 0.5.5.44); a failed refresh keeps the cached closes so
+the leaderboard never loses a benchmark row to a transient Yahoo error.
+
 Return math: (last_value / first_value - 1) * 100, where first_value is the
 snapshot N sessions back (or the earliest available / meta.start_value for
 all-time, matching the dashboard's total_return_pct anchor).
@@ -27,10 +31,13 @@ import time
 import urllib.parse
 import urllib.request
 
+from community import list_strategies
+import store
+
 BASE = os.path.dirname(os.path.abspath(__file__))
 PORTFOLIO = os.path.join(BASE, "portfolio.json")
-COMMUNITY = os.path.join(BASE, "community")
 LEADERBOARD = os.path.join(BASE, "leaderboards.js")
+BENCH_CACHE = os.path.join(BASE, "benchmark_cache.json")
 
 TOP_N = 10
 
@@ -48,8 +55,7 @@ CHART_URL = ("https://query1.finance.yahoo.com/v8/finance/chart/{sym}"
 
 
 def _load_portfolio():
-    with open(PORTFOLIO, encoding="utf-8") as f:
-        return json.load(f)
+    return store.read_portfolio()
 
 
 def _local_strategy(data=None):
@@ -64,32 +70,6 @@ def _local_strategy(data=None):
         "start_value": meta.get("start_value", 100000),
         "history": data.get("account", {}).get("history", []),
     }
-
-
-def _community_strategies():
-    """Published + version-snapshot strategies under community/strategies/."""
-    out = []
-    root = os.path.join(COMMUNITY, "strategies")
-    if not os.path.isdir(root):
-        return out
-    for sid in sorted(os.listdir(root)):
-        stats = os.path.join(root, sid, "stats.json")
-        if not os.path.isfile(stats):
-            continue
-        try:
-            with open(stats, encoding="utf-8") as f:
-                s = json.load(f)
-            out.append({
-                "strategy_id": s.get("strategy_id", sid),
-                "name": s.get("name", sid),
-                "author": s.get("author", "unknown"),
-                "kind": s.get("kind"),
-                "start_value": s.get("start_value", 0),
-                "history": s.get("history", []),
-            })
-        except Exception:
-            continue
-    return out
 
 
 def _fetch_closes(symbol):
@@ -109,6 +89,30 @@ def _fetch_closes(symbol):
     return out
 
 
+def _ensure_bench_closes(symbols, cache):
+    """Per-symbol 2y closes, refreshed once per calendar day. A failed fetch
+    keeps the cached closes (stale fallback) so the leaderboard never loses
+    a benchmark row to a transient Yahoo error. Returns changed (bool)."""
+    today = time.strftime("%Y-%m-%d")
+    fetched = cache.setdefault("fetched", {})
+    closes = cache.setdefault("closes", {})
+    changed = False
+    for sym in symbols:
+        if fetched.get(sym) == today and sym in closes:
+            continue
+        try:
+            closes[sym] = _fetch_closes(sym)
+            fetched[sym] = today
+            changed = True
+        except Exception as exc:
+            if sym in closes:
+                print(f"  WARN: benchmark refresh failed for {sym} - "
+                      f"using cached closes: {exc}")
+            else:
+                print(f"  WARN: benchmark fetch failed for {sym}: {exc}")
+    return changed
+
+
 def _split_benchmark(spec):
     """'TQQQ60/TMF40' -> [('TQQQ', 0.6), ('TMF', 0.4)]; 'SPY' -> [('SPY', 1.0)]."""
     parts = []
@@ -124,21 +128,23 @@ def _split_benchmark(spec):
     return [(t, w / total) for t, w in parts]
 
 
-def _benchmark_history(spec, anchor=100000.0):
+def _benchmark_history(spec, closes_cache):
     """Daily-rebalanced history for a benchmark spec over the FULL fetched range.
 
     Normalized to start at `anchor` so values are comparable across windows;
     window returns (weekly/monthly/...) are trailing over the full history,
     and all-time = the whole 2y fetch (real return, not anchored to the
-    book's start date).
+    book's start date). Closes come from the shared benchmark cache
+    (benchmark_cache.json, refreshed once per calendar day).
     """
     legs = _split_benchmark(spec)
     series = {}
     for t, _w in legs:
-        series[t] = _fetch_closes(t)
+        series[t] = closes_cache.get(t) or {}
     dates = sorted({d for s in series.values() for d in s})
     if not dates:
         return []
+    anchor = 100000.0
     value = anchor
     prev = {}
     history = []
@@ -157,11 +163,11 @@ def _benchmark_history(spec, anchor=100000.0):
     return history
 
 
-def _benchmark_strategies(benchmarks):
+def _benchmark_strategies(benchmarks, closes_cache):
     out = []
     for spec in benchmarks or []:
         try:
-            hist = _benchmark_history(spec)
+            hist = _benchmark_history(spec, closes_cache)
         except Exception:
             hist = []
         if not hist:
@@ -251,14 +257,19 @@ def build_leaderboards(data=None):
     if data is None:
         data = _load_portfolio()
     meta = data.get("meta", {})
+    benchmarks = (meta.get("community") or {}).get("benchmarks") or []
+    symbols = sorted({t for spec in benchmarks for t, _w in _split_benchmark(spec)})
+    cache = store.read_json(BENCH_CACHE, {})
+    if _ensure_bench_closes(symbols, cache):
+        store.write_json(BENCH_CACHE, cache, indent=1)
     strategies = []
     seen = set()
-    for s in _community_strategies() + [_local_strategy(data)]:
+    for s in list_strategies() + [_local_strategy(data)]:
         if s["strategy_id"] in seen:
             continue
         seen.add(s["strategy_id"])
         strategies.append(s)
-    for b in _benchmark_strategies((meta.get("community") or {}).get("benchmarks")):
+    for b in _benchmark_strategies(benchmarks, cache.get("closes") or {}):
         if b["strategy_id"] not in seen:
             seen.add(b["strategy_id"])
             strategies.append(b)

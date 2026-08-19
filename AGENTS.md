@@ -12,18 +12,21 @@ site opens on the landing page (`index.html`); the dashboard is
 |------|------|-------|
 | `portfolio.json` | Source of truth: meta, account/cash, positions, theories, events. | **YES** — hand-edit to rebalance / add / remove positions |
 | `update.py` | Daily updater: fetch prices → check exits → deploy cash → snapshot → write `dashboard.js`. | **YES** — all data-mutating logic |
+| `store.py` | Locked JSON persistence (site 0.5.6.00): the single write-path for `portfolio.json` and other mutable JSON. `update_portfolio(mutator)` = locked read-modify-write (threading lock + best-effort cross-process lock, msvcrt/fcntl) so concurrent serve.py requests can't interleave; writes are tmp-file + atomic rename. Full transactional semantics arrive with SQLite in the NAS hosting step. | **YES** — storage layer |
+| `community.py` | Community registry + copy contracts (site 0.5.6.00): `sync_version_snapshots()` + `build_mirror()` (moved out of `update.py`) and `list_strategies()` (moved out of `leaderboards.py`) — the publish/follow API (NAS hosting step) builds on this module without running the whole daily update. | **YES** — importable by update.py, leaderboards.py, future server |
 | `news.py` | Fetch Yahoo RSS headlines for held tickers, tag theories, score sentiment (VADER). | **YES** |
 | `fears.py` | Market Fear Gauge: scores crash scenarios 1-5 (structural/episodic), complacency index, recommendation-only hedge sizing. Reads the EDITABLE scenario table; persists AI fear proposals/edits. | **YES** |
 | `fear_scenarios.json` | **EDITABLE fear table** (algo 0.6.1): F1-F8 scenario definitions (name, type, components, velocity/trend, hedge_ticks, theory links, optional `sizing`) + AI-staged proposals flagged `pending_review` (skipped by the scorer until a human clears the flag and writes components). | **YES** — hand-edit to add/tune fears |
 | `ai_sentiment.py` | AI Sentiment Decision Layer (algo 0.6.1.00): change-detect LLM verdict call (prior verdict + fact deltas embedded; outputs ONLY changes — omission = agreement). Provider-routed: **gemini** via OpenRouter — `google/gemini-3.7-flash` extended thinking — / zen / deepseek. Tier A market data + CNN Fear&Greed crowding gate + calibration track record. Rotations (paired sell/buy), fear proposals/edits (staged into `fear_scenarios.json`), schema validation, theories/fears/bullish/rotation layer translators. **WIRED into `update.py`, ENABLED** (`meta.ai.enabled: true`, `meta.ai.mode: recommend`). | **YES** — engine layer; must stay read-only (evidence/events/fear-blend/orders-refresh only) |
 | `vader/` | Vendored MIT-licensed VADER sentiment engine (`vader.py` + `vader_lexicon.txt` + `emoji_utf8_lexicon.txt` + `LICENSE`). Third-party code, kept verbatim; `news.py` maps its `compound` score to pos/neg/neutral. | **NO** — upstream dependency |
 | `dashboard.js` | **AUTO-GENERATED** output consumed by the browser (`window.DASH = {...}`). | **NO** — overwritten on every `update.py` run; edit `update.py`/`portfolio.json` instead |
-| `mirror.json` | **AUTO-GENERATED** copy contract (site 0.5.5.29): the book as `positions[{ticker, sleeve, buy_date, shares, current_value, pct_of_book, theory_ids}]` + `changes[]` (normalized trade log: ts/type/ticker/action/shares/price/amount from `events[]`). What a follower replays to mirror the book exactly. | **NO** — written by `build_mirror()` in `update.py` every run |
-| `leaderboards.py` | Community Top-10 leaderboard builder (weekly 5d / monthly 21d / quarterly 63d / yearly 252d / all-time since inception). Sources (deduped): `community/strategies/*/stats.json` + benchmark strategies (SPY / QQQ / TQQQ / TQQQ60-TMF40 — 2y Yahoo daily closes normalized to 100000 at their own first close; trailing windows over the full history) + the local book. | **YES** |
+| `mirror.json` | **AUTO-GENERATED** copy contract (site 0.5.5.29): the book as `positions[{ticker, sleeve, buy_date, shares, current_value, pct_of_book, theory_ids}]` + `changes[]` (normalized trade log: ts/type/ticker/action/shares/price/amount from `events[]`). What a follower replays to mirror the book exactly. | **NO** — written by `build_mirror()` in `community.py` every run |
+| `leaderboards.py` | Community Top-10 leaderboard builder (weekly 5d / monthly 21d / quarterly 63d / yearly 252d / all-time since inception). Sources (deduped): `community/strategies/*/stats.json` + benchmark strategies (SPY / QQQ / TQQQ / TQQQ60-TMF40 — 2y Yahoo daily closes normalized to 100000 at their own first close; trailing windows over the full history) + the local book. Benchmark closes are cached in `benchmark_cache.json`, refreshed once per calendar day with stale fallback (site 0.5.6.00). | **YES** |
 | `leaderboards.js` | **AUTO-GENERATED** `window.LEADERBOARDS = {...}` — script-tag format like `dashboard.js` so it loads from `file://`. | **NO** — written by `leaderboards.py` every `update.py` run |
 | `community.js` | Shared leaderboard renderer (tab switcher + top-10 table) used by the Community section on `index.html` and `dashboard.html`. | **YES** — UI only |
 | `leaderboards.html` + `lbpage.js` | Community Leaderboards site: full page (mascot header + nav, hero stat cards, tabbed Top-10 table, copy explainer, footer) reading the same `leaderboards.js` via `community.js`. | **YES** — UI only |
 | `community/` | Leaderboard sources (site 0.5.5.33): `strategies/<id>/stats.json` (`{strategy_id, name, author, kind, start_value, start_date, history[]}` — snapshots also carry `parent_id` + `positions[]`). Written by `leaderboards.py` (benchmarks) and `update.py` (version snapshots, gated by `meta.community.snapshot_versions` — an experiment, normally OFF). `users.json` registry + publish/follow API planned. | — |
+| `server/` | **Frozen TrueNAS SCALE deployment snapshot** (site 0.5.6.03): self-contained copy of the project + `Dockerfile` / `entrypoint.sh` / `.dockerignore` / `README.md`. One container runs engine + `serve.py` + opencode web; deliberately isolated from dev edits — update it by re-copying files into the NAS dataset + restart, never via dev changes. Gitignored (`server/`). | **YES** — copy-edit only |
 | `app.js` | Renders `window.DASH` into every section of `dashboard.html`. | **YES** — UI only |
 | `dashboard.html` | Dashboard page skeleton; the sections `app.js` fills. | **YES** — UI only |
 | `index.html` + `landing.js` | Landing/marketing page (the site's default page — GitHub Pages, serve.py and double-click all land here): hero with live stats from `dashboard.js`, features, how-it-works, roadmap, and a sign-up preview (localStorage only, no backend — UI rehearsal for v1 accounts). | **YES** — UI only |
@@ -31,7 +34,7 @@ site opens on the landing page (`index.html`); the dashboard is
 | `trades.html` + `trades.js` | Trade Archive page: every recorded event (exits, re-entries, cash deploys, rebalance flags) in a plain table with per-second timestamps. Reads the same `dashboard.js`. | **YES** — UI only |
 | `help.html` + `help.js` | Help site: plain-language notes (Simple tab) + the math and details (Advanced tab). Static explainer, no data. | **YES** — UI only |
 | `styles.css` | All styling (dark theme, panels, pills, charts). | **YES** |
-| `serve.py` | Optional local server. Exposes `POST /refresh` (Update button), `POST /mode`, `POST /book` (per-proposal order booking). | **YES** |
+| `serve.py` | Optional local server. Exposes `POST /refresh` (Update button), `POST /mode`, `POST /book` (per-proposal order booking). All portfolio.json mutations go through `store.update_portfolio` (locked RMW). | **YES** |
 | `run.bat` | Double-click shortcut that runs `python update.py`. | **YES** |
 
 ## Data flow
@@ -83,7 +86,7 @@ user-deemed milestones.
   - `PP` (patch, two digits) — the ONLY part the AI bumps: every prompt's
     UI change set increments it (0.5.4.00 → 0.5.4.01 → 0.5.4.02); it resets
     to 00 when the user bumps the feature digit.
-  - Current baseline: **v0.5.5.28**.
+  - Current baseline: **v0.5.6.03**.
 - **Engine (algo) bumps RARELY** — the user announces them explicitly. UI
   tweaks and small data-rule edits do NOT bump the engine.
 - Roadmap: **UI v1** = accounts/sign-in with a personalized AI per user
@@ -91,7 +94,13 @@ user-deemed milestones.
   (real-time sentiment + AI analysis, weekly rebalance). Versions approach
   1.0 only as these goals are hit. See CHANGELOG.md "Roadmap & version
   policy".
-- Header displays the versions as "UI v0.5.4.01 · Engine vX.Y.Z" (JSON keys
+- Hosting path (CHANGELOG.md): Tier 0 = GitHub Pages static (current, stays
+  working); Tier 1 = i3 NAS backend (step 2 goal: `api.py` + SQLite +
+  publish/follow queue + frontend `/api/health` probe with static-file
+  fallback); Tier 2 = professional hosting (same `server/` code, SQLite →
+  managed DB). Step 1 shipped in site 0.5.6.00 (`store.py` + `community.py`
+  + benchmark cache).
+- Header displays the versions as "UI v0.5.6.00 · Engine v0.6.1" (JSON keys
   remain `site`/`algo`).
 - Each bump gets a `CHANGELOG.md` entry under `[site 0.5.F.PP]` /
   `[algo x.y.z]` sections.

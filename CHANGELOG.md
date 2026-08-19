@@ -165,7 +165,167 @@ JSON verdict that feeds three deterministic layers. Nothing executes.
   -> target book diff -> "Buy TQQQ +$2k" review cards (buttons, never
   execution).
 
-## [Unreleased]
+## [site 0.5.6.03] — 2026-08-18
+
+### Added — `server/` deployment snapshot for TrueNAS SCALE (Docker)
+
+- New self-contained `server/` folder: a frozen copy of the whole project
+  (site 0.5.6.03) plus `Dockerfile`, `entrypoint.sh`, `.dockerignore` and a
+  TrueNAS deployment README. One container runs the engine + `serve.py` +
+  opencode web, so the NAS deployment is isolated from dev changes in the
+  parent folder — nothing in the daily dev workflow can break the running
+  server; code updates are a deliberate copy + restart.
+- `entrypoint.sh` runs three processes: `serve.py` (PORT env, already
+  supported by serve.py), an hourly `update.py` loop (interval via
+  `UPDATE_INTERVAL`, self-gating market hours), and `opencode web` as the
+  persistent front process (basic auth via `OPENCODE_SERVER_PASSWORD`).
+- No engine changes: `market_is_open()` already computes NYSE hours from UTC
+  with manual DST (update.py), so the container timezone is cosmetic only
+  (`TZ=America/New_York` for readable logs).
+
+## [site 0.5.6.02] — 2026-08-18
+
+### Fixed — three concurrency / write-integrity audit findings (issues #35-37)
+1. **`/refresh` single-flight guard (#35)**: serve.py now runs every
+   state-changing endpoint (refresh/mode/book/execute_all/bias/park) under
+   one non-blocking lock held for the whole handler. A second request while
+   an update.py subprocess is in flight gets `409 {"ok": false, "error":
+   "update already running"}` instead of spawning a concurrent updater
+   (double AI spend, double rate-limit risk, last-writer-wins on
+   portfolio.json).
+2. **update.py merge-at-write, no more stale clobber (#36)**: main() used
+   to read the whole portfolio once, mutate it in memory for minutes, then
+   write the stale copy back - a `/book`/`/execute_all`/`/mode`/`/bias`/
+   `/park` landing mid-run succeeded via its own locked write and was then
+   silently overwritten (a human-approved order could vanish). The final
+   write is now `persist_merged()`: a locked atomic re-read -> merge ->
+   write that overlays only the sections update.py owns (positions/account/
+   events/theories + limits/last_rebalance_quarter/ai_state/ai_last_output/
+   ai_ledger/ai_fear_proposals/ai_calibration/fear_state). serve.py's
+   park_mode / ai.mode / ai.user_bias and any fresh pending orders (minus
+   ones already executed this run, so nothing double-executes) survive.
+3. **fear_scenarios.json written locked + atomic (#37)**: apply_fear_proposals
+   wrote the one hand-editable table with a plain `open(..., "w")` - a crash
+   mid-write could corrupt it and load_scenarios() would silently fall back
+   to embedded defaults, destroying human edits and staged AI proposals. It
+   now persists through store.update_json (locked read-modify-write,
+   tmp-file + atomic rename).
+
+## [site 0.5.6.01] — 2026-08-17
+
+### Fixed — three audit findings (money math + fetch efficiency)
+1. **`_sell_sgov` could mint money (re-entry funding)**: the redemption was
+   never clamped to the SGOV position's real shares — a re-entry need larger
+   than dry powder drove shares negative, removed the position, and credited
+   cash for SGOV value that didn't exist (book value inflated by
+   `need - sgov_value`). Shares are now clamped, and the function returns the
+   cash ACTUALLY available for the caller to size from.
+2. **Re-entry consumed without re-entering**: when a reclaim passed but less
+   than $100 was available (or SGOV couldn't cover), the theory was still
+   re-affirmed, `reentry_resolved` set, and "re-entered @" printed — the
+   one-shot re-entry silently died with no position opened. Resolution now
+   happens ONLY inside the `buys >= 100` branch; a shortfall keeps the claim
+   open and retries on a later run.
+3. **Failed price fetch revalued positions at original cost**: a Yahoo
+   429/timeout on one ticker priced it at `buy_price` in the daily snapshot,
+   fabricating drawdown/day-change/Sharpe (the dashboard itself already used
+   last-known prices — the snapshot feed did not). Snapshot now falls back
+   to the last snapshot's price before `buy_price`.
+
+### Changed — cut ~30 Yahoo calls per run (6-min cron was doing ~70/run)
+1. **fears.py history is now cached once per calendar day**
+   (`fear_history_cache.json`, stale fallback on refresh failure) — the
+   gauge previously re-downloaded 2y history for ~24 scenario symbols on
+   EVERY run.
+2. **Benchmark history cached once per day** inside `ohlc_cache.json`
+   ("bench" key, same daily semantics as the indicator bars, stale
+   fallback) and each benchmark now builds in its own try/except — one
+   failing ticker no longer drops all four comparison series.
+3. **`fetch_macro` only runs when the AI layer is enabled** (its only
+   consumer) — 6 calls saved per run when AI is off.
+
+## [site 0.5.6.00] — 2026-08-17
+
+### Changed — hosting-ready layering (hosting path step 1)
+1. **`store.py` (new)**: single locked write-path for the JSON files the
+   site mutates. Every serve.py read-modify-write now goes through
+   `update_portfolio()` under a per-path threading lock + best-effort
+   cross-process file lock (msvcrt on Windows / fcntl on POSIX), so
+   concurrent `/book`, `/mode`, `/bias`, `/park` requests can no longer
+   interleave and corrupt portfolio.json. Writes are tmp-file + atomic
+   rename; a failed rename falls back to a direct write.
+2. **`community.py` (new)**: `sync_version_snapshots()` + `build_mirror()`
+   moved out of update.py, `list_strategies()` moved out of
+   leaderboards.py — the publish/follow API (hosting path step 2) can build
+   on one importable module without running the whole daily update.
+3. **Benchmark caching**: leaderboards.py no longer re-fetches 2y of Yahoo
+   closes for SPY/QQQ/TQQQ/TMF on every run. Closes live in
+   `benchmark_cache.json`, refreshed once per calendar day; a failed
+   refresh keeps the cached closes (stale fallback) so the leaderboard
+   never loses a benchmark row to a transient Yahoo error.
+4. **Behavior unchanged**: same data contracts, same outputs (dashboard.js,
+   leaderboards.js, mirror.json regenerated identically) — pure refactor.
+
+## [algo 0.6.1] — 2026-08-17
+
+Engine version officially designated **v0.6.1**: the AI Sentiment Decision
+Layer milestone (change-detect verdicts, human-approved market orders,
+conviction-scaled sizing, rotations, fear proposals) already shipped and
+logged under [algo 0.6.1.00] below. `meta.version.algo` now reflects it.
+
+## Hosting path — GH Pages → i3 NAS → professional (2026-08-17)
+
+Deployment tiers, one codebase:
+- **Tier 0 — GitHub Pages (testing):** static `*.js` data files only, zero
+  backend — today's model, stays working.
+- **Tier 1 — i3 NAS (near goal):** a `server/` package: HTTP API + SQLite +
+  a publish job queue + scheduler. Writes live; also regenerates the static
+  files for the GH Pages sync.
+- **Tier 2 — professional (future):** same `server/` package; SQLite →
+  Postgres, proper auth + queue workers.
+
+Frontend rule: the page probes `/api/health`; when absent (GH Pages) it
+falls back to reading the static JS files — one app.js, two data paths.
+Publishing is a queue, not a request — an i3 handles a worker fine, the
+same design scales to Celery/Redis later.
+
+**Step 1 (done, site 0.5.6.00):** `store.py` + `community.py` extraction,
+serve.py locking, benchmark caching. **Step 2 (goal, tracked as a GitHub
+issue):** `api.py` + SQLite store impl + publish/follow endpoints +
+frontend health probe. **Step 3:** professional hosting swap (SQLite →
+managed DB, auth, queue workers).
+
+## [site 0.5.5.43] — 2026-08-17
+
+### Fixed — mirror copy contract + SGOV lifecycle
+1. **mirror.json sells mislabeled as buys**: `build_mirror()` classified an
+   event's action purely by reason (`take_profit`/`stop_loss` = sell,
+   everything else = buy) — so `market_order` sells and scheduled-exit
+   sells were recorded as **buys** in the copy contract, and a follower
+   replaying `mirror.json` would have bought on your sells. Events now
+   carry an explicit `action` field (sell/buy) at creation (scheduled
+   exits, executed order buys and sells); `build_mirror()` reads it first
+   and falls back to the reason heuristic only for legacy events.
+2. **SGOV ghost position after full drain**: `_sell_sgov()` marked a fully
+   drained SGOV position `closed` without an `exit` record, so the next
+   run's `deploy_cash_to_bonds()` could not find an open SGOV and spawned a
+   **duplicate SGOV position** (fresh buy_date/cost basis) while the $0
+   ghost stayed on the dashboard. A fully drained SGOV is now removed from
+   the book entirely; the next park recreates it cleanly.
+
+## [site 0.5.5.42] — 2026-08-17
+
+### Fixed — three leaderboard bugs
+1. **Blank board on load failure**: `lbpage.js` only injected `community.js`
+   inside `leaderboards.js`'s `onload` — if the data file failed to load,
+   the table area stayed completely empty. Now `onerror` injects it too, so
+   the empty-state message renders.
+2. **Double fetch**: on the leaderboards page, `lbpage.js` (hero cards) and
+   `community.js` (tables) each fetched `leaderboards.js`. `community.js`
+   now reuses `window.LEADERBOARDS` when it's already loaded.
+3. **Unvalidated persisted tab**: a stale/corrupt `aipp.lb.v1` value would
+   show an empty board with no tab highlighted. The saved window is now
+   validated against the known list.
 
 ## [site 0.5.5.41] — 2026-08-17
 

@@ -24,8 +24,11 @@ import os
 import time
 import urllib.request
 
+import store
+
 BASE = os.path.dirname(os.path.abspath(__file__))
 SCENARIO_FILE = os.path.join(BASE, "fear_scenarios.json")
+FEAR_HIST_CACHE = os.path.join(BASE, "fear_history_cache.json")
 
 USER_AGENT = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
 RNG = "2y"          # history window (percentile bases need 1y + 50/200d warmup)
@@ -177,57 +180,59 @@ def apply_fear_proposals(verdict, today):
     supplies name, rationale, watch signals and hedge ticks only.
 
     Returns the pending proposals list for the dashboard, or [].
+    Persisted via store.update_json - locked, tmp+atomic-rename (issue #37),
+    never a raw unlocked write of the hand-edited table.
     """
     if not verdict:
         return []
-    try:
-        with open(SCENARIO_FILE, encoding="utf-8") as f:
-            table = json.load(f)
-    except Exception:
-        table = {"fears": list(_DEFAULT_FEARS), "proposals": []}
-    fears = table.setdefault("fears", [])
-    changed = False
     pending = []
-    for p in verdict.get("fear_proposals") or []:
-        name = str(p.get("name") or "").strip()[:80]
-        if not name:
-            continue
-        if any(f["name"] == name for f in fears):
-            continue
-        fid = _next_fear_id(fears)
-        entry = {
-            "id": fid, "name": name,
-            "type": p.get("type") if p.get("type") in ("structural", "episodic") else "structural",
-            "theory_ids": [], "hedge_ticks": [str(t).upper() for t in (p.get("hedge_ticks") or [])],
-            "components": [],
-            "velocity": {"a": "QQQ", "sign": -1, "n": 5},
-            "pending_review": True, "source": "ai", "created": today,
-            "note": str(p.get("rationale") or "")[:300],
-            "watch_signals": [str(s)[:80] for s in (p.get("watch_signals") or [])][:6],
-        }
-        fears.append(entry)
-        pending.append(entry)
-        changed = True
-        print(f"  FEAR PROPOSAL {fid}: {name} staged in fear_scenarios.json (pending review)")
-    for e in verdict.get("fear_edits") or []:
-        fid = str(e.get("id") or "").upper()
-        f = next((x for x in fears if x.get("id") == fid), None)
-        if not f:
-            continue
-        note = str(e.get("note") or "").strip()[:200]
-        if e.get("name"):
-            f["name"] = str(e["name"]).strip()[:80]
+
+    def mutate(table):
+        nonlocal pending
+        if table is None:
+            table = {"fears": list(_DEFAULT_FEARS), "proposals": []}
+        fears = table.setdefault("fears", [])
+        changed = False
+        for p in verdict.get("fear_proposals") or []:
+            name = str(p.get("name") or "").strip()[:80]
+            if not name:
+                continue
+            if any(f["name"] == name for f in fears):
+                continue
+            fid = _next_fear_id(fears)
+            entry = {
+                "id": fid, "name": name,
+                "type": p.get("type") if p.get("type") in ("structural", "episodic") else "structural",
+                "theory_ids": [], "hedge_ticks": [str(t).upper() for t in (p.get("hedge_ticks") or [])],
+                "components": [],
+                "velocity": {"a": "QQQ", "sign": -1, "n": 5},
+                "pending_review": True, "source": "ai", "created": today,
+                "note": str(p.get("rationale") or "")[:300],
+                "watch_signals": [str(s)[:80] for s in (p.get("watch_signals") or [])][:6],
+            }
+            fears.append(entry)
+            pending.append(entry)
             changed = True
-        if e.get("hedge_ticks"):
-            f["hedge_ticks"] = [str(t).upper() for t in e["hedge_ticks"]][:8]
-            changed = True
-        if note:
-            f["note"] = note
-            changed = True
-        print(f"  FEAR EDIT {fid}: {e.get('name') and ('name, ') or ''}{e.get('hedge_ticks') and 'hedge_ticks, ' or ''}{note and 'note' or ''} applied")
-    if changed:
-        with open(SCENARIO_FILE, "w", encoding="utf-8") as f:
-            json.dump(table, f, indent=2, ensure_ascii=False)
+            print(f"  FEAR PROPOSAL {fid}: {name} staged in fear_scenarios.json (pending review)")
+        for e in verdict.get("fear_edits") or []:
+            fid = str(e.get("id") or "").upper()
+            f = next((x for x in fears if x.get("id") == fid), None)
+            if not f:
+                continue
+            note = str(e.get("note") or "").strip()[:200]
+            if e.get("name"):
+                f["name"] = str(e["name"]).strip()[:80]
+                changed = True
+            if e.get("hedge_ticks"):
+                f["hedge_ticks"] = [str(t).upper() for t in e["hedge_ticks"]][:8]
+                changed = True
+            if note:
+                f["note"] = note
+                changed = True
+            print(f"  FEAR EDIT {fid}: {e.get('name') and ('name, ') or ''}{e.get('hedge_ticks') and 'hedge_ticks, ' or ''}{note and 'note' or ''} applied")
+        return table if changed else None
+
+    store.update_json(SCENARIO_FILE, mutate, None)
     return pending
 
 
@@ -249,6 +254,31 @@ def fetch_history(symbol, rng=RNG):
         out.append({"date": time.strftime("%Y-%m-%d", time.gmtime(ts[i])),
                     "px": float(adj[i])})
     return out
+
+
+def ensure_fear_history(symbols, today):
+    """2y close history per scenario symbol, fetched once per calendar day
+    (cached in fear_history_cache.json). A failed refresh keeps the cached
+    series (stale fallback) so the gauge never loses a scenario to a
+    transient Yahoo error; symbols with no data at all stay missing and are
+    reported as degraded by build_fears(). Returns {symbol: history}."""
+    cache = store.read_json(FEAR_HIST_CACHE, {})
+    hist_map = cache.setdefault("history", {})
+    fetched = cache.setdefault("fetched", {})
+    missing = [s for s in symbols if fetched.get(s) != today or s not in hist_map]
+    if missing:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=8) as ex:
+            fut = {ex.submit(fetch_history, s): s for s in missing}
+            for f in concurrent.futures.as_completed(fut):
+                sym = fut[f]
+                try:
+                    hist_map[sym] = f.result()
+                    fetched[sym] = today
+                except Exception as exc:
+                    if sym not in hist_map:
+                        print(f"  WARN: fear history fetch failed for {sym}: {exc}")
+        store.write_json(FEAR_HIST_CACHE, cache, indent=1)
+    return hist_map
 
 
 def _scenario_symbols(scenarios):
@@ -557,17 +587,8 @@ def build_fears(data, news_scores=None):
     """
     today = time.strftime("%Y-%m-%d")
     scenarios = load_scenarios()
-    hist_map = {}
-    degraded = []
-    symbols = _scenario_symbols(scenarios)
-    with concurrent.futures.ThreadPoolExecutor(max_workers=8) as ex:
-        fut = {ex.submit(fetch_history, s): s for s in symbols}
-        for f in concurrent.futures.as_completed(fut):
-            sym = fut[f]
-            try:
-                hist_map[sym] = f.result()
-            except Exception as exc:
-                degraded.append(sym)
+    hist_map = ensure_fear_history(_scenario_symbols(scenarios), today)
+    degraded = [s for s in _scenario_symbols(scenarios) if s not in hist_map]
 
     fears = []
     for fear in scenarios:

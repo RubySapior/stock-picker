@@ -34,10 +34,11 @@ import datetime as _dt
 
 from news import build_news
 from fears import build_fears, apply_ai_witnesses, apply_fear_proposals
+from community import sync_version_snapshots, build_mirror
 import ai_sentiment
+import store
 
 BASE = os.path.dirname(os.path.abspath(__file__))
-PORTFOLIO = os.path.join(BASE, "portfolio.json")
 DASHBOARD_JS = os.path.join(BASE, "dashboard.js")
 MIRROR = os.path.join(BASE, "mirror.json")
 
@@ -166,6 +167,32 @@ def ensure_ohlc_bars(tickers, today):
     cache["bars"] = bars
     save_ohlc_cache(cache)
     return bars
+
+
+def ensure_bench_history(tickers, today):
+    """2y adjusted-close series per benchmark ticker, fetched once per
+    calendar day (cached inside ohlc_cache.json under "bench", same daily
+    semantics as the indicator bars). A failed refresh keeps the previous
+    series (stale fallback) so the comparison chart never loses a benchmark
+    to a transient Yahoo error. Returns {ticker: [{date, px}, ...]}."""
+    cache = load_ohlc_cache()
+    bench = cache.setdefault("bench", {})
+    fetched = cache.setdefault("bench_fetched", {})
+    changed = False
+    for t in tickers:
+        if fetched.get(t) == today and t in bench:
+            continue
+        try:
+            bench[t] = fetch_chart_history(t)
+            fetched[t] = today
+            changed = True
+            print(f"  BENCH: refreshed 2y history for {t} ({len(bench[t])} sessions)")
+        except Exception as exc:
+            if t not in bench:
+                print(f"  WARN: benchmark history fetch failed for {t}: {exc}")
+    if changed:
+        save_ohlc_cache(cache)
+    return bench
 
 
 def _sma(vals, n):
@@ -440,22 +467,35 @@ def hedge_harvester(data, ind, fear_data, today):
 
 
 def _sell_sgov(data, amount, px, today):
-    """Redeem SGOV shares to free up `amount` of raw cash (re-entry funding)."""
+    """Redeem SGOV shares to free up to `amount` of raw cash (re-entry funding).
+
+    Never lets SGOV shares go negative: if dry powder can't cover the full
+    amount, only what exists is redeemed (a negative share count would credit
+    cash for SGOV value that doesn't exist - money from nothing). Returns the
+    cash ACTUALLY available after the redemption; the caller must size its
+    purchase from that, not from the requested amount.
+    """
     pos = next((p for p in data["positions"]
                 if p["ticker"] == STB_TICKER and p["status"] == "open"), None)
     if pos is None:
-        return 0.0
+        return round(data["account"]["cash"], 2)
     need = round(amount - data["account"]["cash"], 2)
     if need <= 0:
-        return round(amount, 2)
+        return round(data["account"]["cash"], 2)
     px = px or pos["buy_price"]
     shares = round(need / px, 6)
+    if shares > pos["shares"]:
+        # Clamp to the position's real shares instead of driving them negative.
+        shares = round(pos["shares"], 6)
     pos["shares"] = round(pos["shares"] - shares, 6)
     pos["cost"] = round(pos["cost"] - shares * px, 2)
     if pos["shares"] <= 0.01:
-        pos["status"] = "closed"
+        # Fully drained: remove the position instead of leaving a closed
+        # ghost without an exit record (which made deploy_cash_to_bonds
+        # spawn a duplicate SGOV position on the next run).
+        data["positions"].remove(pos)
     data["account"]["cash"] = round(data["account"]["cash"] + shares * px, 2)
-    return round(amount, 2)
+    return round(data["account"]["cash"], 2)
 
 
 def re_entry_protocol(data, prices, today, ind=None):
@@ -567,39 +607,45 @@ def re_entry_protocol(data, prices, today, ind=None):
         if data["account"]["cash"] < amt - 5:
             _sell_sgov(data, amt, prices.get(STB_TICKER), today)
         buys = round(min(amt, data["account"]["cash"]), 2)
-        if buys >= 100:
-            data["positions"].append({
-                "ticker": pos["ticker"],
-                "name": pos["name"],
-                "sleeve": pos["sleeve"],
-                "buy_date": today,
-                "buy_price": round(wrapper_px, 4),
-                "shares": round(buys / wrapper_px, 6),
-                "cost": buys,
-                "take_profit_pct": pos.get("take_profit_pct"),
-                "stop_loss_pct": pos.get("stop_loss_pct"),
-                "underlying": pos.get("underlying"),
-                "underlying_stop_pct": pos.get("underlying_stop_pct"),
-                "underlying_buy_price": round(prices.get(pos.get("underlying")) or 0, 4)
-                                         or pos.get("underlying_buy_price"),
-                "theory_ids": pos.get("theory_ids", []),
-                "status": "open",
-                "thesis": f"{pos.get('thesis', '')} [RE-ENTRY on {today}: theory re-affirmed after {rt} reclaimed {level}]",
-                "entry_note": "Vol-halt re-entry: index reclaim confirmed the test continues.",
-            })
-            data["account"]["cash"] = round(data["account"]["cash"] - buys, 2)
-            data["events"].append({
-                "date": today,
-                "ts": time.strftime("%H:%M:%S"),
-                "ticker": pos["ticker"],
-                "name": pos["name"],
-                "reason": "re_entry",
-                "note": f"re-affirmed ({rt} reclaimed {level}, {back} close(s))",
-                "price": round(wrapper_px, 4),
-                "buy_price": round(wrapper_px, 4),
-                "shares": round(buys / wrapper_px, 4),
-                "realized_pnl": 0,
-            })
+        if buys < 100:
+            # Not enough dry powder: keep the re-entry claim OPEN (do not
+            # resolve the exit, do not unpause the theory) so the protocol
+            # retries on a later run when cash is available again.
+            print(f"  RE-ENTRY {pos['ticker']}: only ${buys:.2f} available "
+                  f"(need >= $100) - claim stays open")
+            continue
+        data["positions"].append({
+            "ticker": pos["ticker"],
+            "name": pos["name"],
+            "sleeve": pos["sleeve"],
+            "buy_date": today,
+            "buy_price": round(wrapper_px, 4),
+            "shares": round(buys / wrapper_px, 6),
+            "cost": buys,
+            "take_profit_pct": pos.get("take_profit_pct"),
+            "stop_loss_pct": pos.get("stop_loss_pct"),
+            "underlying": pos.get("underlying"),
+            "underlying_stop_pct": pos.get("underlying_stop_pct"),
+            "underlying_buy_price": round(prices.get(pos.get("underlying")) or 0, 4)
+                                     or pos.get("underlying_buy_price"),
+            "theory_ids": pos.get("theory_ids", []),
+            "status": "open",
+            "thesis": f"{pos.get('thesis', '')} [RE-ENTRY on {today}: theory re-affirmed after {rt} reclaimed {level}]",
+            "entry_note": "Vol-halt re-entry: index reclaim confirmed the test continues.",
+        })
+        data["account"]["cash"] = round(data["account"]["cash"] - buys, 2)
+        data["events"].append({
+            "date": today,
+            "ts": time.strftime("%H:%M:%S"),
+            "ticker": pos["ticker"],
+            "name": pos["name"],
+            "reason": "re_entry",
+            "note": f"re-affirmed ({rt} reclaimed {level}, {back} close(s))",
+            "price": round(wrapper_px, 4),
+            "buy_price": round(wrapper_px, 4),
+            "shares": round(buys / wrapper_px, 4),
+            "realized_pnl": 0,
+        })
         for t in pos.get("theory_ids", []):
             theo = next((x for x in data["theories"]
                          if x["id"] == t and x.get("status") == "paused"
@@ -957,6 +1003,7 @@ def execute_scheduled_exits(data, prices, today):
             "name": pos["name"],
             "reason": plan.get("reason", "rebalance"),
             "note": plan.get("note"),
+            "action": "sell",
             "state": None,
             "price": round(px, 2),
             "buy_price": pos["buy_price"],
@@ -1195,6 +1242,7 @@ def execute_pending_orders(data, prices, today):
                 "name": pos["name"],
                 "reason": "market_order",
                 "note": f"BUY {amount:,.0f} ({order.get('source')})",
+                "action": "buy",
                 "state": None,
                 "price": round(px, 4),
                 "buy_price": round(px, 4),
@@ -1231,6 +1279,7 @@ def execute_pending_orders(data, prices, today):
                 "name": pos["name"],
                 "reason": "market_order",
                 "note": f"SELL {amount:,.0f} ({order.get('source')})",
+                "action": "sell",
                 "state": None,
                 "price": round(px, 4),
                 "buy_price": pos["buy_price"],
@@ -1375,6 +1424,71 @@ def run_ai_layer(data, prices, fear_data, today, macro=None, force=False,
         return None, fear_data
 
 
+# Meta subkeys update.py owns (mutated during a run). Everything else in
+# meta - park_mode, ai.mode, ai.user_bias - is serve.py's to set and must
+# be taken from the fresh file at write time (issue #36).
+_UPDATER_META_KEYS = (
+    "limits",
+    "last_rebalance_quarter",
+    "ai_state",
+    "ai_last_output",
+    "ai_ledger",
+    "ai_fear_proposals",
+    "ai_calibration",
+    "fear_state",
+)
+
+
+def _order_signature(o):
+    """Identity of a market order for merge purposes (issue #36)."""
+    return (o.get("ticker"), o.get("action"), o.get("amount"),
+            o.get("source"), o.get("created"))
+
+
+def persist_merged(data):
+    """Re-read portfolio.json at write time and merge (issue #36).
+
+    main() mutates an in-memory copy for minutes (network + AI work) while
+    serve.py's /book, /execute_all, /mode, /bias, /park land mid-run through
+    store.update_portfolio. A blind write-back of the stale copy would
+    silently clobber them (lost human-approved orders, reverted bias /
+    park_mode). Merge instead: update.py owns positions/account/events/
+    theories plus the meta keys it mutates; everything else is taken from
+    the fresh file. The re-read -> merge -> write runs inside
+    store.update_portfolio, so it is one locked atomic step - the lock is
+    held only for this moment, never for the whole run.
+    """
+    def merge(current):
+        out = dict(current)
+        for key in ("positions", "account", "events", "theories"):
+            if key in data:
+                out[key] = data[key]
+        stale_orders = data.get("orders") or []
+        executed = [o for o in stale_orders if o.get("status") == "executed"]
+        pending = [o for o in stale_orders if o.get("status") == "pending"]
+        fresh_pending = [o for o in (current.get("orders") or [])
+                         if o.get("status") == "pending"]
+        if fresh_pending:
+            # serve.py replaced the pending queue mid-run (a human booking -
+            # human approval wins over this run's view). Skip any orders this
+            # run already executed: re-adding them would double-execute on
+            # the next market-open run.
+            done = {_order_signature(o) for o in executed}
+            out["orders"] = executed + [o for o in fresh_pending
+                                        if _order_signature(o) not in done]
+        else:
+            out["orders"] = executed + pending
+        smeta = data.get("meta") or {}
+        meta = dict(current.get("meta") or {})
+        for key in _UPDATER_META_KEYS:
+            if key in smeta:
+                meta[key] = smeta[key]
+        out["meta"] = meta
+        return out
+
+    return store.update_portfolio(merge)
+
+
 def main():
     """Fetch prices -> check exits -> deploy cash -> snapshot -> write dashboard.js."""
     parser = argparse.ArgumentParser(description="Stock Picker daily updater")
@@ -1388,8 +1502,7 @@ def main():
     if args.preopen and market_state() == "closed":
         print("Outside update window (market closed, not pre-open) - skipping.")
         return
-    with open(PORTFOLIO, encoding="utf-8") as f:
-        data = json.load(f)
+    data = store.read_portfolio()
 
     today = time.strftime("%Y-%m-%d")
     open_positions = [p for p in data["positions"] if p["status"] == "open"]
@@ -1445,13 +1558,17 @@ def main():
                   f"mapping - wrapper backstop only (no index stop, no runner)")
 
     # Live macro indicators for the AI layer (SPY/QQQ/VIX/10Y/USDJPY/HYG).
-    # Never allowed to break the update - failure degrades to no macro block.
+    # Only fetched when the AI layer is enabled (its only consumer) - saves
+    # 6 Yahoo calls per run when the AI is off. Never allowed to break the
+    # update - failure degrades to no macro block.
     macro = {}
     try:
-        macro = fetch_macro()
-        if macro:
-            print("  MACRO: " + " | ".join(
-                f"{k} {v['px']} ({v['chg_1d_pct']:+.2f}%)" for k, v in macro.items()))
+        ai_cfg = (data.get("meta") or {}).get("ai") or {}
+        if ai_cfg.get("enabled"):
+            macro = fetch_macro()
+            if macro:
+                print("  MACRO: " + " | ".join(
+                    f"{k} {v['px']} ({v['chg_1d_pct']:+.2f}%)" for k, v in macro.items()))
     except Exception as exc:
         print(f"  WARN: macro fetch failed: {exc}")
 
@@ -1573,9 +1690,18 @@ def main():
     # --- build today's snapshot ---
     invested = 0.0
     pos_snapshot = {}
+    # Last-known price fallback: a failed Yahoo fetch must not revalue a
+    # position at its ORIGINAL cost (fabricated drawdown/day-change) - the
+    # previous snapshot's price is the honest estimate.
+    last_px = {}
+    for h in reversed(data["account"]["history"]):
+        if h.get("prices"):
+            last_px = h["prices"]
+            break
     for pos in data["positions"]:
         if pos["status"] == "open":
-            px = prices.get(pos["ticker"]) or pos["buy_price"]
+            px = (prices.get(pos["ticker"])
+                  or last_px.get(pos["ticker"]) or pos["buy_price"])
             mv = px * pos["shares"]
             invested += mv
             pos_snapshot[pos["ticker"]] = round(px, 4)
@@ -1616,23 +1742,27 @@ def main():
     # Passive exposure audit -> rebalance_recommended flags (never trades).
     rebalance = rebalance_audit(data, today)
 
-    with open(PORTFOLIO, "w", encoding="utf-8") as f:
-        json.dump(data, f, indent=2, ensure_ascii=False)
+    # Issue #36: merge, never blind-overwrite - see persist_merged().
+    data = persist_merged(data)
 
     # Community experiment: freeze the book as a new version strategy when
     # the positions change (gated by meta.community.snapshot_versions).
     try:
-        sync_version_snapshots(data, snapshot, today)
+        sync_version_snapshots(data, snapshot, today, exclude_tickers=(STB_TICKER,))
     except Exception as exc:
         print(f"  WARN: version snapshots failed: {exc}")
 
     benchmark = None
     benchmarks = {}
     try:
+        hist = ensure_bench_history(list(BENCH_TICKERS), today)
         for tk, label in BENCH_TICKERS.items():
-            bm = build_benchmark(data, fetch_chart_history(tk), label)
-            if bm:
-                benchmarks[tk] = bm
+            try:
+                bm = build_benchmark(data, hist.get(tk) or [], label)
+                if bm:
+                    benchmarks[tk] = bm
+            except Exception as exc:
+                print(f"  WARN: benchmark build failed for {tk}: {exc}")
         benchmark = benchmarks.get("SPY")
         if not benchmark and benchmarks:
             benchmark = next(iter(benchmarks.values()))
@@ -1646,8 +1776,7 @@ def main():
     # as pct of book + every change). Never breaks the run.
     try:
         mirror = build_mirror(data)
-        with open(MIRROR, "w", encoding="utf-8") as f:
-            json.dump(mirror, f, indent=2, ensure_ascii=False)
+        store.write_json(MIRROR, mirror)
     except Exception as exc:
         print(f"  WARN: mirror export failed: {exc}")
 
@@ -1690,140 +1819,6 @@ def build_ai_payload(verdict, data, gauge=None):
         "calibration": {k: v for k, v in calib.items()
                         if v.get("wrong", 0) > 0},
         "enabled": bool((meta.get("ai") or {}).get("enabled")),
-    }
-
-
-def sync_version_snapshots(data, snapshot, today):
-    """Community experiment (site 0.5.5.33): freeze the book as a new
-    version strategy whenever its positions change, so the leaderboard can
-    compare branches ("did my change lead to better?"). Gated on
-    meta.community.snapshot_versions — normally OFF by design, this is a
-    leaderboard-filling experiment, not product behavior. SGOV auto-parking
-    is excluded from change detection so daily cash sweeps don't spam
-    versions. At most one version per day; every run appends today's
-    snapshot to all active versions.
-    """
-    cfg = (data.get("meta") or {}).get("community") or {}
-    if not cfg.get("snapshot_versions"):
-        return
-    root = os.path.join(BASE, "community", "strategies")
-    if not os.path.isdir(root):
-        os.makedirs(root)
-    base_id = (data.get("meta") or {}).get("strategy_id", "hypergrowth-sharpe-barbell")
-    prefix = base_id + "-v"
-
-    versions = []
-    for sid in sorted(os.listdir(root)):
-        if not sid.startswith(prefix):
-            continue
-        fp = os.path.join(root, sid, "stats.json")
-        if not os.path.isfile(fp):
-            continue
-        try:
-            with open(fp, encoding="utf-8") as f:
-                versions.append(json.load(f))
-        except Exception:
-            pass
-    versions.sort(key=lambda v: v.get("start_date", ""))
-
-    def save(v):
-        d = os.path.join(root, v["strategy_id"])
-        if not os.path.isdir(d):
-            os.makedirs(d)
-        with open(os.path.join(d, "stats.json"), "w", encoding="utf-8") as f:
-            json.dump(v, f, indent=2, ensure_ascii=False)
-
-    current_positions = sorted(
-        ({"ticker": p["ticker"], "shares": p["shares"], "buy_date": p.get("buy_date")}
-         for p in data["positions"]
-         if p["status"] == "open" and p["ticker"] != STB_TICKER),
-        key=lambda q: q["ticker"],
-    )
-
-    latest = versions[-1] if versions else None
-    if latest is None or latest.get("positions") != current_positions:
-        v = {
-            "strategy_id": prefix + today,
-            "name": f"{data['meta']['name']} {today}",
-            "author": "Snapshot",
-            "kind": "snapshot",
-            "parent_id": base_id,
-            "start_value": snapshot["total_value"],
-            "start_date": today,
-            "positions": current_positions,
-            "history": [snapshot],
-        }
-        save(v)
-        print(f"  SNAPSHOT: new strategy version {v['strategy_id']} "
-              f"({len(current_positions)} positions)")
-    else:
-        for v in versions:
-            hist = v.get("history") or []
-            if hist and hist[-1].get("date") == today:
-                hist[-1] = snapshot
-            else:
-                hist.append(snapshot)
-            save(v)
-
-
-def build_mirror(data):
-    """Export the book as a copyable mirror (site 0.5.5.29, community copy).
-
-    The mirror is the copy contract: a follower replays `changes` scaled to
-    their own capital to reproduce the publisher's book EXACTLY (same
-    positions, same allocation percentages, same changes). `positions` is the
-    current target allocation; `changes` is the normalized trade log derived
-    from events[] (deploys, re-entries, exits, executed orders).
-    """
-    meta = data.get("meta", {})
-    history = data["account"]["history"]
-    total = round(history[-1]["total_value"], 2) if history else 0.0
-    last_px = history[-1].get("prices", {}) if history else {}
-
-    positions = []
-    for pos in data["positions"]:
-        if pos["status"] != "open":
-            continue
-        value = round((last_px.get(pos["ticker"]) or pos["buy_price"]) * pos["shares"], 2)
-        positions.append({
-            "ticker": pos["ticker"],
-            "sleeve": pos["sleeve"],
-            "buy_date": pos["buy_date"],
-            "shares": pos["shares"],
-            "current_value": value,
-            "pct_of_book": round(value / total * 100, 2) if total else 0.0,
-            "theory_ids": pos.get("theory_ids", []),
-        })
-
-    TRADE_REASONS = {"take_profit", "stop_loss", "deploy_cash", "re_entry",
-                     "rebalance", "market_order"}
-    changes = []
-    for ev in data.get("events", []):
-        reason = ev.get("reason")
-        if reason not in TRADE_REASONS:
-            continue
-        shares = ev.get("shares") or 0.0
-        price = ev.get("price") or 0.0
-        changes.append({
-            "ts": f"{ev.get('date')} {ev.get('ts', '')}".strip(),
-            "type": reason,
-            "ticker": ev.get("ticker"),
-            "action": "sell" if reason in ("take_profit", "stop_loss") else "buy",
-            "shares": shares,
-            "price": price,
-            "amount": round(shares * price, 2),
-            "reason": ev.get("note"),
-        })
-    changes.sort(key=lambda c: c["ts"])
-
-    return {
-        "asof": history[-1]["date"] if history else None,
-        "strategy_id": meta.get("strategy_id", "hypergrowth-sharpe-barbell"),
-        "strategy_name": meta.get("name"),
-        "author": meta.get("author"),
-        "total_value": total,
-        "positions": sorted(positions, key=lambda p: -p["pct_of_book"]),
-        "changes": changes,
     }
 
 

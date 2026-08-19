@@ -28,10 +28,37 @@ import json
 import os
 import subprocess
 import sys
+import threading
+
+import store
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 PORT = int(os.environ.get("PORT", 8000))
-PORTFOLIO = os.path.join(BASE, "portfolio.json")
+
+# Single-flight guard for the update.py subprocess (issue #35): every
+# state-changing endpoint chains _run_update(); without coordination two
+# requests would spawn two full updaters (double AI spend, last writer
+# wins). The lock is held for the whole handler, so a concurrent request
+# gets 409 instead of queueing behind a 10-minute update.
+_UPDATE_LOCK = threading.Lock()
+
+
+def _set_meta(data, keys, value):
+    """Mutator for store.update_portfolio: set meta.<keys...> = value."""
+    meta = data.setdefault("meta", {})
+    target = meta
+    for k in keys[:-1]:
+        target = target.setdefault(k, {})
+    target[keys[-1]] = value
+    return data
+
+
+def _append_orders(data, created):
+    """Mutator for store.update_portfolio: keep executed history, replace
+    the pending queue with the newly approved orders."""
+    orders = data.setdefault("orders", [])
+    orders[:] = [o for o in orders if o.get("status") != "pending"] + created
+    return data
 
 
 class Handler(http.server.SimpleHTTPRequestHandler):
@@ -48,13 +75,27 @@ class Handler(http.server.SimpleHTTPRequestHandler):
     def log_message(self, fmt, *args):  # quieter console
         pass
 
+    def _guard(self, fn):
+        """Run one endpoint under the single-flight lock; 409 while an
+        update.py subprocess is in flight (issue #35)."""
+        if not _UPDATE_LOCK.acquire(blocking=False):
+            self._json({"ok": False, "error": "update already running"}, 409)
+            return
+        try:
+            fn()
+        finally:
+            _UPDATE_LOCK.release()
+
     def do_GET(self):
         if self.path.rstrip("/") == "/refresh":
-            self._refresh()
+            self._guard(self._refresh)
             return
         super().do_GET()
 
     def do_POST(self):
+        self._guard(self._dispatch_post)
+
+    def _dispatch_post(self):
         path = self.path.rstrip("/")
         if path == "/refresh":
             self._refresh()
@@ -118,11 +159,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             self._json({"ok": False, "error": "mode must be recommend|execute"}, 400)
             return
         try:
-            with open(PORTFOLIO, encoding="utf-8") as f:
-                data = json.load(f)
-            data["meta"].setdefault("ai", {})["mode"] = mode
-            with open(PORTFOLIO, "w", encoding="utf-8") as f:
-                json.dump(data, f, indent=2, ensure_ascii=False)
+            store.update_portfolio(lambda data: _set_meta(data, ["ai", "mode"], mode))
         except Exception as exc:
             self._json({"ok": False, "error": str(exc)}, 500)
             return
@@ -143,8 +180,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         try:
             import ai_sentiment
             body = self._read_body()
-            with open(PORTFOLIO, encoding="utf-8") as f:
-                data = json.load(f)
+            data = store.read_portfolio()
             meta = data["meta"]
             cfg = meta.get("ai") or {}
             if not cfg.get("enabled"):
@@ -200,10 +236,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
                 raise ValueError("send {ticker, action} or {sell, buy}")
             if not created:
                 raise ValueError("nothing to book")
-            orders = data.setdefault("orders", [])
-            orders[:] = [o for o in orders if o.get("status") != "pending"] + created
-            with open(PORTFOLIO, "w", encoding="utf-8") as f:
-                json.dump(data, f, indent=2, ensure_ascii=False)
+            store.update_portfolio(lambda d: _append_orders(d, created))
         except Exception as exc:
             self._json({"ok": False, "error": str(exc)}, 500)
             return
@@ -220,8 +253,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         """
         try:
             import ai_sentiment
-            with open(PORTFOLIO, encoding="utf-8") as f:
-                data = json.load(f)
+            data = store.read_portfolio()
             meta = data["meta"]
             cfg = meta.get("ai") or {}
             if not cfg.get("enabled"):
@@ -255,10 +287,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
                 })
             if not created:
                 raise ValueError("the current verdict has no proposals or rotations")
-            orders = data.setdefault("orders", [])
-            orders[:] = [o for o in orders if o.get("status") != "pending"] + created
-            with open(PORTFOLIO, "w", encoding="utf-8") as f:
-                json.dump(data, f, indent=2, ensure_ascii=False)
+            store.update_portfolio(lambda d: _append_orders(d, created))
         except Exception as exc:
             self._json({"ok": False, "error": str(exc)}, 500)
             return
@@ -277,11 +306,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             self._json({"ok": False, "error": "value must be an integer -5..5"}, 400)
             return
         try:
-            with open(PORTFOLIO, encoding="utf-8") as f:
-                data = json.load(f)
-            data["meta"].setdefault("ai", {})["user_bias"] = value
-            with open(PORTFOLIO, "w", encoding="utf-8") as f:
-                json.dump(data, f, indent=2, ensure_ascii=False)
+            store.update_portfolio(lambda data: _set_meta(data, ["ai", "user_bias"], value))
         except Exception as exc:
             self._json({"ok": False, "error": str(exc)}, 500)
             return
@@ -297,11 +322,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             self._json({"ok": False, "error": "mode must be 'sgov' or 'cash'"}, 400)
             return
         try:
-            with open(PORTFOLIO, encoding="utf-8") as f:
-                data = json.load(f)
-            data["meta"]["park_mode"] = mode
-            with open(PORTFOLIO, "w", encoding="utf-8") as f:
-                json.dump(data, f, indent=2, ensure_ascii=False)
+            store.update_portfolio(lambda data: _set_meta(data, ["park_mode"], mode))
         except Exception as exc:
             self._json({"ok": False, "error": str(exc)}, 500)
             return

@@ -32,12 +32,16 @@
 
   const s = document.createElement('script');
   s.src = 'leaderboards.js?t=' + Date.now();
-  s.onload = () => {
-    fill(window.LEADERBOARDS);
+  const injectCommunity = () => {
     const c = document.createElement('script');
     c.src = 'community.js?t=' + Date.now();
     document.head.appendChild(c);
   };
+  s.onload = () => {
+    fill(window.LEADERBOARDS);
+    injectCommunity();
+  };
+  s.onerror = injectCommunity;
   document.head.appendChild(s);
 
   const v = document.createElement('script');

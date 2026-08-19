@@ -1,0 +1,62 @@
+{
+  "asof": "2026-08-16 23:01:29",
+  "top_n": 10,
+  "strategy_count": 1,
+  "windows": {
+    "weekly": {
+      "label": "Last 5 trading sessions",
+      "rows": [
+        {
+          "strategy_id": "hypergrowth-sharpe-barbell",
+          "name": "HyperGrowth Sharpe Barbell v5 - Conviction-First",
+          "author": "RubySapior",
+          "return_pct": 2.2
+        }
+      ]
+    },
+    "monthly": {
+      "label": "Last 21 trading sessions",
+      "rows": [
+        {
+          "strategy_id": "hypergrowth-sharpe-barbell",
+          "name": "HyperGrowth Sharpe Barbell v5 - Conviction-First",
+          "author": "RubySapior",
+          "return_pct": 2.2
+        }
+      ]
+    },
+    "quarterly": {
+      "label": "Last 63 trading sessions",
+      "rows": [
+        {
+          "strategy_id": "hypergrowth-sharpe-barbell",
+          "name": "HyperGrowth Sharpe Barbell v5 - Conviction-First",
+          "author": "RubySapior",
+          "return_pct": 2.2
+        }
+      ]
+    },
+    "yearly": {
+      "label": "Last 252 trading sessions",
+      "rows": [
+        {
+          "strategy_id": "hypergrowth-sharpe-barbell",
+          "name": "HyperGrowth Sharpe Barbell v5 - Conviction-First",
+          "author": "RubySapior",
+          "return_pct": 2.2
+        }
+      ]
+    },
+    "all_time": {
+      "label": "Since inception (start_value anchored)",
+      "rows": [
+        {
+          "strategy_id": "hypergrowth-sharpe-barbell",
+          "name": "HyperGrowth Sharpe Barbell v5 - Conviction-First",
+          "author": "RubySapior",
+          "return_pct": 2.2
+        }
+      ]
+    }
+  }
+}

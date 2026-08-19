@@ -21,6 +21,7 @@
   const sign = v => (v > 0 ? '+' : '') + Number(v).toFixed(2);
 
   function loadLb(onOk) {
+    if (window.LEADERBOARDS) { onOk && onOk(window.LEADERBOARDS); return; }
     const s = document.createElement('script');
     s.src = 'leaderboards.js?t=' + Date.now();
     s.onload = () => onOk && onOk(window.LEADERBOARDS);
@@ -50,6 +51,7 @@
     tabs.className = 'lbTabs';
     let active = WINDOW_ORDER[0];
     try { active = localStorage.getItem(LB_KEY) || active; } catch (e) { /* ignore */ }
+    if (!WINDOW_ORDER.includes(active)) active = WINDOW_ORDER[0];
     let sortKey = 'return';
 
     const body = document.createElement('div');
