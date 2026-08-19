@@ -3,15 +3,15 @@
   "strategy_id": "hypergrowth-sharpe-barbell",
   "strategy_name": "HyperGrowth Sharpe Barbell v5 - Conviction-First",
   "author": "RubySapior",
-  "total_value": 99370.95,
+  "total_value": 99244.26,
   "positions": [
     {
       "ticker": "TQQQ",
       "sleeve": "Tech/AI Growth",
       "buy_date": "2026-08-10",
       "shares": 154.372436,
-      "current_value": 11218.4,
-      "pct_of_book": 11.29,
+      "current_value": 11185.83,
+      "pct_of_book": 11.27,
       "theory_ids": [
         "T1",
         "T7"
@@ -22,8 +22,8 @@
       "sleeve": "AI Power - Nuclear",
       "buy_date": "2026-08-10",
       "shares": 81.048481,
-      "current_value": 9413.46,
-      "pct_of_book": 9.47,
+      "current_value": 9406.49,
+      "pct_of_book": 9.48,
       "theory_ids": [
         "T3"
       ]
@@ -33,8 +33,8 @@
       "sleeve": "Tech/AI Growth",
       "buy_date": "2026-08-10",
       "shares": 70.607129,
-      "current_value": 8638.78,
-      "pct_of_book": 8.69,
+      "current_value": 8582.16,
+      "pct_of_book": 8.65,
       "theory_ids": [
         "T1",
         "T7"
@@ -45,7 +45,7 @@
       "sleeve": "Crisis Alpha - Anti-Beta",
       "buy_date": "2026-08-10",
       "shares": 666.357532,
-      "current_value": 7986.3,
+      "current_value": 7982.96,
       "pct_of_book": 8.04,
       "theory_ids": [
         "T6",
@@ -57,8 +57,8 @@
       "sleeve": "Crisis Alpha - Trend",
       "buy_date": "2026-08-10",
       "shares": 255.287916,
-      "current_value": 7933.07,
-      "pct_of_book": 7.98,
+      "current_value": 7935.62,
+      "pct_of_book": 8.0,
       "theory_ids": [
         "T6",
         "T18",
@@ -71,8 +71,8 @@
       "sleeve": "Tech/AI Growth",
       "buy_date": "2026-08-10",
       "shares": 142.487012,
-      "current_value": 7870.98,
-      "pct_of_book": 7.92,
+      "current_value": 7868.13,
+      "pct_of_book": 7.93,
       "theory_ids": [
         "T2",
         "T1"
@@ -83,8 +83,8 @@
       "sleeve": "Tech/AI Growth",
       "buy_date": "2026-08-10",
       "shares": 8.781016,
-      "current_value": 4949.16,
-      "pct_of_book": 4.98,
+      "current_value": 4936.78,
+      "pct_of_book": 4.97,
       "theory_ids": [
         "T1"
       ]
@@ -94,7 +94,7 @@
       "sleeve": "Crisis Alpha - Carry Unwind",
       "buy_date": "2026-08-10",
       "shares": 69.42034,
-      "current_value": 4022.21,
+      "current_value": 4020.13,
       "pct_of_book": 4.05,
       "theory_ids": [
         "T6",
@@ -107,8 +107,8 @@
       "sleeve": "Crisis Alpha - Vol Decay",
       "buy_date": "2026-08-10",
       "shares": 280.112045,
-      "current_value": 3987.39,
-      "pct_of_book": 4.01,
+      "current_value": 3988.8,
+      "pct_of_book": 4.02,
       "theory_ids": [
         "T6",
         "T17",
@@ -120,7 +120,7 @@
       "sleeve": "AI Power - Nuclear",
       "buy_date": "2026-08-10",
       "shares": 60.02401,
-      "current_value": 3963.99,
+      "current_value": 3964.29,
       "pct_of_book": 3.99,
       "theory_ids": [
         "T3"
@@ -131,7 +131,7 @@
       "sleeve": "Crisis Alpha - Real Assets",
       "buy_date": "2026-08-10",
       "shares": 38.678306,
-      "current_value": 3742.86,
+      "current_value": 3742.9,
       "pct_of_book": 3.77,
       "theory_ids": [
         "T9",
@@ -146,8 +146,8 @@
       "sleeve": "Crisis Alpha - Real Assets",
       "buy_date": "2026-08-10",
       "shares": 8.694794,
-      "current_value": 3579.39,
-      "pct_of_book": 3.6,
+      "current_value": 3578.04,
+      "pct_of_book": 3.61,
       "theory_ids": [
         "T9",
         "T6",
@@ -161,7 +161,7 @@
       "sleeve": "Crisis Alpha - AI Bust",
       "buy_date": "2026-08-10",
       "shares": 59.76817,
-      "current_value": 3541.86,
+      "current_value": 3530.8,
       "pct_of_book": 3.56,
       "theory_ids": [
         "T6",
@@ -173,8 +173,8 @@
       "sleeve": "Crisis Alpha - Down-Day Floor",
       "buy_date": "2026-08-10",
       "shares": 98.619327,
-      "current_value": 3490.14,
-      "pct_of_book": 3.51,
+      "current_value": 3490.93,
+      "pct_of_book": 3.52,
       "theory_ids": [
         "T6",
         "T17"
@@ -185,7 +185,7 @@
       "sleeve": "Broadening / Value",
       "buy_date": "2026-08-10",
       "shares": 10.000667,
-      "current_value": 3029.15,
+      "current_value": 3026.1,
       "pct_of_book": 3.05,
       "theory_ids": [
         "T10"
@@ -216,7 +216,7 @@
       "sleeve": "Contrarian Fear",
       "buy_date": "2026-08-10",
       "shares": 20.890784,
-      "current_value": 2482.87,
+      "current_value": 2476.92,
       "pct_of_book": 2.5,
       "theory_ids": [
         "T13"
@@ -227,7 +227,7 @@
       "sleeve": "Contrarian Fear",
       "buy_date": "2026-08-10",
       "shares": 28.05049,
-      "current_value": 2000.84,
+      "current_value": 1997.19,
       "pct_of_book": 2.01,
       "theory_ids": [
         "T13"
@@ -238,8 +238,8 @@
       "sleeve": "Tech/AI Growth",
       "buy_date": "2026-08-10",
       "shares": 11.413455,
-      "current_value": 1975.21,
-      "pct_of_book": 1.99,
+      "current_value": 1985.31,
+      "pct_of_book": 2.0,
       "theory_ids": [
         "T14",
         "T1"
