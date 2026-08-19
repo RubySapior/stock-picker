@@ -161,13 +161,13 @@
         "confirmed": false
       },
       "F3": {
-        "prev_score": 2.1,
-        "score": 2.0,
+        "prev_score": 2.0,
+        "score": 2.1,
         "days_above": 0,
         "confirmed": false
       },
       "F4": {
-        "prev_score": 3.9,
+        "prev_score": 2.9,
         "score": 2.9,
         "days_above": 0,
         "confirmed": false
@@ -185,14 +185,14 @@
         "confirmed": false
       },
       "F7": {
-        "prev_score": 3.0,
+        "prev_score": 2.8,
         "score": 2.8,
         "days_above": 0,
         "confirmed": false
       },
       "F8": {
         "prev_score": 2.8,
-        "score": 2.8,
+        "score": 2.7,
         "days_above": 0,
         "confirmed": false
       }
@@ -809,31 +809,31 @@
       },
       {
         "date": "2026-08-19",
-        "total_value": 99570.22,
+        "total_value": 99200.35,
         "cash": 25.0,
-        "invested_value": 99545.22,
-        "day_change": 355.16,
+        "invested_value": 99175.35,
+        "day_change": -14.71,
         "prices": {
-          "TQQQ": 72.76,
-          "SOXL": 123.555,
-          "SMH": 564.77,
-          "DRAM": 55.52,
-          "PLTR": 175.815,
-          "NLR": 116.82,
-          "NUKZ": 66.135,
-          "IWM": 302.35,
+          "TQQQ": 72.3,
+          "SOXL": 121.746,
+          "SMH": 562.78,
+          "DRAM": 55.31,
+          "PLTR": 173.98,
+          "NLR": 115.98,
+          "NUKZ": 65.93,
+          "IWM": 301.965,
           "IWDL": 70.245,
-          "XLY": 118.415,
-          "EZU": 71.23,
-          "ZROZ": 58.976,
-          "FXY": 57.905,
-          "VIXM": 14.23,
-          "QFLR": 35.339,
-          "GLD": 412.31,
-          "GDX": 96.745,
-          "BTAL": 11.975,
-          "DBMF": 31.09,
-          "SGOV": 100.587
+          "XLY": 118.37,
+          "EZU": 71.175,
+          "ZROZ": 58.89,
+          "FXY": 57.882,
+          "VIXM": 14.24,
+          "QFLR": 35.335,
+          "GLD": 412.18,
+          "GDX": 96.23,
+          "BTAL": 11.985,
+          "DBMF": 31.1,
+          "SGOV": 100.59
         }
       }
     ]
