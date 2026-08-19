@@ -173,26 +173,26 @@
         "confirmed": false
       },
       "F5": {
-        "prev_score": 3.4,
-        "score": 3.5,
+        "prev_score": 3.5,
+        "score": 3.4,
         "days_above": 0,
         "confirmed": false
       },
       "F6": {
-        "prev_score": 4.4,
+        "prev_score": 3.8,
         "score": 3.8,
         "days_above": 0,
         "confirmed": false
       },
       "F7": {
-        "prev_score": 3.0,
-        "score": 3.1,
+        "prev_score": 3.1,
+        "score": 3.0,
         "days_above": 0,
         "confirmed": false
       },
       "F8": {
-        "prev_score": 2.8,
-        "score": 2.9,
+        "prev_score": 2.9,
+        "score": 2.7,
         "days_above": 0,
         "confirmed": false
       }
@@ -809,31 +809,31 @@
       },
       {
         "date": "2026-08-19",
-        "total_value": 99233.4,
+        "total_value": 99229.89,
         "cash": 25.0,
-        "invested_value": 99208.4,
-        "day_change": 18.34,
+        "invested_value": 99204.89,
+        "day_change": 14.83,
         "prices": {
-          "TQQQ": 72.255,
-          "SOXL": 121.175,
-          "SMH": 562.38,
-          "DRAM": 54.975,
-          "PLTR": 175.445,
-          "NLR": 117.06,
-          "NUKZ": 66.15,
-          "IWM": 301.39,
+          "TQQQ": 72.13,
+          "SOXL": 121.15,
+          "SMH": 561.91,
+          "DRAM": 54.98,
+          "PLTR": 175.18,
+          "NLR": 117.425,
+          "NUKZ": 66.253,
+          "IWM": 301.54,
           "IWDL": 70.245,
-          "XLY": 118.35,
-          "EZU": 71.22,
-          "ZROZ": 59.21,
-          "FXY": 57.965,
-          "VIXM": 14.19,
+          "XLY": 118.495,
+          "EZU": 71.185,
+          "ZROZ": 59.19,
+          "FXY": 57.99,
+          "VIXM": 14.195,
           "QFLR": 35.32,
-          "GLD": 413.055,
-          "GDX": 96.7,
-          "BTAL": 12.005,
-          "DBMF": 30.985,
-          "SGOV": 100.585
+          "GLD": 413.32,
+          "GDX": 96.82,
+          "BTAL": 11.98,
+          "DBMF": 30.956,
+          "SGOV": 100.58
         }
       }
     ]
