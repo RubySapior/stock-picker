@@ -594,17 +594,24 @@ def build_fears(data, news_scores=None):
     for fear in scenarios:
         if fear.get("pending_review"):
             continue
-        needed = {c.get("a") for c in fear["components"]} | {fear["velocity"]["a"]}
-        if fear.get("trend"):
-            needed |= {fear["trend"]["a"]}
-        if any(s not in hist_map for s in needed if s):
+        # Issue #38: a malformed scenario must never take down the whole
+        # gauge - it is skipped and reported instead.
+        try:
+            needed = {c.get("a") for c in fear["components"]} | {fear["velocity"]["a"]}
+            if fear.get("trend"):
+                needed |= {fear["trend"]["a"]}
+            if any(s not in hist_map for s in needed if s):
+                continue
+            res = _fear_score(fear, hist_map, today)
+            if not res:
+                continue
+            res["degraded"] = bool({c["a"] for c in fear["components"]} &
+                                   set(degraded))
+            fears.append(res)
+        except Exception as exc:
+            print(f"  WARN: fear scenario {fear.get('id', '?')} "
+                  f"malformed - skipped ({exc})")
             continue
-        res = _fear_score(fear, hist_map, today)
-        if not res:
-            continue
-        res["degraded"] = bool({c["a"] for c in fear["components"]} &
-                               set(degraded))
-        fears.append(res)
 
     state = data.setdefault("meta", {}).setdefault("fear_state", {})
     for f in fears:
@@ -612,10 +619,16 @@ def build_fears(data, news_scores=None):
         prev = st.get("score")
         st["prev_score"] = prev
         st["score"] = f["score"]
+        # Issue #39: days_above must count CALENDAR days, not 6-minute
+        # update runs - gate it on last_above_date so a single hot day
+        # can no longer fast-track a fear to confirmed.
         if f["score"] >= ACTIVE_THRESHOLD:
-            st["days_above"] = st.get("days_above", 0) + 1
+            if st.get("last_above_date") != today:
+                st["days_above"] = st.get("days_above", 0) + 1
+                st["last_above_date"] = today
         else:
             st["days_above"] = 0
+            st["last_above_date"] = None
         st["confirmed"] = st["days_above"] >= CONFIRM_DAYS[f["type"]]
         f["trend_dir"] = ("rising" if (prev is not None and f["score"] - prev >= 0.15)
                           else "falling" if (prev is not None and prev - f["score"] >= 0.15)
@@ -646,6 +659,10 @@ def apply_ai_witnesses(fears, ai_scores):
     Mutates the fear objects in place (display layer only). meta.fear_state
     persistence keeps tracking the MARKET witness, so days_above/confirmed
     logic stays purely market-driven.
+
+    Issue #47: the raw market score is preserved on `market_score` before
+    blending - hedge_harvester reads it, so hedge decisions are made on the
+    deterministic market witness and never on AI-blended noise.
     """
     if not ai_scores:
         return fears
@@ -654,6 +671,7 @@ def apply_ai_witnesses(fears, ai_scores):
         if news is None:
             continue
         market = f["score"]
+        f["market_score"] = market
         raw = max(market, min(news, market + 1.5))
         if market >= 3 and news >= 3:
             raw = min(raw + 0.5, 5)

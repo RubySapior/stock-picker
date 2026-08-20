@@ -151,8 +151,8 @@ def load_ohlc_cache():
 
 
 def save_ohlc_cache(cache):
-    with open(OHLC_CACHE, "w", encoding="utf-8") as f:
-        json.dump(cache, f, indent=1)
+    # Issue #48: atomic write - a kill mid-write must not corrupt the cache.
+    store.write_text_atomic(OHLC_CACHE, json.dumps(cache, indent=1))
 
 
 def ensure_ohlc_bars(tickers, today):
@@ -405,6 +405,10 @@ def compute_calibration(data, prices, today):
         chg = (new / old - 1) * 100
         if abs(chg) < 0.5:
             continue
+        # Issue #46: a 0.0-conviction entry is a HOLD, not a directional
+        # call - it must not be scored as wrong (or right) against a move.
+        if not conv.get("conviction_score"):
+            continue
         r = rec.setdefault(tk, {"wrong": 0, "total": 0, "last_wrong": None})
         r["total"] = r.get("total", 0) + 1
         wrong = (conv["conviction_score"] > 0) != (chg > 0)
@@ -488,7 +492,12 @@ def hedge_harvester(data, ind, fear_data, today):
         return None
     blocked = set()
     for f in (fear_data or {}).get("fears") or []:
-        if (f.get("score") or 0) >= HEDGE_HARVEST_FEAR_MIN:
+        # Issue #47: hedge_harvester must decide on the deterministic
+        # MARKET witness (market_score), never the AI-blended display
+        # score - otherwise a single AI sentiment spike could unpark
+        # hedges mid-panic.
+        score = f.get("market_score", f.get("score"))
+        if (score or 0) >= HEDGE_HARVEST_FEAR_MIN:
             blocked.update(f.get("hedge_ticks") or [])
     items = []
     for p in data["positions"]:
@@ -870,6 +879,20 @@ def fetch_prices(tickers):
     return prices
 
 
+def avg_cost(pos):
+    """Running average cost per share (cost / shares). Falls back to
+    buy_price for legacy positions that predate cost tracking (issue #52).
+
+    Market-order top-ups add shares at the live price; using the original
+    buy_price for sells then misstates both realized PnL and remaining cost.
+    """
+    shares = pos.get("shares") or 0
+    cost = pos.get("cost")
+    if cost is not None and shares > 1e-9:
+        return cost / shares
+    return pos.get("buy_price") or 0.0
+
+
 def check_exits(pos, px, today, under_prices=None, ind=None):
     """Returns (event_or_None).
 
@@ -890,6 +913,12 @@ def check_exits(pos, px, today, under_prices=None, ind=None):
     ind = ind or {}
     underlying = pos.get("underlying")
 
+    # Issue #50: SGOV (the dry-powder reserve) is never exit-checked - its
+    # stop_loss_pct backstop must not vol-halt it, freeze a reclaim_level,
+    # or route it through the re-entry machinery (the silent-SGOV trap).
+    if pos.get("ticker") == STB_TICKER:
+        return None
+
     if underlying:
         u_px = under_prices.get(underlying)
         u_entry = pos.get("underlying_buy_price")
@@ -905,7 +934,7 @@ def check_exits(pos, px, today, under_prices=None, ind=None):
                         "reclaim_ticker": underlying,
                         "reclaim_level": round(u_entry * (1 + dyn), 4),
                         "reentry_amount": round(px * pos["shares"], 2),
-                        "realized_pnl": round((px - pos["buy_price"]) * pos["shares"], 2)}
+                        "realized_pnl": round((px - avg_cost(pos)) * pos["shares"], 2)}
         if not pos.get("base_trimmed") and px is not None and pos.get("buy_price"):
             pnl = (px / pos["buy_price"]) - 1
             if pnl >= BASE_TRIM_PNL:
@@ -916,25 +945,31 @@ def check_exits(pos, px, today, under_prices=None, ind=None):
                         "partial": 0.5,
                         "realized_pnl": round((px - pos["buy_price"]) * pos["shares"] * 0.5, 2)}
         if pos.get("runner_active") and gi:
-            ema = gi.get("ema20")
-            atr = gi.get("atr14")
-            closes = gi.get("closes") or []
-            if ema is not None and atr is not None and closes:
-                last = closes[-1]
-                if last <= ema - RUNNER_BREACH_ATR_MULT * atr:
-                    return {"date": today, "price": round(px, 2), "reason": "take_profit",
-                            "note": f"runner_emergency ({underlying} close {last:.2f} <= EMA20 {ema:.2f} - 1.5xATR {atr:.2f})",
-                            "realized_pnl": round((px - pos["buy_price"]) * pos["shares"], 2)}
-                back = 0
-                for c in reversed(closes):
-                    if c < ema:
-                        back += 1
-                    else:
-                        break
-                if back >= 2:
-                    return {"date": today, "price": round(px, 2), "reason": "take_profit",
-                            "note": f"runner_2close ({underlying} {back} completed closes < EMA20 {ema:.2f})",
-                            "realized_pnl": round((px - pos["buy_price"]) * pos["shares"], 2)}
+            # Issue #51: the trail only runs once the wrapper has banked a
+            # base trim (+RUNNER_GATE_PNL); below the gate the trail would
+            # exit at a loss and give back what the trim banked. The wrapper
+            # stop_loss_pct backstop still guards the tail.
+            pnl_gate = (px / pos["buy_price"] - 1) if pos.get("buy_price") else 0.0
+            if pnl_gate >= RUNNER_GATE_PNL:
+                ema = gi.get("ema20")
+                atr = gi.get("atr14")
+                closes = gi.get("closes") or []
+                if ema is not None and atr is not None and closes:
+                    last = closes[-1]
+                    if last <= ema - RUNNER_BREACH_ATR_MULT * atr:
+                        return {"date": today, "price": round(px, 2), "reason": "take_profit",
+                                "note": f"runner_emergency ({underlying} close {last:.2f} <= EMA20 {ema:.2f} - 1.5xATR {atr:.2f})",
+                                "realized_pnl": round((px - avg_cost(pos)) * pos["shares"], 2)}
+                    back = 0
+                    for c in reversed(closes):
+                        if c < ema:
+                            back += 1
+                        else:
+                            break
+                    if back >= 2:
+                        return {"date": today, "price": round(px, 2), "reason": "take_profit",
+                                "note": f"runner_2close ({underlying} {back} completed closes < EMA20 {ema:.2f})",
+                                "realized_pnl": round((px - avg_cost(pos)) * pos["shares"], 2)}
         if pos.get("stop_loss_pct") and px is not None:
             sl = pos["buy_price"] * (1 + pos["stop_loss_pct"])
             if px <= sl:
@@ -944,7 +979,7 @@ def check_exits(pos, px, today, under_prices=None, ind=None):
                         "reclaim_ticker": pos["ticker"],
                         "reclaim_level": round(sl, 4),
                         "reentry_amount": round(px * pos["shares"], 2),
-                        "realized_pnl": round((px - pos["buy_price"]) * pos["shares"], 2)}
+                        "realized_pnl": round((px - avg_cost(pos)) * pos["shares"], 2)}
         return None
 
     if pos.get("take_profit_pct"):
@@ -952,7 +987,7 @@ def check_exits(pos, px, today, under_prices=None, ind=None):
         if px is not None and px >= tp:
             return {"date": today, "price": round(px, 2), "reason": "take_profit",
                     "note": "take_profit",
-                    "realized_pnl": round((px - pos["buy_price"]) * pos["shares"], 2)}
+                    "realized_pnl": round((px - avg_cost(pos)) * pos["shares"], 2)}
 
     if pos.get("stop_loss_pct"):
         sl = pos["buy_price"] * (1 + pos["stop_loss_pct"])
@@ -963,7 +998,7 @@ def check_exits(pos, px, today, under_prices=None, ind=None):
                     "reclaim_ticker": pos["ticker"],
                     "reclaim_level": round(sl, 4),
                     "reentry_amount": round(px * pos["shares"], 2),
-                    "realized_pnl": round((px - pos["buy_price"]) * pos["shares"], 2)}
+                    "realized_pnl": round((px - avg_cost(pos)) * pos["shares"], 2)}
     return None
 
 
@@ -1018,12 +1053,100 @@ def _nth_sunday(year, month, nth):
     return first_sun + _dt.timedelta(days=7 * (nth - 1))
 
 
-def market_state(now_utc=None):
-    """'open' | 'preopen' | 'closed' — NYSE session logic, DST handled manually.
+def _nth_weekday(year, month, weekday, n):
+    """n-th weekday (0=Mon..6=Sun) of a month, e.g. 3rd Monday of Jan."""
+    first = _dt.date(year, month, 1)
+    offset = (weekday - first.weekday()) % 7
+    return first + _dt.timedelta(days=offset + 7 * (n - 1))
 
-    - open:    Mon-Fri 09:30-16:00 ET
+
+def _last_weekday(year, month, weekday):
+    """Last weekday (0=Mon..6=Sun) of a month (Memorial Day rule)."""
+    if month == 12:
+        last = _dt.date(year, 12, 31)
+    else:
+        last = _dt.date(year, month + 1, 1) - _dt.timedelta(days=1)
+    return last - _dt.timedelta(days=(last.weekday() - weekday) % 7)
+
+
+def _easter(year):
+    """Anonymous Gregorian computus - Easter Sunday date (Good Friday = -2)."""
+    a = year % 19
+    b = year // 100
+    c = year % 100
+    d = b // 4
+    e = b % 4
+    f = (b + 8) // 25
+    g = (b - f + 1) // 3
+    h = (19 * a + b - d - g + 15) % 30
+    i = c // 4
+    k = c % 4
+    l = (32 + 2 * e + 2 * i - h - k) % 7
+    m = (a + 11 * h + 22 * l) // 451
+    month = (h + l - 7 * m + 114) // 31
+    day = ((h + l - 7 * m + 114) % 31) + 1
+    return _dt.date(year, month, day)
+
+
+_HOLIDAY_CACHE = {}
+
+
+def nyse_holidays(year):
+    """Full-close NYSE holidays for a year, with weekend observance."""
+    if year in _HOLIDAY_CACHE:
+        return _HOLIDAY_CACHE[year]
+    raw = [
+        (_dt.date(year, 1, 1), "New Year's Day"),
+        (_nth_weekday(year, 1, 0, 3), "MLK Day"),
+        (_nth_weekday(year, 2, 0, 3), "Presidents Day"),
+        (_easter(year) - _dt.timedelta(days=2), "Good Friday"),
+        (_last_weekday(year, 5, 0), "Memorial Day"),
+        (_dt.date(year, 6, 19), "Juneteenth"),
+        (_dt.date(year, 7, 4), "Independence Day"),
+        (_nth_weekday(year, 9, 0, 1), "Labor Day"),
+        (_nth_weekday(year, 11, 3, 4), "Thanksgiving"),
+        (_dt.date(year, 12, 25), "Christmas"),
+    ]
+    out = {}
+    for d, name in raw:
+        if d.weekday() == 5:
+            d = d - _dt.timedelta(days=1)
+        elif d.weekday() == 6:
+            d = d + _dt.timedelta(days=1)
+        out[d] = name
+    _HOLIDAY_CACHE[year] = out
+    return out
+
+
+def nyse_early_closes(year):
+    """13:00 ET early closes: day after Thanksgiving, Christmas Eve, NYE."""
+    raw = [
+        _nth_weekday(year, 11, 3, 4) + _dt.timedelta(days=1),
+        _dt.date(year, 12, 24),
+        _dt.date(year, 12, 31),
+    ]
+    out = set()
+    for d in raw:
+        if d.weekday() == 5:
+            d = d - _dt.timedelta(days=1)
+        elif d.weekday() == 6:
+            d = d + _dt.timedelta(days=1)
+        out.add(d)
+    return out
+
+
+def market_state(now_utc=None):
+    """'open' | 'preopen' | 'closed' — NYSE session logic with a holiday calendar.
+
+    - open:    Mon-Fri 09:30-16:00 ET (13:00 ET on early-close days)
     - preopen: Mon-Fri 09:00-09:30 ET (the 30-min window before the bell)
-    - closed:  everything else (nights, pre-9am, post-4pm, weekends)
+    - closed:  everything else (nights, pre-9am, post-4pm, weekends, holidays)
+
+    NYSE holidays (issue #41): full-close days (New Year's, MLK, Presidents,
+    Good Friday, Memorial, Juneteenth, Independence, Labor, Thanksgiving,
+    Christmas) with weekend observance (Sat -> Fri before, Sun -> Mon after);
+    early closes (13:00 ET) on the day after Thanksgiving, Christmas Eve and
+    New Year's Eve, also observance-shifted.
     """
     now_utc = now_utc or _dt.datetime.now(_dt.timezone.utc)
     year = now_utc.year
@@ -1035,8 +1158,12 @@ def market_state(now_utc=None):
     et = now_utc + _dt.timedelta(hours=et_offset)
     if et.weekday() >= 5:
         return "closed"
+    et_date = et.date()
+    if et_date in nyse_holidays(et_date.year):
+        return "closed"
     hm = et.hour * 60 + et.minute
-    if 9 * 60 + 30 <= hm <= 16 * 60:
+    close_hm = 13 * 60 if et_date in nyse_early_closes(et_date.year) else 16 * 60
+    if 9 * 60 + 30 <= hm <= close_hm:
         return "open"
     if 9 * 60 <= hm < 9 * 60 + 30:
         return "preopen"
@@ -1149,10 +1276,15 @@ def refresh_orders_from_ai(data, verdict, today):
     created = []
     for p in proposals:
         action = "buy" if p["conviction_score"] > 0 else "sell"
+        amt = round(float(p.get("amount") or size), 2)
+        # Issue #29: skip AI buy legs that would breach a sector cap in
+        # execute mode - the cap is a hard limit, not a target.
+        if action == "buy" and ai_sentiment.sector_cap_blocked(p["ticker"], amt, data):
+            continue
         created.append({
             "ticker": p["ticker"],
             "action": action,
-            "amount": round(float(p.get("amount") or size), 2),
+            "amount": amt,
             "status": "pending",
             "source": f"ai_{today}",
             "created": today,
@@ -1164,11 +1296,14 @@ def refresh_orders_from_ai(data, verdict, today):
             "status": "pending", "source": f"ai_{today}", "created": today,
             "note": f"rotation {r['sell']}->{r['buy']}: {(r.get('rationale') or '')[:120]}",
         })
-        created.append({
-            "ticker": r["buy"], "action": "buy", "amount": round(size, 2),
-            "status": "pending", "source": f"ai_{today}", "created": today,
-            "note": f"rotation {r['sell']}->{r['buy']}: {(r.get('rationale') or '')[:120]}",
-        })
+        if not ai_sentiment.sector_cap_blocked(r["buy"], size, data):
+            created.append({
+                "ticker": r["buy"], "action": "buy", "amount": round(size, 2),
+                "status": "pending", "source": f"ai_{today}", "created": today,
+                "note": f"rotation {r['sell']}->{r['buy']}: {(r.get('rationale') or '')[:120]}",
+            })
+        else:
+            print(f"  WARN: rotation buy leg {r['buy']} - sector cap blocks, skipped")
     data["orders"] = keep + created
     if created:
         print(f"  ORDERS REFRESHED from AI verdict (execute mode): "
@@ -1281,6 +1416,24 @@ def execute_pending_orders(data, prices, today):
     if not market_is_open():
         return
     orders = data.setdefault("orders", [])
+    # Issue #40: dedupe identical pending orders before executing - booking
+    # the same proposal twice must not double-execute at the next open.
+    seen = set()
+    unique = []
+    for o in orders:
+        if o.get("status") == "pending":
+            key = (o.get("ticker"), o.get("action"),
+                   round(float(o.get("amount", 0)), 2),
+                   o.get("source"), o.get("note"))
+            if key in seen:
+                print(f"  WARN: dropping duplicate pending order "
+                      f"{o.get('ticker')} {o.get('action')} {o.get('amount')}")
+                continue
+            seen.add(key)
+        unique.append(o)
+    if len(unique) != len(orders):
+        data["orders"] = unique
+        orders = unique
     for order in list(orders):
         if order.get("status") != "pending":
             continue
@@ -1296,6 +1449,11 @@ def execute_pending_orders(data, prices, today):
         if action == "buy":
             if not pos:
                 print(f"  WARN: order BUY {tk} - no open position to add to, deferred")
+                continue
+            # Issue #29: sector caps are hard limits on buys - a blocked
+            # buy stays pending until the sector drops back under its cap.
+            if ai_sentiment.sector_cap_blocked(tk, amount, data):
+                print(f"  WARN: order BUY {tk} - sector cap blocks, stays pending")
                 continue
             sgov = next((p for p in data["positions"]
                          if p["ticker"] == STB_TICKER and p["status"] == "open"), None)
@@ -1339,10 +1497,11 @@ def execute_pending_orders(data, prices, today):
             sell_shares = min(pos["shares"], round(amount / px, 6))
             if sell_shares <= 0:
                 continue
+            ac = avg_cost(pos)
             proceeds = round(sell_shares * px, 2)
-            realized = round((px - pos["buy_price"]) * sell_shares, 2)
+            realized = round((px - ac) * sell_shares, 2)
             pos["shares"] = round(pos["shares"] - sell_shares, 6)
-            pos["cost"] = round(pos["cost"] - round(sell_shares * pos["buy_price"], 2), 2)
+            pos["cost"] = round(pos["cost"] - round(sell_shares * ac, 2), 2)
             data["account"]["cash"] = round(data["account"]["cash"] + proceeds, 2)
             data["account"]["realized_pnl"] = round(
                 data["account"]["realized_pnl"] + realized, 2)
@@ -2076,12 +2235,13 @@ def write_dashboard(data, benchmark=None, rebalance=None, fear_data=None,
         else {"asof": None, "big_stories": [], "feed": []},
         "orders": (data.get("orders") or [])[-15:],
     }
-    with open(DASHBOARD_JS, "w", encoding="utf-8") as f:
-        # Banner warns AI agents / humans not to hand-edit this generated file.
-        f.write("/* AUTO-GENERATED by update.py from portfolio.json - do not edit by hand. */\n")
-        f.write("window.DASH = ")
-        json.dump(payload, f, indent=2, ensure_ascii=False)
-        f.write(";\n")
+    # Issue #48: atomic write - a kill mid-write (e.g. serve.py's subprocess
+    # timeout) must never leave a half-written dashboard.js (blank page).
+    payload_text = ("/* AUTO-GENERATED by update.py from portfolio.json "
+                    "- do not edit by hand. */\nwindow.DASH = ")
+    payload_text += json.dumps(payload, indent=2, ensure_ascii=False)
+    payload_text += ";\n"
+    store.write_text_atomic(DASHBOARD_JS, payload_text)
 
 
 def print_summary(data, today, benchmark=None):

@@ -19,6 +19,9 @@
   };
   const esc = v => String(v == null ? '' : v).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   const sign = v => (v > 0 ? '+' : '') + Number(v).toFixed(2);
+  /* textContent is assigned directly below - esc() is NOT applied to
+     textContent values (that would double-escape). Kept only for any
+     future innerHTML use. (issue #55) */
 
   function loadLb(onOk) {
     if (window.LEADERBOARDS) { onOk && onOk(window.LEADERBOARDS); return; }
@@ -112,10 +115,10 @@
         rk.textContent = String(i + 1);
         const nm = document.createElement('span');
         nm.className = 'lbName';
-        nm.textContent = esc(r.name || r.strategy_id);
+        nm.textContent = r.name || r.strategy_id;
         const au = document.createElement('span');
         au.className = 'lbAuthor';
-        au.textContent = esc(r.author || '\u2014');
+        au.textContent = r.author || '\u2014';
         const rt = document.createElement('span');
         rt.className = 'lbNum ' + (r.return_pct >= 0 ? 'pos' : 'neg');
         rt.textContent = sign(r.return_pct) + '%';

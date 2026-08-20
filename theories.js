@@ -57,8 +57,12 @@
     buildButtons('tierFilters', ST_TIERS, v => fTier = v);
     document.getElementById('tSearch').addEventListener('input', e => {
       fQ = e.target.value.trim().toLowerCase();
-      applyFilters();
+      // Issue #53: debounce - filter work runs 200ms after the last
+      // keystroke, so fast typing doesn't re-render the deck per key.
+      clearTimeout(tSearchDeb);
+      tSearchDeb = setTimeout(applyFilters, 200);
     });
+    let tSearchDeb = null;
 
     function matches(t) {
       if (fStatus && t.status !== fStatus) return false;
@@ -89,7 +93,7 @@
       document.querySelector('#theoryTable tbody').innerHTML = list.map(t => {
         const evs = (t.evidence||[]).slice().reverse().map(e => `<div class="ev">${escA(e)}</div>`).join('');
         return `<tr id="theory-${t.id}">
-          <td><span class="badge ${t.tier.toLowerCase()}">${t.tier}</span></td>
+          <td><span class="badge ${t.tier.toLowerCase()}">${escA(t.tier)}</span></td>
           <td><strong>${t.id}</strong></td>
           <td>${escA(t.title)}<div class="thesis">${escA(t.tier_reason || '')}</div></td>
           <td class="small">${escA(t.prediction)}</td>

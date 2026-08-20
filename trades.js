@@ -40,8 +40,8 @@
           return `
           <tr>
             <td style="white-space:nowrap;">${e.date}${e.ts ? ' <span class="muted small">' + escA(e.ts) + '</span>' : ''}</td>
-            <td><strong title="${escA(NAME[e.ticker]||e.ticker)}">${e.ticker || 'SYSTEM'}</strong></td>
-            <td><span class="pill ${pill(e.reason)}">${e.reason.toUpperCase()}${isBuy(e) ? ' / BUY' : ''}</span></td>
+            <td><strong title="${escA(NAME[e.ticker]||e.ticker)}">${escA(e.ticker || 'SYSTEM')}</strong></td>
+            <td><span class="pill ${pill(e.reason)}">${escA(e.reason).toUpperCase()}${isBuy(e) ? ' / BUY' : ''}</span></td>
             <td>${e.price == null ? '&mdash;' : fmtN(e.price)}</td>
             <td>${e.buy_price == null ? '&mdash;' : fmtN(e.buy_price)}</td>
             <td>${e.shares == null ? '&mdash;' : fmtN(e.shares, 4)}</td>

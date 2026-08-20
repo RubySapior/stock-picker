@@ -44,10 +44,31 @@ import urllib.request
 # Provider endpoints. API keys via env vars only - never committed.
 GEMINI_URL = (
     "https://generativelanguage.googleapis.com/v1beta/models/{model}"
-    ":generateContent?key={key}"
+    ":generateContent"
 )
 DEEPSEEK_URL = "https://api.deepseek.com/chat/completions"
 ZEN_URL = "https://opencode.ai/zen/v1/chat/completions"
+
+
+def _http_json(url, body, headers, timeout=90, attempts=2):
+    """POST JSON with retries + exponential backoff (5s / 15s) (issue #45).
+
+    Returns the parsed response dict, or None after all attempts fail.
+    """
+    for attempt in range(attempts):
+        req = urllib.request.Request(
+            url, data=body,
+            headers={"Content-Type": "application/json", **headers},
+            method="POST",
+        )
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                return json.loads(r.read().decode("utf-8"))
+        except Exception as exc:
+            print(f"  WARN: ai_sentiment call failed (attempt {attempt + 1}/{attempts}): {exc}")
+            if attempt < attempts - 1:
+                time.sleep(5 * (3 ** attempt))
+    return None
 OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
 ZEN_FREE_MODEL = "deepseek-v4-flash-free"   # free tier - data may train the model
 ZEN_PAID_MODEL = "deepseek-v4-flash"        # paid tier - zero retention, recommended
@@ -333,13 +354,17 @@ def build_prompt(cfg, snapshot, deltas, theories=None, calibration=None,
 # ---------------------------------------------------------------- API call
 
 def _call_gemini(cfg, prompt):
-    """POST the prompt to Gemini. Returns raw text or None (degraded)."""
+    """POST the prompt to Gemini. Returns raw text or None (degraded).
+
+    Issue #44: the key goes in the `x-goog-api-key` header, never in the
+    URL query string (query strings leak into logs / proxies / referrers).
+    """
     model = cfg.get("model") or "gemini-2.0-flash"
     key = os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY")
     if not key:
         print("  WARN: ai_sentiment: no GEMINI_API_KEY env var - AI offline")
         return None
-    url = GEMINI_URL.format(model=model, key=key)
+    url = GEMINI_URL.format(model=model)
     body = json.dumps({
         "contents": [{"parts": [{"text": prompt}]}],
         "generationConfig": {
@@ -347,18 +372,12 @@ def _call_gemini(cfg, prompt):
             "maxOutputTokens": int(cfg.get("max_output_chars", 4000)),
         },
     }).encode("utf-8")
-    req = urllib.request.Request(
-        url, data=body,
-        headers={"Content-Type": "application/json"},
-        method="POST",
-    )
+    raw = _http_json(url, body, {"x-goog-api-key": key})
     try:
-        with urllib.request.urlopen(req, timeout=90) as r:
-            raw = json.loads(r.read().decode("utf-8"))
         parts = raw["candidates"][0]["content"]["parts"]
         return "".join(p.get("text", "") for p in parts)
     except Exception as exc:
-        print(f"  WARN: ai_sentiment call failed (gemini): {exc}")
+        print(f"  WARN: ai_sentiment: gemini response shape unexpected: {exc}")
         return None
 
 
@@ -375,20 +394,11 @@ def _call_deepseek(cfg, prompt):
         "temperature": 0.4,
         "max_tokens": int(cfg.get("max_output_chars", 4000)),
     }).encode("utf-8")
-    req = urllib.request.Request(
-        DEEPSEEK_URL, data=body,
-        headers={
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + key,
-        },
-        method="POST",
-    )
+    raw = _http_json(DEEPSEEK_URL, body, {"Authorization": "Bearer " + key})
     try:
-        with urllib.request.urlopen(req, timeout=90) as r:
-            raw = json.loads(r.read().decode("utf-8"))
         return raw["choices"][0]["message"]["content"]
     except Exception as exc:
-        print(f"  WARN: ai_sentiment call failed (deepseek): {exc}")
+        print(f"  WARN: ai_sentiment: deepseek response shape unexpected: {exc}")
         return None
 
 
@@ -436,20 +446,11 @@ def _call_zen(cfg, prompt):
         "temperature": 0.4,
         "max_tokens": int(cfg.get("max_output_chars", 4000)),
     }).encode("utf-8")
-    req = urllib.request.Request(
-        ZEN_URL, data=body,
-        headers={
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + key,
-        },
-        method="POST",
-    )
+    raw = _http_json(ZEN_URL, body, {"Authorization": "Bearer " + key})
     try:
-        with urllib.request.urlopen(req, timeout=90) as r:
-            raw = json.loads(r.read().decode("utf-8"))
         return raw["choices"][0]["message"]["content"]
     except Exception as exc:
-        print(f"  WARN: ai_sentiment call failed (zen): {exc}")
+        print(f"  WARN: ai_sentiment: zen response shape unexpected: {exc}")
         return None
 
 
@@ -494,20 +495,12 @@ def _call_openrouter(cfg, prompt):
     effort = cfg.get("reasoning_effort")
     if effort:
         body["reasoning_effort"] = effort
-    req = urllib.request.Request(
-        OPENROUTER_URL, data=json.dumps(body).encode("utf-8"),
-        headers={
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + key,
-        },
-        method="POST",
-    )
+    raw = _http_json(OPENROUTER_URL, json.dumps(body).encode("utf-8"),
+                     {"Authorization": "Bearer " + key}, timeout=120)
     try:
-        with urllib.request.urlopen(req, timeout=120) as r:
-            raw = json.loads(r.read().decode("utf-8"))
         return raw["choices"][0]["message"]["content"]
     except Exception as exc:
-        print(f"  WARN: ai_sentiment call failed (openrouter): {exc}")
+        print(f"  WARN: ai_sentiment: openrouter response shape unexpected: {exc}")
         return None
 
 
@@ -529,7 +522,12 @@ def call_ai(cfg, prompt):
 # ---------------------------------------------------------------- validation
 
 def _extract_json(raw):
-    """Pull the JSON object out of the model reply (strip fences/prose)."""
+    """Pull the JSON object out of the model reply (strip fences/prose).
+
+    Salvage pass (issue #45): if the strict parse fails, a brace/array-depth
+    walk recovers truncated replies (auto-appends missing closers) and
+    strips stray trailing prose instead of discarding the whole verdict.
+    """
     if not raw:
         return None
     text = raw.strip()
@@ -544,7 +542,90 @@ def _extract_json(raw):
     try:
         return json.loads(text)
     except Exception:
+        pass
+
+    # Salvage: walk the object, count depth, cut prose, rebalance closers.
+    start = text.find("{")
+    if start == -1:
         return None
+    depth = 0
+    in_str = False
+    esc = False
+    cut = None
+    for i in range(start, len(text)):
+        ch = text[i]
+        if in_str:
+            if esc:
+                esc = False
+            elif ch == "\\":
+                esc = True
+            elif ch == '"':
+                in_str = False
+            continue
+        if ch == '"':
+            in_str = True
+        elif ch in "{[":
+            depth += 1
+        elif ch in "}]":
+            depth -= 1
+            if depth == 0:
+                cut = i + 1
+                break
+    if cut is None:
+        return None
+    tail = text[start:cut]
+    # Rebalance unclosed arrays/objects from the right.
+    stack = []
+    for ch in tail:
+        if ch in "{[":
+            stack.append(ch)
+        elif ch in "}]" and stack:
+            if (ch == "}" and stack[-1] == "{") or (ch == "]" and stack[-1] == "["):
+                stack.pop()
+    close = {"]": "[", "}": "{"}
+    for ch in reversed(stack):
+        tail += "]" if close[ch] == "[" else "}"
+    try:
+        return json.loads(tail)
+    except Exception:
+        return None
+
+
+def _drop_unchanged(verdict, last):
+    """Diff the verdict against the prior one (issue #42).
+
+    A full-verdict echo (same convictions/theories/fears/rotations/
+    sector_bias) is logged as a warning and degenerates into a no-op:
+    no new orders, no sentiment_index drift. Partial deltas pass through.
+    Returns the filtered verdict, or None when nothing changed at all.
+    """
+    if not last:
+        return verdict
+    sections = ("convictions", "theories", "fears", "rotations", "sector_bias")
+    changed = False
+    for key in sections:
+        cur = verdict.get(key)
+        prev = last.get(key)
+        if not cur:
+            continue
+        if prev is None:
+            changed = True
+            continue
+        try:
+            cur_norm = json.dumps(cur, sort_keys=True)
+            prev_norm = json.dumps(prev, sort_keys=True)
+        except Exception:
+            changed = True
+            continue
+        if cur_norm == prev_norm:
+            print(f"  WARN: ai_sentiment: {key} unchanged vs prior verdict - dropping echo")
+            del verdict[key]
+        else:
+            changed = True
+    if not any(verdict.get(k) for k in sections):
+        print("  WARN: ai_sentiment: full-verdict echo - degenerating to no-op")
+        return None
+    return verdict
 
 
 def _clamp(v, lo, hi, default=0.0):
@@ -704,6 +785,50 @@ def bullish_layer(verdict, data, prices=None):
     return sorted(proposals, key=lambda x: -x["urgency"])
 
 
+def sector_cap_blocked(ticker, amount, data, positions=None):
+    """True if a BUY of `amount` of `ticker` would push its sector's
+    EFFECTIVE exposure (market value x leverage) over the hard cap in
+    meta.limits.sector_limits (issue #29). Sells are never blocked.
+
+    Enforced at every buy path: execute_pending_orders (blocked buys stay
+    pending until the sector drops under its cap), refresh_orders_from_ai
+    (execute mode skips AI/rotation buy legs), and serve.py /book +
+    /execute_all (human approval is rejected the same way). The projected
+    exposure is measured against the CURRENT invested value, matching the
+    basis the dashboard renders.
+    """
+    if not ticker or amount is None or amount <= 0:
+        return False
+    limits_cfg = ((data.get("meta") or {}).get("limits") or {})
+    caps = {s["sector"]: s["max_pct"] for s in (limits_cfg.get("sector_limits") or [])}
+    pex = limits_cfg.get("position_exposure") or {}
+    if not caps or ticker not in pex:
+        return False
+    sector = pex[ticker]["sector"]
+    lev = float(pex[ticker].get("leverage", 1.0))
+    max_pct = caps.get(sector)
+    if max_pct is None:
+        return False
+    positions = positions if positions is not None else (data.get("positions") or [])
+    mv, eff = {}, {}
+    for p in positions:
+        if p.get("status") != "open":
+            continue
+        sec = pex.get(p["ticker"], {}).get("sector", "Other")
+        lv = float(pex.get(p["ticker"], {}).get("leverage", 1.0))
+        px = p.get("current_price") or p.get("buy_price") or 0.0
+        m = px * p.get("shares", 0)
+        mv[sec] = mv.get(sec, 0.0) + m
+        eff[sec] = eff.get(sec, 0.0) + m * lv
+    proj_eff = eff.get(sector, 0.0) + float(amount) * lev
+    total_inv = sum(mv.values()) or 1.0
+    blocked = (proj_eff / total_inv * 100.0) > max_pct
+    if blocked:
+        print(f"  WARN: sector cap - BUY {ticker} {amount:,.0f} would push "
+              f"{sector} effective exposure over {max_pct:.0f}% - blocked")
+    return blocked
+
+
 def rotation_layer(verdict, data):
     """Rotations -> paired {sell, buy} proposals (engine sizes both legs).
 
@@ -713,11 +838,19 @@ def rotation_layer(verdict, data):
     """
     whitelist = {p["ticker"] for p in data.get("positions") or []
                  if p.get("status") == "open"}
+    conviction_ticks = {c.get("ticker") for c in (verdict.get("convictions") or [])}
     out = []
     for r in verdict.get("rotations") or []:
         sell, buy = r.get("sell"), r.get("buy")
         if sell not in whitelist or buy not in whitelist:
             print(f"  WARN: AI rotation {sell}->{buy} outside holdings - discarded")
+            continue
+        # Issue #43: a leg that also appears as a conviction in the SAME
+        # verdict is dropped - the conviction is the explicit sized read
+        # and must win; booking both would double-queue the ticker.
+        if sell in conviction_ticks or buy in conviction_ticks:
+            print(f"  WARN: AI rotation {sell}->{buy} overlaps a conviction - "
+                  f"conviction wins, rotation leg dropped")
             continue
         out.append(r)
     return out
@@ -756,6 +889,9 @@ def run(data, prices, fear_data=None, macro=None, sentiment=None,
     verdict = _validate_verdict(obj, allowed_fears=allowed_fears)
     if not verdict:
         print("  WARN: ai_sentiment: verdict invalid/missing - AI offline")
+        return None
+    verdict = _drop_unchanged(verdict, last)
+    if not verdict:
         return None
     verdict["prompt_hash"] = hashlib.sha256(prompt.encode("utf-8")).hexdigest()[:16]
     verdict["prices"] = snapshot["prices"]

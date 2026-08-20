@@ -119,13 +119,48 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         self.end_headers()
 
     def _read_body(self):
-        length = int(self.headers.get("Content-Length") or 0)
-        if length <= 0:
+        """POST body as dict. Issue #56 hardening:
+
+        - bad/non-numeric Content-Length -> 400 (was a crash via int())
+        - bodies over 64KB -> 413 (a 600MB flood can no longer stall the
+          server reading it)
+        - a stalled/slow sender -> 400 after 60s (socket timeout, no hang)
+        - malformed JSON -> 400 (was a silent {})
+        """
+        raw_len = self.headers.get("Content-Length") or "0"
+        try:
+            length = int(raw_len)
+        except ValueError:
+            self._json({"ok": False, "error": "invalid Content-Length"}, 400)
+            return None
+        if length < 0:
+            self._json({"ok": False, "error": "negative Content-Length"}, 400)
+            return None
+        if length > 65536:
+            self._json({"ok": False, "error": "body too large (max 64KB)"}, 413)
+            return None
+        if length == 0:
             return {}
         try:
-            return json.loads(self.rfile.read(length).decode("utf-8") or "{}")
+            self.connection.settimeout(60)
         except Exception:
-            return {}
+            pass
+        try:
+            body = self.rfile.read(length)
+        except socket.timeout:
+            self._json({"ok": False, "error": "body read timed out"}, 400)
+            return None
+        except Exception as exc:
+            self._json({"ok": False, "error": f"body read failed: {exc}"}, 400)
+            return None
+        try:
+            parsed = json.loads(body.decode("utf-8") or "{}")
+            if not isinstance(parsed, dict):
+                raise ValueError("not a JSON object")
+            return parsed
+        except Exception:
+            self._json({"ok": False, "error": "malformed JSON body"}, 400)
+            return None
 
     def _json(self, payload, code=200):
         body = json.dumps(payload).encode("utf-8")
@@ -154,6 +189,8 @@ class Handler(http.server.SimpleHTTPRequestHandler):
     def _set_mode(self):
         """POST /mode {mode: 'recommend'|'execute'} -> meta.ai.mode."""
         body = self._read_body()
+        if body is None:
+            return
         mode = str(body.get("mode") or "").lower()
         if mode not in ("recommend", "execute"):
             self._json({"ok": False, "error": "mode must be recommend|execute"}, 400)
@@ -180,6 +217,8 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         try:
             import ai_sentiment
             body = self._read_body()
+            if body is None:
+                return
             data = store.read_portfolio()
             meta = data["meta"]
             cfg = meta.get("ai") or {}
@@ -207,6 +246,10 @@ class Handler(http.server.SimpleHTTPRequestHandler):
                           and ((x["conviction_score"] > 0) == (action == "buy"))), None)
                 if not p:
                     raise ValueError(f"'{ticker} {action}' is not in the current AI verdict")
+                if action == "buy" and ai_sentiment.sector_cap_blocked(
+                        ticker, round(float(p.get("amount") or size), 2), data):
+                    raise ValueError(f"BUY {ticker} breaches a sector cap - "
+                                     f"human approval is capped the same way")
                 created.append({
                     "ticker": ticker, "action": action,
                     "amount": round(float(p.get("amount") or size), 2), "status": "pending",
@@ -221,6 +264,9 @@ class Handler(http.server.SimpleHTTPRequestHandler):
                           if x["sell"] == sell and x["buy"] == buy), None)
                 if not r:
                     raise ValueError(f"rotation {sell}->{buy} is not in the current AI verdict")
+                if ai_sentiment.sector_cap_blocked(buy, round(size, 2), data):
+                    raise ValueError(f"rotation {sell}->{buy} buy leg breaches a "
+                                     f"sector cap - human approval is capped the same way")
                 note = f"rotation {sell}->{buy}: {(r.get('rationale') or '')[:120]}"
                 created.append({
                     "ticker": sell, "action": "sell", "amount": round(size, 2),
@@ -265,9 +311,12 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             created = []
             for p in ai_sentiment.bullish_layer(verdict, data):
                 action = "buy" if p["conviction_score"] > 0 else "sell"
+                amt = round(float(p.get("amount") or size), 2)
+                if action == "buy" and ai_sentiment.sector_cap_blocked(p["ticker"], amt, data):
+                    continue
                 created.append({
                     "ticker": p["ticker"], "action": action,
-                    "amount": round(float(p.get("amount") or size), 2),
+                    "amount": amt,
                     "status": "pending",
                     "source": f"execute_all_{verdict['date']}",
                     "created": verdict["date"],
@@ -280,11 +329,12 @@ class Handler(http.server.SimpleHTTPRequestHandler):
                     "status": "pending", "source": f"execute_all_{verdict['date']}",
                     "created": verdict["date"], "note": note,
                 })
-                created.append({
-                    "ticker": r["buy"], "action": "buy", "amount": round(size, 2),
-                    "status": "pending", "source": f"execute_all_{verdict['date']}",
-                    "created": verdict["date"], "note": note,
-                })
+                if not ai_sentiment.sector_cap_blocked(r["buy"], round(size, 2), data):
+                    created.append({
+                        "ticker": r["buy"], "action": "buy", "amount": round(size, 2),
+                        "status": "pending", "source": f"execute_all_{verdict['date']}",
+                        "created": verdict["date"], "note": note,
+                    })
             if not created:
                 raise ValueError("the current verdict has no proposals or rotations")
             store.update_portfolio(lambda d: _append_orders(d, created))
@@ -297,6 +347,8 @@ class Handler(http.server.SimpleHTTPRequestHandler):
     def _set_bias(self):
         """POST /bias {value: -5..5} -> meta.ai.user_bias (sentiment slider)."""
         body = self._read_body()
+        if body is None:
+            return
         try:
             value = int(body.get("value"))
         except (TypeError, ValueError):
@@ -317,6 +369,8 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         """POST /park {mode: "sgov"|"cash"} -> meta.park_mode (dry-powder
         toggle; "sgov" parks idle cash in SGOV, "cash" leaves it idle)."""
         body = self._read_body()
+        if body is None:
+            return
         mode = str(body.get("mode") or "").lower()
         if mode not in ("sgov", "cash"):
             self._json({"ok": False, "error": "mode must be 'sgov' or 'cash'"}, 400)

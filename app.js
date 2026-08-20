@@ -52,6 +52,15 @@ function loadDash(cb) {
   var s = document.createElement('script');
   s.src = 'dashboard.js?t=' + new Date().getTime();
   s.onload = cb;
+  // Issue #55: if dashboard.js is missing/corrupt, surface a visible hint
+  // instead of a silent blank page (no error -> no crash either way).
+  s.onerror = function () {
+    var el = document.getElementById('pname');
+    if (el) {
+      el.textContent = 'dashboard.js failed to load - run python update.py once.';
+      el.style.color = 'var(--red, #e74c3c)';
+    }
+  };
   document.head.appendChild(s);
 }
 
@@ -265,6 +274,7 @@ function render() {
       case 'pct': return p.current_value / s.total_value;
       case 'take_profit_pct': return p.take_profit_pct===null ? -Infinity : p.take_profit_pct;
       case 'stop_loss_pct': return p.stop_loss_pct===null ? -Infinity : p.stop_loss_pct;
+      case 'pnl_dollars': return p.pnl_dollars===undefined ? (p.status==='closed' && p.realized_pnl!==undefined ? p.realized_pnl : (p.cost!==undefined ? p.current_value-p.cost : 0)) : p.pnl_dollars;
       default: return p[key];
     }
   }
@@ -279,14 +289,16 @@ function render() {
       const badge = st==='open' ? 'open' : (p.exit && p.exit.reason==='take_profit' ? 'tp' : 'sl');
       const label = st==='open' ? 'OPEN' : (p.exit && p.exit.reason==='take_profit' ? 'TAKE PROFIT' : 'STOP LOSS');
       const pnl = p.pnl_pct===null ? '—' : sign(p.pnl_pct)+'%';
+      const pnlD = (p.status==='closed' && p.realized_pnl!==undefined)
+        ? p.realized_pnl
+        : (p.cost!==undefined ? p.current_value - p.cost : 0);
       return `<tr>
         <td><strong><span class="tick" title="${escA(p.name)}">${p.ticker}</span></strong>${p.leverage > 1 ? `<span class="levBadge">${p.leverage}x</span>` : ''}${isNew.positions[p.ticker] ? '<span class="newTag">NEW</span>' : ''}${p.scheduled_exit ? `<div class="schedTag" title="${escA((p.scheduled_exit.note || p.scheduled_exit.reason))}">SELL SCHEDULED</div>` : ''}</td>
         <td>${p.name}<div class="small muted">${p.sleeve}</div></td>
-        <td>${fmtN(p.buy_price)}</td>
-        <td>${fmtN(p.current_price)}</td>
         <td>${fmt$(p.current_value)}</td>
         <td>${fmtN(p.current_value / s.total_value * 100, 1)}%</td>
         <td class="${cls(p.pnl_pct)}">${pnl}</td>
+        <td class="${cls(p.pnl_pct)}">${fmt$(pnlD)}</td>
         <td class="pos">${p.underlying ? (p.runner_active ? 'runner' : '50% trim') : (p.take_profit_pct ? (p.take_profit_pct*100).toFixed(0)+'%' : '—')}</td>
         <td class="neg">${p.underlying ? p.underlying+' '+(Math.abs(p.dynamic_stop_pct != null ? p.dynamic_stop_pct : p.underlying_stop_pct)*100).toFixed(1)+'%' + (p.runner_active ? ' <span class="small pos" title="runner trail armed (base trim done)">R</span>' : '') : (p.stop_loss_pct ? (p.stop_loss_pct*100).toFixed(0)+'%' : '—')}</td>
         <td><span class="pill ${badge}">${label}</span></td>
@@ -314,7 +326,7 @@ function render() {
       const color = sr.status === 'over' ? 'var(--red)' : sr.status === 'warn' ? 'var(--amber)' : 'var(--green)';
       const label = sr.status === 'over' ? 'OVER' : sr.status === 'warn' ? 'NEAR' : 'OK';
       return `<div class="srow">
-        <span class="sname">${sr.sector}${sr.note ? `<div class="small muted" style="font-size:10.5px;">${sr.note}</div>` : ''}</span>
+        <span class="sname">${escA(sr.sector)}${sr.note ? `<div class="small muted" style="font-size:10.5px;">${escA(sr.note)}</div>` : ''}</span>
         <span class="sbar">
           <span class="fill" style="width:${ratio}%; background:${color};"></span>
           <span class="capmark" style="left:100%;"></span>
@@ -341,7 +353,7 @@ function render() {
       const evs = all.slice(0, 2).map(e => `<div class="ev" title="${escA(e)}">${clamp(e, 140)}</div>`).join('');
       const more = all.length > 2 ? `<div class="ev muted small">+${all.length - 2} more &mdash; see archive</div>` : '';
       return `<tr id="theory-${t.id}">
-        <td><span class="badge ${t.tier.toLowerCase()}">${t.tier}</span></td>
+        <td><span class="badge ${t.tier.toLowerCase()}">${escA(t.tier)}</span></td>
         <td><strong>${t.id}</strong></td>
         <td title="${escA(t.title)}">${clamp(t.title, 100)}<div class="thesis" title="${escA(t.tier_reason||'')}">${clamp(t.tier_reason||'', 150)}</div></td>
         <td class="small" title="${escA(t.prediction)}">${clamp(t.prediction, 160)}</td>
@@ -946,7 +958,7 @@ function render() {
     const ctl = document.getElementById('aiCtl');
     if(!stEl || !hb) return;
     const model = cfg.provider ? `${String(cfg.provider).toUpperCase()} · ${cfg.model}` : '';
-    const stancePill = s => `<span class="stancePill ${s}">${String(s||'neutral').toUpperCase()}</span>`;
+    const stancePill = s => `<span class="stancePill ${escA(s)}">${String(s||'neutral').toUpperCase()}</span>`;
 
     if(!A){
       const degraded = !!cfg.enabled;

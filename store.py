@@ -97,6 +97,30 @@ def _write_locked(path, data, indent):
             pass
 
 
+def write_text_atomic(path, text):
+    """Locked atomic write of a raw text file (tmp-file + rename).
+
+    Used for generated assets like dashboard.js and ohlc_cache.json
+    (issue #48): a kill mid-write (e.g. serve.py's subprocess timeout)
+    can no longer leave a half-written dashboard.js (blank page) or a
+    corrupt OHLC cache (indicator degradation).
+    """
+    with _path_lock(path), _CrossProcessLock(path):
+        tmp = path + ".tmp"
+        with open(tmp, "w", encoding="utf-8") as f:
+            f.write(text)
+        try:
+            os.replace(tmp, path)
+        except OSError:
+            with open(path, "w", encoding="utf-8") as f:
+                f.write(text)
+            try:
+                os.remove(tmp)
+            except OSError:
+                pass
+    return text
+
+
 def read_json(path, default=None):
     """Read one JSON file; `default` on missing/corrupt/any failure."""
     try:

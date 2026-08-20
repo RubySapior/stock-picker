@@ -165,6 +165,88 @@ JSON verdict that feeds three deterministic layers. Nothing executes.
   -> target book diff -> "Buy TQQQ +$2k" review cards (buttons, never
   execution).
 
+## [site 0.5.6.11] — 2026-08-20
+
+### Fixed — rework of issues reopened from the 2026-08-20 closing batch (fixes were claimed in 0.5.6.05-0.5.6.10 but never committed; all re-implemented and verified here)
+
+Engine:
+- **#41 NYSE holiday calendar**: `nyse_holidays()` / `nyse_early_closes()`
+  (fixed-date rules + `_nth_weekday` / `_last_weekday` / `_easter` helpers,
+  holiday fallback on weekends) wired into `market_state()` — the book
+  stays closed on full-close holidays and opens until 13:00 ET on
+  early-close days (e.g. Jul 3) instead of trading on a dead tape.
+- **#40 pending-order dedupe**: `execute_pending_orders` drops duplicate
+  pending orders (same ticker/action/amount/source/note) before executing,
+  so a twice-booked proposal can't double-execute at the next open.
+- **#52 running-average cost basis**: new `avg_cost(pos)` (cost/shares,
+  fallback `buy_price`) used by `check_exits` realized P&L and by the
+  sell path in `execute_pending_orders` (proceeds/realized/cost write-down
+  all on the averaged basis, not the stale entry price).
+- **#46 hold verdicts excluded from calibration**: `compute_calibration`
+  skips 0.0-conviction (HOLD) entries — they are not directional calls and
+  are no longer scored as wrong.
+- **#51 runner gate wired**: the runner trail arms only after the base trim
+  wrapper reaches `RUNNER_GATE_PNL` (+30%) — the gate constant existed but
+  was never enforced.
+- **#50 SGOV exempt**: `check_exits` returns None for the STB ticker, so
+  the cash-parking sleeve can never be reaped by the exit engine.
+- **#29 sector caps are hard limits**: new `sector_cap_blocked()` guard
+  (ai_sentiment.py) blocks any BUY whose sector EFFECTIVE exposure
+  (market value x leverage) would exceed `meta.limits.sector_limits`
+  max_pct, enforced at every buy path — `execute_pending_orders` (blocked
+  buys stay pending), `refresh_orders_from_ai` execute mode (AI/rotation
+  buy legs skipped), and serve.py `/book` + `/execute_all` (human
+  approval rejected with the same rule). Sells are never blocked.
+- **#48 atomic asset writes**: new `store.write_text_atomic()` (tmp-file +
+  rename under the same locks) for `dashboard.js` and `ohlc_cache.json` —
+  a kill mid-write can no longer leave a blank dashboard or corrupt cache.
+
+AI sentiment (ai_sentiment.py):
+- **#44 Gemini key moved to header**: the API key is sent as
+  `x-goog-api-key`, never in the URL query string (leaks via logs/proxies).
+- **#45 retries + salvage**: all four providers now go through `_http_json()`
+  (2 attempts, 5s/15s backoff); `_extract_json()` gained a brace-depth
+  salvage pass that recovers truncated replies (auto-appends closers,
+  strips trailing prose) instead of discarding the verdict.
+- **#42 full-verdict echo degenerates to no-op**: `_drop_unchanged()` diffs
+  convictions/theories/fears/rotations/sector_bias against the prior
+  verdict; identical sections are dropped (no re-booked orders, no
+  sentiment drift) and an all-unchanged verdict logs a warning and no-ops.
+- **#43 rotation vs conviction cross-check**: `rotation_layer()` drops a
+  rotation leg that also appears as a conviction in the SAME verdict —
+  the explicit sized read wins, no double-queuing.
+
+Fears:
+- **#38 per-scenario isolation**: `build_fears` wraps each scenario in
+  try/except — one malformed scenario is skipped (and reported), never
+  takes down the whole gauge.
+- **#39 `days_above` counts calendar days**: gated on `last_above_date`
+  instead of every 6-min run — a single hot day can no longer fast-track
+  a fear to confirmed.
+- **#47 market witness preserved**: `apply_ai_witnesses` stores the raw
+  market score on `market_score` before blending, and `hedge_harvester`
+  decides on `market_score` — one AI sentiment spike can no longer unpark
+  hedges mid-panic.
+
+Server (serve.py):
+- **#56 `_read_body` hardening**: bad/negative Content-Length -> 400 (was
+  an `int()` crash), bodies > 64KB -> 413, stalled reads -> 400 after a
+  60s socket timeout, malformed JSON -> 400 (was silent `{}`).
+- **#29 sector caps** enforced on `/book` and `/execute_all` buy paths.
+
+UI:
+- **#15 positions table**: dropped the Buy/Current columns, added P&L $
+  (unrealized `current_value - cost`, realized for closed) with sorting.
+- **#53 theories search debounced** (200ms) — fast typing no longer
+  re-renders the deck per keystroke.
+- **#54 XSS sweep**: sector names/notes, theory tier badges, stance pill,
+  trade ticker/reason and theories table tier text are escaped (app.js,
+  theories.js, trades.js).
+- **#55 leaderboard hardening**: community.js no longer double-escapes
+  names/authors (textContent), lbpage.js shows the empty state when
+  leaderboards.js fails instead of throwing, and `loadDash` surfaces a
+  visible hint when dashboard.js fails to load.
+
 ## [site 0.5.6.04] — 2026-08-18
 
 ### Fixed — calibration over-counting, frontend listener leaks, quarterly audit gating

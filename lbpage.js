@@ -38,10 +38,14 @@
     document.head.appendChild(c);
   };
   s.onload = () => {
-    fill(window.LEADERBOARDS);
+    fill(window.LEADERBOARDS || null);
     injectCommunity();
   };
-  s.onerror = injectCommunity;
+  s.onerror = () => {
+    // leaderboards.js missing/failed - never throw, show the empty state
+    fill(null);
+    injectCommunity();
+  };
   document.head.appendChild(s);
 
   const v = document.createElement('script');
