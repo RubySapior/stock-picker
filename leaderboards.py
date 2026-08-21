@@ -194,7 +194,12 @@ def _benchmark_history(spec, closes_cache):
     return history
 
 
-def _benchmark_strategies(benchmarks, closes_cache):
+def _benchmark_strategies(benchmarks, closes_cache, book_start_date=None):
+    """Benchmark strategies, optionally anchored to the book's start_date for
+    fair all-time comparison (hosting fix: previously all-time was 2y for
+    benchmarks vs 10 days for the book, making +99% look wrong). When
+    book_start_date is given, start_value is taken at that date so
+    all_time = return since book inception, comparable across all rows."""
     out = []
     for spec in benchmarks or []:
         try:
@@ -204,13 +209,23 @@ def _benchmark_strategies(benchmarks, closes_cache):
         if not hist:
             continue
         sid = "benchmark-" + re.sub(r"[^a-z0-9]+", "-", spec.lower()).strip("-")
+        # Anchor to book inception if available (fair comparison)
+        start_val = hist[0]["total_value"]
+        start_date = hist[0]["date"]
+        if book_start_date:
+            # Find first hist entry on/after book_start_date
+            for h in hist:
+                if h["date"] >= book_start_date:
+                    start_val = h["total_value"]
+                    start_date = h["date"]
+                    break
         out.append({
             "strategy_id": sid,
             "name": spec,
             "author": "Benchmark",
             "kind": "benchmark",
-            "start_value": hist[0]["total_value"],
-            "start_date": hist[0]["date"],
+            "start_value": start_val,
+            "start_date": start_date,
             "history": hist,
         })
     return out
@@ -306,7 +321,9 @@ def build_leaderboards(data=None):
     Hosting fix: benchmark closes cache is read with a locked read fallback and
     written via store.write_json (atomic + per-path lock) so 1000 concurrent
     builds don't corrupt the shared cache. Symbols are fetched only once per
-    day and reused across users (deduped).
+    day and reused across users (deduped). Benchmark all_time is anchored to
+    the book's start_date (fair since-inception compare), fixing the
+    +99% vs -0.83% apples-to-oranges look.
     """
     if data is None:
         data = _load_portfolio()
@@ -323,7 +340,8 @@ def build_leaderboards(data=None):
             continue
         seen.add(s["strategy_id"])
         strategies.append(s)
-    for b in _benchmark_strategies(benchmarks, cache.get("closes") or {}):
+    book_start = (data.get("meta") or {}).get("start_date")
+    for b in _benchmark_strategies(benchmarks, cache.get("closes") or {}, book_start_date=book_start):
         if b["strategy_id"] not in seen:
             seen.add(b["strategy_id"])
             strategies.append(b)
