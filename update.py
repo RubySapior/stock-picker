@@ -407,7 +407,12 @@ def compute_calibration(data, prices, today):
             continue
         # Issue #46: a 0.0-conviction entry is a HOLD, not a directional
         # call - it must not be scored as wrong (or right) against a move.
-        if not conv.get("conviction_score"):
+        # Threshold 0.05 per issue: |conviction| < 0.05 is noise/hold.
+        try:
+            cs = float(conv.get("conviction_score", 0))
+        except (TypeError, ValueError):
+            continue
+        if abs(cs) < 0.05:
             continue
         r = rec.setdefault(tk, {"wrong": 0, "total": 0, "last_wrong": None})
         r["total"] = r.get("total", 0) + 1

@@ -17,7 +17,9 @@
       if (!el) return;
       const best = win && win.rows && win.rows[0];
       if (!best) { el.textContent = '\u2014'; if (who) who.textContent = ''; return; }
-      el.textContent = (best.return_pct > 0 ? '+' : '') + best.return_pct.toFixed(2) + '%';
+      // issue #55: guard null return_pct (e.g. no history) — previously threw on null.toFixed
+      if (best.return_pct == null) { el.textContent = '\u2014'; el.className = 'val'; if (who) who.textContent = best.name || best.strategy_id; return; }
+      el.textContent = (best.return_pct > 0 ? '+' : '') + Number(best.return_pct).toFixed(2) + '%';
       el.className = 'val ' + (best.return_pct >= 0 ? 'pos' : 'neg');
       if (who) who.textContent = best.name || best.strategy_id;
     };

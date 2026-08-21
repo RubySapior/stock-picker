@@ -34,9 +34,9 @@
         `<div class="cardInner">
          <div class="face front">
            <div class="cTop">
-             <span class="cTier ${t.tier.toLowerCase()}">${t.tier}</span>
-             <span class="cId">${t.id}</span>
-             <span class="badge ${stClass(t.status)}">${stLabel(t.status)}</span>
+             <span class="cTier ${escA(t.tier.toLowerCase())}">${escA(t.tier)}</span>
+             <span class="cId">${escA(t.id)}</span>
+             <span class="badge ${escA(stClass(t.status))}">${escA(stLabel(t.status))}</span>
            </div>
            <div class="cTitle">${escA(t.title)}</div>
            <div class="cPred">${escA(t.prediction)}</div>
@@ -44,8 +44,8 @@
          </div>
          <div class="face back">
            <div class="cTop">
-             <span class="cId">${t.id}</span>
-             <span class="badge ${stClass(t.status)}">${stLabel(t.status)}</span>
+             <span class="cId">${escA(t.id)}</span>
+             <span class="badge ${escA(stClass(t.status))}">${escA(stLabel(t.status))}</span>
            </div>
            <div class="cSection">Thesis</div>
            <div class="cThesis">${escA(t.tier_reason || 'no thesis recorded')}</div>

@@ -26,6 +26,7 @@ Then open http://localhost:8000 in your browser.
 import http.server
 import json
 import os
+import socket
 import subprocess
 import sys
 import threading
@@ -33,7 +34,11 @@ import threading
 import store
 
 BASE = os.path.dirname(os.path.abspath(__file__))
-PORT = int(os.environ.get("PORT", 8000))
+try:
+    PORT = int(os.environ.get("PORT", "8000"))
+except ValueError:
+    print(f"WARN: invalid PORT={os.environ.get('PORT')!r} - falling back to 8000")
+    PORT = 8000
 
 # Single-flight guard for the update.py subprocess (issue #35): every
 # state-changing endpoint chains _run_update(); without coordination two
@@ -69,6 +74,8 @@ class Handler(http.server.SimpleHTTPRequestHandler):
     page can log it before reloading. GET /refresh is also allowed for
     convenience (curl / browser address bar).
     """
+    timeout = 60  # socket timeout per request (issue #56: stalled client)
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=BASE, **kwargs)
 
@@ -386,6 +393,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 
 if __name__ == "__main__":
     server = http.server.ThreadingHTTPServer(("", PORT), Handler)
+    server.daemon_threads = True  # issue #56: Ctrl+C exits even with stalled requests
     print(f"Serving site at http://localhost:{PORT} (landing page)")
     print(f"Dashboard: http://localhost:{PORT}/dashboard.html")
     print("Update button runs update.py via POST /refresh.")

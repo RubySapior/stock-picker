@@ -208,8 +208,8 @@ function render() {
       const arrow = f.trend_dir === 'rising' ? '&#9650;' : f.trend_dir === 'falling' ? '&#9660;' : '&#8226;';
       const trendWord = `<span class="small ${f.trend_dir==='rising'?'neg':(f.trend_dir==='falling'?'pos':'muted')}">${String(f.trend_dir||'flat').toUpperCase()}</span>`;
       const why = (f.signals||[]).map(s => esc(s.label)).join(' &middot; ');
-      const hedgeChips = (f.hedge_ticks||[]).map(t => `<span class="chip">${t}</span>`).join('');
-      const thLinks = (f.theory_ids||[]).map(t => `<a class="theoryTag" href="#theory-${t}">${t}</a>`).join('');
+      const hedgeChips = (f.hedge_ticks||[]).map(t => `<span class="chip">${esc(t)}</span>`).join('');
+      const thLinks = (f.theory_ids||[]).map(t => `<a class="theoryTag" href="#theory-${escA(t)}">${esc(t)}</a>`).join('');
       return `<div class="fearRow">
         <span class="fearRank">${i+1}</span>
         <div class="fearMain">
@@ -293,14 +293,14 @@ function render() {
         ? p.realized_pnl
         : (p.cost!==undefined ? p.current_value - p.cost : 0);
       return `<tr>
-        <td><strong><span class="tick" title="${escA(p.name)}">${p.ticker}</span></strong>${p.leverage > 1 ? `<span class="levBadge">${p.leverage}x</span>` : ''}${isNew.positions[p.ticker] ? '<span class="newTag">NEW</span>' : ''}${p.scheduled_exit ? `<div class="schedTag" title="${escA((p.scheduled_exit.note || p.scheduled_exit.reason))}">SELL SCHEDULED</div>` : ''}</td>
-        <td>${p.name}<div class="small muted">${p.sleeve}</div></td>
+        <td><strong><span class="tick" title="${escA(p.name)}">${escA(p.ticker)}</span></strong>${p.leverage > 1 ? `<span class="levBadge">${p.leverage}x</span>` : ''}${isNew.positions[p.ticker] ? '<span class="newTag">NEW</span>' : ''}${p.scheduled_exit ? `<div class="schedTag" title="${escA((p.scheduled_exit.note || p.scheduled_exit.reason))}">SELL SCHEDULED</div>` : ''}</td>
+        <td>${escA(p.name)}<div class="small muted">${escA(p.sleeve)}</div></td>
         <td>${fmt$(p.current_value)}</td>
         <td>${fmtN(p.current_value / s.total_value * 100, 1)}%</td>
         <td class="${cls(p.pnl_pct)}">${pnl}</td>
         <td class="${cls(p.pnl_pct)}">${fmt$(pnlD)}</td>
         <td class="pos">${p.underlying ? (p.runner_active ? 'runner' : '50% trim') : (p.take_profit_pct ? (p.take_profit_pct*100).toFixed(0)+'%' : '—')}</td>
-        <td class="neg">${p.underlying ? p.underlying+' '+(Math.abs(p.dynamic_stop_pct != null ? p.dynamic_stop_pct : p.underlying_stop_pct)*100).toFixed(1)+'%' + (p.runner_active ? ' <span class="small pos" title="runner trail armed (base trim done)">R</span>' : '') : (p.stop_loss_pct ? (p.stop_loss_pct*100).toFixed(0)+'%' : '—')}</td>
+        <td class="neg">${p.underlying ? escA(p.underlying)+' '+(Math.abs(p.dynamic_stop_pct != null ? p.dynamic_stop_pct : p.underlying_stop_pct)*100).toFixed(1)+'%' + (p.runner_active ? ' <span class="small pos" title="runner trail armed (base trim done)">R</span>' : '') : (p.stop_loss_pct ? (p.stop_loss_pct*100).toFixed(0)+'%' : '—')}</td>
         <td><span class="pill ${badge}">${label}</span></td>
       </tr>`;
     }).join('');
@@ -423,7 +423,7 @@ function render() {
         const extra = isNew ? '<span class="pill open">NEW</span>'
           : (isClosed ? '<span class="pill sl">CLOSED</span>' : '');
         return `<div class="eventline">
-          <div class="evWho"><strong class="${buy ? 'pos' : 'neg'}" title="${escA(NAME[e.ticker]||e.ticker)}">${e.ticker || 'SYSTEM'}</strong>
+          <div class="evWho"><strong class="${buy ? 'pos' : 'neg'}" title="${escA(NAME[e.ticker]||e.ticker)}">${escA(e.ticker || 'SYSTEM')}</strong>
             <span class="pill ${buy ? 'tp' : 'sl'}">${buy ? 'BUY' : 'SELL'}</span>
             ${extra}
             <span class="${buy ? 'pos' : 'neg'}">${buy ? '&minus;' : '+'}${fmt$(money)}</span>
@@ -444,7 +444,7 @@ function render() {
         const tkCls = r === 'deploy_cash' ? 'pos'
           : ((r === 'rebalance' || r === 'rebalance_recommended') ? 'amber' : '');
         return `<div class="eventline">
-          <div class="evWho"><strong class="${tkCls}" title="${escA(NAME[e.ticker]||e.ticker)}">${e.ticker || 'SYSTEM'}</strong>
+          <div class="evWho"><strong class="${tkCls}" title="${escA(NAME[e.ticker]||e.ticker)}">${escA(e.ticker || 'SYSTEM')}</strong>
             <span class="pill ${cls}">${lbl}</span>
             <span class="muted small">${e.date}</span></div>
           ${e.note ? `<div class="small muted">${escA(e.note)}</div>` : ''}
@@ -459,7 +459,7 @@ function render() {
   function renderSleeves(){
     document.getElementById('sleeveList').innerHTML = D.sleeves.map(sl =>
       `<div style="display:flex; justify-content:space-between; font-size:12.5px; padding:3px 0;">
-         <span class="muted">${sl.sleeve}</span><span>${fmt$(sl.value)}</span>
+         <span class="muted">${escA(sl.sleeve)}</span><span>${fmt$(sl.value)}</span>
        </div>`
     ).join('');
   }
@@ -470,14 +470,14 @@ function render() {
     const bigEl = document.getElementById('bigStories');
     const feedEl = document.getElementById('newsFeed');
     const esc = x => String(x==null?'':x).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-    const href = x => String(x==null?'':x).replace(/"/g,'&quot;');
+    const href = x => { const s=String(x==null?'':x); if(!/^https?:\/\//i.test(s)) return '#'; return s.replace(/"/g,'&quot;'); };
     const trunc20 = s => { const w = String(s).split(/\s+/); return w.length>20 ? w.slice(0,20).join(' ')+'…' : s; };
     const thTitle = {}; (D.theories||[]).forEach(t => thTitle[t.id] = t.title);
-    const sentChip = sn => `<span class="sent ${sn}">${sn}</span>`;
+    const sentChip = sn => `<span class="sent ${esc(sn)}">${esc(sn)}</span>`;
     const chips = it => (it.theory||[]).map(t =>
-      `<a class="theoryTag" href="#theory-${t}" title="${esc(thTitle[t]||t)}">${t}</a>`).join('');
+      `<a class="theoryTag" href="#theory-${escA(t)}" title="${esc(thTitle[t]||t)}">${esc(t)}</a>`).join('');
     const meta = it =>
-      `${sentChip(it.sent)}<span class="tick" title="${esc(NAME[it.ticker]||it.ticker)}">${it.ticker}</span><span class="ind">${esc(it.industry)}</span><span class="small">${esc(it.when)}</span>${isNew.news[it.link||it.title] ? '<span class="newTag">NEW</span>' : ''}`;
+      `${sentChip(it.sent)}<span class="tick" title="${esc(NAME[it.ticker]||it.ticker)}">${esc(it.ticker)}</span><span class="ind">${esc(it.industry)}</span><span class="small">${esc(it.when)}</span>${isNew.news[it.link||it.title] ? '<span class="newTag">NEW</span>' : ''}`;
     const empty = '<div class="muted small">No news yet — run <code>python update.py</code> with internet access.</div>';
 
     bigEl.innerHTML = (N.big_stories && N.big_stories.length)
@@ -1339,7 +1339,7 @@ function render() {
         ? `<div class="small muted">exec ${o.exec_date} @ ${fmtN(o.exec_price)} &middot; ${fmtN(o.shares)} sh &middot; ${o.realized_pnl ? 'pnl '+sign(o.realized_pnl) : ''}</div>`
         : `<div class="small muted">created ${o.created} &middot; ${escA(o.source||'')}</div>`;
       return `<div class="orderRow">
-        <span class="orderTicker">${o.ticker}</span>
+        <span class="orderTicker">${escA(o.ticker)}</span>
         <span class="orderAct ${isBuy ? 'pos' : 'neg'}">${isBuy ? 'BUY' : 'SELL'}</span>
         <span class="orderAmt">${fmt$(o.amount)}</span>
         <div class="orderNote">${escA(o.note||'')}${meta}</div>
