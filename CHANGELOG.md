@@ -165,6 +165,18 @@ JSON verdict that feeds three deterministic layers. Nothing executes.
   -> target book diff -> "Buy TQQQ +$2k" review cards (buttons, never
   execution).
 
+## [site 0.5.6.12] — 2026-08-21
+
+### Fixed — post-0.5.6.11 patches
+
+- **#56 serve hygiene (residual)**: `serve.py` now imports `socket`, `PORT` falls back to 8000 on bad env, `Handler.timeout=60` + `server.daemon_threads=True` complete the hardening.
+- **#55 lbpage null guard**: `lbpage.js` `setCard` no longer throws on `return_pct==null`.
+- **#54 XSS (residual)**: `app.js` positions/order ticker/sleeve/underlying, events ticker, sleeve chips, news `href` scheme check (`https?` only), `wheel.js` tier/id/status all escaped.
+- **#46 hold threshold**: `update.py:compute_calibration` skips `|conviction|<0.05` (was exact `0.0` only).
+- **Market Orders UI**: `app.js:renderOrders` shows pending only (executed reflected in positions).
+- **#17 landing page**: closed — `index.html` is the landing site since 0.5.5.09.
+- **#33 drawdown time-scale**: `leaderboards.py:_ranked` now slices `max_drawdown`/`sharpe` per window via `_window_history` (weekly 5, monthly 21, quarterly 63, yearly 252); weekly TQQQ `−8.65%` (was `−58.04%`) etc.
+
 ## [site 0.5.6.11] — 2026-08-20
 
 ### Fixed — rework of issues reopened from the 2026-08-20 closing batch (fixes were claimed in 0.5.6.05-0.5.6.10 but never committed; all re-implemented and verified here)
