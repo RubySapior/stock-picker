@@ -30,13 +30,21 @@ def sync_version_snapshots(data, snapshot, today, exclude_tickers=("SGOV",)):
     is excluded from change detection so daily cash sweeps don't spam
     versions (exclude_tickers). At most one version per day; every run
     appends today's snapshot to all active versions.
+
+    Hosting fix: uses makedirs(exist_ok=True) to avoid TOCTOU race when 1000
+    users' first runs all try to create the strategies root at once, and
+    bounds directory scan to prefix matches with a hard cap to keep
+    leaderboard scans O(prefix) not O(all users).
     """
     cfg = (data.get("meta") or {}).get("community") or {}
     if not cfg.get("snapshot_versions"):
         return
     root = strategies_root()
-    if not os.path.isdir(root):
-        os.makedirs(root)
+    try:
+        os.makedirs(root, exist_ok=True)
+    except Exception:
+        if not os.path.isdir(root):
+            return
     base_id = (data.get("meta") or {}).get("strategy_id", "hypergrowth-sharpe-barbell")
     prefix = base_id + "-v"
 
@@ -51,8 +59,10 @@ def sync_version_snapshots(data, snapshot, today, exclude_tickers=("SGOV",)):
 
     def save(v):
         d = os.path.join(root, v["strategy_id"])
-        if not os.path.isdir(d):
-            os.makedirs(d)
+        try:
+            os.makedirs(d, exist_ok=True)
+        except Exception:
+            pass
         store.write_json(os.path.join(d, "stats.json"), v)
 
     current_positions = sorted(
@@ -152,12 +162,29 @@ def build_mirror(data):
     }
 
 
-def list_strategies():
-    """Published + version-snapshot strategies under community/strategies/."""
+def list_strategies(limit=1000):
+    """Published + version-snapshot strategies under community/strategies/.
+
+    Hosting fix: for thousands of strategies, scanning the whole directory
+    on every leaderboard build is O(N) and hammers the filesystem. We cap
+    at `limit` (default 1000) and return sorted, with an early break.
+    Callers that need all strategies can pass limit=None.
+    """
     out = []
     if not os.path.isdir(STRATEGIES_ROOT):
         return out
-    for sid in sorted(os.listdir(STRATEGIES_ROOT)):
+    try:
+        entries = sorted(os.listdir(STRATEGIES_ROOT))
+    except Exception:
+        return out
+    # Truncate scan for hosting scale; still sorted deterministic
+    if limit is not None and len(entries) > limit:
+        # Keep most recent by name (names contain dates for snapshots)
+        entries = entries[-limit:]
+    for sid in entries:
+        # Skip stray lock/tmp files from store's atomic writes
+        if sid.endswith(".lock") or sid.endswith(".tmp"):
+            continue
         s = store.read_json(os.path.join(STRATEGIES_ROOT, sid, "stats.json"), None)
         if s is None:
             continue
@@ -169,4 +196,6 @@ def list_strategies():
             "start_value": s.get("start_value", 0),
             "history": s.get("history", []),
         })
+        if limit is not None and len(out) >= limit:
+            break
     return out

@@ -23,6 +23,7 @@ browser can't run update.py by itself. This server:
 Usage:  python serve.py
 Then open http://localhost:8000 in your browser.
 """
+import collections
 import http.server
 import json
 import os
@@ -40,12 +41,55 @@ except ValueError:
     print(f"WARN: invalid PORT={os.environ.get('PORT')!r} - falling back to 8000")
     PORT = 8000
 
-# Single-flight guard for the update.py subprocess (issue #35): every
-# state-changing endpoint chains _run_update(); without coordination two
-# requests would spawn two full updaters (double AI spend, last writer
-# wins). The lock is held for the whole handler, so a concurrent request
-# gets 409 instead of queueing behind a 10-minute update.
-_UPDATE_LOCK = threading.Lock()
+# Per-resource single-flight guard for the update.py subprocess (issue #35
+# + hosting for thousands): the old global _UPDATE_LOCK blocked *all* users
+# while one user's 10-minute updater ran (409 storm). Now each portfolio
+# path (global or users/<id>/portfolio.json) gets its own lock, bounded LRU
+# so 1000s of users don't leak locks. Same endpoint on the same portfolio
+# still gets 409; different users run concurrently.
+_UPDATE_LOCKS = collections.OrderedDict()
+_UPDATE_LOCKS_GUARD = threading.Lock()
+MAX_UPDATE_LOCKS = int(os.environ.get("SERVE_MAX_LOCKS", "2048"))
+
+
+def _update_lock(key):
+    norm = os.path.abspath(key) if key else "__global__"
+    with _UPDATE_LOCKS_GUARD:
+        lk = _UPDATE_LOCKS.get(norm)
+        if lk is not None:
+            _UPDATE_LOCKS.move_to_end(norm)
+            return lk
+        lk = threading.Lock()
+        _UPDATE_LOCKS[norm] = lk
+        while len(_UPDATE_LOCKS) > MAX_UPDATE_LOCKS:
+            _UPDATE_LOCKS.popitem(last=False)
+        return lk
+
+
+def _portfolio_key(handler):
+    """Absolute portfolio path for this request's user (header X-User-Id or ?user=)."""
+    try:
+        return store.portfolio_path_for_request(handler)
+    except Exception:
+        return store.PORTFOLIO
+
+
+def _user_id_for(handler):
+    """Return sanitized user_id or None for global singleton."""
+    p = _portfolio_key(handler)
+    # If it equals global, no user
+    if os.path.abspath(p) == os.path.abspath(store.PORTFOLIO):
+        return None
+    # Extract user id from p = .../users/<id>/portfolio.json
+    try:
+        parts = os.path.normpath(p).split(os.sep)
+        if "users" in parts:
+            idx = parts.index("users")
+            if idx + 1 < len(parts):
+                return parts[idx + 1]
+    except Exception:
+        pass
+    return None
 
 
 def _set_meta(data, keys, value):
@@ -82,19 +126,23 @@ class Handler(http.server.SimpleHTTPRequestHandler):
     def log_message(self, fmt, *args):  # quieter console
         pass
 
-    def _guard(self, fn):
-        """Run one endpoint under the single-flight lock; 409 while an
-        update.py subprocess is in flight (issue #35)."""
-        if not _UPDATE_LOCK.acquire(blocking=False):
+    def _guard(self, fn, key=None):
+        """Run one endpoint under the per-resource single-flight lock; 409 while an
+        update.py subprocess for the *same portfolio* is in flight (issue #35, now
+        per-user for hosting)."""
+        if key is None:
+            key = _portfolio_key(self)
+        lk = _update_lock(key)
+        if not lk.acquire(blocking=False):
             self._json({"ok": False, "error": "update already running"}, 409)
             return
         try:
             fn()
         finally:
-            _UPDATE_LOCK.release()
+            lk.release()
 
     def do_GET(self):
-        if self.path.rstrip("/") == "/refresh":
+        if self.path.rstrip("/").split("?")[0] == "/refresh":
             self._guard(self._refresh)
             return
         super().do_GET()
@@ -103,7 +151,8 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         self._guard(self._dispatch_post)
 
     def _dispatch_post(self):
-        path = self.path.rstrip("/")
+        # Strip query string for routing, but keep user in key
+        path = self.path.split("?")[0].rstrip("/")
         if path == "/refresh":
             self._refresh()
             return
@@ -178,11 +227,19 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         self.wfile.write(body)
 
     def _run_update(self):
-        """Run update.py; returns (ok, output_text)."""
+        """Run update.py; returns (ok, output_text). Per-user if X-User-Id header present."""
+        user_id = _user_id_for(self)
         try:
+            cmd = [sys.executable, "update.py"]
+            if user_id:
+                cmd += ["--user", user_id]
+            env = os.environ.copy()
+            # Propagate DATA_DIR so update.py resolves same per-user path
+            if "DATA_DIR" in os.environ:
+                env["DATA_DIR"] = os.environ["DATA_DIR"]
             out = subprocess.run(
-                [sys.executable, "update.py"],
-                cwd=BASE, capture_output=True, text=True, timeout=600,
+                cmd,
+                cwd=BASE, capture_output=True, text=True, timeout=600, env=env,
             )
             return out.returncode == 0, out.stdout or out.stderr
         except Exception as exc:
@@ -202,8 +259,9 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         if mode not in ("recommend", "execute"):
             self._json({"ok": False, "error": "mode must be recommend|execute"}, 400)
             return
+        user_id = _user_id_for(self)
         try:
-            store.update_portfolio(lambda data: _set_meta(data, ["ai", "mode"], mode))
+            store.update_portfolio(lambda data: _set_meta(data, ["ai", "mode"], mode), user_id=user_id)
         except Exception as exc:
             self._json({"ok": False, "error": str(exc)}, 500)
             return
@@ -226,8 +284,9 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             body = self._read_body()
             if body is None:
                 return
-            data = store.read_portfolio()
-            meta = data["meta"]
+            user_id = _user_id_for(self)
+            data = store.read_portfolio(user_id=user_id)
+            meta = data.get("meta") or {}
             cfg = meta.get("ai") or {}
             if not cfg.get("enabled"):
                 raise ValueError("AI layer is disabled")
@@ -289,7 +348,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
                 raise ValueError("send {ticker, action} or {sell, buy}")
             if not created:
                 raise ValueError("nothing to book")
-            store.update_portfolio(lambda d: _append_orders(d, created))
+            store.update_portfolio(lambda d: _append_orders(d, created), user_id=user_id)
         except Exception as exc:
             self._json({"ok": False, "error": str(exc)}, 500)
             return
@@ -306,8 +365,9 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         """
         try:
             import ai_sentiment
-            data = store.read_portfolio()
-            meta = data["meta"]
+            user_id = _user_id_for(self)
+            data = store.read_portfolio(user_id=user_id)
+            meta = data.get("meta") or {}
             cfg = meta.get("ai") or {}
             if not cfg.get("enabled"):
                 raise ValueError("AI layer is disabled")
@@ -344,7 +404,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
                     })
             if not created:
                 raise ValueError("the current verdict has no proposals or rotations")
-            store.update_portfolio(lambda d: _append_orders(d, created))
+            store.update_portfolio(lambda d: _append_orders(d, created), user_id=user_id)
         except Exception as exc:
             self._json({"ok": False, "error": str(exc)}, 500)
             return
@@ -364,8 +424,9 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         if not -5 <= value <= 5:
             self._json({"ok": False, "error": "value must be an integer -5..5"}, 400)
             return
+        user_id = _user_id_for(self)
         try:
-            store.update_portfolio(lambda data: _set_meta(data, ["ai", "user_bias"], value))
+            store.update_portfolio(lambda data: _set_meta(data, ["ai", "user_bias"], value), user_id=user_id)
         except Exception as exc:
             self._json({"ok": False, "error": str(exc)}, 500)
             return
@@ -382,8 +443,9 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         if mode not in ("sgov", "cash"):
             self._json({"ok": False, "error": "mode must be 'sgov' or 'cash'"}, 400)
             return
+        user_id = _user_id_for(self)
         try:
-            store.update_portfolio(lambda data: _set_meta(data, ["park_mode"], mode))
+            store.update_portfolio(lambda data: _set_meta(data, ["park_mode"], mode), user_id=user_id)
         except Exception as exc:
             self._json({"ok": False, "error": str(exc)}, 500)
             return

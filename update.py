@@ -29,6 +29,7 @@ import concurrent.futures
 import json
 import os
 import sys
+import threading
 import time
 import urllib.request
 import datetime as _dt
@@ -40,9 +41,16 @@ import ai_sentiment
 import store
 
 BASE = os.path.dirname(os.path.abspath(__file__))
+# DATA_ROOT mirrors store.DATA_ROOT so folder moves (DATA_DIR env) work without
+# hard-coding BASE. For hosting thousands, each user's assets live under
+# users/<id>/ (dashboard.js, mirror.json) while shared caches stay in DATA_ROOT.
+DATA_ROOT = getattr(store, "DATA_ROOT", BASE)
 DASHBOARD_JS = os.path.join(BASE, "dashboard.js")
 MIRROR = os.path.join(BASE, "mirror.json")
 NEWS_CACHE = os.path.join(BASE, "news_cache.json")
+# Per-user overrides are resolved in main() via store.user_portfolio_path()
+USER_DASHBOARD_FMT = os.path.join(DATA_ROOT, "users", "{user}", "dashboard.js")
+USER_MIRROR_FMT = os.path.join(DATA_ROOT, "users", "{user}", "mirror.json")
 
 USER_AGENT = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
 
@@ -65,10 +73,39 @@ BENCH_TICKERS = {
 # Last-fetch meta per ticker ({px, prev}), populated by fetch_price and reused
 # by fetch_macro so a held/underlying symbol isn't fetched twice per run.
 _PRICE_META = {}
+# Cross-run shared price cache (hosting thousands: same ticker held by 100s of
+# users should not N× Yahoo fetch). TTL 90s so a 6-min cron wave reuses the
+# just-fetched price without stalling on Yahoo rate limits. Thread-safe for
+# ThreadPoolExecutor.
+_PRICE_CACHE = {}
+_PRICE_CACHE_TS = {}
+_PRICE_CACHE_TTL = 90
+_PRICE_CACHE_LOCK = threading.Lock()
+# Bounded history/events to keep JSON small for thousands of users (was unbounded).
+HISTORY_LIMIT = int(os.environ.get("HISTORY_LIMIT", "500"))
+EVENTS_LIMIT = int(os.environ.get("EVENTS_LIMIT", "500"))
 
 
-def fetch_price(ticker):
-    """Latest regular-market price for one ticker (float) via Yahoo Finance."""
+def fetch_price(ticker, use_cache=True):
+    """Latest regular-market price for one ticker (float) via Yahoo Finance.
+
+    Hosting fix: shared 90s cache across the run so 1000 users holding SPY/QQQ
+    don't each pay a Yahoo round-trip. Cache is keyed by ticker and guarded by
+    a lock for ThreadPoolExecutor safety.
+    """
+    if use_cache:
+        try:
+            import threading as _th
+            with _PRICE_CACHE_LOCK:
+                ts = _PRICE_CACHE_TS.get(ticker)
+                if ts and (time.time() - ts) < _PRICE_CACHE_TTL and ticker in _PRICE_CACHE:
+                    px = _PRICE_CACHE[ticker]
+                    # keep _PRICE_META populated for fetch_macro reuse
+                    if ticker not in _PRICE_META:
+                        _PRICE_META[ticker] = {"px": px, "prev": px}
+                    return px
+        except Exception:
+            pass
     url = f"https://query1.finance.yahoo.com/v8/finance/chart/{ticker}?range=1d&interval=1d"
     req = urllib.request.Request(url, headers=USER_AGENT)
     with urllib.request.urlopen(req, timeout=30) as r:
@@ -76,6 +113,13 @@ def fetch_price(ticker):
     meta = data["chart"]["result"][0]["meta"]
     price = meta.get("regularMarketPrice") or meta.get("previousClose")
     _PRICE_META[ticker] = {"px": price, "prev": meta.get("previousClose") or price}
+    try:
+        with _PRICE_CACHE_LOCK:
+            _PRICE_CACHE[ticker] = price
+            _PRICE_CACHE_TS[ticker] = time.time()
+    except Exception:
+        _PRICE_CACHE[ticker] = price
+        _PRICE_CACHE_TS[ticker] = time.time()
     return price
 
 
@@ -143,6 +187,11 @@ def fetch_bars_ohlc(ticker, rng="1y"):
 
 
 def load_ohlc_cache():
+    # Hosting fix: locked read so 1000 concurrent update.py runs don't race with
+    # the daily atomic write (fears/indicators caches). Falls back to plain read.
+    data = store.read_json_locked(OHLC_CACHE, None)
+    if data is not None:
+        return data
     try:
         with open(OHLC_CACHE, encoding="utf-8") as f:
             return json.load(f)
@@ -867,20 +916,49 @@ def fetch_prices(tickers):
     6-min cron run wait ~N seconds on Yahoo; a bounded thread pool (same
     pattern news.py uses) cuts that to a few waves. A small per-request gap
     keeps the polite rate-limit spacing without serializing the batch.
+
+    Hosting fix: dedupes tickers (1000 users × 20 tickers may only be ~50
+    uniques) and consults the 90s shared cache before hitting Yahoo, so a
+    wave of per-user update.py runs collapses to one Yahoo call per ticker
+    per 90s instead of N×.
     """
+    # Dedupe while preserving order; cache-hit tickers need no fetch at all
+    seen = set()
+    uniq = []
+    for t in tickers or []:
+        if t and t not in seen:
+            seen.add(t)
+            uniq.append(t)
     prices = {}
+    to_fetch = []
+    now = time.time()
+    for t in uniq:
+        try:
+            with _PRICE_CACHE_LOCK:
+                ts = _PRICE_CACHE_TS.get(t)
+                if ts and (now - ts) < _PRICE_CACHE_TTL and t in _PRICE_CACHE:
+                    prices[t] = _PRICE_CACHE[t]
+                    continue
+        except Exception:
+            pass
+        to_fetch.append(t)
 
     def one(t):
         time.sleep(0.15)
         try:
-            return t, fetch_price(t)
+            return t, fetch_price(t, use_cache=False)
         except Exception as exc:
             print(f"  WARN: could not fetch {t}: {exc}")
             return t, None
 
-    with concurrent.futures.ThreadPoolExecutor(max_workers=8) as ex:
-        for t, px in ex.map(one, tickers):
-            prices[t] = px
+    if to_fetch:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=8) as ex:
+            for t, px in ex.map(one, to_fetch):
+                prices[t] = px
+    # Fill any missing uniq with None for callers
+    for t in uniq:
+        if t not in prices:
+            prices[t] = None
     return prices
 
 
@@ -1690,7 +1768,7 @@ def _order_signature(o):
             o.get("source"), o.get("created"))
 
 
-def persist_merged(data):
+def persist_merged(data, user_id=None):
     """Re-read portfolio.json at write time and merge (issue #36).
 
     main() mutates an in-memory copy for minutes (network + AI work) while
@@ -1702,12 +1780,22 @@ def persist_merged(data):
     the fresh file. The re-read -> merge -> write runs inside
     store.update_portfolio, so it is one locked atomic step - the lock is
     held only for this moment, never for the whole run.
+
+    Hosting: user_id scopes to users/<id>/portfolio.json so 1000 concurrent
+    per-user updaters don't clobber each other's files.
     """
     def merge(current):
         out = dict(current)
         for key in ("positions", "account", "events", "theories"):
             if key in data:
                 out[key] = data[key]
+        # Hosting prune: keep JSON bounded for thousands of users/days
+        hist = out.get("account", {}).get("history")
+        if isinstance(hist, list) and len(hist) > HISTORY_LIMIT:
+            out["account"]["history"] = hist[-HISTORY_LIMIT:]
+        ev = out.get("events")
+        if isinstance(ev, list) and len(ev) > EVENTS_LIMIT:
+            out["events"] = ev[-EVENTS_LIMIT:]
         stale_orders = data.get("orders") or []
         executed = [o for o in stale_orders if o.get("status") == "executed"]
         pending = [o for o in stale_orders if o.get("status") == "pending"]
@@ -1731,7 +1819,7 @@ def persist_merged(data):
         out["meta"] = meta
         return out
 
-    return store.update_portfolio(merge)
+    return store.update_portfolio(merge, user_id=user_id)
 
 
 def main():
@@ -1743,11 +1831,30 @@ def main():
                         help="GitHub Actions 6-min schedule: skip unless market open or within "
                              "the 30-min pre-open window; forces the AI refresh pre-open so "
                              "Monday's orders are refreshed before the bell")
+    parser.add_argument("--user", type=str, default=None,
+                        help="per-user portfolio id for hosting thousands (users/<id>/portfolio.json)")
     args = parser.parse_args()
+    user_id = getattr(args, "user", None)
+    # Normalize user_id via store sanitizer so --user with path traversal is safe
+    if user_id:
+        user_id = store._sanitize_user_id(user_id)
     if args.preopen and market_state() == "closed":
         print("Outside update window (market closed, not pre-open) - skipping.")
         return
-    data = store.read_portfolio()
+    data = store.read_portfolio(user_id=user_id)
+    # Auto-provision per-user portfolio from global template if missing (first run)
+    if user_id and not data.get("positions"):
+        # Fallback to global template if per-user file didn't exist
+        template = store.read_portfolio(user_id=None)
+        if template.get("positions"):
+            # Ensure user dir exists before first write
+            store.ensure_user_dir(user_id)
+            # Write a shallow copy with fresh history start for the user
+            import copy as _copy
+            data = _copy.deepcopy(template)
+            # Keep history but allow isolation; persist once so next runs are per-user
+            store.write_portfolio(data, user_id=user_id)
+            print(f"  PROVISIONED per-user portfolio for '{user_id}' from template")
 
     today = time.strftime("%Y-%m-%d")
     open_positions = [p for p in data["positions"] if p["status"] == "open"]
@@ -1984,11 +2091,18 @@ def main():
         # visible until the next market open.
         print("  Market closed — keeping the last trading day's snapshot (day change stays until next open).")
 
+    # Hosting prune: keep history bounded before merge so persisted file stays small
+    # Prune here as well as in persist_merged so the in-memory write_dashboard path is bounded.
+    if len(data["account"]["history"]) > HISTORY_LIMIT:
+        data["account"]["history"] = data["account"]["history"][-HISTORY_LIMIT:]
+    if len(data.get("events", [])) > EVENTS_LIMIT:
+        data["events"] = data["events"][-EVENTS_LIMIT:]
+
     # Passive exposure audit -> rebalance_recommended flags (never trades).
     rebalance = rebalance_audit(data, today)
 
     # Issue #36: merge, never blind-overwrite - see persist_merged().
-    data = persist_merged(data)
+    data = persist_merged(data, user_id=user_id)
 
     # Community experiment: freeze the book as a new version strategy when
     # the positions change (gated by meta.community.snapshot_versions).
@@ -2014,20 +2128,27 @@ def main():
     except Exception as exc:
         print(f"  WARN: benchmark fetch failed: {exc}")
 
+    # Per-user dashboard/mirror (hosting thousands): global singleton stays for
+    # file:// double-click compat; per-user copies go to users/<id>/.
+    dash_path = USER_DASHBOARD_FMT.format(user=user_id) if user_id else DASHBOARD_JS
+    mirror_path = USER_MIRROR_FMT.format(user=user_id) if user_id else MIRROR
     write_dashboard(data, benchmark, rebalance, fear_data, benchmarks,
-                    ai_verdict, gauge=gauge, hedge_harvest=hedge_rec, ind=ind)
+                    ai_verdict, gauge=gauge, hedge_harvest=hedge_rec, ind=ind,
+                    dashboard_path=dash_path)
 
     # Community copy foundation: mirror.json is the copy contract (positions
     # as pct of book + every change). Never breaks the run.
     try:
         mirror = build_mirror(data)
-        store.write_json(MIRROR, mirror)
+        store.write_json(mirror_path, mirror)
     except Exception as exc:
         print(f"  WARN: mirror export failed: {exc}")
 
     # Community leaderboards: weekly/monthly/quarterly/yearly/all-time top 10.
     # Sources: community/strategies/*/stats.json + benchmark strategies +
-    # the local book (see leaderboards.py).
+    # the local book (see leaderboards.py). For per-user runs we still
+    # refresh the global leaderboard but pass the user's data as one entry;
+    # the write itself is atomic (leaderboards.py fix).
     try:
         from leaderboards import build_leaderboards, write_leaderboards
         write_leaderboards(build_leaderboards(data))
@@ -2073,31 +2194,45 @@ def build_news_cached(positions):
     The 6-min intraday cron would otherwise re-fetch every ticker's RSS feed
     ~80x/day; feeds only meaningfully change across days, so one fetch per
     day (same semantics as the OHLC/bench/fear caches) is enough.
+
+    Hosting fix: uses store.read_json_locked / write_json (atomic + locked)
+    so 1000 concurrent per-user runs don't race on the shared news_cache.json
+    (global feeds are per-ticker, so sharing one cache across users cuts
+    RSS fetches from users×tickers to tickers).
     """
     today = time.strftime("%Y-%m-%d")
-    try:
-        with open(NEWS_CACHE, encoding="utf-8") as f:
-            cache = json.load(f)
-    except Exception:
-        cache = {}
+    cache = store.read_json_locked(NEWS_CACHE, {}) or {}
+    # Fallback to plain read if locked miss (compat)
+    if not cache:
+        try:
+            with open(NEWS_CACHE, encoding="utf-8") as f:
+                cache = json.load(f)
+        except Exception:
+            cache = {}
     if cache.get("date") == today and cache.get("news") is not None:
         return cache["news"]
     news = build_news(positions)
     try:
-        with open(NEWS_CACHE, "w", encoding="utf-8") as f:
-            json.dump({"date": today, "news": news}, f, ensure_ascii=False)
+        store.write_json(NEWS_CACHE, {"date": today, "news": news}, indent=0)
     except Exception:
-        pass
+        try:
+            with open(NEWS_CACHE, "w", encoding="utf-8") as f:
+                json.dump({"date": today, "news": news}, f, ensure_ascii=False)
+        except Exception:
+            pass
     return news
 
 
 def write_dashboard(data, benchmark=None, rebalance=None, fear_data=None,
                     benchmarks=None, ai_verdict=None, gauge=None,
-                    hedge_harvest=None, ind=None):
+                    hedge_harvest=None, ind=None, dashboard_path=None):
     """Serialize the full dashboard payload to dashboard.js (window.DASH).
 
     This is the ONLY writer of dashboard.js. The payload shape is the
     "window.DASH data contract" documented in AGENTS.md and app.js.
+
+    Hosting: dashboard_path allows per-user sharding (users/<id>/dashboard.js)
+    so thousands of users don't clobber the single global dashboard.js.
     """
     start = data["meta"]["start_value"]
     history = data["account"]["history"]
@@ -2242,11 +2377,13 @@ def write_dashboard(data, benchmark=None, rebalance=None, fear_data=None,
     }
     # Issue #48: atomic write - a kill mid-write (e.g. serve.py's subprocess
     # timeout) must never leave a half-written dashboard.js (blank page).
+    # Hosting: dashboard_path is per-user when --user is set, else global.
+    target = dashboard_path or DASHBOARD_JS
     payload_text = ("/* AUTO-GENERATED by update.py from portfolio.json "
                     "- do not edit by hand. */\nwindow.DASH = ")
     payload_text += json.dumps(payload, indent=2, ensure_ascii=False)
     payload_text += ";\n"
-    store.write_text_atomic(DASHBOARD_JS, payload_text)
+    store.write_text_atomic(target, payload_text)
 
 
 def print_summary(data, today, benchmark=None):

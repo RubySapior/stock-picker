@@ -261,11 +261,18 @@ def ensure_fear_history(symbols, today):
     (cached in fear_history_cache.json). A failed refresh keeps the cached
     series (stale fallback) so the gauge never loses a scenario to a
     transient Yahoo error; symbols with no data at all stay missing and are
-    reported as degraded by build_fears(). Returns {symbol: history}."""
-    cache = store.read_json(FEAR_HIST_CACHE, {})
+    reported as degraded by build_fears(). Returns {symbol: history}.
+
+    Hosting fix: locked read (store.read_json_locked) so 1000 concurrent
+    per-user update.py runs don't race on the shared fear cache. The missing
+    list is deduped across users by sharing the one daily cache file.
+    """
+    cache = store.read_json_locked(FEAR_HIST_CACHE, {}) or store.read_json(FEAR_HIST_CACHE, {}) or {}
     hist_map = cache.setdefault("history", {})
     fetched = cache.setdefault("fetched", {})
-    missing = [s for s in symbols if fetched.get(s) != today or s not in hist_map]
+    # Dedupe symbols for hosting scale (1000 users × ~24 symbols → ~24 uniques)
+    uniq = sorted(set(symbols))
+    missing = [s for s in uniq if fetched.get(s) != today or s not in hist_map]
     if missing:
         with concurrent.futures.ThreadPoolExecutor(max_workers=8) as ex:
             fut = {ex.submit(fetch_history, s): s for s in missing}
