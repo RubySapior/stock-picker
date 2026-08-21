@@ -1312,17 +1312,16 @@ function render() {
     }
   }
 
-  /* ---- market orders (D.orders; pending + recent executed) ---- */
+  /* ---- market orders (pending only; executed moved to positions) ---- */
   function renderOrders(){
     const el = document.getElementById('ordersSection');
     if(!el) return;
     const O = D.orders || [];
-    if(!O.length){ el.style.display = 'none'; return; }
-    el.style.display = '';
     const pending = O.filter(o => o.status === 'pending');
-    const executed = O.filter(o => o.status !== 'pending');
+    if(!pending.length){ el.style.display = 'none'; return; }
+    el.style.display = '';
     document.getElementById('ordersSub').innerHTML =
-      `${pending.length} pending &middot; ${executed.length} executed (last ${executed.length})`;
+      `${pending.length} pending`;
     const mode = (D.ai && D.ai.mode) || 'recommend';
     const noteEl = document.getElementById('ordersNote');
     if(noteEl){
@@ -1330,20 +1329,14 @@ function render() {
         ? 'Human-approved orders. Executed at the live price on the next market-open run. <span class="pill sl">EXECUTE MODE</span> — AI refresh auto-replaces pending orders with each new verdict.'
         : 'Human-approved orders. Executed at the live price on the next market-open run. <span class="pill warn">RECOMMEND MODE</span> — orders are written when you press <strong>Submit this Order</strong> on an AI proposal, or <strong>Submit all Orders</strong> for the whole queue.';
     }
-    document.getElementById('ordersList').innerHTML = O.map(o => {
+    document.getElementById('ordersList').innerHTML = pending.map(o => {
       const isBuy = o.action === 'buy';
-      const pill = o.status === 'pending'
-        ? `<span class="pill warn">PENDING</span>`
-        : `<span class="pill ${isBuy ? 'tp' : 'sl'}">EXECUTED</span>`;
-      const meta = o.status === 'executed'
-        ? `<div class="small muted">exec ${o.exec_date} @ ${fmtN(o.exec_price)} &middot; ${fmtN(o.shares)} sh &middot; ${o.realized_pnl ? 'pnl '+sign(o.realized_pnl) : ''}</div>`
-        : `<div class="small muted">created ${o.created} &middot; ${escA(o.source||'')}</div>`;
       return `<div class="orderRow">
         <span class="orderTicker">${escA(o.ticker)}</span>
         <span class="orderAct ${isBuy ? 'pos' : 'neg'}">${isBuy ? 'BUY' : 'SELL'}</span>
         <span class="orderAmt">${fmt$(o.amount)}</span>
-        <div class="orderNote">${escA(o.note||'')}${meta}</div>
-        ${pill}
+        <div class="orderNote">${escA(o.note||'')}<div class="small muted">created ${o.created} &middot; ${escA(o.source||'')}</div></div>
+        <span class="pill warn">PENDING</span>
       </div>`;
     }).join('');
   }
