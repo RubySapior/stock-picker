@@ -2,7 +2,7 @@
 window.DASH = {
   "meta": {
     "version": {
-      "site": "0.5.6.11",
+      "site": "0.5.6.12",
       "algo": "0.6.0"
     },
     "name": "HyperGrowth Sharpe Barbell v5 - Conviction-First",
@@ -150,14 +150,14 @@ window.DASH = {
     "disclaimer": "Simulated portfolio for tracking/learning. Not financial advice.",
     "fear_state": {
       "F1": {
-        "prev_score": 2.7,
+        "prev_score": 2.6,
         "score": 2.6,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F2": {
-        "prev_score": 3.8,
+        "prev_score": 3.5,
         "score": 3.5,
         "days_above": 0,
         "confirmed": false,
@@ -171,35 +171,35 @@ window.DASH = {
         "last_above_date": null
       },
       "F4": {
-        "prev_score": 3.9,
-        "score": 3.3,
-        "days_above": 0,
+        "prev_score": 3.3,
+        "score": 4.4,
+        "days_above": 1,
         "confirmed": false,
-        "last_above_date": null
+        "last_above_date": "2026-08-21"
       },
       "F5": {
-        "prev_score": 4.1,
-        "score": 4.2,
+        "prev_score": 4.2,
+        "score": 4.0,
         "days_above": 4,
         "confirmed": true,
         "last_above_date": "2026-08-21"
       },
       "F6": {
-        "prev_score": 4.5,
-        "score": 4.7,
+        "prev_score": 4.7,
+        "score": 4.8,
         "days_above": 4,
         "confirmed": true,
         "last_above_date": "2026-08-21"
       },
       "F7": {
-        "prev_score": 3.3,
-        "score": 2.3,
+        "prev_score": 2.3,
+        "score": 2.2,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F8": {
-        "prev_score": 2.7,
+        "prev_score": 2.6,
         "score": 2.6,
         "days_above": 0,
         "confirmed": false,
@@ -605,7 +605,7 @@ window.DASH = {
       "note": "Community experiment (site 0.5.5.33): benchmark strategies fill the leaderboard for comparison; snapshot_versions freezes the book as a new version strategy whenever the positions change (SGOV auto-parking excluded from change detection). Both are experiments to populate the board - normally OFF by design, not the product behavior."
     },
     "ai_calibrated_verdict_date": "2026-08-17",
-    "asof_ts": 1787279000,
+    "asof_ts": 1787293364,
     "refresh_interval": 1440
   },
   "asof": "2026-08-20",
@@ -708,7 +708,7 @@ window.DASH = {
       "underlying_buy_price": 529.39,
       "dynamic_stop_pct": -0.1143,
       "underlying_ema20": 535.4751118942825,
-      "underlying_atr14": 23.882269388012844,
+      "underlying_atr14": 23.888695518035167,
       "runner_active": false,
       "base_trimmed": false,
       "theory_ids": [
@@ -1159,8 +1159,8 @@ window.DASH = {
       "underlying_stop_pct": -0.1,
       "underlying_buy_price": 258.31,
       "dynamic_stop_pct": -0.1,
-      "underlying_ema20": 254.88455320127926,
-      "underlying_atr14": 2.1532898062154877,
+      "underlying_ema20": 255.0094084964717,
+      "underlying_atr14": 2.118518364543417,
       "runner_active": false,
       "base_trimmed": false,
       "theory_ids": [
@@ -2163,13 +2163,13 @@ window.DASH = {
       "id": "F6",
       "name": "Rates shock / duration liquidation",
       "type": "structural",
-      "score": 4.7,
+      "score": 4.8,
       "level": 0.976,
       "velocity": null,
       "trend": {
         "label": "50d trend",
-        "value": 0.0299,
-        "pct": 0.829
+        "value": 0.0319,
+        "pct": 0.852
       },
       "signals": [
         {
@@ -2190,24 +2190,55 @@ window.DASH = {
       "sizing": null,
       "asof": "2026-08-21",
       "degraded": false,
+      "trend_dir": "flat"
+    },
+    {
+      "id": "F4",
+      "name": "Inflation resurgence",
+      "type": "structural",
+      "score": 4.4,
+      "level": 0.981,
+      "velocity": null,
+      "trend": {
+        "label": "50d trend",
+        "value": 0.0021,
+        "pct": 0.571
+      },
+      "signals": [
+        {
+          "label": "TIP/IEF (breakevens proxy)",
+          "value": 0.981
+        }
+      ],
+      "theory_ids": [
+        "T20"
+      ],
+      "hedge_ticks": [
+        "GLD",
+        "GDX",
+        "SGOV"
+      ],
+      "sizing": null,
+      "asof": "2026-08-21",
+      "degraded": false,
       "trend_dir": "rising"
     },
     {
       "id": "F5",
       "name": "War / energy shock",
       "type": "episodic",
-      "score": 4.2,
-      "level": 0.737,
+      "score": 4.0,
+      "level": 0.696,
       "velocity": {
         "label": "5d velocity",
-        "value": 0.067,
-        "pct": 0.82
+        "value": 0.0464,
+        "pct": 0.761
       },
       "trend": null,
       "signals": [
         {
           "label": "Crude 5d momentum",
-          "value": 0.82
+          "value": 0.761
         },
         {
           "label": "Gold 1d momentum",
@@ -2226,24 +2257,24 @@ window.DASH = {
       "sizing": null,
       "asof": "2026-08-21",
       "degraded": false,
-      "trend_dir": "flat"
+      "trend_dir": "falling"
     },
     {
       "id": "F2",
       "name": "Yen-carry unwind",
       "type": "episodic",
       "score": 3.5,
-      "level": 0.285,
+      "level": 0.288,
       "velocity": {
         "label": "5d velocity",
-        "value": 0.0029,
-        "pct": 0.78
+        "value": 0.003,
+        "pct": 0.784
       },
       "trend": null,
       "signals": [
         {
           "label": "Yen strength (FXY level)",
-          "value": 0.285
+          "value": 0.288
         }
       ],
       "theory_ids": [
@@ -2256,55 +2287,24 @@ window.DASH = {
       "sizing": null,
       "asof": "2026-08-21",
       "degraded": false,
-      "trend_dir": "falling"
-    },
-    {
-      "id": "F4",
-      "name": "Inflation resurgence",
-      "type": "structural",
-      "score": 3.3,
-      "level": 0.777,
-      "velocity": null,
-      "trend": {
-        "label": "50d trend",
-        "value": -0.0122,
-        "pct": 0.067
-      },
-      "signals": [
-        {
-          "label": "TIP/IEF (breakevens proxy)",
-          "value": 0.777
-        }
-      ],
-      "theory_ids": [
-        "T20"
-      ],
-      "hedge_ticks": [
-        "GLD",
-        "GDX",
-        "SGOV"
-      ],
-      "sizing": null,
-      "asof": "2026-08-21",
-      "degraded": false,
-      "trend_dir": "falling"
+      "trend_dir": "flat"
     },
     {
       "id": "F1",
       "name": "AI / tech concentration pop",
       "type": "structural",
       "score": 2.6,
-      "level": 0.258,
+      "level": 0.25,
       "velocity": null,
       "trend": {
         "label": "50d trend",
-        "value": 0.055,
-        "pct": 0.757
+        "value": 0.0488,
+        "pct": 0.748
       },
       "signals": [
         {
           "label": "QQQ/RSP concentration ratio",
-          "value": 0.469
+          "value": 0.454
         },
         {
           "label": "QQQ drawdown from 52w high",
@@ -2330,17 +2330,17 @@ window.DASH = {
       "name": "Recession / growth freeze",
       "type": "structural",
       "score": 2.6,
-      "level": 0.387,
+      "level": 0.375,
       "velocity": null,
       "trend": {
         "label": "50d trend",
-        "value": 0.0036,
-        "pct": 0.433
+        "value": 0.0123,
+        "pct": 0.476
       },
       "signals": [
         {
           "label": "XLY/XLP (cyclical vs staples)",
-          "value": 0.773
+          "value": 0.75
         },
         {
           "label": "SPY below 200d MA",
@@ -2363,12 +2363,12 @@ window.DASH = {
       "id": "F7",
       "name": "Credit stress / HY spread",
       "type": "episodic",
-      "score": 2.3,
+      "score": 2.2,
       "level": 0.019,
       "velocity": {
         "label": "5d velocity",
         "value": -0.0017,
-        "pct": 0.451
+        "pct": 0.424
       },
       "trend": null,
       "signals": [
@@ -2387,7 +2387,7 @@ window.DASH = {
       "sizing": null,
       "asof": "2026-08-21",
       "degraded": false,
-      "trend_dir": "falling"
+      "trend_dir": "flat"
     },
     {
       "id": "F3",
@@ -2430,17 +2430,17 @@ window.DASH = {
     "label": "Neutral"
   },
   "complacency": {
-    "index": 0.09,
+    "index": 0.063,
     "valuation_stretch": 0.417,
-    "fear_term": 0.217,
-    "divergence": 0.326,
-    "fear_avg": 4.13,
+    "fear_term": 0.15,
+    "divergence": 0.354,
+    "fear_avg": 4.4,
     "regime": "stress",
     "note": "Stress regime - broad equity drawdown active. Hedges should be paying.",
     "pay_check": {
       "fear_id": "F6",
       "fear_name": "Rates shock / duration liquidation",
-      "score": 4.7,
+      "score": 4.8,
       "checks": [
         {
           "ticker": "SGOV",
@@ -3219,13 +3219,13 @@ window.DASH = {
     "enabled": true
   },
   "news": {
-    "asof": "2026-08-21 02:23:21",
+    "asof": "2026-08-21 06:22:57",
     "big_stories": [
       {
         "title": "Dow Jones Futures: Market Triggers This Bearish Signal As Walmart, SpaceX, CrowdStrike Tumble",
         "link": "https://finance.yahoo.com/m/91327cea-fed2-33ed-a182-385b27c0298f/dow-jones-futures%3A-market.html?.tsrc=rss",
-        "ts": 1787277088,
-        "when": "Aug 21, 01:51 AM",
+        "ts": 1787281763,
+        "when": "Aug 21, 03:09 AM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -3300,8 +3300,8 @@ window.DASH = {
       {
         "title": "Dow Jones Futures: Market Triggers This Bearish Signal As Walmart, SpaceX, CrowdStrike Tumble",
         "link": "https://finance.yahoo.com/m/91327cea-fed2-33ed-a182-385b27c0298f/dow-jones-futures%3A-market.html?.tsrc=rss",
-        "ts": 1787277088,
-        "when": "Aug 21, 01:51 AM",
+        "ts": 1787281763,
+        "when": "Aug 21, 03:09 AM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -3724,7 +3724,7 @@ window.DASH = {
       },
       {
         "title": "Gold Jumps 3% as Bessent's Treasury Steps Into Bond Rout",
-        "link": "https://finance.yahoo.com/markets/commodities/articles/gold-jumps-3-bessents-treasury-184614630.html?.tsrc=rss",
+        "link": "https://www.benzinga.com/markets/prediction-markets/26/08/61312746/gold-treasury-bond-buybacks?utm_source=yahooFinance&utm_campaign=partner_feed&utm_medium=referral&.tsrc=rss",
         "ts": 1787165174,
         "when": "Aug 19, 06:46 PM",
         "ticker": "GLD",
