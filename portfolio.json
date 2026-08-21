@@ -163,22 +163,22 @@
         "last_above_date": null
       },
       "F3": {
-        "prev_score": 1.5,
+        "prev_score": 1.6,
         "score": 1.6,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F4": {
-        "prev_score": 4.3,
-        "score": 4.2,
+        "prev_score": 4.2,
+        "score": 4.3,
         "days_above": 1,
         "confirmed": false,
         "last_above_date": "2026-08-21"
       },
       "F5": {
         "prev_score": 4.1,
-        "score": 4.1,
+        "score": 4.2,
         "days_above": 4,
         "confirmed": true,
         "last_above_date": "2026-08-21"
@@ -192,7 +192,7 @@
       },
       "F7": {
         "prev_score": 2.6,
-        "score": 2.6,
+        "score": 2.5,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
@@ -875,31 +875,31 @@
       },
       {
         "date": "2026-08-21",
-        "total_value": 99910.38,
+        "total_value": 99875.51,
         "cash": 25.0,
-        "invested_value": 99885.38,
-        "day_change": 745.37,
+        "invested_value": 99850.51,
+        "day_change": 710.5,
         "prices": {
-          "TQQQ": 71.335,
-          "SOXL": 119.382,
-          "SMH": 559.78,
-          "DRAM": 57.902,
-          "PLTR": 181.48,
-          "NLR": 119.115,
-          "NUKZ": 65.986,
-          "IWM": 299.555,
+          "TQQQ": 71.209,
+          "SOXL": 118.8,
+          "SMH": 558.61,
+          "DRAM": 57.96,
+          "PLTR": 180.2,
+          "NLR": 119.75,
+          "NUKZ": 65.975,
+          "IWM": 299.665,
           "IWDL": 70.245,
-          "XLY": 117.95,
-          "EZU": 71.53,
-          "ZROZ": 58.03,
-          "FXY": 57.73,
+          "XLY": 118.02,
+          "EZU": 71.495,
+          "ZROZ": 57.98,
+          "FXY": 57.711,
           "VIXM": 14.085,
           "QFLR": 35.155,
-          "GLD": 423.5,
-          "GDX": 102.86,
-          "BTAL": 12.069,
-          "DBMF": 31.39,
-          "SGOV": 100.625
+          "GLD": 424.19,
+          "GDX": 103.15,
+          "BTAL": 12.04,
+          "DBMF": 31.375,
+          "SGOV": 100.63
         }
       }
     ]
