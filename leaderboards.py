@@ -46,7 +46,7 @@ WINDOWS = [
     ("monthly", 21, "Last 21 trading sessions"),
     ("quarterly", 63, "Last 63 trading sessions"),
     ("yearly", 252, "Last 252 trading sessions"),
-    ("all_time", None, "Since inception (start_value anchored)"),
+    ("all_time", None, "Since project inception (same window for all — fair compare)"),
 ]
 
 USER_AGENT = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}

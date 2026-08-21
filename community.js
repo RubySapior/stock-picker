@@ -87,12 +87,21 @@
     function draw() {
       body.textContent = '';
       const win = (lb && lb.windows && lb.windows[active]) || null;
+      // Note for all_time to avoid +99% confusion — same window for all
+      if (active === 'all_time') {
+        const note = document.createElement('div');
+        note.className = 'muted small';
+        note.style.cssText = 'margin:6px 0 8px; font-size:11px;';
+        note.title = 'Benchmarks were previously shown as 2y (+99% for TQQQ); now all_time is return since project start 2026-08-10 for every strategy, so -3.42% is comparable to the book -0.83%';
+        note.textContent = 'All-time = since 2026-08-10 (project inception) — same 10-day window for all strategies';
+        body.appendChild(note);
+      }
       const head = document.createElement('div');
       head.className = 'lbHead';
       const h1 = document.createElement('span'); h1.textContent = 'Rank';
       const h2 = document.createElement('span'); h2.textContent = 'Strategy';
       const h3 = document.createElement('span'); h3.textContent = 'Author';
-      const h4 = sortHeader('Return', 'return');
+      const h4 = sortHeader('Return' + (active === 'all_time' ? ' *' : ''), 'return');
       const h5 = sortHeader('Max DD', 'mdd');
       const h6 = sortHeader('Sharpe', 'sharpe');
       head.appendChild(h1); head.appendChild(h2); head.appendChild(h3);
@@ -122,6 +131,7 @@
         const rt = document.createElement('span');
         rt.className = 'lbNum ' + (r.return_pct >= 0 ? 'pos' : 'neg');
         rt.textContent = sign(r.return_pct) + '%';
+        if (active === 'all_time') rt.title = 'Since 2026-08-10 (project start) — same window for all';
         const dd = document.createElement('span');
         dd.className = 'lbNum lbDD ' + (r.max_drawdown_pct == null || r.max_drawdown_pct >= 0 ? 'pos' : 'neg');
         dd.textContent = r.max_drawdown_pct == null ? '\u2014' : sign(r.max_drawdown_pct) + '%';

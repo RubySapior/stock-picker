@@ -29,6 +29,14 @@
       setCard('lcWeekly', 'lcWeeklyWho', lb.windows && lb.windows.weekly);
       setCard('lcMonthly', 'lcMonthlyWho', lb.windows && lb.windows.monthly);
       setCard('lcAlltime', 'lcAlltimeWho', lb.windows && lb.windows.all_time);
+      // Clarify all-time window to avoid +99% confusion
+      const allEl = document.getElementById('lcAlltime');
+      if (allEl) allEl.title = 'All-time = since 2026-08-10 (project inception) — same 10-day window for all strategies';
+      const allLabel = document.querySelector('#lcAlltime')?.parentElement?.querySelector('.label');
+      if (allLabel && !allLabel.textContent.includes('*')) {
+        allLabel.textContent = 'Top all-time return *';
+        allLabel.title = 'Since 2026-08-10 (project start) — not 2y';
+      }
     }
   }
 
