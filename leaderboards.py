@@ -261,20 +261,37 @@ def _sharpe(history):
     return round((mean / std) * (252 ** 0.5), 2)
 
 
+def _window_history(history, n_sessions):
+    """Slice history to the trailing window (inclusive).
+    
+    Mirrors _window_return's start index so drawdown/sharpe use the same
+    period. n_sessions=None -> full history (all-time).
+    """
+    if not history:
+        return []
+    if n_sessions is None:
+        return history
+    idx = len(history) - 1 - n_sessions
+    if idx < 0:
+        idx = 0
+    return history[idx:]
+
+
 def _ranked(strategies, n_sessions):
     rows = []
     for s in strategies:
         ret = _window_return(s, n_sessions)
         if ret is None:
             continue
+        wh = _window_history(s.get("history") or [], n_sessions)
         rows.append({
             "strategy_id": s["strategy_id"],
             "name": s.get("name"),
             "author": s.get("author"),
             "kind": s.get("kind"),
             "return_pct": ret,
-            "max_drawdown_pct": _max_drawdown(s.get("history") or []),
-            "sharpe": _sharpe(s.get("history") or []),
+            "max_drawdown_pct": _max_drawdown(wh),
+            "sharpe": _sharpe(wh),
         })
     rows.sort(key=lambda r: -r["return_pct"])
     return rows[:TOP_N]
