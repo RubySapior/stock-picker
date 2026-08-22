@@ -128,7 +128,7 @@ def build_mirror(data):
         })
 
     TRADE_REASONS = {"take_profit", "stop_loss", "deploy_cash", "re_entry",
-                     "rebalance", "market_order"}
+                     "rebalance", "market_order", "dividend"}
     changes = []
     for ev in data.get("events", []):
         reason = ev.get("reason")
@@ -136,6 +136,14 @@ def build_mirror(data):
             continue
         shares = ev.get("shares") or 0.0
         price = ev.get("price") or 0.0
+        amount = round(shares * price, 2)
+        if not amount and ev.get("amount") is not None:
+            # Dividend income (issue #13): cash-routed payouts carry no
+            # shares/price - the event's explicit amount is the money moved.
+            try:
+                amount = round(float(ev["amount"]), 2)
+            except (TypeError, ValueError):
+                pass
         changes.append({
             "ts": f"{ev.get('date')} {ev.get('ts', '')}".strip(),
             "type": reason,
@@ -146,7 +154,7 @@ def build_mirror(data):
                 "sell" if reason in ("take_profit", "stop_loss") else "buy"),
             "shares": shares,
             "price": price,
-            "amount": round(shares * price, 2),
+            "amount": amount,
             "reason": ev.get("note"),
         })
     changes.sort(key=lambda c: c["ts"])

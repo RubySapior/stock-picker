@@ -1,7 +1,7 @@
 /**
  * trades.js — renders the Trade Archive (trades.html): every recorded
- * event (take-profit / stop-loss exits, re-entries, cash deploys, rebalance
- * flags) in a plain table, newest first, with per-second timestamps.
+ * event (take-profit / stop-loss exits, re-entries, cash deploys)
+ * in a plain table, newest first, with per-second timestamps.
  *
  * Reads the same AUTO-GENERATED dashboard.js (window.DASH) as app.js.
  */
@@ -28,9 +28,10 @@
     document.getElementById('asof').textContent = D.asof;
     document.getElementById('eventCount').textContent = `(${D.events.length} events)`;
 
-    const pill = r => r==='take_profit' ? 'tp' : (r==='stop_loss' ? 'sl' : (r==='rebalance_recommended' ? 'warn' : 'open'));
+    const pill = r => r==='take_profit' ? 'tp' : (r==='stop_loss' ? 'sl' : 'open');
     const isBuy = e => e.reason === 'market_order'
       ? /^BUY/.test(e.note || '') : (e.reason === 're_entry');
+    const isIncome = e => e.reason === 'dividend';
     const moneyOf = e => e.amount != null ? e.amount
       : (e.shares != null && e.price != null ? e.shares * e.price : null);
     const tbody = document.querySelector('#tradeTable tbody');
@@ -45,7 +46,7 @@
             <td>${e.price == null ? '&mdash;' : fmtN(e.price)}</td>
             <td>${e.buy_price == null ? '&mdash;' : fmtN(e.buy_price)}</td>
             <td>${e.shares == null ? '&mdash;' : fmtN(e.shares, 4)}</td>
-            <td class="${isBuy(e) ? 'pos' : 'neg'}">${m == null ? '&mdash;' : (isBuy(e) ? '&minus;' : '+') + fmtN(m)}</td>
+            <td class="${isIncome(e) ? 'pos' : (isBuy(e) ? 'pos' : 'neg')}">${m == null ? '&mdash;' : (isBuy(e) ? '&minus;' : '+') + fmtN(m)}</td>
             <td class="${cls(e.realized_pnl)}">${e.realized_pnl == null ? '&mdash;' : sign(e.realized_pnl)}</td>
             <td class="small muted">${e.note ? escA(e.note) : '&mdash;'}</td>
           </tr>`;

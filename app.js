@@ -164,17 +164,6 @@ function render() {
     }
   }
 
-  /* ---- rebalance flags (passive drift alerts, never trades) ---- */
-  const rebal = D.rebalance ? (Array.isArray(D.rebalance) ? D.rebalance : [D.rebalance]) : [];
-  const rebalEl = document.getElementById('rebalBanner');
-  if (rebalEl) {
-    if (rebal.length) {
-      rebalEl.style.display = 'block';
-      rebalEl.innerHTML = rebal.map(f =>
-        `<div><strong>Risk-budget flag:</strong> ${String(f.message||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>`).join('');
-    } else rebalEl.style.display = 'none';
-  }
-
   /* ---- summary cards ---- */
   function renderCards(){
     const stb = D.positions.find(p => p.ticker === 'SGOV' && p.status === 'open');
@@ -433,19 +422,17 @@ function render() {
     } else if (recent.length) {
       evBox.innerHTML = recent.slice().reverse().slice(0, 6).map(e => {
         const r = e.reason;
-        const cls = r === 'take_profit' ? 'tp'
-          : (r === 'stop_loss' ? 'sl'
-          : ((r === 'rebalance' || r === 'rebalance_recommended') ? 'warn'
-          : (r === 'deploy_cash' ? 'tp' : 'open')));
+        const cls = r === 'take_profit' || r === 'deploy_cash' || r === 'dividend' ? 'tp'
+          : (r === 'stop_loss' ? 'sl' : 'open');
         const lbl = r === 'deploy_cash' ? 'DEPLOY'
-          : (r === 'rebalance' ? 'REBAL'
-          : (r === 'rebalance_recommended' ? 'DRIFT'
-          : (r === 'ai_sentiment' ? 'AI READ' : r.toUpperCase())));
-        const tkCls = r === 'deploy_cash' ? 'pos'
-          : ((r === 'rebalance' || r === 'rebalance_recommended') ? 'amber' : '');
+          : (r === 'ai_sentiment' ? 'AI READ'
+          : (r === 'dividend' ? 'DIV' : r.toUpperCase()));
+        const tkCls = r === 'deploy_cash' || r === 'dividend' ? 'pos' : '';
+        const divMoney = r === 'dividend' && e.amount != null
+          ? ` <span class="pos">+${fmt$(e.amount)}</span>` : '';
         return `<div class="eventline">
           <div class="evWho"><strong class="${tkCls}" title="${escA(NAME[e.ticker]||e.ticker)}">${escA(e.ticker || 'SYSTEM')}</strong>
-            <span class="pill ${cls}">${lbl}</span>
+            <span class="pill ${cls}">${lbl}</span>${divMoney}
             <span class="muted small">${e.date}</span></div>
           ${e.note ? `<div class="small muted">${escA(e.note)}</div>` : ''}
         </div>`;
@@ -960,23 +947,6 @@ function render() {
     const model = cfg.provider ? `${String(cfg.provider).toUpperCase()} · ${cfg.model}` : '';
     const stancePill = s => `<span class="stancePill ${escA(s)}">${String(s||'neutral').toUpperCase()}</span>`;
 
-    if(!A){
-      const degraded = !!cfg.enabled;
-      stEl.textContent = degraded ? 'DEGRADED' : 'OFF';
-      stEl.className = 'aiBadge ' + (degraded ? 'degraded' : 'off');
-      subEl.textContent = degraded ? 'Call failed or verdict invalid — book running on core rules' : 'Flip meta.ai.enabled to activate the layer';
-      hb.innerHTML = `<div class="aiSlate">AI Sentiment is ${degraded ? 'degraded' : 'offline'} — the portfolio runs on deterministic price rules (TP/SL, index-referenced vol-halts, no idle cash). The AI layer adds proposals, theory reads and fear blending only when active.${model ? ' · ' + escA(model) : ''}</div>`;
-      pr.innerHTML = ''; mc.innerHTML = ''; th.innerHTML = ''; cb.innerHTML = ''; fp.innerHTML = '';
-      if(ctl) ctl.style.display = 'none';
-      return;
-    }
-
-    stEl.textContent = 'ACTIVE';
-    stEl.className = 'aiBadge active';
-    subEl.textContent = `Last read ${escA(A.asof)}`;
-
-    /* 0) booking controls + sentiment slider (serve.py endpoints; file:// degrades) */
-    const mode = A.mode || 'recommend';
     async function post(path, body){
       const r = await fetch(path, {
         method: 'POST',
@@ -986,6 +956,57 @@ function render() {
       if(!r.ok) throw new Error('HTTP ' + r.status);
       return r.json();
     }
+    const mode = (A && A.mode) || cfg.mode || 'recommend';
+    // Mode switch is always wired (even when degraded/off so you can flip before next run)
+    (() => {
+      const modeSwitch = document.getElementById('aiModeSwitch');
+      const lblRec = document.getElementById('modeLabelRec');
+      const lblAuto = document.getElementById('modeLabelAuto');
+      if(modeSwitch){
+        modeSwitch.checked = (mode === 'execute');
+        if(lblRec) lblRec.classList.toggle('active', mode !== 'execute');
+        if(lblAuto) lblAuto.classList.toggle('active', mode === 'execute');
+        if(!modeSwitch.dataset.wired){
+          modeSwitch.dataset.wired = '1';
+          modeSwitch.addEventListener('change', async () => {
+            const next = modeSwitch.checked ? 'execute' : 'recommend';
+            modeSwitch.disabled = true;
+            if(lblRec) lblRec.classList.toggle('active', next !== 'execute');
+            if(lblAuto) lblAuto.classList.toggle('active', next === 'execute');
+            try{
+              const j = await post('/mode', {mode: next});
+              if(!j.ok) throw new Error(j.error || 'mode switch failed');
+            }catch(e){
+              alert('Auto AI toggle needs the local server: run `python serve.py` and open http://localhost:8000.');
+              modeSwitch.checked = !modeSwitch.checked;
+              if(lblRec) lblRec.classList.toggle('active', !modeSwitch.checked);
+              if(lblAuto) lblAuto.classList.toggle('active', modeSwitch.checked);
+              modeSwitch.disabled = false;
+              return;
+            }
+            location.reload();
+          });
+        }
+      }
+    })();
+
+    if(!A){
+      const degraded = !!cfg.enabled;
+      stEl.textContent = degraded ? 'DEGRADED' : 'OFF';
+      stEl.className = 'aiBadge ' + (degraded ? 'degraded' : 'off');
+      subEl.textContent = degraded ? 'Call failed or verdict invalid — book running on core rules' : 'Flip meta.ai.enabled to activate the layer';
+      hb.innerHTML = `<div class="aiSlate">AI Sentiment is ${degraded ? 'degraded' : 'offline'} — the portfolio runs on deterministic price rules (TP/SL, index-referenced vol-halts, no idle cash). The AI layer adds proposals, theory reads and fear blending only when active.${model ? ' · ' + escA(model) : ''}</div>`;
+      pr.innerHTML = ''; mc.innerHTML = ''; th.innerHTML = ''; cb.innerHTML = ''; fp.innerHTML = '';
+      if(ctl) ctl.style.display = degraded ? '' : 'none';
+      // keep mode switch usable in degraded; hide bias/execAll row already empty
+      return;
+    }
+
+    stEl.textContent = 'ACTIVE';
+    stEl.className = 'aiBadge active';
+    subEl.textContent = `Last read ${escA(A.asof)}`;
+
+    /* 0) booking controls + sentiment slider (serve.py endpoints; file:// degrades) */
     const wireOnce = (el, fn) => {
       if(!el || el.dataset.wired) return;
       el.dataset.wired = '1';
@@ -1056,7 +1077,7 @@ function render() {
         <span class="aiBarItem"><strong>Model:</strong> ${escA(model)}</span>
       </div>`;
     const modeNote = mode === 'execute'
-      ? '<div class="small" style="margin-top:4px;"><span class="pill sl">EXECUTE MODE</span> <span class="muted">AI refresh auto-replaces pending orders with the verdict. Deterministic TP/SL and vol-halts still overrule everything.</span></div>'
+      ? '<div class="small" style="margin-top:4px;"><span class="pill sl">AUTO AI MODE</span> <span class="muted">AI runs daily and auto-creates pending orders from its verdict — executed at next market open. Deterministic TP/SL and vol-halts still overrule.</span></div>'
       : '<div class="small" style="margin-top:4px;"><span class="pill warn">RECOMMEND MODE</span> <span class="muted">Proposals are advice — nothing becomes an order until you press <strong>Submit this Order</strong> (or <strong>Submit all Orders</strong>).</span></div>';
     hb.innerHTML += modeNote;
 
@@ -1285,7 +1306,8 @@ function render() {
         <div>
           <div class="calibHead">DETERMINISTIC GUARDRAILS (UN-BYPASSABLE)</div>
           <div class="small" style="margin:6px 0;">Active vol-halts: <strong>${volHalts}</strong>${volHalts ? ' <span class="neg">— re-entry protocol engaged</span>' : ''}</div>
-          <div class="small">TP/SL engine: <strong>active</strong> · Dry powder: <span class="parkTog" id="parkTog"><button data-m="sgov" class="${(D.meta && D.meta.park_mode || 'sgov') === 'sgov' ? 'on' : ''}">SGOV</button><button data-m="cash" class="${(D.meta && D.meta.park_mode || 'sgov') === 'cash' ? 'on' : ''}">Cash</button></span> <span class="muted small" title="Where surplus cash above the buffer parks on each run">auto-park</span></div>
+          <div class="small">TP/SL engine: <strong>active</strong> · Dry powder: <span class="parkTog" id="parkTog"><button data-m="sgov" class="${(D.meta && D.meta.park_mode || 'sgov') === 'sgov' ? 'on' : ''}">SGOV</button><button data-m="cash" class="${(D.meta && D.meta.park_mode || 'cash') === 'cash' ? 'on' : ''}">Cash</button></span> <span class="muted small" title="Where surplus cash above the buffer parks on each run">auto-park</span></div>
+          <div class="small">Dividends ${(() => { const t = D.summary && D.summary.dividends_total; return t != null ? `<strong>$${fmtN(t)}</strong> lifetime · ` : ''; })()}payout route: <span class="parkTog" id="divTog"><button data-m="reinvest" class="${(D.meta && D.meta.dividend_policy || 'reinvest') === 'reinvest' ? 'on' : ''}" title="DRIP: payout buys more of the paying ticker at the live price">DRIP</button><button data-m="sgov" class="${(D.meta && D.meta.dividend_policy || 'reinvest') === 'sgov' ? 'on' : ''}" title="Payout buys SGOV dry powder directly">SGOV</button><button data-m="cash" class="${(D.meta && D.meta.dividend_policy || 'reinvest') === 'cash' ? 'on' : ''}" title="Payout lands as cash (dry-powder toggle then applies)">Cash</button></span> <span class="muted small" title="What happens when a held ticker pays a dividend (issue #13)">policy</span></div>
           <div class="small">News (Tier B): <strong>display-only</strong>${cfg.news_to_sentiment ? ' — WARNING: feeding decisions' : ''}</div>
           <div class="small">Consensus exits: <strong>dynamic stops</strong> (2.5x ATR14, floored) · runner trails armed: <strong>${(D.positions||[]).filter(p => p.runner_active).length}</strong></div>
           <div class="small">Hedge harvester: ${(() => {
@@ -1310,6 +1332,21 @@ function render() {
         location.reload();
       });
     }
+    const divTog = document.getElementById('divTog');
+    if(divTog && !divTog.dataset.wired){
+      divTog.dataset.wired = '1';
+      divTog.addEventListener('click', async ev => {
+        const b = ev.target.closest('button');
+        if(!b) return;
+        try{
+          const j = await post('/dividend', {mode: b.dataset.m});
+          if(!j.ok) throw new Error(j.error || 'dividend policy switch failed');
+        }catch(e){
+          alert('Dividend toggle needs the local server (python serve.py on localhost:8000) to persist to portfolio.json.');
+        }
+        location.reload();
+      });
+    }
   }
 
   /* ---- market orders (pending only; executed moved to positions) ---- */
@@ -1326,7 +1363,7 @@ function render() {
     const noteEl = document.getElementById('ordersNote');
     if(noteEl){
       noteEl.innerHTML = mode === 'execute'
-        ? 'Human-approved orders. Executed at the live price on the next market-open run. <span class="pill sl">EXECUTE MODE</span> — AI refresh auto-replaces pending orders with each new verdict.'
+        ? 'Human-approved orders. Executed at the live price on the next market-open run. <span class="pill sl">AUTO AI MODE</span> — AI auto-creates pending orders on each verdict.'
         : 'Human-approved orders. Executed at the live price on the next market-open run. <span class="pill warn">RECOMMEND MODE</span> — orders are written when you press <strong>Submit this Order</strong> on an AI proposal, or <strong>Submit all Orders</strong> for the whole queue.';
     }
     document.getElementById('ordersList').innerHTML = pending.map(o => {
@@ -1361,7 +1398,7 @@ function render() {
 }
 loadDash(render);
 
-/* ---- update button: POST /refresh (runs update.py), then soft-refresh ---- */
+/* ---- update button: POST /refresh (price/news only, --skip-ai) ---- */
 (function(){
   const btn = document.getElementById('updateBtn');
   if(!btn) return;
@@ -1376,6 +1413,39 @@ loadDash(render);
         if(window.console && j.output) console.log(j.output);
       }
     }catch(e){ /* file:// or offline -> just refresh the page */ }
+    const ok = await softRefresh();
+    if(!ok) location.reload();
+    btn.innerHTML = old;
+    btn.disabled = false;
+  });
+})();
+/* ---- Run AI button: POST /ai (dedicated Gemini call, the ONLY token path) ---- */
+(function(){
+  const btn = document.getElementById('aiRunBtn');
+  if(!btn) return;
+  btn.addEventListener('click', async ()=>{
+    const old = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = 'Running AI&hellip;';
+    try{
+      const r = await fetch('ai', {method:'POST'});
+      const j = await r.json().catch(()=>({}));
+      if(r.ok){
+        if(window.console && j.output) console.log(j.output);
+        if(j.output && /AI SKIPPED/.test(j.output)){
+          // market closed or --skip-ai path — still soft-refresh to show last verdict
+        }
+      } else {
+        const msg = j.error || j.output || 'AI run failed';
+        // 409 = update already running, 400/500 = market closed or cap
+        if(/update already running/.test(msg)) alert('AI is already running — wait a moment and try again.');
+        else if(/market closed|3\/day|cap/.test(msg)) alert(msg);
+        else alert(msg.slice(0,300));
+        if(window.console && j.output) console.log(j.output);
+      }
+    }catch(e){
+      alert('Run AI needs the local server: run `python serve.py` and open http://localhost:8000.');
+    }
     const ok = await softRefresh();
     if(!ok) location.reload();
     btn.innerHTML = old;

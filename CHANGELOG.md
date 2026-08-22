@@ -165,6 +165,73 @@ JSON verdict that feeds three deterministic layers. Nothing executes.
   -> target book diff -> "Buy TQQQ +$2k" review cards (buttons, never
   execution).
 
+## [site 0.5.6.15] — 2026-08-22
+
+### Added — Dividend tracking + payout policy (issue #13)
+
+- **The leak:** prices are UNADJUSTED Yahoo regular-market quotes, so every
+  ex-dividend date silently dropped the book by `shares x payout` with
+  nothing credited back — SGOV alone leaks ~$8/month at current size.
+- **Fetch** (`update.py` `fetch_dividends`/`ensure_dividends`): the same chart
+  endpoint with `events=div`, fetched once per calendar day for all open
+  positions (cached in `ohlc_cache.json` under `dividends`/`dividends_fetched`,
+  stale-fallback on failure). Verified live: SGOV monthly ~$0.30/sh, TQQQ
+  quarterly, growth/hedge tickers mostly never.
+- **Credit engine** (`update.py` `process_dividends`, runs after market orders,
+  BEFORE the exit engine and SGOV parking): per-position watermark
+  `last_div_date` (init = `buy_date`; only ex-dates strictly AFTER it count —
+  own before ex-date = entitled) advances to the max credited ex-date so a
+  failed fetch or deferred leg retries instead of skipping; fully idempotent.
+  Payouts under $1 (`DIV_DUST_FLOOR`) always route to cash. Lifetime income
+  accumulates in `account.dividends`.
+- **Policy choice** `meta.dividend_policy` (default **`reinvest`**):
+  - `reinvest` — DRIP: payout buys shares of the paying ticker at the live
+    price; `cost` bumps so avg-cost stays true; realized_pnl untouched.
+  - `sgov` — payout buys SGOV dry powder directly (creates the position if
+    absent; works even when park_mode="cash").
+  - `cash` — payout lands in `account.cash`; the existing no-idle-cash
+    policy then applies later in the same run.
+- **Toggle UI**: DRIP | SGOV | Cash pill next to the auto-park toggle in the
+  deterministic-guardrails panel (`app.js` `divTog`, reuses `.parkTog`
+  styles), lifetime dividends total shown beside it;
+  `serve.py POST /dividend {mode}` persists via locked RMW (mirrors `/park`).
+- **Visibility**: events carry `reason:"dividend"` + explicit `amount`
+  (`"DIV $8.41 (0.307/sh x 27.4414) -> ..."`); Trade Events card shows a green
+  DIV row, Trade Archive colors income green, mirror.json changes[] includes
+  dividends and prefers the event amount when no shares traded
+  (`community.py`).
+
+### Changed — cache bust
+
+- `dashboard.html` `app.js?v=62`.
+
+## [site 0.5.6.14] — 2026-08-21
+
+### Fixed — Update vs AI split (token control)
+
+- **Decoupled Update from Gemini** (`update.py:1739` `--skip-ai`): `POST /refresh` (Update button + GH Actions 6m price refresh) now runs `update.py --skip-ai` — price/news/TP-SL/SGOV only, `MACRO: skipped` and `AI SKIPPED` log, zero tokens. Previous 2-call morning (`portfolio.json:228` `calls_today:2` at `10:33`/`10:43`) was two market-open `update.py` runs each hitting `ai_sentiment.py:861` until `max_daily_calls:3`.
+- **Dedicated Run AI button** (`dashboard.html:83` `#aiRunBtn` `aiRunBtn`): lives in AI header next to `modeSwitch`/`bias`/`Submit all`. `styles.css:307` blue pill, `app.js:1405` wires `POST /ai` → `serve.py:229` `_run_update(ai=True)` → `update.py --ai` (forced, market-hours gated, `3/day` cap) — the **only** token path. Header `Update` title reworded to price-only, AI section now shows switch even when `DEGRADED` (`app.js:948`), `Update` and `book/bias/park/mode` refreshes all use `--skip-ai`.
+
+### Changed — cache bust
+
+- `dashboard.html` `styles.css?v=55`/`app.js?v=61`.
+
+## [site 0.5.6.13] — 2026-08-21
+
+### Removed — rebalance audit retired
+
+- **Rebalance audit deleted** (`update.py:787` `rebalance_audit()` + `meta.limits.rebalance` + `meta.last_rebalance_quarter`): the quarterly drift banner is gone — sentiment analysis runs daily and is the sole driver. `ai_sentiment.py:95` `build_market_snapshot()` now reads `meta.limits.sector_limits` (hard caps) instead of `rebalance.limits`. Historical `rebalanced`/`rebalance_reason` strings kept as notes; no new `rebalance_recommended` events will be generated.
+- **UI cleanup**: `dashboard.html:39` `rebalBanner` + `app.js:167` banner render + `trades.js:31` pill + `styles.css:55` `.rebalBanner` + `help.html:122` rebalance explainer + event-pill `REBAL`/`DRIFT` fallbacks removed.
+- **portfolio.json**: `meta.limits.rebalance` block and `meta.last_rebalance_quarter` removed via migration.
+
+### Added — Auto AI mode sliding switch
+
+- **Sliding switch UI** (`dashboard.html:70` `modeSwitch` + `aiModeSwitch` checkbox) in the AI Sentiment header toggles `recommend` (manual Submit buttons) ↔ `Auto AI` (`execute` — daily verdict auto-creates pending market orders, executed at next market open). `styles.css:293` `.modeSwitch`/`.switch`/`.slider` pill switch; active label highlighted. `app.js:1038` `renderAI()` wires `POST /mode` with optimistic label toggle + `serve.py` reload, file:// graceful fallback. Pills and order notes reworded to `AUTO AI MODE` where applicable.
+
+### Changed — cache bust
+
+- `styles.css`/`app.js`/`dashboard.html`/`help.html`/`index.html`/`theories.html`/`trades.html`/`leaderboards.html` `?v=` bumped.
+
 ## [site 0.5.6.12] — 2026-08-21
 
 ### Fixed — post-0.5.6.11 patches

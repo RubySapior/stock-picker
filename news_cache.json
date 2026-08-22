@@ -1,1 +1,529 @@
-{"date": "2026-08-20", "news": {"asof": "2026-08-20 00:43:55", "big_stories": [{"title": "Dow Jones Futures: S&P 500, Nasdaq Rise As Moderna, Merck, Gold Shine But Not These Techs", "link": "https://finance.yahoo.com/m/68a3e9b8-8858-3a96-8c98-dd4126c44fbe/dow-jones-futures%3A-s%26p-500%2C.html?.tsrc=rss", "ts": 1787195558, "when": "Aug 19, 09:12 PM", "ticker": "GDX", "industry": "Gold Miners", "theory": ["T6", "T9", "T19", "T20", "T21"], "sent": "neutral"}, {"title": "SOXL Turns Every 1% Nvidia Move Into 3%. Here’s What $10,000 Did in the Last 12 Months", "link": "https://247wallst.com/investing/etf/2026/08/19/soxl-turns-every-1-nvidia-move-into-3-heres-what-10000-did-in-the-last-12-months/?.tsrc=rss", "ts": 1787182542, "when": "Aug 19, 05:35 PM", "ticker": "SOXL", "industry": "Semis", "theory": ["T1", "T7", "T2", "T14"], "sent": "neutral"}, {"title": "The Dealmaking 3: Madden’s AI Persona Engine, Boehly’s $75B AI Bet & Pac-12 Free on YouTube", "link": "https://finance.yahoo.com/technology/ai/articles/dealmaking-3-madden-ai-persona-221754847.html?.tsrc=rss", "ts": 1787177874, "when": "Aug 19, 04:17 PM", "ticker": "PLTR", "industry": "AI Software", "theory": ["T1", "T7", "T2", "T14"], "sent": "positive"}, {"title": "SGOV’s Monthly Check on $250,000 Fell From $1,127 to $763 While the Fee Never Changed", "link": "https://247wallst.com/investing/etf/2026/08/19/sgovs-monthly-check-on-250000-fell-from-1127-to-763-while-the-fee-never-changed/?.tsrc=rss", "ts": 1787173500, "when": "Aug 19, 03:05 PM", "ticker": "SGOV", "industry": "Equities", "theory": [], "sent": "neutral"}, {"title": "Sector Update: Consumer Stocks Rise Late Afternoon", "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-rise-afternoon-194905033.html?.tsrc=rss", "ts": 1787168945, "when": "Aug 19, 01:49 PM", "ticker": "XLY", "industry": "Consumer Disc.", "theory": ["T13"], "sent": "neutral"}], "feed": [{"title": "Dow Jones Futures: S&P 500, Nasdaq Rise As Moderna, Merck, Gold Shine But Not These Techs", "link": "https://finance.yahoo.com/m/68a3e9b8-8858-3a96-8c98-dd4126c44fbe/dow-jones-futures%3A-s%26p-500%2C.html?.tsrc=rss", "ts": 1787195558, "when": "Aug 19, 09:12 PM", "ticker": "GDX", "industry": "Gold Miners", "theory": ["T6", "T9", "T19", "T20", "T21"], "sent": "neutral"}, {"title": "SOXL Turns Every 1% Nvidia Move Into 3%. Here’s What $10,000 Did in the Last 12 Months", "link": "https://247wallst.com/investing/etf/2026/08/19/soxl-turns-every-1-nvidia-move-into-3-heres-what-10000-did-in-the-last-12-months/?.tsrc=rss", "ts": 1787182542, "when": "Aug 19, 05:35 PM", "ticker": "SOXL", "industry": "Semis", "theory": ["T1", "T7", "T2", "T14"], "sent": "neutral"}, {"title": "The Dealmaking 3: Madden’s AI Persona Engine, Boehly’s $75B AI Bet & Pac-12 Free on YouTube", "link": "https://finance.yahoo.com/technology/ai/articles/dealmaking-3-madden-ai-persona-221754847.html?.tsrc=rss", "ts": 1787177874, "when": "Aug 19, 04:17 PM", "ticker": "PLTR", "industry": "AI Software", "theory": ["T1", "T7", "T2", "T14"], "sent": "positive"}, {"title": "SGOV’s Monthly Check on $250,000 Fell From $1,127 to $763 While the Fee Never Changed", "link": "https://247wallst.com/investing/etf/2026/08/19/sgovs-monthly-check-on-250000-fell-from-1127-to-763-while-the-fee-never-changed/?.tsrc=rss", "ts": 1787173500, "when": "Aug 19, 03:05 PM", "ticker": "SGOV", "industry": "Equities", "theory": [], "sent": "neutral"}, {"title": "Software Companies' Second-Quarter Beat Rate Accelerates Sequentially, RBC Says", "link": "https://finance.yahoo.com/technology/articles/software-companies-apos-second-quarter-203412309.html?.tsrc=rss", "ts": 1787171652, "when": "Aug 19, 02:34 PM", "ticker": "PLTR", "industry": "AI Software", "theory": ["T1", "T7", "T2", "T14"], "sent": "neutral"}, {"title": "Sector Update: Consumer Stocks Rise Late Afternoon", "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-rise-afternoon-194905033.html?.tsrc=rss", "ts": 1787168945, "when": "Aug 19, 01:49 PM", "ticker": "XLY", "industry": "Consumer Disc.", "theory": ["T13"], "sent": "neutral"}, {"title": "Gold Jumps 3% as Bessent's Treasury Steps Into Bond Rout", "link": "https://www.benzinga.com/markets/prediction-markets/26/08/61312746/gold-treasury-bond-buybacks?utm_source=yahooFinance&utm_campaign=partner_feed&utm_medium=referral&.tsrc=rss", "ts": 1787165174, "when": "Aug 19, 12:46 PM", "ticker": "GLD", "industry": "Gold", "theory": ["T6", "T9", "T19", "T20", "T21"], "sent": "positive"}, {"title": "Is Palantir Technologies (PLTR) Overvalued As Revenue Growth And 2026 Outlook Jump?", "link": "https://finance.yahoo.com/markets/stocks/articles/palantir-technologies-pltr-overvalued-revenue-181218430.html?.tsrc=rss", "ts": 1787163138, "when": "Aug 19, 12:12 PM", "ticker": "PLTR", "industry": "AI Software", "theory": ["T1", "T7", "T2", "T14"], "sent": "positive"}, {"title": "A Top Strategist Says Buy “Anything but the S&P 500” as Small Caps Quietly Steal the Lead", "link": "https://247wallst.com/investing/2026/08/19/a-top-strategist-says-buy-anything-but-the-sp-500-as-small-caps-quietly-steal-the-lead/?.tsrc=rss", "ts": 1787163002, "when": "Aug 19, 12:10 PM", "ticker": "IWM", "industry": "Small Caps", "theory": ["T10", "T15"], "sent": "negative"}, {"title": "Palantir Stock Climbs as Enterprise AI Demand Keeps Growing", "link": "https://finance.yahoo.com/technology/ai/articles/palantir-stock-climbs-enterprise-ai-180745091.html?.tsrc=rss", "ts": 1787162865, "when": "Aug 19, 12:07 PM", "ticker": "PLTR", "industry": "AI Software", "theory": ["T1", "T7", "T2", "T14"], "sent": "positive"}, {"title": "This Gold ETF Sees Best Day In Nearly Four Years As Treasury Yields Drop On Bessent's Bond Buyback Move", "link": "https://stocktwits.com/news-articles/markets/equity/treasury-yields-drop-on-bessent-s-bond-buyback-move/cZYdoGARJlj?.tsrc=rss", "ts": 1787161734, "when": "Aug 19, 11:48 AM", "ticker": "GDX", "industry": "Gold Miners", "theory": ["T6", "T9", "T19", "T20", "T21"], "sent": "positive"}, {"title": "Billionaire Peter Thiel Bought a 1% Stake in Vista Energy. What This Means for VIST Stock.", "link": "https://www.barchart.com/story/news/3934323/billionaire-peter-thiel-bought-a-1-stake-in-vista-energy-what-this-means-for-vist-stock?.tsrc=rss", "ts": 1787159749, "when": "Aug 19, 11:15 AM", "ticker": "PLTR", "industry": "AI Software", "theory": ["T1", "T7", "T2", "T14"], "sent": "positive"}, {"title": "What Are Wall Street Analysts' Target Price for lululemon athletica Stock?", "link": "https://www.barchart.com/story/news/3933367/what-are-wall-street-analysts-target-price-for-lululemon-athletica-stock?.tsrc=rss", "ts": 1787156651, "when": "Aug 19, 10:24 AM", "ticker": "XLY", "industry": "Consumer Disc.", "theory": ["T13"], "sent": "neutral"}, {"title": "Treasury Yields Fall, Gold Jumps On Bessent Buyback Plan; GDX Flashes Buy Signal", "link": "https://finance.yahoo.com/m/aa57a59b-91f5-322d-9b50-800bd70c3e6e/treasury-yields-fall%2C-gold.html?.tsrc=rss", "ts": 1787155236, "when": "Aug 19, 10:00 AM", "ticker": "GDX", "industry": "Gold Miners", "theory": ["T6", "T9", "T19", "T20", "T21"], "sent": "positive"}, {"title": "The Small-Cap Premium Was Supposed to Beat Large Caps Over Time. It Hasn't in 15 Years. Here's the Actual Gap.", "link": "https://www.fool.com/investing/2026/08/19/small-cap-premium-beat-large-cap-actual-gap/?.tsrc=rss", "ts": 1787154600, "when": "Aug 19, 09:50 AM", "ticker": "IWM", "industry": "Small Caps", "theory": ["T10", "T15"], "sent": "neutral"}, {"title": "Intel and AMD Fall 4%, NVIDIA Unchanged as Chip Selloff Defies Bond Yield Relief", "link": "https://247wallst.com/investing/2026/08/19/intel-and-amd-fall-4-nvidia-unchanged-as-chip-selloff-defies-bond-yield-relief/?.tsrc=rss", "ts": 1787153672, "when": "Aug 19, 09:34 AM", "ticker": "SMH", "industry": "Semis", "theory": ["T1", "T7", "T2", "T14"], "sent": "positive"}, {"title": "Mercury Systems' 2027, 2028 Outlook Conservative, RBC Says", "link": "https://finance.yahoo.com/markets/stocks/articles/mercury-systems-apos-2027-2028-152653937.html?.tsrc=rss", "ts": 1787153213, "when": "Aug 19, 09:26 AM", "ticker": "PLTR", "industry": "AI Software", "theory": ["T1", "T7", "T2", "T14"], "sent": "neutral"}, {"title": "Wynn Resorts Stock: Is Wall Street Bullish or Bearish?", "link": "https://www.barchart.com/story/news/3931101/wynn-resorts-stock-is-wall-street-bullish-or-bearish?.tsrc=rss", "ts": 1787149843, "when": "Aug 19, 08:30 AM", "ticker": "XLY", "industry": "Consumer Disc.", "theory": ["T13"], "sent": "neutral"}, {"title": "No, Seriously, Michael Burry Really Believes Palantir Technologies Is Worth Just $1!", "link": "https://247wallst.com/investing/2026/08/19/no-seriously-michael-burry-really-believes-palantir-technologies-is-worth-just-1/?.tsrc=rss", "ts": 1787148724, "when": "Aug 19, 08:12 AM", "ticker": "PLTR", "industry": "AI Software", "theory": ["T1", "T7", "T2", "T14"], "sent": "positive"}, {"title": "Bond Yields, Persian Gulf Outlooks Cap Wall Street Pre-Bell; Asia, Europe Off", "link": "https://finance.yahoo.com/markets/articles/bond-yields-persian-gulf-outlooks-111755703.html?.tsrc=rss", "ts": 1787138275, "when": "Aug 19, 05:17 AM", "ticker": "SMH", "industry": "Semis", "theory": ["T1", "T7", "T2", "T14"], "sent": "neutral"}, {"title": "Palantir's Sovereignty Bootcamps Draw Nearly 200 Organizations in <30 Days", "link": "https://finance.yahoo.com/technology/ai/articles/palantirs-sovereignty-bootcamps-draw-nearly-105900727.html?.tsrc=rss", "ts": 1787137140, "when": "Aug 19, 04:59 AM", "ticker": "PLTR", "industry": "AI Software", "theory": ["T1", "T7", "T2", "T14"], "sent": "neutral"}, {"title": "Hasbro Stock: Analyst Estimates & Ratings", "link": "https://www.barchart.com/story/news/3925340/hasbro-stock-analyst-estimates-ratings?.tsrc=rss", "ts": 1787137032, "when": "Aug 19, 04:57 AM", "ticker": "XLY", "industry": "Consumer Disc.", "theory": ["T13"], "sent": "neutral"}, {"title": "New Strong Buy Stocks for August 19th", "link": "https://finance.yahoo.com/markets/stocks/articles/strong-buy-stocks-august-19th-093700108.html?.tsrc=rss", "ts": 1787132220, "when": "Aug 19, 03:37 AM", "ticker": "PLTR", "industry": "AI Software", "theory": ["T1", "T7", "T2", "T14"], "sent": "positive"}, {"title": "This 3X Tech ETN Owns the Market’s Biggest Winners and Lost 87% the Last Time They Stumbled", "link": "https://247wallst.com/investing/etf/2026/08/19/this-3x-tech-etn-owns-the-markets-biggest-winners-and-lost-87-the-last-time-they-stumbled/?.tsrc=rss", "ts": 1787131988, "when": "Aug 19, 03:33 AM", "ticker": "PLTR", "industry": "AI Software", "theory": ["T1", "T7", "T2", "T14"], "sent": "positive"}, {"title": "Palantir Stock Investors Just Got Good News From CEO Alex Karp. Wall Street Says It's Time to Buy.", "link": "https://www.fool.com/investing/2026/08/19/palantir-stock-good-news-ceo-alex-karp-buy/?.tsrc=rss", "ts": 1787131920, "when": "Aug 19, 03:32 AM", "ticker": "PLTR", "industry": "AI Software", "theory": ["T1", "T7", "T2", "T14"], "sent": "positive"}, {"title": "Zacks Investment Ideas feature highlights: Palantir, Micron and SpaceX", "link": "https://finance.yahoo.com/markets/stocks/articles/zacks-investment-ideas-feature-highlights-071100825.html?.tsrc=rss", "ts": 1787123460, "when": "Aug 19, 01:11 AM", "ticker": "PLTR", "industry": "AI Software", "theory": ["T1", "T7", "T2", "T14"], "sent": "neutral"}, {"title": "Arista Networks vs. Palantir Technologies: Which Technology Stock Is a Better Buy in 2026?", "link": "https://www.fool.com/coverage/better-buy/2026/08/18/arista-networks-vs-palantir-technologies-which-technology-stock-is-a-better-buy-in-2026/?.tsrc=rss", "ts": 1787111461, "when": "Aug 18, 09:51 PM", "ticker": "PLTR", "industry": "AI Software", "theory": ["T1", "T7", "T2", "T14"], "sent": "positive"}, {"title": "Mercury Systems, Inc. Q4 2026 Earnings Call Summary", "link": "https://app.moby.co/home/research/tools/earningsCalendar/earnings-mercury-systems-inc-q4-2026-earnings-call-summary?utm_source=yahoo_finance&utm_medium=rss&.tsrc=rss", "ts": 1787099743, "when": "Aug 18, 06:35 PM", "ticker": "PLTR", "industry": "AI Software", "theory": ["T1", "T7", "T2", "T14"], "sent": "neutral"}, {"title": "Peter Thiel Bets $76 Million on Argentina’s Vaca Muerta Shale", "link": "https://finance.yahoo.com/energy/articles/peter-thiel-bets-76-million-220000241.html?.tsrc=rss", "ts": 1787090400, "when": "Aug 18, 04:00 PM", "ticker": "PLTR", "industry": "AI Software", "theory": ["T1", "T7", "T2", "T14"], "sent": "neutral"}, {"title": "Is Palantir the Next Trillion-Dollar Stock?", "link": "https://www.fool.com/investing/2026/08/18/is-palantir-the-next-trillion-dollar-stock/?.tsrc=rss", "ts": 1787089260, "when": "Aug 18, 03:41 PM", "ticker": "PLTR", "industry": "AI Software", "theory": ["T1", "T7", "T2", "T14"], "sent": "neutral"}]}}
+{
+"date": "2026-08-22",
+"news": {
+"asof": "2026-08-22 04:51:13",
+"big_stories": [
+{
+"title": "How Bessent’s Efforts to Calm Bond Market Set Gold Prices Ablaze",
+"link": "https://finance.yahoo.com/m/eca903dd-2ba5-319b-b145-41fac305b72b/how-bessent%E2%80%99s-efforts-to-calm.html?.tsrc=rss",
+"ts": 1787350920,
+"when": "Aug 21, 10:22 PM",
+"ticker": "GDX",
+"industry": "Gold Miners",
+"theory": [
+"T6",
+"T9",
+"T19",
+"T20",
+"T21"
+],
+"sent": "positive"
+},
+{
+"title": "Daily ETF Flows: $614M Flows Into GLD",
+"link": "http://www.etf.com/sections/daily-etf-flows/daily-etf-flows-614m-flows-gld?utm_source=yahoo-finance&utm_medium=rss&utm_campaign=yahoo-finance-rss&.tsrc=rss",
+"ts": 1787346004,
+"when": "Aug 21, 09:00 PM",
+"ticker": "GLD",
+"industry": "Gold",
+"theory": [
+"T6",
+"T9",
+"T19",
+"T20",
+"T21"
+],
+"sent": "neutral"
+},
+{
+"title": "Sector Update: Consumer Stocks Higher Late Afternoon",
+"link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-higher-afternoon-194659617.html?.tsrc=rss",
+"ts": 1787341619,
+"when": "Aug 21, 07:46 PM",
+"ticker": "XLY",
+"industry": "Consumer Disc.",
+"theory": [
+"T13"
+],
+"sent": "neutral"
+},
+{
+"title": "Palantir Stock Clears Buy Zone But Could Offer Alternative Entry",
+"link": "https://finance.yahoo.com/m/f9848c02-9b88-3cc0-b4b1-482a54bfbfe5/palantir-stock-clears-buy.html?.tsrc=rss",
+"ts": 1787339775,
+"when": "Aug 21, 07:16 PM",
+"ticker": "PLTR",
+"industry": "AI Software",
+"theory": [
+"T1",
+"T7",
+"T2",
+"T14"
+],
+"sent": "neutral"
+},
+{
+"title": "Stable Bond Yields, Oil Prices Lift Wall Street Pre-Bell; Asia, Europe up",
+"link": "https://finance.yahoo.com/markets/articles/stable-bond-yields-oil-prices-111100481.html?.tsrc=rss",
+"ts": 1787310660,
+"when": "Aug 21, 11:11 AM",
+"ticker": "SMH",
+"industry": "Semis",
+"theory": [
+"T1",
+"T7",
+"T2",
+"T14"
+],
+"sent": "positive"
+}
+],
+"feed": [
+{
+"title": "How Bessent’s Efforts to Calm Bond Market Set Gold Prices Ablaze",
+"link": "https://finance.yahoo.com/m/eca903dd-2ba5-319b-b145-41fac305b72b/how-bessent%E2%80%99s-efforts-to-calm.html?.tsrc=rss",
+"ts": 1787350920,
+"when": "Aug 21, 10:22 PM",
+"ticker": "GDX",
+"industry": "Gold Miners",
+"theory": [
+"T6",
+"T9",
+"T19",
+"T20",
+"T21"
+],
+"sent": "positive"
+},
+{
+"title": "Daily ETF Flows: $614M Flows Into GLD",
+"link": "http://www.etf.com/sections/daily-etf-flows/daily-etf-flows-614m-flows-gld?utm_source=yahoo-finance&utm_medium=rss&utm_campaign=yahoo-finance-rss&.tsrc=rss",
+"ts": 1787346004,
+"when": "Aug 21, 09:00 PM",
+"ticker": "GLD",
+"industry": "Gold",
+"theory": [
+"T6",
+"T9",
+"T19",
+"T20",
+"T21"
+],
+"sent": "neutral"
+},
+{
+"title": "Morgan Stanley Doubles Down on Gold After Breakout",
+"link": "https://finance.yahoo.com/markets/commodities/articles/morgan-stanley-doubles-down-gold-201259751.html?.tsrc=rss",
+"ts": 1787343179,
+"when": "Aug 21, 08:12 PM",
+"ticker": "GLD",
+"industry": "Gold",
+"theory": [
+"T6",
+"T9",
+"T19",
+"T20",
+"T21"
+],
+"sent": "neutral"
+},
+{
+"title": "Sector Update: Consumer Stocks Higher Late Afternoon",
+"link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-higher-afternoon-194659617.html?.tsrc=rss",
+"ts": 1787341619,
+"when": "Aug 21, 07:46 PM",
+"ticker": "XLY",
+"industry": "Consumer Disc.",
+"theory": [
+"T13"
+],
+"sent": "neutral"
+},
+{
+"title": "Palantir Stock Clears Buy Zone But Could Offer Alternative Entry",
+"link": "https://finance.yahoo.com/m/f9848c02-9b88-3cc0-b4b1-482a54bfbfe5/palantir-stock-clears-buy.html?.tsrc=rss",
+"ts": 1787339775,
+"when": "Aug 21, 07:16 PM",
+"ticker": "PLTR",
+"industry": "AI Software",
+"theory": [
+"T1",
+"T7",
+"T2",
+"T14"
+],
+"sent": "neutral"
+},
+{
+"title": "Michael Burry Says the AI Buildout Is Repeating 2008: ‘The Shenanigans Are Apparent Today’",
+"link": "https://247wallst.com/investing/2026/08/21/michael-burry-says-the-ai-buildout-is-repeating-2008-the-shenanigans-are-apparent-today/?.tsrc=rss",
+"ts": 1787335847,
+"when": "Aug 21, 06:10 PM",
+"ticker": "PLTR",
+"industry": "AI Software",
+"theory": [
+"T1",
+"T7",
+"T2",
+"T14"
+],
+"sent": "neutral"
+},
+{
+"title": "Sector Update: Consumer Stocks Rise Friday Afternoon",
+"link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-rise-friday-172919487.html?.tsrc=rss",
+"ts": 1787333359,
+"when": "Aug 21, 05:29 PM",
+"ticker": "XLY",
+"industry": "Consumer Disc.",
+"theory": [
+"T13"
+],
+"sent": "neutral"
+},
+{
+"title": "Even The Calm Reading On Palantir Puts Nearly Half The Position In Play",
+"link": "https://www.trefis.com/articles/612387/even-the-calm-reading-on-palantir-puts-nearly-half-the-position-in-play/2026-08-21?.tsrc=rss",
+"ts": 1787333237,
+"when": "Aug 21, 05:27 PM",
+"ticker": "PLTR",
+"industry": "AI Software",
+"theory": [
+"T1",
+"T7",
+"T2",
+"T14"
+],
+"sent": "positive"
+},
+{
+"title": "Palantir Climbs 4% Through $180, BigBear.ai Rises 4%, ServiceNow Holds Flat: How Are Traders Picking the Software Winners?",
+"link": "https://247wallst.com/investing/2026/08/21/palantir-climbs-4-through-180-bigbear-ai-rises-4-servicenow-holds-flat-how-are-traders-picking-the-software-winners/?.tsrc=rss",
+"ts": 1787332205,
+"when": "Aug 21, 05:10 PM",
+"ticker": "PLTR",
+"industry": "AI Software",
+"theory": [
+"T1",
+"T7",
+"T2",
+"T14"
+],
+"sent": "positive"
+},
+{
+"title": "Bloom Energy vs. Palantir: Which \"Story Stock\" Actually Has More Room to Run?",
+"link": "https://www.fool.com/investing/2026/08/21/bloom-energy-vs-palantir-which-story-stock-actuall/?.tsrc=rss",
+"ts": 1787329500,
+"when": "Aug 21, 04:25 PM",
+"ticker": "PLTR",
+"industry": "AI Software",
+"theory": [
+"T1",
+"T7",
+"T2",
+"T14"
+],
+"sent": "positive"
+},
+{
+"title": "Palantir Co-Founder Peter Thiel's Hedge Fund Just Made a Big Bet on This Genius AI Stock Pick",
+"link": "https://www.fool.com/investing/2026/08/21/palantir-co-founder-peter-thiels-hedge-fund-just-m/?.tsrc=rss",
+"ts": 1787326860,
+"when": "Aug 21, 03:41 PM",
+"ticker": "PLTR",
+"industry": "AI Software",
+"theory": [
+"T1",
+"T7",
+"T2",
+"T14"
+],
+"sent": "neutral"
+},
+{
+"title": "Could Palantir Stock Double Again? The Bull and Bear Cases.",
+"link": "https://247wallst.com/investing/2026/08/21/could-palantir-stock-double-again-the-bull-and-bear-cases/?.tsrc=rss",
+"ts": 1787320821,
+"when": "Aug 21, 02:00 PM",
+"ticker": "PLTR",
+"industry": "AI Software",
+"theory": [
+"T1",
+"T7",
+"T2",
+"T14"
+],
+"sent": "neutral"
+},
+{
+"title": "65-Year Old Retired Teacher Wants to Burn $100,000 to Delay Social Security. One Detail Means He Doesn’t Need To",
+"link": "https://247wallst.com/personal-finance/social-security/2026/08/21/65-year-old-retired-teacher-wants-to-burn-100000-to-delay-social-security-one-detail-means-he-doesnt-need-to/?.tsrc=rss",
+"ts": 1787319694,
+"when": "Aug 21, 01:41 PM",
+"ticker": "GLD",
+"industry": "Gold",
+"theory": [
+"T6",
+"T9",
+"T19",
+"T20",
+"T21"
+],
+"sent": "neutral"
+},
+{
+"title": "Dow Jones Futures Rise After Bearish Market Signal; Bitcoin Keeps Surging",
+"link": "https://finance.yahoo.com/m/91327cea-fed2-33ed-a182-385b27c0298f/dow-jones-futures-rise-after.html?.tsrc=rss",
+"ts": 1787313453,
+"when": "Aug 21, 11:57 AM",
+"ticker": "PLTR",
+"industry": "AI Software",
+"theory": [
+"T1",
+"T7",
+"T2",
+"T14"
+],
+"sent": "neutral"
+},
+{
+"title": "Palantir and Snowflake Provide the Backbone of Agentic AI but Which Is Better?",
+"link": "https://247wallst.com/investing/2026/08/21/palantir-and-snowflake-provide-the-backbone-of-agentic-ai-but-which-is-better/?.tsrc=rss",
+"ts": 1787312707,
+"when": "Aug 21, 11:45 AM",
+"ticker": "PLTR",
+"industry": "AI Software",
+"theory": [
+"T1",
+"T7",
+"T2",
+"T14"
+],
+"sent": "positive"
+},
+{
+"title": "3 Unpopular Stocks That Deserve Some Love",
+"link": "https://finance.yahoo.com/markets/stocks/articles/3-unpopular-stocks-deserve-love-113947623.html?.tsrc=rss",
+"ts": 1787312387,
+"when": "Aug 21, 11:39 AM",
+"ticker": "PLTR",
+"industry": "AI Software",
+"theory": [
+"T1",
+"T7",
+"T2",
+"T14"
+],
+"sent": "positive"
+},
+{
+"title": "Stable Bond Yields, Oil Prices Lift Wall Street Pre-Bell; Asia, Europe up",
+"link": "https://finance.yahoo.com/markets/articles/stable-bond-yields-oil-prices-111100481.html?.tsrc=rss",
+"ts": 1787310660,
+"when": "Aug 21, 11:11 AM",
+"ticker": "SMH",
+"industry": "Semis",
+"theory": [
+"T1",
+"T7",
+"T2",
+"T14"
+],
+"sent": "positive"
+},
+{
+"title": "Zacks Investment Ideas feature highlights: Palantir, Match Group and Unity Software",
+"link": "https://finance.yahoo.com/markets/stocks/articles/zacks-investment-ideas-feature-highlights-084700428.html?.tsrc=rss",
+"ts": 1787302020,
+"when": "Aug 21, 08:47 AM",
+"ticker": "PLTR",
+"industry": "AI Software",
+"theory": [
+"T1",
+"T7",
+"T2",
+"T14"
+],
+"sent": "neutral"
+},
+{
+"title": "Ex-FBI Officer is Watching Every Polymarket Trader, Says CEO Coplan",
+"link": "https://beincrypto.com/polymarket-surveillance-ex-fbi-traders/?.tsrc=rss",
+"ts": 1787262735,
+"when": "Aug 20, 09:52 PM",
+"ticker": "PLTR",
+"industry": "AI Software",
+"theory": [
+"T1",
+"T7",
+"T2",
+"T14"
+],
+"sent": "neutral"
+},
+{
+"title": "Is Palantir Still a Buy After Its 33% Rally Over the Past Month?",
+"link": "https://www.fool.com/investing/2026/08/20/palantir-stock-buy-after-rally-month-pltr/?.tsrc=rss",
+"ts": 1787262600,
+"when": "Aug 20, 09:50 PM",
+"ticker": "PLTR",
+"industry": "AI Software",
+"theory": [
+"T1",
+"T7",
+"T2",
+"T14"
+],
+"sent": "neutral"
+},
+{
+"title": "US Stock Indices End Lower As Trump’s ‘Economic Warfare’ Threats Push Yields, Oil Higher — WMT, CRWV, SBUX, DE, RKLB In Focus",
+"link": "https://stocktwits.com/news-articles/markets/equity/us-stock-indices-end-lower-as-trump-s-economic-warfare-threats-push-yields-oil-higher/cZYeR5dRJZA?.tsrc=rss",
+"ts": 1787261490,
+"when": "Aug 20, 09:31 PM",
+"ticker": "SMH",
+"industry": "Semis",
+"theory": [
+"T1",
+"T7",
+"T2",
+"T14"
+],
+"sent": "negative"
+},
+{
+"title": "How Much of Your Portfolio Should Actually Be in DRAM",
+"link": "https://247wallst.com/investing/etf/2026/08/20/how-much-of-your-portfolio-should-actually-be-in-dram/?.tsrc=rss",
+"ts": 1787261131,
+"when": "Aug 20, 09:25 PM",
+"ticker": "SMH",
+"industry": "Semis",
+"theory": [
+"T1",
+"T7",
+"T2",
+"T14"
+],
+"sent": "neutral"
+},
+{
+"title": "The Biggest Risk Facing the Roundhill Memory ETF (DRAM) Right Now",
+"link": "https://247wallst.com/investing/2026/08/20/the-biggest-risk-facing-the-roundhill-memory-etf-dram-right-now/?.tsrc=rss",
+"ts": 1787260832,
+"when": "Aug 20, 09:20 PM",
+"ticker": "SMH",
+"industry": "Semis",
+"theory": [
+"T1",
+"T7",
+"T2",
+"T14"
+],
+"sent": "negative"
+},
+{
+"title": "How Much of Your Portfolio Should Actually Be in FTXL",
+"link": "https://247wallst.com/investing/etf/2026/08/20/how-much-of-your-portfolio-should-actually-be-in-ftxl/?.tsrc=rss",
+"ts": 1787260532,
+"when": "Aug 20, 09:15 PM",
+"ticker": "SMH",
+"industry": "Semis",
+"theory": [
+"T1",
+"T7",
+"T2",
+"T14"
+],
+"sent": "neutral"
+},
+{
+"title": "The Biggest Risk Facing the First Trust Nasdaq Semiconductor ETF (FTXL) Right Now",
+"link": "https://247wallst.com/investing/2026/08/20/the-biggest-risk-facing-the-first-trust-nasdaq-semiconductor-etf-ftxl-right-now/?.tsrc=rss",
+"ts": 1787260239,
+"when": "Aug 20, 09:10 PM",
+"ticker": "SMH",
+"industry": "Semis",
+"theory": [
+"T1",
+"T7",
+"T2",
+"T14"
+],
+"sent": "positive"
+},
+{
+"title": "Sector Update: Consumer Stocks Fall Late Afternoon",
+"link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-fall-afternoon-195400740.html?.tsrc=rss",
+"ts": 1787255640,
+"when": "Aug 20, 07:54 PM",
+"ticker": "XLY",
+"industry": "Consumer Disc.",
+"theory": [
+"T13"
+],
+"sent": "neutral"
+},
+{
+"title": "Cathie Wood's Firm Launches New ETF; Buys Broadcom, Rocket Lab, Cloudflare",
+"link": "https://finance.yahoo.com/m/3055a26c-aa88-3e44-a583-e5bad19fb6d9/cathie-wood%27s-firm-launches.html?.tsrc=rss",
+"ts": 1787246479,
+"when": "Aug 20, 05:21 PM",
+"ticker": "PLTR",
+"industry": "AI Software",
+"theory": [
+"T1",
+"T7",
+"T2",
+"T14"
+],
+"sent": "neutral"
+},
+{
+"title": "Palantir's Margin Expansion Signals a Structural Growth Advantage",
+"link": "https://finance.yahoo.com/markets/stocks/articles/palantirs-margin-expansion-signals-structural-171300520.html?.tsrc=rss",
+"ts": 1787245980,
+"when": "Aug 20, 05:13 PM",
+"ticker": "PLTR",
+"industry": "AI Software",
+"theory": [
+"T1",
+"T7",
+"T2",
+"T14"
+],
+"sent": "positive"
+},
+{
+"title": "Could Global Trade Trends Drive BigBear.ai's Next Growth Phase?",
+"link": "https://finance.yahoo.com/technology/ai/articles/could-global-trade-trends-drive-171200045.html?.tsrc=rss",
+"ts": 1787245920,
+"when": "Aug 20, 05:12 PM",
+"ticker": "PLTR",
+"industry": "AI Software",
+"theory": [
+"T1",
+"T7",
+"T2",
+"T14"
+],
+"sent": "positive"
+},
+{
+"title": "Is Palantir Stock About to Breakout?",
+"link": "https://finance.yahoo.com/markets/stocks/articles/palantir-stock-breakout-170400091.html?.tsrc=rss",
+"ts": 1787245440,
+"when": "Aug 20, 05:04 PM",
+"ticker": "PLTR",
+"industry": "AI Software",
+"theory": [
+"T1",
+"T7",
+"T2",
+"T14"
+],
+"sent": "neutral"
+}
+]
+}
+}

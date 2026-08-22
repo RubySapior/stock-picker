@@ -1,25 +1,25 @@
 {
-  "strategy_id": "hypergrowth-sharpe-barbell-v2026-08-16",
-  "name": "HyperGrowth Sharpe Barbell v5 - Conviction-First 2026-08-16",
+  "strategy_id": "hypergrowth-sharpe-barbell-v2026-08-21",
+  "name": "HyperGrowth Sharpe Barbell v5 - Conviction-First 2026-08-21",
   "author": "Snapshot",
   "kind": "snapshot",
   "parent_id": "hypergrowth-sharpe-barbell",
-  "start_value": 102204.61,
-  "start_date": "2026-08-16",
+  "start_value": 99840.24,
+  "start_date": "2026-08-21",
   "positions": [
     {
       "ticker": "BTAL",
-      "shares": 455.298013,
+      "shares": 873.912534,
       "buy_date": "2026-08-10"
     },
     {
       "ticker": "DBMF",
-      "shares": 175.606641,
+      "shares": 291.155922,
       "buy_date": "2026-08-10"
     },
     {
       "ticker": "DRAM",
-      "shares": 100.806452,
+      "shares": 142.487012,
       "buy_date": "2026-08-10"
     },
     {
@@ -44,7 +44,7 @@
     },
     {
       "ticker": "IWDL",
-      "shares": 35.726519,
+      "shares": 0.136797,
       "buy_date": "2026-08-10"
     },
     {
@@ -54,7 +54,7 @@
     },
     {
       "ticker": "NLR",
-      "shares": 59.834174,
+      "shares": 93.610334,
       "buy_date": "2026-08-10"
     },
     {
@@ -79,12 +79,12 @@
     },
     {
       "ticker": "SOXL",
-      "shares": 53.846154,
+      "shares": 70.607129,
       "buy_date": "2026-08-10"
     },
     {
       "ticker": "TQQQ",
-      "shares": 121.95122,
+      "shares": 154.372436,
       "buy_date": "2026-08-10"
     },
     {
@@ -99,127 +99,11 @@
     },
     {
       "ticker": "ZROZ",
-      "shares": 103.235092,
+      "shares": 18.800003,
       "buy_date": "2026-08-10"
     }
   ],
   "history": [
-    {
-      "date": "2026-08-16",
-      "total_value": 102204.61,
-      "cash": 25.0,
-      "invested_value": 102179.61,
-      "day_change": -0.0,
-      "prices": {
-        "TQQQ": 76.79,
-        "SOXL": 144.95,
-        "SMH": 587.82,
-        "DRAM": 57.32,
-        "PLTR": 174.04,
-        "NLR": 118.1,
-        "NUKZ": 68.03,
-        "IWM": 305.09,
-        "IWDL": 70.2812,
-        "XLY": 118.2,
-        "EZU": 71.99,
-        "ZROZ": 57.96,
-        "FXY": 57.58,
-        "VIXM": 14.2,
-        "QFLR": 35.9,
-        "GLD": 401.48,
-        "GDX": 89.97,
-        "BTAL": 11.86,
-        "DBMF": 31.35,
-        "SGOV": 100.56
-      }
-    },
-    {
-      "date": "2026-08-17",
-      "total_value": 102942.67,
-      "cash": 25.0,
-      "invested_value": 102917.67,
-      "day_change": 738.06,
-      "prices": {
-        "TQQQ": 76.4,
-        "SOXL": 151.53,
-        "SMH": 594.07,
-        "DRAM": 60.39,
-        "PLTR": 172.55,
-        "NLR": 118.35,
-        "NUKZ": 67.83,
-        "IWM": 304.06,
-        "IWDL": 70.2899,
-        "XLY": 116.75,
-        "EZU": 71.88,
-        "ZROZ": 57.0,
-        "FXY": 57.53,
-        "VIXM": 14.35,
-        "QFLR": 35.815,
-        "GLD": 405.49,
-        "GDX": 91.89,
-        "BTAL": 11.81,
-        "DBMF": 31.54,
-        "SGOV": 100.56
-      }
-    },
-    {
-      "date": "2026-08-18",
-      "total_value": 99215.06,
-      "cash": 25.0,
-      "invested_value": 99190.06,
-      "day_change": -3833.48,
-      "prices": {
-        "TQQQ": 72.53,
-        "SOXL": 129.1,
-        "SMH": 569.77,
-        "DRAM": 55.1,
-        "PLTR": 171.54,
-        "NLR": 114.45,
-        "NUKZ": 66.05,
-        "IWM": 300.23,
-        "IWDL": 70.245,
-        "XLY": 116.36,
-        "EZU": 71.1,
-        "ZROZ": 57.41,
-        "FXY": 57.48,
-        "VIXM": 14.3,
-        "QFLR": 35.35,
-        "GLD": 398.55,
-        "GDX": 88.95,
-        "BTAL": 12.12,
-        "DBMF": 31.27,
-        "SGOV": 100.57
-      }
-    },
-    {
-      "date": "2026-08-20",
-      "total_value": 99231.19,
-      "cash": 25.0,
-      "invested_value": 99206.19,
-      "day_change": 1.3,
-      "prices": {
-        "TQQQ": 72.06,
-        "SOXL": 120.74,
-        "SMH": 560.92,
-        "DRAM": 55.14,
-        "PLTR": 175.19,
-        "NLR": 117.72,
-        "NUKZ": 66.235,
-        "IWM": 301.72,
-        "IWDL": 70.245,
-        "XLY": 118.59,
-        "EZU": 71.21,
-        "ZROZ": 59.27,
-        "FXY": 58.02,
-        "VIXM": 14.19,
-        "QFLR": 35.255,
-        "GLD": 413.84,
-        "GDX": 97.33,
-        "BTAL": 11.95,
-        "DBMF": 30.94,
-        "SGOV": 100.59
-      }
-    },
     {
       "date": "2026-08-21",
       "total_value": 99804.93,

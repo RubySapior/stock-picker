@@ -52,7 +52,6 @@
   .pill.tp{background:rgba(34,197,94,.14); color:var(--green);}
   .pill.sl{background:rgba(239,68,68,.14); color:var(--red);}
   .pill.warn{background:rgba(245,158,11,.16); color:var(--amber);}
-  .rebalBanner{border:1px solid rgba(245,158,11,.35); background:rgba(245,158,11,.08); color:var(--amber); border-radius:8px; padding:10px 14px; margin:14px 0; font-size:13px; line-height:1.5;}
   .badge{display:inline-block; padding:3px 10px; border-radius:20px; font-size:12px; font-weight:600;}
   .badge.pending{background:rgba(245,158,11,.14); color:var(--amber);}
   .badge.right{background:rgba(34,197,94,.16); color:var(--green);}
@@ -290,14 +289,27 @@
 .aiFearTable th{text-align:left; color:var(--muted); font-weight:600; font-size:11px; text-transform:uppercase; letter-spacing:.05em; padding:5px 8px; border-bottom:1px solid var(--border);}
 .aiFearTable td{padding:5px 8px; border-bottom:1px solid rgba(128,138,152,.12);}
 .aiWit{font-size:10.5px; color:var(--amber); font-weight:600;}
-.aiCtl{display:inline-flex; align-items:center; gap:8px; margin-left:auto;}
+.aiCtl{display:inline-flex; align-items:center; gap:8px; margin-left:auto; flex-wrap:wrap; justify-content:flex-end;}
 .aiModeLabel{font-size:10px; font-weight:700; letter-spacing:.08em; color:var(--muted);}
+.modeSwitch{display:inline-flex; align-items:center; gap:6px; background:rgba(11,14,20,.5); border:1px solid var(--border); border-radius:20px; padding:3px 10px;}
+.modeSwitch .modeLabel{font-size:10.5px; font-weight:700; color:var(--muted); transition:color .2s;}
+.modeSwitch .modeLabel.active{color:var(--txt);}
+.switch{position:relative; display:inline-block; width:42px; height:22px; flex:none;}
+.switch input{opacity:0; width:0; height:0;}
+.slider{position:absolute; cursor:pointer; inset:0; background:var(--panel2); border:1px solid var(--border); border-radius:22px; transition:.25s;}
+.slider:before{position:absolute; content:""; height:16px; width:16px; left:2px; bottom:2px; background:var(--muted); border-radius:50%; transition:.25s;}
+.switch input:checked + .slider{background:rgba(34,197,94,.18); border-color:rgba(34,197,94,.45);}
+.switch input:checked + .slider:before{transform:translateX(20px); background:var(--green);}
+.switch input:focus-visible + .slider{box-shadow:0 0 0 2px rgba(56,189,248,.25);}
 .biasWrap{display:inline-flex; align-items:center; gap:6px; background:rgba(11,14,20,.5); border:1px solid var(--border); border-radius:20px; padding:3px 10px;}
 .biasWrap input[type=range]{width:74px; accent-color:var(--blue); cursor:pointer;}
 .biasVal{font-size:12px; font-weight:800; color:var(--blue); min-width:14px; text-align:center;}
 .execAllBtn{background:rgba(34,197,94,.12); color:var(--green); border:1px solid rgba(34,197,94,.4); border-radius:8px; padding:4px 12px; font-size:11.5px; font-weight:700; cursor:pointer;}
 .execAllBtn:hover:not(:disabled){background:rgba(34,197,94,.25);}
 .execAllBtn:disabled{opacity:.4; cursor:not-allowed;}
+.aiRunBtn{background:rgba(56,189,248,.12); color:var(--blue); border:1px solid rgba(56,189,248,.4); border-radius:8px; padding:4px 12px; font-size:11.5px; font-weight:700; cursor:pointer;}
+.aiRunBtn:hover:not(:disabled){background:rgba(56,189,248,.22);}
+.aiRunBtn:disabled{opacity:.45; cursor:wait;}
 .portChg{font-size:11.5px; font-weight:600; margin-top:6px;}
 .portChg.pos{color:var(--green);} .portChg.neg{color:var(--red);}
 .sentIdx{font-weight:800;}

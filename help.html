@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Help &amp; Notes — How This Site Works</title>
-<link rel="stylesheet" href="styles.css?v=13">
+<link rel="stylesheet" href="styles.css?v=15">
 </head>
 <!--
   Help site: plain-language notes (Simple tab) + the math and details
@@ -119,11 +119,6 @@
       </ul>
     </div>
 
-    <div class="panel" style="margin-bottom:20px;">
-      <h2>Rebalance flags</h2>
-      <p class="helpText">Once per calendar quarter (first market-open run of Jan/Apr/Jul/Oct), the book&rsquo;s sector exposure is checked against its targets; <strong>any</strong> sector off its target &mdash; no matter how small the gap &mdash; produces a banner at the top. It only <em>asks</em> you to review the risk budget &mdash; it never rebalances on its own. You make the change in <code>portfolio.json</code>.</p>
-    </div>
-
   </div>
 
   <!-- ================= ADVANCED ================= -->
@@ -134,7 +129,7 @@
       <table>
         <thead><tr><th>File</th><th>Role</th><th>Edit?</th></tr></thead>
         <tbody>
-          <tr><td><code>portfolio.json</code></td><td>Source of truth: meta, account/cash, positions, theories, events, fear state</td><td><strong>Yes</strong> &mdash; hand-edit to rebalance / add / remove positions</td></tr>
+          <tr><td><code>portfolio.json</code></td><td>Source of truth: meta, account/cash, positions, theories, events, fear state</td><td><strong>Yes</strong> &mdash; hand-edit to add / remove positions</td></tr>
           <tr><td><code>update.py</code></td><td>Daily updater: fetch prices &rarr; check exits &rarr; deploy cash &rarr; snapshot &rarr; write <code>dashboard.js</code></td><td>Yes &mdash; all data-mutating logic</td></tr>
           <tr><td><code>news.py</code></td><td>Yahoo RSS headlines for held tickers, theory tags, VADER sentiment</td><td>Yes</td></tr>
           <tr><td><code>fears.py</code></td><td>Market Fear Gauge: F1&ndash;F8 scores, complacency, hedge sizing recommendations</td><td>Yes</td></tr>
@@ -229,14 +224,6 @@
     </div>
 
     <div class="panel" style="margin-bottom:20px;">
-      <h2>Rebalance audit (update.py)</h2>
-      <ul class="helpList">
-        <li>Targets (effective %): Tech / AI Growth 60, Nuclear / Power 11, Broadening / Value 8, Contrarian Fear 4.5, Hedge Stack 35, Short-Term Bonds 15.5.</li>
-        <li>The audit runs <strong>once per calendar quarter</strong> (first market-open run of Jan/Apr/Jul/Oct), tracked in <code>meta.last_rebalance_quarter</code> &mdash; there are no daily pp-drift flags. On the quarterly check, <strong>any</strong> sector whose effective exposure drifts from its target is flagged &mdash; no tolerance band, however small the gap (v5.5). A <code>rebalance_recommended</code> event is logged and flagged in the UI banner. Flags never trade &mdash; they ask the conviction layer to review a risk-budget mismatch.</li>
-      </ul>
-    </div>
-
-    <div class="panel" style="margin-bottom:20px;">
       <h2>End goal &amp; roadmap</h2>
       <ul class="helpList">
         <li><strong>UI v1.0</strong> &mdash; accounts: sign-in, and every user gets a personalized AI tuned to their risk tolerance and focus.</li>
@@ -258,6 +245,6 @@
   <footer>Simulated managed portfolio for tracking &amp; learning. Not financial advice.</footer>
 </div>
 
-<script src="help.js?v=2"></script>
+<script src="help.js?v=3"></script>
 </body>
 </html>

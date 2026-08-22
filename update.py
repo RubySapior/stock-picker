@@ -260,6 +260,178 @@ def ensure_bench_history(tickers, today):
     return bench
 
 
+def fetch_dividends(ticker):
+    """Ex-dividend cash payouts: [{'date','amount'}] oldest first (~1y window).
+
+    Same chart endpoint as every other fetch; `events=div` adds the dividend
+    map (epoch-keyed {amount, date}). Tickers that never pay return [].
+    """
+    url = (f"https://query1.finance.yahoo.com/v8/finance/chart/{ticker}"
+           f"?range=1y&interval=1d&events=div")
+    req = urllib.request.Request(url, headers=USER_AGENT)
+    with urllib.request.urlopen(req, timeout=30) as r:
+        data = json.load(r)
+    evs = (data["chart"]["result"][0].get("events") or {}).get("dividends") or {}
+    out = []
+    for v in evs.values():
+        try:
+            out.append({"date": time.strftime("%Y-%m-%d", time.gmtime(v["date"])),
+                        "amount": float(v["amount"])})
+        except (KeyError, TypeError, ValueError):
+            continue
+    out.sort(key=lambda d: d["date"])
+    return out
+
+
+def ensure_dividends(tickers, today):
+    """Ex-dividend history per ticker, fetched once per calendar day (cached
+    inside ohlc_cache.json under "dividends"/"dividends_fetched" - same daily
+    semantics as the indicator bars and bench series). A failed refresh keeps
+    the previous series so a transient Yahoo error never skips a payout.
+    Returns {ticker: [{'date','amount'}, ...]}."""
+    cache = load_ohlc_cache()
+    divs = cache.setdefault("dividends", {})
+    fetched = cache.setdefault("dividends_fetched", {})
+    changed = False
+
+    def one(t):
+        time.sleep(0.15)
+        try:
+            return t, fetch_dividends(t)
+        except Exception as exc:
+            print(f"  WARN: dividend history fetch failed for {t}: {exc}")
+            return t, None
+
+    missing = [t for t in tickers if fetched.get(t) != today]
+    if missing:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=8) as ex:
+            for t, d in ex.map(one, missing):
+                if d is not None:
+                    divs[t] = d
+                    fetched[t] = today
+                    changed = True
+    if changed:
+        save_ohlc_cache(cache)
+    return divs
+
+
+# Dividend dust floor (issue #13): payouts below this always take the cash
+# path regardless of policy - no fractional-share noise on a $0.40 payout.
+DIV_DUST_FLOOR = 1.00
+
+
+def process_dividends(data, div_map, prices, today):
+    """Credit cash dividends for open positions (issue #13).
+
+    Prices here are UNADJUSTED Yahoo regular-market prices, so an ex-date
+    drops a position's value by shares x payout and nothing credited it
+    back - every dividend silently leaked out of the book. This closes the
+    leak with a policy choice (meta.dividend_policy):
+
+      "reinvest" (default) -> DRIP: payout buys shares of the payer at the
+                              live price; cost bumps so avg-cost stays true.
+      "sgov"               -> payout buys SGOV shares directly (dry powder,
+                              even when park_mode="cash").
+      "cash"               -> payout lands in account.cash (the dry-powder
+                              toggle then applies later in the same run).
+
+    Per-position last_div_date (initialized to buy_date) is the watermark:
+    only ex-dates strictly AFTER it are creditable (own before the ex-date =
+    entitled; buying ON the ex-date = not). It advances to the max credited
+    ex-date, so a deferred reinvest or failed fetch retries next run instead
+    of skipping. Payouts under DIV_DUST_FLOOR always route to cash.
+    account.dividends accumulates lifetime income (mirrors realized_pnl).
+    """
+    policy = str(data["meta"].get("dividend_policy") or "reinvest").lower()
+    if policy not in ("reinvest", "sgov", "cash"):
+        policy = "reinvest"
+    for pos in [p for p in data["positions"] if p.get("status") == "open"]:
+        tk = pos["ticker"]
+        since = pos.get("last_div_date") or pos["buy_date"]
+        due = [d for d in (div_map.get(tk) or [])
+               if d["amount"] > 0 and since < d["date"] <= today]
+        if not due:
+            continue
+        sh_before = pos["shares"]
+        per_sh = sum(d["amount"] for d in due)
+        gross = round(sh_before * per_sh, 2)
+        if gross <= 0:
+            # Nothing payable at current share count: still advance the
+            # watermark so stale payouts can't re-credit later.
+            pos["last_div_date"] = max(d["date"] for d in due)
+            continue
+
+        route = policy
+        px = None
+        if route != "cash" and gross >= DIV_DUST_FLOOR:
+            px = prices.get(tk if route == "reinvest" else STB_TICKER)
+            if not px:
+                # No live price for the buy leg: defer the whole credit -
+                # the watermark stays put and this retries next run.
+                print(f"  WARN: dividend {tk} ${gross:.2f} - no "
+                      f"{'live' if route == 'reinvest' else 'SGOV'} price, deferred")
+                continue
+        else:
+            route = "cash"
+
+        event_shares = None
+        event_price = None
+        if route == "reinvest":
+            new_shares = round(gross / px, 6)
+            pos["shares"] = round(sh_before + new_shares, 6)
+            base_cost = pos.get("cost")
+            if base_cost is None:
+                base_cost = round(avg_cost(pos) * sh_before, 2)
+            pos["cost"] = round(base_cost + gross, 2)
+            event_shares, event_price = new_shares, px
+            where = f"DRIP {new_shares:.4f} sh @ {px:.2f}"
+        elif route == "sgov":
+            sgov = next((p for p in data["positions"]
+                         if p["ticker"] == STB_TICKER and p.get("status") == "open"), None)
+            if sgov is None:
+                sgov = {
+                    "ticker": STB_TICKER,
+                    "name": "iShares 0-3 Month Treasury Bond ETF",
+                    "sleeve": STB_SLEEVE,
+                    "buy_date": today,
+                    "buy_price": round(px, 4),
+                    "shares": 0.0,
+                    "cost": 0.0,
+                    "take_profit_pct": None,
+                    "stop_loss_pct": None,
+                    "status": "open",
+                    "thesis": "Dry powder: idle cash parked in ultra-short T-bills (no cash drag).",
+                }
+                data["positions"].append(sgov)
+            new_shares = round(gross / px, 6)
+            sgov["shares"] = round(sgov["shares"] + new_shares, 6)
+            sgov["cost"] = round(sgov["cost"] + gross, 2)
+            event_shares, event_price = new_shares, px
+            where = f"-> SGOV {new_shares:.4f} sh @ {px:.2f}"
+        else:
+            data["account"]["cash"] = round(data["account"]["cash"] + gross, 2)
+            where = "-> cash"
+
+        data["account"]["dividends"] = round(
+            (data["account"].get("dividends") or 0.0) + gross, 2)
+        pos["last_div_date"] = max(d["date"] for d in due)
+        data["events"].append({
+            "date": today,
+            "ts": time.strftime("%H:%M:%S"),
+            "ticker": tk,
+            "name": pos["name"],
+            "reason": "dividend",
+            "note": f"DIV ${gross:.2f} ({per_sh:.3f}/sh x {sh_before:.4f}) {where}",
+            "action": route,
+            "state": None,
+            "price": round(event_price, 4) if event_price else None,
+            "shares": round(event_shares, 4) if event_shares else None,
+            "amount": gross,
+            "realized_pnl": 0,
+        })
+        print(f"  DIVIDEND {tk}: ${gross:.2f} ({per_sh:.3f}/sh) {where}")
+
+
 def _sma(vals, n):
     return sum(vals[-n:]) / n if len(vals) >= n else None
 
@@ -784,89 +956,6 @@ def re_entry_protocol(data, prices, today, ind=None):
     return resolved
 
 
-def rebalance_audit(data, today):
-    """Quarterly exposure audit -> `rebalance_recommended` flags.
-
-    Runs ONCE per calendar quarter (first market-open run of Jan/Apr/Jul/Oct)
-    instead of every EOD: no daily pp-drift flagging. On the quarterly check it
-    compares each sleeve's EFFECTIVE exposure (market value x leverage, as a %
-    of invested value) against the sector LIMITS in
-    meta.limits.rebalance.limits, flagging ANY drift from limit - there is
-    no tolerance band, every mismatch is flagged no matter how small.
-
-    Exempt sectors (meta.limits.rebalance.exempt_sectors, e.g. Short-Term
-    Bonds/SGOV): no cap - dry powder may grow without limit so there is
-    always liquidity when an opportunity appears. Exempt sectors are never
-    flagged.
-
-    Passive by design - it never trades, it only asks the conviction layer to
-    review a risk-budget mismatch. No hidden reallocation, no attribution
-    pollution.
-    """
-    limits = data["meta"].get("limits") or {}
-    cfg = limits.get("rebalance") or {}
-    targets = cfg.get("limits") or cfg.get("targets") or {}
-    exempt = set(cfg.get("exempt_sectors") or [])
-    if not targets:
-        return []
-    if cfg.get("enabled", True) is False:
-        return []
-    # Only a market-open run may flag: closed-market runs (weekends/holidays,
-    # the every-6-min cron after hours) would otherwise stamp the audit with
-    # a stale-priced snapshot and consume the quarterly marker early.
-    if not market_is_open():
-        return []
-    year, month, _ = today.split("-")
-    quarter = f"{year}Q{(int(month) - 1) // 3 + 1}"
-    if data["meta"].get("last_rebalance_quarter") == quarter:
-        return []
-    data["meta"]["last_rebalance_quarter"] = quarter
-    prices = data["account"]["history"][-1].get("prices") or {}
-    pex = limits.get("position_exposure", {})
-    mv_tot, eff_tot = {}, {}
-    for pos in data["positions"]:
-        if pos["status"] != "open":
-            continue
-        px = prices.get(pos["ticker"]) or pos.get("buy_price")
-        mv = px * pos["shares"]
-        sec = pex.get(pos["ticker"], {}).get("sector", "Other")
-        lev = pex.get(pos["ticker"], {}).get("leverage", 1.0)
-        mv_tot[sec] = mv_tot.get(sec, 0.0) + mv
-        eff_tot[sec] = eff_tot.get(sec, 0.0) + mv * lev
-    tot_inv = sum(mv_tot.values()) or 1.0
-
-    flags = []
-    for sec, target in targets.items():
-        if sec in exempt:
-            continue
-        actual = eff_tot.get(sec, 0.0) / tot_inv * 100.0
-        msg = (f"{sec} effective exposure {actual:.1f}% vs {target:.1f}% limit "
-               f"(off by {actual - target:+.1f}pp). "
-               f"Quarterly review - manual rebalance or conviction decision required.")
-        data["events"].append({
-            "date": today,
-            "ts": time.strftime("%H:%M:%S"),
-            "ticker": sec,
-            "name": "Rebalance flag",
-            "reason": "rebalance_recommended",
-            "note": msg,
-            "state": None,
-            "price": None,
-            "buy_price": None,
-            "shares": None,
-            "realized_pnl": 0,
-        })
-        flags.append({
-            "type": "rebalance_recommended",
-            "sleeve": sec,
-            "target_exposure": round(target / 100.0, 3),
-            "actual_exposure": round(actual / 100.0, 3),
-            "message": msg,
-        })
-        print(f"  FLAG {sec}: {actual:.1f}% vs {target:.1f}% limit (off by {actual - target:+.1f}pp)")
-    return flags
-
-
 def build_benchmark(data, hist, label):
     """Normalize a benchmark series to start_value, align to portfolio dates, compute metrics."""
     if not hist:
@@ -1317,10 +1406,6 @@ def execute_scheduled_exits(data, prices, today):
                     s for s in limits.get("sector_limits", [])
                     if s["sector"] != sector
                 ]
-                (limits.setdefault("rebalance", {})
-                     .setdefault("limits", {}).pop(sector, None))
-                (limits.setdefault("rebalance", {})
-                     .get("targets", {}) or {}).pop(sector, None)
                 print(f"  SECTOR CLEANUP: removed empty sector '{sector}' from limits")
         pos.pop("scheduled_exit", None)
         data["positions"].remove(pos)
@@ -1751,7 +1836,6 @@ def run_ai_layer(data, prices, fear_data, today, macro=None, force=False,
 # be taken from the fresh file at write time (issue #36).
 _UPDATER_META_KEYS = (
     "limits",
-    "last_rebalance_quarter",
     "ai_state",
     "ai_last_output",
     "ai_ledger",
@@ -1827,6 +1911,8 @@ def main():
     parser = argparse.ArgumentParser(description="Stock Picker daily updater")
     parser.add_argument("--ai", action="store_true",
                         help="force the AI sentiment call even when the market is closed")
+    parser.add_argument("--skip-ai", action="store_true",
+                        help="skip AI sentiment layer even when market open (Update button uses this to avoid extra Gemini calls — AI only via dedicated Run AI button)")
     parser.add_argument("--preopen", action="store_true",
                         help="GitHub Actions 6-min schedule: skip unless market open or within "
                              "the 30-min pre-open window; forces the AI refresh pre-open so "
@@ -1909,18 +1995,27 @@ def main():
             print(f"  WARNING: {p['ticker']} has leverage > 1 but lacks a 1x underlying "
                   f"mapping - wrapper backstop only (no index stop, no runner)")
 
+    # Issue #13: ex-dividend history for every open position, once per day.
+    div_map = {}
+    try:
+        div_map = ensure_dividends([p["ticker"] for p in open_positions], today)
+    except Exception as exc:
+        print(f"  WARN: dividend history build failed: {exc}")
+
     # Live macro indicators for the AI layer (SPY/QQQ/VIX/10Y/USDJPY/HYG).
-    # Only fetched when the AI layer is enabled (its only consumer) - saves
-    # 6 Yahoo calls per run when the AI is off. Never allowed to break the
-    # update - failure degrades to no macro block.
+    # Only fetched when the AI layer is enabled AND not --skip-ai (Update button
+    # skips Gemini entirely; saves 6 Yahoo calls + tokens). Never allowed to
+    # break the update - failure degrades to no macro block.
     macro = {}
     try:
         ai_cfg = (data.get("meta") or {}).get("ai") or {}
-        if ai_cfg.get("enabled"):
+        if not getattr(args, "skip_ai", False) and ai_cfg.get("enabled"):
             macro = fetch_macro(prices)
             if macro:
                 print("  MACRO: " + " | ".join(
                     f"{k} {v['px']} ({v['chg_1d_pct']:+.2f}%)" for k, v in macro.items()))
+        elif getattr(args, "skip_ai", False):
+            print("  MACRO: skipped (--skip-ai)")
     except Exception as exc:
         print(f"  WARN: macro fetch failed: {exc}")
 
@@ -1944,27 +2039,33 @@ def main():
 
     # Outcome calibration: mark the AI wrong where its last convictions
     # moved against it. Fed to this run's prompt; persisted to meta.
-    try:
-        calibration = compute_calibration(data, prices, today)
-    except Exception as exc:
-        print(f"  WARN: calibration failed: {exc}")
+    # Skipped entirely when --skip-ai (Update button) — avoids Gemini cost.
+    if getattr(args, "skip_ai", False):
+        print("  AI SKIPPED (--skip-ai) — price rules only; use Run AI button (POST /ai) for Gemini call")
         calibration = {}
-
-    # AI Sentiment Decision Layer (disabled unless meta.ai.enabled). Reads the
-    # book + market-only fears, returns a verdict; blends fears, appends theory
-    # evidence + one audit event. Degrades silently - never breaks the run.
-    # --ai forces the call pre-open (refreshes pending orders); execution of
-    # orders is still gated by market_is_open(). --preopen forces the refresh
-    # ONLY in the 30-min pre-open window (not during market hours, so the
-    # daily AI cadence is untouched mid-session).
-    force_ai = args.ai or (args.preopen and market_state() == "preopen")
-    ai_verdict, fear_data = run_ai_layer(data, prices, fear_data, today, macro,
-                                         force=force_ai, sentiment=gauge,
-                                         calibration=calibration)
-    # Market-closed / cadence-cap runs produce no live verdict, but the last
-    # persisted one (meta.ai_last_output) is still real data - show it.
-    if not ai_verdict:
         ai_verdict = (data.get("meta") or {}).get("ai_last_output")
+    else:
+        try:
+            calibration = compute_calibration(data, prices, today)
+        except Exception as exc:
+            print(f"  WARN: calibration failed: {exc}")
+            calibration = {}
+
+        # AI Sentiment Decision Layer (disabled unless meta.ai.enabled). Reads the
+        # book + market-only fears, returns a verdict; blends fears, appends theory
+        # evidence + one audit event. Degrades silently - never breaks the run.
+        # --ai forces the call pre-open (refreshes pending orders); execution of
+        # orders is still gated by market_is_open(). --preopen forces the refresh
+        # ONLY in the 30-min pre-open window (not during market hours, so the
+        # daily AI cadence is untouched mid-session).
+        force_ai = args.ai or (args.preopen and market_state() == "preopen")
+        ai_verdict, fear_data = run_ai_layer(data, prices, fear_data, today, macro,
+                                             force=force_ai, sentiment=gauge,
+                                             calibration=calibration)
+        # Market-closed / cadence-cap runs produce no live verdict, but the last
+        # persisted one (meta.ai_last_output) is still real data - show it.
+        if not ai_verdict:
+            ai_verdict = (data.get("meta") or {}).get("ai_last_output")
 
     # Deliberate rebalances (e.g. issue #7 JEPQ removal): sell at the first
     # market-open price, then let the no-idle-cash policy park proceeds in SGOV.
@@ -1974,6 +2075,14 @@ def main():
     # (market-open only). Buys redeem SGOV; sells realize into cash.
     execute_pending_orders(data, prices, today)
     open_positions = [p for p in data["positions"] if p["status"] == "open"]
+
+    # Issue #13: credit dividends (policy: reinvest/sgov/cash) BEFORE the
+    # exit engine so a DRIP'd share count is what TP/SL math sees, and
+    # before deploy_cash_to_bonds so cash-routed payouts sweep same-run.
+    try:
+        process_dividends(data, div_map, prices, today)
+    except Exception as exc:
+        print(f"  WARN: dividend processing failed: {exc}")
 
     # --- stop loss / take profit engine ---
     for pos in list(open_positions):
@@ -2098,9 +2207,6 @@ def main():
     if len(data.get("events", [])) > EVENTS_LIMIT:
         data["events"] = data["events"][-EVENTS_LIMIT:]
 
-    # Passive exposure audit -> rebalance_recommended flags (never trades).
-    rebalance = rebalance_audit(data, today)
-
     # Issue #36: merge, never blind-overwrite - see persist_merged().
     data = persist_merged(data, user_id=user_id)
 
@@ -2132,7 +2238,7 @@ def main():
     # file:// double-click compat; per-user copies go to users/<id>/.
     dash_path = USER_DASHBOARD_FMT.format(user=user_id) if user_id else DASHBOARD_JS
     mirror_path = USER_MIRROR_FMT.format(user=user_id) if user_id else MIRROR
-    write_dashboard(data, benchmark, rebalance, fear_data, benchmarks,
+    write_dashboard(data, benchmark, fear_data, benchmarks,
                     ai_verdict, gauge=gauge, hedge_harvest=hedge_rec, ind=ind,
                     dashboard_path=dash_path)
 
@@ -2223,7 +2329,7 @@ def build_news_cached(positions):
     return news
 
 
-def write_dashboard(data, benchmark=None, rebalance=None, fear_data=None,
+def write_dashboard(data, benchmark=None, fear_data=None,
                     benchmarks=None, ai_verdict=None, gauge=None,
                     hedge_harvest=None, ind=None, dashboard_path=None):
     """Serialize the full dashboard payload to dashboard.js (window.DASH).
@@ -2347,6 +2453,7 @@ def write_dashboard(data, benchmark=None, rebalance=None, fear_data=None,
             "day_change": day_change,
             "total_return_pct": total_return,
             "realized_pnl": realized,
+            "dividends_total": round(data["account"].get("dividends") or 0.0, 2),
             "start_value": start,
             "max_drawdown_pct": compute_drawdown(history),
             "sharpe_annualized": compute_sharpe(history),
@@ -2367,7 +2474,6 @@ def write_dashboard(data, benchmark=None, rebalance=None, fear_data=None,
         "hedge_harvest": hedge_harvest,
         "benchmark": benchmark,
         "benchmarks": benchmarks,
-        "rebalance": rebalance or None,
         "ai": build_ai_payload(ai_verdict, data, gauge=gauge),
         "news": build_news_cached(
             [p for p in data["positions"] if p["status"] == "open"]

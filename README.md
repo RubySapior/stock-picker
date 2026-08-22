@@ -65,8 +65,7 @@ Or just open `index.html` (landing) via file:// double-click — the dashboard i
 - **No idle cash** — spare cash is auto-parked in **SGOV** (0–3 month T-bills) so dry powder never sits idle.
 - **Index-referenced stops** — leveraged funds (3x/2x) stop against their 1x underlying (e.g. TQQQ→QQQ −8%), so a violent leveraged day or decay drift can't whipsaw the stop. The wrapper-level `stop_loss_pct` is only a wide gap-through backstop. Take-profits check on the wrapper.
 - **Re-entry protocol** — a stop is a *vol-halt*, not a death. Linked theories are PAUSED; if the 1x underlying reclaims its level for 2 consecutive sessions the theory is re-affirmed and the position re-entered; no reclaim in 60 days → theory formally ABANDONED.
-- **Market orders (algo 0.6.0)** — a successful AI verdict refreshes the human-approved `orders` list in `portfolio.json`; pending orders execute at the live price on the next market-open run. Buys redeem SGOV, sells realize into cash (re-parked in SGOV).
-- **Passive rebalance audit** — once per calendar quarter, any sector whose *effective* (leverage-adjusted) exposure drifts from its limit — no tolerance band, however small — produces a flag. It never trades; it asks for a conviction review. SGOV (Short-Term Bonds) is exempt so dry powder grows freely.
+- **Market orders (algo 0.6.0)** — a successful AI verdict refreshes the human-approved `orders` list in `portfolio.json`; pending orders execute at the live price on the next market-open run. Buys redeem SGOV, sells realize into cash (re-parked in SGOV). In **Recommend** mode proposals need human approval; in **Auto AI** mode the verdict auto-creates pending orders.
 
 ## GitHub Actions
 

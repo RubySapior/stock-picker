@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI Port-picker</title>
-<link rel="stylesheet" href="styles.css?v=53">
+<link rel="stylesheet" href="styles.css?v=55">
 </head>
 <!--
   Page skeleton only. Every section below is filled by app.js from the
@@ -33,10 +33,8 @@
         <div class="sub" id="verLine"></div>
       </div>
     </div>
-    <div class="asof">Last updated: <span id="asof"></span> <span class="nextRefresh">Next refresh: <span id="nextRefresh">â€“</span></span> <a class="archiveBtn" href="index.html">Home</a> <a class="archiveBtn" href="leaderboards.html">Leaderboards</a> <a class="archiveBtn" href="help.html">Help</a> <a class="archiveBtn" href="https://github.com/RubySapior/stock-picker" target="_blank" rel="noopener">GitHub &#8599;</a> <button id="updateBtn" class="updateBtn" title="Run update.py to fetch fresh prices + news, then reload">Update</button></div>
+    <div class="asof">Last updated: <span id="asof"></span> <span class="nextRefresh">Next refresh: <span id="nextRefresh">â€“</span></span> <a class="archiveBtn" href="index.html">Home</a> <a class="archiveBtn" href="leaderboards.html">Leaderboards</a> <a class="archiveBtn" href="help.html">Help</a> <a class="archiveBtn" href="https://github.com/RubySapior/stock-picker" target="_blank" rel="noopener">GitHub &#8599;</a> <button id="updateBtn" class="updateBtn" title="Refresh prices + news only — no Gemini call (use Run AI for sentiment)">Update</button></div>
   </header>
-
-  <div class="rebalBanner" id="rebalBanner" style="display:none;"></div>
 
   <div class="cards" id="cards"></div>
 
@@ -72,11 +70,17 @@
       <h2>AI Sentiment <span class="aiBadge" id="aiStatus">OFF</span></h2>
       <span class="muted small" id="aiSub"></span>
       <span class="aiCtl" id="aiCtl">
+        <span class="modeSwitch" title="Recommend = you approve each order (Submit buttons); Auto AI = AI auto-creates pending orders on each verdict and executes at next market open">
+          <span class="modeLabel" id="modeLabelRec">Recommend</span>
+          <label class="switch" title="Toggle Auto AI mode"><input type="checkbox" id="aiModeSwitch"><span class="slider"></span></label>
+          <span class="modeLabel" id="modeLabelAuto">Auto AI</span>
+        </span>
         <span class="biasWrap" title="Your sentiment lean (-5 fearful ... +5 bullish) — fed into the AI prompt, shown separately from the CNN gauge">
           <label class="aiModeLabel" for="biasSlider">BIAS</label>
           <input type="range" id="biasSlider" min="-5" max="5" step="1" value="0">
           <span class="biasVal" id="biasVal">0</span>
         </span>
+        <button id="aiRunBtn" class="aiRunBtn" title="Run Gemini AI sentiment analysis now — uses tokens, max 3/day, market-hours gated (Update is price-only)">Run AI Analysis</button>
         <button id="execAllBtn" class="execAllBtn" title="Turn all current AI proposals + rotations into human-approved pending market orders (conviction-scaled amounts)">Submit all Orders &rarr;</button>
       </span>
     </div>
@@ -194,6 +198,6 @@
 </div>
 
 <script src="wheel.js?v=8"></script>
-<script src="app.js?v=59" defer></script>
+<script src="app.js?v=62" defer></script>
 </body>
 </html>

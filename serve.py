@@ -5,12 +5,11 @@ Why: the site is a static pair of pages (index.html landing + dashboard.html
 + dashboard.js), and the
 browser can't run update.py by itself. This server:
   1. Serves the folder so you can open http://localhost:8000
-  2. Provides POST /refresh -> runs update.py (fresh prices + news),
-     then the page's Update button reloads the data.
-  3. POST /mode -> toggles meta.ai.mode (recommend | execute) - how the
-     AI verdict turns into orders.
-4. POST /mode -> toggles meta.ai.mode (recommend | execute) - how the
-      AI verdict turns into orders.
+  2. POST /refresh -> runs update.py --skip-ai (fresh prices + news, NO Gemini call)
+     so the Update button never burns tokens.
+  3. POST /ai -> dedicated Gemini run (update.py --ai) — the only path that
+     spends tokens (max 3/day, market-hours gated). Button lives in the AI section.
+  4. POST /mode -> toggles meta.ai.mode (recommend | execute) — Auto AI switch.
    5. POST /book -> human approval per proposal / rotation: the dashboard's
       "Submit this Order" buttons write ONE pending market order (or a
       rotation's two legs) from the latest AI verdict into portfolio.json
@@ -19,6 +18,7 @@ browser can't run update.py by itself. This server:
    6. POST /execute_all -> "Submit all Orders": the whole queue at once.
    7. POST /bias -> sets meta.ai.user_bias (-5..+5 sentiment slider).
    8. POST /park -> sets meta.park_mode ("sgov"|"cash" dry-powder toggle).
+   9. POST /dividend -> sets meta.dividend_policy ("reinvest"|"sgov"|"cash").
 
 Usage:  python serve.py
 Then open http://localhost:8000 in your browser.
@@ -156,6 +156,9 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         if path == "/refresh":
             self._refresh()
             return
+        if path == "/ai":
+            self._run_ai()
+            return
         if path == "/mode":
             self._set_mode()
             return
@@ -170,6 +173,9 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             return
         if path == "/park":
             self._set_park()
+            return
+        if path == "/dividend":
+            self._set_dividend_policy()
             return
         self.send_response(404)
         self.end_headers()
@@ -226,11 +232,16 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(body)
 
-    def _run_update(self):
-        """Run update.py; returns (ok, output_text). Per-user if X-User-Id header present."""
+    def _run_update(self, ai=False):
+        """Run update.py; returns (ok, output_text). Per-user if X-User-Id header present.
+
+        ai=False -> --skip-ai (Update button + book/bias/park/mode never burn Gemini tokens).
+        ai=True  -> --ai (dedicated Run AI button — the ONLY token-spending path).
+        """
         user_id = _user_id_for(self)
         try:
             cmd = [sys.executable, "update.py"]
+            cmd += ["--ai"] if ai else ["--skip-ai"]
             if user_id:
                 cmd += ["--user", user_id]
             env = os.environ.copy()
@@ -246,8 +257,13 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             return False, str(exc)
 
     def _refresh(self):
-        """Run update.py and return {ok, output} as JSON."""
-        ok, output = self._run_update()
+        """POST /refresh — price/news refresh only, no Gemini call."""
+        ok, output = self._run_update(ai=False)
+        self._json({"ok": ok, "output": output})
+
+    def _run_ai(self):
+        """POST /ai — dedicated Gemini run (the only token-spending path)."""
+        ok, output = self._run_update(ai=True)
         self._json({"ok": ok, "output": output})
 
     def _set_mode(self):
@@ -446,6 +462,26 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         user_id = _user_id_for(self)
         try:
             store.update_portfolio(lambda data: _set_meta(data, ["park_mode"], mode), user_id=user_id)
+        except Exception as exc:
+            self._json({"ok": False, "error": str(exc)}, 500)
+            return
+        ok, output = self._run_update()
+        self._json({"ok": ok, "mode": mode, "output": output})
+
+    def _set_dividend_policy(self):
+        """POST /dividend {mode: "reinvest"|"sgov"|"cash"} -> meta.dividend_policy
+        (issue #13: what happens to a payout - DRIP into the payer, buy SGOV,
+        or land as cash)."""
+        body = self._read_body()
+        if body is None:
+            return
+        mode = str(body.get("mode") or "").lower()
+        if mode not in ("reinvest", "sgov", "cash"):
+            self._json({"ok": False, "error": "mode must be 'reinvest', 'sgov' or 'cash'"}, 400)
+            return
+        user_id = _user_id_for(self)
+        try:
+            store.update_portfolio(lambda data: _set_meta(data, ["dividend_policy"], mode), user_id=user_id)
         except Exception as exc:
             self._json({"ok": False, "error": str(exc)}, 500)
             return

@@ -10,14 +10,14 @@ site opens on the landing page (`index.html`); the dashboard is
 
 | File | Role | Edit? |
 |------|------|-------|
-| `portfolio.json` | Source of truth: meta, account/cash, positions, theories, events. | **YES** — hand-edit to rebalance / add / remove positions |
+| `portfolio.json` | Source of truth: meta, account/cash, positions, theories, events. | **YES** — hand-edit to add / remove positions |
 | `update.py` | Daily updater: fetch prices → check exits → deploy cash → snapshot → write `dashboard.js`. | **YES** — all data-mutating logic |
 | `store.py` | Locked JSON persistence (site 0.5.6.00): the single write-path for `portfolio.json` and other mutable JSON. `update_portfolio(mutator)` = locked read-modify-write (threading lock + best-effort cross-process lock, msvcrt/fcntl) so concurrent serve.py requests can't interleave; writes are tmp-file + atomic rename. Full transactional semantics arrive with SQLite in the NAS hosting step. | **YES** — storage layer |
 | `community.py` | Community registry + copy contracts (site 0.5.6.00): `sync_version_snapshots()` + `build_mirror()` (moved out of `update.py`) and `list_strategies()` (moved out of `leaderboards.py`) — the publish/follow API (NAS hosting step) builds on this module without running the whole daily update. | **YES** — importable by update.py, leaderboards.py, future server |
 | `news.py` | Fetch Yahoo RSS headlines for held tickers, tag theories, score sentiment (VADER). | **YES** |
 | `fears.py` | Market Fear Gauge: scores crash scenarios 1-5 (structural/episodic), complacency index, recommendation-only hedge sizing. Reads the EDITABLE scenario table; persists AI fear proposals/edits. | **YES** |
 | `fear_scenarios.json` | **EDITABLE fear table** (algo 0.6.1): F1-F8 scenario definitions (name, type, components, velocity/trend, hedge_ticks, theory links, optional `sizing`) + AI-staged proposals flagged `pending_review` (skipped by the scorer until a human clears the flag and writes components). | **YES** — hand-edit to add/tune fears |
-| `ai_sentiment.py` | AI Sentiment Decision Layer (algo 0.6.1.00): change-detect LLM verdict call (prior verdict + fact deltas embedded; outputs ONLY changes — omission = agreement). Provider-routed: **gemini** via OpenRouter — `google/gemini-3.7-flash` extended thinking — / zen / deepseek. Tier A market data + CNN Fear&Greed crowding gate + calibration track record. Rotations (paired sell/buy), fear proposals/edits (staged into `fear_scenarios.json`), schema validation, theories/fears/bullish/rotation layer translators. **WIRED into `update.py`, ENABLED** (`meta.ai.enabled: true`, `meta.ai.mode: recommend`). | **YES** — engine layer; must stay read-only (evidence/events/fear-blend/orders-refresh only) |
+| `ai_sentiment.py` | AI Sentiment Decision Layer (algo 0.6.1.00): change-detect LLM verdict call (prior verdict + fact deltas embedded; outputs ONLY changes — omission = agreement). Provider-routed: **gemini** via OpenRouter — `google/gemini-3.7-flash` extended thinking — / zen / deepseek. Tier A market data + CNN Fear&Greed crowding gate + calibration track record. Rotations (paired sell/buy), fear proposals/edits (staged into `fear_scenarios.json`), schema validation, theories/fears/bullish/rotation layer translators. **WIRED into `update.py`, ENABLED** (`meta.ai.enabled: true`, `meta.ai.mode: recommend` via Auto AI toggle). | **YES** — engine layer; must stay read-only (evidence/events/fear-blend/orders-refresh only) |
 | `vader/` | Vendored MIT-licensed VADER sentiment engine (`vader.py` + `vader_lexicon.txt` + `emoji_utf8_lexicon.txt` + `LICENSE`). Third-party code, kept verbatim; `news.py` maps its `compound` score to pos/neg/neutral. | **NO** — upstream dependency |
 | `dashboard.js` | **AUTO-GENERATED** output consumed by the browser (`window.DASH = {...}`). | **NO** — overwritten on every `update.py` run; edit `update.py`/`portfolio.json` instead |
 | `mirror.json` | **AUTO-GENERATED** copy contract (site 0.5.5.29): the book as `positions[{ticker, sleeve, buy_date, shares, current_value, pct_of_book, theory_ids}]` + `changes[]` (normalized trade log: ts/type/ticker/action/shares/price/amount from `events[]`). What a follower replays to mirror the book exactly. | **NO** — written by `build_mirror()` in `community.py` every run |
@@ -31,7 +31,7 @@ site opens on the landing page (`index.html`); the dashboard is
 | `dashboard.html` | Dashboard page skeleton; the sections `app.js` fills. | **YES** — UI only |
 | `index.html` + `landing.js` | Landing/marketing page (the site's default page — GitHub Pages, serve.py and double-click all land here): hero with live stats from `dashboard.js`, features, how-it-works, roadmap, and a sign-up preview (localStorage only, no backend — UI rehearsal for v1 accounts). | **YES** — UI only |
 | `theories.html` + `theories.js` | Theory Archive page: every theory (incl. abandoned) as a flash-card wheel with drag/swipe/wheel navigation, 3D flip to evidence log, plus a plain-table toggle for copy-paste; status/tier filters + free-text search. Reads the same `dashboard.js`. | **YES** — UI only |
-| `trades.html` + `trades.js` | Trade Archive page: every recorded event (exits, re-entries, cash deploys, rebalance flags) in a plain table with per-second timestamps. Reads the same `dashboard.js`. | **YES** — UI only |
+| `trades.html` + `trades.js` | Trade Archive page: every recorded event (exits, re-entries, cash deploys) in a plain table with per-second timestamps. Reads the same `dashboard.js`. | **YES** — UI only |
 | `help.html` + `help.js` | Help site: plain-language notes (Simple tab) + the math and details (Advanced tab). Static explainer, no data. | **YES** — UI only |
 | `styles.css` | All styling (dark theme, panels, pills, charts). | **YES** |
 | `serve.py` | Optional local server. Exposes `POST /refresh` (Update button), `POST /mode`, `POST /book` (per-proposal order booking). All portfolio.json mutations go through `store.update_portfolio` (locked RMW). | **YES** |
@@ -126,6 +126,17 @@ user-deemed milestones.
   `CASH_BUFFER` so dry powder never sits idle — unless `meta.park_mode` is
   `"cash"` (the dashboard's dry-powder toggle, `serve.py POST /park`;
   default `"sgov"`).
+- **Dividends (issue #13, site 0.5.6.15)**: ex-dates come from the Yahoo chart
+  endpoint (`events=div`, once-per-day cache in `ohlc_cache.json`);
+  `process_dividends()` credits each open position between its
+  `last_div_date` watermark (init = `buy_date`) and today — strictly AFTER
+  the watermark, so buying ON an ex-date earns nothing. Policy
+  `meta.dividend_policy`: `reinvest` (default; DRIP into the payer, cost
+  bumps), `sgov` (buy dry powder directly), `cash` (credit account.cash).
+  Sub-$1 payouts always route to cash; lifetime total in
+  `account.dividends` -> `summary.dividends_total`; toggle via
+  `serve.py POST /dividend`. Runs before the exit engine and before
+  deploy_cash_to_bonds.
 - **Market orders (algo 0.6.1.00)**: portfolio.json `orders[]` holds
   human-approved market orders `{ticker, action "buy"|"sell", amount,
   status "pending"|"executed", source, created, note, exec_date,
@@ -143,11 +154,7 @@ user-deemed milestones.
   `order_size`. `meta.ai.user_bias` (-5..+5, `POST /bias`) is the user's
   sentiment lean embedded in the AI prompt.
   Executed history is pruned to the last 15.
-- **Sector limits, not targets**: `meta.limits.rebalance.limits` are
-  exposure LIMITS compared by the quarterly audit (old key `targets`
-  still read as fallback). `rebalance.exempt_sectors` (e.g.
-  "Short-Term Bonds"/SGOV) are never capped — dry powder grows freely so
-  liquidity is always available for an opportunity.
+- **Sector caps are hard limits**: `meta.limits.sector_limits` are the effective-exposure caps (checked on `effective_value = current_value × leverage`) enforced as hard limits on BUY orders (issue #29). No quarterly audit — sentiment analysis is the sole driver.
 - Returns are anchored to `meta.start_value` (100000) / `meta.start_date`;
   the SPY benchmark is normalized to the same start and aligned to portfolio
   dates.
@@ -172,10 +179,12 @@ user-deemed milestones.
 Owned by `write_dashboard()` in `update.py`. `app.js` reads these fields:
 
 - `meta`: `name`, `strategy`, `start_date`, `start_value`, `limits`,
-  `park_mode` ("sgov"|"cash" dry-powder toggle)
+  `park_mode` ("sgov"|"cash" dry-powder toggle),
+  `dividend_policy` ("reinvest"|"sgov"|"cash", default "reinvest")
 - `asof`: last snapshot date
 - `summary`: `total_value`, `cash`, `invested_value`, `day_change`,
-  `total_return_pct`, `realized_pnl`, `start_value`, `max_drawdown_pct`,
+  `total_return_pct`, `realized_pnl`, `dividends_total` (lifetime income),
+  `start_value`, `max_drawdown_pct`,
   `sharpe_annualized`, `cagr_annualized`
 - `positions[]`: `ticker`, `name`, `sleeve`, `buy_date`, `buy_price`, `shares`,
   `cost`, `current_price`, `current_value`, `pnl_pct`, `take_profit_pct`,
@@ -201,11 +210,10 @@ Owned by `write_dashboard()` in `update.py`. `app.js` reads these fields:
   protocol (see `meta.limits.re_entry`): re-entry now requires 2+
   consecutive closes above the frozen level **AND** the last close above
   the underlying's EMA20 (trend gate). A position may carry a one-shot
-  `scheduled_exit` `{reason, note}` tag (e.g. a deliberate rebalance): on the
+  `scheduled_exit` `{reason, note}` tag (e.g. a deliberate manual exit): on the
   FIRST market-open run `execute_scheduled_exits()` sells it at the live open
   price, realizes proceeds into cash, removes the position, and prunes its
-  sector from `position_exposure`/`sector_limits`/rebalance targets if it was
-  the last holding there.
+  sector from `position_exposure`/`sector_limits` if it was the last holding there.
 - `sleeves[]`: `{sleeve, value}`
 - `sectors[]`: `sector`, `value`, `effective`, `leverage`, `pct`, `max_pct`,
   `status` ("ok"/"warn"/"over"), `note`
@@ -214,9 +222,9 @@ Owned by `write_dashboard()` in `update.py`. `app.js` reads these fields:
   `prices{ticker: px}`
 - `events[]`: `date`, `ts` (HH:MM:SS local time the event was recorded),
   `ticker`, `name`, `reason` ("take_profit"/"stop_loss"/
-  "deploy_cash"/"re_entry"/"rebalance_recommended"/"rebalance"), `note`
-  ("index_stop (TICKER x%)"/"backstop"/"re-affirmed (...)"/drift message/
-  scheduled-exit note/null), `state`
+  "deploy_cash"/"re_entry"/"market_order"/"dividend"), `note`
+  ("index_stop (TICKER x%)"/"backstop"/"re-affirmed (...)"/scheduled-exit note/
+  "DIV $x (y/sh x z) -> route"), `state`
   (null/"vol_halt"), `price`, `buy_price`, `shares`, `realized_pnl`.
   The dashboard's Trade Events card shows the last 7 days only (min 2
   events); `trades.html` (Trade Archive) lists every event with time.
@@ -224,15 +232,6 @@ Owned by `write_dashboard()` in `update.py`. `app.js` reads these fields:
   `status` ("pending"/"paused"/"right"/"wrong"/"abandoned"), `created`,
   `last_updated`, `evidence[]`. A `paused` theory also carries `paused_date`,
   `pause_reason`, `paused_ticker` (set by the vol-halt re-entry protocol).
-- `rebalance`: null or `[{type, sleeve, target_exposure, actual_exposure,
-  message}]` — quarterly drift flags from `rebalance_audit()` (see
-  `meta.limits.rebalance.limits`): the audit runs ONCE per calendar quarter
-  (tracked in `meta.last_rebalance_quarter`), not daily. There is no
-  tolerance band — ANY drift from limit is flagged, however small.
-  `rebalance.exempt_sectors` (e.g. "Short-Term Bonds"/SGOV) are never
-  flagged — dry powder is uncapped by design.
-  Flags never trade; they ask the conviction layer to review a risk-budget
-  mismatch.
 - `benchmark`: null or `label`, `start_value`, `history[]`, `aligned[]`,
   `summary{total_return_pct, max_drawdown_pct, sharpe_annualized}`
 - `news`: `asof`, `big_stories[]`, `feed[]` — items have `title`, `link`, `ts`,

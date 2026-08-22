@@ -92,8 +92,7 @@ def build_market_snapshot(data, prices, fear_data=None, macro=None, sentiment=No
     macro: optional live {symbol: {px, chg_1d_pct}} from update.fetch_macro().
     sentiment: optional {index: 0-100, label} crowding gauge (CNN-style
     Fear & Greed) - the 'don't buy the top' euphoria check.
-    Sector limits: meta.limits.rebalance.limits (exempt sectors, e.g. SGOV,
-    carry no cap - dry powder grows freely).
+    Sector limits: meta.limits.sector_limits (hard caps on effective exposure).
     """
     meta = data.get("meta", {})
     limits = meta.get("limits", {})
@@ -112,13 +111,13 @@ def build_market_snapshot(data, prices, fear_data=None, macro=None, sentiment=No
             "current_value": value, "effective_value": round(value * lev, 2),
         })
 
-    limits = limits.get("rebalance", {})
-    targets = limits.get("limits") or limits.get("targets") or {}
+    # Sector caps are the hard limits in meta.limits.sector_limits (not rebalance.limits)
+    caps = {s["sector"]: s.get("max_pct") for s in (limits.get("sector_limits") or [])}
     total = sum(sec_tot.values()) or 1.0
     sectors = [
         {
             "sector": s, "effective_pct": round(v / total * 100, 1),
-            "limit_pct": targets.get(s),
+            "limit_pct": caps.get(s),
         }
         for s, v in sorted(sec_tot.items(), key=lambda kv: -kv[1])
     ]

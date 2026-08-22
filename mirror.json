@@ -3,29 +3,55 @@
   "strategy_id": "hypergrowth-sharpe-barbell",
   "strategy_name": "HyperGrowth Sharpe Barbell v5 - Conviction-First",
   "author": "RubySapior",
-  "total_value": 99910.38,
+  "total_value": 99804.93,
   "positions": [
+    {
+      "ticker": "NLR",
+      "sleeve": "AI Power - Nuclear",
+      "buy_date": "2026-08-10",
+      "shares": 93.610334,
+      "current_value": 11177.82,
+      "pct_of_book": 11.2,
+      "theory_ids": [
+        "T3"
+      ]
+    },
     {
       "ticker": "TQQQ",
       "sleeve": "Tech/AI Growth",
       "buy_date": "2026-08-10",
       "shares": 154.372436,
-      "current_value": 11012.16,
-      "pct_of_book": 11.02,
+      "current_value": 10992.86,
+      "pct_of_book": 11.01,
       "theory_ids": [
         "T1",
         "T7"
       ]
     },
     {
-      "ticker": "NLR",
-      "sleeve": "AI Power - Nuclear",
+      "ticker": "BTAL",
+      "sleeve": "Crisis Alpha - Anti-Beta",
       "buy_date": "2026-08-10",
-      "shares": 81.048481,
-      "current_value": 9654.09,
-      "pct_of_book": 9.66,
+      "shares": 873.912534,
+      "current_value": 10521.91,
+      "pct_of_book": 10.54,
       "theory_ids": [
-        "T3"
+        "T6",
+        "T17"
+      ]
+    },
+    {
+      "ticker": "DBMF",
+      "sleeve": "Crisis Alpha - Trend",
+      "buy_date": "2026-08-10",
+      "shares": 291.155922,
+      "current_value": 9142.3,
+      "pct_of_book": 9.16,
+      "theory_ids": [
+        "T6",
+        "T18",
+        "T19",
+        "T21"
       ]
     },
     {
@@ -33,8 +59,8 @@
       "sleeve": "Tech/AI Growth",
       "buy_date": "2026-08-10",
       "shares": 70.607129,
-      "current_value": 8429.22,
-      "pct_of_book": 8.44,
+      "current_value": 8370.12,
+      "pct_of_book": 8.39,
       "theory_ids": [
         "T1",
         "T7"
@@ -45,37 +71,11 @@
       "sleeve": "Tech/AI Growth",
       "buy_date": "2026-08-10",
       "shares": 142.487012,
-      "current_value": 8250.28,
-      "pct_of_book": 8.26,
+      "current_value": 8238.6,
+      "pct_of_book": 8.25,
       "theory_ids": [
         "T2",
         "T1"
-      ]
-    },
-    {
-      "ticker": "BTAL",
-      "sleeve": "Crisis Alpha - Anti-Beta",
-      "buy_date": "2026-08-10",
-      "shares": 666.357532,
-      "current_value": 8042.27,
-      "pct_of_book": 8.05,
-      "theory_ids": [
-        "T6",
-        "T17"
-      ]
-    },
-    {
-      "ticker": "DBMF",
-      "sleeve": "Crisis Alpha - Trend",
-      "buy_date": "2026-08-10",
-      "shares": 255.287916,
-      "current_value": 8013.49,
-      "pct_of_book": 8.02,
-      "theory_ids": [
-        "T6",
-        "T18",
-        "T19",
-        "T21"
       ]
     },
     {
@@ -83,8 +83,8 @@
       "sleeve": "Tech/AI Growth",
       "buy_date": "2026-08-10",
       "shares": 8.781016,
-      "current_value": 4915.44,
-      "pct_of_book": 4.92,
+      "current_value": 4900.69,
+      "pct_of_book": 4.91,
       "theory_ids": [
         "T1"
       ]
@@ -94,7 +94,7 @@
       "sleeve": "Crisis Alpha - Carry Unwind",
       "buy_date": "2026-08-10",
       "shares": 69.42034,
-      "current_value": 4007.64,
+      "current_value": 4004.44,
       "pct_of_book": 4.01,
       "theory_ids": [
         "T6",
@@ -107,8 +107,8 @@
       "sleeve": "Crisis Alpha - Real Assets",
       "buy_date": "2026-08-10",
       "shares": 38.678306,
-      "current_value": 3978.45,
-      "pct_of_book": 3.98,
+      "current_value": 3981.93,
+      "pct_of_book": 3.99,
       "theory_ids": [
         "T9",
         "T6",
@@ -122,8 +122,8 @@
       "sleeve": "AI Power - Nuclear",
       "buy_date": "2026-08-10",
       "shares": 60.02401,
-      "current_value": 3960.74,
-      "pct_of_book": 3.96,
+      "current_value": 3962.79,
+      "pct_of_book": 3.97,
       "theory_ids": [
         "T3"
       ]
@@ -133,7 +133,7 @@
       "sleeve": "Crisis Alpha - Vol Decay",
       "buy_date": "2026-08-10",
       "shares": 280.112045,
-      "current_value": 3945.38,
+      "current_value": 3946.22,
       "pct_of_book": 3.95,
       "theory_ids": [
         "T6",
@@ -146,8 +146,8 @@
       "sleeve": "Crisis Alpha - Real Assets",
       "buy_date": "2026-08-10",
       "shares": 8.694794,
-      "current_value": 3682.25,
-      "pct_of_book": 3.69,
+      "current_value": 3688.85,
+      "pct_of_book": 3.7,
       "theory_ids": [
         "T9",
         "T6",
@@ -157,66 +157,43 @@
       ]
     },
     {
-      "ticker": "ZROZ",
-      "sleeve": "Crisis Alpha - AI Bust",
-      "buy_date": "2026-08-10",
-      "shares": 59.76817,
-      "current_value": 3468.35,
-      "pct_of_book": 3.47,
-      "theory_ids": [
-        "T6",
-        "T17"
-      ]
-    },
-    {
       "ticker": "QFLR",
       "sleeve": "Crisis Alpha - Down-Day Floor",
       "buy_date": "2026-08-10",
       "shares": 98.619327,
-      "current_value": 3466.96,
+      "current_value": 3463.91,
       "pct_of_book": 3.47,
       "theory_ids": [
         "T6",
         "T17"
       ]
-    },
-    {
-      "ticker": "SGOV",
-      "sleeve": "Short-Term Bonds (SGOV)",
-      "buy_date": "2026-08-11",
-      "shares": 29.927715,
-      "current_value": 3011.48,
-      "pct_of_book": 3.01,
-      "theory_ids": []
     },
     {
       "ticker": "IWM",
       "sleeve": "Broadening / Value",
       "buy_date": "2026-08-10",
       "shares": 10.000667,
-      "current_value": 2995.75,
+      "current_value": 2995.8,
       "pct_of_book": 3.0,
       "theory_ids": [
         "T10"
       ]
     },
     {
-      "ticker": "IWDL",
-      "sleeve": "Broadening / Value",
-      "buy_date": "2026-08-10",
-      "shares": 35.726519,
-      "current_value": 2509.61,
-      "pct_of_book": 2.51,
-      "theory_ids": [
-        "T15"
-      ]
+      "ticker": "SGOV",
+      "sleeve": "Short-Term Bonds (SGOV)",
+      "buy_date": "2026-08-11",
+      "shares": 27.441442,
+      "current_value": 2761.3,
+      "pct_of_book": 2.77,
+      "theory_ids": []
     },
     {
       "ticker": "XLY",
       "sleeve": "Contrarian Fear",
       "buy_date": "2026-08-10",
       "shares": 20.890784,
-      "current_value": 2464.07,
+      "current_value": 2468.14,
       "pct_of_book": 2.47,
       "theory_ids": [
         "T13"
@@ -227,8 +204,8 @@
       "sleeve": "Tech/AI Growth",
       "buy_date": "2026-08-10",
       "shares": 11.413455,
-      "current_value": 2071.31,
-      "pct_of_book": 2.07,
+      "current_value": 2058.42,
+      "pct_of_book": 2.06,
       "theory_ids": [
         "T14",
         "T1"
@@ -239,10 +216,33 @@
       "sleeve": "Contrarian Fear",
       "buy_date": "2026-08-10",
       "shares": 28.05049,
-      "current_value": 2006.45,
+      "current_value": 2004.35,
       "pct_of_book": 2.01,
       "theory_ids": [
         "T13"
+      ]
+    },
+    {
+      "ticker": "ZROZ",
+      "sleeve": "Crisis Alpha - AI Bust",
+      "buy_date": "2026-08-10",
+      "shares": 18.800003,
+      "current_value": 1089.89,
+      "pct_of_book": 1.09,
+      "theory_ids": [
+        "T6",
+        "T17"
+      ]
+    },
+    {
+      "ticker": "IWDL",
+      "sleeve": "Broadening / Value",
+      "buy_date": "2026-08-10",
+      "shares": 0.136797,
+      "current_value": 9.61,
+      "pct_of_book": 0.01,
+      "theory_ids": [
+        "T15"
       ]
     }
   ],
@@ -406,6 +406,96 @@
       "price": 100.567,
       "amount": 2500.0,
       "reason": null
+    },
+    {
+      "ts": "2026-08-21 10:33:43",
+      "type": "market_order",
+      "ticker": "ZROZ",
+      "action": "sell",
+      "shares": 21.5666,
+      "price": 57.96,
+      "amount": 1250.0,
+      "reason": "SELL 1,250 (execute_all_2026-08-17)"
+    },
+    {
+      "ts": "2026-08-21 10:33:43",
+      "type": "market_order",
+      "ticker": "DBMF",
+      "action": "buy",
+      "shares": 35.868,
+      "price": 31.365,
+      "amount": 1125.0,
+      "reason": "BUY 1,125 (execute_all_2026-08-17)"
+    },
+    {
+      "ts": "2026-08-21 10:33:43",
+      "type": "market_order",
+      "ticker": "NLR",
+      "action": "buy",
+      "shares": 8.3822,
+      "price": 119.3,
+      "amount": 1000.0,
+      "reason": "BUY 1,000 (execute_all_2026-08-17)"
+    },
+    {
+      "ts": "2026-08-21 10:33:43",
+      "type": "deploy_cash",
+      "ticker": "SGOV",
+      "action": "buy",
+      "shares": 12.4227,
+      "price": 100.622,
+      "amount": 1250.0,
+      "reason": null
+    },
+    {
+      "ts": "2026-08-21 10:43:11",
+      "type": "market_order",
+      "ticker": "ZROZ",
+      "action": "sell",
+      "shares": 19.4016,
+      "price": 57.985,
+      "amount": 1125.0,
+      "reason": "SELL 1,125 (execute_all_2026-08-21)"
+    },
+    {
+      "ts": "2026-08-21 10:43:11",
+      "type": "market_order",
+      "ticker": "NLR",
+      "action": "buy",
+      "shares": 4.1796,
+      "price": 119.628,
+      "amount": 500.0,
+      "reason": "BUY 500 (execute_all_2026-08-21)"
+    },
+    {
+      "ts": "2026-08-21 10:43:11",
+      "type": "market_order",
+      "ticker": "IWDL",
+      "action": "sell",
+      "shares": 35.5897,
+      "price": 70.245,
+      "amount": 2500.0,
+      "reason": "SELL 2,500 (execute_all_2026-08-21)"
+    },
+    {
+      "ts": "2026-08-21 10:43:11",
+      "type": "deploy_cash",
+      "ticker": "SGOV",
+      "action": "buy",
+      "shares": 36.0231,
+      "price": 100.63,
+      "amount": 3625.0,
+      "reason": null
+    },
+    {
+      "ts": "2026-08-21 16:54:21",
+      "type": "market_order",
+      "ticker": "BTAL",
+      "action": "buy",
+      "shares": 207.555,
+      "price": 12.045,
+      "amount": 2500.0,
+      "reason": "BUY 2,500 (execute_all_2026-08-21)"
     }
   ]
 }
