@@ -158,7 +158,7 @@ window.DASH = {
       },
       "F2": {
         "prev_score": 3.5,
-        "score": 3.5,
+        "score": 3.4,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
@@ -173,26 +173,26 @@ window.DASH = {
       "F4": {
         "prev_score": 4.2,
         "score": 4.2,
-        "days_above": 1,
+        "days_above": 2,
         "confirmed": false,
-        "last_above_date": "2026-08-21"
+        "last_above_date": "2026-08-22"
       },
       "F5": {
         "prev_score": 4.2,
-        "score": 4.2,
-        "days_above": 4,
+        "score": 4.1,
+        "days_above": 5,
         "confirmed": true,
-        "last_above_date": "2026-08-21"
+        "last_above_date": "2026-08-22"
       },
       "F6": {
         "prev_score": 4.8,
         "score": 4.8,
-        "days_above": 4,
+        "days_above": 5,
         "confirmed": true,
-        "last_above_date": "2026-08-21"
+        "last_above_date": "2026-08-22"
       },
       "F7": {
-        "prev_score": 2.4,
+        "prev_score": 2.6,
         "score": 2.6,
         "days_above": 0,
         "confirmed": false,
@@ -605,8 +605,8 @@ window.DASH = {
       "note": "Community experiment (site 0.5.5.33): benchmark strategies fill the leaderboard for comparison; snapshot_versions freezes the book as a new version strategy whenever the positions change (SGOV auto-parking excluded from change detection). Both are experiments to populate the board - normally OFF by design, not the product behavior."
     },
     "ai_calibrated_verdict_date": "2026-08-17",
-    "asof_ts": 1787341966,
-    "refresh_interval": 6
+    "asof_ts": 1787364942,
+    "refresh_interval": 1440
   },
   "asof": "2026-08-21",
   "summary": {
@@ -644,8 +644,8 @@ window.DASH = {
       "underlying_stop_pct": -0.08,
       "underlying_buy_price": 720.87,
       "dynamic_stop_pct": -0.08,
-      "underlying_ema20": 714.5180195308284,
-      "underlying_atr14": 11.69734764572773,
+      "underlying_ema20": 714.415351236579,
+      "underlying_atr14": 11.323880736970333,
       "runner_active": false,
       "base_trimmed": false,
       "theory_ids": [
@@ -706,9 +706,9 @@ window.DASH = {
       "underlying": "SOXX",
       "underlying_stop_pct": -0.09,
       "underlying_buy_price": 529.39,
-      "dynamic_stop_pct": -0.1143,
-      "underlying_ema20": 535.4751118942825,
-      "underlying_atr14": 23.888695518035167,
+      "dynamic_stop_pct": -0.1116,
+      "underlying_ema20": 534.0060524560404,
+      "underlying_atr14": 23.20593276409391,
       "runner_active": false,
       "base_trimmed": false,
       "theory_ids": [
@@ -1159,8 +1159,8 @@ window.DASH = {
       "underlying_stop_pct": -0.1,
       "underlying_buy_price": 258.31,
       "dynamic_stop_pct": -0.1,
-      "underlying_ema20": 255.0094084964717,
-      "underlying_atr14": 2.118518364543417,
+      "underlying_ema20": 255.2266085010953,
+      "underlying_atr14": 2.0914806372740364,
       "runner_active": false,
       "base_trimmed": false,
       "theory_ids": [
@@ -2193,17 +2193,17 @@ window.DASH = {
       "name": "Rates shock / duration liquidation",
       "type": "structural",
       "score": 4.8,
-      "level": 0.992,
+      "level": 0.989,
       "velocity": null,
       "trend": {
         "label": "50d trend",
-        "value": 0.0327,
+        "value": 0.0324,
         "pct": 0.857
       },
       "signals": [
         {
           "label": "TLT/SHY (long-vs-short duration)",
-          "value": 0.988
+          "value": 0.985
         },
         {
           "label": "10y yield level",
@@ -2217,7 +2217,7 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-08-21",
+      "asof": "2026-08-22",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2226,17 +2226,17 @@ window.DASH = {
       "name": "Inflation resurgence",
       "type": "structural",
       "score": 4.2,
-      "level": 0.931,
+      "level": 0.927,
       "velocity": null,
       "trend": {
         "label": "50d trend",
-        "value": 0.0005,
-        "pct": 0.505
+        "value": 0.0004,
+        "pct": 0.495
       },
       "signals": [
         {
           "label": "TIP/IEF (breakevens proxy)",
-          "value": 0.931
+          "value": 0.927
         }
       ],
       "theory_ids": [
@@ -2248,7 +2248,7 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-08-21",
+      "asof": "2026-08-22",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2256,11 +2256,11 @@ window.DASH = {
       "id": "F5",
       "name": "War / energy shock",
       "type": "episodic",
-      "score": 4.2,
-      "level": 0.813,
+      "score": 4.1,
+      "level": 0.809,
       "velocity": {
         "label": "5d velocity",
-        "value": 0.0528,
+        "value": 0.0515,
         "pct": 0.776
       },
       "trend": null,
@@ -2271,7 +2271,7 @@ window.DASH = {
         },
         {
           "label": "Gold 1d momentum",
-          "value": 0.9
+          "value": 0.884
         }
       ],
       "theory_ids": [
@@ -2284,7 +2284,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-08-21",
+      "asof": "2026-08-22",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2292,12 +2292,12 @@ window.DASH = {
       "id": "F2",
       "name": "Yen-carry unwind",
       "type": "episodic",
-      "score": 3.5,
+      "score": 3.4,
       "level": 0.304,
       "velocity": {
         "label": "5d velocity",
-        "value": 0.0028,
-        "pct": 0.776
+        "value": 0.0018,
+        "pct": 0.725
       },
       "trend": null,
       "signals": [
@@ -2314,7 +2314,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-08-21",
+      "asof": "2026-08-22",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2323,11 +2323,11 @@ window.DASH = {
       "name": "AI / tech concentration pop",
       "type": "structural",
       "score": 2.6,
-      "level": 0.267,
+      "level": 0.268,
       "velocity": null,
       "trend": {
         "label": "50d trend",
-        "value": 0.0445,
+        "value": 0.0444,
         "pct": 0.719
       },
       "signals": [
@@ -2337,7 +2337,7 @@ window.DASH = {
         },
         {
           "label": "QQQ drawdown from 52w high",
-          "value": 0.042
+          "value": 0.043
         }
       ],
       "theory_ids": [
@@ -2350,7 +2350,7 @@ window.DASH = {
         "ZROZ"
       ],
       "sizing": null,
-      "asof": "2026-08-21",
+      "asof": "2026-08-22",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2380,26 +2380,26 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-08-21",
+      "asof": "2026-08-22",
       "degraded": false,
-      "trend_dir": "rising"
+      "trend_dir": "flat"
     },
     {
       "id": "F8",
       "name": "Recession / growth freeze",
       "type": "structural",
       "score": 2.4,
-      "level": 0.362,
+      "level": 0.365,
       "velocity": null,
       "trend": {
         "label": "50d trend",
-        "value": -0.0322,
-        "pct": 0.3
+        "value": -0.0288,
+        "pct": 0.314
       },
       "signals": [
         {
           "label": "XLY/XLP (cyclical vs staples)",
-          "value": 0.723
+          "value": 0.731
         },
         {
           "label": "SPY below 200d MA",
@@ -2414,7 +2414,7 @@ window.DASH = {
         "BTAL"
       ],
       "sizing": null,
-      "asof": "2026-08-21",
+      "asof": "2026-08-22",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2423,11 +2423,11 @@ window.DASH = {
       "name": "China / Taiwan escalation",
       "type": "episodic",
       "score": 1.6,
-      "level": 0.411,
+      "level": 0.412,
       "velocity": {
         "label": "5d velocity",
-        "value": -0.0444,
-        "pct": 0.024
+        "value": -0.0429,
+        "pct": 0.035
       },
       "trend": null,
       "signals": [
@@ -2437,7 +2437,7 @@ window.DASH = {
         },
         {
           "label": "HK equities drawdown",
-          "value": 0.032
+          "value": 0.034
         }
       ],
       "theory_ids": [
@@ -2449,21 +2449,21 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-08-21",
+      "asof": "2026-08-22",
       "degraded": false,
       "trend_dir": "flat"
     }
   ],
   "fear_greed": {
-    "index": 56,
+    "index": 55,
     "label": "Greed"
   },
   "complacency": {
-    "index": 0.071,
-    "valuation_stretch": 0.471,
-    "fear_term": 0.15,
-    "divergence": 0.4,
-    "fear_avg": 4.4,
+    "index": 0.074,
+    "valuation_stretch": 0.469,
+    "fear_term": 0.158,
+    "divergence": 0.395,
+    "fear_avg": 4.37,
     "regime": "stress",
     "note": "Stress regime - broad equity drawdown active. Hedges should be paying.",
     "pay_check": {
@@ -2523,7 +2523,7 @@ window.DASH = {
       },
       {
         "date": "2026-08-21",
-        "value": 99106.11
+        "value": 99054.37
       }
     ],
     "aligned": [
@@ -2565,13 +2565,13 @@ window.DASH = {
       },
       {
         "date": "2026-08-21",
-        "value": 99106.11
+        "value": 99054.37
       }
     ],
     "summary": {
-      "total_return_pct": -0.89,
+      "total_return_pct": -0.95,
       "max_drawdown_pct": -1.96,
-      "sharpe_annualized": -2.95
+      "sharpe_annualized": -3.16
     }
   },
   "benchmarks": {
@@ -2617,7 +2617,7 @@ window.DASH = {
         },
         {
           "date": "2026-08-21",
-          "value": 99106.11
+          "value": 99054.37
         }
       ],
       "aligned": [
@@ -2659,13 +2659,13 @@ window.DASH = {
         },
         {
           "date": "2026-08-21",
-          "value": 99106.11
+          "value": 99054.37
         }
       ],
       "summary": {
-        "total_return_pct": -0.89,
+        "total_return_pct": -0.95,
         "max_drawdown_pct": -1.96,
-        "sharpe_annualized": -2.95
+        "sharpe_annualized": -3.16
       }
     },
     "QQQ": {
@@ -2710,7 +2710,7 @@ window.DASH = {
         },
         {
           "date": "2026-08-21",
-          "value": 98999.82
+          "value": 98969.3
         }
       ],
       "aligned": [
@@ -2752,13 +2752,13 @@ window.DASH = {
         },
         {
           "date": "2026-08-21",
-          "value": 98999.82
+          "value": 98969.3
         }
       ],
       "summary": {
-        "total_return_pct": -1.0,
+        "total_return_pct": -1.03,
         "max_drawdown_pct": -2.89,
-        "sharpe_annualized": -2.08
+        "sharpe_annualized": -2.15
       }
     },
     "TQQQ": {
@@ -2803,7 +2803,7 @@ window.DASH = {
         },
         {
           "date": "2026-08-21",
-          "value": 96504.07
+          "value": 96436.31
         }
       ],
       "aligned": [
@@ -2845,13 +2845,13 @@ window.DASH = {
         },
         {
           "date": "2026-08-21",
-          "value": 96504.07
+          "value": 96436.31
         }
       ],
       "summary": {
-        "total_return_pct": -3.5,
+        "total_return_pct": -3.56,
         "max_drawdown_pct": -8.65,
-        "sharpe_annualized": -2.37
+        "sharpe_annualized": -2.43
       }
     },
     "MUU": {
@@ -2896,7 +2896,7 @@ window.DASH = {
         },
         {
           "date": "2026-08-21",
-          "value": 122033.57
+          "value": 123224.04
         }
       ],
       "aligned": [
@@ -2938,13 +2938,13 @@ window.DASH = {
         },
         {
           "date": "2026-08-21",
-          "value": 122033.57
+          "value": 123224.04
         }
       ],
       "summary": {
-        "total_return_pct": 22.03,
+        "total_return_pct": 23.22,
         "max_drawdown_pct": -14.82,
-        "sharpe_annualized": 5.22
+        "sharpe_annualized": 5.49
       }
     }
   },
@@ -3270,7 +3270,7 @@ window.DASH = {
     },
     "mode": "recommend",
     "gauge": {
-      "index": 56,
+      "index": 55,
       "label": "Greed"
     },
     "calibration": {
@@ -3288,40 +3288,29 @@ window.DASH = {
     "enabled": true
   },
   "news": {
-    "asof": "2026-08-21 19:52:47",
+    "asof": "2026-08-22 02:15:43",
     "big_stories": [
       {
-        "title": "Stock Market Today: Dow Gains 550 Points; Palantir Rises, Bitcoin Rallies (Live Coverage)",
-        "link": "https://finance.yahoo.com/m/ab896025-9eb7-3478-b19c-7560fd065b92/stock-market-today%3A-dow-gains.html?.tsrc=rss",
-        "ts": 1787341232,
-        "when": "Aug 21, 07:40 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
+        "title": "How Bessent’s Efforts to Calm Bond Market Set Gold Prices Ablaze",
+        "link": "https://finance.yahoo.com/m/eca903dd-2ba5-319b-b145-41fac305b72b/how-bessent%E2%80%99s-efforts-to-calm.html?.tsrc=rss",
+        "ts": 1787350920,
+        "when": "Aug 21, 10:22 PM",
+        "ticker": "GDX",
+        "industry": "Gold Miners",
         "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
+          "T6",
+          "T9",
+          "T19",
+          "T20",
+          "T21"
         ],
         "sent": "positive"
       },
       {
-        "title": "Sector Update: Consumer Stocks Rise Friday Afternoon",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-rise-friday-172919487.html?.tsrc=rss",
-        "ts": 1787333359,
-        "when": "Aug 21, 05:29 PM",
-        "ticker": "XLY",
-        "industry": "Consumer Disc.",
-        "theory": [
-          "T13"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "65-Year Old Retired Teacher Wants to Burn $100,000 to Delay Social Security. One Detail Means He Doesn’t Need To",
-        "link": "https://247wallst.com/personal-finance/social-security/2026/08/21/65-year-old-retired-teacher-wants-to-burn-100000-to-delay-social-security-one-detail-means-he-doesnt-need-to/?.tsrc=rss",
-        "ts": 1787319694,
-        "when": "Aug 21, 01:41 PM",
+        "title": "Daily ETF Flows: $614M Flows Into GLD",
+        "link": "http://www.etf.com/sections/daily-etf-flows/daily-etf-flows-614m-flows-gld?utm_source=yahoo-finance&utm_medium=rss&utm_campaign=yahoo-finance-rss&.tsrc=rss",
+        "ts": 1787346004,
+        "when": "Aug 21, 09:00 PM",
         "ticker": "GLD",
         "industry": "Gold",
         "theory": [
@@ -3330,6 +3319,33 @@ window.DASH = {
           "T19",
           "T20",
           "T21"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "Sector Update: Consumer Stocks Higher Late Afternoon",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-higher-afternoon-194659617.html?.tsrc=rss",
+        "ts": 1787341619,
+        "when": "Aug 21, 07:46 PM",
+        "ticker": "XLY",
+        "industry": "Consumer Disc.",
+        "theory": [
+          "T13"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "Palantir Stock Clears Buy Zone But Could Offer Alternative Entry",
+        "link": "https://finance.yahoo.com/m/f9848c02-9b88-3cc0-b4b1-482a54bfbfe5/palantir-stock-clears-buy.html?.tsrc=rss",
+        "ts": 1787339775,
+        "when": "Aug 21, 07:16 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
         ],
         "sent": "neutral"
       },
@@ -3347,12 +3363,14 @@ window.DASH = {
           "T14"
         ],
         "sent": "positive"
-      },
+      }
+    ],
+    "feed": [
       {
-        "title": "Dow Jones Futures Fall As Oil Prices, Bitcoin Jump; Walmart Skids On Earnings",
-        "link": "https://finance.yahoo.com/m/68a3e9b8-8858-3a96-8c98-dd4126c44fbe/dow-jones-futures-fall-as-oil.html?.tsrc=rss",
-        "ts": 1787228160,
-        "when": "Aug 20, 12:16 PM",
+        "title": "How Bessent’s Efforts to Calm Bond Market Set Gold Prices Ablaze",
+        "link": "https://finance.yahoo.com/m/eca903dd-2ba5-319b-b145-41fac305b72b/how-bessent%E2%80%99s-efforts-to-calm.html?.tsrc=rss",
+        "ts": 1787350920,
+        "when": "Aug 21, 10:22 PM",
         "ticker": "GDX",
         "industry": "Gold Miners",
         "theory": [
@@ -3362,24 +3380,51 @@ window.DASH = {
           "T20",
           "T21"
         ],
-        "sent": "neutral"
-      }
-    ],
-    "feed": [
-      {
-        "title": "Stock Market Today: Dow Gains 550 Points; Palantir Rises, Bitcoin Rallies (Live Coverage)",
-        "link": "https://finance.yahoo.com/m/ab896025-9eb7-3478-b19c-7560fd065b92/stock-market-today%3A-dow-gains.html?.tsrc=rss",
-        "ts": 1787341232,
-        "when": "Aug 21, 07:40 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
         "sent": "positive"
+      },
+      {
+        "title": "Daily ETF Flows: $614M Flows Into GLD",
+        "link": "http://www.etf.com/sections/daily-etf-flows/daily-etf-flows-614m-flows-gld?utm_source=yahoo-finance&utm_medium=rss&utm_campaign=yahoo-finance-rss&.tsrc=rss",
+        "ts": 1787346004,
+        "when": "Aug 21, 09:00 PM",
+        "ticker": "GLD",
+        "industry": "Gold",
+        "theory": [
+          "T6",
+          "T9",
+          "T19",
+          "T20",
+          "T21"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "Morgan Stanley Doubles Down on Gold After Breakout",
+        "link": "https://finance.yahoo.com/markets/commodities/articles/morgan-stanley-doubles-down-gold-201259751.html?.tsrc=rss",
+        "ts": 1787343179,
+        "when": "Aug 21, 08:12 PM",
+        "ticker": "GLD",
+        "industry": "Gold",
+        "theory": [
+          "T6",
+          "T9",
+          "T19",
+          "T20",
+          "T21"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "Sector Update: Consumer Stocks Higher Late Afternoon",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-higher-afternoon-194659617.html?.tsrc=rss",
+        "ts": 1787341619,
+        "when": "Aug 21, 07:46 PM",
+        "ticker": "XLY",
+        "industry": "Consumer Disc.",
+        "theory": [
+          "T13"
+        ],
+        "sent": "neutral"
       },
       {
         "title": "Palantir Stock Clears Buy Zone But Could Offer Alternative Entry",
@@ -3517,8 +3562,8 @@ window.DASH = {
       {
         "title": "Dow Jones Futures Rise After Bearish Market Signal; Bitcoin Keeps Surging",
         "link": "https://finance.yahoo.com/m/91327cea-fed2-33ed-a182-385b27c0298f/dow-jones-futures-rise-after.html?.tsrc=rss",
-        "ts": 1787312929,
-        "when": "Aug 21, 11:48 AM",
+        "ts": 1787313453,
+        "when": "Aug 21, 11:57 AM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -3765,53 +3810,6 @@ window.DASH = {
           "T14"
         ],
         "sent": "neutral"
-      },
-      {
-        "title": "Gold Jumps After Surprise Treasury Move",
-        "link": "https://finance.yahoo.com/markets/commodities/articles/gold-jumps-surprise-treasury-move-165903080.html?.tsrc=rss",
-        "ts": 1787245143,
-        "when": "Aug 20, 04:59 PM",
-        "ticker": "GLD",
-        "industry": "Gold",
-        "theory": [
-          "T6",
-          "T9",
-          "T19",
-          "T20",
-          "T21"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "Goldman Targets $5,400 Gold by Year-End: Why GLDM Is the Low-Cost Play",
-        "link": "https://247wallst.com/investing/etf/2026/08/20/goldman-targets-5400-gold-by-year-end-why-gldm-is-the-low-cost-play/?.tsrc=rss",
-        "ts": 1787244391,
-        "when": "Aug 20, 04:46 PM",
-        "ticker": "GLD",
-        "industry": "Gold",
-        "theory": [
-          "T6",
-          "T9",
-          "T19",
-          "T20",
-          "T21"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "Palantir Is Growing Faster Than Almost Anyone Expected. Can the Stock Keep Up?",
-        "link": "https://247wallst.com/investing/2026/08/20/palantir-is-growing-faster-than-almost-anyone-expected-can-the-stock-keep-up/?.tsrc=rss",
-        "ts": 1787238029,
-        "when": "Aug 20, 03:00 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
       }
     ]
   },
