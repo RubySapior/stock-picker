@@ -159,23 +159,23 @@ window.DASH = {
       "F4": {
         "prev_score": 4.2,
         "score": 4.2,
-        "days_above": 2,
-        "confirmed": false,
-        "last_above_date": "2026-08-22"
+        "days_above": 3,
+        "confirmed": true,
+        "last_above_date": "2026-08-23"
       },
       "F5": {
-        "prev_score": 4.1,
+        "prev_score": 4.2,
         "score": 4.2,
-        "days_above": 5,
+        "days_above": 6,
         "confirmed": true,
-        "last_above_date": "2026-08-22"
+        "last_above_date": "2026-08-23"
       },
       "F6": {
         "prev_score": 4.8,
         "score": 4.8,
-        "days_above": 5,
+        "days_above": 6,
         "confirmed": true,
-        "last_above_date": "2026-08-22"
+        "last_above_date": "2026-08-23"
       },
       "F7": {
         "prev_score": 2.6,
@@ -587,9 +587,9 @@ window.DASH = {
       ],
       "note": "Community experiment (site 0.5.5.33): benchmark strategies fill the leaderboard for comparison; snapshot_versions freezes the book as a new version strategy whenever the positions change (SGOV auto-parking excluded from change detection). Both are experiments to populate the board - normally OFF by design, not the product behavior."
     },
-    "ai_calibrated_verdict_date": "2026-08-17",
+    "ai_calibrated_verdict_date": "2026-08-21",
     "dividend_policy": "reinvest",
-    "asof_ts": 1787374474,
+    "asof_ts": 1787451791,
     "refresh_interval": 1440
   },
   "asof": "2026-08-21",
@@ -2389,7 +2389,7 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-08-22",
+      "asof": "2026-08-23",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2420,7 +2420,7 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-08-22",
+      "asof": "2026-08-23",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2456,7 +2456,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-08-22",
+      "asof": "2026-08-23",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2486,7 +2486,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-08-22",
+      "asof": "2026-08-23",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2522,7 +2522,7 @@ window.DASH = {
         "ZROZ"
       ],
       "sizing": null,
-      "asof": "2026-08-22",
+      "asof": "2026-08-23",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2552,7 +2552,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-08-22",
+      "asof": "2026-08-23",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2586,7 +2586,7 @@ window.DASH = {
         "BTAL"
       ],
       "sizing": null,
-      "asof": "2026-08-22",
+      "asof": "2026-08-23",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2621,7 +2621,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-08-22",
+      "asof": "2026-08-23",
       "degraded": false,
       "trend_dir": "flat"
     }
@@ -3456,8 +3456,48 @@ window.DASH = {
     "enabled": true
   },
   "news": {
-    "asof": "2026-08-22 04:51:13",
+    "asof": "2026-08-23 02:23:12",
     "big_stories": [
+      {
+        "title": "Palantir Keeps 55 Cents of Every Revenue Dollar as Profit",
+        "link": "https://www.fool.com/investing/2026/08/22/palantir-keeps-55-cents-of-every-revenue-dollar-as-profit/?.tsrc=rss",
+        "ts": 1787450281,
+        "when": "Aug 23, 01:58 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "Most Tech Stocks Are More Correlated Than You Think. Don’t Let That Wreck Your Trading Plan.",
+        "link": "https://www.barchart.com/story/news/3986181/most-tech-stocks-are-more-correlated-than-you-think-dont-let-that-wreck-your-trading-plan?.tsrc=rss",
+        "ts": 1787409002,
+        "when": "Aug 22, 02:30 PM",
+        "ticker": "TQQQ",
+        "industry": "Leveraged Tech",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "negative"
+      },
+      {
+        "title": "Still Sitting in Cash? Here's How Much $10,000 Could Cost You Over the Next 10 Years.",
+        "link": "https://www.fool.com/investing/2026/08/22/still-in-cash-how-much-10000-cost-you-10-years/?.tsrc=rss",
+        "ts": 1787377800,
+        "when": "Aug 22, 05:50 AM",
+        "ticker": "SGOV",
+        "industry": "Equities",
+        "theory": [],
+        "sent": "neutral"
+      },
       {
         "title": "How Bessent’s Efforts to Calm Bond Market Set Gold Prices Ablaze",
         "link": "https://finance.yahoo.com/m/eca903dd-2ba5-319b-b145-41fac305b72b/how-bessent%E2%80%99s-efforts-to-calm.html?.tsrc=rss",
@@ -3489,24 +3529,59 @@ window.DASH = {
           "T21"
         ],
         "sent": "neutral"
-      },
+      }
+    ],
+    "feed": [
       {
-        "title": "Sector Update: Consumer Stocks Higher Late Afternoon",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-higher-afternoon-194659617.html?.tsrc=rss",
-        "ts": 1787341619,
-        "when": "Aug 21, 07:46 PM",
-        "ticker": "XLY",
-        "industry": "Consumer Disc.",
+        "title": "Palantir Keeps 55 Cents of Every Revenue Dollar as Profit",
+        "link": "https://www.fool.com/investing/2026/08/22/palantir-keeps-55-cents-of-every-revenue-dollar-as-profit/?.tsrc=rss",
+        "ts": 1787450281,
+        "when": "Aug 23, 01:58 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
         "theory": [
-          "T13"
+          "T1",
+          "T7",
+          "T2",
+          "T14"
         ],
-        "sent": "neutral"
+        "sent": "positive"
       },
       {
-        "title": "Palantir Stock Clears Buy Zone But Could Offer Alternative Entry",
-        "link": "https://finance.yahoo.com/m/f9848c02-9b88-3cc0-b4b1-482a54bfbfe5/palantir-stock-clears-buy.html?.tsrc=rss",
-        "ts": 1787339775,
-        "when": "Aug 21, 07:16 PM",
+        "title": "Most Tech Stocks Are More Correlated Than You Think. Don’t Let That Wreck Your Trading Plan.",
+        "link": "https://www.barchart.com/story/news/3986181/most-tech-stocks-are-more-correlated-than-you-think-dont-let-that-wreck-your-trading-plan?.tsrc=rss",
+        "ts": 1787409002,
+        "when": "Aug 22, 02:30 PM",
+        "ticker": "TQQQ",
+        "industry": "Leveraged Tech",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "negative"
+      },
+      {
+        "title": "Palantir, Freeport Clear Buy Points, Lead Five Stocks To Watch",
+        "link": "https://finance.yahoo.com/m/9057af07-60ab-3c1c-b640-407251f6e2fc/palantir%2C-freeport-clear-buy.html?.tsrc=rss",
+        "ts": 1787400019,
+        "when": "Aug 22, 12:00 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "Prediction: This Will Be Palantir's Stock Price by the End of 2030",
+        "link": "https://www.fool.com/investing/2026/08/22/prediction-this-will-be-palantirs-stock-price-by-t/?.tsrc=rss",
+        "ts": 1787391300,
+        "when": "Aug 22, 09:35 AM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -3518,22 +3593,15 @@ window.DASH = {
         "sent": "neutral"
       },
       {
-        "title": "Stable Bond Yields, Oil Prices Lift Wall Street Pre-Bell; Asia, Europe up",
-        "link": "https://finance.yahoo.com/markets/articles/stable-bond-yields-oil-prices-111100481.html?.tsrc=rss",
-        "ts": 1787310660,
-        "when": "Aug 21, 11:11 AM",
-        "ticker": "SMH",
-        "industry": "Semis",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      }
-    ],
-    "feed": [
+        "title": "Still Sitting in Cash? Here's How Much $10,000 Could Cost You Over the Next 10 Years.",
+        "link": "https://www.fool.com/investing/2026/08/22/still-in-cash-how-much-10000-cost-you-10-years/?.tsrc=rss",
+        "ts": 1787377800,
+        "when": "Aug 22, 05:50 AM",
+        "ticker": "SGOV",
+        "industry": "Equities",
+        "theory": [],
+        "sent": "neutral"
+      },
       {
         "title": "How Bessent’s Efforts to Calm Bond Market Set Gold Prices Ablaze",
         "link": "https://finance.yahoo.com/m/eca903dd-2ba5-319b-b145-41fac305b72b/how-bessent%E2%80%99s-efforts-to-calm.html?.tsrc=rss",
@@ -3906,78 +3974,6 @@ window.DASH = {
           "T14"
         ],
         "sent": "positive"
-      },
-      {
-        "title": "Sector Update: Consumer Stocks Fall Late Afternoon",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-fall-afternoon-195400740.html?.tsrc=rss",
-        "ts": 1787255640,
-        "when": "Aug 20, 07:54 PM",
-        "ticker": "XLY",
-        "industry": "Consumer Disc.",
-        "theory": [
-          "T13"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Cathie Wood's Firm Launches New ETF; Buys Broadcom, Rocket Lab, Cloudflare",
-        "link": "https://finance.yahoo.com/m/3055a26c-aa88-3e44-a583-e5bad19fb6d9/cathie-wood%27s-firm-launches.html?.tsrc=rss",
-        "ts": 1787246479,
-        "when": "Aug 20, 05:21 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Palantir's Margin Expansion Signals a Structural Growth Advantage",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/palantirs-margin-expansion-signals-structural-171300520.html?.tsrc=rss",
-        "ts": 1787245980,
-        "when": "Aug 20, 05:13 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "Could Global Trade Trends Drive BigBear.ai's Next Growth Phase?",
-        "link": "https://finance.yahoo.com/technology/ai/articles/could-global-trade-trends-drive-171200045.html?.tsrc=rss",
-        "ts": 1787245920,
-        "when": "Aug 20, 05:12 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "Is Palantir Stock About to Breakout?",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/palantir-stock-breakout-170400091.html?.tsrc=rss",
-        "ts": 1787245440,
-        "when": "Aug 20, 05:04 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
       }
     ]
   },
