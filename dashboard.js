@@ -144,7 +144,7 @@ window.DASH = {
       },
       "F2": {
         "prev_score": 3.4,
-        "score": 3.4,
+        "score": 3.5,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
@@ -159,23 +159,23 @@ window.DASH = {
       "F4": {
         "prev_score": 4.2,
         "score": 4.2,
-        "days_above": 3,
+        "days_above": 4,
         "confirmed": true,
-        "last_above_date": "2026-08-23"
+        "last_above_date": "2026-08-24"
       },
       "F5": {
         "prev_score": 4.2,
-        "score": 4.2,
-        "days_above": 6,
-        "confirmed": true,
-        "last_above_date": "2026-08-23"
+        "score": 3.3,
+        "days_above": 0,
+        "confirmed": false,
+        "last_above_date": null
       },
       "F6": {
         "prev_score": 4.8,
         "score": 4.8,
-        "days_above": 6,
+        "days_above": 7,
         "confirmed": true,
-        "last_above_date": "2026-08-23"
+        "last_above_date": "2026-08-24"
       },
       "F7": {
         "prev_score": 2.6,
@@ -589,7 +589,7 @@ window.DASH = {
     },
     "ai_calibrated_verdict_date": "2026-08-21",
     "dividend_policy": "reinvest",
-    "asof_ts": 1787451791,
+    "asof_ts": 1787538163,
     "refresh_interval": 1440
   },
   "asof": "2026-08-21",
@@ -2389,7 +2389,7 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-08-23",
+      "asof": "2026-08-24",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2420,43 +2420,7 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-08-23",
-      "degraded": false,
-      "trend_dir": "flat"
-    },
-    {
-      "id": "F5",
-      "name": "War / energy shock",
-      "type": "episodic",
-      "score": 4.2,
-      "level": 0.825,
-      "velocity": {
-        "label": "5d velocity",
-        "value": 0.0566,
-        "pct": 0.8
-      },
-      "trend": null,
-      "signals": [
-        {
-          "label": "Crude 5d momentum",
-          "value": 0.8
-        },
-        {
-          "label": "Gold 1d momentum",
-          "value": 0.884
-        }
-      ],
-      "theory_ids": [
-        "T21"
-      ],
-      "hedge_ticks": [
-        "GLD",
-        "GDX",
-        "FXY",
-        "DBMF"
-      ],
-      "sizing": null,
-      "asof": "2026-08-23",
+      "asof": "2026-08-24",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2464,12 +2428,12 @@ window.DASH = {
       "id": "F2",
       "name": "Yen-carry unwind",
       "type": "episodic",
-      "score": 3.4,
+      "score": 3.5,
       "level": 0.304,
       "velocity": {
         "label": "5d velocity",
-        "value": 0.0018,
-        "pct": 0.725
+        "value": 0.0024,
+        "pct": 0.757
       },
       "trend": null,
       "signals": [
@@ -2486,9 +2450,45 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-08-23",
+      "asof": "2026-08-24",
       "degraded": false,
       "trend_dir": "flat"
+    },
+    {
+      "id": "F5",
+      "name": "War / energy shock",
+      "type": "episodic",
+      "score": 3.3,
+      "level": 0.652,
+      "velocity": {
+        "label": "5d velocity",
+        "value": 0.0108,
+        "pct": 0.553
+      },
+      "trend": null,
+      "signals": [
+        {
+          "label": "Crude 5d momentum",
+          "value": 0.553
+        },
+        {
+          "label": "Gold 1d momentum",
+          "value": 0.884
+        }
+      ],
+      "theory_ids": [
+        "T21"
+      ],
+      "hedge_ticks": [
+        "GLD",
+        "GDX",
+        "FXY",
+        "DBMF"
+      ],
+      "sizing": null,
+      "asof": "2026-08-24",
+      "degraded": false,
+      "trend_dir": "falling"
     },
     {
       "id": "F1",
@@ -2522,7 +2522,7 @@ window.DASH = {
         "ZROZ"
       ],
       "sizing": null,
-      "asof": "2026-08-23",
+      "asof": "2026-08-24",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2552,7 +2552,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-08-23",
+      "asof": "2026-08-24",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2586,7 +2586,7 @@ window.DASH = {
         "BTAL"
       ],
       "sizing": null,
-      "asof": "2026-08-23",
+      "asof": "2026-08-24",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2621,7 +2621,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-08-23",
+      "asof": "2026-08-24",
       "degraded": false,
       "trend_dir": "flat"
     }
@@ -2631,11 +2631,11 @@ window.DASH = {
     "label": "Greed"
   },
   "complacency": {
-    "index": 0.07,
+    "index": 0.098,
     "valuation_stretch": 0.469,
-    "fear_term": 0.15,
-    "divergence": 0.398,
-    "fear_avg": 4.4,
+    "fear_term": 0.208,
+    "divergence": 0.371,
+    "fear_avg": 4.17,
     "regime": "stress",
     "note": "Stress regime - broad equity drawdown active. Hedges should be paying.",
     "pay_check": {
@@ -3456,13 +3456,13 @@ window.DASH = {
     "enabled": true
   },
   "news": {
-    "asof": "2026-08-23 02:23:12",
+    "asof": "2026-08-24 02:22:43",
     "big_stories": [
       {
-        "title": "Palantir Keeps 55 Cents of Every Revenue Dollar as Profit",
-        "link": "https://www.fool.com/investing/2026/08/22/palantir-keeps-55-cents-of-every-revenue-dollar-as-profit/?.tsrc=rss",
-        "ts": 1787450281,
-        "when": "Aug 23, 01:58 AM",
+        "title": "The AI Debt Boom Is Helping Push Everyone’s Cost of Capital Higher",
+        "link": "https://247wallst.com/investing/2026/08/23/the-ai-debt-boom-is-helping-push-everyones-cost-of-capital-higher/?.tsrc=rss",
+        "ts": 1787527097,
+        "when": "Aug 23, 11:18 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -3471,7 +3471,7 @@ window.DASH = {
           "T2",
           "T14"
         ],
-        "sent": "positive"
+        "sent": "negative"
       },
       {
         "title": "Most Tech Stocks Are More Correlated Than You Think. Don’t Let That Wreck Your Trading Plan.",
@@ -3487,6 +3487,22 @@ window.DASH = {
           "T14"
         ],
         "sent": "negative"
+      },
+      {
+        "title": "Why an announcement from the Treasury sparked a rally in gold and bitcoin this week",
+        "link": "https://www.marketwatch.com/story/why-an-announcement-from-the-treasury-sparked-a-rally-in-gold-and-bitcoin-this-week-d9d5972b?.tsrc=rss",
+        "ts": 1787403600,
+        "when": "Aug 22, 01:00 PM",
+        "ticker": "GLD",
+        "industry": "Gold",
+        "theory": [
+          "T6",
+          "T9",
+          "T19",
+          "T20",
+          "T21"
+        ],
+        "sent": "positive"
       },
       {
         "title": "Still Sitting in Cash? Here's How Much $10,000 Could Cost You Over the Next 10 Years.",
@@ -3513,25 +3529,39 @@ window.DASH = {
           "T21"
         ],
         "sent": "positive"
-      },
-      {
-        "title": "Daily ETF Flows: $614M Flows Into GLD",
-        "link": "http://www.etf.com/sections/daily-etf-flows/daily-etf-flows-614m-flows-gld?utm_source=yahoo-finance&utm_medium=rss&utm_campaign=yahoo-finance-rss&.tsrc=rss",
-        "ts": 1787346004,
-        "when": "Aug 21, 09:00 PM",
-        "ticker": "GLD",
-        "industry": "Gold",
-        "theory": [
-          "T6",
-          "T9",
-          "T19",
-          "T20",
-          "T21"
-        ],
-        "sent": "neutral"
       }
     ],
     "feed": [
+      {
+        "title": "The AI Debt Boom Is Helping Push Everyone’s Cost of Capital Higher",
+        "link": "https://247wallst.com/investing/2026/08/23/the-ai-debt-boom-is-helping-push-everyones-cost-of-capital-higher/?.tsrc=rss",
+        "ts": 1787527097,
+        "when": "Aug 23, 11:18 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "negative"
+      },
+      {
+        "title": "Trump Continues Trading Stocks at Warp Speed: Berkshire Bought, Meta Sold",
+        "link": "https://247wallst.com/investing/2026/08/23/trump-continues-trading-stocks-at-warp-speed-berkshire-bought-meta-sold/?.tsrc=rss",
+        "ts": 1787492693,
+        "when": "Aug 23, 01:44 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
       {
         "title": "Palantir Keeps 55 Cents of Every Revenue Dollar as Profit",
         "link": "https://www.fool.com/investing/2026/08/22/palantir-keeps-55-cents-of-every-revenue-dollar-as-profit/?.tsrc=rss",
@@ -3563,6 +3593,22 @@ window.DASH = {
         "sent": "negative"
       },
       {
+        "title": "Why an announcement from the Treasury sparked a rally in gold and bitcoin this week",
+        "link": "https://www.marketwatch.com/story/why-an-announcement-from-the-treasury-sparked-a-rally-in-gold-and-bitcoin-this-week-d9d5972b?.tsrc=rss",
+        "ts": 1787403600,
+        "when": "Aug 22, 01:00 PM",
+        "ticker": "GLD",
+        "industry": "Gold",
+        "theory": [
+          "T6",
+          "T9",
+          "T19",
+          "T20",
+          "T21"
+        ],
+        "sent": "positive"
+      },
+      {
         "title": "Palantir, Freeport Clear Buy Points, Lead Five Stocks To Watch",
         "link": "https://finance.yahoo.com/m/9057af07-60ab-3c1c-b640-407251f6e2fc/palantir%2C-freeport-clear-buy.html?.tsrc=rss",
         "ts": 1787400019,
@@ -3576,6 +3622,21 @@ window.DASH = {
           "T14"
         ],
         "sent": "positive"
+      },
+      {
+        "title": "MarketBeat Week in Review – 08/17 - 08/21",
+        "link": "https://www.marketbeat.com/articles/marketbeat-week-in-review-08-17-08-21/?utm_source=yahoofinance&utm_medium=yahoofinance&.tsrc=rss",
+        "ts": 1787396400,
+        "when": "Aug 22, 11:00 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
       },
       {
         "title": "Prediction: This Will Be Palantir's Stock Price by the End of 2030",
@@ -3886,21 +3947,6 @@ window.DASH = {
         "sent": "neutral"
       },
       {
-        "title": "Is Palantir Still a Buy After Its 33% Rally Over the Past Month?",
-        "link": "https://www.fool.com/investing/2026/08/20/palantir-stock-buy-after-rally-month-pltr/?.tsrc=rss",
-        "ts": 1787262600,
-        "when": "Aug 20, 09:50 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
         "title": "US Stock Indices End Lower As Trump’s ‘Economic Warfare’ Threats Push Yields, Oil Higher — WMT, CRWV, SBUX, DE, RKLB In Focus",
         "link": "https://stocktwits.com/news-articles/markets/equity/us-stock-indices-end-lower-as-trump-s-economic-warfare-threats-push-yields-oil-higher/cZYeR5dRJZA?.tsrc=rss",
         "ts": 1787261490,
@@ -3929,51 +3975,6 @@ window.DASH = {
           "T14"
         ],
         "sent": "neutral"
-      },
-      {
-        "title": "The Biggest Risk Facing the Roundhill Memory ETF (DRAM) Right Now",
-        "link": "https://247wallst.com/investing/2026/08/20/the-biggest-risk-facing-the-roundhill-memory-etf-dram-right-now/?.tsrc=rss",
-        "ts": 1787260832,
-        "when": "Aug 20, 09:20 PM",
-        "ticker": "SMH",
-        "industry": "Semis",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "negative"
-      },
-      {
-        "title": "How Much of Your Portfolio Should Actually Be in FTXL",
-        "link": "https://247wallst.com/investing/etf/2026/08/20/how-much-of-your-portfolio-should-actually-be-in-ftxl/?.tsrc=rss",
-        "ts": 1787260532,
-        "when": "Aug 20, 09:15 PM",
-        "ticker": "SMH",
-        "industry": "Semis",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "The Biggest Risk Facing the First Trust Nasdaq Semiconductor ETF (FTXL) Right Now",
-        "link": "https://247wallst.com/investing/2026/08/20/the-biggest-risk-facing-the-first-trust-nasdaq-semiconductor-etf-ftxl-right-now/?.tsrc=rss",
-        "ts": 1787260239,
-        "when": "Aug 20, 09:10 PM",
-        "ticker": "SMH",
-        "industry": "Semis",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
       }
     ]
   },
