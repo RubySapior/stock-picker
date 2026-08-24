@@ -3,15 +3,15 @@
   "strategy_id": "hypergrowth-sharpe-barbell",
   "strategy_name": "HyperGrowth Sharpe Barbell v5 - Conviction-First",
   "author": "RubySapior",
-  "total_value": 97955.25,
+  "total_value": 97734.2,
   "positions": [
     {
       "ticker": "NLR",
       "sleeve": "AI Power - Nuclear",
       "buy_date": "2026-08-10",
       "shares": 93.610334,
-      "current_value": 11185.97,
-      "pct_of_book": 11.42,
+      "current_value": 11092.82,
+      "pct_of_book": 11.35,
       "theory_ids": [
         "T3"
       ]
@@ -21,8 +21,8 @@
       "sleeve": "Crisis Alpha - Anti-Beta",
       "buy_date": "2026-08-10",
       "shares": 873.912534,
-      "current_value": 10626.78,
-      "pct_of_book": 10.85,
+      "current_value": 10643.38,
+      "pct_of_book": 10.89,
       "theory_ids": [
         "T6",
         "T17"
@@ -33,8 +33,8 @@
       "sleeve": "Tech/AI Growth",
       "buy_date": "2026-08-10",
       "shares": 154.372436,
-      "current_value": 10603.69,
-      "pct_of_book": 10.83,
+      "current_value": 10605.7,
+      "pct_of_book": 10.85,
       "theory_ids": [
         "T1",
         "T7"
@@ -45,8 +45,8 @@
       "sleeve": "Crisis Alpha - Trend",
       "buy_date": "2026-08-10",
       "shares": 291.155922,
-      "current_value": 9084.06,
-      "pct_of_book": 9.27,
+      "current_value": 9081.15,
+      "pct_of_book": 9.29,
       "theory_ids": [
         "T6",
         "T18",
@@ -59,8 +59,8 @@
       "sleeve": "Tech/AI Growth",
       "buy_date": "2026-08-10",
       "shares": 142.487012,
-      "current_value": 7667.94,
-      "pct_of_book": 7.83,
+      "current_value": 7636.59,
+      "pct_of_book": 7.81,
       "theory_ids": [
         "T2",
         "T1"
@@ -71,8 +71,8 @@
       "sleeve": "Tech/AI Growth",
       "buy_date": "2026-08-10",
       "shares": 70.607129,
-      "current_value": 7646.75,
-      "pct_of_book": 7.81,
+      "current_value": 7558.92,
+      "pct_of_book": 7.73,
       "theory_ids": [
         "T1",
         "T7"
@@ -83,10 +83,23 @@
       "sleeve": "Tech/AI Growth",
       "buy_date": "2026-08-10",
       "shares": 8.781016,
-      "current_value": 4777.14,
-      "pct_of_book": 4.88,
+      "current_value": 4760.14,
+      "pct_of_book": 4.87,
       "theory_ids": [
         "T1"
+      ]
+    },
+    {
+      "ticker": "FXY",
+      "sleeve": "Crisis Alpha - Carry Unwind",
+      "buy_date": "2026-08-10",
+      "shares": 69.42034,
+      "current_value": 4001.74,
+      "pct_of_book": 4.09,
+      "theory_ids": [
+        "T6",
+        "T18",
+        "T21"
       ]
     },
     {
@@ -94,8 +107,8 @@
       "sleeve": "Crisis Alpha - Real Assets",
       "buy_date": "2026-08-10",
       "shares": 38.678306,
-      "current_value": 4016.74,
-      "pct_of_book": 4.1,
+      "current_value": 3988.51,
+      "pct_of_book": 4.08,
       "theory_ids": [
         "T9",
         "T6",
@@ -105,25 +118,12 @@
       ]
     },
     {
-      "ticker": "FXY",
-      "sleeve": "Crisis Alpha - Carry Unwind",
-      "buy_date": "2026-08-10",
-      "shares": 69.42034,
-      "current_value": 4002.08,
-      "pct_of_book": 4.09,
-      "theory_ids": [
-        "T6",
-        "T18",
-        "T21"
-      ]
-    },
-    {
       "ticker": "VIXM",
       "sleeve": "Crisis Alpha - Vol Decay",
       "buy_date": "2026-08-10",
       "shares": 280.112045,
-      "current_value": 3928.57,
-      "pct_of_book": 4.01,
+      "current_value": 3927.17,
+      "pct_of_book": 4.02,
       "theory_ids": [
         "T6",
         "T17",
@@ -135,7 +135,7 @@
       "sleeve": "AI Power - Nuclear",
       "buy_date": "2026-08-10",
       "shares": 60.02401,
-      "current_value": 3908.94,
+      "current_value": 3898.56,
       "pct_of_book": 3.99,
       "theory_ids": [
         "T3"
@@ -146,8 +146,8 @@
       "sleeve": "Crisis Alpha - Real Assets",
       "buy_date": "2026-08-10",
       "shares": 8.694794,
-      "current_value": 3726.85,
-      "pct_of_book": 3.8,
+      "current_value": 3726.68,
+      "pct_of_book": 3.81,
       "theory_ids": [
         "T9",
         "T6",
@@ -161,8 +161,8 @@
       "sleeve": "Crisis Alpha - Down-Day Floor",
       "buy_date": "2026-08-10",
       "shares": 98.619327,
-      "current_value": 3426.33,
-      "pct_of_book": 3.5,
+      "current_value": 3433.43,
+      "pct_of_book": 3.51,
       "theory_ids": [
         "T6",
         "T17"
@@ -173,7 +173,7 @@
       "sleeve": "Broadening / Value",
       "buy_date": "2026-08-10",
       "shares": 10.000667,
-      "current_value": 2989.2,
+      "current_value": 2983.05,
       "pct_of_book": 3.05,
       "theory_ids": [
         "T10"
@@ -185,7 +185,7 @@
       "buy_date": "2026-08-11",
       "shares": 27.441442,
       "current_value": 2761.57,
-      "pct_of_book": 2.82,
+      "pct_of_book": 2.83,
       "theory_ids": []
     },
     {
@@ -193,19 +193,8 @@
       "sleeve": "Contrarian Fear",
       "buy_date": "2026-08-10",
       "shares": 20.890784,
-      "current_value": 2475.98,
+      "current_value": 2476.6,
       "pct_of_book": 2.53,
-      "theory_ids": [
-        "T13"
-      ]
-    },
-    {
-      "ticker": "EZU",
-      "sleeve": "Contrarian Fear",
-      "buy_date": "2026-08-10",
-      "shares": 28.05049,
-      "current_value": 1999.58,
-      "pct_of_book": 2.04,
       "theory_ids": [
         "T13"
       ]
@@ -215,11 +204,22 @@
       "sleeve": "Tech/AI Growth",
       "buy_date": "2026-08-10",
       "shares": 11.413455,
-      "current_value": 1987.6,
-      "pct_of_book": 2.03,
+      "current_value": 2020.3,
+      "pct_of_book": 2.07,
       "theory_ids": [
         "T14",
         "T1"
+      ]
+    },
+    {
+      "ticker": "EZU",
+      "sleeve": "Contrarian Fear",
+      "buy_date": "2026-08-10",
+      "shares": 28.05049,
+      "current_value": 1998.32,
+      "pct_of_book": 2.04,
+      "theory_ids": [
+        "T13"
       ]
     },
     {
@@ -227,7 +227,7 @@
       "sleeve": "Crisis Alpha - AI Bust",
       "buy_date": "2026-08-10",
       "shares": 18.800003,
-      "current_value": 1104.88,
+      "current_value": 1104.97,
       "pct_of_book": 1.13,
       "theory_ids": [
         "T6",
