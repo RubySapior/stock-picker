@@ -135,7 +135,7 @@
     "disclaimer": "Simulated portfolio for tracking/learning. Not financial advice.",
     "fear_state": {
       "F1": {
-        "prev_score": 3.0,
+        "prev_score": 2.9,
         "score": 2.9,
         "days_above": 0,
         "confirmed": false,
@@ -143,7 +143,7 @@
       },
       "F2": {
         "prev_score": 3.2,
-        "score": 3.2,
+        "score": 3.3,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
@@ -163,15 +163,15 @@
         "last_above_date": "2026-08-24"
       },
       "F5": {
-        "prev_score": 3.2,
-        "score": 3.0,
+        "prev_score": 3.0,
+        "score": 3.2,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F6": {
         "prev_score": 4.8,
-        "score": 4.8,
+        "score": 4.7,
         "days_above": 7,
         "confirmed": true,
         "last_above_date": "2026-08-24"
@@ -888,31 +888,31 @@
       },
       {
         "date": "2026-08-24",
-        "total_value": 98242.02,
+        "total_value": 98352.09,
         "cash": 25.0,
-        "invested_value": 98217.02,
-        "day_change": -1686.52,
+        "invested_value": 98327.09,
+        "day_change": -1576.45,
         "prices": {
-          "TQQQ": 69.51,
-          "SOXL": 110.679,
-          "SMH": 546.82,
-          "DRAM": 54.38,
-          "PLTR": 177.11,
-          "NLR": 118.87,
-          "NUKZ": 65.17,
-          "IWM": 298.52,
+          "TQQQ": 69.65,
+          "SOXL": 111.03,
+          "SMH": 547.27,
+          "DRAM": 54.45,
+          "PLTR": 177.445,
+          "NLR": 118.7,
+          "NUKZ": 65.281,
+          "IWM": 298.055,
           "IWDL": 70.245,
-          "XLY": 118.58,
-          "EZU": 71.335,
-          "ZROZ": 58.775,
-          "FXY": 57.635,
-          "VIXM": 13.99,
-          "QFLR": 34.88,
-          "GLD": 426.251,
-          "GDX": 101.95,
-          "BTAL": 12.155,
-          "DBMF": 31.22,
-          "SGOV": 100.635
+          "XLY": 118.47,
+          "EZU": 71.365,
+          "ZROZ": 58.985,
+          "FXY": 57.665,
+          "VIXM": 13.985,
+          "QFLR": 34.85,
+          "GLD": 427.065,
+          "GDX": 102.86,
+          "BTAL": 12.17,
+          "DBMF": 31.235,
+          "SGOV": 100.63
         }
       }
     ]
