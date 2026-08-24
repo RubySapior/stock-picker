@@ -135,7 +135,7 @@
     "disclaimer": "Simulated portfolio for tracking/learning. Not financial advice.",
     "fear_state": {
       "F1": {
-        "prev_score": 2.9,
+        "prev_score": 3.0,
         "score": 3.0,
         "days_above": 0,
         "confirmed": false,
@@ -143,7 +143,7 @@
       },
       "F2": {
         "prev_score": 3.2,
-        "score": 3.2,
+        "score": 3.3,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
@@ -163,7 +163,7 @@
         "last_above_date": "2026-08-24"
       },
       "F5": {
-        "prev_score": 3.0,
+        "prev_score": 3.2,
         "score": 3.2,
         "days_above": 0,
         "confirmed": false,
@@ -888,31 +888,31 @@
       },
       {
         "date": "2026-08-24",
-        "total_value": 98361.58,
+        "total_value": 98269.43,
         "cash": 25.0,
-        "invested_value": 98336.58,
-        "day_change": -1566.96,
+        "invested_value": 98244.43,
+        "day_change": -1659.11,
         "prices": {
-          "TQQQ": 69.35,
-          "SOXL": 111.86,
-          "SMH": 548.2,
-          "DRAM": 54.465,
-          "PLTR": 176.13,
-          "NLR": 118.97,
-          "NUKZ": 65.17,
-          "IWM": 298.1,
+          "TQQQ": 69.18,
+          "SOXL": 111.28,
+          "SMH": 546.95,
+          "DRAM": 54.19,
+          "PLTR": 176.79,
+          "NLR": 118.82,
+          "NUKZ": 65.29,
+          "IWM": 297.99,
           "IWDL": 70.245,
-          "XLY": 118.2,
-          "EZU": 71.42,
-          "ZROZ": 58.735,
-          "FXY": 57.63,
-          "VIXM": 13.97,
-          "QFLR": 34.855,
-          "GLD": 425.26,
-          "GDX": 103.02,
-          "BTAL": 12.17,
-          "DBMF": 31.26,
-          "SGOV": 100.63
+          "XLY": 118.28,
+          "EZU": 71.365,
+          "ZROZ": 58.77,
+          "FXY": 57.64,
+          "VIXM": 13.99,
+          "QFLR": 34.79,
+          "GLD": 426.82,
+          "GDX": 103.275,
+          "BTAL": 12.18,
+          "DBMF": 31.235,
+          "SGOV": 100.632
         }
       }
     ]
