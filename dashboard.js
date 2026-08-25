@@ -143,8 +143,8 @@ window.DASH = {
         "last_above_date": null
       },
       "F2": {
-        "prev_score": 3.2,
-        "score": 3.3,
+        "prev_score": 3.3,
+        "score": 3.2,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
@@ -159,9 +159,9 @@ window.DASH = {
       "F4": {
         "prev_score": 4.2,
         "score": 4.2,
-        "days_above": 4,
+        "days_above": 5,
         "confirmed": true,
-        "last_above_date": "2026-08-24"
+        "last_above_date": "2026-08-25"
       },
       "F5": {
         "prev_score": 3.2,
@@ -173,9 +173,9 @@ window.DASH = {
       "F6": {
         "prev_score": 4.8,
         "score": 4.8,
-        "days_above": 7,
+        "days_above": 8,
         "confirmed": true,
-        "last_above_date": "2026-08-24"
+        "last_above_date": "2026-08-25"
       },
       "F7": {
         "prev_score": 3.4,
@@ -589,8 +589,8 @@ window.DASH = {
     },
     "ai_calibrated_verdict_date": "2026-08-21",
     "dividend_policy": "reinvest",
-    "asof_ts": 1787600909,
-    "refresh_interval": 6
+    "asof_ts": 1787624285,
+    "refresh_interval": 1440
   },
   "asof": "2026-08-24",
   "summary": {
@@ -660,8 +660,8 @@ window.DASH = {
       "underlying_stop_pct": -0.08,
       "underlying_buy_price": 720.87,
       "dynamic_stop_pct": -0.08,
-      "underlying_ema20": 714.4153512365189,
-      "underlying_atr14": 11.32396357367457,
+      "underlying_ema20": 713.644366102014,
+      "underlying_atr14": 11.28225119229603,
       "runner_active": false,
       "base_trimmed": false,
       "theory_ids": [
@@ -757,9 +757,9 @@ window.DASH = {
       "underlying": "SOXX",
       "underlying_stop_pct": -0.09,
       "underlying_buy_price": 529.39,
-      "dynamic_stop_pct": -0.1116,
-      "underlying_ema20": 534.0060524559757,
-      "underlying_atr14": 23.205932767486132,
+      "dynamic_stop_pct": -0.1139,
+      "underlying_ema20": 531.3559515245286,
+      "underlying_atr14": 23.055507254518375,
       "runner_active": false,
       "base_trimmed": false,
       "theory_ids": [
@@ -1238,8 +1238,8 @@ window.DASH = {
       "underlying_stop_pct": -0.1,
       "underlying_buy_price": 258.31,
       "dynamic_stop_pct": -0.1,
-      "underlying_ema20": 255.22660850109204,
-      "underlying_atr14": 2.091480637571015,
+      "underlying_ema20": 255.5212179128184,
+      "underlying_atr14": 2.035302926014603,
       "runner_active": false,
       "base_trimmed": false,
       "theory_ids": [
@@ -2398,8 +2398,8 @@ window.DASH = {
       "velocity": null,
       "trend": {
         "label": "50d trend",
-        "value": 0.0365,
-        "pct": 0.905
+        "value": 0.037,
+        "pct": 0.91
       },
       "signals": [
         {
@@ -2418,7 +2418,7 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-08-24",
+      "asof": "2026-08-25",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2427,17 +2427,17 @@ window.DASH = {
       "name": "Inflation resurgence",
       "type": "structural",
       "score": 4.2,
-      "level": 0.892,
+      "level": 0.888,
       "velocity": null,
       "trend": {
         "label": "50d trend",
-        "value": 0.003,
+        "value": 0.0028,
         "pct": 0.624
       },
       "signals": [
         {
           "label": "TIP/IEF (breakevens proxy)",
-          "value": 0.892
+          "value": 0.888
         }
       ],
       "theory_ids": [
@@ -2449,7 +2449,7 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-08-24",
+      "asof": "2026-08-25",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2461,8 +2461,8 @@ window.DASH = {
       "level": 0.015,
       "velocity": {
         "label": "5d velocity",
-        "value": 0.0039,
-        "pct": 0.851
+        "value": 0.0034,
+        "pct": 0.835
       },
       "trend": null,
       "signals": [
@@ -2479,7 +2479,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-08-24",
+      "asof": "2026-08-25",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2487,12 +2487,12 @@ window.DASH = {
       "id": "F2",
       "name": "Yen-carry unwind",
       "type": "episodic",
-      "score": 3.3,
+      "score": 3.2,
       "level": 0.277,
       "velocity": {
         "label": "5d velocity",
-        "value": 0.0012,
-        "pct": 0.718
+        "value": 0.0005,
+        "pct": 0.682
       },
       "trend": null,
       "signals": [
@@ -2509,7 +2509,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-08-24",
+      "asof": "2026-08-25",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2518,21 +2518,21 @@ window.DASH = {
       "name": "War / energy shock",
       "type": "episodic",
       "score": 3.2,
-      "level": 0.57,
+      "level": 0.573,
       "velocity": {
         "label": "5d velocity",
-        "value": 0.0071,
-        "pct": 0.529
+        "value": 0.008,
+        "pct": 0.537
       },
       "trend": null,
       "signals": [
         {
           "label": "Crude 5d momentum",
-          "value": 0.529
+          "value": 0.537
         },
         {
           "label": "Gold 1d momentum",
-          "value": 0.664
+          "value": 0.656
         }
       ],
       "theory_ids": [
@@ -2545,7 +2545,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-08-24",
+      "asof": "2026-08-25",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2554,17 +2554,17 @@ window.DASH = {
       "name": "AI / tech concentration pop",
       "type": "structural",
       "score": 3.0,
-      "level": 0.337,
+      "level": 0.342,
       "velocity": null,
       "trend": {
         "label": "50d trend",
-        "value": 0.0704,
-        "pct": 0.876
+        "value": 0.0717,
+        "pct": 0.89
       },
       "signals": [
         {
           "label": "QQQ/RSP concentration ratio",
-          "value": 0.623
+          "value": 0.631
         },
         {
           "label": "QQQ drawdown from 52w high",
@@ -2581,7 +2581,7 @@ window.DASH = {
         "ZROZ"
       ],
       "sizing": null,
-      "asof": "2026-08-24",
+      "asof": "2026-08-25",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2590,17 +2590,17 @@ window.DASH = {
       "name": "Recession / growth freeze",
       "type": "structural",
       "score": 2.7,
-      "level": 0.406,
+      "level": 0.412,
       "velocity": null,
       "trend": {
         "label": "50d trend",
-        "value": 0.0109,
-        "pct": 0.467
+        "value": 0.013,
+        "pct": 0.476
       },
       "signals": [
         {
           "label": "XLY/XLP (cyclical vs staples)",
-          "value": 0.812
+          "value": 0.823
         },
         {
           "label": "SPY below 200d MA",
@@ -2615,7 +2615,7 @@ window.DASH = {
         "BTAL"
       ],
       "sizing": null,
-      "asof": "2026-08-24",
+      "asof": "2026-08-25",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2624,17 +2624,17 @@ window.DASH = {
       "name": "China / Taiwan escalation",
       "type": "episodic",
       "score": 1.7,
-      "level": 0.359,
+      "level": 0.357,
       "velocity": {
         "label": "5d velocity",
-        "value": -0.0329,
-        "pct": 0.094
+        "value": -0.0333,
+        "pct": 0.09
       },
       "trend": null,
       "signals": [
         {
           "label": "Gold 3d momentum",
-          "value": 0.84
+          "value": 0.837
         },
         {
           "label": "HK equities drawdown",
@@ -2650,7 +2650,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-08-24",
+      "asof": "2026-08-25",
       "degraded": false,
       "trend_dir": "flat"
     }
@@ -2660,10 +2660,10 @@ window.DASH = {
     "label": "Greed"
   },
   "complacency": {
-    "index": 0.09,
-    "valuation_stretch": 0.417,
+    "index": 0.089,
+    "valuation_stretch": 0.413,
     "fear_term": 0.217,
-    "divergence": 0.326,
+    "divergence": 0.323,
     "fear_avg": 4.13,
     "regime": "stress",
     "note": "Stress regime - broad equity drawdown active. Hedges should be paying.",
@@ -2728,7 +2728,7 @@ window.DASH = {
       },
       {
         "date": "2026-08-24",
-        "value": 98781.42
+        "value": 98763.31
       }
     ],
     "aligned": [
@@ -2774,13 +2774,13 @@ window.DASH = {
       },
       {
         "date": "2026-08-24",
-        "value": 98781.42
+        "value": 98763.31
       }
     ],
     "summary": {
-      "total_return_pct": -1.22,
+      "total_return_pct": -1.24,
       "max_drawdown_pct": -1.96,
-      "sharpe_annualized": -3.88
+      "sharpe_annualized": -3.94
     }
   },
   "benchmarks": {
@@ -2830,7 +2830,7 @@ window.DASH = {
         },
         {
           "date": "2026-08-24",
-          "value": 98781.42
+          "value": 98763.31
         }
       ],
       "aligned": [
@@ -2876,13 +2876,13 @@ window.DASH = {
         },
         {
           "date": "2026-08-24",
-          "value": 98781.42
+          "value": 98763.31
         }
       ],
       "summary": {
-        "total_return_pct": -1.22,
+        "total_return_pct": -1.24,
         "max_drawdown_pct": -1.96,
-        "sharpe_annualized": -3.88
+        "sharpe_annualized": -3.94
       }
     },
     "QQQ": {
@@ -2931,7 +2931,7 @@ window.DASH = {
         },
         {
           "date": "2026-08-24",
-          "value": 98070.39
+          "value": 97981.61
         }
       ],
       "aligned": [
@@ -2977,13 +2977,13 @@ window.DASH = {
         },
         {
           "date": "2026-08-24",
-          "value": 98070.39
+          "value": 97981.61
         }
       ],
       "summary": {
-        "total_return_pct": -1.93,
-        "max_drawdown_pct": -3.43,
-        "sharpe_annualized": -3.71
+        "total_return_pct": -2.02,
+        "max_drawdown_pct": -3.52,
+        "sharpe_annualized": -3.85
       }
     },
     "TQQQ": {
@@ -3032,7 +3032,7 @@ window.DASH = {
         },
         {
           "date": "2026-08-24",
-          "value": 93766.94
+          "value": 93509.49
         }
       ],
       "aligned": [
@@ -3078,13 +3078,13 @@ window.DASH = {
         },
         {
           "date": "2026-08-24",
-          "value": 93766.94
+          "value": 93509.49
         }
       ],
       "summary": {
-        "total_return_pct": -6.23,
-        "max_drawdown_pct": -10.3,
-        "sharpe_annualized": -4.01
+        "total_return_pct": -6.49,
+        "max_drawdown_pct": -10.55,
+        "sharpe_annualized": -4.14
       }
     },
     "MUU": {
@@ -3133,7 +3133,7 @@ window.DASH = {
         },
         {
           "date": "2026-08-24",
-          "value": 109133.49
+          "value": 108938.33
         }
       ],
       "aligned": [
@@ -3179,13 +3179,13 @@ window.DASH = {
         },
         {
           "date": "2026-08-24",
-          "value": 109133.49
+          "value": 108938.33
         }
       ],
       "summary": {
-        "total_return_pct": 9.13,
-        "max_drawdown_pct": -20.14,
-        "sharpe_annualized": 2.28
+        "total_return_pct": 8.94,
+        "max_drawdown_pct": -20.28,
+        "sharpe_annualized": 2.24
       }
     }
   },
@@ -3525,13 +3525,128 @@ window.DASH = {
     "enabled": true
   },
   "news": {
-    "asof": "2026-08-24 19:48:30",
+    "asof": "2026-08-25 02:18:05",
     "big_stories": [
       {
-        "title": "Worried About Broadcom's Debt? Bet on These Semiconductor ETFs Instead",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/worried-broadcoms-debt-bet-semiconductor-184600516.html?.tsrc=rss",
-        "ts": 1787597160,
-        "when": "Aug 24, 06:46 PM",
+        "title": "Gold Is Still Historically High. Is VanEck Gold Miners ETF or Sprott Gold Miners ETF the Better Way to Play Bullion's Strength?",
+        "link": "https://www.fool.com/coverage/etfs/2026/08/24/gold-is-still-historically-high-is-vaneck-gold-miners-etf-or-sprott-gold-miners-etf-the-better-way-to-play-bullion-s-strength/?.tsrc=rss",
+        "ts": 1787614141,
+        "when": "Aug 24, 11:29 PM",
+        "ticker": "GDX",
+        "industry": "Gold Miners",
+        "theory": [
+          "T6",
+          "T9",
+          "T19",
+          "T20",
+          "T21"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "Fidelity Government Money Market Fund (SPAXX): What Investors Should Know",
+        "link": "https://247wallst.com/investing/2026/08/24/fidelity-government-money-market-fund-spaxx-what-investors-should-know/?.tsrc=rss",
+        "ts": 1787613680,
+        "when": "Aug 24, 11:21 PM",
+        "ticker": "SGOV",
+        "industry": "Equities",
+        "theory": [],
+        "sent": "neutral"
+      },
+      {
+        "title": "The Fastest ETF in History Just Hit $25 Billion in Four Months. It Owns Memory Chips",
+        "link": "https://247wallst.com/investing/2026/08/24/the-fastest-etf-in-history-just-hit-25-billion-in-four-months-it-owns-memory-chips/?.tsrc=rss",
+        "ts": 1787610941,
+        "when": "Aug 24, 10:35 PM",
+        "ticker": "SMH",
+        "industry": "Semis",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "Daily ETF Flows: GLD  IBIT Pick Up Assets",
+        "link": "http://www.etf.com/sections/daily-etf-flows/daily-etf-flows-gld-ibit-pick-assets?utm_source=yahoo-financeutm_medium=rssutm_campaign=yahoo-finance-rss&.tsrc=rss",
+        "ts": 1787605228,
+        "when": "Aug 24, 09:00 PM",
+        "ticker": "GLD",
+        "industry": "Gold",
+        "theory": [
+          "T6",
+          "T9",
+          "T19",
+          "T20",
+          "T21"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "How to Find the Market's Long-Term Winners",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/markets-long-term-winners-204300721.html?.tsrc=rss",
+        "ts": 1787604180,
+        "when": "Aug 24, 08:43 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      }
+    ],
+    "feed": [
+      {
+        "title": "Gold Is Still Historically High. Is VanEck Gold Miners ETF or Sprott Gold Miners ETF the Better Way to Play Bullion's Strength?",
+        "link": "https://www.fool.com/coverage/etfs/2026/08/24/gold-is-still-historically-high-is-vaneck-gold-miners-etf-or-sprott-gold-miners-etf-the-better-way-to-play-bullion-s-strength/?.tsrc=rss",
+        "ts": 1787614141,
+        "when": "Aug 24, 11:29 PM",
+        "ticker": "GDX",
+        "industry": "Gold Miners",
+        "theory": [
+          "T6",
+          "T9",
+          "T19",
+          "T20",
+          "T21"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "Fidelity Government Money Market Fund (SPAXX): What Investors Should Know",
+        "link": "https://247wallst.com/investing/2026/08/24/fidelity-government-money-market-fund-spaxx-what-investors-should-know/?.tsrc=rss",
+        "ts": 1787613680,
+        "when": "Aug 24, 11:21 PM",
+        "ticker": "SGOV",
+        "industry": "Equities",
+        "theory": [],
+        "sent": "neutral"
+      },
+      {
+        "title": "The Fastest ETF in History Just Hit $25 Billion in Four Months. It Owns Memory Chips",
+        "link": "https://247wallst.com/investing/2026/08/24/the-fastest-etf-in-history-just-hit-25-billion-in-four-months-it-owns-memory-chips/?.tsrc=rss",
+        "ts": 1787610941,
+        "when": "Aug 24, 10:35 PM",
+        "ticker": "SMH",
+        "industry": "Semis",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "S&P 500, Nasdaq End Lower On Chipmaker Weakness, While Traders Position For Nvidia Earnings This Week — AVGO, INTC, BE, NVDA, PSKY In Focus",
+        "link": "https://stocktwits.com/news-articles/markets/equity/s-and-p-500-nasdaq-end-lower-on-chipmaker-weakness/cZYKu7wRJFn?.tsrc=rss",
+        "ts": 1787608334,
+        "when": "Aug 24, 09:52 PM",
         "ticker": "SMH",
         "industry": "Semis",
         "theory": [
@@ -3543,10 +3658,57 @@ window.DASH = {
         "sent": "negative"
       },
       {
-        "title": "EXCLUSIVE: How AI's $220 Billion Bond Boom Competes With the Treasury",
-        "link": "https://www.benzinga.com/markets/prediction-markets/26/08/61392587/ai-bond-boom-treasury-220-billion?utm_source=yahooFinance&utm_campaign=partner_feed&utm_medium=referral&.tsrc=rss",
-        "ts": 1787595665,
-        "when": "Aug 24, 06:21 PM",
+        "title": "GLD’s Gains Are Taxed at 28% as a Collectible, Not the 15% Rate Every Other ETF Gets",
+        "link": "https://247wallst.com/investing/etf/2026/08/24/glds-gains-are-taxed-at-28-as-a-collectible-not-the-15-rate-every-other-etf-gets/?.tsrc=rss",
+        "ts": 1787606716,
+        "when": "Aug 24, 09:25 PM",
+        "ticker": "GDX",
+        "industry": "Gold Miners",
+        "theory": [
+          "T6",
+          "T9",
+          "T19",
+          "T20",
+          "T21"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "Daily ETF Flows: GLD  IBIT Pick Up Assets",
+        "link": "http://www.etf.com/sections/daily-etf-flows/daily-etf-flows-gld-ibit-pick-assets?utm_source=yahoo-financeutm_medium=rssutm_campaign=yahoo-finance-rss&.tsrc=rss",
+        "ts": 1787605228,
+        "when": "Aug 24, 09:00 PM",
+        "ticker": "GLD",
+        "industry": "Gold",
+        "theory": [
+          "T6",
+          "T9",
+          "T19",
+          "T20",
+          "T21"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "Investors Pour $56B Into ETFs as Gold and Bitcoin Roar Back",
+        "link": "http://www.etf.com/sections/weekly-etf-flows/investors-pour-56b-etfs-gold-and-bitcoin-roar-back?utm_source=yahoo-finance&utm_medium=rss&utm_campaign=yahoo-finance-rss&.tsrc=rss",
+        "ts": 1787605215,
+        "when": "Aug 24, 09:00 PM",
+        "ticker": "SMH",
+        "industry": "Semis",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "How to Find the Market's Long-Term Winners",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/markets-long-term-winners-204300721.html?.tsrc=rss",
+        "ts": 1787604180,
+        "when": "Aug 24, 08:43 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -3558,10 +3720,10 @@ window.DASH = {
         "sent": "positive"
       },
       {
-        "title": "Sector Update: Consumer Stocks Rise Monday Afternoon",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-rise-monday-173704859.html?.tsrc=rss",
-        "ts": 1787593024,
-        "when": "Aug 24, 05:37 PM",
+        "title": "Sector Update: Consumer Stocks Rise Late Afternoon",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-rise-afternoon-194430140.html?.tsrc=rss",
+        "ts": 1787600670,
+        "when": "Aug 24, 07:44 PM",
         "ticker": "XLY",
         "industry": "Consumer Disc.",
         "theory": [
@@ -3570,33 +3732,6 @@ window.DASH = {
         "sent": "neutral"
       },
       {
-        "title": "These Cash-Like ETFs Promise Big Tax Savings, But Not Without Risk",
-        "link": "https://finance.yahoo.com/m/d7ef5aa0-0584-3acb-b462-60e351a155db/these-cash-like-etfs-promise.html?.tsrc=rss",
-        "ts": 1787592180,
-        "when": "Aug 24, 05:23 PM",
-        "ticker": "SGOV",
-        "industry": "Equities",
-        "theory": [],
-        "sent": "negative"
-      },
-      {
-        "title": "Why Direxion Daily Semiconductor Bull 3X ETF Dropped Today",
-        "link": "https://www.fool.com/investing/2026/08/24/why-direxion-daily-semiconductor-bull-3x-etf-dropp/?.tsrc=rss",
-        "ts": 1787590495,
-        "when": "Aug 24, 04:54 PM",
-        "ticker": "SOXL",
-        "industry": "Semis",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      }
-    ],
-    "feed": [
-      {
         "title": "Worried About Broadcom's Debt? Bet on These Semiconductor ETFs Instead",
         "link": "https://finance.yahoo.com/markets/stocks/articles/worried-broadcoms-debt-bet-semiconductor-184600516.html?.tsrc=rss",
         "ts": 1787597160,
@@ -3625,6 +3760,21 @@ window.DASH = {
           "T14"
         ],
         "sent": "positive"
+      },
+      {
+        "title": "Nvidia Stock: Why It May Be Raising Prices 15% and Funding AI Startups",
+        "link": "https://finance.yahoo.com/m/edbe697b-314a-38fe-8c8a-bc762e898988/nvidia-stock%3A-why-it-may-be.html?.tsrc=rss",
+        "ts": 1787595120,
+        "when": "Aug 24, 06:12 PM",
+        "ticker": "SMH",
+        "industry": "Semis",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
       },
       {
         "title": "PLTR vs. PATH: Which AI-Driven Software Stock is the Better Buy?",
@@ -3654,7 +3804,7 @@ window.DASH = {
         "sent": "neutral"
       },
       {
-        "title": "These Cash-Like ETFs Promise Big Tax Savings, But Not Without Risk",
+        "title": "These Cash-Like ETFs Promise Big Tax Savings, but Not Without Risk",
         "link": "https://finance.yahoo.com/m/d7ef5aa0-0584-3acb-b462-60e351a155db/these-cash-like-etfs-promise.html?.tsrc=rss",
         "ts": 1787592180,
         "when": "Aug 24, 05:23 PM",
@@ -3707,21 +3857,6 @@ window.DASH = {
           "T14"
         ],
         "sent": "negative"
-      },
-      {
-        "title": "Nvidia Stock: Why It May Be Raising Prices 15% and Funding AI Startups",
-        "link": "https://finance.yahoo.com/m/edbe697b-314a-38fe-8c8a-bc762e898988/nvidia-stock%3A-why-it-may-be.html?.tsrc=rss",
-        "ts": 1787580840,
-        "when": "Aug 24, 02:14 PM",
-        "ticker": "SMH",
-        "industry": "Semis",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
       },
       {
         "title": "Prediction: Palantir Stock Will Hit $250 on This Date",
@@ -3902,133 +4037,6 @@ window.DASH = {
           "T7",
           "T2",
           "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Prediction: This Will Be Palantir's Stock Price by the End of 2030",
-        "link": "https://www.fool.com/investing/2026/08/22/prediction-this-will-be-palantirs-stock-price-by-t/?.tsrc=rss",
-        "ts": 1787391300,
-        "when": "Aug 22, 09:35 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Still Sitting in Cash? Here's How Much $10,000 Could Cost You Over the Next 10 Years.",
-        "link": "https://www.fool.com/investing/2026/08/22/still-in-cash-how-much-10000-cost-you-10-years/?.tsrc=rss",
-        "ts": 1787377800,
-        "when": "Aug 22, 05:50 AM",
-        "ticker": "SGOV",
-        "industry": "Equities",
-        "theory": [],
-        "sent": "neutral"
-      },
-      {
-        "title": "How Bessent’s Efforts to Calm Bond Market Set Gold Prices Ablaze",
-        "link": "https://finance.yahoo.com/m/eca903dd-2ba5-319b-b145-41fac305b72b/how-bessent%E2%80%99s-efforts-to-calm.html?.tsrc=rss",
-        "ts": 1787350920,
-        "when": "Aug 21, 10:22 PM",
-        "ticker": "GDX",
-        "industry": "Gold Miners",
-        "theory": [
-          "T6",
-          "T9",
-          "T19",
-          "T20",
-          "T21"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "Daily ETF Flows: $614M Flows Into GLD",
-        "link": "http://www.etf.com/sections/daily-etf-flows/daily-etf-flows-614m-flows-gld?utm_source=yahoo-finance&utm_medium=rss&utm_campaign=yahoo-finance-rss&.tsrc=rss",
-        "ts": 1787346004,
-        "when": "Aug 21, 09:00 PM",
-        "ticker": "GLD",
-        "industry": "Gold",
-        "theory": [
-          "T6",
-          "T9",
-          "T19",
-          "T20",
-          "T21"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Morgan Stanley Doubles Down on Gold After Breakout",
-        "link": "https://finance.yahoo.com/markets/commodities/articles/morgan-stanley-doubles-down-gold-201259751.html?.tsrc=rss",
-        "ts": 1787343179,
-        "when": "Aug 21, 08:12 PM",
-        "ticker": "GLD",
-        "industry": "Gold",
-        "theory": [
-          "T6",
-          "T9",
-          "T19",
-          "T20",
-          "T21"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Sector Update: Consumer Stocks Higher Late Afternoon",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-higher-afternoon-194659617.html?.tsrc=rss",
-        "ts": 1787341619,
-        "when": "Aug 21, 07:46 PM",
-        "ticker": "XLY",
-        "industry": "Consumer Disc.",
-        "theory": [
-          "T13"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Palantir Stock Clears Buy Zone But Could Offer Alternative Entry",
-        "link": "https://finance.yahoo.com/m/f9848c02-9b88-3cc0-b4b1-482a54bfbfe5/palantir-stock-clears-buy.html?.tsrc=rss",
-        "ts": 1787339775,
-        "when": "Aug 21, 07:16 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Michael Burry Says the AI Buildout Is Repeating 2008: ‘The Shenanigans Are Apparent Today’",
-        "link": "https://247wallst.com/investing/2026/08/21/michael-burry-says-the-ai-buildout-is-repeating-2008-the-shenanigans-are-apparent-today/?.tsrc=rss",
-        "ts": 1787335847,
-        "when": "Aug 21, 06:10 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Sector Update: Consumer Stocks Rise Friday Afternoon",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-rise-friday-172919487.html?.tsrc=rss",
-        "ts": 1787333359,
-        "when": "Aug 21, 05:29 PM",
-        "ticker": "XLY",
-        "industry": "Consumer Disc.",
-        "theory": [
-          "T13"
         ],
         "sent": "neutral"
       }
