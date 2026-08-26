@@ -157,14 +157,14 @@
       },
       "F4": {
         "prev_score": 3.9,
-        "score": 3.9,
-        "days_above": 0,
+        "score": 4.0,
+        "days_above": 1,
         "confirmed": false,
-        "last_above_date": null
+        "last_above_date": "2026-08-26"
       },
       "F5": {
         "prev_score": 1.7,
-        "score": 1.7,
+        "score": 1.9,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
@@ -177,7 +177,7 @@
         "last_above_date": "2026-08-26"
       },
       "F7": {
-        "prev_score": 2.4,
+        "prev_score": 2.6,
         "score": 2.6,
         "days_above": 0,
         "confirmed": false,
@@ -946,31 +946,31 @@
       },
       {
         "date": "2026-08-26",
-        "total_value": 99406.81,
+        "total_value": 99285.66,
         "cash": 25.0,
-        "invested_value": 99381.81,
-        "day_change": -82.29,
+        "invested_value": 99260.66,
+        "day_change": -203.44,
         "prices": {
-          "TQQQ": 69.92,
-          "SOXL": 114.675,
-          "SMH": 553.41,
-          "DRAM": 56.08,
-          "PLTR": 175.25,
-          "NLR": 125.038,
-          "NUKZ": 66.85,
-          "IWM": 298.655,
+          "TQQQ": 69.87,
+          "SOXL": 115.065,
+          "SMH": 553.5,
+          "DRAM": 56.3,
+          "PLTR": 175.217,
+          "NLR": 123.84,
+          "NUKZ": 66.59,
+          "IWM": 298.467,
           "IWDL": 70.245,
-          "XLY": 117.195,
-          "EZU": 71.55,
-          "ZROZ": 59.57,
-          "FXY": 57.545,
-          "VIXM": 13.84,
-          "QFLR": 34.84,
-          "GLD": 423.77,
-          "GDX": 103.65,
-          "BTAL": 12.05,
-          "DBMF": 31.11,
-          "SGOV": 100.66
+          "XLY": 116.94,
+          "EZU": 71.38,
+          "ZROZ": 59.475,
+          "FXY": 57.55,
+          "VIXM": 13.85,
+          "QFLR": 34.86,
+          "GLD": 421.93,
+          "GDX": 102.83,
+          "BTAL": 12.06,
+          "DBMF": 31.12,
+          "SGOV": 100.65
         }
       }
     ]
