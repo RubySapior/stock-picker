@@ -136,15 +136,15 @@ window.DASH = {
     "disclaimer": "Simulated portfolio for tracking/learning. Not financial advice.",
     "fear_state": {
       "F1": {
-        "prev_score": 2.9,
+        "prev_score": 2.8,
         "score": 2.8,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F2": {
-        "prev_score": 3.3,
-        "score": 3.4,
+        "prev_score": 3.4,
+        "score": 3.6,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
@@ -157,15 +157,15 @@ window.DASH = {
         "last_above_date": null
       },
       "F4": {
-        "prev_score": 3.9,
-        "score": 3.8,
+        "prev_score": 3.8,
+        "score": 3.9,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F5": {
-        "prev_score": 2.2,
-        "score": 2.0,
+        "prev_score": 2.0,
+        "score": 1.6,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
@@ -173,13 +173,13 @@ window.DASH = {
       "F6": {
         "prev_score": 4.5,
         "score": 4.5,
-        "days_above": 8,
+        "days_above": 9,
         "confirmed": true,
-        "last_above_date": "2026-08-25"
+        "last_above_date": "2026-08-26"
       },
       "F7": {
-        "prev_score": 3.5,
-        "score": 3.6,
+        "prev_score": 3.6,
+        "score": 3.5,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
@@ -589,8 +589,8 @@ window.DASH = {
     },
     "ai_calibrated_verdict_date": "2026-08-21",
     "dividend_policy": "reinvest",
-    "asof_ts": 1787687744,
-    "refresh_interval": 6
+    "asof_ts": 1787711071,
+    "refresh_interval": 1440
   },
   "asof": "2026-08-25",
   "summary": {
@@ -660,8 +660,8 @@ window.DASH = {
       "underlying_stop_pct": -0.08,
       "underlying_buy_price": 720.87,
       "dynamic_stop_pct": -0.08,
-      "underlying_ema20": 713.644366102014,
-      "underlying_atr14": 11.28225119229603,
+      "underlying_ema20": 713.3658522544836,
+      "underlying_atr14": 11.027802589118037,
       "runner_active": false,
       "base_trimmed": false,
       "theory_ids": [
@@ -757,9 +757,9 @@ window.DASH = {
       "underlying": "SOXX",
       "underlying_stop_pct": -0.09,
       "underlying_buy_price": 529.39,
-      "dynamic_stop_pct": -0.1139,
-      "underlying_ema20": 531.3559515245286,
-      "underlying_atr14": 23.056937221036232,
+      "dynamic_stop_pct": -0.109,
+      "underlying_ema20": 529.7087178134417,
+      "underlying_atr14": 22.40322951409922,
       "runner_active": false,
       "base_trimmed": false,
       "theory_ids": [
@@ -1238,8 +1238,8 @@ window.DASH = {
       "underlying_stop_pct": -0.1,
       "underlying_buy_price": 258.31,
       "dynamic_stop_pct": -0.1,
-      "underlying_ema20": 255.5212179128184,
-      "underlying_atr14": 2.0356604176440674,
+      "underlying_ema20": 255.7830056367122,
+      "underlying_atr14": 1.9573991347197837,
       "runner_active": false,
       "base_trimmed": false,
       "theory_ids": [
@@ -2423,17 +2423,17 @@ window.DASH = {
       "name": "Rates shock / duration liquidation",
       "type": "structural",
       "score": 4.5,
-      "level": 0.912,
+      "level": 0.91,
       "velocity": null,
       "trend": {
         "label": "50d trend",
-        "value": 0.0255,
+        "value": 0.0252,
         "pct": 0.771
       },
       "signals": [
         {
           "label": "TLT/SHY (long-vs-short duration)",
-          "value": 0.908
+          "value": 0.904
         },
         {
           "label": "10y yield level",
@@ -2447,7 +2447,7 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-08-25",
+      "asof": "2026-08-26",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2455,18 +2455,18 @@ window.DASH = {
       "id": "F4",
       "name": "Inflation resurgence",
       "type": "structural",
-      "score": 3.8,
-      "level": 0.819,
+      "score": 3.9,
+      "level": 0.835,
       "velocity": null,
       "trend": {
         "label": "50d trend",
-        "value": -0.0009,
-        "pct": 0.448
+        "value": -0.0007,
+        "pct": 0.452
       },
       "signals": [
         {
           "label": "TIP/IEF (breakevens proxy)",
-          "value": 0.819
+          "value": 0.835
         }
       ],
       "theory_ids": [
@@ -2478,20 +2478,50 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-08-25",
+      "asof": "2026-08-26",
       "degraded": false,
       "trend_dir": "flat"
+    },
+    {
+      "id": "F2",
+      "name": "Yen-carry unwind",
+      "type": "episodic",
+      "score": 3.6,
+      "level": 0.273,
+      "velocity": {
+        "label": "5d velocity",
+        "value": 0.0039,
+        "pct": 0.808
+      },
+      "trend": null,
+      "signals": [
+        {
+          "label": "Yen strength (FXY level)",
+          "value": 0.273
+        }
+      ],
+      "theory_ids": [
+        "T18"
+      ],
+      "hedge_ticks": [
+        "FXY",
+        "DBMF"
+      ],
+      "sizing": null,
+      "asof": "2026-08-26",
+      "degraded": false,
+      "trend_dir": "rising"
     },
     {
       "id": "F7",
       "name": "Credit stress / HY spread",
       "type": "episodic",
-      "score": 3.6,
+      "score": 3.5,
       "level": 0.042,
       "velocity": {
         "label": "5d velocity",
-        "value": 0.005,
-        "pct": 0.91
+        "value": 0.0047,
+        "pct": 0.89
       },
       "trend": null,
       "signals": [
@@ -2508,37 +2538,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-08-25",
-      "degraded": false,
-      "trend_dir": "flat"
-    },
-    {
-      "id": "F2",
-      "name": "Yen-carry unwind",
-      "type": "episodic",
-      "score": 3.4,
-      "level": 0.281,
-      "velocity": {
-        "label": "5d velocity",
-        "value": 0.0014,
-        "pct": 0.722
-      },
-      "trend": null,
-      "signals": [
-        {
-          "label": "Yen strength (FXY level)",
-          "value": 0.281
-        }
-      ],
-      "theory_ids": [
-        "T18"
-      ],
-      "hedge_ticks": [
-        "FXY",
-        "DBMF"
-      ],
-      "sizing": null,
-      "asof": "2026-08-25",
+      "asof": "2026-08-26",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2547,21 +2547,21 @@ window.DASH = {
       "name": "AI / tech concentration pop",
       "type": "structural",
       "score": 2.8,
-      "level": 0.294,
+      "level": 0.289,
       "velocity": null,
       "trend": {
         "label": "50d trend",
-        "value": 0.0628,
-        "pct": 0.833
+        "value": 0.0623,
+        "pct": 0.819
       },
       "signals": [
         {
           "label": "QQQ/RSP concentration ratio",
-          "value": 0.542
+          "value": 0.531
         },
         {
           "label": "QQQ drawdown from 52w high",
-          "value": 0.047
+          "value": 0.046
         }
       ],
       "theory_ids": [
@@ -2574,7 +2574,7 @@ window.DASH = {
         "ZROZ"
       ],
       "sizing": null,
-      "asof": "2026-08-25",
+      "asof": "2026-08-26",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2583,17 +2583,17 @@ window.DASH = {
       "name": "Recession / growth freeze",
       "type": "structural",
       "score": 2.6,
-      "level": 0.39,
+      "level": 0.387,
       "velocity": null,
       "trend": {
         "label": "50d trend",
-        "value": 0.0022,
-        "pct": 0.429
+        "value": 0.0015,
+        "pct": 0.424
       },
       "signals": [
         {
           "label": "XLY/XLP (cyclical vs staples)",
-          "value": 0.781
+          "value": 0.773
         },
         {
           "label": "SPY below 200d MA",
@@ -2608,62 +2608,26 @@ window.DASH = {
         "BTAL"
       ],
       "sizing": null,
-      "asof": "2026-08-25",
+      "asof": "2026-08-26",
       "degraded": false,
       "trend_dir": "flat"
-    },
-    {
-      "id": "F5",
-      "name": "War / energy shock",
-      "type": "episodic",
-      "score": 2.0,
-      "level": 0.319,
-      "velocity": {
-        "label": "5d velocity",
-        "value": -0.0346,
-        "pct": 0.235
-      },
-      "trend": null,
-      "signals": [
-        {
-          "label": "Crude 5d momentum",
-          "value": 0.235
-        },
-        {
-          "label": "Gold 1d momentum",
-          "value": 0.514
-        }
-      ],
-      "theory_ids": [
-        "T21"
-      ],
-      "hedge_ticks": [
-        "GLD",
-        "GDX",
-        "FXY",
-        "DBMF"
-      ],
-      "sizing": null,
-      "asof": "2026-08-25",
-      "degraded": false,
-      "trend_dir": "falling"
     },
     {
       "id": "F3",
       "name": "China / Taiwan escalation",
       "type": "episodic",
       "score": 1.7,
-      "level": 0.356,
+      "level": 0.357,
       "velocity": {
         "label": "5d velocity",
-        "value": -0.0337,
+        "value": -0.0343,
         "pct": 0.09
       },
       "trend": null,
       "signals": [
         {
           "label": "Gold 3d momentum",
-          "value": 0.829
+          "value": 0.833
         },
         {
           "label": "HK equities drawdown",
@@ -2679,9 +2643,45 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-08-25",
+      "asof": "2026-08-26",
       "degraded": false,
       "trend_dir": "flat"
+    },
+    {
+      "id": "F5",
+      "name": "War / energy shock",
+      "type": "episodic",
+      "score": 1.6,
+      "level": 0.248,
+      "velocity": {
+        "label": "5d velocity",
+        "value": -0.0642,
+        "pct": 0.125
+      },
+      "trend": null,
+      "signals": [
+        {
+          "label": "Gold 1d momentum",
+          "value": 0.533
+        },
+        {
+          "label": "Crude 5d momentum",
+          "value": 0.125
+        }
+      ],
+      "theory_ids": [
+        "T21"
+      ],
+      "hedge_ticks": [
+        "GLD",
+        "GDX",
+        "FXY",
+        "DBMF"
+      ],
+      "sizing": null,
+      "asof": "2026-08-26",
+      "degraded": false,
+      "trend_dir": "falling"
     }
   ],
   "fear_greed": {
@@ -2689,11 +2689,11 @@ window.DASH = {
     "label": "Greed"
   },
   "complacency": {
-    "index": 0.129,
+    "index": 0.124,
     "valuation_stretch": 0.498,
-    "fear_term": 0.258,
-    "divergence": 0.369,
-    "fear_avg": 3.97,
+    "fear_term": 0.25,
+    "divergence": 0.373,
+    "fear_avg": 4.0,
     "regime": "stress",
     "note": "Stress regime - broad equity drawdown active. Hedges should be paying.",
     "pay_check": {
@@ -2703,7 +2703,7 @@ window.DASH = {
       "checks": [
         {
           "ticker": "SGOV",
-          "ret_pct": 0.14,
+          "ret_pct": 0.13,
           "paying": true
         }
       ]
@@ -2761,7 +2761,7 @@ window.DASH = {
       },
       {
         "date": "2026-08-25",
-        "value": 99084.12
+        "value": 99078.95
       }
     ],
     "aligned": [
@@ -2811,13 +2811,13 @@ window.DASH = {
       },
       {
         "date": "2026-08-25",
-        "value": 99084.12
+        "value": 99078.95
       }
     ],
     "summary": {
       "total_return_pct": -0.92,
       "max_drawdown_pct": -1.96,
-      "sharpe_annualized": -2.67
+      "sharpe_annualized": -2.69
     }
   },
   "benchmarks": {
@@ -2871,7 +2871,7 @@ window.DASH = {
         },
         {
           "date": "2026-08-25",
-          "value": 99084.12
+          "value": 99078.95
         }
       ],
       "aligned": [
@@ -2921,13 +2921,13 @@ window.DASH = {
         },
         {
           "date": "2026-08-25",
-          "value": 99084.12
+          "value": 99078.95
         }
       ],
       "summary": {
         "total_return_pct": -0.92,
         "max_drawdown_pct": -1.96,
-        "sharpe_annualized": -2.67
+        "sharpe_annualized": -2.69
       }
     },
     "QQQ": {
@@ -2980,7 +2980,7 @@ window.DASH = {
         },
         {
           "date": "2026-08-25",
-          "value": 98585.39
+          "value": 98591.98
         }
       ],
       "aligned": [
@@ -3030,13 +3030,13 @@ window.DASH = {
         },
         {
           "date": "2026-08-25",
-          "value": 98585.39
+          "value": 98591.98
         }
       ],
       "summary": {
         "total_return_pct": -1.41,
         "max_drawdown_pct": -3.52,
-        "sharpe_annualized": -2.44
+        "sharpe_annualized": -2.42
       }
     },
     "TQQQ": {
@@ -3198,7 +3198,7 @@ window.DASH = {
         },
         {
           "date": "2026-08-25",
-          "value": 114168.23
+          "value": 114207.65
         }
       ],
       "aligned": [
@@ -3248,13 +3248,13 @@ window.DASH = {
         },
         {
           "date": "2026-08-25",
-          "value": 114168.23
+          "value": 114207.65
         }
       ],
       "summary": {
-        "total_return_pct": 14.17,
+        "total_return_pct": 14.21,
         "max_drawdown_pct": -20.28,
-        "sharpe_annualized": 2.99
+        "sharpe_annualized": 3.0
       }
     }
   },
@@ -3594,8 +3594,38 @@ window.DASH = {
     "enabled": true
   },
   "news": {
-    "asof": "2026-08-25 19:55:44",
+    "asof": "2026-08-26 02:24:31",
     "big_stories": [
+      {
+        "title": "S&P 500, Dow, Nasdaq Futures Rangebound As Investors Await Nvidia Earnings, Key Inflation Reading — MRNA, SPCX, PSKY, OpenAI In Focus",
+        "link": "https://stocktwits.com/news-articles/markets/equity/s-and-p-500-dow-nasdaq-futures-rangebound-as-investors-await-nvidia-earnings/cZYNONDRJom?.tsrc=rss",
+        "ts": 1787702577,
+        "when": "Aug 26, 12:02 AM",
+        "ticker": "SMH",
+        "industry": "Semis",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "Cathie Wood's Biggest Buy Last Week Was SpaceX. She Sold Almost Exactly That Much Palantir the Same Day.",
+        "link": "https://www.fool.com/investing/2026/08/25/cathie-wood-s-biggest-buy-last-week-was-spacex-she-sold-almost-exactly-that-much-palantir-the-same-day/?.tsrc=rss",
+        "ts": 1787690821,
+        "when": "Aug 25, 08:47 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
       {
         "title": "Sector Update: Consumer Stocks Decline Late Afternoon",
         "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-decline-afternoon-195236693.html?.tsrc=rss",
@@ -3625,36 +3655,6 @@ window.DASH = {
         "sent": "neutral"
       },
       {
-        "title": "Palantir's Maven Is Now an Official Pentagon Program of Record. Here's What Guaranteed Budget Dollars Are Worth.",
-        "link": "https://www.fool.com/investing/2026/08/25/palantirs-maven-is-now-an-official-pentagon-progra/?.tsrc=rss",
-        "ts": 1787672460,
-        "when": "Aug 25, 03:41 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "Easing Bond Yields, Oil Prices Lift Wall Street Pre-Bell; Asia, Europe Up",
-        "link": "https://finance.yahoo.com/markets/articles/easing-bond-yields-oil-prices-110258521.html?.tsrc=rss",
-        "ts": 1787655778,
-        "when": "Aug 25, 11:02 AM",
-        "ticker": "SMH",
-        "industry": "Semis",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
         "title": "Gold Is Still Historically High. Is VanEck Gold Miners ETF or Sprott Gold Miners ETF the Better Way to Play Bullion's Strength?",
         "link": "https://www.fool.com/coverage/etfs/2026/08/24/gold-is-still-historically-high-is-vaneck-gold-miners-etf-or-sprott-gold-miners-etf-the-better-way-to-play-bullion-s-strength/?.tsrc=rss",
         "ts": 1787614141,
@@ -3672,6 +3672,36 @@ window.DASH = {
       }
     ],
     "feed": [
+      {
+        "title": "S&P 500, Dow, Nasdaq Futures Rangebound As Investors Await Nvidia Earnings, Key Inflation Reading — MRNA, SPCX, PSKY, OpenAI In Focus",
+        "link": "https://stocktwits.com/news-articles/markets/equity/s-and-p-500-dow-nasdaq-futures-rangebound-as-investors-await-nvidia-earnings/cZYNONDRJom?.tsrc=rss",
+        "ts": 1787702577,
+        "when": "Aug 26, 12:02 AM",
+        "ticker": "SMH",
+        "industry": "Semis",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "Cathie Wood's Biggest Buy Last Week Was SpaceX. She Sold Almost Exactly That Much Palantir the Same Day.",
+        "link": "https://www.fool.com/investing/2026/08/25/cathie-wood-s-biggest-buy-last-week-was-spacex-she-sold-almost-exactly-that-much-palantir-the-same-day/?.tsrc=rss",
+        "ts": 1787690821,
+        "when": "Aug 25, 08:47 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
       {
         "title": "Sector Update: Consumer Stocks Decline Late Afternoon",
         "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-decline-afternoon-195236693.html?.tsrc=rss",
@@ -3791,6 +3821,21 @@ window.DASH = {
         "sent": "neutral"
       },
       {
+        "title": "Palantir Stock Has Surged Over 40% in a Month. What’s Fueling the Rally — and What Comes Next.",
+        "link": "https://www.barchart.com/story/news/4024825/palantir-stock-has-surged-over-40-in-a-month-whats-fueling-the-rally-and-what-comes-next?.tsrc=rss",
+        "ts": 1787669751,
+        "when": "Aug 25, 02:55 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
         "title": "The Real Question Behind Palantir Stock's High Price",
         "link": "https://www.trefis.com/articles/612770/the-real-question-behind-palantir-stocks-high-price/2026-08-25?.tsrc=rss",
         "ts": 1787669278,
@@ -3802,6 +3847,18 @@ window.DASH = {
           "T7",
           "T2",
           "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "Are Wall Street Analysts Predicting Genuine Parts Stock Will Climb or Sink?",
+        "link": "https://www.barchart.com/story/news/4023869/are-wall-street-analysts-predicting-genuine-parts-stock-will-climb-or-sink?.tsrc=rss",
+        "ts": 1787666998,
+        "when": "Aug 25, 02:09 PM",
+        "ticker": "XLY",
+        "industry": "Consumer Disc.",
+        "theory": [
+          "T13"
         ],
         "sent": "neutral"
       },
@@ -3865,6 +3922,21 @@ window.DASH = {
           "T14"
         ],
         "sent": "positive"
+      },
+      {
+        "title": "Former Banker Says the Real AI Trade Isn't Chips, It's Electricity: 4 Stocks to Watch",
+        "link": "https://beincrypto.com/4-ai-power-stocks-1000-percent-potential-analyst/?.tsrc=rss",
+        "ts": 1787651420,
+        "when": "Aug 25, 09:50 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
       },
       {
         "title": "5 Billionaire Money Managers Dumped Palantir in the Second Quarter. This Is the AI Applications Stock They're Buying Hand Over Fist Instead.",
@@ -3957,8 +4029,8 @@ window.DASH = {
         "link": "https://247wallst.com/investing/etf/2026/08/24/glds-gains-are-taxed-at-28-as-a-collectible-not-the-15-rate-every-other-etf-gets/?.tsrc=rss",
         "ts": 1787606716,
         "when": "Aug 24, 09:25 PM",
-        "ticker": "GDX",
-        "industry": "Gold Miners",
+        "ticker": "GLD",
+        "industry": "Gold",
         "theory": [
           "T6",
           "T9",
@@ -4033,78 +4105,6 @@ window.DASH = {
         "when": "Aug 24, 06:46 PM",
         "ticker": "SMH",
         "industry": "Semis",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "negative"
-      },
-      {
-        "title": "EXCLUSIVE: How AI's $220 Billion Bond Boom Competes With the Treasury",
-        "link": "https://www.benzinga.com/markets/prediction-markets/26/08/61392587/ai-bond-boom-treasury-220-billion?utm_source=yahooFinance&utm_campaign=partner_feed&utm_medium=referral&.tsrc=rss",
-        "ts": 1787595665,
-        "when": "Aug 24, 06:21 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "Nvidia Stock: Why It May Be Raising Prices 15% and Funding AI Startups",
-        "link": "https://finance.yahoo.com/m/edbe697b-314a-38fe-8c8a-bc762e898988/nvidia-stock%3A-why-it-may-be.html?.tsrc=rss",
-        "ts": 1787595120,
-        "when": "Aug 24, 06:12 PM",
-        "ticker": "SMH",
-        "industry": "Semis",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "PLTR vs. PATH: Which AI-Driven Software Stock is the Better Buy?",
-        "link": "https://finance.yahoo.com/technology/ai/articles/pltr-vs-path-ai-driven-180200462.html?.tsrc=rss",
-        "ts": 1787594520,
-        "when": "Aug 24, 06:02 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "Sector Update: Consumer Stocks Rise Monday Afternoon",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-rise-monday-173704859.html?.tsrc=rss",
-        "ts": 1787593024,
-        "when": "Aug 24, 05:37 PM",
-        "ticker": "XLY",
-        "industry": "Consumer Disc.",
-        "theory": [
-          "T13"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Treasury Yields Are Surging Again: 3 Stocks That Could Feel the Pain",
-        "link": "https://www.marketbeat.com/articles/treasury-yields-are-surging-again-3-stocks-that-could-feel-the-pain/?utm_source=yahoofinance&utm_medium=yahoofinance&.tsrc=rss",
-        "ts": 1787592600,
-        "when": "Aug 24, 05:30 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
         "theory": [
           "T1",
           "T7",
