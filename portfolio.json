@@ -143,7 +143,7 @@
       },
       "F2": {
         "prev_score": 3.3,
-        "score": 3.3,
+        "score": 3.2,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
@@ -156,15 +156,15 @@
         "last_above_date": null
       },
       "F4": {
-        "prev_score": 3.9,
+        "prev_score": 4.0,
         "score": 4.0,
         "days_above": 1,
         "confirmed": false,
         "last_above_date": "2026-08-26"
       },
       "F5": {
-        "prev_score": 1.7,
-        "score": 1.9,
+        "prev_score": 1.9,
+        "score": 2.0,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
@@ -178,7 +178,7 @@
       },
       "F7": {
         "prev_score": 2.6,
-        "score": 2.6,
+        "score": 2.5,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
@@ -946,31 +946,31 @@
       },
       {
         "date": "2026-08-26",
-        "total_value": 99285.66,
+        "total_value": 99195.56,
         "cash": 25.0,
-        "invested_value": 99260.66,
-        "day_change": -203.44,
+        "invested_value": 99170.56,
+        "day_change": -293.54,
         "prices": {
-          "TQQQ": 69.87,
-          "SOXL": 115.065,
-          "SMH": 553.5,
-          "DRAM": 56.3,
-          "PLTR": 175.217,
-          "NLR": 123.84,
-          "NUKZ": 66.59,
-          "IWM": 298.467,
+          "TQQQ": 69.79,
+          "SOXL": 115.15,
+          "SMH": 553.37,
+          "DRAM": 56.295,
+          "PLTR": 174.82,
+          "NLR": 123.281,
+          "NUKZ": 66.52,
+          "IWM": 298.51,
           "IWDL": 70.245,
-          "XLY": 116.94,
-          "EZU": 71.38,
-          "ZROZ": 59.475,
+          "XLY": 116.86,
+          "EZU": 71.34,
+          "ZROZ": 59.52,
           "FXY": 57.55,
-          "VIXM": 13.85,
-          "QFLR": 34.86,
-          "GLD": 421.93,
-          "GDX": 102.83,
-          "BTAL": 12.06,
+          "VIXM": 13.83,
+          "QFLR": 34.83,
+          "GLD": 421.0,
+          "GDX": 102.78,
+          "BTAL": 12.059,
           "DBMF": 31.12,
-          "SGOV": 100.65
+          "SGOV": 100.655
         }
       }
     ]
