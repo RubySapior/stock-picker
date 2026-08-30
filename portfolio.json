@@ -136,13 +136,13 @@
     "fear_state": {
       "F1": {
         "prev_score": 2.5,
-        "score": 2.5,
+        "score": 2.6,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F2": {
-        "prev_score": 2.3,
+        "prev_score": 2.0,
         "score": 2.0,
         "days_above": 0,
         "confirmed": false,
@@ -150,7 +150,7 @@
       },
       "F3": {
         "prev_score": 2.7,
-        "score": 2.7,
+        "score": 3.3,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
@@ -158,12 +158,12 @@
       "F4": {
         "prev_score": 4.2,
         "score": 4.2,
-        "days_above": 4,
+        "days_above": 5,
         "confirmed": true,
-        "last_above_date": "2026-08-29"
+        "last_above_date": "2026-08-30"
       },
       "F5": {
-        "prev_score": 1.9,
+        "prev_score": 1.8,
         "score": 1.8,
         "days_above": 0,
         "confirmed": false,
@@ -171,10 +171,10 @@
       },
       "F6": {
         "prev_score": 4.6,
-        "score": 4.6,
-        "days_above": 12,
+        "score": 4.8,
+        "days_above": 13,
         "confirmed": true,
-        "last_above_date": "2026-08-29"
+        "last_above_date": "2026-08-30"
       },
       "F7": {
         "prev_score": 3.2,
@@ -185,7 +185,7 @@
       },
       "F8": {
         "prev_score": 2.7,
-        "score": 2.7,
+        "score": 2.5,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
@@ -1584,7 +1584,7 @@
       "status": "open",
       "thesis": "A-TIER CONVICTION. Semis remain the epicenter of the $1T AI capex cycle (T1); backlogs expanding, earnings above estimates. The June selloff was technical, not fundamental. 3x leverage is the highest-octane expression with vol-decay risk offset by VIXM. V5: boosted +2k. V5.1: stop is index-referenced (SOXX -9%), the -35% wrapper level is only a backstop.",
       "entry_note": "Crowded-trade risk accepted at A-tier conviction; stop on SOXX (1x), not the 3x wrapper.",
-      "dynamic_stop_pct": -0.0984
+      "dynamic_stop_pct": -0.1009
     },
     {
       "id": "SMH",
