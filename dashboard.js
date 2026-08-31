@@ -136,7 +136,7 @@ window.DASH = {
     "disclaimer": "Simulated portfolio for tracking/learning. Not financial advice.",
     "fear_state": {
       "F1": {
-        "prev_score": 2.5,
+        "prev_score": 2.6,
         "score": 2.6,
         "days_above": 0,
         "confirmed": false,
@@ -144,13 +144,13 @@ window.DASH = {
       },
       "F2": {
         "prev_score": 2.0,
-        "score": 2.0,
+        "score": 2.1,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F3": {
-        "prev_score": 2.7,
+        "prev_score": 3.3,
         "score": 3.3,
         "days_above": 0,
         "confirmed": false,
@@ -159,23 +159,23 @@ window.DASH = {
       "F4": {
         "prev_score": 4.2,
         "score": 4.2,
-        "days_above": 5,
+        "days_above": 6,
         "confirmed": true,
-        "last_above_date": "2026-08-30"
+        "last_above_date": "2026-08-31"
       },
       "F5": {
         "prev_score": 1.8,
-        "score": 1.8,
+        "score": 3.0,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F6": {
-        "prev_score": 4.6,
+        "prev_score": 4.8,
         "score": 4.8,
-        "days_above": 13,
+        "days_above": 14,
         "confirmed": true,
-        "last_above_date": "2026-08-30"
+        "last_above_date": "2026-08-31"
       },
       "F7": {
         "prev_score": 3.2,
@@ -185,7 +185,7 @@ window.DASH = {
         "last_above_date": null
       },
       "F8": {
-        "prev_score": 2.7,
+        "prev_score": 2.5,
         "score": 2.5,
         "days_above": 0,
         "confirmed": false,
@@ -589,7 +589,7 @@ window.DASH = {
     },
     "ai_calibrated_verdict_date": "2026-08-21",
     "dividend_policy": "reinvest",
-    "asof_ts": 1788070613,
+    "asof_ts": 1788158622,
     "refresh_interval": 1440
   },
   "asof": "2026-08-26",
@@ -2476,9 +2476,9 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-08-30",
+      "asof": "2026-08-31",
       "degraded": false,
-      "trend_dir": "rising"
+      "trend_dir": "flat"
     },
     {
       "id": "F4",
@@ -2507,7 +2507,7 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-08-30",
+      "asof": "2026-08-31",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2542,9 +2542,9 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-08-30",
+      "asof": "2026-08-31",
       "degraded": false,
-      "trend_dir": "rising"
+      "trend_dir": "flat"
     },
     {
       "id": "F7",
@@ -2572,9 +2572,45 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-08-30",
+      "asof": "2026-08-31",
       "degraded": false,
       "trend_dir": "flat"
+    },
+    {
+      "id": "F5",
+      "name": "War / energy shock",
+      "type": "episodic",
+      "score": 3.0,
+      "level": 0.392,
+      "velocity": {
+        "label": "5d velocity",
+        "value": 0.0071,
+        "pct": 0.541
+      },
+      "trend": null,
+      "signals": [
+        {
+          "label": "Crude 5d momentum",
+          "value": 0.541
+        },
+        {
+          "label": "Gold 1d momentum",
+          "value": 0.042
+        }
+      ],
+      "theory_ids": [
+        "T21"
+      ],
+      "hedge_ticks": [
+        "GLD",
+        "GDX",
+        "FXY",
+        "DBMF"
+      ],
+      "sizing": null,
+      "asof": "2026-08-31",
+      "degraded": false,
+      "trend_dir": "rising"
     },
     {
       "id": "F1",
@@ -2608,7 +2644,7 @@ window.DASH = {
         "ZROZ"
       ],
       "sizing": null,
-      "asof": "2026-08-30",
+      "asof": "2026-08-31",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2642,20 +2678,20 @@ window.DASH = {
         "BTAL"
       ],
       "sizing": null,
-      "asof": "2026-08-30",
+      "asof": "2026-08-31",
       "degraded": false,
-      "trend_dir": "falling"
+      "trend_dir": "flat"
     },
     {
       "id": "F2",
       "name": "Yen-carry unwind",
       "type": "episodic",
-      "score": 2.0,
+      "score": 2.1,
       "level": 0.131,
       "velocity": {
         "label": "5d velocity",
-        "value": -0.0071,
-        "pct": 0.286
+        "value": -0.006,
+        "pct": 0.333
       },
       "trend": null,
       "signals": [
@@ -2672,43 +2708,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-08-30",
-      "degraded": false,
-      "trend_dir": "flat"
-    },
-    {
-      "id": "F5",
-      "name": "War / energy shock",
-      "type": "episodic",
-      "score": 1.8,
-      "level": 0.169,
-      "velocity": {
-        "label": "5d velocity",
-        "value": -0.042,
-        "pct": 0.224
-      },
-      "trend": null,
-      "signals": [
-        {
-          "label": "Crude 5d momentum",
-          "value": 0.224
-        },
-        {
-          "label": "Gold 1d momentum",
-          "value": 0.042
-        }
-      ],
-      "theory_ids": [
-        "T21"
-      ],
-      "hedge_ticks": [
-        "GLD",
-        "GDX",
-        "FXY",
-        "DBMF"
-      ],
-      "sizing": null,
-      "asof": "2026-08-30",
+      "asof": "2026-08-31",
       "degraded": false,
       "trend_dir": "flat"
     }
@@ -3703,13 +3703,13 @@ window.DASH = {
     "enabled": true
   },
   "news": {
-    "asof": "2026-08-30 06:16:54",
+    "asof": "2026-08-31 06:43:42",
     "big_stories": [
       {
-        "title": "A Judge Just Called This Pentagon AI Ban Illegal. Why Palantir Could Rally",
-        "link": "https://247wallst.com/investing/2026/08/29/a-judge-just-called-this-pentagon-ai-ban-illegal-why-palantir-could-rally/?.tsrc=rss",
-        "ts": 1788020427,
-        "when": "Aug 29, 04:20 PM",
+        "title": "Michael Burry Bought Beaten-Down Stocks And Shorted AI Favorites — Here’s How His August Bets Fared",
+        "link": "https://stocktwits.com/news-articles/markets/equity/michael-burry-beaten-down-shorted-ai-how-august-bets-fared/cZYyK0uRJro?.tsrc=rss",
+        "ts": 1788150623,
+        "when": "Aug 31, 04:30 AM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -3717,6 +3717,19 @@ window.DASH = {
           "T7",
           "T2",
           "T14"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "This Overlooked Small-Cap ETF Has Crushed the S&P 500 in 2026. Is It Still a Buy Right Now?",
+        "link": "https://www.fool.com/investing/2026/08/30/this-overlooked-small-cap-etf-has-crushed-sp-500/?.tsrc=rss",
+        "ts": 1788097800,
+        "when": "Aug 30, 01:50 PM",
+        "ticker": "IWM",
+        "industry": "Small Caps",
+        "theory": [
+          "T10",
+          "T15"
         ],
         "sent": "negative"
       },
@@ -3761,25 +3774,82 @@ window.DASH = {
           "T14"
         ],
         "sent": "neutral"
-      },
-      {
-        "title": "Holding(s) in Company",
-        "link": "https://finance.yahoo.com/news/holding-company-060000806.html?.tsrc=rss",
-        "ts": 1787896800,
-        "when": "Aug 28, 06:00 AM",
-        "ticker": "GDX",
-        "industry": "Gold Miners",
-        "theory": [
-          "T6",
-          "T9",
-          "T19",
-          "T20",
-          "T21"
-        ],
-        "sent": "neutral"
       }
     ],
     "feed": [
+      {
+        "title": "Michael Burry Bought Beaten-Down Stocks And Shorted AI Favorites — Here’s How His August Bets Fared",
+        "link": "https://stocktwits.com/news-articles/markets/equity/michael-burry-beaten-down-shorted-ai-how-august-bets-fared/cZYyK0uRJro?.tsrc=rss",
+        "ts": 1788150623,
+        "when": "Aug 31, 04:30 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "Dow Jones Futures Fall, Oil Prices Pop As U.S. Strikes Iran",
+        "link": "https://finance.yahoo.com/m/5851be5e-4456-36df-acc2-e391c82c51f8/dow-jones-futures-fall%2C-oil.html?.tsrc=rss",
+        "ts": 1788145853,
+        "when": "Aug 31, 03:10 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "negative"
+      },
+      {
+        "title": "Wu-Tang Clan Member Raekwon Is a Palantir ‘OG,’ Visiting Headquarters 16 Years After Receiving His Custom PLTR Jacket",
+        "link": "https://www.barchart.com/story/news/4346096/wu-tang-clan-member-raekwon-is-a-palantir-og-visiting-headquarters-16-years-after-receiving-his-custom-pltr-jacket?.tsrc=rss",
+        "ts": 1788114602,
+        "when": "Aug 30, 06:30 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "This Overlooked Small-Cap ETF Has Crushed the S&P 500 in 2026. Is It Still a Buy Right Now?",
+        "link": "https://www.fool.com/investing/2026/08/30/this-overlooked-small-cap-etf-has-crushed-sp-500/?.tsrc=rss",
+        "ts": 1788097800,
+        "when": "Aug 30, 01:50 PM",
+        "ticker": "IWM",
+        "industry": "Small Caps",
+        "theory": [
+          "T10",
+          "T15"
+        ],
+        "sent": "negative"
+      },
+      {
+        "title": "Palantir Technologies (PLTR) Courts Democrats Ahead Of 2026 Midterms Scrutiny",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/palantir-technologies-pltr-courts-democrats-081418471.html?.tsrc=rss",
+        "ts": 1788077658,
+        "when": "Aug 30, 08:14 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
       {
         "title": "A Judge Just Called This Pentagon AI Ban Illegal. Why Palantir Could Rally",
         "link": "https://247wallst.com/investing/2026/08/29/a-judge-just-called-this-pentagon-ai-ban-illegal-why-palantir-could-rally/?.tsrc=rss",
@@ -3811,10 +3881,10 @@ window.DASH = {
         "sent": "positive"
       },
       {
-        "title": "Dow Jones Futures: Microsoft, Titans Mask Market Weakness. Here's What To Do.",
-        "link": "https://finance.yahoo.com/m/5851be5e-4456-36df-acc2-e391c82c51f8/dow-jones-futures%3A-microsoft%2C.html?.tsrc=rss",
-        "ts": 1788004591,
-        "when": "Aug 29, 11:56 AM",
+        "title": "Microsoft, Palantir Among Stocks To Watch As Software Bounces Back",
+        "link": "https://finance.yahoo.com/m/b414058c-8e62-33ba-b995-207f327e190e/microsoft%2C-palantir-among.html?.tsrc=rss",
+        "ts": 1788004557,
+        "when": "Aug 29, 11:55 AM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -3823,13 +3893,13 @@ window.DASH = {
           "T2",
           "T14"
         ],
-        "sent": "negative"
+        "sent": "neutral"
       },
       {
-        "title": "Microsoft, Palantir Among Stocks To Watch As Software Bounces Back",
-        "link": "https://finance.yahoo.com/m/b414058c-8e62-33ba-b995-207f327e190e/microsoft%2C-palantir-among.html?.tsrc=rss",
-        "ts": 1788004557,
-        "when": "Aug 29, 11:55 AM",
+        "title": "MarketBeat Week in Review – 08/24 - 08/28",
+        "link": "https://www.marketbeat.com/articles/marketbeat-week-in-review-08-24-08-28/?utm_source=yahoofinance&utm_medium=yahoofinance&.tsrc=rss",
+        "ts": 1788001200,
+        "when": "Aug 29, 11:00 AM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -4045,51 +4115,6 @@ window.DASH = {
         "sent": "neutral"
       },
       {
-        "title": "BigBear.ai's New AI Deployments Gain Traction: Can Growth Broaden?",
-        "link": "https://finance.yahoo.com/technology/ai/articles/bigbear-ais-ai-deployments-gain-130200661.html?.tsrc=rss",
-        "ts": 1787922120,
-        "when": "Aug 28, 01:02 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "Market Chatter: Meta, Other Companies Brace for Democratic Scrutiny Over Trump Ties",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/market-chatter-meta-other-companies-123357078.html?.tsrc=rss",
-        "ts": 1787920437,
-        "when": "Aug 28, 12:33 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Dow Jones Futures: Fed Chief Warsh Speech Due; Marvell, Affirm, PayPal, Elastic Are Big Movers",
-        "link": "https://finance.yahoo.com/m/28709650-6bf3-32e0-9253-5d5f0e46e8fa/dow-jones-futures%3A-fed-chief.html?.tsrc=rss",
-        "ts": 1787919325,
-        "when": "Aug 28, 12:15 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
         "title": "NVR Stock: Analyst Estimates & Ratings",
         "link": "https://www.barchart.com/story/news/4310634/nvr-stock-analyst-estimates-ratings?.tsrc=rss",
         "ts": 1787918815,
@@ -4115,21 +4140,6 @@ window.DASH = {
           "T14"
         ],
         "sent": "neutral"
-      },
-      {
-        "title": "2 Premier Artificial Intelligence (AI) Stocks That Can Plunge Up to 63%, According to Select Wall Street Analysts",
-        "link": "https://www.fool.com/investing/2026/08/28/2-ai-stocks-that-can-plunge-up-to-63-wall-street/?.tsrc=rss",
-        "ts": 1787916360,
-        "when": "Aug 28, 11:26 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
       },
       {
         "title": "Holding(s) in Company",
@@ -4202,18 +4212,6 @@ window.DASH = {
           "T14"
         ],
         "sent": "positive"
-      },
-      {
-        "title": "Sector Update: Consumer Stocks Fall Late Afternoon",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-fall-afternoon-195757647.html?.tsrc=rss",
-        "ts": 1787860677,
-        "when": "Aug 27, 07:57 PM",
-        "ticker": "XLY",
-        "industry": "Consumer Disc.",
-        "theory": [
-          "T13"
-        ],
-        "sent": "neutral"
       }
     ]
   },
