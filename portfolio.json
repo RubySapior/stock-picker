@@ -135,57 +135,57 @@
     "disclaimer": "Simulated portfolio for tracking/learning. Not financial advice.",
     "fear_state": {
       "F1": {
-        "prev_score": 2.6,
-        "score": 2.7,
+        "prev_score": 2.7,
+        "score": 2.6,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F2": {
-        "prev_score": 2.1,
+        "prev_score": 2.2,
         "score": 2.2,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F3": {
-        "prev_score": 3.3,
-        "score": 3.2,
+        "prev_score": 3.2,
+        "score": 3.4,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F4": {
-        "prev_score": 4.2,
-        "score": 4.3,
-        "days_above": 6,
+        "prev_score": 4.3,
+        "score": 4.2,
+        "days_above": 7,
         "confirmed": true,
-        "last_above_date": "2026-08-31"
+        "last_above_date": "2026-09-01"
       },
       "F5": {
-        "prev_score": 3.0,
-        "score": 3.1,
+        "prev_score": 3.1,
+        "score": 3.9,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F6": {
-        "prev_score": 4.8,
+        "prev_score": 4.9,
         "score": 4.9,
-        "days_above": 14,
+        "days_above": 15,
         "confirmed": true,
-        "last_above_date": "2026-08-31"
+        "last_above_date": "2026-09-01"
       },
       "F7": {
-        "prev_score": 3.2,
-        "score": 2.6,
+        "prev_score": 2.6,
+        "score": 2.7,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F8": {
-        "prev_score": 2.5,
-        "score": 2.7,
+        "prev_score": 2.7,
+        "score": 2.5,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
@@ -1613,7 +1613,7 @@
       "status": "open",
       "thesis": "A-TIER CONVICTION. Semis remain the epicenter of the $1T AI capex cycle (T1); backlogs expanding, earnings above estimates. The June selloff was technical, not fundamental. 3x leverage is the highest-octane expression with vol-decay risk offset by VIXM. V5: boosted +2k. V5.1: stop is index-referenced (SOXX -9%), the -35% wrapper level is only a backstop.",
       "entry_note": "Crowded-trade risk accepted at A-tier conviction; stop on SOXX (1x), not the 3x wrapper.",
-      "dynamic_stop_pct": -0.1009
+      "dynamic_stop_pct": -0.0958
     },
     {
       "id": "SMH",
