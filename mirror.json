@@ -183,9 +183,9 @@
       "ticker": "SGOV",
       "sleeve": "Short-Term Bonds (SGOV)",
       "buy_date": "2026-08-11",
-      "shares": 27.441442,
-      "current_value": 2755.32,
-      "pct_of_book": 2.84,
+      "shares": 27.525298,
+      "current_value": 2763.74,
+      "pct_of_book": 2.85,
       "theory_ids": []
     },
     {
@@ -496,6 +496,16 @@
       "price": 12.045,
       "amount": 2500.0,
       "reason": "BUY 2,500 (execute_all_2026-08-21)"
+    },
+    {
+      "ts": "2026-09-02 05:29:25",
+      "type": "dividend",
+      "ticker": "SGOV",
+      "action": "reinvest",
+      "shares": 0.0839,
+      "price": 100.41,
+      "amount": 8.42,
+      "reason": "DIV $8.42 (0.307/sh x 27.4414) DRIP 0.0839 sh @ 100.41"
     }
   ]
 }
