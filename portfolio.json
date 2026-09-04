@@ -142,14 +142,14 @@
         "last_above_date": null
       },
       "F2": {
-        "prev_score": 4.5,
+        "prev_score": 4.4,
         "score": 4.4,
-        "days_above": 1,
-        "confirmed": false,
-        "last_above_date": "2026-09-03"
+        "days_above": 2,
+        "confirmed": true,
+        "last_above_date": "2026-09-04"
       },
       "F3": {
-        "prev_score": 2.8,
+        "prev_score": 2.7,
         "score": 2.7,
         "days_above": 0,
         "confirmed": false,
@@ -158,26 +158,26 @@
       "F4": {
         "prev_score": 4.7,
         "score": 4.7,
-        "days_above": 9,
+        "days_above": 10,
         "confirmed": true,
-        "last_above_date": "2026-09-03"
+        "last_above_date": "2026-09-04"
       },
       "F5": {
         "prev_score": 4.5,
         "score": 4.5,
-        "days_above": 3,
+        "days_above": 4,
         "confirmed": true,
-        "last_above_date": "2026-09-03"
+        "last_above_date": "2026-09-04"
       },
       "F6": {
         "prev_score": 4.9,
         "score": 4.9,
-        "days_above": 17,
+        "days_above": 18,
         "confirmed": true,
-        "last_above_date": "2026-09-03"
+        "last_above_date": "2026-09-04"
       },
       "F7": {
-        "prev_score": 1.7,
+        "prev_score": 1.6,
         "score": 1.6,
         "days_above": 0,
         "confirmed": false,
@@ -1715,7 +1715,7 @@
       "status": "open",
       "thesis": "A-TIER CONVICTION. Semis remain the epicenter of the $1T AI capex cycle (T1); backlogs expanding, earnings above estimates. The June selloff was technical, not fundamental. 3x leverage is the highest-octane expression with vol-decay risk offset by VIXM. V5: boosted +2k. V5.1: stop is index-referenced (SOXX -9%), the -35% wrapper level is only a backstop.",
       "entry_note": "Crowded-trade risk accepted at A-tier conviction; stop on SOXX (1x), not the 3x wrapper.",
-      "dynamic_stop_pct": -0.0933
+      "dynamic_stop_pct": -0.0915
     },
     {
       "id": "SMH",
