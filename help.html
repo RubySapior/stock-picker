@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Help &amp; Notes — How This Site Works</title>
-<link rel="stylesheet" href="styles.css?v=15">
+<link rel="stylesheet" href="styles.css?v=57">
 </head>
 <!--
   Help site: plain-language notes (Simple tab) + the math and details
@@ -64,7 +64,7 @@
         <li><strong>Total Return</strong> &mdash; gain or loss vs the $100,000 starting point.</li>
         <li><strong>SGOV + Cash</strong> &mdash; dry powder. SGOV (0&ndash;3 month T-bills) is where idle cash automatically parks (toggleable in the AI panel &mdash; default SGOV).</li>
         <li><strong>CAGR (ann.)</strong> &mdash; average yearly growth since the start date.</li>
-        <li>In the chart header: <strong>Realized P&amp;L</strong> (money locked in from closed trades), <strong>Max Drawdown</strong> (worst peak-to-trough dip so far), <strong>Sharpe</strong> (reward per unit of risk, higher is better).</li>
+        <li>In the chart header: <strong>Realized P&amp;L</strong> (money locked in from closed trades), <strong>Max Drawdown</strong> (worst peak-to-trough dip so far), <strong>Sortino</strong> (reward per unit of <em>downside</em> risk &mdash; big gains don't count against you, higher is better).</li>
       </ul>
     </div>
 
@@ -144,9 +144,9 @@
       <h2>Metrics math (update.py)</h2>
       <ul class="helpList">
         <li><strong>Max drawdown</strong> &mdash; min over all snapshots of <code>(value &minus; running_peak) / running_peak</code>, returned as a negative % (update.py:459).</li>
-        <li><strong>Sharpe (annualized)</strong> &mdash; <code>mean(daily_returns) / sample_std(daily_returns) &times; &radic;252</code>. Needs &ge;3 snapshots, returns <code>null</code> when std is 0 (update.py:471).</li>
+        <li><strong>Sortino (annualized)</strong> &mdash; <code>mean(daily_returns) / downside_dev(daily_returns) &times; &radic;252</code>, where <code>downside_dev = &radic;( sum(min(r,0)&sup2;) / (n&minus;1) )</code>. Unlike Sharpe it punishes only <em>downside</em> volatility &mdash; big up-days never lower the score (issue #32). Needs &ge;3 snapshots, returns <code>null</code> when there are no down-days (update.py:471).</li>
         <li><strong>CAGR</strong> &mdash; <code>((total / start_value)^(365.25 / elapsed_days) &minus; 1)</code> (update.py:485).</li>
-        <li><strong>Benchmark</strong> &mdash; SPY 2y history normalized so its price at (or before) <code>start_date</code> equals <code>start_value</code>, then <em>aligned</em> to portfolio snapshot dates by carrying the last SPY close at or before each snapshot date (update.py:356). Same Sharpe / drawdown / total-return formulas run on the normalized SPY series.</li>
+        <li><strong>Benchmark</strong> &mdash; SPY 2y history normalized so its price at (or before) <code>start_date</code> equals <code>start_value</code>, then <em>aligned</em> to portfolio snapshot dates by carrying the last SPY close at or before each snapshot date (update.py:356). Same Sortino / drawdown / total-return formulas run on the normalized SPY series.</li>
         <li><strong>Total return</strong> is anchored to <code>meta.start_value</code> (100000) / <code>meta.start_date</code>, not to day one of the chart.</li>
       </ul>
     </div>

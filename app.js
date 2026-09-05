@@ -16,7 +16,7 @@
  *   meta.{name, strategy, start_date, start_value}
  *   asof                                        last snapshot date (YYYY-MM-DD)
  *   summary.{total_value, cash, day_change, total_return_pct, realized_pnl,
- *            max_drawdown_pct, sharpe_annualized, cagr_annualized, start_value}
+   *            max_drawdown_pct, sortino_annualized, cagr_annualized, start_value}
  *   positions[]                                 {ticker, name, sleeve, buy_date,
  *                                               buy_price, shares, cost,
  *                                               current_price, current_value,
@@ -174,9 +174,12 @@ function render() {
       {label:'Total Return', val:sign(s.total_return_pct)+'%', delta:'', dcls:cls(s.total_return_pct)},
       {label:'SGOV + Cash', val:fmt$(s.cash + stbVal), delta:fmt$(stbVal)+' SGOV · '+fmt$(s.cash)+' cash', dcls:''},
       {label:'CAGR (ann.)', val: s.cagr_annualized===null?'n/a':sign(s.cagr_annualized)+'%', delta:'', dcls:cls(s.cagr_annualized)},
+      {label:'Div / mo (est.)', val: s.div_monthly_est==null?'n/a':fmt$(s.div_monthly_est),
+       delta: fmt$(s.dividends_total)+' lifetime', dcls:'',
+       t:'Est. monthly dividend income from current holdings: shares x trailing-12m payouts per share / 12 (issue #14)'},
     ];
     document.getElementById('cards').innerHTML = cards.map(c =>
-      `<div class="card"><div class="label">${c.label}</div><div class="val ${c.dcls}">${c.val}</div><div class="delta ${c.dcls}">${c.delta}</div></div>`
+      `<div class="card"${c.t ? ` title="${c.t}"` : ''}><div class="label">${c.label}</div><div class="val ${c.dcls}">${c.val}</div><div class="delta ${c.dcls}">${c.delta}</div></div>`
     ).join('');
   }
 
@@ -206,7 +209,7 @@ function render() {
           <div class="fearBar">${segs}</div>
         </div>
         <div class="fearScore" title="Gauge score: deterministic market-data read (0-5, 5 = panic)" style="color:${segColor[filled-1]}">${fmtN(f.score,1)} <span class="fearArrow">${arrow}</span></div>
-        <div class="fearWhy">${trendWord}${f.ai_adjusted ? ' <span class="aiWit">blended&middot;AI-adjusted</span>' : ''}${why ? ` &middot; <span class="muted small">${why}</span>` : ''}${hedgeChips ? '<span class="muted small"> &middot; hedges:</span> '+hedgeChips : ''} ${thLinks}</div>
+        <div class="fearWhy">${trendWord}${(f.ai_adjusted || f.news_adjusted) ? ` <span class="aiWit">blended&middot;${f.ai_adjusted && f.news_adjusted ? 'AI+news' : (f.ai_adjusted ? 'AI' : 'news')}</span>` : ''}${why ? ` &middot; <span class="muted small">${why}</span>` : ''}${hedgeChips ? '<span class="muted small"> &middot; hedges:</span> '+hedgeChips : ''} ${thLinks}</div>
       </div>`;
     }).join('');
 
@@ -283,7 +286,7 @@ function render() {
         : (p.cost!==undefined ? p.current_value - p.cost : 0);
       return `<tr>
         <td><strong><span class="tick" title="${escA(p.name)}">${escA(p.ticker)}</span></strong>${p.leverage > 1 ? `<span class="levBadge">${p.leverage}x</span>` : ''}${isNew.positions[p.ticker] ? '<span class="newTag">NEW</span>' : ''}${p.scheduled_exit ? `<div class="schedTag" title="${escA((p.scheduled_exit.note || p.scheduled_exit.reason))}">SELL SCHEDULED</div>` : ''}</td>
-        <td>${escA(p.name)}<div class="small muted">${escA(p.sleeve)}</div></td>
+        <td>${escA(p.name)}<div class="small muted">${escA(p.sleeve)}</div>${(p.theory_ids||[]).length ? `<div style="margin-top:4px; display:flex; gap:4px; flex-wrap:wrap;">${(p.theory_ids||[]).map(t => `<a class="theoryTag" href="#theory-${escA(t)}" title="View theory ${escA(t)}">${escA(t)}</a>`).join('')}</div>` : ''}</td>
         <td>${fmt$(p.current_value)}</td>
         <td>${fmtN(p.current_value / s.total_value * 100, 1)}%</td>
         <td class="${cls(p.pnl_pct)}">${pnl}</td>
@@ -553,7 +556,7 @@ function render() {
     if (statEl) statEl.innerHTML =
       `<span>Realized P&L <b class="${cls(s.realized_pnl)}">${sign(s.realized_pnl)}</b></span>` +
       `<span>Max Drawdown <b>${fmtN(s.max_drawdown_pct)}%</b></span>` +
-      `<span>Sharpe (ann.) <b>${s.sharpe_annualized===null?'n/a':fmtN(s.sharpe_annualized)}</b></span>`;
+      `<span>Sortino (ann.) <b>${s.sortino_annualized===null?'n/a':fmtN(s.sortino_annualized)}</b></span>`;
 
     function setSize(){
       W = Math.max(60, c.clientWidth || c.parentNode.clientWidth);

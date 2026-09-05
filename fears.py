@@ -653,6 +653,100 @@ def build_fears(data, news_scores=None):
     }
 
 
+FEAR_NEWS_KEYWORDS = {
+    "F1": ["ai ", "nvidia", "semiconductor", "concentration", "magnificent", "mag 7", "mag7", "tech bubble", "nasdaq", "overvalued", "ai valuation", "hyperscaler"],
+    "F2": ["yen", "carry trade", "boj", "bank of japan", "jpy", "yen strength", "unwind", "japan rate"],
+    "F3": ["china", "taiwan", "hong kong", "beijing", " xi ", "escalation", "military drill", "taiwan strait", "semiconductor ban"],
+    "F4": ["inflation", " cpi", "breakeven", "tips ", "wage inflation", "price surge", "supercore", "sticky inflation"],
+    "F5": ["war", "oil", "crude", "energy shock", "missile", "opec", "conflict", "middle east", "ukraine", "attack"],
+    "F6": ["rate", "yield", "fed ", "powell", "treasury", "duration", "bond rout", "curve", "hike", "tnx", "10y"],
+    "F7": ["credit", "spread", "high yield", "hyg", "lqd", "default", "junk bond", "credit crunch", "downgrade"],
+    "F8": ["recession", "slowdown", "unemployment", "layoff", "gdp contraction", "bear market", "growth freeze", "hiring freeze", "jobless"],
+}
+
+_SENT_WEIGHT = {"negative": 1.0, "neutral": 0.55, "positive": 0.15}
+
+
+def score_fears_from_news(news):
+    """VADER-aware keyword-density scoring per fear (F1-F8) — issue #24.
+
+    Input `news` is the `build_news()` payload `{feed[], big_stories[]}` where
+    each item has `title` and `sent` (positive/negative/neutral via VADER).
+    Counts headlines whose title contains any of the fear's keywords, weighted
+    by sentiment (negative headlines count fully, neutral half, positive barely)
+    to reflect fear-relevant negativity, then maps density → 1-5:
+
+        density = weighted_hits / total_headlines
+        news_score = 1 + 4 * min(1, density / 0.25)   # 0→1, 0.25→5, linear
+
+    Returns `{F1: 1.2, ...}` (1.0-5.0, 0.1 rounded) when at least 3 headlines
+    exist; otherwise returns None (degraded — not enough news to judge). A
+    fear with zero hits returns 1.0 so it never drags the market up on its
+    own; the combination rule in `build_fears` / `apply_news_witnesses`
+    clamps the effect to at most market+1.5.
+    """
+    if not news or not isinstance(news, dict):
+        return None
+    feed = news.get("feed") or []
+    # big_stories are a subset of feed; avoid double-counting — use feed only
+    # when it exists, otherwise fall back to big_stories.
+    items = feed if feed else (news.get("big_stories") or [])
+    if len(items) < 3:
+        return None
+    total = len(items)
+    out = {}
+    for fid, kws in FEAR_NEWS_KEYWORDS.items():
+        kws_l = [k.lower() for k in kws]
+        weighted = 0.0
+        for it in items:
+            title = str(it.get("title") or "").lower()
+            if not title:
+                continue
+            if any(kw in title for kw in kws_l):
+                w = _SENT_WEIGHT.get(it.get("sent"), 0.55)
+                weighted += w
+        density = weighted / total if total else 0.0
+        # 0.25 weighted density saturates at 5.0
+        raw = 1.0 + 4.0 * min(1.0, density / 0.25)
+        # keep 0.1 precision, clamp
+        score = round(max(1.0, min(5.0, raw)), 1)
+        out[fid] = score
+    return out
+
+
+def apply_news_witnesses(fears, news_scores):
+    """Blend VADER news-density scores into fear readings (second witness).
+
+    Identical combination used for the AI witness — the news layer (VADER
+    keyword density) can add at most market+1.5, with a +0.5 boost when
+    both witnesses agree that fear is elevated (>=3.0), clamped at 5.0:
+
+        raw = max(market, min(news, market + 1.5))
+        if market >= 3 and news >= 3: raw = min(raw + 0.5, 5)
+
+    Mutates fear objects in place (display layer only). `market_score` is
+    preserved the first time any witness blends so `hedge_harvester` keeps
+    reading the deterministic market witness. Sets `news_adjusted` flag
+    alongside `ai_adjusted` when both fire.
+    """
+    if not news_scores or not fears:
+        return fears
+    for f in fears:
+        ns = news_scores.get(f["id"])
+        if ns is None:
+            continue
+        market = f.get("market_score", f["score"])
+        # Preserve original market score once
+        if "market_score" not in f:
+            f["market_score"] = f["score"]
+        raw = max(market, min(float(ns), market + 1.5))
+        if market >= 3 and float(ns) >= 3:
+            raw = min(raw + 0.5, 5)
+        f["score"] = round(raw, 1)
+        f["news_adjusted"] = True
+    return fears
+
+
 def apply_ai_witnesses(fears, ai_scores):
     """Blend AI sentiment scores into fear readings (two independent witnesses).
 

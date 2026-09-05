@@ -10,12 +10,13 @@
   const LB_KEY = 'aipp.lb.v1';
   const WINDOW_ORDER = ['weekly', 'monthly', 'quarterly', 'yearly', 'all_time'];
   /* Fixed per-column directions: Return high->low (default), Max DD least
-     drawdown first (0.00% -> deepest), Sharpe largest first.
+     drawdown first (0.00% -> deepest), Sortino largest first (issue #32:
+     downside-risk only, upside volatility is not punished).
      dir=1 sorts descending: (vb - va) * 1 puts the larger value first. */
   const SORT_METRICS = {
     return: { label: 'Return', val: r => r.return_pct, dir: 1 },
     mdd: { label: 'Max DD', val: r => r.max_drawdown_pct, dir: 1 },
-    sharpe: { label: 'Sharpe', val: r => r.sharpe, dir: 1 },
+    sortino: { label: 'Sortino', val: r => r.sortino, dir: 1 },
   };
   const esc = v => String(v == null ? '' : v).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   const sign = v => (v > 0 ? '+' : '') + Number(v).toFixed(2);
@@ -103,7 +104,7 @@
       const h3 = document.createElement('span'); h3.textContent = 'Author';
       const h4 = sortHeader('Return' + (active === 'all_time' ? ' *' : ''), 'return');
       const h5 = sortHeader('Max DD', 'mdd');
-      const h6 = sortHeader('Sharpe', 'sharpe');
+      const h6 = sortHeader('Sortino', 'sortino');
       head.appendChild(h1); head.appendChild(h2); head.appendChild(h3);
       head.appendChild(h4); head.appendChild(h5); head.appendChild(h6);
       body.appendChild(head);
@@ -136,8 +137,8 @@
         dd.className = 'lbNum lbDD ' + (r.max_drawdown_pct == null || r.max_drawdown_pct >= 0 ? 'pos' : 'neg');
         dd.textContent = r.max_drawdown_pct == null ? '\u2014' : sign(r.max_drawdown_pct) + '%';
         const sh = document.createElement('span');
-        sh.className = 'lbNum lbSh ' + (r.sharpe == null || r.sharpe >= 0 ? 'pos' : 'neg');
-        sh.textContent = r.sharpe == null ? '\u2014' : r.sharpe.toFixed(2);
+        sh.className = 'lbNum lbSortino ' + (r.sortino == null || r.sortino >= 0 ? 'pos' : 'neg');
+        sh.textContent = r.sortino == null ? '\u2014' : r.sortino.toFixed(2);
         row.appendChild(rk); row.appendChild(nm); row.appendChild(au);
         row.appendChild(rt); row.appendChild(dd); row.appendChild(sh);
         body.appendChild(row);

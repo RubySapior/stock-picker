@@ -432,6 +432,27 @@ def process_dividends(data, div_map, prices, today):
         print(f"  DIVIDEND {tk}: ${gross:.2f} ({per_sh:.3f}/sh) {where}")
 
 
+def compute_div_runrate(data):
+    """Estimated dividend income per month ($) from CURRENT open positions
+    (issue #14): shares x trailing-12m payouts per share / 12, summed over
+    the book. Uses the daily-cached Yahoo div events (~1y window), so a
+    payer's frequency (monthly/quarterly) is already baked into the TTM sum;
+    tickers that never paid contribute 0. None when the cache is unreadable.
+    """
+    try:
+        divs = load_ohlc_cache().get("dividends") or {}
+    except Exception:
+        return None
+    ttm_total = 0.0
+    for p in data.get("positions") or []:
+        if p.get("status") != "open":
+            continue
+        ttm = sum(d.get("amount") or 0.0 for d in divs.get(p["ticker"]) or [])
+        if ttm:
+            ttm_total += (p.get("shares") or 0.0) * ttm
+    return round(ttm_total / 12.0, 2)
+
+
 def _sma(vals, n):
     return sum(vals[-n:]) / n if len(vals) >= n else None
 
@@ -994,7 +1015,7 @@ def build_benchmark(data, hist, label):
         "summary": {
             "total_return_pct": round((by_date[dates[-1]] / start - 1) * 100, 2),
             "max_drawdown_pct": compute_drawdown(vals),
-            "sharpe_annualized": compute_sharpe(vals),
+            "sortino_annualized": compute_sortino(vals),
         },
     }
 
@@ -1186,18 +1207,21 @@ def compute_drawdown(history):
     return round(mdd * 100, 2)
 
 
-def compute_sharpe(history):
-    """Annualized Sharpe from daily {total_value} snapshots; None if too few days."""
+def compute_sortino(history):
+    """Annualized Sortino from daily {total_value} snapshots; None if too few
+    days or zero downside deviation (issue #32: replaces Sharpe — punishes
+    only downside volatility, never upside).
+    """
     vals = [h["total_value"] for h in history]
     if len(vals) < 3:
         return None
     rets = [(vals[i] / vals[i - 1]) - 1 for i in range(1, len(vals))]
     mean = sum(rets) / len(rets)
-    var = sum((r - mean) ** 2 for r in rets) / (len(rets) - 1)
-    std = var ** 0.5
-    if std == 0:
+    dvar = sum(min(r, 0.0) ** 2 for r in rets) / (len(rets) - 1)
+    ddev = dvar ** 0.5
+    if ddev == 0:
         return None
-    return round((mean / std) * (252 ** 0.5), 2)
+    return round((mean / ddev) * (252 ** 0.5), 2)
 
 
 def compute_cagr(total, start, start_date, end_date=None):
@@ -2443,6 +2467,24 @@ def write_dashboard(data, benchmark=None, fear_data=None,
     meta["asof_ts"] = int(time.time())
     meta["refresh_interval"] = refresh_interval
 
+    # News layer for the Fear Gauge (issue #24): VADER keyword-density
+    # scoring per F1-F8, blended via the same two-witness rule as the AI.
+    # Degraded: an empty/failed feed returns None and the gauge stays
+    # market-only (never breaks the run).
+    _news = (build_news_cached(
+        [p for p in data["positions"] if p["status"] == "open"]
+    ) if any(p["status"] == "open" for p in data["positions"])
+        else {"asof": None, "big_stories": [], "feed": []})
+    if fear_data is not None and _news:
+        try:
+            from fears import score_fears_from_news, apply_news_witnesses
+            _ns = score_fears_from_news(_news)
+            if _ns:
+                apply_news_witnesses(fear_data.get("fears") or [], _ns)
+                fear_data["news_layer"] = True
+                fear_data["news_scores"] = _ns
+        except Exception as exc:
+            print(f"  WARN: fear news layer failed (degraded): {exc}")
     payload = {
         "meta": meta,
         "asof": history[-1]["date"],
@@ -2454,9 +2496,10 @@ def write_dashboard(data, benchmark=None, fear_data=None,
             "total_return_pct": total_return,
             "realized_pnl": realized,
             "dividends_total": round(data["account"].get("dividends") or 0.0, 2),
+            "div_monthly_est": compute_div_runrate(data),
             "start_value": start,
             "max_drawdown_pct": compute_drawdown(history),
-            "sharpe_annualized": compute_sharpe(history),
+            "sortino_annualized": compute_sortino(history),
             "cagr_annualized": compute_cagr(total, start, data["meta"]["start_date"],
                                             history[-1]["date"]),
         },
@@ -2475,10 +2518,7 @@ def write_dashboard(data, benchmark=None, fear_data=None,
         "benchmark": benchmark,
         "benchmarks": benchmarks,
         "ai": build_ai_payload(ai_verdict, data, gauge=gauge),
-        "news": build_news_cached(
-            [p for p in data["positions"] if p["status"] == "open"]
-        ) if any(p["status"] == "open" for p in data["positions"])
-        else {"asof": None, "big_stories": [], "feed": []},
+        "news": _news,
         "orders": (data.get("orders") or [])[-15:],
     }
     # Issue #48: atomic write - a kill mid-write (e.g. serve.py's subprocess
@@ -2501,7 +2541,7 @@ def print_summary(data, today, benchmark=None):
     print(f"\n=== {data['meta']['name']} - {today} ===")
     print(f"Total value: ${total:,.2f}   (return {ret:+,.2f}%)")
     print(f"Cash: ${data['account']['cash']:,.2f}  |  Realized P&L: ${data['account']['realized_pnl']:+,.2f}")
-    print(f"Max drawdown: {compute_drawdown(history)}%   |   Sharpe (annualized): {compute_sharpe(history)}")
+    print(f"Max drawdown: {compute_drawdown(history)}%   |   Sortino (annualized): {compute_sortino(history)}")
     cagr = compute_cagr(total, start, data["meta"]["start_date"],
                         history[-1]["date"] if history else None)
     if cagr is not None:

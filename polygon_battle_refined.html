@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Polygon Battle Bears — Refined (draw → look → fix)</title>
+<link rel="stylesheet" href="styles.css?v=57">
+<style>
+  .wrap{max-width:1180px; margin:0 auto; padding:28px 18px;}
+  .head{text-align:center; margin-bottom:22px;}
+  .head h1{font-size:28px; margin-bottom:6px;}
+  .head p{color:var(--muted); font-size:14px; max-width:760px; margin:0 auto; line-height:1.6;}
+  .iterBadge{display:inline-block; font-size:11px; font-weight:700; letter-spacing:.5px; color:var(--green); background:rgba(34,197,94,.12); border:1px solid rgba(34,197,94,.35); border-radius:999px; padding:3px 10px; margin-top:10px;}
+  .grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(340px, 1fr)); gap:16px; margin-top:22px;}
+  .card{background:var(--panel); border:1px solid var(--border); border-radius:16px; padding:16px 14px 14px; text-align:center; transition:border-color .15s, transform .15s;}
+  .card:hover{border-color:var(--blue); transform:translateY(-2px);}
+  .lab{font-size:11px; font-weight:800; letter-spacing:.7px; text-transform:uppercase; color:var(--muted); margin-bottom:4px;}
+  .title{font-size:15px; font-weight:800; margin-bottom:4px;}
+  .desc{font-size:12px; color:var(--muted); line-height:1.5; min-height:40px; margin-bottom:10px;}
+  .stage{background:radial-gradient(ellipse at 30% 35%, rgba(239,68,68,.07), transparent 58%), radial-gradient(ellipse at 75% 65%, rgba(34,197,94,.06), transparent 55%), var(--panel2); border:1px solid var(--border); border-radius:12px; height:240px; display:flex; align-items:center; justify-content:center; gap:8px; padding:12px; position:relative; overflow:hidden;}
+  .stage svg{width:150px; height:150px; flex:none; display:block;}
+  .vs{font-size:11px; font-weight:800; color:var(--muted); background:var(--panel); border:1px solid var(--border); border-radius:999px; padding:3px 8px; flex:none;}
+  .bull{opacity:0.55;}
+  .btn{cursor:pointer; font-size:12px; font-weight:700; background:var(--panel2); color:var(--txt); border:1px solid var(--border); border-radius:8px; padding:6px 12px; font-family:inherit;}
+  .btn:hover{border-color:var(--blue); color:var(--blue);}
+  .btn.on{background:rgba(34,197,94,.14); color:var(--green); border-color:rgba(34,197,94,.4);}
+  .code{display:none; text-align:left; background:#0b0e14; border:1px solid var(--border); border-radius:8px; padding:10px 12px; font-size:10.5px; line-height:1.5; color:var(--muted); white-space:pre-wrap; word-break:break-all; margin-top:10px; max-height:180px; overflow:auto;}
+  .code.open{display:block;}
+  .pair{margin:22px auto 0; max-width:560px; background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:16px; text-align:center;}
+  .pairStage{display:flex; align-items:center; justify-content:center; gap:12px; height:180px; background:var(--panel2); border:1px solid var(--border); border-radius:10px; margin-top:10px;}
+  .pairStage svg{width:140px; height:140px;}
+  .foot{display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:22px;}
+  .foot a{color:var(--blue); text-decoration:none; font-size:13px; font-weight:600;}
+  .foot a:hover{text-decoration:underline;}
+  #msg{text-align:center; margin-top:12px; min-height:18px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head">
+    <h1>Polygon battle bears — refined</h1>
+    <p>Draw → <b>render with rsvg-convert</b> → look → fix. Each bear below was rendered to PNG, inspected, and refined (snout blunted, mouth resized, legs connected). These are the <b>side-profile, facing right</b> versions you asked for — they face the green bull.</p>
+    <div class="iterBadge">✓ Render-look loop enabled via librsvg2-bin — no more blind typing</div>
+  </div>
+
+  <div class="grid">
+
+    <!-- R1 -->
+    <div class="card" data-v="R1">
+      <div class="lab">R1 — Rearing</div>
+      <div class="title">Standing Slam</div>
+      <div class="desc">Up on hind legs, chest out, paws raised. Tallest — most dominant on the hero.</div>
+      <div class="stage">
+        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="R1"><polygon points="32,110 50,110 48,96 30,96" fill="#7f1d1d"/><polygon points="52,110 70,110 68,96 52,96" fill="#991b1b"/><polygon points="32,96 50,96 50,82 34,82" fill="#7f1d1d"/><polygon points="52,96 70,96 68,82 52,82" fill="#7f1d1d"/><polygon points="34,82 52,82 54,66 32,68" fill="#991b1b"/><polygon points="52,82 68,82 64,66 54,66" fill="#7f1d1d"/><polygon points="32,68 54,66 60,52 40,50" fill="#b91c1c"/><polygon points="54,66 64,66 62,52 60,52" fill="#dc2626"/><polygon points="62,52 80,38 96,42 92,60 66,62" fill="#dc2626"/><polygon points="80,38 86,28 96,32 96,42" fill="#ef4444"/><polygon points="96,42 108,40 114,48 104,58 92,60" fill="#fecaca"/><polygon points="108,40 114,48 112,50 106,44" fill="#1f0a0a"/><polygon points="74,38 78,28 84,32 80,40" fill="#7f1d1d"/><polygon points="78,30 80,28 82,32 80,34" fill="#fee2e2"/><circle cx="82" cy="46" r="2.2" fill="#1f0a0a"/><circle cx="82.8" cy="45" r="0.6" fill="white" opacity="0.9"/><polygon points="40,50 32,32 44,22 54,30 52,42" fill="#b91c1c"/><polygon points="44,22 50,14 58,18 54,30" fill="#991b1b"/><polygon points="50,14 56,8 60,14 58,18" fill="#fecaca"/><polygon points="40,50 48,48 56,54 48,62 36,60" fill="#7f1d1d"/><polygon points="56,8 58,4 60,6 58,10" fill="#e5e7eb"/><polygon points="50,14 52,10 54,12 52,16" fill="#e5e7eb"/></svg>
+        <span class="vs">VS</span>
+        <svg class="bull" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><polygon points="102,52 88,30 68,26 62,34" fill="#14532d"/><polygon points="102,52 62,34 64,58 96,66" fill="#15803d"/><polygon points="96,66 64,58 58,86 92,90" fill="#16a34a"/><polygon points="92,90 58,86 62,104 98,102" fill="#14532d"/><polygon points="62,34 44,22 28,36 34,52 64,58" fill="#22c55e"/><polygon points="44,22 38,10 28,16 28,36" fill="#86efac"/><polygon points="38,10 32,4 26,12 28,16" fill="#f0fdf4"/><polygon points="64,58 34,52 32,70 58,86" fill="#166534"/><polygon points="34,52 28,36 16,42 24,64 32,70" fill="#16a34a"/><polygon points="24,64 16,42 12,56 22,74" fill="#22c55e"/><polygon points="88,30 82,14 68,16 68,26" fill="#86efac"/><polygon points="82,14 76,6 66,10 68,16" fill="#bbf7d0"/><circle cx="48" cy="44" r="3.2" fill="#052e16"/><polygon points="32,48 24,50 26,56 32,54" fill="#052e16"/><polygon points="28,16 18,8 22,20" fill="#e5e7eb"/><polygon points="92,30 98,14 88,18" fill="#a7f3d0"/></svg>
+      </div>
+      <button class="btn" onclick="pick('R1')">Use this bear</button>
+      <button class="btn" style="margin-left:6px;" onclick="toggle('R1')">Show SVG</button>
+      <pre class="code" id="codeR1"></pre>
+    </div>
+
+    <!-- R2 -->
+    <div class="card" data-v="R2">
+      <div class="lab">R2 — Charging</div>
+      <div class="title">Head-Down Charge</div>
+      <div class="desc">Refined: blunter snout, broader head. All-fours driving forward.</div>
+      <div class="stage">
+        <svg viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="R2"><polygon points="18,58 52,48 74,52 70,68 24,70" fill="#991b1b"/><polygon points="52,48 74,52 78,44 58,38" fill="#7f1d1d"/><polygon points="18,58 52,48 24,70 14,62" fill="#b91c1c"/><polygon points="24,70 70,68 68,76 24,76" fill="#7f1d1d"/><polygon points="74,52 78,44 84,50 82,62 70,68" fill="#7f1d1d"/><polygon points="74,52 88,44 90,56 70,68" fill="#dc2626"/><polygon points="88,44 98,40 104,46 100,58 90,56" fill="#dc2626"/><polygon points="98,40 103,34 108,40 104,46" fill="#1f0a0a"/><polygon points="100,58 104,46 102,54 96,60" fill="#991b1b" opacity="0.45"/><polygon points="96,42 104,42 110,48 108,54 96,56 90,54" fill="#fecaca"/><polygon points="104,42 110,48 108,52 106,46" fill="#1f0a0a"/><polygon points="88,52 96,56 94,52" fill="#7f1d1d" opacity="0.4"/><polygon points="84,44 86,34 92,38 90,44" fill="#7f1d1d"/><polygon points="86,36 88,34 90,38 88,40" fill="#fecaca"/><circle cx="93" cy="46.5" r="1.9" fill="#1f0a0a"/><polygon points="28,70 40,70 38,86 26,86" fill="#7f1d1d"/><polygon points="48,70 60,70 58,86 46,86" fill="#991b1b"/><polygon points="16,68 28,66 26,86 14,86" fill="#7f1d1d"/><polygon points="62,70 74,68 72,86 60,86" fill="#7f1d1d"/><polygon points="14,62 10,58 12,66 16,68" fill="#450a0a"/></svg>
+        <span class="vs">VS</span>
+        <svg class="bull" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><polygon points="102,52 88,30 68,26 62,34" fill="#14532d"/><polygon points="102,52 62,34 64,58 96,66" fill="#15803d"/><polygon points="96,66 64,58 58,86 92,90" fill="#16a34a"/><polygon points="92,90 58,86 62,104 98,102" fill="#14532d"/><polygon points="62,34 44,22 28,36 34,52 64,58" fill="#22c55e"/><polygon points="44,22 38,10 28,16 28,36" fill="#86efac"/><polygon points="38,10 32,4 26,12 28,16" fill="#f0fdf4"/><polygon points="64,58 34,52 32,70 58,86" fill="#166534"/><polygon points="34,52 28,36 16,42 24,64 32,70" fill="#16a34a"/><polygon points="24,64 16,42 12,56 22,74" fill="#22c55e"/><polygon points="88,30 82,14 68,16 68,26" fill="#86efac"/><polygon points="82,14 76,6 66,10 68,16" fill="#bbf7d0"/><circle cx="48" cy="44" r="3.2" fill="#052e16"/><polygon points="32,48 24,50 26,56 32,54" fill="#052e16"/><polygon points="28,16 18,8 22,20" fill="#e5e7eb"/><polygon points="92,30 98,14 88,18" fill="#a7f3d0"/></svg>
+      </div>
+      <button class="btn" onclick="pick('R2')">Use this bear</button>
+      <button class="btn" style="margin-left:6px;" onclick="toggle('R2')">Show SVG</button>
+      <pre class="code" id="codeR2"></pre>
+    </div>
+
+    <!-- R3 -->
+    <div class="card" data-v="R3">
+      <div class="lab">R3 — Swiping</div>
+      <div class="title">Claw Swipe</div>
+      <div class="desc">One paw high-arc mid-swing. Most dynamic — bull about to dodge.</div>
+      <div class="stage">
+        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="R3"><polygon points="30,108 48,108 46,88 30,88" fill="#7f1d1d"/><polygon points="50,108 68,108 66,88 50,88" fill="#991b1b"/><polygon points="30,88 50,88 58,68 32,68" fill="#991b1b"/><polygon points="50,88 68,88 64,68 58,68" fill="#7f1d1d"/><polygon points="32,68 58,68 62,52 36,52" fill="#b91c1c"/><polygon points="36,52 62,52 64,42 40,40" fill="#dc2626"/><polygon points="40,40 64,42 66,34 46,32" fill="#7f1d1d"/><polygon points="66,34 84,26 98,34 92,52 64,52" fill="#dc2626"/><polygon points="84,26 90,18 98,24 98,34" fill="#fca5a5"/><polygon points="90,18 96,14 100,20 98,24" fill="#fee2e2"/><polygon points="98,34 108,32 114,40 104,50 92,52" fill="#fecaca"/><polygon points="108,32 114,40 112,42 106,36" fill="#1f0a0a"/><polygon points="78,28 82,20 86,24 84,30" fill="#7f1d1d"/><circle cx="84" cy="38" r="2.1" fill="#1f0a0a"/><circle cx="84.7" cy="37" r="0.6" fill="white" opacity="0.85"/><polygon points="40,40 22,30 26,16 46,24 52,36" fill="#b91c1c"/><polygon points="26,16 30,8 38,12 46,24 34,26" fill="#991b1b"/><polygon points="30,8 36,4 40,8 38,12" fill="#fecaca"/><polygon points="46,32 62,34 60,44 48,44" fill="#7f1d1d"/><polygon points="36,4 38,0 40,2 38,6" fill="#e5e7eb"/><polygon points="30,8 32,4 34,6 32,10" fill="#e5e7eb"/><polygon points="26,16 28,12 30,14 28,18" fill="#e5e7eb"/></svg>
+        <span class="vs">VS</span>
+        <svg class="bull" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><polygon points="102,52 88,30 68,26 62,34" fill="#14532d"/><polygon points="102,52 62,34 64,58 96,66" fill="#15803d"/><polygon points="96,66 64,58 58,86 92,90" fill="#16a34a"/><polygon points="92,90 58,86 62,104 98,102" fill="#14532d"/><polygon points="62,34 44,22 28,36 34,52 64,58" fill="#22c55e"/><polygon points="44,22 38,10 28,16 28,36" fill="#86efac"/><polygon points="38,10 32,4 26,12 28,16" fill="#f0fdf4"/><polygon points="64,58 34,52 32,70 58,86" fill="#166534"/><polygon points="34,52 28,36 16,42 24,64 32,70" fill="#16a34a"/><polygon points="24,64 16,42 12,56 22,74" fill="#22c55e"/><polygon points="88,30 82,14 68,16 68,26" fill="#86efac"/><polygon points="82,14 76,6 66,10 68,16" fill="#bbf7d0"/><circle cx="48" cy="44" r="3.2" fill="#052e16"/><polygon points="32,48 24,50 26,56 32,54" fill="#052e16"/><polygon points="28,16 18,8 22,20" fill="#e5e7eb"/><polygon points="92,30 98,14 88,18" fill="#a7f3d0"/></svg>
+      </div>
+      <button class="btn" onclick="pick('R3')">Use this bear</button>
+      <button class="btn" style="margin-left:6px;" onclick="toggle('R3')">Show SVG</button>
+      <pre class="code" id="codeR3"></pre>
+    </div>
+
+    <!-- R4 -->
+    <div class="card" data-v="R4">
+      <div class="lab">R4 — Roaring</div>
+      <div class="title">Upright Roar</div>
+      <div class="desc">Refined: smaller mouth, less pink. Head back, jaws wide — loudest.</div>
+      <div class="stage">
+        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="R4"><polygon points="32,108 48,108 46,92 32,92" fill="#7f1d1d"/><polygon points="50,108 66,108 64,92 50,92" fill="#991b1b"/><polygon points="32,92 50,92 54,74 32,74" fill="#991b1b"/><polygon points="50,92 66,92 64,74 54,74" fill="#7f1d1d"/><polygon points="32,74 54,74 58,56 34,56" fill="#b91c1c"/><polygon points="34,56 58,56 60,42 38,40" fill="#dc2626"/><polygon points="38,40 60,42 62,34 42,32" fill="#7f1d1d"/><polygon points="62,34 78,28 92,34 90,48 62,48" fill="#dc2626"/><polygon points="78,28 84,18 92,22 92,34" fill="#fca5a5"/><polygon points="84,18 90,14 92,22 86,26" fill="#fee2e2"/><polygon points="92,34 102,32 108,38 102,46 90,48" fill="#fecaca"/><polygon points="102,46 108,38 106,44 102,48" fill="#7f1d1d"/><polygon points="92,34 102,46 100,48 90,48" fill="#450a0a"/><polygon points="99,32 101,32 100,35" fill="white"/><polygon points="103,31 105,31 104,34" fill="white"/><polygon points="97,42 101,40 103,44 98,46" fill="#f87171"/><polygon points="76,36 82,28 86,32 82,38" fill="#7f1d1d"/><circle cx="80" cy="40" r="1.8" fill="#1f0a0a"/><polygon points="38,40 28,30 36,18 48,26 44,38" fill="#b91c1c"/><polygon points="36,18 40,10 46,14 48,26 38,24" fill="#991b1b"/><polygon points="40,10 44,6 46,10 44,14" fill="#fecaca"/><polygon points="62,48 70,36 76,42 68,50 58,48" fill="#b91c1c"/></svg>
+        <span class="vs">VS</span>
+        <svg class="bull" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><polygon points="102,52 88,30 68,26 62,34" fill="#14532d"/><polygon points="102,52 62,34 64,58 96,66" fill="#15803d"/><polygon points="96,66 64,58 58,86 92,90" fill="#16a34a"/><polygon points="92,90 58,86 62,104 98,102" fill="#14532d"/><polygon points="62,34 44,22 28,36 34,52 64,58" fill="#22c55e"/><polygon points="44,22 38,10 28,16 28,36" fill="#86efac"/><polygon points="38,10 32,4 26,12 28,16" fill="#f0fdf4"/><polygon points="64,58 34,52 32,70 58,86" fill="#166534"/><polygon points="34,52 28,36 16,42 24,64 32,70" fill="#16a34a"/><polygon points="24,64 16,42 12,56 22,74" fill="#22c55e"/><polygon points="88,30 82,14 68,16 68,26" fill="#86efac"/><polygon points="82,14 76,6 66,10 68,16" fill="#bbf7d0"/><circle cx="48" cy="44" r="3.2" fill="#052e16"/><polygon points="32,48 24,50 26,56 32,54" fill="#052e16"/><polygon points="28,16 18,8 22,20" fill="#e5e7eb"/><polygon points="92,30 98,14 88,18" fill="#a7f3d0"/></svg>
+      </div>
+      <button class="btn" onclick="pick('R4')">Use this bear</button>
+      <button class="btn" style="margin-left:6px;" onclick="toggle('R4')">Show SVG</button>
+      <pre class="code" id="codeR4"></pre>
+    </div>
+
+    <!-- R5 -->
+    <div class="card" data-v="R5">
+      <div class="lab">R5 — Crouched</div>
+      <div class="title">Low Guard</div>
+      <div class="desc">Wide, low, coiled. Most stable at hero opacity — reads even at 0.18.</div>
+      <div class="stage">
+        <svg viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="R5"><polygon points="18,82 34,82 32,96 16,96" fill="#7f1d1d"/><polygon points="52,80 68,78 66,96 50,96" fill="#991b1b"/><polygon points="18,82 52,80 68,78 64,64 28,64" fill="#991b1b"/><polygon points="28,64 64,64 62,52 34,50" fill="#b91c1c"/><polygon points="34,50 62,52 60,42 38,40" fill="#7f1d1d"/><polygon points="38,40 60,42 68,48 50,56 34,56" fill="#dc2626"/><polygon points="68,48 86,38 100,44 94,60 68,62" fill="#dc2626"/><polygon points="86,38 92,30 98,36 100,44 86,44" fill="#fca5a5"/><polygon points="92,30 96,24 100,30 98,36" fill="#fee2e2"/><polygon points="100,44 110,44 112,50 102,58 94,60" fill="#fecaca"/><polygon points="110,44 112,50 110,52 108,46" fill="#1f0a0a"/><polygon points="80,40 84,32 88,36 86,42" fill="#7f1d1d"/><circle cx="88" cy="46" r="2" fill="#1f0a0a"/><circle cx="88.7" cy="45" r="0.6" fill="white" opacity="0.85"/><polygon points="34,56 46,56 44,82 32,84" fill="#7f1d1d"/><polygon points="50,56 62,54 60,82 48,82" fill="#7f1d1d"/><polygon points="34,50 38,40 46,42 44,50" fill="#ef4444" opacity="0.9"/></svg>
+        <span class="vs">VS</span>
+        <svg class="bull" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><polygon points="102,52 88,30 68,26 62,34" fill="#14532d"/><polygon points="102,52 62,34 64,58 96,66" fill="#15803d"/><polygon points="96,66 64,58 58,86 92,90" fill="#16a34a"/><polygon points="92,90 58,86 62,104 98,102" fill="#14532d"/><polygon points="62,34 44,22 28,36 34,52 64,58" fill="#22c55e"/><polygon points="44,22 38,10 28,16 28,36" fill="#86efac"/><polygon points="38,10 32,4 26,12 28,16" fill="#f0fdf4"/><polygon points="64,58 34,52 32,70 58,86" fill="#166534"/><polygon points="34,52 28,36 16,42 24,64 32,70" fill="#16a34a"/><polygon points="24,64 16,42 12,56 22,74" fill="#22c55e"/><polygon points="88,30 82,14 68,16 68,26" fill="#86efac"/><polygon points="82,14 76,6 66,10 68,16" fill="#bbf7d0"/><circle cx="48" cy="44" r="3.2" fill="#052e16"/><polygon points="32,48 24,50 26,56 32,54" fill="#052e16"/><polygon points="28,16 18,8 22,20" fill="#e5e7eb"/><polygon points="92,30 98,14 88,18" fill="#a7f3d0"/></svg>
+      </div>
+      <button class="btn" onclick="pick('R5')">Use this bear</button>
+      <button class="btn" style="margin-left:6px;" onclick="toggle('R5')">Show SVG</button>
+      <pre class="code" id="codeR5"></pre>
+    </div>
+
+  </div>
+
+  <div class="pair" id="pairBox">
+    <div style="font-size:13px; font-weight:700;">Battle preview</div>
+    <div class="muted small">Pick one above to see bear vs bull as on landing (left red vs right green, opacity 0.18).</div>
+    <div class="pairStage" id="pairStage"><span class="muted small">Pick a bear above</span></div>
+    <div style="margin-top:10px;"><button class="btn" onclick="preview()">Preview on landing →</button><button class="btn" onclick="clearPick()" style="margin-left:8px;">Clear</button></div>
+    <div id="msg" class="muted small" style="margin-top:8px; min-height:18px;"></div>
+  </div>
+
+  <div class="foot">
+    <a href="bear_battle_preview.html">← Previous 5 battles</a>
+    <a href="bear_bull_minimal_preview.html">Minimal bears/bulls</a>
+    <a href="index.html">Landing →</a>
+  </div>
+</div>
+
+<script>
+  const sources = {};
+  document.querySelectorAll('.card').forEach(c=>{
+    const v=c.getAttribute('data-v');
+    const svg=c.querySelector('svg');
+    sources[v]=svg.outerHTML;
+    const pre=document.getElementById('code'+v);
+    if(pre) pre.textContent=svg.outerHTML;
+  });
+  let pick=null;
+  function toggle(v){ document.getElementById('code'+v).classList.toggle('open'); }
+  function pick(v){
+    pick=v;
+    document.querySelectorAll('.card .btn').forEach(b=>b.classList.remove('on'));
+    const card=document.querySelector('.card[data-v="'+v+'"]');
+    if(card) card.querySelector('.btn').classList.add('on');
+    const stage=document.getElementById('pairStage');
+    const bearSvg=sources[v];
+    stage.innerHTML=`<div style="opacity:0.18">${bearSvg}</div><span class="vs">VS</span><svg class="bull" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" style="width:140px;height:140px;opacity:0.18"><polygon points="102,52 88,30 68,26 62,34" fill="#14532d"/><polygon points="102,52 62,34 64,58 96,66" fill="#15803d"/><polygon points="96,66 64,58 58,86 92,90" fill="#16a34a"/><polygon points="92,90 58,86 62,104 98,102" fill="#14532d"/><polygon points="62,34 44,22 28,36 34,52 64,58" fill="#22c55e"/><polygon points="44,22 38,10 28,16 28,36" fill="#86efac"/><polygon points="38,10 32,4 26,12 28,16" fill="#f0fdf4"/><polygon points="64,58 34,52 32,70 58,86" fill="#166534"/><polygon points="34,52 28,36 16,42 24,64 32,70" fill="#16a34a"/><polygon points="24,64 16,42 12,56 22,74" fill="#22c55e"/><polygon points="88,30 82,14 68,16 68,26" fill="#86efac"/><polygon points="82,14 76,6 66,10 68,16" fill="#bbf7d0"/><circle cx="48" cy="44" r="3.2" fill="#052e16"/><polygon points="32,48 24,50 26,56 32,54" fill="#052e16"/><polygon points="28,16 18,8 22,20" fill="#e5e7eb"/><polygon points="92,30 98,14 88,18" fill="#a7f3d0"/></svg>`;
+    document.getElementById('msg').innerHTML='Picked <b>'+v+'</b> — hit Preview on landing.';
+  }
+  function preview(){
+    if(!pick){ document.getElementById('msg').textContent='Pick a bear first.'; return; }
+    const svg=sources[pick].replace('viewBox="0 0 120 120"', 'viewBox="0 0 120 120" class="heroBear"').replace('viewBox="0 0 120 100"', 'viewBox="0 0 120 100" class="heroBear"');
+    try{ localStorage.setItem('stockpicker.bear.pick', JSON.stringify({v:pick, svg, ts:Date.now()})); }catch(e){}
+    location.href='index.html';
+  }
+  function clearPick(){
+    pick=null; document.querySelectorAll('.btn').forEach(b=>b.classList.remove('on'));
+    document.getElementById('pairStage').innerHTML='<span class="muted small">Pick a bear above</span>';
+    try{ localStorage.removeItem('stockpicker.bear.pick'); }catch(e){}
+    document.getElementById('msg').textContent='Cleared.';
+  }
+  // restore
+  try{
+    const s=JSON.parse(localStorage.getItem('stockpicker.bear.pick')||'null');
+    if(s && s.v && sources[s.v]){ pick=s.v; const c=document.querySelector('.card[data-v="'+s.v+'"]'); if(c) c.querySelector('.btn').classList.add('on'); }
+  }catch(e){}
+</script>
+</body>
+</html>

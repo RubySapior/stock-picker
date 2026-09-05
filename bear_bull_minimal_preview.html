@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minimal Bears & Bulls — Actually Good</title>
+<link rel="stylesheet" href="styles.css?v=57">
+<style>
+  .wrap{max-width:1160px; margin:0 auto; padding:28px 18px;}
+  .head{text-align:center; margin-bottom:22px;}
+  .head h1{font-size:28px; margin-bottom:6px;}
+  .head p{color:var(--muted); font-size:14px; max-width:720px; margin:0 auto; line-height:1.6;}
+  .sec{margin-top:28px; border-top:1px solid var(--border); padding-top:22px;}
+  .secHead{font-size:18px; font-weight:800; margin-bottom:6px; display:flex; align-items:center; gap:10px;}
+  .secHead .dot{width:10px; height:10px; border-radius:50%; flex:none;}
+  .secSub{color:var(--muted); font-size:12.5px; margin-bottom:14px;}
+  .grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:16px;}
+  .card{background:var(--panel); border:1px solid var(--border); border-radius:16px; padding:16px 14px 14px; text-align:center; transition:border-color .15s, transform .15s;}
+  .card:hover{border-color:var(--blue); transform:translateY(-2px);}
+  .lab{font-size:11px; font-weight:800; letter-spacing:.7px; text-transform:uppercase; color:var(--muted); margin-bottom:4px;}
+  .title{font-size:15px; font-weight:800; margin-bottom:4px;}
+  .desc{font-size:12px; color:var(--muted); line-height:1.5; min-height:38px; margin-bottom:10px;}
+  .stage{background:var(--panel2); border:1px solid var(--border); border-radius:12px; height:180px; display:flex; align-items:center; justify-content:center; margin-bottom:10px; position:relative; overflow:hidden;}
+  .stage svg{width:140px; height:140px; display:block;}
+  .stage::after{content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 50% 20%, rgba(255,255,255,.04), transparent 60%); pointer-events:none;}
+  .btn{cursor:pointer; font-size:12px; font-weight:700; background:var(--panel2); color:var(--txt); border:1px solid var(--border); border-radius:8px; padding:6px 12px; font-family:inherit;}
+  .btn:hover{border-color:var(--blue); color:var(--blue);}
+  .btn.on{background:rgba(34,197,94,.14); color:var(--green); border-color:rgba(34,197,94,.4);}
+  .pairStage{background:radial-gradient(ellipse at 30% 35%, rgba(239,68,68,.07), transparent 55%), radial-gradient(ellipse at 75% 65%, rgba(34,197,94,.06), transparent 55%), var(--panel2); border:1px solid var(--border); border-radius:12px; height:200px; display:flex; align-items:center; justify-content:center; gap:10px; margin:18px auto 0; max-width:520px; padding:14px;}
+  .pairStage svg{width:130px; height:130px; flex:none;}
+  .vs{font-size:11px; font-weight:800; color:var(--muted); background:var(--panel); border:1px solid var(--border); border-radius:999px; padding:3px 8px; flex:none;}
+  .footLinks{display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-top:22px;}
+  .footLinks a{color:var(--blue); text-decoration:none; font-size:13px; font-weight:600;}
+  .footLinks a:hover{text-decoration:underline;}
+  #msg{text-align:center; margin-top:14px; min-height:18px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head">
+    <h1>Minimal bears & bulls</h1>
+    <p>Flat, clean, actually looks good hand-coded — circles + rounded rects, no fake 3D sculpting. Pick one bear + one bull. They'll face each other on the landing page.</p>
+    <p class="muted small" style="margin-top:8px;">Same red <code>#dc2626</code> / green <code>#16a34a</code> as before, but built from primitives I can get right. All 10 are just <code>circle</code>/<code>ellipse</code>/<code>rect</code>/<code>path</code> — sharp at any size.</p>
+  </div>
+
+  <!-- ============== BEARS ============== -->
+  <div class="sec">
+    <div class="secHead"><span class="dot" style="background:var(--red)"></span> Bears — pick one <span class="muted" style="font-weight:400; font-size:13px;">(red, left side)</span></div>
+    <div class="secSub">All front-facing heads. Vary by fill / expression / shape language.</div>
+    <div class="grid" id="bearGrid"></div>
+  </div>
+
+  <!-- ============== BULLS ============== -->
+  <div class="sec">
+    <div class="secHead"><span class="dot" style="background:var(--green)"></span> Bulls — pick one <span class="muted" style="font-weight:400; font-size:13px;">(green, right side)</span></div>
+    <div class="secSub">All front-facing heads. Vary by horn shape / snout / mood.</div>
+    <div class="grid" id="bullGrid"></div>
+  </div>
+
+  <!-- Pair preview -->
+  <div class="sec">
+    <div class="secHead">Battle preview</div>
+    <div class="secSub">How they'll look flanking the hero title (left bear vs right bull, <code>opacity:0.18</code> like the real page).</div>
+    <div class="pairStage" id="pairStage">
+      <span class="muted small">Pick a bear + bull above</span>
+    </div>
+    <div style="text-align:center; margin-top:10px;">
+      <button class="btn" onclick="previewOnLanding()">Preview on landing →</button>
+      <button class="btn" onclick="clearPicks()" style="margin-left:8px;">Clear</button>
+    </div>
+    <div id="msg" class="muted small"></div>
+  </div>
+
+  <div class="footLinks">
+    <a href="index.html">Landing →</a>
+    <a href="bear_preview.html">Old low-poly bears</a>
+    <a href="bear_battle_preview.html">Battle bears</a>
+  </div>
+</div>
+
+<script>
+// ---------- BEAR SVGs (minimal, clean) ----------
+const bears = {
+  B1: {
+    title:'Classic Filled',
+    desc:'Solid red head, cream snout, soft. The safe, friendly default.',
+    svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="bear B1">
+      <circle cx="28" cy="28" r="13" fill="#dc2626"/><circle cx="72" cy="28" r="13" fill="#dc2626"/>
+      <circle cx="28" cy="29.5" r="6.5" fill="#fee2e2"/><circle cx="72" cy="29.5" r="6.5" fill="#fee2e2"/>
+      <circle cx="50" cy="58" r="30" fill="#dc2626"/>
+      <ellipse cx="50" cy="72" rx="16" ry="11.5" fill="#fee2e2"/>
+      <ellipse cx="50" cy="65.5" rx="5.8" ry="3.8" fill="#450a0a"/><circle cx="48.6" cy="64.6" r="0.7" fill="white" opacity="0.7"/>
+      <circle cx="38" cy="50" r="4.2" fill="white"/><circle cx="62" cy="50" r="4.2" fill="white"/>
+      <circle cx="38" cy="50.5" r="2.3" fill="#1f0a0a"/><circle cx="62" cy="50.5" r="2.3" fill="#1f0a0a"/>
+      <circle cx="39" cy="49" r="0.9" fill="white"/><circle cx="63" cy="49" r="0.9" fill="white"/>
+      <path d="M46 74 L50 76.5 L54 74" stroke="#450a0a" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>`
+  },
+  B2: {
+    title:'Outline',
+    desc:'Stroke only, transparent inside. Lightest — best if you want bears as watermark, not focal.',
+    svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="bear B2">
+      <circle cx="28" cy="28" r="12" fill="none" stroke="#ef4444" stroke-width="3.2"/><circle cx="28" cy="29.5" r="5.5" fill="none" stroke="#fca5a5" stroke-width="1.8"/>
+      <circle cx="72" cy="28" r="12" fill="none" stroke="#ef4444" stroke-width="3.2"/><circle cx="72" cy="29.5" r="5.5" fill="none" stroke="#fca5a5" stroke-width="1.8"/>
+      <circle cx="50" cy="58" r="29" fill="none" stroke="#ef4444" stroke-width="3.4"/>
+      <ellipse cx="50" cy="72" rx="15" ry="10.5" fill="none" stroke="#fecaca" stroke-width="2.2"/>
+      <ellipse cx="50" cy="65.5" rx="5.4" ry="3.6" fill="#450a0a"/>
+      <circle cx="38" cy="50" r="4" fill="none" stroke="#fee2e2" stroke-width="1.6"/><circle cx="62" cy="50" r="4" fill="none" stroke="#fee2e2" stroke-width="1.6"/>
+      <circle cx="38" cy="50.5" r="2" fill="#fee2e2"/><circle cx="62" cy="50.5" r="2" fill="#fee2e2"/>
+      <path d="M46 74 L50 76.5 L54 74" stroke="#fecaca" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+    </svg>`
+  },
+  B3: {
+    title:'Angry Brow',
+    desc:'Same as Classic but furrowed brows + narrowed eyes. Reads instantly as "bear market".',
+    svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="bear B3">
+      <circle cx="28" cy="28" r="13" fill="#991b1b"/><circle cx="72" cy="28" r="13" fill="#991b1b"/>
+      <circle cx="28" cy="29.5" r="6.5" fill="#fecaca"/><circle cx="72" cy="29.5" r="6.5" fill="#fecaca"/>
+      <circle cx="50" cy="58" r="30" fill="#991b1b"/>
+      <ellipse cx="50" cy="72" rx="16" ry="11.5" fill="#fee2e2"/>
+      <ellipse cx="50" cy="65.5" rx="5.8" ry="3.8" fill="#1f0a0a"/>
+      <ellipse cx="38" cy="50" rx="5" ry="3.6" fill="white"/><ellipse cx="62" cy="50" rx="5" ry="3.6" fill="white"/>
+      <circle cx="38" cy="50.5" r="2.4" fill="#1f0a0a"/><circle cx="62" cy="50.5" r="2.4" fill="#1f0a0a"/>
+      <path d="M30 42 L46 46" stroke="#450a0a" stroke-width="2.4" stroke-linecap="round"/><path d="M70 42 L54 46" stroke="#450a0a" stroke-width="2.4" stroke-linecap="round"/>
+      <path d="M46 74 L50 76.5 L54 74" stroke="#450a0a" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+    </svg>`
+  },
+  B4: {
+    title:'Geometric',
+    desc:'Squarish head, flat top. Most "design system" — pairs cleanly with a geometric bull.',
+    svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="bear B4">
+      <rect x="16" y="16" width="18" height="18" rx="5" fill="#dc2626"/><rect x="66" y="16" width="18" height="18" rx="5" fill="#dc2626"/>
+      <circle cx="25" cy="25" r="4.5" fill="#fee2e2"/><circle cx="75" cy="25" r="4.5" fill="#fee2e2"/>
+      <rect x="20" y="28" width="60" height="48" rx="18" fill="#dc2626"/>
+      <rect x="34" y="62" width="32" height="18" rx="9" fill="#fee2e2"/>
+      <rect x="43" y="60" width="14" height="6" rx="3" fill="#450a0a"/>
+      <circle cx="38" cy="48" r="4" fill="white"/><circle cx="62" cy="48" r="4" fill="white"/>
+      <circle cx="38" cy="48.5" r="2.1" fill="#1f0a0a"/><circle cx="62" cy="48.5" r="2.1" fill="#1f0a0a"/>
+      <path d="M45 73 L50 76 L55 73" stroke="#450a0a" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+    </svg>`
+  },
+  B5: {
+    title:'Chibi',
+    desc:'Biggest eyes + blush. Friendliest — least intimidating for new users, still red.',
+    svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="bear B5">
+      <circle cx="27" cy="27" r="12" fill="#dc2626"/><circle cx="73" cy="27" r="12" fill="#dc2626"/>
+      <circle cx="27" cy="28.5" r="5.8" fill="#fee2e2"/><circle cx="73" cy="28.5" r="5.8" fill="#fee2e2"/>
+      <circle cx="50" cy="57" r="30" fill="#dc2626"/>
+      <ellipse cx="50" cy="71" rx="15" ry="10.5" fill="#fee2e2"/>
+      <ellipse cx="50" cy="64.5" rx="5.5" ry="3.6" fill="#450a0a"/><circle cx="48.7" cy="63.6" r="0.7" fill="white" opacity="0.7"/>
+      <circle cx="36.5" cy="49" r="6.2" fill="white"/><circle cx="63.5" cy="49" r="6.2" fill="white"/>
+      <circle cx="36.5" cy="49.8" r="3.2" fill="#1f0a0a"/><circle cx="63.5" cy="49.8" r="3.2" fill="#1f0a0a"/>
+      <circle cx="37.4" cy="48" r="1.2" fill="white"/><circle cx="64.4" cy="48" r="1.2" fill="white"/>
+      <circle cx="36.5" cy="51.6" r="0.7" fill="#60a5fa" opacity="0.9"/><circle cx="63.5" cy="51.6" r="0.7" fill="#60a5fa" opacity="0.9"/>
+      <ellipse cx="30" cy="56" rx="3.5" ry="1.8" fill="#f87171" opacity="0.45"/><ellipse cx="70" cy="56" rx="3.5" ry="1.8" fill="#f87171" opacity="0.45"/>
+      <path d="M46 73.5 L50 75.5 L54 73.5" stroke="#450a0a" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+    </svg>`
+  }
+};
+
+const bulls = {
+  U1: {
+    title:'Classic Horns',
+    desc:'Solid green, cream snout, curved horns. Balanced counterpart to Classic bear.',
+    svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="bull U1">
+      <path d="M26 30 Q14 18 18 10 Q22 18 28 22 Z" fill="#e5e7eb"/><path d="M74 30 Q86 18 82 10 Q78 18 72 22 Z" fill="#e5e7eb"/>
+      <circle cx="26" cy="30" r="9" fill="#16a34a"/><circle cx="74" cy="30" r="9" fill="#16a34a"/>
+      <circle cx="26" cy="31" r="4.5" fill="#14532d"/><circle cx="74" cy="31" r="4.5" fill="#14532d"/>
+      <rect x="22" y="32" width="56" height="36" rx="14" fill="#16a34a"/>
+      <rect x="30" y="60" width="40" height="16" rx="7" fill="#dcfce7"/>
+      <ellipse cx="50" cy="68" rx="8" ry="4.2" fill="#052e16"/><circle cx="48.4" cy="67" r="0.7" fill="white" opacity="0.7"/>
+      <circle cx="38" cy="48" r="4.2" fill="white"/><circle cx="62" cy="48" r="4.2" fill="white"/>
+      <circle cx="38" cy="48.5" r="2.3" fill="#052e16"/><circle cx="62" cy="48.5" r="2.3" fill="#052e16"/>
+      <circle cx="39" cy="47" r="0.9" fill="white"/><circle cx="63" cy="47" r="0.9" fill="white"/>
+      <path d="M30 38 Q38 34 42 38" fill="none" stroke="#14532d" stroke-width="1.2" stroke-linecap="round" opacity="0.5"/>
+      <path d="M58 38 Q62 34 70 38" fill="none" stroke="#14532d" stroke-width="1.2" stroke-linecap="round" opacity="0.5"/>
+    </svg>`
+  },
+  U2: {
+    title:'Outline Bull',
+    desc:'Stroke only, like Outline bear. Lightest pair — both as watermarks.',
+    svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="bull U2">
+      <path d="M26 30 Q14 18 18 10" fill="none" stroke="#86efac" stroke-width="3" stroke-linecap="round"/><path d="M74 30 Q86 18 82 10" fill="none" stroke="#86efac" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="26" cy="30" r="8.5" fill="none" stroke="#22c55e" stroke-width="2.4"/><circle cx="74" cy="30" r="8.5" fill="none" stroke="#22c55e" stroke-width="2.4"/>
+      <rect x="22" y="32" width="56" height="36" rx="14" fill="none" stroke="#22c55e" stroke-width="3"/>
+      <rect x="30" y="60" width="40" height="16" rx="7" fill="none" stroke="#bbf7d0" stroke-width="2"/>
+      <ellipse cx="50" cy="68" rx="7" ry="3.8" fill="#052e16"/>
+      <circle cx="38" cy="48" r="3.8" fill="none" stroke="#dcfce7" stroke-width="1.4"/><circle cx="62" cy="48" r="3.8" fill="none" stroke="#dcfce7" stroke-width="1.4"/>
+      <circle cx="38" cy="48.5" r="1.8" fill="#dcfce7"/><circle cx="62" cy="48.5" r="1.8" fill="#dcfce7"/>
+    </svg>`
+  },
+  U3: {
+    title:'Angry Snort',
+    desc:'Flared nostrils + brows. Aggressive counterpart to Angry bear.',
+    svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="bull U3">
+      <path d="M26 30 Q12 16 18 8 Q24 16 28 22 Z" fill="#fef2f2"/><path d="M74 30 Q88 16 82 8 Q76 16 72 22 Z" fill="#fef2f2"/>
+      <circle cx="26" cy="30" r="9" fill="#15803d"/><circle cx="74" cy="30" r="9" fill="#15803d"/>
+      <rect x="22" y="32" width="56" height="36" rx="14" fill="#15803d"/>
+      <rect x="30" y="60" width="40" height="16" rx="7" fill="#fee2e2"/>
+      <ellipse cx="43" cy="68" rx="3.5" ry="2.8" fill="#450a0a"/><ellipse cx="57" cy="68" rx="3.5" ry="2.8" fill="#450a0a"/>
+      <ellipse cx="50" cy="66" rx="2" ry="1.2" fill="#052e16" opacity="0.7"/>
+      <ellipse cx="38" cy="48" rx="5" ry="3.4" fill="white"/><ellipse cx="62" cy="48" rx="5" ry="3.4" fill="white"/>
+      <circle cx="38" cy="49" r="2.3" fill="#052e16"/><circle cx="62" cy="49" r="2.3" fill="#052e16"/>
+      <path d="M30 38 L46 42" stroke="#052e16" stroke-width="2.2" stroke-linecap="round"/><path d="M70 38 L54 42" stroke="#052e16" stroke-width="2.2" stroke-linecap="round"/>
+      <path d="M44 60 Q50 62 56 60" stroke="#450a0a" stroke-width="1" fill="none" opacity="0.5"/>
+    </svg>`
+  },
+  U4: {
+    title:'Geometric',
+    desc:'Squarish head, flat horns. Pairs with Geometric bear — most design-system.',
+    svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="bull U4">
+      <rect x="18" y="14" width="14" height="18" rx="2" fill="#e5e7eb"/><rect x="68" y="14" width="14" height="18" rx="2" fill="#e5e7eb"/>
+      <rect x="16" y="30" width="14" height="14" rx="4" fill="#16a34a"/><rect x="70" y="30" width="14" height="14" rx="4" fill="#16a34a"/>
+      <rect x="22" y="32" width="56" height="36" rx="12" fill="#16a34a"/>
+      <rect x="32" y="60" width="36" height="16" rx="6" fill="#dcfce7"/>
+      <rect x="42" y="66" width="16" height="4" rx="2" fill="#052e16"/>
+      <circle cx="38" cy="48" r="3.8" fill="white"/><circle cx="62" cy="48" r="3.8" fill="white"/>
+      <circle cx="38" cy="48.5" r="2" fill="#052e16"/><circle cx="62" cy="48.5" r="2" fill="#052e16"/>
+    </svg>`
+  },
+  U5: {
+    title:'Cute Bull',
+    desc:'Biggest eyes + blush, small horns. Friendly pair for Chibi bear.',
+    svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="bull U5">
+      <path d="M28 28 Q18 18 22 10 Q26 16 30 22 Z" fill="#fef2f2"/><path d="M72 28 Q82 18 78 10 Q74 16 70 22 Z" fill="#fef2f2"/>
+      <circle cx="28" cy="30" r="8" fill="#16a34a"/><circle cx="72" cy="30" r="8" fill="#16a34a"/>
+      <rect x="24" y="34" width="52" height="32" rx="14" fill="#16a34a"/>
+      <rect x="32" y="60" width="36" height="14" rx="7" fill="#dcfce7"/>
+      <ellipse cx="50" cy="67" rx="6" ry="3.2" fill="#052e16"/><circle cx="48.6" cy="66" r="0.7" fill="white" opacity="0.7"/>
+      <circle cx="38" cy="48" r="5.5" fill="white"/><circle cx="62" cy="48" r="5.5" fill="white"/>
+      <circle cx="38" cy="48.8" r="2.8" fill="#052e16"/><circle cx="62" cy="48.8" r="2.8" fill="#052e16"/>
+      <circle cx="39" cy="47" r="1.1" fill="white"/><circle cx="63" cy="47" r="1.1" fill="white"/>
+      <ellipse cx="30" cy="55" rx="3.2" ry="1.6" fill="#86efac" opacity="0.5"/><ellipse cx="70" cy="55" rx="3.2" ry="1.6" fill="#86efac" opacity="0.5"/>
+    </svg>`
+  }
+};
+
+let pickBear = null, pickBull = null;
+function renderGrid(){
+  const bg = document.getElementById('bearGrid');
+  const ug = document.getElementById('bullGrid');
+  bg.innerHTML = Object.entries(bears).map(([k,v])=>`
+    <div class="card" id="bear-${k}">
+      <div class="lab">${k} — Bear</div><div class="title">${v.title}</div><div class="desc">${v.desc}</div>
+      <div class="stage">${v.svg}</div>
+      <button class="btn ${pickBear===k?'on':''}" onclick="choose('bear','${k}')">${pickBear===k?'✓ Picked':'Pick bear'}</button>
+    </div>`).join('');
+  ug.innerHTML = Object.entries(bulls).map(([k,v])=>`
+    <div class="card" id="bull-${k}">
+      <div class="lab">${k} — Bull</div><div class="title">${v.title}</div><div class="desc">${v.desc}</div>
+      <div class="stage">${v.svg}</div>
+      <button class="btn ${pickBull===k?'on':''}" onclick="choose('bull','${k}')">${pickBull===k?'✓ Picked':'Pick bull'}</button>
+    </div>`).join('');
+  const pair = document.getElementById('pairStage');
+  if(pickBear && pickBull){
+    pair.innerHTML = `<div style="opacity:0.18">${bears[pickBear].svg.replace('width="','width="130" height="130" ')}</div><span class="vs">VS</span><div style="opacity:0.18">${bulls[pickBull].svg.replace('width="','width="130" height="130" ')}</div>`;
+  } else if(pickBear){
+    pair.innerHTML = `${bears[pickBear].svg}<span class="vs">+</span><span class="muted small">Pick a bull</span>`;
+  } else if(pickBull){
+    pair.innerHTML = `<span class="muted small">Pick a bear</span><span class="vs">+</span>${bulls[pickBull].svg}`;
+  } else {
+    pair.innerHTML = `<span class="muted small">Pick a bear + bull above</span>`;
+  }
+  try{ localStorage.setItem('stockpicker.minimal.picks', JSON.stringify({bear:pickBear, bull:pickBull})); }catch(e){}
+  const msg = document.getElementById('msg');
+  if(pickBear && pickBull){
+    msg.innerHTML = `Picked <b>${pickBear}</b> + <b>${pickBull}</b> — <a href="index.html" style="color:var(--blue)">Preview on landing</a>. Tell me "<b>use ${pickBear} + ${pickBull}</b>" and I'll write them into <code>index.html</code>.`;
+  } else if(pickBear || pickBull){
+    msg.textContent = 'Pick the other side to see the battle pair.';
+  } else msg.textContent='';
+}
+function choose(kind, k){
+  if(kind==='bear') pickBear = (pickBear===k? null : k);
+  else pickBull = (pickBull===k? null : k);
+  renderGrid();
+}
+function previewOnLanding(){
+  if(!pickBear || !pickBull){ document.getElementById('msg').textContent='Pick both first.'; return; }
+  try{
+    const bearSvg = bears[pickBear].svg.replace('viewBox="0 0 100 100"', 'viewBox="0 0 100 100" class="heroBear"');
+    const bullSvg = bulls[pickBull].svg.replace('viewBox="0 0 100 100"', 'viewBox="0 0 100 100" class="heroBull"');
+    localStorage.setItem('stockpicker.bear.pick', JSON.stringify({v:pickBear, svg:bearSvg, ts:Date.now()}));
+    localStorage.setItem('stockpicker.bull.pick', JSON.stringify({v:pickBull, svg:bullSvg, ts:Date.now()}));
+    localStorage.setItem('stockpicker.minimal.picks', JSON.stringify({bear:pickBear, bull:pickBull}));
+  }catch(e){}
+  location.href='index.html';
+}
+function clearPicks(){
+  pickBear=null; pickBull=null;
+  try{ localStorage.removeItem('stockpicker.minimal.picks'); localStorage.removeItem('stockpicker.bear.pick'); localStorage.removeItem('stockpicker.bull.pick'); }catch(e){}
+  renderGrid(); document.getElementById('msg').textContent='Cleared.';
+}
+try{
+  const s = JSON.parse(localStorage.getItem('stockpicker.minimal.picks')||'null');
+  if(s){ pickBear=s.bear||null; pickBull=s.bull||null; }
+}catch(e){}
+renderGrid();
+</script>
+</body>
+</html>

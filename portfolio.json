@@ -1,7 +1,7 @@
 {
   "meta": {
     "version": {
-      "site": "0.5.6.15",
+      "site": "0.5.6.20",
       "algo": "0.6.0"
     },
     "name": "HyperGrowth Sharpe Barbell v5 - Conviction-First",
@@ -135,22 +135,22 @@
     "disclaimer": "Simulated portfolio for tracking/learning. Not financial advice.",
     "fear_state": {
       "F1": {
-        "prev_score": 2.6,
-        "score": 2.6,
+        "prev_score": 3.0,
+        "score": 3.0,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F2": {
-        "prev_score": 3.4,
-        "score": 3.4,
+        "prev_score": 3.2,
+        "score": 3.2,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F3": {
-        "prev_score": 1.6,
-        "score": 1.6,
+        "prev_score": 1.7,
+        "score": 1.7,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
@@ -158,34 +158,34 @@
       "F4": {
         "prev_score": 4.2,
         "score": 4.2,
-        "days_above": 2,
-        "confirmed": false,
-        "last_above_date": "2026-08-22"
+        "days_above": 3,
+        "confirmed": true,
+        "last_above_date": "2026-08-25"
       },
       "F5": {
-        "prev_score": 4.1,
-        "score": 4.2,
-        "days_above": 5,
-        "confirmed": true,
-        "last_above_date": "2026-08-22"
+        "prev_score": 3.1,
+        "score": 3.1,
+        "days_above": 0,
+        "confirmed": false,
+        "last_above_date": null
       },
       "F6": {
         "prev_score": 4.8,
         "score": 4.8,
-        "days_above": 5,
+        "days_above": 6,
         "confirmed": true,
-        "last_above_date": "2026-08-22"
+        "last_above_date": "2026-08-25"
       },
       "F7": {
-        "prev_score": 2.6,
-        "score": 2.6,
+        "prev_score": 3.4,
+        "score": 3.4,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F8": {
-        "prev_score": 2.4,
-        "score": 2.4,
+        "prev_score": 2.7,
+        "score": 2.7,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
@@ -586,7 +586,7 @@
       ],
       "note": "Community experiment (site 0.5.5.33): benchmark strategies fill the leaderboard for comparison; snapshot_versions freezes the book as a new version strategy whenever the positions change (SGOV auto-parking excluded from change detection). Both are experiments to populate the board - normally OFF by design, not the product behavior."
     },
-    "ai_calibrated_verdict_date": "2026-08-17",
+    "ai_calibrated_verdict_date": "2026-08-21",
     "dividend_policy": "reinvest"
   },
   "account": {
@@ -1497,7 +1497,7 @@
       "status": "open",
       "thesis": "A-TIER CONVICTION. Semis remain the epicenter of the $1T AI capex cycle (T1); backlogs expanding, earnings above estimates. The June selloff was technical, not fundamental. 3x leverage is the highest-octane expression with vol-decay risk offset by VIXM. V5: boosted +2k. V5.1: stop is index-referenced (SOXX -9%), the -35% wrapper level is only a backstop.",
       "entry_note": "Crowded-trade risk accepted at A-tier conviction; stop on SOXX (1x), not the 3x wrapper.",
-      "dynamic_stop_pct": -0.1116
+      "dynamic_stop_pct": -0.1139
     },
     {
       "id": "SMH",

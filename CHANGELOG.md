@@ -165,6 +165,86 @@ JSON verdict that feeds three deterministic layers. Nothing executes.
   -> target book diff -> "Buy TQQQ +$2k" review cards (buttons, never
   execution).
 
+## [site 0.5.6.20] — 2026-08-22
+
+### Added — minimal bear & bull gallery (the style I'm actually good at)
+
+- Previous low-poly bears sucked — acknowledged: hand-sculpting 20 `polygon` points without seeing the shape is not my skill. This gallery leans into what *is*: flat, clean primitives (`circle`/`ellipse`/`rect`+`rx`) that stay sharp at any size and read at `opacity:0.18`.
+- New `bear_bull_minimal_preview.html` with **5 bears + 5 bulls** (all `viewBox 0 0 100`, red `#dc2626` / green `#16a34a`):
+  - **Bears:** B1 Classic Filled (solid + cream snout, safe default), B2 Outline (stroke-only watermark), B3 Angry Brow (furrowed, bear-market), B4 Geometric (squarish head, design-system), B5 Chibi (big eyes + blush, friendliest).
+  - **Bulls:** U1 Classic Horns (curved horns), U2 Outline (matches B2), U3 Angry Snort (flared nostrils + brows), U4 Geometric (flat horns), U5 Cute Bull (blush, pairs with B5).
+- Each card previews isolated; pair preview shows bear vs bull as they flank the hero. **Pick bear + Pick bull** stores `stockpicker.minimal.picks` + `stockpicker.{bear,bull}.pick` (SVG with `class="heroBear"/"heroBull"`); the landing hero (`index.html:217` now handles both) swaps both sides for live preview. Tell me `use B# + U#` and I'll write the pair into `index.html`.
+
+## [site 0.5.6.19] — 2026-08-22
+
+### Added — bear preview gallery (5 polygon variants)
+
+- New `bear_preview.html` gallery with 5 distinct low-poly red bears sharing the green bull's polygon language — **V1 Classic** (clean faceted front head, calm), **V2 Aggressive** (bared teeth + furrowed brows, the Wall-Street bear), **V3 Walking Profile** (full-body side view mid-stride, pairs with the bull), **V4 Crystal** (diamond-cut, all triangles from center — most "polygon"), **V5 Chibi** (big head / small body, soft but still faceted, friendlier for onboarding). Each is pure SVG `polygon`+`circle` (`viewBox 0 0 100` / `120`), `aria-hidden` on the landing hero. Gallery lets you click **Use this one** (stores `stockpicker.bear.pick` in localStorage) and **Show SVG** (copy-paste source); the landing hero (`index.html:217` preview hook) swaps its `heroBear` for the stored pick so you can preview on `index.html` before committing. Tell me "use V#" and I will write it into `index.html` permanently.
+
+## [site 0.5.6.18] — 2026-08-22
+
+### Added — theory links in Positions, live SPY hero, bear/bull art, and Fear news layer (issues #10, #31, #30, #24)
+
+- **#10 Positions → theory links** (`app.js` `renderPositions`): each position row now shows its `theory_ids` as clickable `theoryTag` pills under the name/sleeve (e.g. T1, T17 → `#theory-T17`), matching the chips already in the Fear panel and News feed. The archive wheel/table remains the detail view.
+- **#31 Live SPY comparison on the landing page** (`landing.js` `initHeroChart`): the hero chart now renders **real** history when `dashboard.js` is present — `history[].total_value` (normalized to `start_value`) vs `benchmark.aligned[].value` (both $100k-anchored, browser-cached). Portfolio draws in blue with a blue fill, SPY draws as a dashed amber line with its own fill; an inline legend, end-dot labels with `+x.x%` and excess `+x.x pp vs SPY` update live. Header switches to "Portfolio vs S&P 500 — live track record" and the caption shows the live date range. Falls back to the illustrative random-walk mock on `file://` before the first `update.py` run.
+- **#30 Bear / bull hero decoration** (`index.html` + `styles.css`): a bear on the left (red polygons) and a bull on the right (green polygons) flank the hero title — low-poly SVG pair built from `FEAR_*`-style polygons (green `#22c55e` bull, red `#ef4444` bear), `aria-hidden`, absolute-positioned behind the headline with `opacity:0.18` (hidden below 600 px, dimmed below 900 px).
+- **#24 Fear Gauge news layer — VADER keyword density** (`fears.py` + `update.py` `write_dashboard`): the planned `market + news` two-witness hook is now wired instead of AI-only.
+  - **Scoring** (`fears.py` `score_fears_from_news`): per-fear keyword sets (`FEAR_NEWS_KEYWORDS` F1-F8, tuned to the scenario table — e.g. F1 *ai/nvidia/semiconductor/magnificent*, F2 *yen/carry/boj*, F3 *china/taiwan/xi*, F4 *inflation/cpi/breakeven*, F5 *war/oil/crude/opec*, F6 *rate/yield/fed/powell/treasury*, F7 *credit/spread/hyg/default*, F8 *recession/slowdown/unemployment/layoff*) scanned over `build_news().feed` titles (case-insensitive substring), weighted by VADER sentiment (`negative 1.0 / neutral 0.55 / positive 0.15`) → `density = weighted_hits / total` → `news_score = 1 + 4·min(1, density/0.25)` (1.0-5.0, `0.25` density saturates at panic).
+  - **Combination** (`fears.py` `apply_news_witnesses`): identical to the AI witness rule — `raw = max(market, min(news, market+1.5))`, plus `+0.5` when both witnesses ≥3.0, clamped at 5.0; preserves `market_score` so `hedge_harvester` stays market-only (`news_adjusted` flag mirrors `ai_adjusted`).
+  - **Wiring** (`update.py` `write_dashboard`): right after `build_news_cached()` computes `news_scores`, it blends them into `fear_data.fears` and sets `fear_data.news_layer = True` + `news_scores` for the dashboard; degraded (fewer than 3 headlines, missing news, or any exception) silently keeps the gauge market-only and never breaks the run, per the acceptance criterion.
+
+### Changed — cache bust
+
+- `dashboard.html` `styles.css?v=57` `app.js?v=66`; `index.html` `styles.css?v=57` `landing.js?v=25`; archive pages `styles.css?v=57`.
+
+## [site 0.5.6.17] — 2026-08-22
+
+### Added — estimated monthly dividend income at the top (issue #14)
+
+- **Ask:** "see how much div per month at the top of page from the current
+  port."
+- **Engine** (`update.py` `compute_div_runrate`): forward run-rate from
+  CURRENT open positions — `shares x trailing-12m payouts/share / 12`,
+  summed over the book. Uses the daily-cached Yahoo div events (~1y window)
+  already fetched for the credit engine, so payout frequency (SGOV monthly,
+  TQQQ quarterly, ...) is baked into each TTM sum; tickers that never paid
+  contribute $0. Exposed as `summary.div_monthly_est` (`null` if the cache
+  is unreadable).
+- **UI** (`app.js` `renderCards`): new top scorecard card "Div / mo (est.)"
+  with lifetime dividends received as the delta line and a tooltip spelling
+  out the math; cards grid wraps to a clean second row on narrow screens.
+
+### Changed — cache bust
+
+- `dashboard.html` `app.js?v=64`.
+
+## [site 0.5.6.16] — 2026-08-22
+
+### Changed — risk-adjusted metric: Sharpe → Sortino everywhere (issue #32)
+
+- **Why:** Sharpe divides by total volatility, so a hypergrowth book gets
+  penalized for big UP-days too. Sortino divides only by downside deviation
+  (`sqrt(sum(min(r,0)^2) / (n-1))`) — upward volatility is free (issue #32:
+  "doesn't punish upward volatility").
+- **Engine math** (`update.py` `compute_sortino`, `leaderboards.py`
+  `_sortino`): same convention as the old Sharpe — mean daily return over
+  downside deviation, annualized × √252, ≥3 snapshots, `null` when there are
+  no down-days (mirrors the old std=0 guard). Leaderboard windows keep using
+  `_window_history`, so weekly/monthly/quarterly/yearly/all-time Sortino is
+  computed over each window's own slice.
+- **Data contract rename**: `summary.sharpe_annualized` →
+  `summary.sortino_annualized`; benchmark summaries likewise;
+  leaderboard rows now carry `sortino` instead of `sharpe`.
+- **UI**: dashboard chart header stat "Sharpe (ann.)" → "Sortino (ann.)"
+  (`app.js`); leaderboard column + click-to-sort header "Sharpe" → "Sortino"
+  (`community.js`, `.lbSh` → `.lbSortino` in `styles.css` narrow-screen rule);
+  Help site Simple tab blurb + Advanced-tab formula updated.
+
+### Changed — cache bust
+
+- `dashboard.html` `app.js?v=63`, `styles.css?v=56`; all other pages
+  `styles.css` bump.
+
 ## [site 0.5.6.15] — 2026-08-22
 
 ### Added — Dividend tracking + payout policy (issue #13)

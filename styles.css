@@ -356,7 +356,13 @@
 .landBtn.ghost{background:var(--panel2); color:var(--txt); border-color:var(--border);}
 .landBtn.ghost:hover{border-color:var(--blue); color:var(--blue);}
 .landBtn.big{padding:12px 26px; font-size:15px;}
-.landHero{text-align:center; padding:44px 12px 30px; position:relative;}
+.landHero{text-align:center; padding:44px 12px 30px; position:relative; overflow:hidden;}
+.heroDecor{position:absolute; inset:0; pointer-events:none; overflow:hidden;}
+.heroBear,.heroBull{position:absolute; top:8px; width:min(320px, 42vw); height:min(320px, 42vw); opacity:0.18;}
+.heroBear{left:-18px; transform:rotate(-4deg);}
+.heroBull{right:-18px; transform:rotate(4deg);}
+@media (max-width:900px){ .heroBear,.heroBull{width:min(220px, 44vw); height:min(220px, 44vw); opacity:0.13;} }
+@media (max-width:600px){ .heroBear,.heroBull{display:none;} }
 .heroBadge{display:inline-block; font-size:11.5px; font-weight:600; letter-spacing:.4px; color:var(--muted); border:1px solid var(--border); background:var(--panel2); border-radius:999px; padding:5px 14px; margin-bottom:22px;}
 .landTitle{font-size:clamp(34px, 6vw, 58px); line-height:1.08; font-weight:800; letter-spacing:-.5px; margin-bottom:18px;}
 .grad{background:linear-gradient(100deg, var(--blue), var(--violet)); -webkit-background-clip:text; background-clip:text; color:transparent;}
@@ -441,5 +447,5 @@
 .lbEmpty{color:var(--muted); font-size:13px; padding:22px 14px; text-align:center;}
 @media (max-width:560px){
   .lbHead, .lbRow{grid-template-columns:44px 1fr 72px 72px;}
-  .lbHead span:nth-child(3), .lbRow .lbAuthor, .lbHead span:nth-child(6), .lbRow .lbSh{display:none;}
+  .lbHead span:nth-child(3), .lbRow .lbAuthor, .lbHead span:nth-child(6), .lbRow .lbSortino{display:none;}
 }

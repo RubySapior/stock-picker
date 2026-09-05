@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bear Options — Pick your fighter</title>
+<link rel="stylesheet" href="styles.css?v=57">
+<style>
+  .previewWrap{max-width:1100px; margin:0 auto; padding:28px 18px;}
+  .previewHead{text-align:center; margin-bottom:28px;}
+  .previewHead h1{font-size:28px; margin-bottom:8px;}
+  .previewHead p{color:var(--muted); font-size:14px;}
+  .bearGrid{display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:18px;}
+  .bearCard{background:var(--panel); border:1px solid var(--border); border-radius:16px; padding:18px 16px 14px; text-align:center; transition:border-color .15s, transform .15s;}
+  .bearCard:hover{border-color:var(--blue); transform:translateY(-2px);}
+  .bearLabel{font-size:13px; font-weight:800; letter-spacing:.6px; text-transform:uppercase; color:var(--muted); margin-bottom:6px;}
+  .bearTitle{font-size:16px; font-weight:700; margin-bottom:4px;}
+  .bearDesc{font-size:12.5px; color:var(--muted); line-height:1.5; min-height:36px; margin-bottom:12px;}
+  .bearStage{background:radial-gradient(ellipse at 50% 30%, rgba(239,68,68,.07), transparent 65%), var(--panel2); border:1px solid var(--border); border-radius:12px; padding:18px; display:flex; align-items:center; justify-content:center; height:220px; margin-bottom:12px;}
+  .bearStage svg{width:180px; height:180px; display:block;}
+  .pickBtn{cursor:pointer; font-size:12px; font-weight:700; color:var(--txt); background:var(--panel2); border:1px solid var(--border); border-radius:8px; padding:6px 14px;}
+  .pickBtn:hover{border-color:var(--blue); color:var(--blue);}
+  .pickBtn.picked{background:rgba(34,197,94,.14); color:var(--green); border-color:rgba(34,197,94,.4);}
+  .codeBlock{display:none; text-align:left; background:#0b0e14; border:1px solid var(--border); border-radius:8px; padding:10px 12px; font-size:10.5px; line-height:1.5; color:var(--muted); white-space:pre-wrap; word-break:break-all; margin-top:10px; max-height:180px; overflow:auto;}
+  .codeBlock.open{display:block;}
+  .backLink{display:inline-block; margin-top:22px; color:var(--blue); text-decoration:none; font-size:13px; font-weight:600;}
+  .backLink:hover{text-decoration:underline;}
+</style>
+</head>
+<body>
+<div class="previewWrap">
+  <div class="previewHead">
+    <h1>Pick your bear <span style="color:var(--red)">●</span></h1>
+    <p>5 low-poly red bears — same polygon language as the green bull, different attitude. Click <b>Use this one</b> to preview it on the landing page.</p>
+    <p class="muted small" style="margin-top:6px;">All are pure SVG <code>&lt;polygon&gt;</code> + <code>&lt;circle&gt;</code> (no images) — will stay sharp at any size and match the hero's <code>opacity:0.18</code> treatment.</p>
+  </div>
+
+  <div class="bearGrid">
+
+    <!-- V1: Classic Faceted Head -->
+    <div class="bearCard" data-v="1">
+      <div class="bearLabel">V1 — Classic</div>
+      <div class="bearTitle">Faceted Head</div>
+      <div class="bearDesc">Clean front-facing head, 6 facets + snout. Calm, balanced — the "Swiss" bear.</div>
+      <div class="bearStage">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="V1 bear">
+          <!-- ears outer -->
+          <polygon points="16,18 28,10 34,26 22,32" fill="#7f1d1d"/>
+          <polygon points="66,26 72,10 84,18 78,32" fill="#7f1d1d"/>
+          <!-- ears inner -->
+          <polygon points="22,20 28,16 30,24 22,26" fill="#fecaca"/>
+          <polygon points="70,24 72,16 78,20 78,26" fill="#fecaca"/>
+          <!-- head facets -->
+          <polygon points="24,38 50,22 50,48" fill="#991b1b"/>
+          <polygon points="50,22 76,38 50,48" fill="#b91c1c"/>
+          <polygon points="24,38 50,48 22,60" fill="#dc2626"/>
+          <polygon points="50,48 76,38 78,60" fill="#ef4444"/>
+          <polygon points="22,60 50,48 50,78" fill="#7f1d1d"/>
+          <polygon points="50,48 78,60 50,78" fill="#991b1b"/>
+          <!-- snout -->
+          <polygon points="36,60 50,54 64,60 62,74 38,74" fill="#fee2e2"/>
+          <polygon points="36,60 50,54 50,60 38,62" fill="#fecaca"/>
+          <!-- nose -->
+          <polygon points="46,66 50,64 54,66 52,70 48,70" fill="#450a0a"/>
+          <!-- eyes -->
+          <circle cx="38" cy="45.5" r="3" fill="#1f0a0a"/>
+          <circle cx="62" cy="45.5" r="3" fill="#1f0a0a"/>
+          <circle cx="38.9" cy="44.6" r="1" fill="white" opacity="0.75"/>
+          <circle cx="62.9" cy="44.6" r="1" fill="white" opacity="0.75"/>
+          <!-- mouth -->
+          <polygon points="48,70 52,70 50,73" fill="#450a0a"/>
+          <polygon points="45,73 50,73 50,75 45,75" fill="#450a0a" opacity="0.6"/>
+          <polygon points="50,73 55,73 55,75 50,75" fill="#450a0a" opacity="0.6"/>
+        </svg>
+      </div>
+      <button class="pickBtn" onclick="pick(1)">Use this one</button>
+      <button class="pickBtn" style="margin-left:6px;" onclick="toggleCode(1)">Show SVG</button>
+      <pre class="codeBlock" id="code1"></pre>
+    </div>
+
+    <!-- V2: Aggressive Roar -->
+    <div class="bearCard" data-v="2">
+      <div class="bearLabel">V2 — Aggressive</div>
+      <div class="bearTitle">Roaring Market Bear</div>
+      <div class="bearDesc">Bared teeth, furrowed brows. The Wall-Street-bear — angry, sharp, unmistakably bearish.</div>
+      <div class="bearStage">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="V2 bear">
+          <!-- ears -->
+          <polygon points="14,20 26,10 32,24 20,32" fill="#7f1d1d"/>
+          <polygon points="68,24 74,10 86,20 80,32" fill="#7f1d1d"/>
+          <polygon points="20,22 26,16 28,24 20,26" fill="#fca5a5"/>
+          <polygon points="72,16 80,22 78,26 72,24" fill="#fca5a5"/>
+          <!-- head base -->
+          <polygon points="18,40 50,22 82,40 80,62 50,78 20,62" fill="#991b1b"/>
+          <polygon points="18,40 50,22 50,44" fill="#7f1d1d"/>
+          <polygon points="50,22 82,40 50,44" fill="#b91c1c"/>
+          <polygon points="18,40 50,44 20,62" fill="#dc2626"/>
+          <polygon points="82,40 50,44 80,62" fill="#ef4444"/>
+          <polygon points="20,62 50,44 50,78" fill="#7f1d1d"/>
+          <polygon points="50,44 80,62 50,78" fill="#991b1b"/>
+          <!-- angry brows -->
+          <polygon points="30,36 48,42 46,38 30,32" fill="#450a0a" opacity="0.95"/>
+          <polygon points="70,32 54,38 52,42 70,36" fill="#450a0a" opacity="0.95"/>
+          <!-- snout / open mouth -->
+          <polygon points="34,58 50,52 66,58 64,72 36,72" fill="#fee2e2"/>
+          <polygon points="34,58 50,52 50,58 36,58" fill="#fecaca"/>
+          <polygon points="50,52 66,58 64,58 50,58" fill="#fca5a5"/>
+          <!-- nose -->
+          <polygon points="45,60 50,58 55,60 53,64 47,64" fill="#1f0a0a"/>
+          <!-- mouth open -->
+          <polygon points="40,68 60,68 58,74 42,74" fill="#450a0a"/>
+          <!-- teeth -->
+          <polygon points="42,68 44,68 43,71" fill="white"/>
+          <polygon points="46,68 48,68 47,71.5" fill="white"/>
+          <polygon points="52,68 54,68 53,71.5" fill="white"/>
+          <polygon points="56,68 58,68 57,71" fill="white"/>
+          <!-- lower teeth -->
+          <polygon points="44,74 46,74 45,72" fill="white" opacity="0.9"/>
+          <polygon points="54,74 56,74 55,72" fill="white" opacity="0.9"/>
+          <!-- eyes angry -->
+          <circle cx="38" cy="46" r="2.8" fill="#fff7ed"/>
+          <circle cx="62" cy="46" r="2.8" fill="#fff7ed"/>
+          <circle cx="38" cy="46" r="1.6" fill="#1f0a0a"/>
+          <circle cx="62" cy="46" r="1.6" fill="#1f0a0a"/>
+          <circle cx="38.6" cy="45.2" r="0.7" fill="white"/>
+          <circle cx="62.6" cy="45.2" r="0.7" fill="white"/>
+        </svg>
+      </div>
+      <button class="pickBtn" onclick="pick(2)">Use this one</button>
+      <button class="pickBtn" style="margin-left:6px;" onclick="toggleCode(2)">Show SVG</button>
+      <pre class="codeBlock" id="code2"></pre>
+    </div>
+
+    <!-- V3: Walking Profile -->
+    <div class="bearCard" data-v="3">
+      <div class="bearLabel">V3 — Profile</div>
+      <div class="bearTitle">Walking Bear</div>
+      <div class="bearDesc">Full-body side view, mid-stride. The classic exchange bear — goes perfectly with the bull opposite.</div>
+      <div class="bearStage">
+        <svg viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="V3 bear">
+          <!-- body -->
+          <polygon points="22,52 52,44 68,48 64,68 26,72" fill="#991b1b"/>
+          <polygon points="52,44 68,48 72,36 56,30" fill="#7f1d1d"/>
+          <polygon points="22,52 52,44 26,72 18,62" fill="#dc2626"/>
+          <!-- head side -->
+          <polygon points="68,48 84,34 96,44 88,58 64,68" fill="#ef4444"/>
+          <polygon points="84,34 90,24 96,30 96,44" fill="#fca5a5"/>
+          <polygon points="90,24 94,16 98,22 96,30" fill="#fee2e2"/>
+          <!-- snout side -->
+          <polygon points="96,44 104,42 108,48 98,54 88,58" fill="#fecaca"/>
+          <polygon points="104,42 108,48 106,50 104,44" fill="#450a0a"/>
+          <polygon points="98,54 108,48 104,52 96,56" fill="#450a0a" opacity="0.7"/>
+          <!-- ear -->
+          <polygon points="72,36 76,26 82,30 80,38" fill="#7f1d1d"/>
+          <polygon points="76,28 78,26 80,30 78,32" fill="#fecaca"/>
+          <!-- eye side -->
+          <circle cx="82" cy="44" r="2.2" fill="#1f0a0a"/>
+          <circle cx="82.7" cy="43.2" r="0.7" fill="white" opacity="0.8"/>
+          <!-- legs front -->
+          <polygon points="30,72 42,72 40,88 28,88" fill="#7f1d1d"/>
+          <polygon points="48,70 60,68 58,88 46,88" fill="#7f1d1d"/>
+          <!-- legs back -->
+          <polygon points="62,68 74,64 72,88 60,88" fill="#991b1b"/>
+          <!-- tail -->
+          <polygon points="18,62 14,58 16,66 22,68" fill="#450a0a"/>
+          <!-- ground shadow hint -->
+          <polygon points="26,88 80,88 78,90 24,90" fill="black" opacity="0.18"/>
+        </svg>
+      </div>
+      <button class="pickBtn" onclick="pick(3)">Use this one</button>
+      <button class="pickBtn" style="margin-left:6px;" onclick="toggleCode(3)">Show SVG</button>
+      <pre class="codeBlock" id="code3"></pre>
+    </div>
+
+    <!-- V4: Crystal Faceted -->
+    <div class="bearCard" data-v="4">
+      <div class="bearLabel">V4 — Crystal</div>
+      <div class="bearTitle">Faceted Gem Bear</div>
+      <div class="bearDesc">Diamond-cut, ultra low-poly. All triangles from a center point — most "polygon" of the five.</div>
+      <div class="bearStage">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="V4 bear">
+          <!-- gem head — center 50,50 -->
+          <polygon points="50,50 50,18 68,28" fill="#7f1d1d"/>
+          <polygon points="50,50 68,28 80,36" fill="#991b1b"/>
+          <polygon points="50,50 80,36 80,52" fill="#b91c1c"/>
+          <polygon points="50,50 80,52 76,70" fill="#dc2626"/>
+          <polygon points="50,50 76,70 50,82" fill="#991b1b"/>
+          <polygon points="50,50 50,82 32,70" fill="#7f1d1d"/>
+          <polygon points="50,50 32,70 20,52" fill="#991b1b"/>
+          <polygon points="50,50 20,52 20,36" fill="#b91c1c"/>
+          <polygon points="50,50 20,36 32,28" fill="#dc2626"/>
+          <polygon points="50,50 32,28 50,18" fill="#ef4444"/>
+          <!-- ears as diamonds -->
+          <polygon points="28,28 22,18 28,12 34,18" fill="#7f1d1d"/>
+          <polygon points="28,12 34,18 32,24 26,24" fill="#fecaca"/>
+          <polygon points="72,28 78,12 84,18 78,28" fill="#7f1d1d"/>
+          <polygon points="78,12 84,18 80,24 74,24" fill="#fecaca"/>
+          <!-- snout diamond -->
+          <polygon points="50,58 40,64 50,74 60,64" fill="#fee2e2"/>
+          <polygon points="40,64 50,58 46,64" fill="#fca5a5"/>
+          <polygon points="50,58 60,64 54,64" fill="#fecaca"/>
+          <!-- nose center -->
+          <polygon points="46,64 50,62 54,64 52,68 48,68" fill="#450a0a"/>
+          <!-- eyes faceted -->
+          <polygon points="38,44 40,42 42,44 40,46" fill="white"/>
+          <polygon points="38,44 40,46 38,46 36,44" fill="#1f0a0a"/>
+          <polygon points="58,44 60,42 62,44 60,46" fill="white"/>
+          <polygon points="58,44 60,46 58,46 56,44" fill="#1f0a0a"/>
+        </svg>
+      </div>
+      <button class="pickBtn" onclick="pick(4)">Use this one</button>
+      <button class="pickBtn" style="margin-left:6px;" onclick="toggleCode(4)">Show SVG</button>
+      <pre class="codeBlock" id="code4"></pre>
+    </div>
+
+    <!-- V5: Chibi Round -->
+    <div class="bearCard" data-v="5">
+      <div class="bearLabel">V5 — Chibi</div>
+      <div class="bearTitle">Round Chibi Bear</div>
+      <div class="bearDesc">Big head, small body, soft but still polygonal. Friendlier — less scary for new users.</div>
+      <div class="bearStage">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="V5 bear">
+          <!-- ears big round -->
+          <polygon points="24,32 18,20 28,14 36,22 32,34" fill="#991b1b"/>
+          <polygon points="68,34 64,22 72,14 82,20 76,32" fill="#991b1b"/>
+          <polygon points="24,26 26,20 30,22 30,28 26,30" fill="#fecaca"/>
+          <polygon points="70,28 70,22 74,20 76,26 72,30" fill="#fecaca"/>
+          <!-- head big round faceted -->
+          <polygon points="18,52 30,34 50,28 70,34 82,52 78,70 50,82 22,70" fill="#b91c1c"/>
+          <polygon points="18,52 30,34 50,44" fill="#dc2626"/>
+          <polygon points="30,34 50,28 50,44" fill="#991b1b"/>
+          <polygon points="50,28 70,34 50,44" fill="#7f1d1d"/>
+          <polygon points="70,34 82,52 50,44" fill="#ef4444"/>
+          <polygon points="18,52 50,44 22,70" fill="#991b1b"/>
+          <polygon points="82,52 50,44 78,70" fill="#dc2626"/>
+          <polygon points="22,70 50,44 50,82" fill="#7f1d1d"/>
+          <polygon points="50,44 78,70 50,82" fill="#991b1b"/>
+          <!-- chibi body small -->
+          <polygon points="36,78 50,82 64,78 62,88 38,88" fill="#991b1b"/>
+          <polygon points="38,88 62,88 60,92 40,92" fill="#7f1d1d"/>
+          <!-- snout big round -->
+          <polygon points="38,60 50,56 62,60 60,70 50,74 40,70" fill="#fee2e2"/>
+          <polygon points="38,60 50,56 50,60 40,60" fill="#fca5a5"/>
+          <!-- nose -->
+          <ellipse cx="50" cy="64" rx="4" ry="2.8" fill="#450a0a"/>
+          <circle cx="48.5" cy="63.2" r="0.7" fill="white" opacity="0.7"/>
+          <!-- eyes big cute -->
+          <circle cx="38" cy="48" r="4.2" fill="white"/>
+          <circle cx="62" cy="48" r="4.2" fill="white"/>
+          <circle cx="38" cy="48.5" r="2.4" fill="#1f0a0a"/>
+          <circle cx="62" cy="48.5" r="2.4" fill="#1f0a0a"/>
+          <circle cx="39" cy="47" r="1" fill="white"/>
+          <circle cx="63" cy="47" r="1" fill="white"/>
+          <circle cx="38" cy="49.2" r="0.6" fill="#60a5fa" opacity="0.9"/>
+          <circle cx="62" cy="49.2" r="0.6" fill="#60a5fa" opacity="0.9"/>
+          <!-- blush -->
+          <polygon points="28,52 32,50 34,54 30,56" fill="#f87171" opacity="0.5"/>
+          <polygon points="70,50 74,52 72,56 68,54" fill="#f87171" opacity="0.5"/>
+          <!-- mouth small w -->
+          <polygon points="46,70 50,72 54,70 54,71 50,73 46,71" fill="#450a0a"/>
+        </svg>
+      </div>
+      <button class="pickBtn" onclick="pick(5)">Use this one</button>
+      <button class="pickBtn" style="margin-left:6px;" onclick="toggleCode(5)">Show SVG</button>
+      <pre class="codeBlock" id="code5"></pre>
+    </div>
+
+  </div>
+
+  <a class="backLink" href="bear_battle_preview.html" style="margin-right:12px;">Battle side-profiles (5 more) →</a>
+  <a class="backLink" href="index.html">← Back to landing</a>
+  <div id="pickMsg" class="muted small" style="margin-top:14px; min-height:18px;"></div>
+</div>
+
+<script>
+  const sources = {};
+  document.querySelectorAll('.bearCard').forEach(card => {
+    const v = card.getAttribute('data-v');
+    const svg = card.querySelector('.bearStage svg');
+    sources[v] = svg.outerHTML;
+    const pre = document.getElementById('code'+v);
+    if (pre) pre.textContent = svg.outerHTML;
+  });
+  function toggleCode(v){
+    const el = document.getElementById('code'+v);
+    el.classList.toggle('open');
+  }
+  function pick(v){
+    const svg = sources[v];
+    try { localStorage.setItem('stockpicker.bear.pick', JSON.stringify({v, svg, ts: Date.now()})); } catch(e){}
+    document.querySelectorAll('.pickBtn').forEach(b => b.classList.remove('picked'));
+    const card = document.querySelector('.bearCard[data-v=\"'+v+'\"]');
+    if(card) card.querySelector('.pickBtn').classList.add('picked');
+    const msg = document.getElementById('pickMsg');
+    msg.innerHTML = 'Picked <b>V'+v+'</b> — opening landing page with your choice. If you like it, tell me "use V'+v+'" and I will write it into <code>index.html</code>. <a href=\"index.html?bear='+v+'\" style=\"color:var(--blue)\">Preview on landing →</a>';
+  }
+  // highlight stored pick
+  try {
+    const s = JSON.parse(localStorage.getItem('stockpicker.bear.pick')||'null');
+    if(s && s.v) {
+      const c = document.querySelector('.bearCard[data-v=\"'+s.v+'\"]');
+      if(c) c.querySelector('.pickBtn').classList.add('picked');
+    }
+  } catch(e){}
+</script>
+</body>
+</html>

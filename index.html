@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI Port-picker — Your Goals, Your Convictions, AI-Managed</title>
-<link rel="stylesheet" href="styles.css?v=55">
+<link rel="stylesheet" href="styles.css?v=57">
 </head>
 <!--
   Landing / marketing page. Static explainer + a sign-up preview (localStorage
@@ -40,6 +40,46 @@
 
   <!-- ================= HERO ================= -->
   <header class="landHero">
+    <!-- Polygon bear (left, red) / bull (right, green) — low-poly market pair -->
+    <div class="heroDecor" aria-hidden="true">
+      <svg class="heroBear" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="bear">
+        <!-- bear silhouette in reds — facing right, low-poly -->
+        <polygon points="18,52 32,30 52,26 58,34" fill="#991b1b"/>
+        <polygon points="18,52 58,34 56,58 24,66" fill="#b91c1c"/>
+        <polygon points="24,66 56,58 62,86 28,90" fill="#dc2626"/>
+        <polygon points="28,90 62,86 58,104 22,102" fill="#991b1b"/>
+        <polygon points="58,34 76,22 92,36 86,52 56,58" fill="#ef4444"/>
+        <polygon points="76,22 82,10 92,16 92,36" fill="#fca5a5"/>
+        <polygon points="82,10 88,4 94,12 92,16" fill="#fef2f2"/>
+        <polygon points="56,58 86,52 88,70 62,86" fill="#7f1d1d"/>
+        <polygon points="86,52 92,36 104,42 96,64 88,70" fill="#dc2626"/>
+        <polygon points="96,64 104,42 108,56 98,74" fill="#ef4444"/>
+        <polygon points="32,30 38,14 52,16 52,26" fill="#fca5a5"/>
+        <polygon points="38,14 44,6 54,10 52,16" fill="#fecaca"/>
+        <circle cx="72" cy="44" r="3.2" fill="#1f0a0a"/>
+        <polygon points="88,48 96,50 94,56 88,54" fill="#1f0a0a"/>
+      </svg>
+      <svg class="heroBull" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="bull">
+        <!-- bull silhouette in greens — facing left, low-poly -->
+        <polygon points="102,52 88,30 68,26 62,34" fill="#14532d"/>
+        <polygon points="102,52 62,34 64,58 96,66" fill="#15803d"/>
+        <polygon points="96,66 64,58 58,86 92,90" fill="#16a34a"/>
+        <polygon points="92,90 58,86 62,104 98,102" fill="#14532d"/>
+        <polygon points="62,34 44,22 28,36 34,52 64,58" fill="#22c55e"/>
+        <polygon points="44,22 38,10 28,16 28,36" fill="#86efac"/>
+        <polygon points="38,10 32,4 26,12 28,16" fill="#f0fdf4"/>
+        <polygon points="64,58 34,52 32,70 58,86" fill="#166534"/>
+        <polygon points="34,52 28,36 16,42 24,64 32,70" fill="#16a34a"/>
+        <polygon points="24,64 16,42 12,56 22,74" fill="#22c55e"/>
+        <polygon points="88,30 82,14 68,16 68,26" fill="#86efac"/>
+        <polygon points="82,14 76,6 66,10 68,16" fill="#bbf7d0"/>
+        <circle cx="48" cy="44" r="3.2" fill="#052e16"/>
+        <polygon points="32,48 24,50 26,56 32,54" fill="#052e16"/>
+        <!-- horns -->
+        <polygon points="28,16 18,8 22,20" fill="#e5e7eb"/>
+        <polygon points="92,30 98,14 88,18" fill="#a7f3d0"/>
+      </svg>
+    </div>
     <div class="heroBadge">Your goals &middot; your convictions &middot; an AI that runs the rest</div>
     <h1 class="landTitle">Tell it what you want.<br>It builds the <span class="grad">portfolio</span>.</h1>
     <p class="landSub">Say you're bullish on AI, hate banks, and want to fat FIRE in 10 years &mdash; the AI tunes its strategy to exactly that. It researches the market daily, manages risk, and turns its calls into recommendations you approve (or hands-free auto-trade, when you're ready).</p>
@@ -173,6 +213,37 @@
   </div>
 </div>
 
-<script src="landing.js?v=24" defer></script>
+<script src="landing.js?v=25" defer></script>
+<script>
+// Preview hook for bear/bull pickers — swaps hero art from localStorage.
+(function(){
+  try{
+    var rawB = localStorage.getItem('stockpicker.bear.pick');
+    if(rawB){
+      var d = JSON.parse(rawB);
+      if(d && d.svg){
+        var el = document.querySelector('.heroBear');
+        if(el){
+          var tmp = document.createElement('div'); tmp.innerHTML = d.svg.trim();
+          var ns = tmp.firstElementChild;
+          if(ns && ns.tagName.toLowerCase()==='svg'){ ns.setAttribute('class','heroBear'); ns.setAttribute('role','img'); ns.setAttribute('aria-label','bear'); el.replaceWith(ns); }
+        }
+      }
+    }
+    var rawU = localStorage.getItem('stockpicker.bull.pick');
+    if(rawU){
+      var d2 = JSON.parse(rawU);
+      if(d2 && d2.svg){
+        var el2 = document.querySelector('.heroBull');
+        if(el2){
+          var tmp2 = document.createElement('div'); tmp2.innerHTML = d2.svg.trim();
+          var ns2 = tmp2.firstElementChild;
+          if(ns2 && ns2.tagName.toLowerCase()==='svg'){ ns2.setAttribute('class','heroBull'); ns2.setAttribute('role','img'); ns2.setAttribute('aria-label','bull'); el2.replaceWith(ns2); }
+        }
+      }
+    }
+  }catch(e){}
+})();
+</script>
 </body>
 </html>

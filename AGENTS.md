@@ -184,8 +184,10 @@ Owned by `write_dashboard()` in `update.py`. `app.js` reads these fields:
 - `asof`: last snapshot date
 - `summary`: `total_value`, `cash`, `invested_value`, `day_change`,
   `total_return_pct`, `realized_pnl`, `dividends_total` (lifetime income),
+  `div_monthly_est` (est. monthly dividend run-rate from current holdings:
+  open shares × trailing-12m payouts/share ÷ 12, issue #14),
   `start_value`, `max_drawdown_pct`,
-  `sharpe_annualized`, `cagr_annualized`
+  `sortino_annualized`, `cagr_annualized`
 - `positions[]`: `ticker`, `name`, `sleeve`, `buy_date`, `buy_price`, `shares`,
   `cost`, `current_price`, `current_value`, `pnl_pct`, `take_profit_pct`,
   `stop_loss_pct`, `status` ("open"/"closed"), `exit` (null or
@@ -233,7 +235,7 @@ Owned by `write_dashboard()` in `update.py`. `app.js` reads these fields:
   `last_updated`, `evidence[]`. A `paused` theory also carries `paused_date`,
   `pause_reason`, `paused_ticker` (set by the vol-halt re-entry protocol).
 - `benchmark`: null or `label`, `start_value`, `history[]`, `aligned[]`,
-  `summary{total_return_pct, max_drawdown_pct, sharpe_annualized}`
+  `summary{total_return_pct, max_drawdown_pct, sortino_annualized}`
 - `news`: `asof`, `big_stories[]`, `feed[]` — items have `title`, `link`, `ts`,
   `when`, `ticker`, `industry`, `theory[]`, `sent` ("positive"/"negative"/
   "neutral")

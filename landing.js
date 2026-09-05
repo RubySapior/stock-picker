@@ -63,14 +63,166 @@
     img.src = 'temp-logo.jpg?v=2';
   }
 
-  /* ---------- hero mock chart: an illustrative portfolio climbing ---------- */
-  function initHeroChart() {
+  /* ---------- hero chart: live portfolio vs SPY when data exists, mock otherwise ---------- */
+  function initHeroChart(D) {
     const c = document.getElementById('heroChart');
     if (!c) return;
     const ctx = c.getContext('2d');
     const H = 300;
     const dpr = window.devicePixelRatio || 1;
     const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const panel = document.querySelector('.heroChartPanel');
+    const headTag = panel ? panel.querySelector('.heroChartTag') : null;
+    const headTitle = panel ? panel.querySelector('.heroChartHead') : null;
+    const cap = panel ? panel.querySelector('.heroChartCap') : null;
+
+    // Try live data: D.history + D.benchmark.aligned
+    let live = null;
+    try {
+      if (D && Array.isArray(D.history) && D.history.length >= 2) {
+        const start = (D.meta && D.meta.start_value) || 100000;
+        let bm = D.benchmark;
+        if (!bm || !Array.isArray(bm.aligned)) {
+          const bms = D.benchmarks || {};
+          bm = bms.SPY || bms[Object.keys(bms)[0]];
+        }
+        if (bm && Array.isArray(bm.aligned) && bm.aligned.length >= 2) {
+          const aligned = bm.aligned;
+          // Align lengths: benchmark history trimmed to portfolio dates
+          const n = Math.min(D.history.length, aligned.length);
+          const portPts = D.history.slice(-n).map(h => h.total_value / start);
+          const bmPts = aligned.slice(-n).map(a => a.value / start);
+          const dates = D.history.slice(-n).map(h => h.date);
+          if (portPts.length >= 2 && bmPts.length >= 2) {
+            live = { portPts, bmPts, dates, bmLabel: bm.label || 'S&P 500', start };
+          }
+        }
+      }
+    } catch (e) { live = null; }
+
+    if (live) {
+      if (headTag) headTag.textContent = 'live';
+      if (headTag) { headTag.style.color = 'var(--green)'; headTag.style.borderColor = 'rgba(34,197,94,.45)'; }
+      if (cap) cap.textContent = 'Live portfolio vs ' + live.bmLabel + ' from ' + live.dates[0] + ' to ' + live.dates[live.dates.length - 1] +
+        ' — both normalized to $' + (live.start).toLocaleString() + '. Past performance is not indicative of future results.';
+      // update heading prefix if still "What your portfolio could look like"
+      if (headTitle && headTitle.firstChild && headTitle.firstChild.nodeType === 3) {
+        // keep structure, update text node
+        const t = headTitle.childNodes[0];
+        if (t && /could look like/i.test(t.textContent)) t.textContent = 'Portfolio vs ' + live.bmLabel + ' — live track record ';
+      }
+
+      let W = 0;
+      function setSize() {
+        W = Math.max(60, c.clientWidth || c.parentNode.clientWidth);
+        const pw = Math.round(W * dpr), ph = Math.round(H * dpr);
+        if (c.width !== pw || c.height !== ph) { c.width = pw; c.height = ph; }
+        if (c.style.width !== W + 'px') c.style.width = W + 'px';
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+      const N = live.portPts.length;
+      const pad = { l: 46, r: 84, t: 18, b: 18 };
+      const fmtK = v => '$' + Math.round(v * live.start / 1000 * 10) / 10 + 'k';
+      const all = live.portPts.concat(live.bmPts);
+      const mn = Math.min.apply(null, all), mx = Math.max.apply(null, all);
+      // nice 10% padding and 0.05 step
+      const STEP = 0.05;
+      const minA = Math.floor((mn - 0.02) / STEP) * STEP;
+      const maxA = Math.ceil((mx + 0.02) / STEP) * STEP;
+      const X = i => pad.l + (W - pad.l - pad.r) * (i / (N - 1));
+      const Y = v => pad.t + (H - pad.t - pad.b) * (1 - (v - minA) / (maxA - minA));
+
+      function drawLive(prog, pulse) {
+        setSize();
+        ctx.clearRect(0, 0, W, H);
+        ctx.font = '11px Segoe UI'; ctx.fillStyle = '#8b95a8'; ctx.textAlign = 'right';
+        for (let g = 0; g <= (maxA - minA) / STEP + 1e-9; g++) {
+          const v = minA + STEP * g;
+          const y = Math.round(Y(v)) + 0.5;
+          ctx.strokeStyle = '#1b2231'; ctx.beginPath(); ctx.moveTo(pad.l, y); ctx.lineTo(W - pad.r, y); ctx.stroke();
+          ctx.fillText(fmtK(v), pad.l - 7, y + 4);
+        }
+        const k = Math.max(1, Math.floor(prog * N));
+        // SPY area (amber, faint) — draw first so portfolio sits on top
+        const bmGrad = ctx.createLinearGradient(0, pad.t, 0, H - pad.b);
+        bmGrad.addColorStop(0, 'rgba(245,158,11,0.10)');
+        bmGrad.addColorStop(1, 'rgba(245,158,11,0)');
+        ctx.beginPath();
+        ctx.moveTo(X(0), Y(live.bmPts[0]));
+        for (let i = 1; i < k; i++) ctx.lineTo(X(i), Y(live.bmPts[i]));
+        ctx.lineTo(X(k - 1), H - pad.b); ctx.lineTo(X(0), H - pad.b); ctx.closePath();
+        ctx.fillStyle = bmGrad; ctx.fill();
+        ctx.beginPath();
+        ctx.moveTo(X(0), Y(live.bmPts[0]));
+        for (let i = 1; i < k; i++) ctx.lineTo(X(i), Y(live.bmPts[i]));
+        ctx.strokeStyle = '#f59e0b'; ctx.lineWidth = 1.8; ctx.setLineDash([6, 4]); ctx.stroke(); ctx.setLineDash([]);
+        // Portfolio area (blue)
+        const grad = ctx.createLinearGradient(0, pad.t, 0, H - pad.b);
+        grad.addColorStop(0, 'rgba(56,189,248,0.28)');
+        grad.addColorStop(1, 'rgba(56,189,248,0)');
+        ctx.beginPath();
+        ctx.moveTo(X(0), Y(live.portPts[0]));
+        for (let i = 1; i < k; i++) ctx.lineTo(X(i), Y(live.portPts[i]));
+        ctx.lineTo(X(k - 1), H - pad.b); ctx.lineTo(X(0), H - pad.b); ctx.closePath();
+        ctx.fillStyle = grad; ctx.fill();
+        ctx.beginPath();
+        ctx.moveTo(X(0), Y(live.portPts[0]));
+        for (let i = 1; i < k; i++) ctx.lineTo(X(i), Y(live.portPts[i]));
+        ctx.strokeStyle = '#38bdf8'; ctx.lineWidth = 2.2; ctx.stroke();
+        // Legend
+        const lx = pad.l + 8, ly = pad.t + 6;
+        ctx.font = '10.5px Segoe UI'; ctx.textAlign = 'left';
+        ctx.fillStyle = '#38bdf8'; ctx.fillRect(lx, ly, 12, 3);
+        ctx.fillStyle = '#e6ebf4'; ctx.fillText('Portfolio', lx + 16, ly + 8);
+        ctx.fillStyle = '#f59e0b'; ctx.fillRect(lx + 78, ly, 12, 3);
+        ctx.fillStyle = '#e6ebf4'; ctx.fillText(live.bmLabel.replace(' (SPY)',''), lx + 94, ly + 8);
+        // End dots + labels
+        if (k >= N) {
+          const fmtPct = v => ((v - 1) * 100).toFixed(1);
+          const pV = live.portPts[N - 1], bV = live.bmPts[N - 1];
+          const px = X(N - 1), py = Y(pV), bx = X(N - 1), by = Y(bV);
+          let r = 3.5 + Math.sin(pulse * 5) * 1.2;
+          ctx.beginPath(); ctx.arc(px, py, r, 0, 7); ctx.fillStyle = '#38bdf8'; ctx.fill();
+          ctx.strokeStyle = 'rgba(56,189,248,.35)'; ctx.lineWidth = 1.5;
+          ctx.beginPath(); ctx.arc(px, py, r + 7 + Math.sin(pulse * 3) * 2, 0, 7); ctx.stroke();
+          ctx.textAlign = 'left'; ctx.font = 'bold 13px Segoe UI'; ctx.fillStyle = '#e6ebf4';
+          ctx.fillText(fmtK(pV), px + 12, py - 2);
+          ctx.font = '10.5px Segoe UI'; ctx.fillStyle = pV >= bV ? '#22c55e' : '#ef4444';
+          ctx.fillText((pV >= 1 ? '+' : '') + fmtPct(pV) + '%', px + 12, py + 14);
+          ctx.beginPath(); ctx.arc(bx, by, 3.2, 0, 7); ctx.fillStyle = '#f59e0b'; ctx.fill();
+          ctx.font = '10.5px Segoe UI'; ctx.fillStyle = '#f59e0b';
+          ctx.fillText((bV >= 1 ? '+' : '') + fmtPct(bV) + '%', bx + 12, by + (Math.abs(by - py) < 18 ? -12 : 14));
+          // Excess badge
+          const ex = (pV - bV) * 100;
+          ctx.font = 'bold 11px Segoe UI'; ctx.fillStyle = ex >= 0 ? '#22c55e' : '#ef4444';
+          ctx.textAlign = 'right'; ctx.fillText((ex >= 0 ? '+' : '') + ex.toFixed(1) + ' pp vs SPY', W - pad.r + 76, pad.t + 10);
+          ctx.textAlign = 'left';
+        }
+      }
+      if (reduce) { drawLive(1, 0); return; }
+      const t0 = performance.now(), DUR = 1800;
+      let done = false;
+      (function frame(now) {
+        const t = Math.min(1, (now - t0) / DUR);
+        drawLive(t, now / 1000);
+        if (t >= 1) {
+          if (!done) {
+            done = true;
+            const p0 = performance.now();
+            (function pulse(now) {
+              drawLive(1, (now - p0) / 1000);
+              if (now - p0 < 4500) requestAnimationFrame(pulse);
+            })(p0);
+          }
+          return;
+        }
+        requestAnimationFrame(frame);
+      })(t0);
+      window.addEventListener('resize', () => drawLive(1, 0));
+      return;
+    }
+
+    // Fallback: illustrative mock (no live data — file:// before first update.py)
     const N = 96;
     const AI_AT = Math.floor(N * 0.3);
     const rand = (function () {
@@ -278,7 +430,7 @@
     a.addEventListener('click', e => { e.preventDefault(); openModal(); });
   });
 
-  loadDash();
+  loadDash(initHeroChart);
   renderAuth();
-  initHeroChart();
+  if (!window.DASH) initHeroChart();
 })();

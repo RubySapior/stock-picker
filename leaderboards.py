@@ -261,28 +261,29 @@ def _max_drawdown(history):
     return round(mdd * 100, 2)
 
 
-def _sharpe(history):
-    """Annualized Sharpe from daily snapshots (None if uncomputable).
+def _sortino(history):
+    """Annualized Sortino from daily snapshots (None if uncomputable).
 
-    Same convention as update.py's compute_sharpe: mean daily return over
-    daily std, annualized by sqrt(252).
+    Same convention as update.py's compute_sortino (issue #32: replaces
+    Sharpe — downside deviation only, so up-days never hurt the score):
+    mean daily return over downside deviation, annualized by sqrt(252).
     """
     vals = [h.get("total_value") for h in history]
     if len(vals) < 3 or any(v is None or v <= 0 for v in vals):
         return None
     rets = [(vals[i] / vals[i - 1]) - 1 for i in range(1, len(vals))]
     mean = sum(rets) / len(rets)
-    var = sum((r - mean) ** 2 for r in rets) / (len(rets) - 1)
-    std = var ** 0.5
-    if std == 0:
+    dvar = sum(min(r, 0.0) ** 2 for r in rets) / (len(rets) - 1)
+    ddev = dvar ** 0.5
+    if ddev == 0:
         return None
-    return round((mean / std) * (252 ** 0.5), 2)
+    return round((mean / ddev) * (252 ** 0.5), 2)
 
 
 def _window_history(history, n_sessions):
     """Slice history to the trailing window (inclusive).
     
-    Mirrors _window_return's start index so drawdown/sharpe use the same
+    Mirrors _window_return's start index so drawdown/sortino use the same
     period. n_sessions=None -> full history (all-time).
     """
     if not history:
@@ -309,7 +310,7 @@ def _ranked(strategies, n_sessions):
             "kind": s.get("kind"),
             "return_pct": ret,
             "max_drawdown_pct": _max_drawdown(wh),
-            "sharpe": _sharpe(wh),
+            "sortino": _sortino(wh),
         })
     rows.sort(key=lambda r: -r["return_pct"])
     return rows[:TOP_N]
