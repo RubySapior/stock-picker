@@ -145,12 +145,12 @@ window.DASH = {
       "F2": {
         "prev_score": 4.4,
         "score": 4.4,
-        "days_above": 3,
+        "days_above": 4,
         "confirmed": true,
-        "last_above_date": "2026-09-05"
+        "last_above_date": "2026-09-06"
       },
       "F3": {
-        "prev_score": 2.5,
+        "prev_score": 2.4,
         "score": 2.4,
         "days_above": 0,
         "confirmed": false,
@@ -159,23 +159,23 @@ window.DASH = {
       "F4": {
         "prev_score": 4.7,
         "score": 4.7,
-        "days_above": 11,
+        "days_above": 12,
         "confirmed": true,
-        "last_above_date": "2026-09-05"
+        "last_above_date": "2026-09-06"
       },
       "F5": {
         "prev_score": 4.3,
         "score": 4.3,
-        "days_above": 5,
+        "days_above": 6,
         "confirmed": true,
-        "last_above_date": "2026-09-05"
+        "last_above_date": "2026-09-06"
       },
       "F6": {
         "prev_score": 4.9,
         "score": 4.9,
-        "days_above": 19,
+        "days_above": 20,
         "confirmed": true,
-        "last_above_date": "2026-09-05"
+        "last_above_date": "2026-09-06"
       },
       "F7": {
         "prev_score": 2.0,
@@ -589,7 +589,7 @@ window.DASH = {
     },
     "ai_calibrated_verdict_date": "2026-08-21",
     "dividend_policy": "reinvest",
-    "asof_ts": 1788585501,
+    "asof_ts": 1788672837,
     "refresh_interval": 1440
   },
   "asof": "2026-09-04",
@@ -2635,7 +2635,7 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-09-05",
+      "asof": "2026-09-06",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2666,7 +2666,7 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-09-05",
+      "asof": "2026-09-06",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2696,7 +2696,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-09-05",
+      "asof": "2026-09-06",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2732,7 +2732,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-09-05",
+      "asof": "2026-09-06",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2766,7 +2766,7 @@ window.DASH = {
         "BTAL"
       ],
       "sizing": null,
-      "asof": "2026-09-05",
+      "asof": "2026-09-06",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2801,7 +2801,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-09-05",
+      "asof": "2026-09-06",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2837,7 +2837,7 @@ window.DASH = {
         "ZROZ"
       ],
       "sizing": null,
-      "asof": "2026-09-05",
+      "asof": "2026-09-06",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2867,7 +2867,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-09-05",
+      "asof": "2026-09-06",
       "degraded": false,
       "trend_dir": "flat"
     }
@@ -4062,13 +4062,13 @@ window.DASH = {
     "enabled": true
   },
   "news": {
-    "asof": "2026-09-05 05:18:22",
+    "asof": "2026-09-06 05:33:57",
     "big_stories": [
       {
-        "title": "Inside Zeta's Transformation From Hopeful Do-Over To Surging AI Marketing Stock",
-        "link": "https://finance.yahoo.com/m/763994b2-cefb-30d1-a197-56e519133c36/inside-zeta%27s-transformation.html?.tsrc=rss",
-        "ts": 1788552778,
-        "when": "Sep 04, 08:12 PM",
+        "title": "Michael Burry Says Palantir's Books Look More Like a Consultant's Than a Software Company's",
+        "link": "https://www.fool.com/investing/2026/09/05/michael-burry-says-palantir-s-books-look-more-like-a-consultant-s-than-a-software-company-s/?.tsrc=rss",
+        "ts": 1788666361,
+        "when": "Sep 06, 03:46 AM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -4078,6 +4078,35 @@ window.DASH = {
           "T14"
         ],
         "sent": "positive"
+      },
+      {
+        "title": "Billionaire Activist Investor Dan Loeb Bought Gold, Then Dumped It 3 Months Later — Timing Hasn't Paid Off Yet",
+        "link": "https://finance.yahoo.com/markets/commodities/articles/billionaire-activist-investor-dan-loeb-140011100.html?.tsrc=rss",
+        "ts": 1788616811,
+        "when": "Sep 05, 02:00 PM",
+        "ticker": "GLD",
+        "industry": "Gold",
+        "theory": [
+          "T6",
+          "T9",
+          "T19",
+          "T20",
+          "T21"
+        ],
+        "sent": "negative"
+      },
+      {
+        "title": "Scott Bessent Said Interest Rates Have Fallen During Trump’s Second Term. Here’s Where He’s Right – and Where He’s Wrong.",
+        "link": "https://www.barchart.com/story/news/4461203/scott-bessent-said-interest-rates-have-fallen-during-trumps-second-term-heres-where-hes-right-and-where-hes-wrong?.tsrc=rss",
+        "ts": 1788615002,
+        "when": "Sep 05, 01:30 PM",
+        "ticker": "IWM",
+        "industry": "Small Caps",
+        "theory": [
+          "T10",
+          "T15"
+        ],
+        "sent": "negative"
       },
       {
         "title": "All That Glitters: How We Traded Gold Stocks Without Chasing",
@@ -4106,14 +4135,31 @@ window.DASH = {
           "T13"
         ],
         "sent": "neutral"
+      }
+    ],
+    "feed": [
+      {
+        "title": "Michael Burry Says Palantir's Books Look More Like a Consultant's Than a Software Company's",
+        "link": "https://www.fool.com/investing/2026/09/05/michael-burry-says-palantir-s-books-look-more-like-a-consultant-s-than-a-software-company-s/?.tsrc=rss",
+        "ts": 1788666361,
+        "when": "Sep 06, 03:46 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
       },
       {
-        "title": "ETF Zoo: Industry Scale, Speculation, and Sports Betting",
-        "link": "http://www.etf.com/sections/podcasts/etf-zoo-industry-scale-speculation-and-sports-betting?utm_source=yahoo-finance&utm_medium=rss&utm_campaign=yahoo-finance-rss&.tsrc=rss",
-        "ts": 1788541738,
-        "when": "Sep 04, 05:08 PM",
-        "ticker": "SMH",
-        "industry": "Semis",
+        "title": "AI Hardware Rallied While Adobe and Palantir Sank. Which Side Is Right?",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/ai-hardware-rallied-while-adobe-220725248.html?.tsrc=rss",
+        "ts": 1788646045,
+        "when": "Sep 05, 10:07 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
         "theory": [
           "T1",
           "T7",
@@ -4123,12 +4169,12 @@ window.DASH = {
         "sent": "neutral"
       },
       {
-        "title": "Chip Stocks Pop Despite Jobs Day Weakness",
-        "link": "https://finance.yahoo.com/m/a1bb6cc9-8676-3ce2-a47c-de474ad73aba/chip-stocks-pop-despite-jobs.html?.tsrc=rss",
-        "ts": 1788537214,
-        "when": "Sep 04, 03:53 PM",
-        "ticker": "DRAM",
-        "industry": "AI Memory/HBM",
+        "title": "3 Great Quality Stocks To Own In September 2026",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/3-great-quality-stocks-own-201414086.html?.tsrc=rss",
+        "ts": 1788639254,
+        "when": "Sep 05, 08:14 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
         "theory": [
           "T1",
           "T7",
@@ -4136,9 +4182,96 @@ window.DASH = {
           "T14"
         ],
         "sent": "positive"
-      }
-    ],
-    "feed": [
+      },
+      {
+        "title": "AI’s Next Winners? Investor Bets on Snowflake, CrowdStrike and Palantir",
+        "link": "https://finance.yahoo.com/technology/ai/articles/ai-next-winners-investor-bets-170009073.html?.tsrc=rss",
+        "ts": 1788627609,
+        "when": "Sep 05, 05:00 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "Billionaire Activist Investor Dan Loeb Bought Gold, Then Dumped It 3 Months Later — Timing Hasn't Paid Off Yet",
+        "link": "https://finance.yahoo.com/markets/commodities/articles/billionaire-activist-investor-dan-loeb-140011100.html?.tsrc=rss",
+        "ts": 1788616811,
+        "when": "Sep 05, 02:00 PM",
+        "ticker": "GLD",
+        "industry": "Gold",
+        "theory": [
+          "T6",
+          "T9",
+          "T19",
+          "T20",
+          "T21"
+        ],
+        "sent": "negative"
+      },
+      {
+        "title": "Scott Bessent Said Interest Rates Have Fallen During Trump’s Second Term. Here’s Where He’s Right – and Where He’s Wrong.",
+        "link": "https://www.barchart.com/story/news/4461203/scott-bessent-said-interest-rates-have-fallen-during-trumps-second-term-heres-where-hes-right-and-where-hes-wrong?.tsrc=rss",
+        "ts": 1788615002,
+        "when": "Sep 05, 01:30 PM",
+        "ticker": "IWM",
+        "industry": "Small Caps",
+        "theory": [
+          "T10",
+          "T15"
+        ],
+        "sent": "negative"
+      },
+      {
+        "title": "Palantir Jumped 7.7% on an Expanded PwC Alliance as Globant Launched a Salesforce AI Pod. Which Services Model Scales Better?",
+        "link": "https://finance.yahoo.com/technology/ai/articles/palantir-jumped-7-7-expanded-123838463.html?.tsrc=rss",
+        "ts": 1788611918,
+        "when": "Sep 05, 12:38 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "Palantir Billionaire Peter Thiel Just Bought Shares of This AI Stock That’s Climbed 200,000% Since Its IPO -- And It’s His Top Position.",
+        "link": "https://www.fool.com/investing/2026/09/05/palantir-billionaire-peter-thiel-just-bought-shares-of-this-ai-stock-that-s-climbed-200-000-since-its-ipo-and-it-s-his-top-position/?.tsrc=rss",
+        "ts": 1788603901,
+        "when": "Sep 05, 10:25 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "Palantir Won a $127 Million Army Production Order and Still Fell 6%. Is the Valuation Finally Catching Up?",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/palantir-won-127-million-army-055204061.html?.tsrc=rss",
+        "ts": 1788587524,
+        "when": "Sep 05, 05:52 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
       {
         "title": "Inside Zeta's Transformation From Hopeful Do-Over To Surging AI Marketing Stock",
         "link": "https://finance.yahoo.com/m/763994b2-cefb-30d1-a197-56e519133c36/inside-zeta%27s-transformation.html?.tsrc=rss",
@@ -4438,51 +4571,6 @@ window.DASH = {
         "sent": "neutral"
       },
       {
-        "title": "Nasdaq Futures Edge Higher As Jobs Report Takes Center Stage: TSLA, LULU, ORCL, PL, NVDA, PLTR, RKLB In Focus",
-        "link": "https://stocktwits.com/news-articles/markets/equity/why-nasdaq-futures-rising-today-jobs-report-fed-rate-hike-tsla-lulu-orcl-pl-nvda-stocks/cZswyykRJwZ?.tsrc=rss",
-        "ts": 1788511629,
-        "when": "Sep 04, 08:47 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Palantir Stock Posts Best Day In A Month After Expanded PwC AI Deal, Defying Michael Burry’s Bearish Bet",
-        "link": "https://stocktwits.com/news-articles/markets/equity/palantir-stock-posts-best-day-in-a-month-after-expanded-pw-c-ai-deal-defying-michael-burry-s-bearish-bet/cZswq55RJwc?.tsrc=rss",
-        "ts": 1788491749,
-        "when": "Sep 04, 03:15 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "What Does Palantir Technologies (PLTR) Winning Army Work Mean For Its AI Growth?",
-        "link": "https://finance.yahoo.com/technology/ai/articles/does-palantir-technologies-pltr-winning-010624105.html?.tsrc=rss",
-        "ts": 1788483984,
-        "when": "Sep 04, 01:06 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
         "title": "S&P 500, Dow End Best Day In A Month On Calmer Yields As Rate Hike Bets Wane — SPCX, VSXY, NVDA, TSLA In Focus",
         "link": "https://stocktwits.com/news-articles/markets/equity/s-and-p-500-dow-end-best-day-in-a-month/cZsufnBRJvu?.tsrc=rss",
         "ts": 1788474298,
@@ -4496,92 +4584,6 @@ window.DASH = {
           "T14"
         ],
         "sent": "positive"
-      },
-      {
-        "title": "Palantir Technologies, Workiva, Elastic, RingCentral, and 8x8 Shares Skyrocket, What You Need To Know",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/palantir-technologies-workiva-elastic-ringcentral-220718501.html?.tsrc=rss",
-        "ts": 1788473238,
-        "when": "Sep 03, 10:07 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "Palantir Stock Jumps on Expanded PwC AI Deal",
-        "link": "https://finance.yahoo.com/technology/ai/articles/palantir-stock-jumps-expanded-pwc-212850892.html?.tsrc=rss",
-        "ts": 1788470930,
-        "when": "Sep 03, 09:28 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Palantir Stock Defies Red Flag and Skyrockets 8% – Here’s Why",
-        "link": "https://beincrypto.com/palantir-stock-defies-burry-red-flag/?.tsrc=rss",
-        "ts": 1788470626,
-        "when": "Sep 03, 09:23 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Retired Before Nvidia Made Everyone Rich? These 3 ETFs Put the Next Wave in Your IRA Without Betting the Nest Egg",
-        "link": "https://247wallst.com/investing/etf/2026/09/03/retired-before-nvidia-made-everyone-rich-these-3-etfs-put-the-next-wave-in-your-ira-without-betting-the-nest-egg/?.tsrc=rss",
-        "ts": 1788469547,
-        "when": "Sep 03, 09:05 PM",
-        "ticker": "SMH",
-        "industry": "Semis",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "Daily ETF Flows: SGOV Takes No. 2 Spot",
-        "link": "http://www.etf.com/sections/daily-etf-flows/daily-etf-flows-sgov-takes-no-2-spot?utm_source=yahoo-finance&utm_medium=rss&utm_campaign=yahoo-finance-rss&.tsrc=rss",
-        "ts": 1788469204,
-        "when": "Sep 03, 09:00 PM",
-        "ticker": "SGOV",
-        "industry": "Equities",
-        "theory": [],
-        "sent": "neutral"
-      },
-      {
-        "title": "Gold rally driven by investment demand, not just Treasury move, says analyst",
-        "link": "https://finance.yahoo.com/markets/commodities/articles/gold-rally-driven-investment-demand-163107026.html?.tsrc=rss",
-        "ts": 1788453067,
-        "when": "Sep 03, 04:31 PM",
-        "ticker": "GLD",
-        "industry": "Gold",
-        "theory": [
-          "T6",
-          "T9",
-          "T19",
-          "T20",
-          "T21"
-        ],
-        "sent": "negative"
       }
     ]
   },
