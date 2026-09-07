@@ -145,9 +145,9 @@ window.DASH = {
       "F2": {
         "prev_score": 4.4,
         "score": 4.4,
-        "days_above": 4,
+        "days_above": 5,
         "confirmed": true,
-        "last_above_date": "2026-09-06"
+        "last_above_date": "2026-09-07"
       },
       "F3": {
         "prev_score": 2.4,
@@ -159,23 +159,23 @@ window.DASH = {
       "F4": {
         "prev_score": 4.7,
         "score": 4.7,
-        "days_above": 12,
+        "days_above": 13,
         "confirmed": true,
-        "last_above_date": "2026-09-06"
+        "last_above_date": "2026-09-07"
       },
       "F5": {
         "prev_score": 4.3,
-        "score": 4.3,
-        "days_above": 6,
+        "score": 4.0,
+        "days_above": 7,
         "confirmed": true,
-        "last_above_date": "2026-09-06"
+        "last_above_date": "2026-09-07"
       },
       "F6": {
         "prev_score": 4.9,
         "score": 4.9,
-        "days_above": 20,
+        "days_above": 21,
         "confirmed": true,
-        "last_above_date": "2026-09-06"
+        "last_above_date": "2026-09-07"
       },
       "F7": {
         "prev_score": 2.0,
@@ -589,7 +589,7 @@ window.DASH = {
     },
     "ai_calibrated_verdict_date": "2026-08-21",
     "dividend_policy": "reinvest",
-    "asof_ts": 1788672837,
+    "asof_ts": 1788759874,
     "refresh_interval": 1440
   },
   "asof": "2026-09-04",
@@ -2635,7 +2635,7 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-09-06",
+      "asof": "2026-09-07",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2666,7 +2666,7 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-09-06",
+      "asof": "2026-09-07",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2678,8 +2678,8 @@ window.DASH = {
       "level": 0.588,
       "velocity": {
         "label": "5d velocity",
-        "value": 0.0244,
-        "pct": 0.965
+        "value": 0.0257,
+        "pct": 0.969
       },
       "trend": null,
       "signals": [
@@ -2696,7 +2696,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-09-06",
+      "asof": "2026-09-07",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2704,18 +2704,18 @@ window.DASH = {
       "id": "F5",
       "name": "War / energy shock",
       "type": "episodic",
-      "score": 4.3,
-      "level": 0.685,
+      "score": 4.0,
+      "level": 0.627,
       "velocity": {
         "label": "5d velocity",
-        "value": 0.0969,
-        "pct": 0.882
+        "value": 0.0667,
+        "pct": 0.8
       },
       "trend": null,
       "signals": [
         {
           "label": "Crude 5d momentum",
-          "value": 0.882
+          "value": 0.8
         },
         {
           "label": "Gold 1d momentum",
@@ -2732,9 +2732,9 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-09-06",
+      "asof": "2026-09-07",
       "degraded": false,
-      "trend_dir": "flat"
+      "trend_dir": "falling"
     },
     {
       "id": "F8",
@@ -2766,7 +2766,7 @@ window.DASH = {
         "BTAL"
       ],
       "sizing": null,
-      "asof": "2026-09-06",
+      "asof": "2026-09-07",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2801,7 +2801,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-09-06",
+      "asof": "2026-09-07",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2837,7 +2837,7 @@ window.DASH = {
         "ZROZ"
       ],
       "sizing": null,
-      "asof": "2026-09-06",
+      "asof": "2026-09-07",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2867,7 +2867,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-09-06",
+      "asof": "2026-09-07",
       "degraded": false,
       "trend_dir": "flat"
     }
@@ -4062,13 +4062,13 @@ window.DASH = {
     "enabled": true
   },
   "news": {
-    "asof": "2026-09-06 05:33:57",
+    "asof": "2026-09-07 05:44:35",
     "big_stories": [
       {
-        "title": "Michael Burry Says Palantir's Books Look More Like a Consultant's Than a Software Company's",
-        "link": "https://www.fool.com/investing/2026/09/05/michael-burry-says-palantir-s-books-look-more-like-a-consultant-s-than-a-software-company-s/?.tsrc=rss",
-        "ts": 1788666361,
-        "when": "Sep 06, 03:46 AM",
+        "title": "Palantir’s Alex Karp: The Real AI Leak Isn't Data, It's Your 'Alpha'",
+        "link": "https://finance.yahoo.com/technology/ai/articles/palantir-alex-karp-real-ai-013013347.html?.tsrc=rss",
+        "ts": 1788744613,
+        "when": "Sep 07, 01:30 AM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -4077,7 +4077,7 @@ window.DASH = {
           "T2",
           "T14"
         ],
-        "sent": "positive"
+        "sent": "negative"
       },
       {
         "title": "Billionaire Activist Investor Dan Loeb Bought Gold, Then Dumped It 3 Months Later — Timing Hasn't Paid Off Yet",
@@ -4138,6 +4138,36 @@ window.DASH = {
       }
     ],
     "feed": [
+      {
+        "title": "Palantir’s Alex Karp: The Real AI Leak Isn't Data, It's Your 'Alpha'",
+        "link": "https://finance.yahoo.com/technology/ai/articles/palantir-alex-karp-real-ai-013013347.html?.tsrc=rss",
+        "ts": 1788744613,
+        "when": "Sep 07, 01:30 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "negative"
+      },
+      {
+        "title": "Michael Burry sends a strong warning to Palantir stock investors",
+        "link": "https://www.thestreet.com/investing/stocks/michael-burry-warns-palantir-stock-investors-bear-case?.tsrc=rss",
+        "ts": 1788705420,
+        "when": "Sep 06, 02:37 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
       {
         "title": "Michael Burry Says Palantir's Books Look More Like a Consultant's Than a Software Company's",
         "link": "https://www.fool.com/investing/2026/09/05/michael-burry-says-palantir-s-books-look-more-like-a-consultant-s-than-a-software-company-s/?.tsrc=rss",
@@ -4539,36 +4569,6 @@ window.DASH = {
           "T21"
         ],
         "sent": "positive"
-      },
-      {
-        "title": "Where Will Palantir Stock Be in 1 Year?",
-        "link": "https://www.fool.com/investing/2026/09/04/where-will-palantir-stock-be-in-1-year/?.tsrc=rss",
-        "ts": 1788512700,
-        "when": "Sep 04, 09:05 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Palantir Billionaire Peter Thiel Buys an AI Stock Up 560% in 10 Years (Hint: Not Nvidia)",
-        "link": "https://www.fool.com/investing/2026/09/04/palantir-peter-thield-buy-ai-stock-up-500-nvidia/?.tsrc=rss",
-        "ts": 1788512640,
-        "when": "Sep 04, 09:04 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
       },
       {
         "title": "S&P 500, Dow End Best Day In A Month On Calmer Yields As Rate Hike Bets Wane — SPCX, VSXY, NVDA, TSLA In Focus",
