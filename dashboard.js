@@ -144,10 +144,10 @@ window.DASH = {
       },
       "F2": {
         "prev_score": 4.4,
-        "score": 4.4,
-        "days_above": 5,
+        "score": 4.5,
+        "days_above": 6,
         "confirmed": true,
-        "last_above_date": "2026-09-07"
+        "last_above_date": "2026-09-08"
       },
       "F3": {
         "prev_score": 2.4,
@@ -159,23 +159,23 @@ window.DASH = {
       "F4": {
         "prev_score": 4.7,
         "score": 4.7,
-        "days_above": 13,
+        "days_above": 14,
         "confirmed": true,
-        "last_above_date": "2026-09-07"
+        "last_above_date": "2026-09-08"
       },
       "F5": {
-        "prev_score": 4.3,
-        "score": 4.0,
-        "days_above": 7,
+        "prev_score": 4.0,
+        "score": 4.2,
+        "days_above": 8,
         "confirmed": true,
-        "last_above_date": "2026-09-07"
+        "last_above_date": "2026-09-08"
       },
       "F6": {
         "prev_score": 4.9,
         "score": 4.9,
-        "days_above": 21,
+        "days_above": 22,
         "confirmed": true,
-        "last_above_date": "2026-09-07"
+        "last_above_date": "2026-09-08"
       },
       "F7": {
         "prev_score": 2.0,
@@ -589,7 +589,7 @@ window.DASH = {
     },
     "ai_calibrated_verdict_date": "2026-08-21",
     "dividend_policy": "reinvest",
-    "asof_ts": 1788759874,
+    "asof_ts": 1788845967,
     "refresh_interval": 1440
   },
   "asof": "2026-09-04",
@@ -2635,7 +2635,7 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-09-07",
+      "asof": "2026-09-08",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2666,7 +2666,7 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-09-07",
+      "asof": "2026-09-08",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2674,12 +2674,12 @@ window.DASH = {
       "id": "F2",
       "name": "Yen-carry unwind",
       "type": "episodic",
-      "score": 4.4,
+      "score": 4.5,
       "level": 0.588,
       "velocity": {
         "label": "5d velocity",
-        "value": 0.0257,
-        "pct": 0.969
+        "value": 0.0392,
+        "pct": 1.0
       },
       "trend": null,
       "signals": [
@@ -2696,7 +2696,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-09-07",
+      "asof": "2026-09-08",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2704,18 +2704,18 @@ window.DASH = {
       "id": "F5",
       "name": "War / energy shock",
       "type": "episodic",
-      "score": 4.0,
-      "level": 0.627,
+      "score": 4.2,
+      "level": 0.668,
       "velocity": {
         "label": "5d velocity",
-        "value": 0.0667,
-        "pct": 0.8
+        "value": 0.0879,
+        "pct": 0.859
       },
       "trend": null,
       "signals": [
         {
           "label": "Crude 5d momentum",
-          "value": 0.8
+          "value": 0.859
         },
         {
           "label": "Gold 1d momentum",
@@ -2732,9 +2732,9 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-09-07",
+      "asof": "2026-09-08",
       "degraded": false,
-      "trend_dir": "falling"
+      "trend_dir": "rising"
     },
     {
       "id": "F8",
@@ -2766,7 +2766,7 @@ window.DASH = {
         "BTAL"
       ],
       "sizing": null,
-      "asof": "2026-09-07",
+      "asof": "2026-09-08",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2801,7 +2801,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-09-07",
+      "asof": "2026-09-08",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2837,7 +2837,7 @@ window.DASH = {
         "ZROZ"
       ],
       "sizing": null,
-      "asof": "2026-09-07",
+      "asof": "2026-09-08",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2867,7 +2867,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-09-07",
+      "asof": "2026-09-08",
       "degraded": false,
       "trend_dir": "flat"
     }
@@ -2877,11 +2877,11 @@ window.DASH = {
     "label": "Fear"
   },
   "complacency": {
-    "index": 0.026,
+    "index": 0.023,
     "valuation_stretch": 0.31,
-    "fear_term": 0.083,
-    "divergence": 0.285,
-    "fear_avg": 4.67,
+    "fear_term": 0.075,
+    "divergence": 0.287,
+    "fear_avg": 4.7,
     "regime": "stress",
     "note": "Stress regime - broad equity drawdown active. Hedges should be paying.",
     "pay_check": {
@@ -4062,13 +4062,13 @@ window.DASH = {
     "enabled": true
   },
   "news": {
-    "asof": "2026-09-07 05:44:35",
+    "asof": "2026-09-08 05:39:28",
     "big_stories": [
       {
-        "title": "Palantir’s Alex Karp: The Real AI Leak Isn't Data, It's Your 'Alpha'",
-        "link": "https://finance.yahoo.com/technology/ai/articles/palantir-alex-karp-real-ai-013013347.html?.tsrc=rss",
-        "ts": 1788744613,
-        "when": "Sep 07, 01:30 AM",
+        "title": "Palantir Stock Leads August Rally -- Nvidia, Salesforce and Super Micro Jump",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/palantir-stock-leads-august-rally-215855985.html?.tsrc=rss",
+        "ts": 1788818335,
+        "when": "Sep 07, 09:58 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -4077,7 +4077,42 @@ window.DASH = {
           "T2",
           "T14"
         ],
+        "sent": "positive"
+      },
+      {
+        "title": "The World’s Largest Sovereign Fund Wants to Dump $80 Billion of Treasuries | Is TLT Now a Trap?",
+        "link": "https://247wallst.com/investing/etf/2026/09/07/the-worlds-largest-sovereign-fund-wants-to-dump-80-billion-of-treasuries-is-tlt-now-a-trap/?.tsrc=rss",
+        "ts": 1788794527,
+        "when": "Sep 07, 03:22 PM",
+        "ticker": "SGOV",
+        "industry": "Equities",
+        "theory": [],
         "sent": "negative"
+      },
+      {
+        "title": "How Is O'Reilly Automotive's Stock Performance Compared to Other Consumer Cyclical Stocks?",
+        "link": "https://www.barchart.com/story/news/4474443/how-is-o-reilly-automotive-s-stock-performance-compared-to-other-consumer-cyclical-stocks?.tsrc=rss",
+        "ts": 1788786154,
+        "when": "Sep 07, 01:02 PM",
+        "ticker": "XLY",
+        "industry": "Consumer Disc.",
+        "theory": [
+          "T13"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "3 ETFs That Could Move as Rate Expectations Shift",
+        "link": "https://www.marketbeat.com/articles/3-etfs-that-could-move-as-rate-expectations-shift/?utm_source=yahoofinance&utm_medium=yahoofinance&.tsrc=rss",
+        "ts": 1788711000,
+        "when": "Sep 06, 04:10 PM",
+        "ticker": "IWM",
+        "industry": "Small Caps",
+        "theory": [
+          "T10",
+          "T15"
+        ],
+        "sent": "neutral"
       },
       {
         "title": "Billionaire Activist Investor Dan Loeb Bought Gold, Then Dumped It 3 Months Later — Timing Hasn't Paid Off Yet",
@@ -4094,50 +4129,151 @@ window.DASH = {
           "T21"
         ],
         "sent": "negative"
+      }
+    ],
+    "feed": [
+      {
+        "title": "Palantir Stock Leads August Rally -- Nvidia, Salesforce and Super Micro Jump",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/palantir-stock-leads-august-rally-215855985.html?.tsrc=rss",
+        "ts": 1788818335,
+        "when": "Sep 07, 09:58 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
       },
       {
-        "title": "Scott Bessent Said Interest Rates Have Fallen During Trump’s Second Term. Here’s Where He’s Right – and Where He’s Wrong.",
-        "link": "https://www.barchart.com/story/news/4461203/scott-bessent-said-interest-rates-have-fallen-during-trumps-second-term-heres-where-hes-right-and-where-hes-wrong?.tsrc=rss",
-        "ts": 1788615002,
-        "when": "Sep 05, 01:30 PM",
-        "ticker": "IWM",
-        "industry": "Small Caps",
+        "title": "Burry’s Palantir Warning Is Back. Accenture Shows What Investors Should Check",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/burry-palantir-warning-back-accenture-204332089.html?.tsrc=rss",
+        "ts": 1788813812,
+        "when": "Sep 07, 08:43 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
         "theory": [
-          "T10",
-          "T15"
+          "T1",
+          "T7",
+          "T2",
+          "T14"
         ],
         "sent": "negative"
       },
       {
-        "title": "All That Glitters: How We Traded Gold Stocks Without Chasing",
-        "link": "https://finance.yahoo.com/m/13332d9e-f4b7-34c4-bcf4-2b21ac03e310/all-that-glitters%3A-how-we.html?.tsrc=rss",
-        "ts": 1788552750,
-        "when": "Sep 04, 08:12 PM",
-        "ticker": "GDX",
-        "industry": "Gold Miners",
+        "title": "Cathie Wood Is Moving Money From Palantir Into Rocket Lab and Fintech",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/cathie-wood-moving-money-palantir-192133259.html?.tsrc=rss",
+        "ts": 1788808893,
+        "when": "Sep 07, 07:21 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
         "theory": [
-          "T6",
-          "T9",
-          "T19",
-          "T20",
-          "T21"
+          "T1",
+          "T7",
+          "T2",
+          "T14"
         ],
         "sent": "neutral"
       },
       {
-        "title": "Sector Update: Consumer Stocks Fall Late Afternoon",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-fall-afternoon-193633461.html?.tsrc=rss",
-        "ts": 1788550593,
-        "when": "Sep 04, 07:36 PM",
+        "title": "Cathie Wood Dumps $25 Million of Palantir Shares. Should PLTR Investors Worry?",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/cathie-wood-dumps-25-million-172403799.html?.tsrc=rss",
+        "ts": 1788801843,
+        "when": "Sep 07, 05:24 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "negative"
+      },
+      {
+        "title": "Palantir Surged 51% in August. The Rest of Tech Wasn't Even Close",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/palantir-surged-51-august-rest-172023418.html?.tsrc=rss",
+        "ts": 1788801623,
+        "when": "Sep 07, 05:20 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "The World’s Largest Sovereign Fund Wants to Dump $80 Billion of Treasuries | Is TLT Now a Trap?",
+        "link": "https://247wallst.com/investing/etf/2026/09/07/the-worlds-largest-sovereign-fund-wants-to-dump-80-billion-of-treasuries-is-tlt-now-a-trap/?.tsrc=rss",
+        "ts": 1788794527,
+        "when": "Sep 07, 03:22 PM",
+        "ticker": "SGOV",
+        "industry": "Equities",
+        "theory": [],
+        "sent": "negative"
+      },
+      {
+        "title": "Palantir Stock Could Make a Dramatic Move Over the Next Year (Hint: It Implies a Big Move)",
+        "link": "https://www.fool.com/investing/2026/09/07/palantir-stock-could-make-a-dramatic-move-over-the/?.tsrc=rss",
+        "ts": 1788788580,
+        "when": "Sep 07, 01:43 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "Investors Pulled $700 Million From IGV Hours Before Snowflake Reignited Software",
+        "link": "https://247wallst.com/investing/etf/2026/09/07/investors-pulled-700-million-from-igv-hours-before-snowflake-reignited-software/?.tsrc=rss",
+        "ts": 1788788265,
+        "when": "Sep 07, 01:37 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "How Is O'Reilly Automotive's Stock Performance Compared to Other Consumer Cyclical Stocks?",
+        "link": "https://www.barchart.com/story/news/4474443/how-is-o-reilly-automotive-s-stock-performance-compared-to-other-consumer-cyclical-stocks?.tsrc=rss",
+        "ts": 1788786154,
+        "when": "Sep 07, 01:02 PM",
         "ticker": "XLY",
         "industry": "Consumer Disc.",
         "theory": [
           "T13"
         ],
         "sent": "neutral"
-      }
-    ],
-    "feed": [
+      },
+      {
+        "title": "Down Nearly 50% in 2026, Is BigBear.ai Stock Cheap Enough to Finally Buy?",
+        "link": "https://www.fool.com/investing/2026/09/07/down-nearly-50-in-2026-is-bigbear-ai-cheap-enough-to-finally-buy/?.tsrc=rss",
+        "ts": 1788783601,
+        "when": "Sep 07, 12:20 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
       {
         "title": "Palantir’s Alex Karp: The Real AI Leak Isn't Data, It's Your 'Alpha'",
         "link": "https://finance.yahoo.com/technology/ai/articles/palantir-alex-karp-real-ai-013013347.html?.tsrc=rss",
@@ -4152,6 +4288,19 @@ window.DASH = {
           "T14"
         ],
         "sent": "negative"
+      },
+      {
+        "title": "3 ETFs That Could Move as Rate Expectations Shift",
+        "link": "https://www.marketbeat.com/articles/3-etfs-that-could-move-as-rate-expectations-shift/?utm_source=yahoofinance&utm_medium=yahoofinance&.tsrc=rss",
+        "ts": 1788711000,
+        "when": "Sep 06, 04:10 PM",
+        "ticker": "IWM",
+        "industry": "Small Caps",
+        "theory": [
+          "T10",
+          "T15"
+        ],
+        "sent": "neutral"
       },
       {
         "title": "Michael Burry sends a strong warning to Palantir stock investors",
@@ -4376,36 +4525,6 @@ window.DASH = {
         "sent": "neutral"
       },
       {
-        "title": "Palantir just won the Army and lost Michael Burry",
-        "link": "https://www.thestreet.com/investing/palantir-army-contract-michael-burry-warning?.tsrc=rss",
-        "ts": 1788546780,
-        "when": "Sep 04, 06:33 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "Founder-Led Companies That Are Redefining Technology and Growth",
-        "link": "https://finance.yahoo.com/technology/articles/founder-led-companies-redefining-technology-180800557.html?.tsrc=rss",
-        "ts": 1788545280,
-        "when": "Sep 04, 06:08 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
         "title": "ETF Zoo: Industry Scale, Speculation, and Sports Betting",
         "link": "http://www.etf.com/sections/podcasts/etf-zoo-industry-scale-speculation-and-sports-betting?utm_source=yahoo-finance&utm_medium=rss&utm_campaign=yahoo-finance-rss&.tsrc=rss",
         "ts": 1788541738,
@@ -4436,21 +4555,6 @@ window.DASH = {
         "sent": "positive"
       },
       {
-        "title": "SCHG Owns More Apple Than Tesla, Meta and Palantir Combined. Is That Why Growth Investors Are Falling Behind?",
-        "link": "https://247wallst.com/investing/etf/2026/09/04/schg-owns-more-apple-than-tesla-meta-and-palantir-combined-is-that-why-growth-investors-are-falling-behind/?.tsrc=rss",
-        "ts": 1788536261,
-        "when": "Sep 04, 03:37 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
         "title": "Recent Yen Rally Puts These 3 ETFs in Focus",
         "link": "https://finance.yahoo.com/markets/currencies/articles/recent-yen-rally-puts-3-141400090.html?.tsrc=rss",
         "ts": 1788531240,
@@ -4463,127 +4567,6 @@ window.DASH = {
           "T21"
         ],
         "sent": "neutral"
-      },
-      {
-        "title": "Palantir Technologies Inc. (PLTR) Just Flashed Golden Cross Signal: Do You Buy?",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/palantir-technologies-inc-pltr-just-133502229.html?.tsrc=rss",
-        "ts": 1788528902,
-        "when": "Sep 04, 01:35 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "A Palantir Director Just Sold Nearly $245,000 of Stock",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/palantir-director-just-sold-nearly-133053517.html?.tsrc=rss",
-        "ts": 1788528653,
-        "when": "Sep 04, 01:30 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Goldman Sachs Says the AI Trade Is Barely Started. The Stocks That Got You Here Will Not Take You There",
-        "link": "https://247wallst.com/investing/2026/09/04/goldman-sachs-says-the-ai-trade-is-barely-started-the-stocks-that-got-you-here-will-not-take-you-there/?.tsrc=rss",
-        "ts": 1788528615,
-        "when": "Sep 04, 01:30 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Is Palantir's AI Growth Worth the Premium Valuation of its Stock?",
-        "link": "https://finance.yahoo.com/technology/ai/articles/palantirs-ai-growth-worth-premium-131100340.html?.tsrc=rss",
-        "ts": 1788527460,
-        "when": "Sep 04, 01:11 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "Not Nvidia. Not Palantir. This AI Stock Could Have the Most Upside.",
-        "link": "https://www.fool.com/investing/2026/09/04/not-nvidia-not-palantir-this-ai-stock-could-have-t/?.tsrc=rss",
-        "ts": 1788520800,
-        "when": "Sep 04, 11:20 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Tech Strength Lifts Wall Street Pre-Bell; Asia Up, Europe Muted",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/tech-strength-lifts-wall-street-110619648.html?.tsrc=rss",
-        "ts": 1788519979,
-        "when": "Sep 04, 11:06 AM",
-        "ticker": "SMH",
-        "industry": "Semis",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "The Best Gold ETF Is SPDR Gold Shares (GLD): Here's Why I'm Holding It in 2026",
-        "link": "https://www.fool.com/investing/2026/09/04/the-best-gold-etf-is-spdr-gold-shares-gld-heres-wh/?.tsrc=rss",
-        "ts": 1788515400,
-        "when": "Sep 04, 09:50 AM",
-        "ticker": "GLD",
-        "industry": "Gold",
-        "theory": [
-          "T6",
-          "T9",
-          "T19",
-          "T20",
-          "T21"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "S&P 500, Dow End Best Day In A Month On Calmer Yields As Rate Hike Bets Wane — SPCX, VSXY, NVDA, TSLA In Focus",
-        "link": "https://stocktwits.com/news-articles/markets/equity/s-and-p-500-dow-end-best-day-in-a-month/cZsufnBRJvu?.tsrc=rss",
-        "ts": 1788474298,
-        "when": "Sep 03, 10:24 PM",
-        "ticker": "SMH",
-        "industry": "Semis",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
       }
     ]
   },
