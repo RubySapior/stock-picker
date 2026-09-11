@@ -984,7 +984,8 @@ function render() {
               modeSwitch.disabled = false;
               return;
             }
-            location.reload();
+            modeSwitch.disabled = false;
+            modeSwitch.title = 'Saved - takes effect on next update';
           });
         }
       }
@@ -1016,11 +1017,10 @@ function render() {
       try{
         const j = await post('/book', body);
         if(!j.ok) throw new Error(j.error || 'booking failed');
-        alert(`${j.created} order(s) booked to portfolio.json (pending).\n\n` + (j.output||'').slice(-500));
+        alert(`${j.created} order(s) booked to portfolio.json (pending). Takes effect on next update - press Update to see them.`);
       }catch(e){
         alert('Booking needs the local server: run `python serve.py` and open http://localhost:8000.');
       }
-      location.reload();
     }
     const ea = document.getElementById('execAllBtn');
     wireOnce(ea, async () => {
@@ -1028,11 +1028,10 @@ function render() {
       try{
         const j = await post('/execute_all');
         if(!j.ok) throw new Error(j.error || 'booking failed');
-        alert(`Booked all proposals: ${j.created||0} order(s) written to portfolio.json (pending).\n\n` + (j.output||'').slice(-500));
+        alert(`Booked all proposals: ${j.created||0} order(s) written to portfolio.json (pending). Takes effect on next update - press Update to see them.`);
       }catch(e){
         alert('Submit all Orders needs the local server: run `python serve.py` and open http://localhost:8000.');
       }
-      location.reload();
     });
     const biasEl = document.getElementById('biasSlider');
     const biasVal = document.getElementById('biasVal');
@@ -1051,7 +1050,7 @@ function render() {
           }catch(e){
             alert('Sentiment slider needs the local server: run `python serve.py` and open http://localhost:8000.');
           }
-          location.reload();
+          biasEl.title = 'Saved - takes effect on next update';
         }, 700);
       });
     }
@@ -1326,10 +1325,11 @@ function render() {
         try{
           const j = await post('/park', {mode: b.dataset.m});
           if(!j.ok) throw new Error(j.error || 'park switch failed');
+          parkTog.querySelectorAll('button').forEach(x => x.classList.toggle('on', x.dataset.m === b.dataset.m));
+          parkTog.title = 'Saved - takes effect on next update';
         }catch(e){
           alert('Park toggle needs the local server (python serve.py on localhost:8000) to persist to portfolio.json.');
         }
-        location.reload();
       });
     }
     const divTog = document.getElementById('divTog');
@@ -1341,10 +1341,11 @@ function render() {
         try{
           const j = await post('/dividend', {mode: b.dataset.m});
           if(!j.ok) throw new Error(j.error || 'dividend policy switch failed');
+          divTog.querySelectorAll('button').forEach(x => x.classList.toggle('on', x.dataset.m === b.dataset.m));
+          divTog.title = 'Saved - takes effect on next update';
         }catch(e){
           alert('Dividend toggle needs the local server (python serve.py on localhost:8000) to persist to portfolio.json.');
         }
-        location.reload();
       });
     }
   }

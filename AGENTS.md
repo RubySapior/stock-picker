@@ -34,7 +34,7 @@ site opens on the landing page (`index.html`); the dashboard is
 | `trades.html` + `trades.js` | Trade Archive page: every recorded event (exits, re-entries, cash deploys) in a plain table with per-second timestamps. Reads the same `dashboard.js`. | **YES** — UI only |
 | `help.html` + `help.js` | Help site: plain-language notes (Simple tab) + the math and details (Advanced tab). Static explainer, no data. | **YES** — UI only |
 | `styles.css` | All styling (dark theme, panels, pills, charts). | **YES** |
-| `serve.py` | Optional local server. Exposes `POST /refresh` (Update button), `POST /mode`, `POST /book` (per-proposal order booking). All portfolio.json mutations go through `store.update_portfolio` (locked RMW). | **YES** |
+| `serve.py` | Optional local server. Exposes `POST /refresh` (Update button), `POST /mode`, `POST /book` (per-proposal order booking). Toggles (`/mode` `/book` `/execute_all` `/bias` `/park` `/dividend`) apply instantly without an update run; `/refresh` and `/ai` run the updater. All portfolio.json mutations go through `store.update_portfolio` (locked RMW). | **YES** |
 | `run.bat` | Double-click shortcut that runs `python update.py`. | **YES** |
 
 ## Data flow

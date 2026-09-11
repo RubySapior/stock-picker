@@ -7,6 +7,9 @@ browser can't run update.py by itself. This server:
   1. Serves the folder so you can open http://localhost:8000
   2. POST /refresh -> runs update.py --skip-ai (fresh prices + news, NO Gemini call)
      so the Update button never burns tokens.
+     Toggle endpoints (/mode /book /execute_all /bias /park /dividend)
+     apply instantly to portfolio.json (no update run); they take effect
+     on the next scheduled run or Update press.
   3. POST /ai -> dedicated Gemini run (update.py --ai) — the only path that
      spends tokens (max 3/day, market-hours gated). Button lives in the AI section.
   4. POST /mode -> toggles meta.ai.mode (recommend | execute) — Auto AI switch.
@@ -326,8 +329,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         except Exception as exc:
             self._json({"ok": False, "error": str(exc)}, 500)
             return
-        ok, output = self._run_update()
-        self._json({"ok": ok, "mode": mode, "output": output})
+        self._json({"ok": True, "mode": mode, "applied": True, "note": "Saved - takes effect on next scheduled run or Update press."})
 
     def _book(self):
         """POST /book -> ONE human-approved order from the latest verdict.
@@ -413,8 +415,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         except Exception as exc:
             self._json({"ok": False, "error": str(exc)}, 500)
             return
-        ok, output = self._run_update()
-        self._json({"ok": ok, "created": len(created), "output": output})
+        self._json({"ok": True, "created": len(created), "applied": True, "note": "Saved - takes effect on next scheduled run or Update press."})
 
     def _execute_all(self):
         """POST /execute_all -> ALL of the latest verdict's proposals +
@@ -469,8 +470,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         except Exception as exc:
             self._json({"ok": False, "error": str(exc)}, 500)
             return
-        ok, output = self._run_update()
-        self._json({"ok": ok, "created": len(created), "output": output})
+        self._json({"ok": True, "created": len(created), "applied": True, "note": "Saved - takes effect on next scheduled run or Update press."})
 
     def _set_bias(self):
         """POST /bias {value: -5..5} -> meta.ai.user_bias (sentiment slider)."""
@@ -491,8 +491,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         except Exception as exc:
             self._json({"ok": False, "error": str(exc)}, 500)
             return
-        ok, output = self._run_update()
-        self._json({"ok": ok, "value": value, "output": output})
+        self._json({"ok": True, "value": value, "applied": True, "note": "Saved - takes effect on next scheduled run or Update press."})
 
     def _set_park(self):
         """POST /park {mode: "sgov"|"cash"} -> meta.park_mode (dry-powder
@@ -510,8 +509,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         except Exception as exc:
             self._json({"ok": False, "error": str(exc)}, 500)
             return
-        ok, output = self._run_update()
-        self._json({"ok": ok, "mode": mode, "output": output})
+        self._json({"ok": True, "mode": mode, "applied": True, "note": "Saved - takes effect on next scheduled run or Update press."})
 
     def _set_dividend_policy(self):
         """POST /dividend {mode: "reinvest"|"sgov"|"cash"} -> meta.dividend_policy
@@ -530,8 +528,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         except Exception as exc:
             self._json({"ok": False, "error": str(exc)}, 500)
             return
-        ok, output = self._run_update()
-        self._json({"ok": ok, "mode": mode, "output": output})
+        self._json({"ok": True, "mode": mode, "applied": True, "note": "Saved - takes effect on next scheduled run or Update press."})
 
 
 if __name__ == "__main__":
