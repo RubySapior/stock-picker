@@ -141,11 +141,56 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         finally:
             lk.release()
 
+    # Public static allowlist (security: the old fallthrough served EVERY
+    # file in the folder - portfolio.json, users/*/portfolio.json, caches,
+    # .py, .git and backups all returned HTTP 200). Only the browser bundle
+    # may be served; everything else gets 404.
+    ALLOWED_STATIC_EXTS = (".html", ".htm", ".js", ".css", ".jpg", ".jpeg",
+                           ".png", ".gif", ".svg", ".ico", ".webmanifest")
+
+    def _static_allowed(self):
+        from urllib.parse import urlparse, unquote
+        try:
+            p = unquote(urlparse(self.path).path)
+        except Exception:
+            return False
+        if not p.startswith("/"):
+            return False
+        parts = [x for x in p.split("/") if x not in ("", ".")]
+        # Block dotfiles/dotdirs (.git, .github, .nojekyll) and traversal
+        if any(x.startswith(".") for x in parts):
+            return False
+        if ".." in parts:
+            return False
+        if p in ("/", ""):
+            return True
+        name = parts[-1] if parts else ""
+        if "." not in name:
+            return False
+        return name.lower().endswith(self.ALLOWED_STATIC_EXTS)
+
+    def list_directory(self, path):
+        # No directory listings - probe gets 404, not a file index.
+        self.send_response(404)
+        self.end_headers()
+        return None
+
     def do_GET(self):
         if self.path.rstrip("/").split("?")[0] == "/refresh":
             self._guard(self._refresh)
             return
+        if not self._static_allowed():
+            self.send_response(404)
+            self.end_headers()
+            return
         super().do_GET()
+
+    def do_HEAD(self):
+        if not self._static_allowed():
+            self.send_response(404)
+            self.end_headers()
+            return
+        super().do_HEAD()
 
     def do_POST(self):
         self._guard(self._dispatch_post)
