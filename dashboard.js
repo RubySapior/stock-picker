@@ -143,14 +143,14 @@ window.DASH = {
         "last_above_date": null
       },
       "F2": {
-        "prev_score": 4.6,
+        "prev_score": 4.3,
         "score": 4.3,
-        "days_above": 9,
-        "confirmed": true,
+        "days_above": 1,
+        "confirmed": false,
         "last_above_date": "2026-09-11"
       },
       "F3": {
-        "prev_score": 3.3,
+        "prev_score": 3.4,
         "score": 3.4,
         "days_above": 0,
         "confirmed": false,
@@ -159,21 +159,21 @@ window.DASH = {
       "F4": {
         "prev_score": 4.9,
         "score": 4.9,
-        "days_above": 17,
+        "days_above": 3,
         "confirmed": true,
         "last_above_date": "2026-09-11"
       },
       "F5": {
-        "prev_score": 4.5,
+        "prev_score": 4.4,
         "score": 4.4,
-        "days_above": 3,
+        "days_above": 6,
         "confirmed": true,
         "last_above_date": "2026-09-11"
       },
       "F6": {
         "prev_score": 5.0,
         "score": 5.0,
-        "days_above": 25,
+        "days_above": 6,
         "confirmed": true,
         "last_above_date": "2026-09-11"
       },
@@ -196,7 +196,7 @@ window.DASH = {
       "enabled": true,
       "provider": "gemini",
       "router": "openrouter",
-      "model": "google/gemini-3.7-flash",
+      "model": "google/gemini-3.8-flash",
       "reasoning_effort": "high",
       "debug_free": false,
       "news_to_sentiment": false,
@@ -207,18 +207,33 @@ window.DASH = {
       "urgency_threshold": 65,
       "orders_refresh": true,
       "order_size": 2500,
-      "note": "AI Sentiment Decision Layer (algo 0.6.0). ENABLED. 1x daily LLM call at market open + circuit re-runs (max 3/day), Tier A data only - the RSS news feed (Tier B) never enters the prompt while news_to_sentiment is false. Provider: gemini via OpenRouter (router=openrouter) - model google/gemini-3.7-flash with EXTENDED THINKING (reasoning_effort=high; mandatory reasoning on this model). Key: OPENROUTER_API_KEY env var, else opencode auth.json 'openrouter' entry. Engine v0.6.0: on a successful verdict, pending MARKET ORDERS (portfolio.json 'orders') are replaced with the verdict's proposals, sized at order_size (2500) - the AI never trades directly; orders execute at the LIVE price on market-open runs only. Orders are human-approved: hand-edit portfolio.json to cancel/modify. AI is read-only otherwise: appends theory evidence + one audit event, blends DISPLAYED fear scores (meta.fear_state stays market-witness); it never touches positions or statuses.",
+      "note": "AI Sentiment Decision Layer (algo 0.6.0). ENABLED. 1x daily LLM call at market open + circuit re-runs (max 3/day), Tier A data only - the RSS news feed (Tier B) never enters the prompt while news_to_sentiment is false. Provider: gemini via OpenRouter (router=openrouter) - model google/gemini-3.8-flash with EXTENDED THINKING (reasoning_effort=high; mandatory reasoning on this model). Key: OPENROUTER_API_KEY env var, else opencode auth.json 'openrouter' entry. Engine v0.6.0: on a successful verdict, pending MARKET ORDERS (portfolio.json 'orders') are replaced with the verdict's proposals, sized at order_size (2500) - the AI never trades directly; orders execute at the LIVE price on market-open runs only. Orders are human-approved: hand-edit portfolio.json to cancel/modify. AI is read-only otherwise: appends theory evidence + one audit event, blends DISPLAYED fear scores (meta.fear_state stays market-witness); it never touches positions or statuses.",
       "user_bias": 0,
-      "mode": "recommend"
+      "mode": "execute"
     },
     "ai_state": {
-      "last_call_date": "2026-08-21",
-      "calls_today": 0,
-      "last_call_ts": "10:43:11",
+      "last_call_date": "2026-09-11",
+      "calls_today": 1,
+      "last_call_ts": "00:47:56",
       "note": "manual run (market closed) - Friday data, first read",
-      "last_sentiment_index": -0.4,
-      "last_sentiment_delta": -0.37,
+      "last_sentiment_index": -0.85,
+      "last_sentiment_delta": -0.45,
       "proposals": [
+        {
+          "ticker": "IWDL",
+          "action": "trim",
+          "side": "sell",
+          "amount": 2125,
+          "conviction_score": -0.85,
+          "urgency": 75,
+          "confidence": 80,
+          "rationale": "Residual dust position in 2x leveraged value suffers from severe negative carry and factor decay amid 4.94% Treasury yields; prioritize liquidation.",
+          "verdict_date": "2026-09-11",
+          "last_seen": "2026-09-11",
+          "first_seen": "2026-09-11",
+          "updated_from": null,
+          "updated_on": null
+        },
         {
           "ticker": "ZROZ",
           "action": "sell",
@@ -282,14 +297,14 @@ window.DASH = {
       ]
     },
     "ai_last_output": {
-      "date": "2026-08-21",
+      "date": "2026-09-11",
       "macro_stance": "neutral",
       "sector_bias": [
         {
           "sector": "Broadening / Value",
           "stance": "bearish",
-          "conviction": -0.15,
-          "driver": "Persistent 10-year yields at 4.73% and tight spreads constrain small-cap and leveraged value outperformance relative to secular AI growth."
+          "conviction": -0.35,
+          "driver": "Benchmark 10-year yields pressing 4.94% significantly escalate debt refinancing pressures and multiple compression on small-cap and cyclical value."
         }
       ],
       "theories": [
@@ -297,212 +312,212 @@ window.DASH = {
           "id": "T1",
           "verdict": "affirm",
           "confidence": 80,
-          "evidence": "Semiconductor hardware demand and AI infrastructure capex remain strong across core holdings."
+          "evidence": "Secular AI capex and semiconductor demand trends remain robust, maintaining strong structural relative strength over broad equities."
         },
         {
           "id": "T2",
           "verdict": "affirm",
           "confidence": 75,
-          "evidence": "Memory pricing cycle and high-bandwidth memory demand continue outperforming general semi index."
+          "evidence": "High-bandwidth memory pricing and disciplined industry supply support DRAM outperformance relative to broad semis."
         },
         {
           "id": "T3",
           "verdict": "affirm",
           "confidence": 75,
-          "evidence": "Nuclear power baseload demand for hyperscaler data centers maintains secular momentum."
+          "evidence": "Hyperscaler demand for 24/7 dedicated clean power continues to drive structural contracting tailwinds for nuclear generation."
         },
         {
           "id": "T6",
           "verdict": "affirm",
           "confidence": 85,
-          "evidence": "Diversified hedge stack sleeve (27.2% effective allocation) provides robust drawdown insulation without excessive drag."
+          "evidence": "The multi-asset hedge stack provides convex drawdown dampening across equity, rates, and geopolitical shocks."
         },
         {
           "id": "T7",
           "verdict": "affirm",
           "confidence": 70,
-          "evidence": "Leveraged tech core compounding remains positive over trend, overcoming daily volatility decay."
+          "evidence": "AI hardware leadership trend persistence remains sufficient to overcome leveraged volatility drag over cycle horizons."
         },
         {
           "id": "T8",
           "verdict": "affirm",
           "confidence": 85,
-          "evidence": "Balanced barbell structure limits tail-risk drawdown compared to unhedged pure-growth portfolios."
+          "evidence": "A 29.1% hedge stack allocation insulates the barbell structure against systemic tech gap-down days compared to unhedged core tech."
         },
         {
           "id": "T9",
           "verdict": "affirm",
           "confidence": 80,
-          "evidence": "Precious metals sleeve provides non-correlated buffer on broad equity selloff sessions."
+          "evidence": "Gold and precious metals miners consistently function as effective non-correlated crisis liquidity and debasement buffers."
         },
         {
           "id": "T10",
           "verdict": "probation",
-          "confidence": 40,
-          "evidence": "Small-cap breadth continues to lag mega-cap tech under elevated 10-year Treasury yields near 4.74%."
+          "confidence": 35,
+          "evidence": "Elevated 10-year yields near 5.0% restrict small-cap credit conditions, preventing broadening from materializing."
         },
         {
           "id": "T13",
           "verdict": "probation",
-          "confidence": 45,
-          "evidence": "Consumer discretionary and European equities face macro headwind from persistent rates and mixed consumer sentiment."
+          "confidence": 40,
+          "evidence": "Persistent rate pressures and sticky inflation constrain European and discretionary consumer outperformance."
         },
         {
           "id": "T14",
           "verdict": "affirm",
           "confidence": 85,
-          "evidence": "Controlled 2% allocation to high-multiple growth caps single-name valuation compression risk."
+          "evidence": "Limiting high-multiple single-stock risk prevents valuation drawdowns from materially impacting aggregate portfolio NAV."
         },
         {
           "id": "T15",
           "verdict": "probation",
-          "confidence": 35,
-          "evidence": "2x leveraged value factor structure suffers from rate friction and lacks relative Sharpe advantage over core growth."
+          "confidence": 30,
+          "evidence": "Leveraged value factor suffers severe carry drag and adverse factor momentum in a high rates-shock environment."
         },
         {
           "id": "T16",
           "verdict": "affirm",
           "confidence": 85,
-          "evidence": "Concentrating risk in high-conviction growth while eliminating low-conviction themes preserves upside capture with lower portfolio variance."
+          "evidence": "Streamlined book focused exclusively on high-conviction core positions minimizes residual tracking bleed."
         },
         {
           "id": "T17",
           "verdict": "affirm",
           "confidence": 85,
-          "evidence": "Multi-asset hedge stack configuration (QFLR, VIXM, BTAL, ZROZ) provides structural cushion against sudden valuation drawdowns."
+          "evidence": "Anti-beta, volatility, and tail-risk components reliably expand spread during severe growth liquidation cascades."
         },
         {
           "id": "T18",
           "verdict": "affirm",
           "confidence": 85,
-          "evidence": "FXY and trend-following DBMF exposure provide direct convexity against sharp yen carry unwinds."
+          "evidence": "FXY and trend managed futures maintain structural negative correlation to sudden carry-trade liquidations."
         },
         {
           "id": "T19",
           "verdict": "affirm",
           "confidence": 80,
-          "evidence": "Gold and managed futures provide uncorrelated protection against Asian geopolitical escalation."
+          "evidence": "Precious metals and trend-following managed futures provide defensive isolation from regional Asia geopolitical flare-ups."
         },
         {
           "id": "T20",
           "verdict": "affirm",
           "confidence": 85,
-          "evidence": "Gold and miners continue to act as effective purchasing power and inflation resurgence hedges."
+          "evidence": "Gold and miners hedge real-asset purchasing power as unexpected inflation prints pressure growth multiples."
         },
         {
           "id": "T21",
           "verdict": "affirm",
           "confidence": 85,
-          "evidence": "Hedge basket components demonstrate low correlation and flight-to-safety buffering during geopolitical shocks."
+          "evidence": "The combined hedge basket reliably catches flight-to-safety flows during sudden geopolitical escalations."
         }
       ],
       "fears": [
         {
           "id": "F2",
           "sentiment_score": 4,
-          "delta_reason": "USD/JPY near 159 leaves carry positions stretched and vulnerable to abrupt intervention or policy shifts despite current low spot volatility."
+          "delta_reason": "USD/JPY holding above 154 indicates carry trades remain orderly without immediate signs of violent liquidation, justifying a discount to deterministic 4.3."
         }
       ],
       "convictions": [
         {
-          "ticker": "ZROZ",
-          "conviction_score": -0.4,
-          "urgency": 60,
-          "confidence": 75,
-          "rationale": "High 10-year yields and persistent duration liquidation risk warrant trimming ultra-long duration exposure within the hedge stack."
+          "ticker": "IWDL",
+          "conviction_score": -0.85,
+          "urgency": 75,
+          "confidence": 80,
+          "rationale": "Residual dust position in 2x leveraged value suffers from severe negative carry and factor decay amid 4.94% Treasury yields; prioritize liquidation."
         }
       ],
       "rotations": [
         {
-          "sell": "IWDL",
+          "sell": "IWM",
           "buy": "BTAL",
-          "rationale": "Rotate out of underperforming leveraged value facing rate headwinds into anti-beta market-neutral protection to reinforce drawdown defenses."
+          "rationale": "Rotate interest-rate-sensitive small-cap beta facing refinancing headwinds at near-5% yields into market-neutral anti-beta factor protection."
         }
       ],
       "fear_proposals": [],
       "fear_edits": [],
-      "summary": "Maintaining a disciplined neutral macro stance with sentiment at 56 Greed and benchmark 10-year yields remaining elevated at 4.73%. We downgrade Broadening / Value sector bias to bearish and keep small-cap and leveraged value theories on probation. Execution prioritizes trimming ultra-long duration in ZROZ and rotating leveraged value into anti-beta protection via BTAL while maintaining core tech and nuclear allocations.",
-      "prompt_hash": "86adfd5a78d867b2",
+      "summary": "Maintaining a disciplined neutral macro stance as sentiment sits in Fear at 33 while the 10-year yield presses 4.94%, maxing out structural rates shock risks. We trim Yen-carry fear slightly to 3.8 given USD/JPY stability above 154, while keeping Broadening and Value theories on strict probation under severe borrowing cost headwinds. Execution prioritizes eliminating residual leveraged value in IWDL and rotating IWM into anti-beta protection via BTAL while holding core leveraged tech and nuclear exposures intact.",
+      "prompt_hash": "45857c6a4f7f9e21",
       "prices": {
-        "TQQQ": 71.33,
-        "SOXL": 119.097,
-        "SMH": 559.14,
-        "DRAM": 57.985,
-        "PLTR": 180.42,
-        "NLR": 119.628,
-        "NUKZ": 66.206,
-        "IWM": 299.77,
+        "TQQQ": 69.21,
+        "SOXL": 115.76,
+        "SMH": 560.28,
+        "DRAM": 58.56,
+        "PLTR": 165.86,
+        "NLR": 117.83,
+        "NUKZ": 64.72,
+        "IWM": 287.7,
         "IWDL": 70.245,
-        "XLY": 118.09,
-        "EZU": 71.495,
-        "ZROZ": 57.985,
-        "FXY": 57.711,
-        "VIXM": 14.085,
-        "QFLR": 35.155,
-        "GLD": 423.71,
-        "GDX": 103.13,
-        "BTAL": 12.056,
-        "DBMF": 31.38,
-        "SGOV": 100.63,
-        "QQQ": 714.03,
-        "SOXX": 518.17,
-        "IWD": 257.519
+        "XLY": 111.96,
+        "EZU": 68.98,
+        "ZROZ": 57.49,
+        "FXY": 59.4,
+        "VIXM": 13.43,
+        "QFLR": 35.08,
+        "GLD": 396.36,
+        "GDX": 96.03,
+        "BTAL": 12.33,
+        "DBMF": 31.92,
+        "SGOV": 100.5,
+        "QQQ": 708.69,
+        "SOXX": 517.43,
+        "IWD": 253.33
       },
       "fear_levels": [
         {
           "id": "F6",
           "name": "Rates shock / duration liquidation",
           "type": "structural",
-          "score": 4.8,
+          "score": 5.0,
           "trend": "flat"
         },
         {
           "id": "F4",
           "name": "Inflation resurgence",
           "type": "structural",
-          "score": 4.2,
+          "score": 4.9,
           "trend": "flat"
         },
         {
           "id": "F5",
           "name": "War / energy shock",
           "type": "episodic",
-          "score": 4.1,
+          "score": 4.4,
           "trend": "flat"
         },
         {
           "id": "F2",
           "name": "Yen-carry unwind",
           "type": "episodic",
-          "score": 3.6,
-          "trend": "flat"
-        },
-        {
-          "id": "F1",
-          "name": "AI / tech concentration pop",
-          "type": "structural",
-          "score": 2.6,
-          "trend": "flat"
-        },
-        {
-          "id": "F7",
-          "name": "Credit stress / HY spread",
-          "type": "episodic",
-          "score": 2.4,
-          "trend": "flat"
-        },
-        {
-          "id": "F8",
-          "name": "Recession / growth freeze",
-          "type": "structural",
-          "score": 2.4,
+          "score": 4.3,
           "trend": "flat"
         },
         {
           "id": "F3",
           "name": "China / Taiwan escalation",
           "type": "episodic",
-          "score": 1.6,
+          "score": 3.4,
+          "trend": "flat"
+        },
+        {
+          "id": "F8",
+          "name": "Recession / growth freeze",
+          "type": "structural",
+          "score": 3.0,
+          "trend": "flat"
+        },
+        {
+          "id": "F1",
+          "name": "AI / tech concentration pop",
+          "type": "structural",
+          "score": 2.1,
+          "trend": "flat"
+        },
+        {
+          "id": "F7",
+          "name": "Credit stress / HY spread",
+          "type": "episodic",
+          "score": 1.7,
           "trend": "flat"
         }
       ]
@@ -543,6 +558,15 @@ window.DASH = {
         "convictions": 1,
         "prompt_hash": "86adfd5a78d867b2",
         "summary": "Maintaining a disciplined neutral macro stance with sentiment at 56 Greed and benchmark 10-year yields remaining elevated at 4.73%. We downgrade Broadening / Value sector bias to bearish and keep smal"
+      },
+      {
+        "date": "2026-09-11",
+        "ts": "00:47:56",
+        "macro_stance": "neutral",
+        "theories": 17,
+        "convictions": 1,
+        "prompt_hash": "45857c6a4f7f9e21",
+        "summary": "Maintaining a disciplined neutral macro stance as sentiment sits in Fear at 33 while the 10-year yield presses 4.94%, maxing out structural rates shock risks. We trim Yen-carry fear slightly to 3.8 gi"
       }
     ],
     "ai_calibration": {
@@ -555,6 +579,11 @@ window.DASH = {
         "wrong": 1,
         "total": 1,
         "last_wrong": "2026-08-18"
+      },
+      "ZROZ": {
+        "wrong": 0,
+        "total": 1,
+        "last_wrong": null
       }
     },
     "park_mode": "sgov",
@@ -589,22 +618,22 @@ window.DASH = {
     },
     "ai_calibrated_verdict_date": "2026-08-21",
     "dividend_policy": "reinvest",
-    "asof_ts": 1789105147,
+    "asof_ts": 1789109890,
     "refresh_interval": 1440
   },
   "asof": "2026-09-10",
   "summary": {
-    "total_value": 98700.15,
+    "total_value": 98528.32,
     "cash": 25.0,
-    "invested_value": 98675.15,
-    "day_change": -2017.26,
-    "total_return_pct": -1.3,
+    "invested_value": 98503.32,
+    "day_change": -2229.1,
+    "total_return_pct": -1.47,
     "realized_pnl": 3.66,
     "dividends_total": 8.42,
     "start_value": 100000,
-    "max_drawdown_pct": -5.86,
-    "sharpe_annualized": -0.69,
-    "cagr_annualized": -14.29
+    "max_drawdown_pct": -5.85,
+    "sharpe_annualized": -0.67,
+    "cagr_annualized": -16.03
   },
   "positions": [
     {
@@ -615,16 +644,16 @@ window.DASH = {
       "buy_price": 116.99,
       "shares": 93.610334,
       "cost": 11000.0,
-      "current_price": 118.15,
-      "current_value": 11060.06,
-      "pnl_pct": 0.99,
+      "current_price": 117.83,
+      "current_value": 11030.11,
+      "pnl_pct": 0.72,
       "take_profit_pct": 0.35,
       "stop_loss_pct": -0.18,
       "status": "open",
       "exit": null,
       "sector": "Nuclear / Power",
       "leverage": 1.0,
-      "effective_value": 11060.06,
+      "effective_value": 11030.11,
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
@@ -646,16 +675,16 @@ window.DASH = {
       "buy_price": 12.08,
       "shares": 873.912534,
       "cost": 10500.0,
-      "current_price": 12.305,
-      "current_value": 10753.49,
-      "pnl_pct": 1.86,
+      "current_price": 12.33,
+      "current_value": 10775.34,
+      "pnl_pct": 2.07,
       "take_profit_pct": 0.15,
       "stop_loss_pct": -0.1,
       "status": "open",
       "exit": null,
       "sector": "Hedge Stack",
       "leverage": 1.0,
-      "effective_value": 10753.49,
+      "effective_value": 10775.34,
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
@@ -678,16 +707,16 @@ window.DASH = {
       "buy_price": 73.8,
       "shares": 154.372436,
       "cost": 11500.0,
-      "current_price": 69.355,
-      "current_value": 10706.5,
-      "pnl_pct": -6.02,
+      "current_price": 69.21,
+      "current_value": 10684.12,
+      "pnl_pct": -6.22,
       "take_profit_pct": 0.5,
       "stop_loss_pct": -0.35,
       "status": "open",
       "exit": null,
       "sector": "Tech / AI Growth",
       "leverage": 3.0,
-      "effective_value": 32119.5,
+      "effective_value": 32052.36,
       "underlying": "QQQ",
       "underlying_stop_pct": -0.08,
       "underlying_buy_price": 720.87,
@@ -710,16 +739,16 @@ window.DASH = {
       "buy_price": 31.32,
       "shares": 291.155922,
       "cost": 9125.0,
-      "current_price": 31.9,
-      "current_value": 9287.87,
-      "pnl_pct": 1.85,
+      "current_price": 31.92,
+      "current_value": 9293.7,
+      "pnl_pct": 1.92,
       "take_profit_pct": 0.2,
       "stop_loss_pct": -0.12,
       "status": "open",
       "exit": null,
       "sector": "Hedge Stack",
       "leverage": 1.0,
-      "effective_value": 9287.87,
+      "effective_value": 9293.7,
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
@@ -744,16 +773,16 @@ window.DASH = {
       "buy_price": 49.6,
       "shares": 142.487012,
       "cost": 7500.0,
-      "current_price": 58.66,
-      "current_value": 8358.29,
-      "pnl_pct": 18.27,
+      "current_price": 58.56,
+      "current_value": 8344.04,
+      "pnl_pct": 18.06,
       "take_profit_pct": 0.5,
       "stop_loss_pct": -0.25,
       "status": "open",
       "exit": null,
       "sector": "Tech / AI Growth",
       "leverage": 1.0,
-      "effective_value": 8358.29,
+      "effective_value": 8344.04,
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
@@ -776,16 +805,16 @@ window.DASH = {
       "buy_price": 130.0,
       "shares": 70.607129,
       "cost": 9500.0,
-      "current_price": 117.16,
-      "current_value": 8272.33,
-      "pnl_pct": -9.88,
+      "current_price": 115.76,
+      "current_value": 8173.48,
+      "pnl_pct": -10.95,
       "take_profit_pct": 0.6,
       "stop_loss_pct": -0.35,
       "status": "open",
       "exit": null,
       "sector": "Tech / AI Growth",
       "leverage": 3.0,
-      "effective_value": 24816.99,
+      "effective_value": 24520.44,
       "underlying": "SOXX",
       "underlying_stop_pct": -0.09,
       "underlying_buy_price": 529.39,
@@ -808,16 +837,16 @@ window.DASH = {
       "buy_price": 569.41,
       "shares": 8.781016,
       "cost": 5000.0,
-      "current_price": 562.21,
-      "current_value": 4936.78,
-      "pnl_pct": -1.26,
+      "current_price": 560.28,
+      "current_value": 4919.83,
+      "pnl_pct": -1.6,
       "take_profit_pct": 0.4,
       "stop_loss_pct": -0.2,
       "status": "open",
       "exit": null,
       "sector": "Tech / AI Growth",
       "leverage": 1.0,
-      "effective_value": 4936.78,
+      "effective_value": 4919.83,
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
@@ -839,16 +868,16 @@ window.DASH = {
       "buy_price": 57.62,
       "shares": 69.42034,
       "cost": 4000.0,
-      "current_price": 59.405,
-      "current_value": 4123.92,
-      "pnl_pct": 3.1,
+      "current_price": 59.4,
+      "current_value": 4123.57,
+      "pnl_pct": 3.09,
       "take_profit_pct": 0.2,
       "stop_loss_pct": -0.12,
       "status": "open",
       "exit": null,
       "sector": "Hedge Stack",
       "leverage": 1.0,
-      "effective_value": 4123.92,
+      "effective_value": 4123.57,
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
@@ -872,16 +901,16 @@ window.DASH = {
       "buy_price": 66.64,
       "shares": 60.02401,
       "cost": 4000.0,
-      "current_price": 64.65,
-      "current_value": 3880.55,
-      "pnl_pct": -2.99,
+      "current_price": 64.72,
+      "current_value": 3884.75,
+      "pnl_pct": -2.88,
       "take_profit_pct": 0.45,
       "stop_loss_pct": -0.25,
       "status": "open",
       "exit": null,
       "sector": "Nuclear / Power",
       "leverage": 1.0,
-      "effective_value": 3880.55,
+      "effective_value": 3884.75,
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
@@ -903,16 +932,16 @@ window.DASH = {
       "buy_price": 14.28,
       "shares": 280.112045,
       "cost": 4000.0,
-      "current_price": 13.42,
-      "current_value": 3759.1,
-      "pnl_pct": -6.02,
+      "current_price": 13.43,
+      "current_value": 3761.9,
+      "pnl_pct": -5.95,
       "take_profit_pct": 0.4,
       "stop_loss_pct": -0.2,
       "status": "open",
       "exit": null,
       "sector": "Hedge Stack",
       "leverage": 1.0,
-      "effective_value": 3759.1,
+      "effective_value": 3761.9,
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
@@ -936,16 +965,16 @@ window.DASH = {
       "buy_price": 90.49,
       "shares": 38.678306,
       "cost": 3500.0,
-      "current_price": 96.36,
-      "current_value": 3727.04,
-      "pnl_pct": 6.49,
+      "current_price": 96.03,
+      "current_value": 3714.28,
+      "pnl_pct": 6.12,
       "take_profit_pct": 0.35,
       "stop_loss_pct": -0.2,
       "status": "open",
       "exit": null,
       "sector": "Hedge Stack",
       "leverage": 1.0,
-      "effective_value": 3727.04,
+      "effective_value": 3714.28,
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
@@ -971,16 +1000,16 @@ window.DASH = {
       "buy_price": 35.49,
       "shares": 98.619327,
       "cost": 3500.0,
-      "current_price": 35.09,
-      "current_value": 3460.55,
-      "pnl_pct": -1.13,
+      "current_price": 35.08,
+      "current_value": 3459.57,
+      "pnl_pct": -1.16,
       "take_profit_pct": 0.2,
       "stop_loss_pct": -0.12,
       "status": "open",
       "exit": null,
       "sector": "Hedge Stack",
       "leverage": 1.0,
-      "effective_value": 3460.55,
+      "effective_value": 3459.57,
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
@@ -1003,16 +1032,16 @@ window.DASH = {
       "buy_price": 402.54,
       "shares": 8.694794,
       "cost": 3500.0,
-      "current_price": 396.94,
-      "current_value": 3451.31,
-      "pnl_pct": -1.39,
+      "current_price": 396.36,
+      "current_value": 3446.27,
+      "pnl_pct": -1.54,
       "take_profit_pct": 0.2,
       "stop_loss_pct": -0.12,
       "status": "open",
       "exit": null,
       "sector": "Hedge Stack",
       "leverage": 1.0,
-      "effective_value": 3451.31,
+      "effective_value": 3446.27,
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
@@ -1038,16 +1067,16 @@ window.DASH = {
       "buy_price": 299.98,
       "shares": 10.000667,
       "cost": 3000.0,
-      "current_price": 287.515,
-      "current_value": 2875.34,
-      "pnl_pct": -4.16,
+      "current_price": 287.7,
+      "current_value": 2877.19,
+      "pnl_pct": -4.09,
       "take_profit_pct": 0.3,
       "stop_loss_pct": -0.15,
       "status": "open",
       "exit": null,
       "sector": "Broadening / Value",
       "leverage": 1.0,
-      "effective_value": 2875.34,
+      "effective_value": 2877.19,
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
@@ -1067,18 +1096,18 @@ window.DASH = {
       "sleeve": "Short-Term Bonds (SGOV)",
       "buy_date": "2026-08-11",
       "buy_price": 100.505,
-      "shares": 27.525298,
+      "shares": 27.525223,
       "cost": 2759.86,
-      "current_price": 100.492,
-      "current_value": 2766.07,
-      "pnl_pct": -0.01,
+      "current_price": 100.5,
+      "current_value": 2766.28,
+      "pnl_pct": -0.0,
       "take_profit_pct": 0.0,
       "stop_loss_pct": -0.1,
       "status": "open",
       "exit": null,
       "sector": "Short-Term Bonds",
       "leverage": 1.0,
-      "effective_value": 2766.07,
+      "effective_value": 2766.28,
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
@@ -1098,16 +1127,16 @@ window.DASH = {
       "buy_price": 119.67,
       "shares": 20.890784,
       "cost": 2500.0,
-      "current_price": 111.885,
-      "current_value": 2337.37,
-      "pnl_pct": -6.51,
+      "current_price": 111.96,
+      "current_value": 2338.93,
+      "pnl_pct": -6.44,
       "take_profit_pct": 0.3,
       "stop_loss_pct": -0.15,
       "status": "open",
       "exit": null,
       "sector": "Contrarian Fear",
       "leverage": 1.0,
-      "effective_value": 2337.37,
+      "effective_value": 2338.93,
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
@@ -1129,16 +1158,16 @@ window.DASH = {
       "buy_price": 71.3,
       "shares": 28.05049,
       "cost": 2000.0,
-      "current_price": 69.0,
-      "current_value": 1935.48,
-      "pnl_pct": -3.23,
+      "current_price": 68.98,
+      "current_value": 1934.92,
+      "pnl_pct": -3.25,
       "take_profit_pct": 0.3,
       "stop_loss_pct": -0.15,
       "status": "open",
       "exit": null,
       "sector": "Contrarian Fear",
       "leverage": 1.0,
-      "effective_value": 1935.48,
+      "effective_value": 1934.92,
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
@@ -1160,16 +1189,16 @@ window.DASH = {
       "buy_price": 175.23,
       "shares": 11.413455,
       "cost": 2000.0,
-      "current_price": 166.025,
-      "current_value": 1894.92,
-      "pnl_pct": -5.25,
+      "current_price": 165.86,
+      "current_value": 1893.04,
+      "pnl_pct": -5.35,
       "take_profit_pct": 0.4,
       "stop_loss_pct": -0.2,
       "status": "open",
       "exit": null,
       "sector": "Tech / AI Growth",
       "leverage": 1.0,
-      "effective_value": 1894.92,
+      "effective_value": 1893.04,
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
@@ -1192,16 +1221,16 @@ window.DASH = {
       "buy_price": 58.12,
       "shares": 18.800003,
       "cost": 1092.65,
-      "current_price": 57.37,
-      "current_value": 1078.56,
-      "pnl_pct": -1.29,
+      "current_price": 57.49,
+      "current_value": 1080.81,
+      "pnl_pct": -1.08,
       "take_profit_pct": 0.3,
       "stop_loss_pct": -0.15,
       "status": "open",
       "exit": null,
       "sector": "Hedge Stack",
       "leverage": 1.0,
-      "effective_value": 1078.56,
+      "effective_value": 1080.81,
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
@@ -1251,68 +1280,68 @@ window.DASH = {
   "sleeves": [
     {
       "sleeve": "Tech/AI Growth",
-      "value": 34168.82
+      "value": 34014.51
     },
     {
       "sleeve": "AI Power - Nuclear",
-      "value": 14940.61
+      "value": 14914.86
     },
     {
       "sleeve": "Crisis Alpha - Anti-Beta",
-      "value": 10753.49
+      "value": 10775.34
     },
     {
       "sleeve": "Crisis Alpha - Trend",
-      "value": 9287.87
+      "value": 9293.7
     },
     {
       "sleeve": "Crisis Alpha - Real Assets",
-      "value": 7178.35
+      "value": 7160.55
     },
     {
       "sleeve": "Contrarian Fear",
-      "value": 4272.85
+      "value": 4273.85
     },
     {
       "sleeve": "Crisis Alpha - Carry Unwind",
-      "value": 4123.92
+      "value": 4123.57
     },
     {
       "sleeve": "Crisis Alpha - Vol Decay",
-      "value": 3759.1
+      "value": 3761.9
     },
     {
       "sleeve": "Crisis Alpha - Down-Day Floor",
-      "value": 3460.55
+      "value": 3459.57
     },
     {
       "sleeve": "Broadening / Value",
-      "value": 2884.95
+      "value": 2886.8
     },
     {
       "sleeve": "Short-Term Bonds (SGOV)",
-      "value": 2766.07
+      "value": 2766.28
     },
     {
       "sleeve": "Crisis Alpha - AI Bust",
-      "value": 1078.56
+      "value": 1080.81
     }
   ],
   "sectors": [
     {
       "sector": "Tech / AI Growth",
-      "value": 34168.82,
-      "effective": 72126.48,
+      "value": 34014.51,
+      "effective": 71729.71,
       "leverage": 2.11,
-      "pct": 73.1,
+      "pct": 72.8,
       "max_pct": 70,
       "status": "over",
       "note": "v5-expanded for 3x TQQQ/SOXL"
     },
     {
       "sector": "Nuclear / Power",
-      "value": 14940.61,
-      "effective": 14940.61,
+      "value": 14914.86,
+      "effective": 14914.86,
       "leverage": 1.0,
       "pct": 15.1,
       "max_pct": 16,
@@ -1321,8 +1350,8 @@ window.DASH = {
     },
     {
       "sector": "Broadening / Value",
-      "value": 2884.95,
-      "effective": 2894.56,
+      "value": 2886.8,
+      "effective": 2896.41,
       "leverage": 1.0,
       "pct": 2.9,
       "max_pct": 16,
@@ -1331,8 +1360,8 @@ window.DASH = {
     },
     {
       "sector": "Contrarian Fear",
-      "value": 4272.85,
-      "effective": 4272.85,
+      "value": 4273.85,
+      "effective": 4273.85,
       "leverage": 1.0,
       "pct": 4.3,
       "max_pct": 12,
@@ -1341,18 +1370,18 @@ window.DASH = {
     },
     {
       "sector": "Hedge Stack",
-      "value": 39641.84,
-      "effective": 39641.84,
+      "value": 39655.44,
+      "effective": 39655.44,
       "leverage": 1.0,
-      "pct": 40.2,
+      "pct": 40.3,
       "max_pct": 45,
       "status": "ok",
       "note": ""
     },
     {
       "sector": "Short-Term Bonds",
-      "value": 2766.07,
-      "effective": 2766.07,
+      "value": 2766.28,
+      "effective": 2766.28,
       "leverage": 1.0,
       "pct": 2.8,
       "max_pct": 20,
@@ -1657,337 +1686,383 @@ window.DASH = {
     },
     {
       "date": "2026-08-24",
-      "total_value": 98269.43,
+      "total_value": 98232.97,
       "cash": 25.0,
-      "invested_value": 98244.43,
-      "day_change": -1659.11,
+      "invested_value": 98207.97,
+      "day_change": -1695.57,
       "prices": {
-        "TQQQ": 69.18,
-        "SOXL": 111.28,
-        "SMH": 546.95,
-        "DRAM": 54.19,
-        "PLTR": 176.79,
-        "NLR": 118.82,
-        "NUKZ": 65.29,
-        "IWM": 297.99,
+        "TQQQ": 69.01,
+        "SOXL": 111.16,
+        "SMH": 546.8,
+        "DRAM": 54.28,
+        "PLTR": 175.89,
+        "NLR": 118.73,
+        "NUKZ": 65.06,
+        "IWM": 297.97,
         "IWDL": 70.245,
-        "XLY": 118.28,
-        "EZU": 71.365,
-        "ZROZ": 58.77,
+        "XLY": 118.3,
+        "EZU": 71.36,
+        "ZROZ": 58.78,
         "FXY": 57.64,
-        "VIXM": 13.99,
-        "QFLR": 34.79,
-        "GLD": 426.82,
-        "GDX": 103.275,
-        "BTAL": 12.18,
-        "DBMF": 31.235,
-        "SGOV": 100.632
+        "VIXM": 13.95,
+        "QFLR": 34.78,
+        "GLD": 426.69,
+        "GDX": 103.54,
+        "BTAL": 12.2,
+        "DBMF": 31.25,
+        "SGOV": 100.64
       }
     },
     {
       "date": "2026-08-25",
-      "total_value": 99489.1,
+      "total_value": 99525.06,
       "cash": 25.0,
-      "invested_value": 99464.1,
-      "day_change": 1219.67,
+      "invested_value": 99500.06,
+      "day_change": 1292.09,
       "prices": {
-        "TQQQ": 70.281,
-        "SOXL": 115.515,
-        "SMH": 555.24,
-        "DRAM": 56.115,
-        "PLTR": 173.06,
-        "NLR": 124.095,
-        "NUKZ": 66.26,
-        "IWM": 299.28,
+        "TQQQ": 70.27,
+        "SOXL": 115.67,
+        "SMH": 555.82,
+        "DRAM": 56.24,
+        "PLTR": 172.73,
+        "NLR": 124.02,
+        "NUKZ": 66.45,
+        "IWM": 299.23,
         "IWDL": 70.245,
         "XLY": 117.95,
-        "EZU": 71.495,
-        "ZROZ": 59.8,
-        "FXY": 57.64,
-        "VIXM": 13.899,
-        "QFLR": 34.96,
-        "GLD": 427.662,
-        "GDX": 105.29,
-        "BTAL": 12.011,
-        "DBMF": 31.015,
-        "SGOV": 100.645
+        "EZU": 71.57,
+        "ZROZ": 59.83,
+        "FXY": 57.63,
+        "VIXM": 13.9,
+        "QFLR": 34.962,
+        "GLD": 428.07,
+        "GDX": 105.52,
+        "BTAL": 12.0,
+        "DBMF": 31.01,
+        "SGOV": 100.64
       }
     },
     {
       "date": "2026-08-26",
-      "total_value": 99617.13,
+      "total_value": 99529.72,
       "cash": 25.0,
-      "invested_value": 99592.13,
-      "day_change": 128.03,
+      "invested_value": 99504.72,
+      "day_change": 4.66,
       "prices": {
-        "TQQQ": 70.81,
-        "SOXL": 116.82,
-        "SMH": 556.291,
-        "DRAM": 56.455,
-        "PLTR": 178.08,
-        "NLR": 123.96,
-        "NUKZ": 66.63,
-        "IWM": 299.18,
+        "TQQQ": 70.47,
+        "SOXL": 116.6,
+        "SMH": 555.77,
+        "DRAM": 56.39,
+        "PLTR": 177.5,
+        "NLR": 123.71,
+        "NUKZ": 66.86,
+        "IWM": 298.93,
         "IWDL": 70.245,
-        "XLY": 117.31,
+        "XLY": 117.16,
         "EZU": 71.4,
-        "ZROZ": 59.55,
-        "FXY": 57.525,
+        "ZROZ": 59.62,
+        "FXY": 57.55,
         "VIXM": 13.81,
-        "QFLR": 34.94,
-        "GLD": 421.3,
-        "GDX": 103.12,
-        "BTAL": 12.01,
-        "DBMF": 31.105,
-        "SGOV": 100.653
+        "QFLR": 34.89,
+        "GLD": 421.32,
+        "GDX": 102.42,
+        "BTAL": 12.07,
+        "DBMF": 31.08,
+        "SGOV": 100.65
+      }
+    },
+    {
+      "date": "2026-08-27",
+      "total_value": 100880.99,
+      "cash": 25.0,
+      "invested_value": 100855.99,
+      "day_change": 1351.27,
+      "prices": {
+        "TQQQ": 73.3,
+        "SOXL": 123.05,
+        "SMH": 573.0,
+        "DRAM": 56.83,
+        "PLTR": 185.93,
+        "NLR": 125.02,
+        "NUKZ": 67.03,
+        "IWM": 299.81,
+        "IWDL": 70.245,
+        "XLY": 115.88,
+        "EZU": 71.04,
+        "ZROZ": 59.47,
+        "FXY": 57.5,
+        "VIXM": 13.64,
+        "QFLR": 35.21,
+        "GLD": 422.6,
+        "GDX": 103.69,
+        "BTAL": 12.03,
+        "DBMF": 31.22,
+        "SGOV": 100.66
+      }
+    },
+    {
+      "date": "2026-08-28",
+      "total_value": 98702.62,
+      "cash": 25.0,
+      "invested_value": 98677.62,
+      "day_change": -2178.37,
+      "prices": {
+        "TQQQ": 71.85,
+        "SOXL": 111.34,
+        "SMH": 553.11,
+        "DRAM": 55.83,
+        "PLTR": 186.29,
+        "NLR": 118.12,
+        "NUKZ": 65.33,
+        "IWM": 295.75,
+        "IWDL": 70.245,
+        "XLY": 117.21,
+        "EZU": 70.84,
+        "ZROZ": 59.28,
+        "FXY": 57.25,
+        "VIXM": 13.66,
+        "QFLR": 35.15,
+        "GLD": 408.89,
+        "GDX": 99.65,
+        "BTAL": 12.25,
+        "DBMF": 31.41,
+        "SGOV": 100.69
       }
     },
     {
       "date": "2026-08-31",
-      "total_value": 98592.6,
+      "total_value": 98791.86,
       "cash": 25.0,
-      "invested_value": 98567.6,
-      "day_change": -1024.53,
+      "invested_value": 98766.86,
+      "day_change": 89.24,
       "prices": {
-        "TQQQ": 71.395,
-        "SOXL": 112.0,
-        "SMH": 555.15,
-        "DRAM": 56.065,
-        "PLTR": 187.595,
-        "NLR": 118.37,
-        "NUKZ": 64.31,
-        "IWM": 293.445,
+        "TQQQ": 71.92,
+        "SOXL": 112.79,
+        "SMH": 556.63,
+        "DRAM": 56.9,
+        "PLTR": 186.38,
+        "NLR": 118.23,
+        "NUKZ": 64.48,
+        "IWM": 293.93,
         "IWDL": 70.245,
-        "XLY": 116.485,
-        "EZU": 70.465,
-        "ZROZ": 58.7,
-        "FXY": 57.395,
-        "VIXM": 13.54,
-        "QFLR": 35.02,
-        "GLD": 407.01,
-        "GDX": 98.34,
-        "BTAL": 12.3,
-        "DBMF": 31.425,
-        "SGOV": 100.693
+        "XLY": 116.59,
+        "EZU": 70.46,
+        "ZROZ": 58.77,
+        "FXY": 57.39,
+        "VIXM": 13.4,
+        "QFLR": 35.1,
+        "GLD": 408.42,
+        "GDX": 98.51,
+        "BTAL": 12.26,
+        "DBMF": 31.38,
+        "SGOV": 100.69
       }
     },
     {
       "date": "2026-09-01",
-      "total_value": 97013.02,
+      "total_value": 97025.07,
       "cash": 25.0,
-      "invested_value": 96988.02,
-      "day_change": -1579.58,
+      "invested_value": 97000.07,
+      "day_change": -1766.79,
       "prices": {
-        "TQQQ": 68.955,
-        "SOXL": 105.59,
-        "SMH": 544.83,
-        "DRAM": 55.225,
-        "PLTR": 180.045,
-        "NLR": 116.125,
-        "NUKZ": 63.675,
-        "IWM": 290.21,
+        "TQQQ": 69.15,
+        "SOXL": 105.91,
+        "SMH": 545.22,
+        "DRAM": 55.06,
+        "PLTR": 179.92,
+        "NLR": 115.76,
+        "NUKZ": 63.57,
+        "IWM": 290.57,
         "IWDL": 70.245,
-        "XLY": 114.465,
-        "EZU": 69.645,
-        "ZROZ": 58.455,
-        "FXY": 57.205,
-        "VIXM": 13.525,
-        "QFLR": 34.82,
-        "GLD": 396.905,
-        "GDX": 94.62,
-        "BTAL": 12.445,
-        "DBMF": 31.585,
-        "SGOV": 100.4071
+        "XLY": 114.59,
+        "EZU": 69.63,
+        "ZROZ": 58.45,
+        "FXY": 57.2,
+        "VIXM": 13.5,
+        "QFLR": 34.81,
+        "GLD": 396.75,
+        "GDX": 94.67,
+        "BTAL": 12.47,
+        "DBMF": 31.59,
+        "SGOV": 100.41
       }
     },
     {
       "date": "2026-09-02",
-      "total_value": 97435.57,
+      "total_value": 97484.56,
       "cash": 25.0,
-      "invested_value": 97410.57,
-      "day_change": 422.55,
+      "invested_value": 97459.56,
+      "day_change": 459.49,
       "prices": {
-        "TQQQ": 69.466,
-        "SOXL": 106.075,
-        "SMH": 549.79,
-        "DRAM": 56.122,
-        "PLTR": 169.59,
-        "NLR": 116.94,
-        "NUKZ": 63.92,
-        "IWM": 294.115,
+        "TQQQ": 69.6,
+        "SOXL": 106.35,
+        "SMH": 550.48,
+        "DRAM": 56.21,
+        "PLTR": 169.46,
+        "NLR": 117.03,
+        "NUKZ": 64.05,
+        "IWM": 294.01,
         "IWDL": 70.245,
-        "XLY": 114.81,
-        "EZU": 69.84,
-        "ZROZ": 58.58,
-        "FXY": 57.685,
-        "VIXM": 13.4,
-        "QFLR": 34.94,
-        "GLD": 402.283,
-        "GDX": 97.245,
-        "BTAL": 12.388,
-        "DBMF": 31.568,
-        "SGOV": 100.415
-      }
-    },
-    {
-      "date": "2026-09-03",
-      "total_value": 98483.68,
-      "cash": 25.0,
-      "invested_value": 98458.68,
-      "day_change": 1048.11,
-      "prices": {
-        "TQQQ": 72.035,
-        "SOXL": 106.51,
-        "SMH": 552.245,
-        "DRAM": 55.865,
-        "PLTR": 183.36,
-        "NLR": 118.76,
-        "NUKZ": 64.84,
-        "IWM": 294.99,
-        "IWDL": 70.245,
-        "XLY": 116.72,
-        "EZU": 70.245,
-        "ZROZ": 58.77,
-        "FXY": 58.84,
-        "VIXM": 13.27,
-        "QFLR": 35.32,
-        "GLD": 410.35,
-        "GDX": 101.33,
-        "BTAL": 12.315,
-        "DBMF": 31.375,
+        "XLY": 114.86,
+        "EZU": 69.88,
+        "ZROZ": 58.59,
+        "FXY": 57.73,
+        "VIXM": 13.43,
+        "QFLR": 34.9,
+        "GLD": 402.78,
+        "GDX": 97.63,
+        "BTAL": 12.36,
+        "DBMF": 31.5,
         "SGOV": 100.42
       }
     },
     {
-      "date": "2026-09-04",
-      "total_value": 99309.47,
+      "date": "2026-09-03",
+      "total_value": 98575.02,
       "cash": 25.0,
-      "invested_value": 99284.47,
-      "day_change": 825.79,
+      "invested_value": 98550.02,
+      "day_change": 1090.46,
       "prices": {
-        "TQQQ": 71.945,
-        "SOXL": 115.21,
-        "SMH": 563.59,
-        "DRAM": 59.135,
-        "PLTR": 173.88,
-        "NLR": 119.52,
-        "NUKZ": 65.285,
-        "IWM": 295.44,
+        "TQQQ": 72.03,
+        "SOXL": 106.74,
+        "SMH": 552.6,
+        "DRAM": 55.99,
+        "PLTR": 182.53,
+        "NLR": 119.19,
+        "NUKZ": 64.92,
+        "IWM": 295.19,
         "IWDL": 70.245,
-        "XLY": 114.96,
-        "EZU": 70.335,
-        "ZROZ": 58.914,
-        "FXY": 58.695,
-        "VIXM": 13.17,
-        "QFLR": 35.31,
-        "GLD": 405.85,
-        "GDX": 99.25,
-        "BTAL": 12.135,
-        "DBMF": 31.416,
-        "SGOV": 100.465
+        "XLY": 116.46,
+        "EZU": 70.28,
+        "ZROZ": 58.71,
+        "FXY": 58.87,
+        "VIXM": 13.3,
+        "QFLR": 35.33,
+        "GLD": 410.22,
+        "GDX": 101.49,
+        "BTAL": 12.32,
+        "DBMF": 31.41,
+        "SGOV": 100.43
+      }
+    },
+    {
+      "date": "2026-09-04",
+      "total_value": 99672.12,
+      "cash": 25.0,
+      "invested_value": 99647.12,
+      "day_change": 1097.1,
+      "prices": {
+        "TQQQ": 72.37,
+        "SOXL": 117.28,
+        "SMH": 567.01,
+        "DRAM": 59.69,
+        "PLTR": 174.33,
+        "NLR": 119.95,
+        "NUKZ": 65.7,
+        "IWM": 296.01,
+        "IWDL": 70.245,
+        "XLY": 114.91,
+        "EZU": 70.46,
+        "ZROZ": 58.88,
+        "FXY": 58.67,
+        "VIXM": 13.2,
+        "QFLR": 35.381,
+        "GLD": 406.77,
+        "GDX": 99.26,
+        "BTAL": 12.07,
+        "DBMF": 31.44,
+        "SGOV": 100.47
       }
     },
     {
       "date": "2026-09-08",
-      "total_value": 100484.43,
+      "total_value": 100506.63,
       "cash": 25.0,
-      "invested_value": 100459.43,
-      "day_change": 1174.96,
+      "invested_value": 100481.63,
+      "day_change": 834.51,
       "prices": {
-        "TQQQ": 71.985,
-        "SOXL": 122.819,
-        "SMH": 572.725,
-        "DRAM": 61.04,
-        "PLTR": 170.34,
-        "NLR": 123.775,
-        "NUKZ": 66.92,
-        "IWM": 294.745,
+        "TQQQ": 72.16,
+        "SOXL": 123.27,
+        "SMH": 573.73,
+        "DRAM": 61.1,
+        "PLTR": 170.3,
+        "NLR": 123.57,
+        "NUKZ": 67.03,
+        "IWM": 294.67,
         "IWDL": 70.245,
-        "XLY": 114.04,
-        "EZU": 70.36,
-        "ZROZ": 58.95,
+        "XLY": 113.99,
+        "EZU": 70.37,
+        "ZROZ": 59.04,
         "FXY": 59.56,
-        "VIXM": 13.372,
-        "QFLR": 35.5099,
-        "GLD": 399.95,
-        "GDX": 98.65,
-        "BTAL": 11.982,
-        "DBMF": 31.142,
-        "SGOV": 100.475
+        "VIXM": 13.38,
+        "QFLR": 35.41,
+        "GLD": 399.72,
+        "GDX": 98.41,
+        "BTAL": 11.96,
+        "DBMF": 31.16,
+        "SGOV": 100.48
       }
     },
     {
       "date": "2026-09-09",
-      "total_value": 100717.41,
+      "total_value": 100757.42,
       "cash": 25.0,
-      "invested_value": 100692.41,
-      "day_change": 232.98,
+      "invested_value": 100732.42,
+      "day_change": 250.79,
       "prices": {
-        "TQQQ": 71.42,
-        "SOXL": 125.175,
-        "SMH": 573.18,
-        "DRAM": 61.745,
-        "PLTR": 170.065,
-        "NLR": 123.351,
-        "NUKZ": 66.32,
-        "IWM": 290.46,
+        "TQQQ": 71.55,
+        "SOXL": 125.87,
+        "SMH": 574.29,
+        "DRAM": 61.58,
+        "PLTR": 169.53,
+        "NLR": 122.95,
+        "NUKZ": 66.18,
+        "IWM": 290.64,
         "IWDL": 70.245,
-        "XLY": 112.655,
-        "EZU": 69.61,
-        "ZROZ": 58.34,
-        "FXY": 59.695,
-        "VIXM": 13.405,
-        "QFLR": 35.37,
-        "GLD": 403.21,
-        "GDX": 99.49,
-        "BTAL": 12.115,
-        "DBMF": 31.315,
-        "SGOV": 100.485
+        "XLY": 112.46,
+        "EZU": 69.63,
+        "ZROZ": 58.47,
+        "FXY": 59.7,
+        "VIXM": 13.38,
+        "QFLR": 35.35,
+        "GLD": 403.35,
+        "GDX": 99.47,
+        "BTAL": 12.17,
+        "DBMF": 31.33,
+        "SGOV": 100.49
       }
     },
     {
       "date": "2026-09-10",
-      "total_value": 98700.15,
+      "total_value": 98528.32,
       "cash": 25.0,
-      "invested_value": 98675.15,
-      "day_change": -2017.26,
+      "invested_value": 98503.32,
+      "day_change": -2229.1,
       "prices": {
-        "TQQQ": 69.355,
-        "SOXL": 117.16,
-        "SMH": 562.21,
-        "DRAM": 58.66,
-        "PLTR": 166.025,
-        "NLR": 118.15,
-        "NUKZ": 64.65,
-        "IWM": 287.515,
+        "TQQQ": 69.21,
+        "SOXL": 115.76,
+        "SMH": 560.28,
+        "DRAM": 58.56,
+        "PLTR": 165.86,
+        "NLR": 117.83,
+        "NUKZ": 64.72,
+        "IWM": 287.7,
         "IWDL": 70.245,
-        "XLY": 111.885,
-        "EZU": 69.0,
-        "ZROZ": 57.37,
-        "FXY": 59.405,
-        "VIXM": 13.42,
-        "QFLR": 35.09,
-        "GLD": 396.94,
-        "GDX": 96.36,
-        "BTAL": 12.305,
-        "DBMF": 31.9,
-        "SGOV": 100.492
+        "XLY": 111.96,
+        "EZU": 68.98,
+        "ZROZ": 57.49,
+        "FXY": 59.4,
+        "VIXM": 13.43,
+        "QFLR": 35.08,
+        "GLD": 396.36,
+        "GDX": 96.03,
+        "BTAL": 12.33,
+        "DBMF": 31.92,
+        "SGOV": 100.5
       }
     }
   ],
   "events": [
-    {
-      "date": "2026-08-12",
-      "ticker": "JEPQ",
-      "name": "JPMorgan Nasdaq Equity Premium Income ETF",
-      "reason": "rebalance",
-      "note": "issue #7: covered-call removed - premium-financing was a mathematical illusion (~$250/yr yield vs ~$1,200-2,000/yr hedge drag); capped upside + full Nasdaq downside beta duplicates the growth sleeve. Sale scheduled for next market open; proceeds swept to SGOV.",
-      "state": null,
-      "price": null,
-      "buy_price": null,
-      "shares": null,
-      "realized_pnl": 0
-    },
     {
       "date": "2026-08-11",
       "ticker": "SGOV",
@@ -2006,6 +2081,18 @@ window.DASH = {
       "price": 100.505,
       "buy_price": 100.505,
       "shares": 129.0981,
+      "realized_pnl": 0
+    },
+    {
+      "date": "2026-08-12",
+      "ticker": "JEPQ",
+      "name": "JPMorgan Nasdaq Equity Premium Income ETF",
+      "reason": "rebalance",
+      "note": "issue #7: covered-call removed - premium-financing was a mathematical illusion (~$250/yr yield vs ~$1,200-2,000/yr hedge drag); capped upside + full Nasdaq downside beta duplicates the growth sleeve. Sale scheduled for next market open; proceeds swept to SGOV.",
+      "state": null,
+      "price": null,
+      "buy_price": null,
+      "shares": null,
       "realized_pnl": 0
     },
     {
@@ -2073,6 +2160,19 @@ window.DASH = {
       "name": "AI Sentiment",
       "reason": "ai_sentiment",
       "note": "MANUAL RUN (market closed): neutral - 17 theories, 7 convictions - The portfolio operates in a neutral macro regime with Tech / AI Growth (46.3% vs 60.0%) and the Hedge Stack (25.4% vs 35",
+      "state": null,
+      "price": null,
+      "buy_price": null,
+      "shares": null,
+      "realized_pnl": 0
+    },
+    {
+      "date": "2026-08-17",
+      "ts": "09:43:44",
+      "ticker": "AI",
+      "name": "AI Sentiment",
+      "reason": "ai_sentiment",
+      "note": "neutral - 17 theories, 4 convictions - The portfolio maintains a disciplined barbell configuration as Tech/AI Growth effective exposure reaches 55.8% toward it",
       "state": null,
       "price": null,
       "buy_price": null,
@@ -2186,19 +2286,6 @@ window.DASH = {
       "price": 100.567,
       "buy_price": 100.567,
       "shares": 24.859,
-      "realized_pnl": 0
-    },
-    {
-      "date": "2026-08-17",
-      "ts": "09:43:44",
-      "ticker": "AI",
-      "name": "AI Sentiment",
-      "reason": "ai_sentiment",
-      "note": "neutral - 17 theories, 4 convictions - The portfolio maintains a disciplined barbell configuration as Tech/AI Growth effective exposure reaches 55.8% toward it",
-      "state": null,
-      "price": null,
-      "buy_price": null,
-      "shares": null,
       "realized_pnl": 0
     },
     {
@@ -2367,6 +2454,33 @@ window.DASH = {
       "shares": 0.0839,
       "amount": 8.42,
       "realized_pnl": 0
+    },
+    {
+      "date": "2026-09-11",
+      "ts": "00:29:32",
+      "ticker": "SGOV",
+      "name": "iShares 0-3 Month Treasury Bond ETF",
+      "reason": "dividend",
+      "note": "DIV $8.42 (0.307/sh x 27.4414) DRIP 0.0838 sh @ 100.50",
+      "action": "reinvest",
+      "state": null,
+      "price": 100.5,
+      "shares": 0.0838,
+      "amount": 8.42,
+      "realized_pnl": 0
+    },
+    {
+      "date": "2026-09-11",
+      "ts": "00:47:56",
+      "ticker": "AI",
+      "name": "AI Sentiment",
+      "reason": "ai_sentiment",
+      "note": "neutral - 17 theories, 1 convictions - Maintaining a disciplined neutral macro stance as sentiment sits in Fear at 33 while the 10-year yield presses 4.94%, ma",
+      "state": null,
+      "price": null,
+      "buy_price": null,
+      "shares": null,
+      "realized_pnl": 0
     }
   ],
   "theories": [
@@ -2378,13 +2492,14 @@ window.DASH = {
       "tier_reason": "Well-documented $1T AI capex + semis >40% of Q2 EPS growth, but >20pp bar is high and semis are crowded.",
       "status": "pending",
       "created": "2026-08-10",
-      "last_updated": "2026-08-21",
+      "last_updated": "2026-09-11",
       "evidence": [
         "2026-08-10: $1T global AI capex in 2026 (Goldman); semis >40% of Q2 EPS growth (UBS). Late-June selloff technical, not fundamental.",
         "2026-08-14: AI verdict AFFIRM (conf 85) - Semiconductor hardware capex and hyperscaler deployment continue driving leadership over broad equity indexes.",
         "2026-08-17: AI verdict AFFIRM (conf 85) - Semis momentum remains exceptionally strong with SOXL and DRAM posting >7% gains since last review, validating hardware leadership.",
         "2026-08-21: AI verdict AFFIRM (conf 80) - Semiconductor hardware fundamentals and AI infrastructure buildout remain resilient despite broad market rate sensitivity.",
-        "2026-08-21: AI verdict AFFIRM (conf 80) - Semiconductor hardware demand and AI infrastructure capex remain strong across core holdings."
+        "2026-08-21: AI verdict AFFIRM (conf 80) - Semiconductor hardware demand and AI infrastructure capex remain strong across core holdings.",
+        "2026-09-11: AI verdict AFFIRM (conf 80) - Secular AI capex and semiconductor demand trends remain robust, maintaining strong structural relative strength over broad equities."
       ]
     },
     {
@@ -2395,13 +2510,14 @@ window.DASH = {
       "tier_reason": "Bottleneck is concrete (full bookings) but DRAM already ran hard - some mean-reversion risk.",
       "status": "pending",
       "created": "2026-08-10",
-      "last_updated": "2026-08-21",
+      "last_updated": "2026-09-11",
       "evidence": [
         "2026-08-10: Micron capacity fully booked; DRAM +161.5% since Apr 2026, $23B AUM.",
         "2026-08-14: AI verdict AFFIRM (conf 75) - Memory pricing recovery and high-bandwidth memory supply tightness sustain DRAM relative strength over broad semi baskets.",
         "2026-08-17: AI verdict AFFIRM (conf 80) - DRAM outperformance (+7.24%) confirms strong pricing power and memory cycle tightening vs broader semis basket.",
         "2026-08-21: AI verdict AFFIRM (conf 75) - Memory pricing cycle and high-bandwidth memory demand continue to provide structural relative margin support.",
-        "2026-08-21: AI verdict AFFIRM (conf 75) - Memory pricing cycle and high-bandwidth memory demand continue outperforming general semi index."
+        "2026-08-21: AI verdict AFFIRM (conf 75) - Memory pricing cycle and high-bandwidth memory demand continue outperforming general semi index.",
+        "2026-09-11: AI verdict AFFIRM (conf 75) - High-bandwidth memory pricing and disciplined industry supply support DRAM outperformance relative to broad semis."
       ]
     },
     {
@@ -2412,13 +2528,14 @@ window.DASH = {
       "tier_reason": "Structural (data centers, 20-yr PPAs) but a rotation bet with pullback risk.",
       "status": "pending",
       "created": "2026-08-10",
-      "last_updated": "2026-08-21",
+      "last_updated": "2026-09-11",
       "evidence": [
         "2026-08-10: Data centers 6.7-12% of US electricity by 2028; hyperscalers signed 20-yr PPAs; uranium $88/lb +34% YoY.",
         "2026-08-14: AI verdict AFFIRM (conf 80) - Nuclear power utility contracts and commercial SMR initiatives show persistent pricing power and utility capex expansion.",
         "2026-08-17: AI verdict AFFIRM (conf 80) - Nuclear power holdings (NLR, NUKZ) provide resilient, non-cyclical power infrastructure upside tied to AI datacenter base-load contracts.",
         "2026-08-21: AI verdict AFFIRM (conf 75) - AI hyperscaler power requirements cement multi-year baseload demand for nuclear infrastructure.",
-        "2026-08-21: AI verdict AFFIRM (conf 75) - Nuclear power baseload demand for hyperscaler data centers maintains secular momentum."
+        "2026-08-21: AI verdict AFFIRM (conf 75) - Nuclear power baseload demand for hyperscaler data centers maintains secular momentum.",
+        "2026-09-11: AI verdict AFFIRM (conf 75) - Hyperscaler demand for 24/7 dedicated clean power continues to drive structural contracting tailwinds for nuclear generation."
       ]
     },
     {
@@ -2429,14 +2546,15 @@ window.DASH = {
       "tier_reason": "Purpose-built to cut drawdown; the >-5% net hedge return is the only uncertain leg. This is the insurance-COST budget only; per-crash-case performance is scored in T17-T21 (issue #6).",
       "status": "pending",
       "created": "2026-08-10",
-      "last_updated": "2026-08-21",
+      "last_updated": "2026-09-11",
       "evidence": [
         "2026-08-10: Hedges mapped to distinct crash mechanisms: deflation, carry-unwind, vol-spike, put-floor, real assets, anti-beta, trend.",
         "2026-08-13 (issue #6): generic hedge claims split into scenario-specific theories T17 (AI pop), T18 (yen carry), T19 (China), T20 (inflation), T21 (war). T6 stays the book-level drag/drawdown budget.",
         "2026-08-14: AI verdict AFFIRM (conf 80) - Diversified multi-asset hedge basket provides uncorrelated shock absorption across volatile macro regimes.",
         "2026-08-17: AI verdict AFFIRM (conf 80) - Multi-asset hedge stack continues to manage portfolio volatility effectively with minimal drag during equity upswings.",
         "2026-08-21: AI verdict AFFIRM (conf 85) - Multi-asset hedge stack provides uncorrelated downside protection across macro regimes, preserving capital during equity drawdowns.",
-        "2026-08-21: AI verdict AFFIRM (conf 85) - Diversified hedge stack sleeve (27.2% effective allocation) provides robust drawdown insulation without excessive drag."
+        "2026-08-21: AI verdict AFFIRM (conf 85) - Diversified hedge stack sleeve (27.2% effective allocation) provides robust drawdown insulation without excessive drag.",
+        "2026-09-11: AI verdict AFFIRM (conf 85) - The multi-asset hedge stack provides convex drawdown dampening across equity, rates, and geopolitical shocks."
       ]
     },
     {
@@ -2447,13 +2565,14 @@ window.DASH = {
       "tier_reason": "H1 2026 proof (SOXL +440%, TQQQ +43%) plus A-tier trend conviction; decay risk is the known cost. Re-rated C->B in v5.",
       "status": "pending",
       "created": "2026-08-10",
-      "last_updated": "2026-08-21",
+      "last_updated": "2026-09-11",
       "evidence": [
         "2026-08-10: Leveraged products dominate when trends hard; decay is the offsetting risk.",
         "2026-08-14: AI verdict AFFIRM (conf 75) - Strong structural upward tech momentum comfortably outweighs daily volatility drag over extended holding periods.",
         "2026-08-17: AI verdict AFFIRM (conf 80) - Strong trending tape in core AI components continues to exceed daily reset and volatility drag in leveraged ETFs.",
         "2026-08-21: AI verdict AFFIRM (conf 70) - Leveraged growth sleeve maintains trend capture over medium horizons, though daily beta volatility requires active sizing.",
-        "2026-08-21: AI verdict AFFIRM (conf 70) - Leveraged tech core compounding remains positive over trend, overcoming daily volatility decay."
+        "2026-08-21: AI verdict AFFIRM (conf 70) - Leveraged tech core compounding remains positive over trend, overcoming daily volatility decay.",
+        "2026-09-11: AI verdict AFFIRM (conf 70) - AI hardware leadership trend persistence remains sufficient to overcome leveraged volatility drag over cycle horizons."
       ]
     },
     {
@@ -2464,13 +2583,14 @@ window.DASH = {
       "tier_reason": "Structural - cutting 84%->30% tech concentration MUST shallow drawdowns.",
       "status": "pending",
       "created": "2026-08-10",
-      "last_updated": "2026-08-21",
+      "last_updated": "2026-09-11",
       "evidence": [
         "2026-08-10: Tech cut 84% -> 30%; crisis-alpha + cash enhance downside protection.",
         "2026-08-14: AI verdict AFFIRM (conf 85) - The 35% hedge stack cushion structurally reduces tech drawdowns relative to unhedged high-beta portfolios.",
         "2026-08-17: AI verdict AFFIRM (conf 85) - The diversified barbell architecture retains high upside participation while maintaining comprehensive tail-risk buffers.",
         "2026-08-21: AI verdict AFFIRM (conf 85) - Barbell architecture with 27.4% hedge allocation dampens single-day tech shock vulnerability compared to concentrated legacy books.",
-        "2026-08-21: AI verdict AFFIRM (conf 85) - Balanced barbell structure limits tail-risk drawdown compared to unhedged pure-growth portfolios."
+        "2026-08-21: AI verdict AFFIRM (conf 85) - Balanced barbell structure limits tail-risk drawdown compared to unhedged pure-growth portfolios.",
+        "2026-09-11: AI verdict AFFIRM (conf 85) - A 29.1% hedge stack allocation insulates the barbell structure against systemic tech gap-down days compared to unhedged core tech."
       ]
     },
     {
@@ -2481,13 +2601,14 @@ window.DASH = {
       "tier_reason": "Historically common, not guaranteed - 40% bar is a fair, testable threshold.",
       "status": "pending",
       "created": "2026-08-10",
-      "last_updated": "2026-08-21",
+      "last_updated": "2026-09-11",
       "evidence": [
         "2026-08-10: Gold resilient during Iran-war volatility; miners add downside-beta exposure tied to bullion.",
         "2026-08-14: AI verdict AFFIRM (conf 80) - Precious metals holdings consistently display counter-cyclical safety bids during broader equity market pullbacks.",
         "2026-08-17: AI verdict AFFIRM (conf 80) - GLD and GDX sustain constructive structural support amid sovereign buying and persistent fiscal deficits.",
         "2026-08-21: AI verdict AFFIRM (conf 80) - Gold and precious metals equity allocations demonstrate persistent non-correlation and capital preservation during risk-off equity sessions.",
-        "2026-08-21: AI verdict AFFIRM (conf 80) - Precious metals sleeve provides non-correlated buffer on broad equity selloff sessions."
+        "2026-08-21: AI verdict AFFIRM (conf 80) - Precious metals sleeve provides non-correlated buffer on broad equity selloff sessions.",
+        "2026-09-11: AI verdict AFFIRM (conf 80) - Gold and precious metals miners consistently function as effective non-correlated crisis liquidity and debasement buffers."
       ]
     },
     {
@@ -2498,13 +2619,14 @@ window.DASH = {
       "tier_reason": "Equal-weight-vs-cap-weight divergence is verifiable breadth data; timing still not certain.",
       "status": "pending",
       "created": "2026-08-10",
-      "last_updated": "2026-08-21",
+      "last_updated": "2026-09-11",
       "evidence": [
         "2026-08-10: S&P 500 equal-weight at highs while cap-weight slipped (July). XBI dropped from this bet in v5 (low catalyst).",
         "2026-08-14: AI verdict PROBATION (conf 50) - Acute rates shock fear (F6 at 4.9) and high 10-year yields pose sustained headwinds for small-cap valuation broadening.",
         "2026-08-17: AI verdict PROBATION (conf 45) - Elevated 10Y yields (4.71%) maintain tight financial conditions on Russell 2000 balance sheets, postponing sustained breadth expansion.",
         "2026-08-21: AI verdict PROBATION (conf 40) - Small-cap relative outperformance is capped while 10-year benchmark yields stay elevated at 4.74%.",
-        "2026-08-21: AI verdict PROBATION (conf 40) - Small-cap breadth continues to lag mega-cap tech under elevated 10-year Treasury yields near 4.74%."
+        "2026-08-21: AI verdict PROBATION (conf 40) - Small-cap breadth continues to lag mega-cap tech under elevated 10-year Treasury yields near 4.74%.",
+        "2026-09-11: AI verdict PROBATION (conf 35) - Elevated 10-year yields near 5.0% restrict small-cap credit conditions, preventing broadening from materializing."
       ]
     },
     {
@@ -2544,14 +2666,15 @@ window.DASH = {
       "tier_reason": "Named catalysts (jobs improving; UBS upgrade; oil drop) lift conviction from C to B. KWEB excluded - fear without resolution.",
       "status": "pending",
       "created": "2026-08-10",
-      "last_updated": "2026-08-21",
+      "last_updated": "2026-09-11",
       "evidence": [
         "2026-08-10: XLY = sour sentiment but resilient spending; EZU = laggard + UBS upgrade + cheaper valuations.",
         "2026-08-10 (v5): KWEB CUT - China regulatory/geopolitical risk unfundable at C conviction.",
         "2026-08-14: AI verdict PROBATION (conf 55) - Discretionary spending polarization and sluggish European growth metrics slow the expected recovery timeline.",
         "2026-08-17: AI verdict PROBATION (conf 50) - Consumer discretionary and European equities face mixed demand data under restrictive real rates, limiting alpha vs SPY.",
         "2026-08-21: AI verdict PROBATION (conf 45) - Consumer discretionary and European equities show subdued relative momentum against SPY under tight global monetary conditions.",
-        "2026-08-21: AI verdict PROBATION (conf 45) - Consumer discretionary and European equities face macro headwind from persistent rates and mixed consumer sentiment."
+        "2026-08-21: AI verdict PROBATION (conf 45) - Consumer discretionary and European equities face macro headwind from persistent rates and mixed consumer sentiment.",
+        "2026-09-11: AI verdict PROBATION (conf 40) - Persistent rate pressures and sticky inflation constrain European and discretionary consumer outperformance."
       ]
     },
     {
@@ -2562,13 +2685,14 @@ window.DASH = {
       "tier_reason": "Drawdown benefit likely; the <1pp opportunity-cost claim is the less certain half.",
       "status": "pending",
       "created": "2026-08-10",
-      "last_updated": "2026-08-21",
+      "last_updated": "2026-09-11",
       "evidence": [
         "2026-08-10: 'Sell when others are greedy.' PLTR at 146x trailing P/E priced for perfection.",
         "2026-08-14: AI verdict AFFIRM (conf 80) - Capping high-multiple PLTR sizing at 2% protects the book from single-stock valuation compression without sacrificing total return.",
         "2026-08-17: AI verdict AFFIRM (conf 85) - Strictly limiting high-multiple PLTR to 2% safeguards the portfolio against valuation multiple contraction without sacrificing core returns.",
         "2026-08-21: AI verdict AFFIRM (conf 85) - Restricting high-multiple enterprise AI exposure to 2% effectively limits portfolio drawdown without sacrificing upside capture.",
-        "2026-08-21: AI verdict AFFIRM (conf 85) - Controlled 2% allocation to high-multiple growth caps single-name valuation compression risk."
+        "2026-08-21: AI verdict AFFIRM (conf 85) - Controlled 2% allocation to high-multiple growth caps single-name valuation compression risk.",
+        "2026-09-11: AI verdict AFFIRM (conf 85) - Limiting high-multiple single-stock risk prevents valuation drawdowns from materially impacting aggregate portfolio NAV."
       ]
     },
     {
@@ -2579,13 +2703,14 @@ window.DASH = {
       "tier_reason": "July's value-vs-growth divergence is evidence; re-rated C->B on breadth support. 2x decay = the cost.",
       "status": "pending",
       "created": "2026-08-10",
-      "last_updated": "2026-08-21",
+      "last_updated": "2026-09-11",
       "evidence": [
         "2026-08-10: Value beat growth by widest margin in 25 years (July, HB Wealth); equal-weight leadership should extend it.",
         "2026-08-14: AI verdict PROBATION (conf 50) - Higher-for-longer rate environment hinders leveraged value factor risk-adjusted outperformance against core secular tech growth.",
         "2026-08-17: AI verdict PROBATION (conf 45) - Leveraged value factor (IWDL) remains constrained relative to secular growth given high financing costs and tech earnings power.",
         "2026-08-21: AI verdict PROBATION (conf 35) - Leveraged value factor fails to generate superior risk-adjusted alpha against large-cap tech in a high-rate, narrow-breadth regime.",
-        "2026-08-21: AI verdict PROBATION (conf 35) - 2x leveraged value factor structure suffers from rate friction and lacks relative Sharpe advantage over core growth."
+        "2026-08-21: AI verdict PROBATION (conf 35) - 2x leveraged value factor structure suffers from rate friction and lacks relative Sharpe advantage over core growth.",
+        "2026-09-11: AI verdict PROBATION (conf 30) - Leveraged value factor suffers severe carry drag and adverse factor momentum in a high rates-shock environment."
       ]
     },
     {
@@ -2596,13 +2721,14 @@ window.DASH = {
       "tier_reason": "Dropping darts and holding cash is almost always drawdown-friendly; up-capture is the testable half.",
       "status": "pending",
       "created": "2026-08-10",
-      "last_updated": "2026-08-21",
+      "last_updated": "2026-09-11",
       "evidence": [
         "2026-08-10 (v5): Cut IGV (D), ARKQ (C), XBI (C), KWEB (C) - all non-hedges. Cash 3.5% -> 13%. No C/D allowed unless it is a hedge.",
         "2026-08-14: AI verdict AFFIRM (conf 85) - Eliminating speculative satellite positions and raising dry powder successfully reduces idiosyncratic portfolio churn.",
         "2026-08-17: AI verdict AFFIRM (conf 85) - Streamlined book structure eliminates non-core thematic drag and concentrates risk budget on high-conviction barbell assets.",
         "2026-08-21: AI verdict AFFIRM (conf 85) - Elimination of speculative thematic satellite positions materially reduces beta drag and unhedged drawdowns.",
-        "2026-08-21: AI verdict AFFIRM (conf 85) - Concentrating risk in high-conviction growth while eliminating low-conviction themes preserves upside capture with lower portfolio variance."
+        "2026-08-21: AI verdict AFFIRM (conf 85) - Concentrating risk in high-conviction growth while eliminating low-conviction themes preserves upside capture with lower portfolio variance.",
+        "2026-09-11: AI verdict AFFIRM (conf 85) - Streamlined book focused exclusively on high-conviction core positions minimizes residual tracking bleed."
       ]
     },
     {
@@ -2613,13 +2739,14 @@ window.DASH = {
       "tier_reason": "Four instruments target the SAME event's distinct mechanisms (QFLR put-floor stops the bleed, VIXM spikes on realized vol, BTAL profits from the high-beta crash, ZROZ reprices on Fed cuts) - close to structural.",
       "status": "pending",
       "created": "2026-08-13",
-      "last_updated": "2026-08-21",
+      "last_updated": "2026-09-11",
       "evidence": [
         "2026-08-13 (issue #6): created to replace the generic T11. This is the 'when the Nasdaq pops' case the hedge stack was actually built for.",
         "2026-08-14: AI verdict AFFIRM (conf 80) - Tail-risk hedging assets (QFLR, VIXM, BTAL) provide immediate negative correlation during sharp tech valuation shocks.",
         "2026-08-17: AI verdict AFFIRM (conf 80) - Uncorrelated long vol, anti-beta, and tail hedges remain structured to absorb rapid equity valuation compressions.",
         "2026-08-21: AI verdict AFFIRM (conf 85) - Tail-risk sleeve components (QFLR, VIXM, BTAL, ZROZ) maintain defensive convexity against sudden tech valuation compressions.",
-        "2026-08-21: AI verdict AFFIRM (conf 85) - Multi-asset hedge stack configuration (QFLR, VIXM, BTAL, ZROZ) provides structural cushion against sudden valuation drawdowns."
+        "2026-08-21: AI verdict AFFIRM (conf 85) - Multi-asset hedge stack configuration (QFLR, VIXM, BTAL, ZROZ) provides structural cushion against sudden valuation drawdowns.",
+        "2026-09-11: AI verdict AFFIRM (conf 85) - Anti-beta, volatility, and tail-risk components reliably expand spread during severe growth liquidation cascades."
       ]
     },
     {
@@ -2630,13 +2757,14 @@ window.DASH = {
       "tier_reason": "FXY is direct yen exposure and DBMF catches the cross-market trend - the 1998 / 2007-08 carry-unwind analogs make the mechanism concrete.",
       "status": "pending",
       "created": "2026-08-13",
-      "last_updated": "2026-08-21",
+      "last_updated": "2026-09-11",
       "evidence": [
         "2026-08-13 (issue #6): created to replace the generic T11. Carry-unwind is the specific tail a leveraged book must test on its own.",
         "2026-08-14: AI verdict AFFIRM (conf 85) - Direct currency protection in FXY and managed trend rules in DBMF reliably insulate against carry-trade unwinds.",
         "2026-08-17: AI verdict AFFIRM (conf 80) - FXY and trend-following DBMF provide vital convex downside protection in the event of sudden yen carry unwinds.",
         "2026-08-21: AI verdict AFFIRM (conf 85) - Elevated USD/JPY at 158.95 highlights systemic carry risks where FXY and DBMF provide critical shock absorption.",
-        "2026-08-21: AI verdict AFFIRM (conf 85) - FXY and trend-following DBMF exposure provide direct convexity against sharp yen carry unwinds."
+        "2026-08-21: AI verdict AFFIRM (conf 85) - FXY and trend-following DBMF exposure provide direct convexity against sharp yen carry unwinds.",
+        "2026-09-11: AI verdict AFFIRM (conf 85) - FXY and trend managed futures maintain structural negative correlation to sudden carry-trade liquidations."
       ]
     },
     {
@@ -2647,13 +2775,14 @@ window.DASH = {
       "tier_reason": "Gold and trend are historically positive on China risk-off, but the geopolitical trigger is the least predictable - conviction capped at B.",
       "status": "pending",
       "created": "2026-08-13",
-      "last_updated": "2026-08-21",
+      "last_updated": "2026-09-11",
       "evidence": [
         "2026-08-13 (issue #6): created to replace the generic T11. China tail-risk was why KWEB was cut in v5; the hedge answer deserves its own test.",
         "2026-08-14: AI verdict AFFIRM (conf 80) - Gold and CTA trend strategies capture safe-haven flight flows during geopolitical flare-ups in the Pacific region.",
         "2026-08-17: AI verdict AFFIRM (conf 80) - Gold and managed futures maintain low correlation to APAC supply chain disruptions and geopolitical friction points.",
         "2026-08-21: AI verdict AFFIRM (conf 80) - Precious metals and managed futures positions offer reliable defensive ballast against Asia-Pacific geopolitical escalations.",
-        "2026-08-21: AI verdict AFFIRM (conf 80) - Gold and managed futures provide uncorrelated protection against Asian geopolitical escalation."
+        "2026-08-21: AI verdict AFFIRM (conf 80) - Gold and managed futures provide uncorrelated protection against Asian geopolitical escalation.",
+        "2026-09-11: AI verdict AFFIRM (conf 80) - Precious metals and trend-following managed futures provide defensive isolation from regional Asia geopolitical flare-ups."
       ]
     },
     {
@@ -2664,14 +2793,15 @@ window.DASH = {
       "tier_reason": "Gold is the classic inflation store of value and miners add operating leverage. ZROZ is deliberately excluded - long bonds LOSE in inflation.",
       "status": "pending",
       "created": "2026-08-13",
-      "last_updated": "2026-08-21",
+      "last_updated": "2026-09-11",
       "evidence": [
         "2026-08-13 (issue #6): created to replace the generic T11. Fed-behind-the-curve is the scenario ZROZ names - but bonds, not gold, do the work there; gold takes the debasement case.",
         "2026-08-14: TIP inflation-leg trial REVERSED before execution - in a Fed-hikes-in-response regime SGOV is the better inflation hedge (T-bill yield resets up, zero duration loss; TIP fell ~12% in the 2022 shock). T20 continues to be tested by GLD+GDX only.",
         "2026-08-14: AI verdict AFFIRM (conf 85) - Gold and precious metal miners serve as the premier monetary debasement and stagflationary hedge.",
         "2026-08-17: AI verdict AFFIRM (conf 85) - Precious metals sleeve provides direct purchasing power hedge against sticky structural inflation risks.",
         "2026-08-21: AI verdict AFFIRM (conf 85) - Gold sleeve effectively hedges against sticky inflation prints and real-rate regime uncertainties.",
-        "2026-08-21: AI verdict AFFIRM (conf 85) - Gold and miners continue to act as effective purchasing power and inflation resurgence hedges."
+        "2026-08-21: AI verdict AFFIRM (conf 85) - Gold and miners continue to act as effective purchasing power and inflation resurgence hedges.",
+        "2026-09-11: AI verdict AFFIRM (conf 85) - Gold and miners hedge real-asset purchasing power as unexpected inflation prints pressure growth multiples."
       ]
     },
     {
@@ -2682,13 +2812,14 @@ window.DASH = {
       "tier_reason": "Safe-haven gold + yen and trend-following catch flight-to-safety and commodity spikes; several instruments, but event timing is uncertain.",
       "status": "pending",
       "created": "2026-08-13",
-      "last_updated": "2026-08-21",
+      "last_updated": "2026-09-11",
       "evidence": [
         "2026-08-13 (issue #6): created to replace the generic T11. GLD's thesis already names the Iran-war spike; it deserves its own scored case.",
         "2026-08-14: AI verdict AFFIRM (conf 85) - Sovereign hedges and gold composite efficiently offset risk-off broad equity selloffs triggered by geopolitical escalation.",
         "2026-08-17: AI verdict AFFIRM (conf 85) - Multi-asset crisis basket (GLD, GDX, FXY, DBMF) offers robust non-equity protection during geopolitical escalations.",
         "2026-08-21: AI verdict AFFIRM (conf 85) - Diversified multi-asset hedge basket offsets risk-off shocks driven by energy and conflict flashpoints.",
-        "2026-08-21: AI verdict AFFIRM (conf 85) - Hedge basket components demonstrate low correlation and flight-to-safety buffering during geopolitical shocks."
+        "2026-08-21: AI verdict AFFIRM (conf 85) - Hedge basket components demonstrate low correlation and flight-to-safety buffering during geopolitical shocks.",
+        "2026-09-11: AI verdict AFFIRM (conf 85) - The combined hedge basket reliably catches flight-to-safety flows during sudden geopolitical escalations."
       ]
     }
   ],
@@ -2765,7 +2896,7 @@ window.DASH = {
       "level": 0.69,
       "velocity": {
         "label": "5d velocity",
-        "value": 0.1163,
+        "value": 0.1096,
         "pct": 0.925
       },
       "trend": null,
@@ -2801,7 +2932,7 @@ window.DASH = {
       "level": 0.731,
       "velocity": {
         "label": "5d velocity",
-        "value": 0.0099,
+        "value": 0.0103,
         "pct": 0.875
       },
       "trend": null,
@@ -2821,7 +2952,7 @@ window.DASH = {
       "sizing": null,
       "asof": "2026-09-11",
       "degraded": false,
-      "trend_dir": "falling"
+      "trend_dir": "flat"
     },
     {
       "id": "F3",
@@ -3137,6 +3268,14 @@ window.DASH = {
         "value": 99100.94
       },
       {
+        "date": "2026-08-27",
+        "value": 99750.33
+      },
+      {
+        "date": "2026-08-28",
+        "value": 99523.95
+      },
+      {
         "date": "2026-08-31",
         "value": 99226.42
       },
@@ -3325,6 +3464,14 @@ window.DASH = {
         {
           "date": "2026-08-26",
           "value": 99100.94
+        },
+        {
+          "date": "2026-08-27",
+          "value": 99750.33
+        },
+        {
+          "date": "2026-08-28",
+          "value": 99523.95
         },
         {
           "date": "2026-08-31",
@@ -3516,6 +3663,14 @@ window.DASH = {
           "value": 98682.15
         },
         {
+          "date": "2026-08-27",
+          "value": 100033.29
+        },
+        {
+          "date": "2026-08-28",
+          "value": 99384.08
+        },
+        {
           "date": "2026-08-31",
           "value": 99429.86
         },
@@ -3703,6 +3858,14 @@ window.DASH = {
         {
           "date": "2026-08-26",
           "value": 95487.8
+        },
+        {
+          "date": "2026-08-27",
+          "value": 99322.49
+        },
+        {
+          "date": "2026-08-28",
+          "value": 97357.72
         },
         {
           "date": "2026-08-31",
@@ -3894,6 +4057,14 @@ window.DASH = {
           "value": 115105.39
         },
         {
+          "date": "2026-08-27",
+          "value": 114129.59
+        },
+        {
+          "date": "2026-08-28",
+          "value": 113895.39
+        },
+        {
           "date": "2026-08-31",
           "value": 119516.0
         },
@@ -3934,16 +4105,16 @@ window.DASH = {
     }
   },
   "ai": {
-    "asof": "2026-08-21",
+    "asof": "2026-09-11",
     "macro_stance": "neutral",
-    "sentiment_index": -0.4,
-    "sentiment_delta": -0.37,
+    "sentiment_index": -0.85,
+    "sentiment_delta": -0.45,
     "sector_bias": [
       {
         "sector": "Broadening / Value",
         "stance": "bearish",
-        "conviction": -0.15,
-        "driver": "Persistent 10-year yields at 4.73% and tight spreads constrain small-cap and leveraged value outperformance relative to secular AI growth."
+        "conviction": -0.35,
+        "driver": "Benchmark 10-year yields pressing 4.94% significantly escalate debt refinancing pressures and multiple compression on small-cap and cyclical value."
       }
     ],
     "theories": [
@@ -3951,130 +4122,146 @@ window.DASH = {
         "id": "T1",
         "verdict": "affirm",
         "confidence": 80,
-        "evidence": "Semiconductor hardware demand and AI infrastructure capex remain strong across core holdings."
+        "evidence": "Secular AI capex and semiconductor demand trends remain robust, maintaining strong structural relative strength over broad equities."
       },
       {
         "id": "T2",
         "verdict": "affirm",
         "confidence": 75,
-        "evidence": "Memory pricing cycle and high-bandwidth memory demand continue outperforming general semi index."
+        "evidence": "High-bandwidth memory pricing and disciplined industry supply support DRAM outperformance relative to broad semis."
       },
       {
         "id": "T3",
         "verdict": "affirm",
         "confidence": 75,
-        "evidence": "Nuclear power baseload demand for hyperscaler data centers maintains secular momentum."
+        "evidence": "Hyperscaler demand for 24/7 dedicated clean power continues to drive structural contracting tailwinds for nuclear generation."
       },
       {
         "id": "T6",
         "verdict": "affirm",
         "confidence": 85,
-        "evidence": "Diversified hedge stack sleeve (27.2% effective allocation) provides robust drawdown insulation without excessive drag."
+        "evidence": "The multi-asset hedge stack provides convex drawdown dampening across equity, rates, and geopolitical shocks."
       },
       {
         "id": "T7",
         "verdict": "affirm",
         "confidence": 70,
-        "evidence": "Leveraged tech core compounding remains positive over trend, overcoming daily volatility decay."
+        "evidence": "AI hardware leadership trend persistence remains sufficient to overcome leveraged volatility drag over cycle horizons."
       },
       {
         "id": "T8",
         "verdict": "affirm",
         "confidence": 85,
-        "evidence": "Balanced barbell structure limits tail-risk drawdown compared to unhedged pure-growth portfolios."
+        "evidence": "A 29.1% hedge stack allocation insulates the barbell structure against systemic tech gap-down days compared to unhedged core tech."
       },
       {
         "id": "T9",
         "verdict": "affirm",
         "confidence": 80,
-        "evidence": "Precious metals sleeve provides non-correlated buffer on broad equity selloff sessions."
+        "evidence": "Gold and precious metals miners consistently function as effective non-correlated crisis liquidity and debasement buffers."
       },
       {
         "id": "T10",
         "verdict": "probation",
-        "confidence": 40,
-        "evidence": "Small-cap breadth continues to lag mega-cap tech under elevated 10-year Treasury yields near 4.74%."
+        "confidence": 35,
+        "evidence": "Elevated 10-year yields near 5.0% restrict small-cap credit conditions, preventing broadening from materializing."
       },
       {
         "id": "T13",
         "verdict": "probation",
-        "confidence": 45,
-        "evidence": "Consumer discretionary and European equities face macro headwind from persistent rates and mixed consumer sentiment."
+        "confidence": 40,
+        "evidence": "Persistent rate pressures and sticky inflation constrain European and discretionary consumer outperformance."
       },
       {
         "id": "T14",
         "verdict": "affirm",
         "confidence": 85,
-        "evidence": "Controlled 2% allocation to high-multiple growth caps single-name valuation compression risk."
+        "evidence": "Limiting high-multiple single-stock risk prevents valuation drawdowns from materially impacting aggregate portfolio NAV."
       },
       {
         "id": "T15",
         "verdict": "probation",
-        "confidence": 35,
-        "evidence": "2x leveraged value factor structure suffers from rate friction and lacks relative Sharpe advantage over core growth."
+        "confidence": 30,
+        "evidence": "Leveraged value factor suffers severe carry drag and adverse factor momentum in a high rates-shock environment."
       },
       {
         "id": "T16",
         "verdict": "affirm",
         "confidence": 85,
-        "evidence": "Concentrating risk in high-conviction growth while eliminating low-conviction themes preserves upside capture with lower portfolio variance."
+        "evidence": "Streamlined book focused exclusively on high-conviction core positions minimizes residual tracking bleed."
       },
       {
         "id": "T17",
         "verdict": "affirm",
         "confidence": 85,
-        "evidence": "Multi-asset hedge stack configuration (QFLR, VIXM, BTAL, ZROZ) provides structural cushion against sudden valuation drawdowns."
+        "evidence": "Anti-beta, volatility, and tail-risk components reliably expand spread during severe growth liquidation cascades."
       },
       {
         "id": "T18",
         "verdict": "affirm",
         "confidence": 85,
-        "evidence": "FXY and trend-following DBMF exposure provide direct convexity against sharp yen carry unwinds."
+        "evidence": "FXY and trend managed futures maintain structural negative correlation to sudden carry-trade liquidations."
       },
       {
         "id": "T19",
         "verdict": "affirm",
         "confidence": 80,
-        "evidence": "Gold and managed futures provide uncorrelated protection against Asian geopolitical escalation."
+        "evidence": "Precious metals and trend-following managed futures provide defensive isolation from regional Asia geopolitical flare-ups."
       },
       {
         "id": "T20",
         "verdict": "affirm",
         "confidence": 85,
-        "evidence": "Gold and miners continue to act as effective purchasing power and inflation resurgence hedges."
+        "evidence": "Gold and miners hedge real-asset purchasing power as unexpected inflation prints pressure growth multiples."
       },
       {
         "id": "T21",
         "verdict": "affirm",
         "confidence": 85,
-        "evidence": "Hedge basket components demonstrate low correlation and flight-to-safety buffering during geopolitical shocks."
+        "evidence": "The combined hedge basket reliably catches flight-to-safety flows during sudden geopolitical escalations."
       }
     ],
     "fears": [
       {
         "id": "F2",
         "sentiment_score": 4,
-        "delta_reason": "USD/JPY near 159 leaves carry positions stretched and vulnerable to abrupt intervention or policy shifts despite current low spot volatility."
+        "delta_reason": "USD/JPY holding above 154 indicates carry trades remain orderly without immediate signs of violent liquidation, justifying a discount to deterministic 4.3."
       }
     ],
     "convictions": [
       {
-        "ticker": "ZROZ",
-        "conviction_score": -0.4,
-        "urgency": 60,
-        "confidence": 75,
-        "rationale": "High 10-year yields and persistent duration liquidation risk warrant trimming ultra-long duration exposure within the hedge stack."
+        "ticker": "IWDL",
+        "conviction_score": -0.85,
+        "urgency": 75,
+        "confidence": 80,
+        "rationale": "Residual dust position in 2x leveraged value suffers from severe negative carry and factor decay amid 4.94% Treasury yields; prioritize liquidation."
       }
     ],
     "rotations": [
       {
-        "sell": "IWDL",
+        "sell": "IWM",
         "buy": "BTAL",
-        "rationale": "Rotate out of underperforming leveraged value facing rate headwinds into anti-beta market-neutral protection to reinforce drawdown defenses."
+        "rationale": "Rotate interest-rate-sensitive small-cap beta facing refinancing headwinds at near-5% yields into market-neutral anti-beta factor protection."
       }
     ],
     "fear_proposals": [],
     "proposals": [
+      {
+        "ticker": "IWDL",
+        "action": "trim",
+        "side": "sell",
+        "amount": 2125,
+        "conviction_score": -0.85,
+        "urgency": 75,
+        "confidence": 80,
+        "rationale": "Residual dust position in 2x leveraged value suffers from severe negative carry and factor decay amid 4.94% Treasury yields; prioritize liquidation.",
+        "verdict_date": "2026-09-11",
+        "last_seen": "2026-09-11",
+        "first_seen": "2026-09-11",
+        "updated_from": null,
+        "updated_on": null,
+        "booked": true
+      },
       {
         "ticker": "ZROZ",
         "action": "sell",
@@ -4140,7 +4327,7 @@ window.DASH = {
         "booked": false
       }
     ],
-    "summary": "Maintaining a disciplined neutral macro stance with sentiment at 56 Greed and benchmark 10-year yields remaining elevated at 4.73%. We downgrade Broadening / Value sector bias to bearish and keep small-cap and leveraged value theories on probation. Execution prioritizes trimming ultra-long duration in ZROZ and rotating leveraged value into anti-beta protection via BTAL while maintaining core tech and nuclear allocations.",
+    "summary": "Maintaining a disciplined neutral macro stance as sentiment sits in Fear at 33 while the 10-year yield presses 4.94%, maxing out structural rates shock risks. We trim Yen-carry fear slightly to 3.8 given USD/JPY stability above 154, while keeping Broadening and Value theories on strict probation under severe borrowing cost headwinds. Execution prioritizes eliminating residual leveraged value in IWDL and rotating IWM into anti-beta protection via BTAL while holding core leveraged tech and nuclear exposures intact.",
     "ledger": [
       {
         "date": "2026-08-14",
@@ -4177,16 +4364,40 @@ window.DASH = {
         "convictions": 1,
         "prompt_hash": "86adfd5a78d867b2",
         "summary": "Maintaining a disciplined neutral macro stance with sentiment at 56 Greed and benchmark 10-year yields remaining elevated at 4.73%. We downgrade Broadening / Value sector bias to bearish and keep smal"
+      },
+      {
+        "date": "2026-09-11",
+        "ts": "00:47:56",
+        "macro_stance": "neutral",
+        "theories": 17,
+        "convictions": 1,
+        "prompt_hash": "45857c6a4f7f9e21",
+        "summary": "Maintaining a disciplined neutral macro stance as sentiment sits in Fear at 33 while the 10-year yield presses 4.94%, maxing out structural rates shock risks. We trim Yen-carry fear slightly to 3.8 gi"
       }
     ],
     "state": {
-      "last_call_date": "2026-08-21",
-      "calls_today": 0,
-      "last_call_ts": "10:43:11",
+      "last_call_date": "2026-09-11",
+      "calls_today": 1,
+      "last_call_ts": "00:47:56",
       "note": "manual run (market closed) - Friday data, first read",
-      "last_sentiment_index": -0.4,
-      "last_sentiment_delta": -0.37,
+      "last_sentiment_index": -0.85,
+      "last_sentiment_delta": -0.45,
       "proposals": [
+        {
+          "ticker": "IWDL",
+          "action": "trim",
+          "side": "sell",
+          "amount": 2125,
+          "conviction_score": -0.85,
+          "urgency": 75,
+          "confidence": 80,
+          "rationale": "Residual dust position in 2x leveraged value suffers from severe negative carry and factor decay amid 4.94% Treasury yields; prioritize liquidation.",
+          "verdict_date": "2026-09-11",
+          "last_seen": "2026-09-11",
+          "first_seen": "2026-09-11",
+          "updated_from": null,
+          "updated_on": null
+        },
         {
           "ticker": "ZROZ",
           "action": "sell",
@@ -4249,7 +4460,7 @@ window.DASH = {
         }
       ]
     },
-    "mode": "recommend",
+    "mode": "execute",
     "gauge": {
       "index": 33,
       "label": "Fear"
@@ -4269,13 +4480,13 @@ window.DASH = {
     "enabled": true
   },
   "news": {
-    "asof": "2026-09-11 05:39:08",
+    "asof": "2026-09-11 00:30:02",
     "big_stories": [
       {
-        "title": "Dan Ives Says Software Stocks Just Got Their Clearest Buy Signal Yet",
-        "link": "https://beincrypto.com/dan-ives-software-stocks-buy-signal/?.tsrc=rss",
-        "ts": 1789089739,
-        "when": "Sep 11, 01:22 AM",
+        "title": "PLTR Stock Wins Whether We’re In An AI Bubble Or Not? Wall Street Analyst Explains Why",
+        "link": "https://stocktwits.com/news-articles/markets/equity/pltr-stock-wins-whether-we-re-in-an-ai-bubble-or-not-wall-street-analyst-explains-why/cZtXeu2RBGd?.tsrc=rss",
+        "ts": 1789107067,
+        "when": "Sep 11, 12:11 AM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -4284,13 +4495,13 @@ window.DASH = {
           "T2",
           "T14"
         ],
-        "sent": "neutral"
+        "sent": "positive"
       },
       {
         "title": "Forget SMH: The Chip Fund That Charges 0.15% Is Beating It by 22 Points This Year",
         "link": "https://247wallst.com/investing/etf/2026/09/10/forget-smh-the-chip-fund-that-charges-0-15-is-beating-it-by-22-points-this-year/?.tsrc=rss",
         "ts": 1789078518,
-        "when": "Sep 10, 10:15 PM",
+        "when": "Sep 10, 04:15 PM",
         "ticker": "SMH",
         "industry": "Semis",
         "theory": [
@@ -4305,7 +4516,7 @@ window.DASH = {
         "title": "Daily ETF Flows: GDX Registers Outflows",
         "link": "http://www.etf.com/sections/daily-etf-flows/daily-etf-flows-gdx-registers-outflows?utm_source=yahoo-finance&utm_medium=rss&utm_campaign=yahoo-finance-rss&.tsrc=rss",
         "ts": 1789074004,
-        "when": "Sep 10, 09:00 PM",
+        "when": "Sep 10, 03:00 PM",
         "ticker": "GDX",
         "industry": "Gold Miners",
         "theory": [
@@ -4321,7 +4532,7 @@ window.DASH = {
         "title": "Sector Update: Consumer Stocks Mixed Thursday Afternoon",
         "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-mixed-thursday-173543020.html?.tsrc=rss",
         "ts": 1789061743,
-        "when": "Sep 10, 05:35 PM",
+        "when": "Sep 10, 11:35 AM",
         "ticker": "XLY",
         "industry": "Consumer Disc.",
         "theory": [
@@ -4333,7 +4544,7 @@ window.DASH = {
         "title": "TQQQ Gained 59.18% While QQQ Gained 24.99%. Here Is Why That Is Not Triple.",
         "link": "https://247wallst.com/investing/etf/2026/09/09/tqqq-gained-59-18-while-qqq-gained-24-99-here-is-why-that-is-not-triple/?.tsrc=rss",
         "ts": 1788990338,
-        "when": "Sep 09, 09:45 PM",
+        "when": "Sep 09, 03:45 PM",
         "ticker": "TQQQ",
         "industry": "Leveraged Tech",
         "theory": [
@@ -4347,10 +4558,25 @@ window.DASH = {
     ],
     "feed": [
       {
+        "title": "PLTR Stock Wins Whether We’re In An AI Bubble Or Not? Wall Street Analyst Explains Why",
+        "link": "https://stocktwits.com/news-articles/markets/equity/pltr-stock-wins-whether-we-re-in-an-ai-bubble-or-not-wall-street-analyst-explains-why/cZtXeu2RBGd?.tsrc=rss",
+        "ts": 1789107067,
+        "when": "Sep 11, 12:11 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
+      {
         "title": "Dan Ives Says Software Stocks Just Got Their Clearest Buy Signal Yet",
         "link": "https://beincrypto.com/dan-ives-software-stocks-buy-signal/?.tsrc=rss",
         "ts": 1789089739,
-        "when": "Sep 11, 01:22 AM",
+        "when": "Sep 10, 07:22 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -4365,7 +4591,7 @@ window.DASH = {
         "title": "Palantir Technologies Showcases Sovereign AI Wins With NVIDIA, Cisco and FAA",
         "link": "https://www.marketbeat.com/instant-alerts/event-palantir-technologies-showcases-sovereign-ai-wins-with-nvidia-cisco-and-faa-2026-09-10/?utm_source=yahoofinance&utm_medium=yahoofinance&.tsrc=rss",
         "ts": 1789081391,
-        "when": "Sep 10, 11:03 PM",
+        "when": "Sep 10, 05:03 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -4380,7 +4606,7 @@ window.DASH = {
         "title": "Forget SMH: The Chip Fund That Charges 0.15% Is Beating It by 22 Points This Year",
         "link": "https://247wallst.com/investing/etf/2026/09/10/forget-smh-the-chip-fund-that-charges-0-15-is-beating-it-by-22-points-this-year/?.tsrc=rss",
         "ts": 1789078518,
-        "when": "Sep 10, 10:15 PM",
+        "when": "Sep 10, 04:15 PM",
         "ticker": "SMH",
         "industry": "Semis",
         "theory": [
@@ -4395,7 +4621,7 @@ window.DASH = {
         "title": "Axon beats Palantir by 36 Roundtable 100 spots",
         "link": "https://www.thestreet.com/crypto/markets/axon-beats-palantir-by-36-roundtable-100-spots?.tsrc=rss",
         "ts": 1789078086,
-        "when": "Sep 10, 10:08 PM",
+        "when": "Sep 10, 04:08 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -4410,7 +4636,7 @@ window.DASH = {
         "title": "Daily ETF Flows: GDX Registers Outflows",
         "link": "http://www.etf.com/sections/daily-etf-flows/daily-etf-flows-gdx-registers-outflows?utm_source=yahoo-finance&utm_medium=rss&utm_campaign=yahoo-finance-rss&.tsrc=rss",
         "ts": 1789074004,
-        "when": "Sep 10, 09:00 PM",
+        "when": "Sep 10, 03:00 PM",
         "ticker": "GDX",
         "industry": "Gold Miners",
         "theory": [
@@ -4426,7 +4652,7 @@ window.DASH = {
         "title": "Michael Burry Dumps Nvidia and Palantir Put Options in Fresh Risk Warning",
         "link": "https://finance.yahoo.com/markets/options/articles/michael-burry-dumps-nvidia-palantir-194635018.html?.tsrc=rss",
         "ts": 1789069595,
-        "when": "Sep 10, 07:46 PM",
+        "when": "Sep 10, 01:46 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -4441,7 +4667,7 @@ window.DASH = {
         "title": "NVDA, CRWD, PANW, PLTR Stock In Focus — Nvidia's Huang Highlights Cybersecurity As Next AI Leg",
         "link": "https://stocktwits.com/news-articles/markets/equity/nvda-crwd-panw-pltr-stock-in-focus-nvidia-s-huang-highlights-cybersecurity-as-next-ai-leg/cZtamg3RJ6k?.tsrc=rss",
         "ts": 1789067191,
-        "when": "Sep 10, 07:06 PM",
+        "when": "Sep 10, 01:06 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -4456,7 +4682,7 @@ window.DASH = {
         "title": "Palantir Slides as Nvidia Deal Meets a 55-Times Sales Price",
         "link": "https://finance.yahoo.com/technology/ai/articles/palantir-slides-nvidia-deal-meets-184634110.html?.tsrc=rss",
         "ts": 1789065994,
-        "when": "Sep 10, 06:46 PM",
+        "when": "Sep 10, 12:46 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -4471,7 +4697,7 @@ window.DASH = {
         "title": "Not Nvidia, Not Palantir. This Might Be September's Most Important AI Infrastructure Stock.",
         "link": "https://www.fool.com/investing/2026/09/10/not-nvidia-not-palantir-this-might-be-septembers-m/?.tsrc=rss",
         "ts": 1789064640,
-        "when": "Sep 10, 06:24 PM",
+        "when": "Sep 10, 12:24 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -4486,7 +4712,7 @@ window.DASH = {
         "title": "Sector Update: Consumer Stocks Mixed Thursday Afternoon",
         "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-mixed-thursday-173543020.html?.tsrc=rss",
         "ts": 1789061743,
-        "when": "Sep 10, 05:35 PM",
+        "when": "Sep 10, 11:35 AM",
         "ticker": "XLY",
         "industry": "Consumer Disc.",
         "theory": [
@@ -4498,7 +4724,7 @@ window.DASH = {
         "title": "Palantir Taps Nvidia for High-Stakes AI Push",
         "link": "https://finance.yahoo.com/technology/ai/articles/palantir-taps-nvidia-high-stakes-172839725.html?.tsrc=rss",
         "ts": 1789061319,
-        "when": "Sep 10, 05:28 PM",
+        "when": "Sep 10, 11:28 AM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -4513,7 +4739,7 @@ window.DASH = {
         "title": "Nvidia and Palantir Land Historic AI Partnership",
         "link": "https://finance.yahoo.com/technology/ai/articles/nvidia-palantir-land-historic-ai-165935508.html?.tsrc=rss",
         "ts": 1789059575,
-        "when": "Sep 10, 04:59 PM",
+        "when": "Sep 10, 10:59 AM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -4528,7 +4754,7 @@ window.DASH = {
         "title": "Nvidia Just Handed Its 1.3 Million-Part Supply Chain to a Stock Cramer Called Ice Cold",
         "link": "https://247wallst.com/investing/2026/09/10/nvidia-just-handed-its-1-3-million-part-supply-chain-to-a-stock-cramer-called-ice-cold/?.tsrc=rss",
         "ts": 1789058886,
-        "when": "Sep 10, 04:48 PM",
+        "when": "Sep 10, 10:48 AM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -4543,7 +4769,7 @@ window.DASH = {
         "title": "Nvidia and Palantir Launch New AI Stack for Supply Chains",
         "link": "https://247wallst.com/investing/2026/09/10/nvidia-and-palantir-launch-new-ai-stack-for-supply-chains/?.tsrc=rss",
         "ts": 1789055024,
-        "when": "Sep 10, 03:43 PM",
+        "when": "Sep 10, 09:43 AM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -4558,7 +4784,7 @@ window.DASH = {
         "title": "Is Michael Burry Waving a White Flag? ‘Big Short’ Investor Reduces Bearish Bets on NVDA, CRWV",
         "link": "https://247wallst.com/investing/2026/09/10/is-michael-burry-waving-a-white-flag-big-short-investor-reduces-bearish-bets-on-nvda-crwv/?.tsrc=rss",
         "ts": 1789053368,
-        "when": "Sep 10, 03:16 PM",
+        "when": "Sep 10, 09:16 AM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -4573,7 +4799,7 @@ window.DASH = {
         "title": "Top Semiconductor ETFs That Investors May Buy in September",
         "link": "https://finance.yahoo.com/markets/stocks/articles/top-semiconductor-etfs-investors-may-150500946.html?.tsrc=rss",
         "ts": 1789052700,
-        "when": "Sep 10, 03:05 PM",
+        "when": "Sep 10, 09:05 AM",
         "ticker": "SMH",
         "industry": "Semis",
         "theory": [
@@ -4588,7 +4814,7 @@ window.DASH = {
         "title": "Palantir Touts 'Sovereign AI,' Nvidia Pact At Customer Forum",
         "link": "https://finance.yahoo.com/m/7e598369-0123-3efe-98ad-ef4cfd5aae8e/palantir-touts-%27sovereign.html?.tsrc=rss",
         "ts": 1789051222,
-        "when": "Sep 10, 02:40 PM",
+        "when": "Sep 10, 08:40 AM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -4603,7 +4829,7 @@ window.DASH = {
         "title": "Nvidia and Palantir Team Up on AI Supply Chain Tech—Why the Stock Market Isn’t Biting",
         "link": "https://finance.yahoo.com/m/3f24269b-e3ae-3291-a61d-e01dbab387c8/nvidia-and-palantir-team-up.html?.tsrc=rss",
         "ts": 1789051200,
-        "when": "Sep 10, 02:40 PM",
+        "when": "Sep 10, 08:40 AM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -4618,7 +4844,7 @@ window.DASH = {
         "title": "How Is Yum! Brands' Stock Performance Compared to Other Consumer Cyclical Stocks?",
         "link": "https://www.barchart.com/story/news/4539055/how-is-yum-brands-stock-performance-compared-to-other-consumer-cyclical-stocks?.tsrc=rss",
         "ts": 1789049835,
-        "when": "Sep 10, 02:17 PM",
+        "when": "Sep 10, 08:17 AM",
         "ticker": "XLY",
         "industry": "Consumer Disc.",
         "theory": [
@@ -4630,7 +4856,7 @@ window.DASH = {
         "title": "Rackspace Shares Rise 13% After Joining NVIDIA Cloud Partner Program",
         "link": "https://investorshub.advfn.com/market-news/article/36043/rackspace-shares-rise-13-after-joining-nvidia-cloud-partner-program?.tsrc=rss",
         "ts": 1789049358,
-        "when": "Sep 10, 02:09 PM",
+        "when": "Sep 10, 08:09 AM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -4645,7 +4871,7 @@ window.DASH = {
         "title": "Nebius Just Became Palantir’s Preferred AI Infrastructure Partner. What This Means for NBIS Stock.",
         "link": "https://www.barchart.com/story/news/4538641/nebius-just-became-palantirs-preferred-ai-infrastructure-partner-what-this-means-for-nbis-stock?.tsrc=rss",
         "ts": 1789049204,
-        "when": "Sep 10, 02:06 PM",
+        "when": "Sep 10, 08:06 AM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -4660,7 +4886,7 @@ window.DASH = {
         "title": "Acrisure Unveils Auris AI, a New AI Operating System in the Insurance Industry",
         "link": "https://finance.yahoo.com/technology/ai/articles/acrisure-unveils-auris-ai-ai-140000401.html?.tsrc=rss",
         "ts": 1789048800,
-        "when": "Sep 10, 02:00 PM",
+        "when": "Sep 10, 08:00 AM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -4675,7 +4901,7 @@ window.DASH = {
         "title": "Palantir and Fujitsu Renew AI Partnership and Expand Forward Deployed Engineering Role",
         "link": "https://investorshub.advfn.com/market-news/article/36031/palantir-and-fujitsu-renew-ai-partnership-and-expand-forward-deployed-engineering-role?.tsrc=rss",
         "ts": 1789048200,
-        "when": "Sep 10, 01:50 PM",
+        "when": "Sep 10, 07:50 AM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -4690,7 +4916,7 @@ window.DASH = {
         "title": "Stock Market News for Sep 10, 2026",
         "link": "https://finance.yahoo.com/markets/stocks/articles/stock-market-news-sep-10-132200642.html?.tsrc=rss",
         "ts": 1789046520,
-        "when": "Sep 10, 01:22 PM",
+        "when": "Sep 10, 07:22 AM",
         "ticker": "XLY",
         "industry": "Consumer Disc.",
         "theory": [
@@ -4699,25 +4925,10 @@ window.DASH = {
         "sent": "neutral"
       },
       {
-        "title": "Palantir’s Stock Has Soared More Than 1,700% Since Its IPO. How High Can PLTR Go From Here?",
-        "link": "https://247wallst.com/investing/2026/09/10/palantirs-stock-has-soared-more-than-1700-since-its-ipo-how-high-can-pltr-go-from-here/?.tsrc=rss",
-        "ts": 1789045243,
-        "when": "Sep 10, 01:00 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
         "title": "Oil, Bond Yields Cap Wall Street Pre-Bell; Asia, Europe Off",
         "link": "https://finance.yahoo.com/markets/articles/oil-bond-yields-cap-wall-111027441.html?.tsrc=rss",
         "ts": 1789038627,
-        "when": "Sep 10, 11:10 AM",
+        "when": "Sep 10, 05:10 AM",
         "ticker": "SMH",
         "industry": "Semis",
         "theory": [
@@ -4732,7 +4943,7 @@ window.DASH = {
         "title": "From Farmland to Fast Trading, ETFs Are Doing It All",
         "link": "http://www.etf.com/sections/podcasts/farmland-fast-trading-etfs-are-doing-it-all?utm_source=yahoo-finance&utm_medium=rss&utm_campaign=yahoo-finance-rss&.tsrc=rss",
         "ts": 1788994550,
-        "when": "Sep 09, 10:55 PM",
+        "when": "Sep 09, 04:55 PM",
         "ticker": "SMH",
         "industry": "Semis",
         "theory": [
@@ -4747,7 +4958,7 @@ window.DASH = {
         "title": "TQQQ Gained 59.18% While QQQ Gained 24.99%. Here Is Why That Is Not Triple.",
         "link": "https://247wallst.com/investing/etf/2026/09/09/tqqq-gained-59-18-while-qqq-gained-24-99-here-is-why-that-is-not-triple/?.tsrc=rss",
         "ts": 1788990338,
-        "when": "Sep 09, 09:45 PM",
+        "when": "Sep 09, 03:45 PM",
         "ticker": "TQQQ",
         "industry": "Leveraged Tech",
         "theory": [
@@ -4762,7 +4973,7 @@ window.DASH = {
         "title": "ETF League Tables: VanEck Gains",
         "link": "http://www.etf.com/sections/etf-league-tables/etf-league-tables-vaneck-gains?utm_source=yahoo-finance&utm_medium=rss&utm_campaign=yahoo-finance-rss&.tsrc=rss",
         "ts": 1788987604,
-        "when": "Sep 09, 09:00 PM",
+        "when": "Sep 09, 03:00 PM",
         "ticker": "SMH",
         "industry": "Semis",
         "theory": [
@@ -4777,7 +4988,7 @@ window.DASH = {
         "title": "Sector Update: Consumer Stocks Fall Late Afternoon",
         "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-fall-afternoon-194554738.html?.tsrc=rss",
         "ts": 1788983154,
-        "when": "Sep 09, 07:45 PM",
+        "when": "Sep 09, 01:45 PM",
         "ticker": "XLY",
         "industry": "Consumer Disc.",
         "theory": [
@@ -4788,32 +4999,6 @@ window.DASH = {
     ]
   },
   "orders": [
-    {
-      "ticker": "TQQQ",
-      "action": "buy",
-      "amount": 2500.0,
-      "status": "executed",
-      "source": "ai_2026-08-14",
-      "created": "2026-08-14",
-      "note": "HUMAN-APPROVED from 2026-08-14 AI verdict: close the gap in the underweight Tech / AI Growth sleeve (46.3% vs 60.0% limit) while core tech fundamentals lead.",
-      "exec_date": "2026-08-17",
-      "exec_price": 77.11,
-      "shares": 32.4212,
-      "realized_pnl": 0.0
-    },
-    {
-      "ticker": "SOXL",
-      "action": "buy",
-      "amount": 2500.0,
-      "status": "executed",
-      "source": "ai_2026-08-14",
-      "created": "2026-08-14",
-      "note": "HUMAN-APPROVED from 2026-08-14 AI verdict: scale leveraged semiconductor exposure to capture sustained hardware capex momentum toward the sector limit.",
-      "exec_date": "2026-08-17",
-      "exec_price": 149.156,
-      "shares": 16.761,
-      "realized_pnl": 0.0
-    },
     {
       "ticker": "ZROZ",
       "action": "sell",
@@ -4969,6 +5154,33 @@ window.DASH = {
       "exec_price": 12.045,
       "shares": 207.555,
       "realized_pnl": 0.0
+    },
+    {
+      "ticker": "IWDL",
+      "action": "sell",
+      "amount": 2125.0,
+      "status": "pending",
+      "source": "execute_all_2026-09-11",
+      "created": "2026-09-11",
+      "note": "Residual dust position in 2x leveraged value suffers from severe negative carry and factor decay amid 4.94% Treasury yields; prioritize liquidation."
+    },
+    {
+      "ticker": "IWM",
+      "action": "sell",
+      "amount": 2500.0,
+      "status": "pending",
+      "source": "execute_all_2026-09-11",
+      "created": "2026-09-11",
+      "note": "rotation IWM->BTAL: Rotate interest-rate-sensitive small-cap beta facing refinancing headwinds at near-5% yields into market-neutral anti-be"
+    },
+    {
+      "ticker": "BTAL",
+      "action": "buy",
+      "amount": 2500.0,
+      "status": "pending",
+      "source": "execute_all_2026-09-11",
+      "created": "2026-09-11",
+      "note": "rotation IWM->BTAL: Rotate interest-rate-sensitive small-cap beta facing refinancing headwinds at near-5% yields into market-neutral anti-be"
     }
   ]
 };

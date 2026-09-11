@@ -1,13 +1,43 @@
 {
-"date": "2026-08-22",
+"date": "2026-09-11",
 "news": {
-"asof": "2026-08-22 04:51:13",
+"asof": "2026-09-11 00:30:02",
 "big_stories": [
 {
-"title": "How Bessent’s Efforts to Calm Bond Market Set Gold Prices Ablaze",
-"link": "https://finance.yahoo.com/m/eca903dd-2ba5-319b-b145-41fac305b72b/how-bessent%E2%80%99s-efforts-to-calm.html?.tsrc=rss",
-"ts": 1787350920,
-"when": "Aug 21, 10:22 PM",
+"title": "PLTR Stock Wins Whether We’re In An AI Bubble Or Not? Wall Street Analyst Explains Why",
+"link": "https://stocktwits.com/news-articles/markets/equity/pltr-stock-wins-whether-we-re-in-an-ai-bubble-or-not-wall-street-analyst-explains-why/cZtXeu2RBGd?.tsrc=rss",
+"ts": 1789107067,
+"when": "Sep 11, 12:11 AM",
+"ticker": "PLTR",
+"industry": "AI Software",
+"theory": [
+"T1",
+"T7",
+"T2",
+"T14"
+],
+"sent": "positive"
+},
+{
+"title": "Forget SMH: The Chip Fund That Charges 0.15% Is Beating It by 22 Points This Year",
+"link": "https://247wallst.com/investing/etf/2026/09/10/forget-smh-the-chip-fund-that-charges-0-15-is-beating-it-by-22-points-this-year/?.tsrc=rss",
+"ts": 1789078518,
+"when": "Sep 10, 04:15 PM",
+"ticker": "SMH",
+"industry": "Semis",
+"theory": [
+"T1",
+"T7",
+"T2",
+"T14"
+],
+"sent": "negative"
+},
+{
+"title": "Daily ETF Flows: GDX Registers Outflows",
+"link": "http://www.etf.com/sections/daily-etf-flows/daily-etf-flows-gdx-registers-outflows?utm_source=yahoo-finance&utm_medium=rss&utm_campaign=yahoo-finance-rss&.tsrc=rss",
+"ts": 1789074004,
+"when": "Sep 10, 03:00 PM",
 "ticker": "GDX",
 "industry": "Gold Miners",
 "theory": [
@@ -17,29 +47,13 @@
 "T20",
 "T21"
 ],
-"sent": "positive"
-},
-{
-"title": "Daily ETF Flows: $614M Flows Into GLD",
-"link": "http://www.etf.com/sections/daily-etf-flows/daily-etf-flows-614m-flows-gld?utm_source=yahoo-finance&utm_medium=rss&utm_campaign=yahoo-finance-rss&.tsrc=rss",
-"ts": 1787346004,
-"when": "Aug 21, 09:00 PM",
-"ticker": "GLD",
-"industry": "Gold",
-"theory": [
-"T6",
-"T9",
-"T19",
-"T20",
-"T21"
-],
 "sent": "neutral"
 },
 {
-"title": "Sector Update: Consumer Stocks Higher Late Afternoon",
-"link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-higher-afternoon-194659617.html?.tsrc=rss",
-"ts": 1787341619,
-"when": "Aug 21, 07:46 PM",
+"title": "Sector Update: Consumer Stocks Mixed Thursday Afternoon",
+"link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-mixed-thursday-173543020.html?.tsrc=rss",
+"ts": 1789061743,
+"when": "Sep 10, 11:35 AM",
 "ticker": "XLY",
 "industry": "Consumer Disc.",
 "theory": [
@@ -48,27 +62,12 @@
 "sent": "neutral"
 },
 {
-"title": "Palantir Stock Clears Buy Zone But Could Offer Alternative Entry",
-"link": "https://finance.yahoo.com/m/f9848c02-9b88-3cc0-b4b1-482a54bfbfe5/palantir-stock-clears-buy.html?.tsrc=rss",
-"ts": 1787339775,
-"when": "Aug 21, 07:16 PM",
-"ticker": "PLTR",
-"industry": "AI Software",
-"theory": [
-"T1",
-"T7",
-"T2",
-"T14"
-],
-"sent": "neutral"
-},
-{
-"title": "Stable Bond Yields, Oil Prices Lift Wall Street Pre-Bell; Asia, Europe up",
-"link": "https://finance.yahoo.com/markets/articles/stable-bond-yields-oil-prices-111100481.html?.tsrc=rss",
-"ts": 1787310660,
-"when": "Aug 21, 11:11 AM",
-"ticker": "SMH",
-"industry": "Semis",
+"title": "TQQQ Gained 59.18% While QQQ Gained 24.99%. Here Is Why That Is Not Triple.",
+"link": "https://247wallst.com/investing/etf/2026/09/09/tqqq-gained-59-18-while-qqq-gained-24-99-here-is-why-that-is-not-triple/?.tsrc=rss",
+"ts": 1788990338,
+"when": "Sep 09, 03:45 PM",
+"ticker": "TQQQ",
+"industry": "Leveraged Tech",
 "theory": [
 "T1",
 "T7",
@@ -80,10 +79,85 @@
 ],
 "feed": [
 {
-"title": "How Bessent’s Efforts to Calm Bond Market Set Gold Prices Ablaze",
-"link": "https://finance.yahoo.com/m/eca903dd-2ba5-319b-b145-41fac305b72b/how-bessent%E2%80%99s-efforts-to-calm.html?.tsrc=rss",
-"ts": 1787350920,
-"when": "Aug 21, 10:22 PM",
+"title": "PLTR Stock Wins Whether We’re In An AI Bubble Or Not? Wall Street Analyst Explains Why",
+"link": "https://stocktwits.com/news-articles/markets/equity/pltr-stock-wins-whether-we-re-in-an-ai-bubble-or-not-wall-street-analyst-explains-why/cZtXeu2RBGd?.tsrc=rss",
+"ts": 1789107067,
+"when": "Sep 11, 12:11 AM",
+"ticker": "PLTR",
+"industry": "AI Software",
+"theory": [
+"T1",
+"T7",
+"T2",
+"T14"
+],
+"sent": "positive"
+},
+{
+"title": "Dan Ives Says Software Stocks Just Got Their Clearest Buy Signal Yet",
+"link": "https://beincrypto.com/dan-ives-software-stocks-buy-signal/?.tsrc=rss",
+"ts": 1789089739,
+"when": "Sep 10, 07:22 PM",
+"ticker": "PLTR",
+"industry": "AI Software",
+"theory": [
+"T1",
+"T7",
+"T2",
+"T14"
+],
+"sent": "neutral"
+},
+{
+"title": "Palantir Technologies Showcases Sovereign AI Wins With NVIDIA, Cisco and FAA",
+"link": "https://www.marketbeat.com/instant-alerts/event-palantir-technologies-showcases-sovereign-ai-wins-with-nvidia-cisco-and-faa-2026-09-10/?utm_source=yahoofinance&utm_medium=yahoofinance&.tsrc=rss",
+"ts": 1789081391,
+"when": "Sep 10, 05:03 PM",
+"ticker": "PLTR",
+"industry": "AI Software",
+"theory": [
+"T1",
+"T7",
+"T2",
+"T14"
+],
+"sent": "positive"
+},
+{
+"title": "Forget SMH: The Chip Fund That Charges 0.15% Is Beating It by 22 Points This Year",
+"link": "https://247wallst.com/investing/etf/2026/09/10/forget-smh-the-chip-fund-that-charges-0-15-is-beating-it-by-22-points-this-year/?.tsrc=rss",
+"ts": 1789078518,
+"when": "Sep 10, 04:15 PM",
+"ticker": "SMH",
+"industry": "Semis",
+"theory": [
+"T1",
+"T7",
+"T2",
+"T14"
+],
+"sent": "negative"
+},
+{
+"title": "Axon beats Palantir by 36 Roundtable 100 spots",
+"link": "https://www.thestreet.com/crypto/markets/axon-beats-palantir-by-36-roundtable-100-spots?.tsrc=rss",
+"ts": 1789078086,
+"when": "Sep 10, 04:08 PM",
+"ticker": "PLTR",
+"industry": "AI Software",
+"theory": [
+"T1",
+"T7",
+"T2",
+"T14"
+],
+"sent": "neutral"
+},
+{
+"title": "Daily ETF Flows: GDX Registers Outflows",
+"link": "http://www.etf.com/sections/daily-etf-flows/daily-etf-flows-gdx-registers-outflows?utm_source=yahoo-finance&utm_medium=rss&utm_campaign=yahoo-finance-rss&.tsrc=rss",
+"ts": 1789074004,
+"when": "Sep 10, 03:00 PM",
 "ticker": "GDX",
 "industry": "Gold Miners",
 "theory": [
@@ -93,297 +167,15 @@
 "T20",
 "T21"
 ],
-"sent": "positive"
-},
-{
-"title": "Daily ETF Flows: $614M Flows Into GLD",
-"link": "http://www.etf.com/sections/daily-etf-flows/daily-etf-flows-614m-flows-gld?utm_source=yahoo-finance&utm_medium=rss&utm_campaign=yahoo-finance-rss&.tsrc=rss",
-"ts": 1787346004,
-"when": "Aug 21, 09:00 PM",
-"ticker": "GLD",
-"industry": "Gold",
-"theory": [
-"T6",
-"T9",
-"T19",
-"T20",
-"T21"
-],
 "sent": "neutral"
 },
 {
-"title": "Morgan Stanley Doubles Down on Gold After Breakout",
-"link": "https://finance.yahoo.com/markets/commodities/articles/morgan-stanley-doubles-down-gold-201259751.html?.tsrc=rss",
-"ts": 1787343179,
-"when": "Aug 21, 08:12 PM",
-"ticker": "GLD",
-"industry": "Gold",
-"theory": [
-"T6",
-"T9",
-"T19",
-"T20",
-"T21"
-],
-"sent": "neutral"
-},
-{
-"title": "Sector Update: Consumer Stocks Higher Late Afternoon",
-"link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-higher-afternoon-194659617.html?.tsrc=rss",
-"ts": 1787341619,
-"when": "Aug 21, 07:46 PM",
-"ticker": "XLY",
-"industry": "Consumer Disc.",
-"theory": [
-"T13"
-],
-"sent": "neutral"
-},
-{
-"title": "Palantir Stock Clears Buy Zone But Could Offer Alternative Entry",
-"link": "https://finance.yahoo.com/m/f9848c02-9b88-3cc0-b4b1-482a54bfbfe5/palantir-stock-clears-buy.html?.tsrc=rss",
-"ts": 1787339775,
-"when": "Aug 21, 07:16 PM",
+"title": "Michael Burry Dumps Nvidia and Palantir Put Options in Fresh Risk Warning",
+"link": "https://finance.yahoo.com/markets/options/articles/michael-burry-dumps-nvidia-palantir-194635018.html?.tsrc=rss",
+"ts": 1789069595,
+"when": "Sep 10, 01:46 PM",
 "ticker": "PLTR",
 "industry": "AI Software",
-"theory": [
-"T1",
-"T7",
-"T2",
-"T14"
-],
-"sent": "neutral"
-},
-{
-"title": "Michael Burry Says the AI Buildout Is Repeating 2008: ‘The Shenanigans Are Apparent Today’",
-"link": "https://247wallst.com/investing/2026/08/21/michael-burry-says-the-ai-buildout-is-repeating-2008-the-shenanigans-are-apparent-today/?.tsrc=rss",
-"ts": 1787335847,
-"when": "Aug 21, 06:10 PM",
-"ticker": "PLTR",
-"industry": "AI Software",
-"theory": [
-"T1",
-"T7",
-"T2",
-"T14"
-],
-"sent": "neutral"
-},
-{
-"title": "Sector Update: Consumer Stocks Rise Friday Afternoon",
-"link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-rise-friday-172919487.html?.tsrc=rss",
-"ts": 1787333359,
-"when": "Aug 21, 05:29 PM",
-"ticker": "XLY",
-"industry": "Consumer Disc.",
-"theory": [
-"T13"
-],
-"sent": "neutral"
-},
-{
-"title": "Even The Calm Reading On Palantir Puts Nearly Half The Position In Play",
-"link": "https://www.trefis.com/articles/612387/even-the-calm-reading-on-palantir-puts-nearly-half-the-position-in-play/2026-08-21?.tsrc=rss",
-"ts": 1787333237,
-"when": "Aug 21, 05:27 PM",
-"ticker": "PLTR",
-"industry": "AI Software",
-"theory": [
-"T1",
-"T7",
-"T2",
-"T14"
-],
-"sent": "positive"
-},
-{
-"title": "Palantir Climbs 4% Through $180, BigBear.ai Rises 4%, ServiceNow Holds Flat: How Are Traders Picking the Software Winners?",
-"link": "https://247wallst.com/investing/2026/08/21/palantir-climbs-4-through-180-bigbear-ai-rises-4-servicenow-holds-flat-how-are-traders-picking-the-software-winners/?.tsrc=rss",
-"ts": 1787332205,
-"when": "Aug 21, 05:10 PM",
-"ticker": "PLTR",
-"industry": "AI Software",
-"theory": [
-"T1",
-"T7",
-"T2",
-"T14"
-],
-"sent": "positive"
-},
-{
-"title": "Bloom Energy vs. Palantir: Which \"Story Stock\" Actually Has More Room to Run?",
-"link": "https://www.fool.com/investing/2026/08/21/bloom-energy-vs-palantir-which-story-stock-actuall/?.tsrc=rss",
-"ts": 1787329500,
-"when": "Aug 21, 04:25 PM",
-"ticker": "PLTR",
-"industry": "AI Software",
-"theory": [
-"T1",
-"T7",
-"T2",
-"T14"
-],
-"sent": "positive"
-},
-{
-"title": "Palantir Co-Founder Peter Thiel's Hedge Fund Just Made a Big Bet on This Genius AI Stock Pick",
-"link": "https://www.fool.com/investing/2026/08/21/palantir-co-founder-peter-thiels-hedge-fund-just-m/?.tsrc=rss",
-"ts": 1787326860,
-"when": "Aug 21, 03:41 PM",
-"ticker": "PLTR",
-"industry": "AI Software",
-"theory": [
-"T1",
-"T7",
-"T2",
-"T14"
-],
-"sent": "neutral"
-},
-{
-"title": "Could Palantir Stock Double Again? The Bull and Bear Cases.",
-"link": "https://247wallst.com/investing/2026/08/21/could-palantir-stock-double-again-the-bull-and-bear-cases/?.tsrc=rss",
-"ts": 1787320821,
-"when": "Aug 21, 02:00 PM",
-"ticker": "PLTR",
-"industry": "AI Software",
-"theory": [
-"T1",
-"T7",
-"T2",
-"T14"
-],
-"sent": "neutral"
-},
-{
-"title": "65-Year Old Retired Teacher Wants to Burn $100,000 to Delay Social Security. One Detail Means He Doesn’t Need To",
-"link": "https://247wallst.com/personal-finance/social-security/2026/08/21/65-year-old-retired-teacher-wants-to-burn-100000-to-delay-social-security-one-detail-means-he-doesnt-need-to/?.tsrc=rss",
-"ts": 1787319694,
-"when": "Aug 21, 01:41 PM",
-"ticker": "GLD",
-"industry": "Gold",
-"theory": [
-"T6",
-"T9",
-"T19",
-"T20",
-"T21"
-],
-"sent": "neutral"
-},
-{
-"title": "Dow Jones Futures Rise After Bearish Market Signal; Bitcoin Keeps Surging",
-"link": "https://finance.yahoo.com/m/91327cea-fed2-33ed-a182-385b27c0298f/dow-jones-futures-rise-after.html?.tsrc=rss",
-"ts": 1787313453,
-"when": "Aug 21, 11:57 AM",
-"ticker": "PLTR",
-"industry": "AI Software",
-"theory": [
-"T1",
-"T7",
-"T2",
-"T14"
-],
-"sent": "neutral"
-},
-{
-"title": "Palantir and Snowflake Provide the Backbone of Agentic AI but Which Is Better?",
-"link": "https://247wallst.com/investing/2026/08/21/palantir-and-snowflake-provide-the-backbone-of-agentic-ai-but-which-is-better/?.tsrc=rss",
-"ts": 1787312707,
-"when": "Aug 21, 11:45 AM",
-"ticker": "PLTR",
-"industry": "AI Software",
-"theory": [
-"T1",
-"T7",
-"T2",
-"T14"
-],
-"sent": "positive"
-},
-{
-"title": "3 Unpopular Stocks That Deserve Some Love",
-"link": "https://finance.yahoo.com/markets/stocks/articles/3-unpopular-stocks-deserve-love-113947623.html?.tsrc=rss",
-"ts": 1787312387,
-"when": "Aug 21, 11:39 AM",
-"ticker": "PLTR",
-"industry": "AI Software",
-"theory": [
-"T1",
-"T7",
-"T2",
-"T14"
-],
-"sent": "positive"
-},
-{
-"title": "Stable Bond Yields, Oil Prices Lift Wall Street Pre-Bell; Asia, Europe up",
-"link": "https://finance.yahoo.com/markets/articles/stable-bond-yields-oil-prices-111100481.html?.tsrc=rss",
-"ts": 1787310660,
-"when": "Aug 21, 11:11 AM",
-"ticker": "SMH",
-"industry": "Semis",
-"theory": [
-"T1",
-"T7",
-"T2",
-"T14"
-],
-"sent": "positive"
-},
-{
-"title": "Zacks Investment Ideas feature highlights: Palantir, Match Group and Unity Software",
-"link": "https://finance.yahoo.com/markets/stocks/articles/zacks-investment-ideas-feature-highlights-084700428.html?.tsrc=rss",
-"ts": 1787302020,
-"when": "Aug 21, 08:47 AM",
-"ticker": "PLTR",
-"industry": "AI Software",
-"theory": [
-"T1",
-"T7",
-"T2",
-"T14"
-],
-"sent": "neutral"
-},
-{
-"title": "Ex-FBI Officer is Watching Every Polymarket Trader, Says CEO Coplan",
-"link": "https://beincrypto.com/polymarket-surveillance-ex-fbi-traders/?.tsrc=rss",
-"ts": 1787262735,
-"when": "Aug 20, 09:52 PM",
-"ticker": "PLTR",
-"industry": "AI Software",
-"theory": [
-"T1",
-"T7",
-"T2",
-"T14"
-],
-"sent": "neutral"
-},
-{
-"title": "Is Palantir Still a Buy After Its 33% Rally Over the Past Month?",
-"link": "https://www.fool.com/investing/2026/08/20/palantir-stock-buy-after-rally-month-pltr/?.tsrc=rss",
-"ts": 1787262600,
-"when": "Aug 20, 09:50 PM",
-"ticker": "PLTR",
-"industry": "AI Software",
-"theory": [
-"T1",
-"T7",
-"T2",
-"T14"
-],
-"sent": "neutral"
-},
-{
-"title": "US Stock Indices End Lower As Trump’s ‘Economic Warfare’ Threats Push Yields, Oil Higher — WMT, CRWV, SBUX, DE, RKLB In Focus",
-"link": "https://stocktwits.com/news-articles/markets/equity/us-stock-indices-end-lower-as-trump-s-economic-warfare-threats-push-yields-oil-higher/cZYeR5dRJZA?.tsrc=rss",
-"ts": 1787261490,
-"when": "Aug 20, 09:31 PM",
-"ticker": "SMH",
-"industry": "Semis",
 "theory": [
 "T1",
 "T7",
@@ -393,10 +185,271 @@
 "sent": "negative"
 },
 {
-"title": "How Much of Your Portfolio Should Actually Be in DRAM",
-"link": "https://247wallst.com/investing/etf/2026/08/20/how-much-of-your-portfolio-should-actually-be-in-dram/?.tsrc=rss",
-"ts": 1787261131,
-"when": "Aug 20, 09:25 PM",
+"title": "NVDA, CRWD, PANW, PLTR Stock In Focus — Nvidia's Huang Highlights Cybersecurity As Next AI Leg",
+"link": "https://stocktwits.com/news-articles/markets/equity/nvda-crwd-panw-pltr-stock-in-focus-nvidia-s-huang-highlights-cybersecurity-as-next-ai-leg/cZtamg3RJ6k?.tsrc=rss",
+"ts": 1789067191,
+"when": "Sep 10, 01:06 PM",
+"ticker": "PLTR",
+"industry": "AI Software",
+"theory": [
+"T1",
+"T7",
+"T2",
+"T14"
+],
+"sent": "neutral"
+},
+{
+"title": "Palantir Slides as Nvidia Deal Meets a 55-Times Sales Price",
+"link": "https://finance.yahoo.com/technology/ai/articles/palantir-slides-nvidia-deal-meets-184634110.html?.tsrc=rss",
+"ts": 1789065994,
+"when": "Sep 10, 12:46 PM",
+"ticker": "PLTR",
+"industry": "AI Software",
+"theory": [
+"T1",
+"T7",
+"T2",
+"T14"
+],
+"sent": "neutral"
+},
+{
+"title": "Not Nvidia, Not Palantir. This Might Be September's Most Important AI Infrastructure Stock.",
+"link": "https://www.fool.com/investing/2026/09/10/not-nvidia-not-palantir-this-might-be-septembers-m/?.tsrc=rss",
+"ts": 1789064640,
+"when": "Sep 10, 12:24 PM",
+"ticker": "PLTR",
+"industry": "AI Software",
+"theory": [
+"T1",
+"T7",
+"T2",
+"T14"
+],
+"sent": "positive"
+},
+{
+"title": "Sector Update: Consumer Stocks Mixed Thursday Afternoon",
+"link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-mixed-thursday-173543020.html?.tsrc=rss",
+"ts": 1789061743,
+"when": "Sep 10, 11:35 AM",
+"ticker": "XLY",
+"industry": "Consumer Disc.",
+"theory": [
+"T13"
+],
+"sent": "neutral"
+},
+{
+"title": "Palantir Taps Nvidia for High-Stakes AI Push",
+"link": "https://finance.yahoo.com/technology/ai/articles/palantir-taps-nvidia-high-stakes-172839725.html?.tsrc=rss",
+"ts": 1789061319,
+"when": "Sep 10, 11:28 AM",
+"ticker": "PLTR",
+"industry": "AI Software",
+"theory": [
+"T1",
+"T7",
+"T2",
+"T14"
+],
+"sent": "neutral"
+},
+{
+"title": "Nvidia and Palantir Land Historic AI Partnership",
+"link": "https://finance.yahoo.com/technology/ai/articles/nvidia-palantir-land-historic-ai-165935508.html?.tsrc=rss",
+"ts": 1789059575,
+"when": "Sep 10, 10:59 AM",
+"ticker": "PLTR",
+"industry": "AI Software",
+"theory": [
+"T1",
+"T7",
+"T2",
+"T14"
+],
+"sent": "neutral"
+},
+{
+"title": "Nvidia Just Handed Its 1.3 Million-Part Supply Chain to a Stock Cramer Called Ice Cold",
+"link": "https://247wallst.com/investing/2026/09/10/nvidia-just-handed-its-1-3-million-part-supply-chain-to-a-stock-cramer-called-ice-cold/?.tsrc=rss",
+"ts": 1789058886,
+"when": "Sep 10, 10:48 AM",
+"ticker": "PLTR",
+"industry": "AI Software",
+"theory": [
+"T1",
+"T7",
+"T2",
+"T14"
+],
+"sent": "neutral"
+},
+{
+"title": "Nvidia and Palantir Launch New AI Stack for Supply Chains",
+"link": "https://247wallst.com/investing/2026/09/10/nvidia-and-palantir-launch-new-ai-stack-for-supply-chains/?.tsrc=rss",
+"ts": 1789055024,
+"when": "Sep 10, 09:43 AM",
+"ticker": "PLTR",
+"industry": "AI Software",
+"theory": [
+"T1",
+"T7",
+"T2",
+"T14"
+],
+"sent": "neutral"
+},
+{
+"title": "Is Michael Burry Waving a White Flag? ‘Big Short’ Investor Reduces Bearish Bets on NVDA, CRWV",
+"link": "https://247wallst.com/investing/2026/09/10/is-michael-burry-waving-a-white-flag-big-short-investor-reduces-bearish-bets-on-nvda-crwv/?.tsrc=rss",
+"ts": 1789053368,
+"when": "Sep 10, 09:16 AM",
+"ticker": "PLTR",
+"industry": "AI Software",
+"theory": [
+"T1",
+"T7",
+"T2",
+"T14"
+],
+"sent": "neutral"
+},
+{
+"title": "Top Semiconductor ETFs That Investors May Buy in September",
+"link": "https://finance.yahoo.com/markets/stocks/articles/top-semiconductor-etfs-investors-may-150500946.html?.tsrc=rss",
+"ts": 1789052700,
+"when": "Sep 10, 09:05 AM",
+"ticker": "SMH",
+"industry": "Semis",
+"theory": [
+"T1",
+"T7",
+"T2",
+"T14"
+],
+"sent": "positive"
+},
+{
+"title": "Palantir Touts 'Sovereign AI,' Nvidia Pact At Customer Forum",
+"link": "https://finance.yahoo.com/m/7e598369-0123-3efe-98ad-ef4cfd5aae8e/palantir-touts-%27sovereign.html?.tsrc=rss",
+"ts": 1789051222,
+"when": "Sep 10, 08:40 AM",
+"ticker": "PLTR",
+"industry": "AI Software",
+"theory": [
+"T1",
+"T7",
+"T2",
+"T14"
+],
+"sent": "neutral"
+},
+{
+"title": "Nvidia and Palantir Team Up on AI Supply Chain Tech—Why the Stock Market Isn’t Biting",
+"link": "https://finance.yahoo.com/m/3f24269b-e3ae-3291-a61d-e01dbab387c8/nvidia-and-palantir-team-up.html?.tsrc=rss",
+"ts": 1789051200,
+"when": "Sep 10, 08:40 AM",
+"ticker": "PLTR",
+"industry": "AI Software",
+"theory": [
+"T1",
+"T7",
+"T2",
+"T14"
+],
+"sent": "neutral"
+},
+{
+"title": "How Is Yum! Brands' Stock Performance Compared to Other Consumer Cyclical Stocks?",
+"link": "https://www.barchart.com/story/news/4539055/how-is-yum-brands-stock-performance-compared-to-other-consumer-cyclical-stocks?.tsrc=rss",
+"ts": 1789049835,
+"when": "Sep 10, 08:17 AM",
+"ticker": "XLY",
+"industry": "Consumer Disc.",
+"theory": [
+"T13"
+],
+"sent": "neutral"
+},
+{
+"title": "Rackspace Shares Rise 13% After Joining NVIDIA Cloud Partner Program",
+"link": "https://investorshub.advfn.com/market-news/article/36043/rackspace-shares-rise-13-after-joining-nvidia-cloud-partner-program?.tsrc=rss",
+"ts": 1789049358,
+"when": "Sep 10, 08:09 AM",
+"ticker": "PLTR",
+"industry": "AI Software",
+"theory": [
+"T1",
+"T7",
+"T2",
+"T14"
+],
+"sent": "positive"
+},
+{
+"title": "Nebius Just Became Palantir’s Preferred AI Infrastructure Partner. What This Means for NBIS Stock.",
+"link": "https://www.barchart.com/story/news/4538641/nebius-just-became-palantirs-preferred-ai-infrastructure-partner-what-this-means-for-nbis-stock?.tsrc=rss",
+"ts": 1789049204,
+"when": "Sep 10, 08:06 AM",
+"ticker": "PLTR",
+"industry": "AI Software",
+"theory": [
+"T1",
+"T7",
+"T2",
+"T14"
+],
+"sent": "neutral"
+},
+{
+"title": "Acrisure Unveils Auris AI, a New AI Operating System in the Insurance Industry",
+"link": "https://finance.yahoo.com/technology/ai/articles/acrisure-unveils-auris-ai-ai-140000401.html?.tsrc=rss",
+"ts": 1789048800,
+"when": "Sep 10, 08:00 AM",
+"ticker": "PLTR",
+"industry": "AI Software",
+"theory": [
+"T1",
+"T7",
+"T2",
+"T14"
+],
+"sent": "neutral"
+},
+{
+"title": "Palantir and Fujitsu Renew AI Partnership and Expand Forward Deployed Engineering Role",
+"link": "https://investorshub.advfn.com/market-news/article/36031/palantir-and-fujitsu-renew-ai-partnership-and-expand-forward-deployed-engineering-role?.tsrc=rss",
+"ts": 1789048200,
+"when": "Sep 10, 07:50 AM",
+"ticker": "PLTR",
+"industry": "AI Software",
+"theory": [
+"T1",
+"T7",
+"T2",
+"T14"
+],
+"sent": "positive"
+},
+{
+"title": "Stock Market News for Sep 10, 2026",
+"link": "https://finance.yahoo.com/markets/stocks/articles/stock-market-news-sep-10-132200642.html?.tsrc=rss",
+"ts": 1789046520,
+"when": "Sep 10, 07:22 AM",
+"ticker": "XLY",
+"industry": "Consumer Disc.",
+"theory": [
+"T13"
+],
+"sent": "neutral"
+},
+{
+"title": "Oil, Bond Yields Cap Wall Street Pre-Bell; Asia, Europe Off",
+"link": "https://finance.yahoo.com/markets/articles/oil-bond-yields-cap-wall-111027441.html?.tsrc=rss",
+"ts": 1789038627,
+"when": "Sep 10, 05:10 AM",
 "ticker": "SMH",
 "industry": "Semis",
 "theory": [
@@ -408,25 +461,10 @@
 "sent": "neutral"
 },
 {
-"title": "The Biggest Risk Facing the Roundhill Memory ETF (DRAM) Right Now",
-"link": "https://247wallst.com/investing/2026/08/20/the-biggest-risk-facing-the-roundhill-memory-etf-dram-right-now/?.tsrc=rss",
-"ts": 1787260832,
-"when": "Aug 20, 09:20 PM",
-"ticker": "SMH",
-"industry": "Semis",
-"theory": [
-"T1",
-"T7",
-"T2",
-"T14"
-],
-"sent": "negative"
-},
-{
-"title": "How Much of Your Portfolio Should Actually Be in FTXL",
-"link": "https://247wallst.com/investing/etf/2026/08/20/how-much-of-your-portfolio-should-actually-be-in-ftxl/?.tsrc=rss",
-"ts": 1787260532,
-"when": "Aug 20, 09:15 PM",
+"title": "From Farmland to Fast Trading, ETFs Are Doing It All",
+"link": "http://www.etf.com/sections/podcasts/farmland-fast-trading-etfs-are-doing-it-all?utm_source=yahoo-finance&utm_medium=rss&utm_campaign=yahoo-finance-rss&.tsrc=rss",
+"ts": 1788994550,
+"when": "Sep 09, 04:55 PM",
 "ticker": "SMH",
 "industry": "Semis",
 "theory": [
@@ -438,10 +476,25 @@
 "sent": "neutral"
 },
 {
-"title": "The Biggest Risk Facing the First Trust Nasdaq Semiconductor ETF (FTXL) Right Now",
-"link": "https://247wallst.com/investing/2026/08/20/the-biggest-risk-facing-the-first-trust-nasdaq-semiconductor-etf-ftxl-right-now/?.tsrc=rss",
-"ts": 1787260239,
-"when": "Aug 20, 09:10 PM",
+"title": "TQQQ Gained 59.18% While QQQ Gained 24.99%. Here Is Why That Is Not Triple.",
+"link": "https://247wallst.com/investing/etf/2026/09/09/tqqq-gained-59-18-while-qqq-gained-24-99-here-is-why-that-is-not-triple/?.tsrc=rss",
+"ts": 1788990338,
+"when": "Sep 09, 03:45 PM",
+"ticker": "TQQQ",
+"industry": "Leveraged Tech",
+"theory": [
+"T1",
+"T7",
+"T2",
+"T14"
+],
+"sent": "positive"
+},
+{
+"title": "ETF League Tables: VanEck Gains",
+"link": "http://www.etf.com/sections/etf-league-tables/etf-league-tables-vaneck-gains?utm_source=yahoo-finance&utm_medium=rss&utm_campaign=yahoo-finance-rss&.tsrc=rss",
+"ts": 1788987604,
+"when": "Sep 09, 03:00 PM",
 "ticker": "SMH",
 "industry": "Semis",
 "theory": [
@@ -454,73 +507,13 @@
 },
 {
 "title": "Sector Update: Consumer Stocks Fall Late Afternoon",
-"link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-fall-afternoon-195400740.html?.tsrc=rss",
-"ts": 1787255640,
-"when": "Aug 20, 07:54 PM",
+"link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-fall-afternoon-194554738.html?.tsrc=rss",
+"ts": 1788983154,
+"when": "Sep 09, 01:45 PM",
 "ticker": "XLY",
 "industry": "Consumer Disc.",
 "theory": [
 "T13"
-],
-"sent": "neutral"
-},
-{
-"title": "Cathie Wood's Firm Launches New ETF; Buys Broadcom, Rocket Lab, Cloudflare",
-"link": "https://finance.yahoo.com/m/3055a26c-aa88-3e44-a583-e5bad19fb6d9/cathie-wood%27s-firm-launches.html?.tsrc=rss",
-"ts": 1787246479,
-"when": "Aug 20, 05:21 PM",
-"ticker": "PLTR",
-"industry": "AI Software",
-"theory": [
-"T1",
-"T7",
-"T2",
-"T14"
-],
-"sent": "neutral"
-},
-{
-"title": "Palantir's Margin Expansion Signals a Structural Growth Advantage",
-"link": "https://finance.yahoo.com/markets/stocks/articles/palantirs-margin-expansion-signals-structural-171300520.html?.tsrc=rss",
-"ts": 1787245980,
-"when": "Aug 20, 05:13 PM",
-"ticker": "PLTR",
-"industry": "AI Software",
-"theory": [
-"T1",
-"T7",
-"T2",
-"T14"
-],
-"sent": "positive"
-},
-{
-"title": "Could Global Trade Trends Drive BigBear.ai's Next Growth Phase?",
-"link": "https://finance.yahoo.com/technology/ai/articles/could-global-trade-trends-drive-171200045.html?.tsrc=rss",
-"ts": 1787245920,
-"when": "Aug 20, 05:12 PM",
-"ticker": "PLTR",
-"industry": "AI Software",
-"theory": [
-"T1",
-"T7",
-"T2",
-"T14"
-],
-"sent": "positive"
-},
-{
-"title": "Is Palantir Stock About to Breakout?",
-"link": "https://finance.yahoo.com/markets/stocks/articles/palantir-stock-breakout-170400091.html?.tsrc=rss",
-"ts": 1787245440,
-"when": "Aug 20, 05:04 PM",
-"ticker": "PLTR",
-"industry": "AI Software",
-"theory": [
-"T1",
-"T7",
-"T2",
-"T14"
 ],
 "sent": "neutral"
 }
