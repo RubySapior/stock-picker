@@ -765,11 +765,18 @@ def bullish_layer(verdict, data, prices=None):
     the conviction scales the dollar size (conv 0.65 -> $1,625 of a $2,500
     order_size); direction comes from the sign. The UI displays the
     port-weight impact from this amount; booking uses the same number.
+
+    Cap pre-check: a BUY that would breach a sector cap is discarded HERE,
+    so it is never recommended, booked, or queued - the execution layer
+    would refuse it and it would sit pending forever. Sells are never
+    capped and always pass.
     """
     whitelist = {p["ticker"] for p in data.get("positions") or []
                  if p.get("status") == "open"}
     size = float(((data.get("meta") or {}).get("ai") or {}).get("order_size", 2500))
+    pex = ((data.get("meta") or {}).get("limits") or {}).get("position_exposure") or {}
     proposals = []
+    accepted_eff = {}  # sector -> effective $ already accepted from this verdict
     for c in verdict.get("convictions") or []:
         if whitelist and c["ticker"] not in whitelist:
             print(f"  WARN: AI conviction for {c['ticker']} not in holdings - discarded")
@@ -778,6 +785,15 @@ def bullish_layer(verdict, data, prices=None):
         p["amount"] = int(round(size * abs(float(p.get("conviction_score", 0)))))
         if p["conviction_score"] > 0:
             p["action"] = "add" if p["conviction_score"] >= 0.5 else "buy"
+            info = pex.get(p["ticker"]) or {}
+            lev = float(info.get("leverage", 1.0)) or 1.0
+            prior = accepted_eff.get(info.get("sector"), 0.0) / lev if info.get("sector") else 0.0
+            if sector_cap_blocked(p["ticker"], p["amount"] + prior, data):
+                print(f"  WARN: AI proposal BUY {p['ticker']} {p['amount']:,.0f} "
+                      f"breaches a sector cap - discarded, never recommended")
+                continue
+            if info.get("sector"):
+                accepted_eff[info["sector"]] = accepted_eff.get(info["sector"], 0.0) + p["amount"] * lev
         else:
             p["action"] = "trim" if p["conviction_score"] <= -0.5 else "sell"
         proposals.append(p)
@@ -838,6 +854,7 @@ def rotation_layer(verdict, data):
     whitelist = {p["ticker"] for p in data.get("positions") or []
                  if p.get("status") == "open"}
     conviction_ticks = {c.get("ticker") for c in (verdict.get("convictions") or [])}
+    size = float(((data.get("meta") or {}).get("ai") or {}).get("order_size", 2500))
     out = []
     for r in verdict.get("rotations") or []:
         sell, buy = r.get("sell"), r.get("buy")
@@ -850,6 +867,14 @@ def rotation_layer(verdict, data):
         if sell in conviction_ticks or buy in conviction_ticks:
             print(f"  WARN: AI rotation {sell}->{buy} overlaps a conviction - "
                   f"conviction wins, rotation leg dropped")
+            continue
+        # Cap pre-check: a rotation is paired - if the buy leg (sized at the
+        # flat order_size, as the engine books it) would breach a sector cap,
+        # the whole rotation is discarded. Recommending the sell alone would
+        # unbalance a pair the AI never proposed that way.
+        if sector_cap_blocked(buy, size, data):
+            print(f"  WARN: AI rotation {sell}->{buy} buy leg breaches a sector "
+                  f"cap - rotation discarded, never recommended")
             continue
         out.append(r)
     return out

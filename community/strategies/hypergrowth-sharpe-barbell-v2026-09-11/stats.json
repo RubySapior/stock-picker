@@ -1,0 +1,125 @@
+{
+  "strategy_id": "hypergrowth-sharpe-barbell-v2026-09-11",
+  "name": "HyperGrowth Sharpe Barbell v5 - Conviction-First 2026-09-11",
+  "author": "Snapshot",
+  "kind": "snapshot",
+  "parent_id": "hypergrowth-sharpe-barbell",
+  "start_value": 99377.22,
+  "start_date": "2026-09-11",
+  "positions": [
+    {
+      "ticker": "BTAL",
+      "shares": 1281.742944,
+      "buy_date": "2026-08-10"
+    },
+    {
+      "ticker": "DBMF",
+      "shares": 291.155922,
+      "buy_date": "2026-08-10"
+    },
+    {
+      "ticker": "DRAM",
+      "shares": 142.487012,
+      "buy_date": "2026-08-10"
+    },
+    {
+      "ticker": "EZU",
+      "shares": 28.05049,
+      "buy_date": "2026-08-10"
+    },
+    {
+      "ticker": "FXY",
+      "shares": 69.42034,
+      "buy_date": "2026-08-10"
+    },
+    {
+      "ticker": "GDX",
+      "shares": 38.678306,
+      "buy_date": "2026-08-10"
+    },
+    {
+      "ticker": "GLD",
+      "shares": 8.694794,
+      "buy_date": "2026-08-10"
+    },
+    {
+      "ticker": "NLR",
+      "shares": 93.610334,
+      "buy_date": "2026-08-10"
+    },
+    {
+      "ticker": "NUKZ",
+      "shares": 60.02401,
+      "buy_date": "2026-08-10"
+    },
+    {
+      "ticker": "PLTR",
+      "shares": 11.413455,
+      "buy_date": "2026-08-10"
+    },
+    {
+      "ticker": "QFLR",
+      "shares": 98.619327,
+      "buy_date": "2026-08-10"
+    },
+    {
+      "ticker": "SMH",
+      "shares": 8.781016,
+      "buy_date": "2026-08-10"
+    },
+    {
+      "ticker": "SOXL",
+      "shares": 70.607129,
+      "buy_date": "2026-08-10"
+    },
+    {
+      "ticker": "TQQQ",
+      "shares": 154.372436,
+      "buy_date": "2026-08-10"
+    },
+    {
+      "ticker": "VIXM",
+      "shares": 280.112045,
+      "buy_date": "2026-08-10"
+    },
+    {
+      "ticker": "XLY",
+      "shares": 20.890784,
+      "buy_date": "2026-08-10"
+    },
+    {
+      "ticker": "ZROZ",
+      "shares": 18.800003,
+      "buy_date": "2026-08-10"
+    }
+  ],
+  "history": [
+    {
+      "date": "2026-09-11",
+      "total_value": 99447.7,
+      "cash": 25.0,
+      "invested_value": 99422.7,
+      "day_change": 919.38,
+      "prices": {
+        "TQQQ": 71.443,
+        "SOXL": 123.985,
+        "SMH": 571.65,
+        "DRAM": 59.27,
+        "PLTR": 166.745,
+        "NLR": 114.395,
+        "NUKZ": 64.728,
+        "XLY": 113.075,
+        "EZU": 69.69,
+        "ZROZ": 57.882,
+        "FXY": 59.66,
+        "VIXM": 13.335,
+        "QFLR": 35.36,
+        "GLD": 399.65,
+        "GDX": 96.92,
+        "BTAL": 12.26,
+        "DBMF": 31.94,
+        "SGOV": 100.51
+      }
+    }
+  ]
+}

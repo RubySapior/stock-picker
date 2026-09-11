@@ -165,6 +165,55 @@ JSON verdict that feeds three deterministic layers. Nothing executes.
   -> target book diff -> "Buy TQQQ +$2k" review cards (buttons, never
   execution).
 
+## [site 0.5.6.17] — 2026-09-11
+
+### Added — Risk-parity sizing engine, Phase 1 SHADOW MODE (multi-review spec)
+
+- **New module `risk.py`** (read-only): target-weight sizing on
+  product-level EMA21 ATR% (Wilder ATR14 series, ATR14 fallback under 21
+  bars), book heat (`Σ dollars × ATR%`), sector-cap headroom in market
+  dollars, conviction-deadband vs `meta.ai_state.acted_conviction`, and
+  atomic rotation pre-flight (net-heat + headroom, buy leg must clear
+  before the sell fires). Locked conventions: target is a footprint
+  (ticket = target − current); leverage converts units ONLY at the
+  sector-cap boundary; buy-side tickets floor at zero (caps gate buys,
+  never force sells — overweight-vs-conviction belongs to the weekly
+  weight band); block-with-WARN, no scaling; sub-$250 tickets dust-skip.
+- **Wired into `update.py`** pre-`persist_merged` (post-exit book):
+  `ensure_risk_config` / `ensure_acted_state` persist `meta.risk`
+  defaults + the acted registry; `shadow_pass` appends one JSON line per
+  run to `logs/shadow_execution.log` (`*.log` is gitignored + unserved).
+  Shadow never trades — live behavior is byte-identical.
+- **Measured on the live book:** heat $3,505 (3.53%) vs 2.5% target —
+  SOXL ($854) alone carries 3.4× the risk of BTAL ($251) at half the
+  dollars. Heat gate ships in grandfather mode (gate new buys, never
+  retroactive liquidation).
+- **Deviation log:** `meta.risk.cash_buffer_usd` stores 500.0 per spec,
+  but the live sweep still uses `CASH_BUFFER` (25.0) until Phase 2
+  funding activates it. Sell-side targets trim `|C|` of current dollars
+  (can't sell unheld shares); full `|C|=1` exits stay with the live
+  exit engine.
+
+## [site 0.5.6.16] — 2026-09-11
+
+### Fixed — AI reads sector caps BEFORE recommending (no more unfillable proposals)
+
+- **The leak:** `bullish_layer` / `rotation_layer` never checked
+  `meta.limits.sector_limits`, so the AI recommended buys the execution
+  layer is hard-forbidden to fill (issue #29) — e.g. a BTAL buy into a full
+  45% Hedge Stack. The order sat `pending` forever ("sector cap blocks,
+  stays pending") while the dashboard kept showing it as actionable.
+- **Cap pre-check at the source** (`ai_sentiment.py`): cap-breaching BUYs are
+  discarded in `bullish_layer` (with same-verdict cumulative accounting, so
+  two small buys that together breach also collapse to one) and rotations
+  whose buy leg breaches are dropped whole in `rotation_layer` (a rotation
+  is paired — the sell alone was never recommended). Sells always pass.
+  `serve.py /book` + `/execute_all` and execute-mode refresh inherit the
+  fix automatically since they all read through these two layers.
+- **Stale queue** (`update.py proposal_queue`): queued buys that the LIVE
+  book now caps are hidden from Actionable Proposals until their sector
+  reopens, instead of recommending an order that can never fill.
+
 ## [site 0.5.6.15] — 2026-08-22
 
 ### Added — Dividend tracking + payout policy (issue #13)

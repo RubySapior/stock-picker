@@ -39,6 +39,7 @@ from fears import build_fears, apply_ai_witnesses, apply_fear_proposals
 from community import sync_version_snapshots, build_mirror
 import ai_sentiment
 import store
+import risk
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 # DATA_ROOT mirrors store.DATA_ROOT so folder moves (DATA_DIR env) work without
@@ -1590,6 +1591,14 @@ def proposal_queue(verdict, data):
         entry = dict(e)
         side = entry.get("side") or (
             "sell" if entry.get("action") in ("trim", "sell") else "buy")
+        # Cap pre-check (live book): a stale queued buy the execution layer
+        # would now refuse is not actionable - hide it until its sector
+        # reopens instead of recommending an unfillable order.
+        if side != "sell" and entry.get("amount") and ai_sentiment.sector_cap_blocked(
+                entry.get("ticker"), float(entry["amount"]), data):
+            print(f"  WARN: proposal {entry.get('ticker')} BUY {entry.get('amount')} "
+                  f"breaches a sector cap - hidden until the sector reopens")
+            continue
         entry["booked"] = any(
             o.get("status") == "pending" and o.get("ticker") == entry["ticker"]
             and (o.get("action") == "sell") == (side == "sell")
@@ -1867,6 +1876,7 @@ def run_ai_layer(data, prices, fear_data, today, macro=None, force=False,
 # be taken from the fresh file at write time (issue #36).
 _UPDATER_META_KEYS = (
     "limits",
+    "risk",
     "ai_state",
     "ai_last_output",
     "ai_ledger",
@@ -2237,6 +2247,17 @@ def main():
         data["account"]["history"] = data["account"]["history"][-HISTORY_LIMIT:]
     if len(data.get("events", [])) > EVENTS_LIMIT:
         data["events"] = data["events"][-EVENTS_LIMIT:]
+
+    # Phase 1 shadow risk engine (site 0.5.6.17): read-only sizing/heat math
+    # over the post-exit book (exits, orders, dividends, TP/SL all settled
+    # above). Logs would-be tickets to logs/shadow_execution.log, never
+    # trades. meta.risk persists via the normal merge below.
+    try:
+        risk.ensure_risk_config(data)
+        risk.ensure_acted_state(data)
+        risk.shadow_pass(data, prices, today, user_id=user_id)
+    except Exception as exc:
+        print(f"  WARN: shadow risk pass failed: {exc}")
 
     # Issue #36: merge, never blind-overwrite - see persist_merged().
     data = persist_merged(data, user_id=user_id)

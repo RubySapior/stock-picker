@@ -1,7 +1,7 @@
 {
   "meta": {
     "version": {
-      "site": "0.5.6.15",
+      "site": "0.5.6.17",
       "algo": "0.6.0"
     },
     "name": "HyperGrowth Sharpe Barbell v5 - Conviction-First",
@@ -212,26 +212,26 @@
     },
     "ai_state": {
       "last_call_date": "2026-09-11",
-      "calls_today": 1,
-      "last_call_ts": "00:47:56",
+      "calls_today": 2,
+      "last_call_ts": "10:18:51",
       "note": "manual run (market closed) - Friday data, first read",
-      "last_sentiment_index": -0.85,
-      "last_sentiment_delta": -0.45,
+      "last_sentiment_index": -1.0,
+      "last_sentiment_delta": -0.15,
       "proposals": [
         {
           "ticker": "IWDL",
           "action": "trim",
           "side": "sell",
-          "amount": 2125,
-          "conviction_score": -0.85,
-          "urgency": 75,
-          "confidence": 80,
-          "rationale": "Residual dust position in 2x leveraged value suffers from severe negative carry and factor decay amid 4.94% Treasury yields; prioritize liquidation.",
+          "amount": 2500,
+          "conviction_score": -1.0,
+          "urgency": 85,
+          "confidence": 90,
+          "rationale": "Complete liquidation of residual leveraged value exposure following the formal abandonment of Theory T15 under restrictive yields.",
           "verdict_date": "2026-09-11",
           "last_seen": "2026-09-11",
           "first_seen": "2026-09-11",
-          "updated_from": null,
-          "updated_on": null
+          "updated_from": 2125,
+          "updated_on": "2026-09-11"
         },
         {
           "ticker": "ZROZ",
@@ -293,174 +293,168 @@
           "updated_from": 1000,
           "updated_on": "2026-08-21"
         }
-      ]
+      ],
+      "acted_conviction": {}
     },
     "ai_last_output": {
       "date": "2026-09-11",
       "macro_stance": "neutral",
-      "sector_bias": [
-        {
-          "sector": "Broadening / Value",
-          "stance": "bearish",
-          "conviction": -0.35,
-          "driver": "Benchmark 10-year yields pressing 4.94% significantly escalate debt refinancing pressures and multiple compression on small-cap and cyclical value."
-        }
-      ],
+      "sector_bias": [],
       "theories": [
         {
           "id": "T1",
           "verdict": "affirm",
           "confidence": 80,
-          "evidence": "Secular AI capex and semiconductor demand trends remain robust, maintaining strong structural relative strength over broad equities."
+          "evidence": "AI hardware capex and datacenter compute demand continue to outpace the broader market."
         },
         {
           "id": "T2",
           "verdict": "affirm",
           "confidence": 75,
-          "evidence": "High-bandwidth memory pricing and disciplined industry supply support DRAM outperformance relative to broad semis."
+          "evidence": "High-bandwidth memory tightness and sustained pricing power favor DRAM relative to broad semiconductors."
         },
         {
           "id": "T3",
           "verdict": "affirm",
           "confidence": 75,
-          "evidence": "Hyperscaler demand for 24/7 dedicated clean power continues to drive structural contracting tailwinds for nuclear generation."
+          "evidence": "Hyperscaler clean-power demand and utility contracting provide structural multi-year tailwinds for NLR and NUKZ."
         },
         {
           "id": "T6",
           "verdict": "affirm",
           "confidence": 85,
-          "evidence": "The multi-asset hedge stack provides convex drawdown dampening across equity, rates, and geopolitical shocks."
+          "evidence": "The multi-asset hedge stack provides robust decorrelated buffering against drawdown thresholds."
         },
         {
           "id": "T7",
           "verdict": "affirm",
           "confidence": 70,
-          "evidence": "AI hardware leadership trend persistence remains sufficient to overcome leveraged volatility drag over cycle horizons."
+          "evidence": "The underlying tech bull trend continues to outpace daily volatility drag despite elevated rate friction."
         },
         {
           "id": "T8",
           "verdict": "affirm",
           "confidence": 85,
-          "evidence": "A 29.1% hedge stack allocation insulates the barbell structure against systemic tech gap-down days compared to unhedged core tech."
+          "evidence": "Convex hedging instruments ensure shallower down-capture than the unhedged legacy book during pullbacks."
         },
         {
           "id": "T9",
           "verdict": "affirm",
           "confidence": 80,
-          "evidence": "Gold and precious metals miners consistently function as effective non-correlated crisis liquidity and debasement buffers."
+          "evidence": "Gold and precious metal miners reliably provide stagflationary resilience during risk-off equity sessions."
         },
         {
           "id": "T10",
           "verdict": "probation",
           "confidence": 35,
-          "evidence": "Elevated 10-year yields near 5.0% restrict small-cap credit conditions, preventing broadening from materializing."
+          "evidence": "Elevated benchmark yields heavily burden small-cap debt refinancing and stall broadening momentum."
         },
         {
           "id": "T13",
           "verdict": "probation",
           "confidence": 40,
-          "evidence": "Persistent rate pressures and sticky inflation constrain European and discretionary consumer outperformance."
+          "evidence": "Restrictive monetary policy suppresses consumer discretionary valuation multiples and European cyclicals."
         },
         {
           "id": "T14",
           "verdict": "affirm",
           "confidence": 85,
-          "evidence": "Limiting high-multiple single-stock risk prevents valuation drawdowns from materially impacting aggregate portfolio NAV."
+          "evidence": "Strict position sizing caps multiple compression risk without materially dampening portfolio upside."
         },
         {
           "id": "T15",
-          "verdict": "probation",
-          "confidence": 30,
-          "evidence": "Leveraged value factor suffers severe carry drag and adverse factor momentum in a high rates-shock environment."
+          "verdict": "abandon",
+          "confidence": 20,
+          "evidence": "Leveraged value suffers acute negative carry in a restrictive rate regime, invalidating the factor hedge thesis."
         },
         {
           "id": "T16",
           "verdict": "affirm",
           "confidence": 85,
-          "evidence": "Streamlined book focused exclusively on high-conviction core positions minimizes residual tracking bleed."
+          "evidence": "Trimming low-conviction non-hedge positions eliminates drag and improves portfolio risk hygiene."
         },
         {
           "id": "T17",
           "verdict": "affirm",
           "confidence": 85,
-          "evidence": "Anti-beta, volatility, and tail-risk components reliably expand spread during severe growth liquidation cascades."
+          "evidence": "Convex protective assets in the hedge stack remain configured to absorb concentrated tech shocks."
         },
         {
           "id": "T18",
           "verdict": "affirm",
           "confidence": 85,
-          "evidence": "FXY and trend managed futures maintain structural negative correlation to sudden carry-trade liquidations."
+          "evidence": "FXY and managed futures trend structures remain primed to offset violent cross-currency carry liquidations."
         },
         {
           "id": "T19",
           "verdict": "affirm",
           "confidence": 80,
-          "evidence": "Precious metals and trend-following managed futures provide defensive isolation from regional Asia geopolitical flare-ups."
+          "evidence": "Gold, miners, and managed futures offer uncorrelated ballast against regional escalation risks."
         },
         {
           "id": "T20",
           "verdict": "affirm",
           "confidence": 85,
-          "evidence": "Gold and miners hedge real-asset purchasing power as unexpected inflation prints pressure growth multiples."
+          "evidence": "Precious metals positions protect real purchasing power against persistent inflation and debt debasement."
         },
         {
           "id": "T21",
           "verdict": "affirm",
           "confidence": 85,
-          "evidence": "The combined hedge basket reliably catches flight-to-safety flows during sudden geopolitical escalations."
+          "evidence": "The diversified insurance sleeve contains complementary hedges to mitigate geopolitical shocks."
         }
       ],
       "fears": [
         {
           "id": "F2",
           "sentiment_score": 4,
-          "delta_reason": "USD/JPY holding above 154 indicates carry trades remain orderly without immediate signs of violent liquidation, justifying a discount to deterministic 4.3."
+          "delta_reason": "Currency stability in the yen reduces immediate cascading liquidation risk, warranting a mild discount from the deterministic panic score."
         }
       ],
       "convictions": [
         {
           "ticker": "IWDL",
-          "conviction_score": -0.85,
-          "urgency": 75,
-          "confidence": 80,
-          "rationale": "Residual dust position in 2x leveraged value suffers from severe negative carry and factor decay amid 4.94% Treasury yields; prioritize liquidation."
+          "conviction_score": -1.0,
+          "urgency": 85,
+          "confidence": 90,
+          "rationale": "Complete liquidation of residual leveraged value exposure following the formal abandonment of Theory T15 under restrictive yields."
         }
       ],
       "rotations": [
         {
           "sell": "IWM",
           "buy": "BTAL",
-          "rationale": "Rotate interest-rate-sensitive small-cap beta facing refinancing headwinds at near-5% yields into market-neutral anti-beta factor protection."
+          "rationale": "Rotate interest-rate-sensitive small-cap beta into anti-beta market-neutral protection as elevated bond yields pressure debt-heavy equities."
         }
       ],
       "fear_proposals": [],
       "fear_edits": [],
-      "summary": "Maintaining a disciplined neutral macro stance as sentiment sits in Fear at 33 while the 10-year yield presses 4.94%, maxing out structural rates shock risks. We trim Yen-carry fear slightly to 3.8 given USD/JPY stability above 154, while keeping Broadening and Value theories on strict probation under severe borrowing cost headwinds. Execution prioritizes eliminating residual leveraged value in IWDL and rotating IWM into anti-beta protection via BTAL while holding core leveraged tech and nuclear exposures intact.",
-      "prompt_hash": "45857c6a4f7f9e21",
+      "summary": "Maintaining a disciplined neutral macro stance as sentiment sits in Fear while long-term yields remain near multi-year highs. We discount Yen-carry fear slightly to 4.0 reflecting near-term foreign exchange stability, while formally abandoning Theory T15 due to leveraged value factor decay. Execution focuses on fully liquidating residual IWDL dust and rotating IWM exposure into BTAL anti-beta protection while keeping core tech and nuclear allocations steady.",
+      "prompt_hash": "444317947c2d1d45",
       "prices": {
-        "TQQQ": 69.21,
-        "SOXL": 115.76,
-        "SMH": 560.28,
-        "DRAM": 58.56,
-        "PLTR": 165.86,
-        "NLR": 117.83,
-        "NUKZ": 64.72,
-        "IWM": 287.7,
+        "TQQQ": 71.376,
+        "SOXL": 123.07,
+        "SMH": 571.12,
+        "DRAM": 58.985,
+        "PLTR": 166.74,
+        "NLR": 114.58,
+        "NUKZ": 64.66,
+        "IWM": 289.465,
         "IWDL": 70.245,
-        "XLY": 111.96,
-        "EZU": 68.98,
-        "ZROZ": 57.49,
-        "FXY": 59.4,
-        "VIXM": 13.43,
-        "QFLR": 35.08,
-        "GLD": 396.36,
-        "GDX": 96.03,
-        "BTAL": 12.33,
-        "DBMF": 31.92,
-        "SGOV": 100.5,
-        "QQQ": 708.69,
-        "SOXX": 517.43,
-        "IWD": 253.33
+        "XLY": 112.905,
+        "EZU": 69.645,
+        "ZROZ": 57.84,
+        "FXY": 59.67,
+        "VIXM": 13.38,
+        "QFLR": 35.402,
+        "GLD": 399.93,
+        "GDX": 96.98,
+        "BTAL": 12.265,
+        "DBMF": 31.93,
+        "SGOV": 100.515,
+        "QQQ": 716.245,
+        "SOXX": 528.915,
+        "IWD": 255.55
       },
       "fear_levels": [
         {
@@ -566,6 +560,15 @@
         "convictions": 1,
         "prompt_hash": "45857c6a4f7f9e21",
         "summary": "Maintaining a disciplined neutral macro stance as sentiment sits in Fear at 33 while the 10-year yield presses 4.94%, maxing out structural rates shock risks. We trim Yen-carry fear slightly to 3.8 gi"
+      },
+      {
+        "date": "2026-09-11",
+        "ts": "10:18:51",
+        "macro_stance": "neutral",
+        "theories": 17,
+        "convictions": 1,
+        "prompt_hash": "444317947c2d1d45",
+        "summary": "Maintaining a disciplined neutral macro stance as sentiment sits in Fear while long-term yields remain near multi-year highs. We discount Yen-carry fear slightly to 4.0 reflecting near-term foreign ex"
       }
     ],
     "ai_calibration": {
@@ -616,11 +619,23 @@
       "note": "Community experiment (site 0.5.5.33): benchmark strategies fill the leaderboard for comparison; snapshot_versions freezes the book as a new version strategy whenever the positions change (SGOV auto-parking excluded from change detection). Both are experiments to populate the board - normally OFF by design, not the product behavior."
     },
     "ai_calibrated_verdict_date": "2026-08-21",
-    "dividend_policy": "reinvest"
+    "dividend_policy": "sgov",
+    "risk": {
+      "target_risk_bps": 0.005,
+      "max_heat_pct_initial": 0.035,
+      "max_heat_pct_target": 0.025,
+      "rebalance_band_rel": 0.2,
+      "rebalance_band_abs": 0.015,
+      "max_trim_per_run": 0.2,
+      "conviction_deadband": 0.2,
+      "min_ticket_usd": 250.0,
+      "cash_buffer_usd": 500.0,
+      "shadow_mode": true
+    }
   },
   "account": {
     "cash": 25.0,
-    "realized_pnl": -86.53,
+    "realized_pnl": -101.31,
     "history": [
       {
         "date": "2026-08-10",
@@ -1294,30 +1309,29 @@
       },
       {
         "date": "2026-09-11",
-        "total_value": 99343.97,
+        "total_value": 99490.77,
         "cash": 25.0,
-        "invested_value": 99318.97,
-        "day_change": 815.65,
+        "invested_value": 99465.77,
+        "day_change": 962.45,
         "prices": {
-          "TQQQ": 71.28,
-          "SOXL": 123.245,
-          "SMH": 570.82,
-          "DRAM": 59.086,
-          "PLTR": 166.68,
-          "NLR": 114.45,
-          "NUKZ": 64.67,
-          "IWM": 289.53,
-          "XLY": 112.99,
-          "EZU": 69.725,
-          "ZROZ": 57.88,
-          "FXY": 59.66,
-          "VIXM": 13.36,
+          "TQQQ": 71.515,
+          "SOXL": 124.239,
+          "SMH": 572.14,
+          "DRAM": 59.354,
+          "PLTR": 166.94,
+          "NLR": 114.41,
+          "NUKZ": 64.68,
+          "XLY": 113.03,
+          "EZU": 69.7,
+          "ZROZ": 57.96,
+          "FXY": 59.653,
+          "VIXM": 13.34,
           "QFLR": 35.36,
-          "GLD": 399.96,
-          "GDX": 96.95,
+          "GLD": 399.8,
+          "GDX": 97.005,
           "BTAL": 12.255,
-          "DBMF": 31.94,
-          "SGOV": 100.517
+          "DBMF": 31.93,
+          "SGOV": 100.511
         }
       }
     ],
@@ -1745,37 +1759,91 @@
     },
     {
       "date": "2026-09-11",
-      "ts": "16:56:04",
+      "ts": "10:18:51",
+      "ticker": "AI",
+      "name": "AI Sentiment",
+      "reason": "ai_sentiment",
+      "note": "neutral - 17 theories, 1 convictions - Maintaining a disciplined neutral macro stance as sentiment sits in Fear while long-term yields remain near multi-year h",
+      "state": null,
+      "price": null,
+      "buy_price": null,
+      "shares": null,
+      "realized_pnl": 0
+    },
+    {
+      "date": "2026-09-11",
+      "ts": "10:18:51",
       "ticker": "IWDL",
       "name": "ETRACS 2x Leveraged US Value Factor TR ETN",
       "reason": "market_order",
-      "note": "SELL 2,125 (execute_all_2026-09-11)",
+      "note": "SELL 2,500 (ai_2026-09-11)",
       "action": "sell",
       "state": null,
       "price": 70.245,
       "buy_price": 69.9752,
       "shares": 0.1368,
-      "amount": 2125.0,
+      "amount": 2500.0,
       "realized_pnl": 0.04
     },
     {
       "date": "2026-09-11",
-      "ts": "16:56:04",
+      "ts": "10:18:51",
+      "ticker": "IWM",
+      "name": "iShares Russell 2000 ETF",
+      "reason": "market_order",
+      "note": "SELL 2,500 (ai_2026-09-11)",
+      "action": "sell",
+      "state": null,
+      "price": 289.465,
+      "buy_price": 299.98,
+      "shares": 8.6366,
+      "amount": 2500.0,
+      "realized_pnl": -90.81
+    },
+    {
+      "date": "2026-09-11",
+      "ts": "10:18:51",
+      "ticker": "BTAL",
+      "name": "AGF U.S. Market Neutral Anti-Beta Fund",
+      "reason": "market_order",
+      "note": "BUY 2,500 (ai_2026-09-11)",
+      "action": "buy",
+      "state": null,
+      "price": 12.265,
+      "buy_price": 12.265,
+      "shares": 203.832,
+      "amount": 2500.0,
+      "realized_pnl": 0
+    },
+    {
+      "date": "2026-09-11",
+      "ts": "10:18:51",
+      "ticker": "SGOV",
+      "name": "iShares 0-3 Month Treasury Bond ETF",
+      "reason": "deploy_cash",
+      "price": 100.515,
+      "buy_price": 100.515,
+      "shares": 24.9675,
+      "realized_pnl": 0
+    },
+    {
+      "date": "2026-09-11",
+      "ts": "11:02:34",
       "ticker": "IWM",
       "name": "iShares Russell 2000 ETF",
       "reason": "market_order",
       "note": "SELL 2,500 (execute_all_2026-09-11)",
       "action": "sell",
       "state": null,
-      "price": 289.53,
+      "price": 289.575,
       "buy_price": 299.98,
-      "shares": 8.6347,
+      "shares": 1.364,
       "amount": 2500.0,
-      "realized_pnl": -90.23
+      "realized_pnl": -14.2
     },
     {
       "date": "2026-09-11",
-      "ts": "16:56:04",
+      "ts": "11:02:34",
       "ticker": "BTAL",
       "name": "AGF U.S. Market Neutral Anti-Beta Fund",
       "reason": "market_order",
@@ -1790,30 +1858,17 @@
     },
     {
       "date": "2026-09-11",
-      "ts": "16:56:04",
+      "ts": "11:02:34",
       "ticker": "SGOV",
       "name": "iShares 0-3 Month Treasury Bond ETF",
       "reason": "deploy_cash",
-      "price": 100.517,
-      "buy_price": 100.517,
-      "shares": 24.967,
+      "price": 100.514,
+      "buy_price": 100.514,
+      "shares": 3.9297,
       "realized_pnl": 0
     }
   ],
   "orders": [
-    {
-      "ticker": "SOXL",
-      "action": "buy",
-      "amount": 2500.0,
-      "status": "executed",
-      "source": "ai_2026-08-14",
-      "created": "2026-08-14",
-      "note": "HUMAN-APPROVED from 2026-08-14 AI verdict: scale leveraged semiconductor exposure to capture sustained hardware capex momentum toward the sector limit.",
-      "exec_date": "2026-08-17",
-      "exec_price": 149.156,
-      "shares": 16.761,
-      "realized_pnl": 0.0
-    },
     {
       "ticker": "ZROZ",
       "action": "sell",
@@ -1973,11 +2028,11 @@
     {
       "ticker": "IWDL",
       "action": "sell",
-      "amount": 2125.0,
+      "amount": 2500.0,
       "status": "executed",
-      "source": "execute_all_2026-09-11",
+      "source": "ai_2026-09-11",
       "created": "2026-09-11",
-      "note": "Residual dust position in 2x leveraged value suffers from severe negative carry and factor decay amid 4.94% Treasury yields; prioritize liquidation.",
+      "note": "Complete liquidation of residual leveraged value exposure following the formal abandonment of Theory T15 under restrictive yields.",
       "exec_date": "2026-09-11",
       "exec_price": 70.245,
       "shares": 0.1368,
@@ -1988,22 +2043,26 @@
       "action": "sell",
       "amount": 2500.0,
       "status": "executed",
-      "source": "execute_all_2026-09-11",
+      "source": "ai_2026-09-11",
       "created": "2026-09-11",
-      "note": "rotation IWM->BTAL: Rotate interest-rate-sensitive small-cap beta facing refinancing headwinds at near-5% yields into market-neutral anti-be",
+      "note": "rotation IWM->BTAL: Rotate interest-rate-sensitive small-cap beta into anti-beta market-neutral protection as elevated bond yields pressure ",
       "exec_date": "2026-09-11",
-      "exec_price": 289.53,
-      "shares": 8.6347,
-      "realized_pnl": -90.23
+      "exec_price": 289.465,
+      "shares": 8.6366,
+      "realized_pnl": -90.81
     },
     {
-      "ticker": "BTAL",
-      "action": "buy",
+      "ticker": "IWM",
+      "action": "sell",
       "amount": 2500.0,
-      "status": "pending",
+      "status": "executed",
       "source": "execute_all_2026-09-11",
       "created": "2026-09-11",
-      "note": "rotation IWM->BTAL: Rotate interest-rate-sensitive small-cap beta facing refinancing headwinds at near-5% yields into market-neutral anti-be"
+      "note": "rotation IWM->BTAL: Rotate interest-rate-sensitive small-cap beta into anti-beta market-neutral protection as elevated bond yields pressure ",
+      "exec_date": "2026-09-11",
+      "exec_price": 289.575,
+      "shares": 1.364,
+      "realized_pnl": -14.2
     }
   ],
   "positions": [
@@ -2155,13 +2214,20 @@
       ],
       "buy_date": "2026-08-10",
       "buy_price": 299.98,
-      "shares": 1.365983,
-      "cost": 409.77,
+      "shares": 0.0,
+      "cost": 0.0,
       "take_profit_pct": 0.3,
       "stop_loss_pct": -0.15,
-      "status": "open",
+      "status": "closed",
       "thesis": "B-TIER CONVICTION (T10). The broadening trade has hard data behind it: S&P 500 EQUAL-WEIGHT made new highs while cap-weight slipped - money is rotating out of mega-cap tech into the rest of the market. Tariffs, reshoring and AI-spillover benefit small caps. Reduced to 3k in v5.",
-      "entry_note": "Anti-crowding play with verifiable breadth evidence."
+      "entry_note": "Anti-crowding play with verifiable breadth evidence.",
+      "exit": {
+        "reason": "market_order",
+        "price": 289.575,
+        "state": null,
+        "note": "Market order sold full position (execute_all_2026-09-11)",
+        "realized_pnl": -14.2
+      }
     },
     {
       "id": "IWDL",
@@ -2188,7 +2254,7 @@
         "reason": "market_order",
         "price": 70.245,
         "state": null,
-        "note": "Market order sold full position (execute_all_2026-09-11)",
+        "note": "Market order sold full position (ai_2026-09-11)",
         "realized_pnl": 0.04
       }
     },
@@ -2361,8 +2427,8 @@
       ],
       "buy_date": "2026-08-10",
       "buy_price": 12.08,
-      "shares": 1077.910902,
-      "cost": 13000.0,
+      "shares": 1281.742944,
+      "cost": 15500.0,
       "take_profit_pct": 0.15,
       "stop_loss_pct": -0.1,
       "status": "open",
@@ -2397,8 +2463,8 @@
       "theory_ids": [],
       "buy_date": "2026-08-11",
       "buy_price": 100.505,
-      "shares": 27.620829,
-      "cost": 2769.47,
+      "shares": 6.678374,
+      "cost": 664.46,
       "take_profit_pct": 0.0,
       "stop_loss_pct": -0.1,
       "status": "open",
@@ -2422,7 +2488,8 @@
         "2026-08-17: AI verdict AFFIRM (conf 85) - Semis momentum remains exceptionally strong with SOXL and DRAM posting >7% gains since last review, validating hardware leadership.",
         "2026-08-21: AI verdict AFFIRM (conf 80) - Semiconductor hardware fundamentals and AI infrastructure buildout remain resilient despite broad market rate sensitivity.",
         "2026-08-21: AI verdict AFFIRM (conf 80) - Semiconductor hardware demand and AI infrastructure capex remain strong across core holdings.",
-        "2026-09-11: AI verdict AFFIRM (conf 80) - Secular AI capex and semiconductor demand trends remain robust, maintaining strong structural relative strength over broad equities."
+        "2026-09-11: AI verdict AFFIRM (conf 80) - Secular AI capex and semiconductor demand trends remain robust, maintaining strong structural relative strength over broad equities.",
+        "2026-09-11: AI verdict AFFIRM (conf 80) - AI hardware capex and datacenter compute demand continue to outpace the broader market."
       ]
     },
     {
@@ -2440,7 +2507,8 @@
         "2026-08-17: AI verdict AFFIRM (conf 80) - DRAM outperformance (+7.24%) confirms strong pricing power and memory cycle tightening vs broader semis basket.",
         "2026-08-21: AI verdict AFFIRM (conf 75) - Memory pricing cycle and high-bandwidth memory demand continue to provide structural relative margin support.",
         "2026-08-21: AI verdict AFFIRM (conf 75) - Memory pricing cycle and high-bandwidth memory demand continue outperforming general semi index.",
-        "2026-09-11: AI verdict AFFIRM (conf 75) - High-bandwidth memory pricing and disciplined industry supply support DRAM outperformance relative to broad semis."
+        "2026-09-11: AI verdict AFFIRM (conf 75) - High-bandwidth memory pricing and disciplined industry supply support DRAM outperformance relative to broad semis.",
+        "2026-09-11: AI verdict AFFIRM (conf 75) - High-bandwidth memory tightness and sustained pricing power favor DRAM relative to broad semiconductors."
       ]
     },
     {
@@ -2458,7 +2526,8 @@
         "2026-08-17: AI verdict AFFIRM (conf 80) - Nuclear power holdings (NLR, NUKZ) provide resilient, non-cyclical power infrastructure upside tied to AI datacenter base-load contracts.",
         "2026-08-21: AI verdict AFFIRM (conf 75) - AI hyperscaler power requirements cement multi-year baseload demand for nuclear infrastructure.",
         "2026-08-21: AI verdict AFFIRM (conf 75) - Nuclear power baseload demand for hyperscaler data centers maintains secular momentum.",
-        "2026-09-11: AI verdict AFFIRM (conf 75) - Hyperscaler demand for 24/7 dedicated clean power continues to drive structural contracting tailwinds for nuclear generation."
+        "2026-09-11: AI verdict AFFIRM (conf 75) - Hyperscaler demand for 24/7 dedicated clean power continues to drive structural contracting tailwinds for nuclear generation.",
+        "2026-09-11: AI verdict AFFIRM (conf 75) - Hyperscaler clean-power demand and utility contracting provide structural multi-year tailwinds for NLR and NUKZ."
       ]
     },
     {
@@ -2477,7 +2546,8 @@
         "2026-08-17: AI verdict AFFIRM (conf 80) - Multi-asset hedge stack continues to manage portfolio volatility effectively with minimal drag during equity upswings.",
         "2026-08-21: AI verdict AFFIRM (conf 85) - Multi-asset hedge stack provides uncorrelated downside protection across macro regimes, preserving capital during equity drawdowns.",
         "2026-08-21: AI verdict AFFIRM (conf 85) - Diversified hedge stack sleeve (27.2% effective allocation) provides robust drawdown insulation without excessive drag.",
-        "2026-09-11: AI verdict AFFIRM (conf 85) - The multi-asset hedge stack provides convex drawdown dampening across equity, rates, and geopolitical shocks."
+        "2026-09-11: AI verdict AFFIRM (conf 85) - The multi-asset hedge stack provides convex drawdown dampening across equity, rates, and geopolitical shocks.",
+        "2026-09-11: AI verdict AFFIRM (conf 85) - The multi-asset hedge stack provides robust decorrelated buffering against drawdown thresholds."
       ]
     },
     {
@@ -2495,7 +2565,8 @@
         "2026-08-17: AI verdict AFFIRM (conf 80) - Strong trending tape in core AI components continues to exceed daily reset and volatility drag in leveraged ETFs.",
         "2026-08-21: AI verdict AFFIRM (conf 70) - Leveraged growth sleeve maintains trend capture over medium horizons, though daily beta volatility requires active sizing.",
         "2026-08-21: AI verdict AFFIRM (conf 70) - Leveraged tech core compounding remains positive over trend, overcoming daily volatility decay.",
-        "2026-09-11: AI verdict AFFIRM (conf 70) - AI hardware leadership trend persistence remains sufficient to overcome leveraged volatility drag over cycle horizons."
+        "2026-09-11: AI verdict AFFIRM (conf 70) - AI hardware leadership trend persistence remains sufficient to overcome leveraged volatility drag over cycle horizons.",
+        "2026-09-11: AI verdict AFFIRM (conf 70) - The underlying tech bull trend continues to outpace daily volatility drag despite elevated rate friction."
       ]
     },
     {
@@ -2513,7 +2584,8 @@
         "2026-08-17: AI verdict AFFIRM (conf 85) - The diversified barbell architecture retains high upside participation while maintaining comprehensive tail-risk buffers.",
         "2026-08-21: AI verdict AFFIRM (conf 85) - Barbell architecture with 27.4% hedge allocation dampens single-day tech shock vulnerability compared to concentrated legacy books.",
         "2026-08-21: AI verdict AFFIRM (conf 85) - Balanced barbell structure limits tail-risk drawdown compared to unhedged pure-growth portfolios.",
-        "2026-09-11: AI verdict AFFIRM (conf 85) - A 29.1% hedge stack allocation insulates the barbell structure against systemic tech gap-down days compared to unhedged core tech."
+        "2026-09-11: AI verdict AFFIRM (conf 85) - A 29.1% hedge stack allocation insulates the barbell structure against systemic tech gap-down days compared to unhedged core tech.",
+        "2026-09-11: AI verdict AFFIRM (conf 85) - Convex hedging instruments ensure shallower down-capture than the unhedged legacy book during pullbacks."
       ]
     },
     {
@@ -2531,7 +2603,8 @@
         "2026-08-17: AI verdict AFFIRM (conf 80) - GLD and GDX sustain constructive structural support amid sovereign buying and persistent fiscal deficits.",
         "2026-08-21: AI verdict AFFIRM (conf 80) - Gold and precious metals equity allocations demonstrate persistent non-correlation and capital preservation during risk-off equity sessions.",
         "2026-08-21: AI verdict AFFIRM (conf 80) - Precious metals sleeve provides non-correlated buffer on broad equity selloff sessions.",
-        "2026-09-11: AI verdict AFFIRM (conf 80) - Gold and precious metals miners consistently function as effective non-correlated crisis liquidity and debasement buffers."
+        "2026-09-11: AI verdict AFFIRM (conf 80) - Gold and precious metals miners consistently function as effective non-correlated crisis liquidity and debasement buffers.",
+        "2026-09-11: AI verdict AFFIRM (conf 80) - Gold and precious metal miners reliably provide stagflationary resilience during risk-off equity sessions."
       ]
     },
     {
@@ -2549,7 +2622,8 @@
         "2026-08-17: AI verdict PROBATION (conf 45) - Elevated 10Y yields (4.71%) maintain tight financial conditions on Russell 2000 balance sheets, postponing sustained breadth expansion.",
         "2026-08-21: AI verdict PROBATION (conf 40) - Small-cap relative outperformance is capped while 10-year benchmark yields stay elevated at 4.74%.",
         "2026-08-21: AI verdict PROBATION (conf 40) - Small-cap breadth continues to lag mega-cap tech under elevated 10-year Treasury yields near 4.74%.",
-        "2026-09-11: AI verdict PROBATION (conf 35) - Elevated 10-year yields near 5.0% restrict small-cap credit conditions, preventing broadening from materializing."
+        "2026-09-11: AI verdict PROBATION (conf 35) - Elevated 10-year yields near 5.0% restrict small-cap credit conditions, preventing broadening from materializing.",
+        "2026-09-11: AI verdict PROBATION (conf 35) - Elevated benchmark yields heavily burden small-cap debt refinancing and stall broadening momentum."
       ]
     },
     {
@@ -2597,7 +2671,8 @@
         "2026-08-17: AI verdict PROBATION (conf 50) - Consumer discretionary and European equities face mixed demand data under restrictive real rates, limiting alpha vs SPY.",
         "2026-08-21: AI verdict PROBATION (conf 45) - Consumer discretionary and European equities show subdued relative momentum against SPY under tight global monetary conditions.",
         "2026-08-21: AI verdict PROBATION (conf 45) - Consumer discretionary and European equities face macro headwind from persistent rates and mixed consumer sentiment.",
-        "2026-09-11: AI verdict PROBATION (conf 40) - Persistent rate pressures and sticky inflation constrain European and discretionary consumer outperformance."
+        "2026-09-11: AI verdict PROBATION (conf 40) - Persistent rate pressures and sticky inflation constrain European and discretionary consumer outperformance.",
+        "2026-09-11: AI verdict PROBATION (conf 40) - Restrictive monetary policy suppresses consumer discretionary valuation multiples and European cyclicals."
       ]
     },
     {
@@ -2615,7 +2690,8 @@
         "2026-08-17: AI verdict AFFIRM (conf 85) - Strictly limiting high-multiple PLTR to 2% safeguards the portfolio against valuation multiple contraction without sacrificing core returns.",
         "2026-08-21: AI verdict AFFIRM (conf 85) - Restricting high-multiple enterprise AI exposure to 2% effectively limits portfolio drawdown without sacrificing upside capture.",
         "2026-08-21: AI verdict AFFIRM (conf 85) - Controlled 2% allocation to high-multiple growth caps single-name valuation compression risk.",
-        "2026-09-11: AI verdict AFFIRM (conf 85) - Limiting high-multiple single-stock risk prevents valuation drawdowns from materially impacting aggregate portfolio NAV."
+        "2026-09-11: AI verdict AFFIRM (conf 85) - Limiting high-multiple single-stock risk prevents valuation drawdowns from materially impacting aggregate portfolio NAV.",
+        "2026-09-11: AI verdict AFFIRM (conf 85) - Strict position sizing caps multiple compression risk without materially dampening portfolio upside."
       ]
     },
     {
@@ -2633,7 +2709,8 @@
         "2026-08-17: AI verdict PROBATION (conf 45) - Leveraged value factor (IWDL) remains constrained relative to secular growth given high financing costs and tech earnings power.",
         "2026-08-21: AI verdict PROBATION (conf 35) - Leveraged value factor fails to generate superior risk-adjusted alpha against large-cap tech in a high-rate, narrow-breadth regime.",
         "2026-08-21: AI verdict PROBATION (conf 35) - 2x leveraged value factor structure suffers from rate friction and lacks relative Sharpe advantage over core growth.",
-        "2026-09-11: AI verdict PROBATION (conf 30) - Leveraged value factor suffers severe carry drag and adverse factor momentum in a high rates-shock environment."
+        "2026-09-11: AI verdict PROBATION (conf 30) - Leveraged value factor suffers severe carry drag and adverse factor momentum in a high rates-shock environment.",
+        "2026-09-11: AI verdict ABANDON (conf 20) - Leveraged value suffers acute negative carry in a restrictive rate regime, invalidating the factor hedge thesis."
       ]
     },
     {
@@ -2651,7 +2728,8 @@
         "2026-08-17: AI verdict AFFIRM (conf 85) - Streamlined book structure eliminates non-core thematic drag and concentrates risk budget on high-conviction barbell assets.",
         "2026-08-21: AI verdict AFFIRM (conf 85) - Elimination of speculative thematic satellite positions materially reduces beta drag and unhedged drawdowns.",
         "2026-08-21: AI verdict AFFIRM (conf 85) - Concentrating risk in high-conviction growth while eliminating low-conviction themes preserves upside capture with lower portfolio variance.",
-        "2026-09-11: AI verdict AFFIRM (conf 85) - Streamlined book focused exclusively on high-conviction core positions minimizes residual tracking bleed."
+        "2026-09-11: AI verdict AFFIRM (conf 85) - Streamlined book focused exclusively on high-conviction core positions minimizes residual tracking bleed.",
+        "2026-09-11: AI verdict AFFIRM (conf 85) - Trimming low-conviction non-hedge positions eliminates drag and improves portfolio risk hygiene."
       ]
     },
     {
@@ -2669,7 +2747,8 @@
         "2026-08-17: AI verdict AFFIRM (conf 80) - Uncorrelated long vol, anti-beta, and tail hedges remain structured to absorb rapid equity valuation compressions.",
         "2026-08-21: AI verdict AFFIRM (conf 85) - Tail-risk sleeve components (QFLR, VIXM, BTAL, ZROZ) maintain defensive convexity against sudden tech valuation compressions.",
         "2026-08-21: AI verdict AFFIRM (conf 85) - Multi-asset hedge stack configuration (QFLR, VIXM, BTAL, ZROZ) provides structural cushion against sudden valuation drawdowns.",
-        "2026-09-11: AI verdict AFFIRM (conf 85) - Anti-beta, volatility, and tail-risk components reliably expand spread during severe growth liquidation cascades."
+        "2026-09-11: AI verdict AFFIRM (conf 85) - Anti-beta, volatility, and tail-risk components reliably expand spread during severe growth liquidation cascades.",
+        "2026-09-11: AI verdict AFFIRM (conf 85) - Convex protective assets in the hedge stack remain configured to absorb concentrated tech shocks."
       ]
     },
     {
@@ -2687,7 +2766,8 @@
         "2026-08-17: AI verdict AFFIRM (conf 80) - FXY and trend-following DBMF provide vital convex downside protection in the event of sudden yen carry unwinds.",
         "2026-08-21: AI verdict AFFIRM (conf 85) - Elevated USD/JPY at 158.95 highlights systemic carry risks where FXY and DBMF provide critical shock absorption.",
         "2026-08-21: AI verdict AFFIRM (conf 85) - FXY and trend-following DBMF exposure provide direct convexity against sharp yen carry unwinds.",
-        "2026-09-11: AI verdict AFFIRM (conf 85) - FXY and trend managed futures maintain structural negative correlation to sudden carry-trade liquidations."
+        "2026-09-11: AI verdict AFFIRM (conf 85) - FXY and trend managed futures maintain structural negative correlation to sudden carry-trade liquidations.",
+        "2026-09-11: AI verdict AFFIRM (conf 85) - FXY and managed futures trend structures remain primed to offset violent cross-currency carry liquidations."
       ]
     },
     {
@@ -2705,7 +2785,8 @@
         "2026-08-17: AI verdict AFFIRM (conf 80) - Gold and managed futures maintain low correlation to APAC supply chain disruptions and geopolitical friction points.",
         "2026-08-21: AI verdict AFFIRM (conf 80) - Precious metals and managed futures positions offer reliable defensive ballast against Asia-Pacific geopolitical escalations.",
         "2026-08-21: AI verdict AFFIRM (conf 80) - Gold and managed futures provide uncorrelated protection against Asian geopolitical escalation.",
-        "2026-09-11: AI verdict AFFIRM (conf 80) - Precious metals and trend-following managed futures provide defensive isolation from regional Asia geopolitical flare-ups."
+        "2026-09-11: AI verdict AFFIRM (conf 80) - Precious metals and trend-following managed futures provide defensive isolation from regional Asia geopolitical flare-ups.",
+        "2026-09-11: AI verdict AFFIRM (conf 80) - Gold, miners, and managed futures offer uncorrelated ballast against regional escalation risks."
       ]
     },
     {
@@ -2724,7 +2805,8 @@
         "2026-08-17: AI verdict AFFIRM (conf 85) - Precious metals sleeve provides direct purchasing power hedge against sticky structural inflation risks.",
         "2026-08-21: AI verdict AFFIRM (conf 85) - Gold sleeve effectively hedges against sticky inflation prints and real-rate regime uncertainties.",
         "2026-08-21: AI verdict AFFIRM (conf 85) - Gold and miners continue to act as effective purchasing power and inflation resurgence hedges.",
-        "2026-09-11: AI verdict AFFIRM (conf 85) - Gold and miners hedge real-asset purchasing power as unexpected inflation prints pressure growth multiples."
+        "2026-09-11: AI verdict AFFIRM (conf 85) - Gold and miners hedge real-asset purchasing power as unexpected inflation prints pressure growth multiples.",
+        "2026-09-11: AI verdict AFFIRM (conf 85) - Precious metals positions protect real purchasing power against persistent inflation and debt debasement."
       ]
     },
     {
@@ -2742,7 +2824,8 @@
         "2026-08-17: AI verdict AFFIRM (conf 85) - Multi-asset crisis basket (GLD, GDX, FXY, DBMF) offers robust non-equity protection during geopolitical escalations.",
         "2026-08-21: AI verdict AFFIRM (conf 85) - Diversified multi-asset hedge basket offsets risk-off shocks driven by energy and conflict flashpoints.",
         "2026-08-21: AI verdict AFFIRM (conf 85) - Hedge basket components demonstrate low correlation and flight-to-safety buffering during geopolitical shocks.",
-        "2026-09-11: AI verdict AFFIRM (conf 85) - The combined hedge basket reliably catches flight-to-safety flows during sudden geopolitical escalations."
+        "2026-09-11: AI verdict AFFIRM (conf 85) - The combined hedge basket reliably catches flight-to-safety flows during sudden geopolitical escalations.",
+        "2026-09-11: AI verdict AFFIRM (conf 85) - The diversified insurance sleeve contains complementary hedges to mitigate geopolitical shocks."
       ]
     }
   ]
