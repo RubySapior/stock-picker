@@ -1586,8 +1586,16 @@ def proposal_queue(verdict, data):
     if not queue:
         queue = ai_sentiment.bullish_layer(verdict, data)
     orders = data.get("orders") or []
+    whitelist = {p["ticker"] for p in data.get("positions") or []
+                 if p.get("status") == "open"}
     out = []
     for e in queue:
+        # Closed-ticker prune (live book): a queued read whose ticker left
+        # the book is dead - serve.py would refuse to book it, so the UI
+        # must not offer Submit for it. merge_proposal_queue prunes these
+        # on the next AI run; this covers every dashboard write in between.
+        if e.get("ticker") not in whitelist:
+            continue
         entry = dict(e)
         side = entry.get("side") or (
             "sell" if entry.get("action") in ("trim", "sell") else "buy")
@@ -2332,7 +2340,10 @@ def build_ai_payload(verdict, data, gauge=None):
         "theories": verdict["theories"],
         "fears": verdict["fears"],
         "convictions": verdict["convictions"],
-        "rotations": verdict.get("rotations") or [],
+        # Rotations go through rotation_layer (open-holdings whitelist +
+        # cap pre-check), never the raw verdict - a stale pair whose leg
+        # left the book must not render a Book button serve.py would refuse.
+        "rotations": ai_sentiment.rotation_layer(verdict, data),
         "fear_proposals": (meta.get("ai_fear_proposals") or [])[:5],
         "proposals": proposal_queue(verdict, data),
         "summary": verdict["summary"],

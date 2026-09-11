@@ -947,15 +947,31 @@ function render() {
     const model = cfg.provider ? `${String(cfg.provider).toUpperCase()} · ${cfg.model}` : '';
     const stancePill = s => `<span class="stancePill ${escA(s)}">${String(s||'neutral').toUpperCase()}</span>`;
 
+    // LOCAL_SERVER = browser never reached serve.py (file://, Pages, or
+    // server down). Any other message is the server's own refusal text and
+    // is shown verbatim so a rejected order never masquerades as a
+    // connectivity problem.
     async function post(path, body){
-      const r = await fetch(path, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: body ? JSON.stringify(body) : undefined,
-      });
-      if(!r.ok) throw new Error('HTTP ' + r.status);
+      let r;
+      try{
+        r = await fetch(path, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: body ? JSON.stringify(body) : undefined,
+        });
+      }catch(e){
+        throw new Error('LOCAL_SERVER');
+      }
+      if(!r.ok){
+        let msg = '';
+        try{ const j = await r.json(); msg = j.error || ''; }catch(e){}
+        throw new Error(msg || ('HTTP ' + r.status));
+      }
       return r.json();
     }
+    const srvMsg = (e, what) => (e && e.message && e.message !== 'LOCAL_SERVER')
+      ? (what + ' failed: ' + e.message)
+      : (what + ' needs the local server: run `python serve.py` and open http://localhost:8000 (NAS container: http://<NAS-IP>:8010).');
     const mode = (A && A.mode) || cfg.mode || 'recommend';
     // Mode switch is always wired (even when degraded/off so you can flip before next run)
     (() => {
@@ -977,7 +993,7 @@ function render() {
               const j = await post('/mode', {mode: next});
               if(!j.ok) throw new Error(j.error || 'mode switch failed');
             }catch(e){
-              alert('Auto AI toggle needs the local server: run `python serve.py` and open http://localhost:8000.');
+              alert(srvMsg(e, 'Auto AI toggle'));
               modeSwitch.checked = !modeSwitch.checked;
               if(lblRec) lblRec.classList.toggle('active', !modeSwitch.checked);
               if(lblAuto) lblAuto.classList.toggle('active', modeSwitch.checked);
@@ -1019,7 +1035,7 @@ function render() {
         if(!j.ok) throw new Error(j.error || 'booking failed');
         alert(`${j.created} order(s) booked to portfolio.json (pending). Takes effect on next update - press Update to see them.`);
       }catch(e){
-        alert('Booking needs the local server: run `python serve.py` and open http://localhost:8000.');
+        alert(srvMsg(e, 'Booking'));
       }
     }
     const ea = document.getElementById('execAllBtn');
@@ -1030,7 +1046,8 @@ function render() {
         if(!j.ok) throw new Error(j.error || 'booking failed');
         alert(`Booked all proposals: ${j.created||0} order(s) written to portfolio.json (pending). Takes effect on next update - press Update to see them.`);
       }catch(e){
-        alert('Submit all Orders needs the local server: run `python serve.py` and open http://localhost:8000.');
+        ea.disabled = false;
+        alert(srvMsg(e, 'Submit all Orders'));
       }
     });
     const biasEl = document.getElementById('biasSlider');
@@ -1048,7 +1065,7 @@ function render() {
             const j = await post('/bias', {value: Number(biasEl.value)});
             if(!j.ok) throw new Error(j.error || 'bias failed');
           }catch(e){
-            alert('Sentiment slider needs the local server: run `python serve.py` and open http://localhost:8000.');
+            alert(srvMsg(e, 'Sentiment slider'));
           }
           biasEl.title = 'Saved - takes effect on next update';
         }, 700);

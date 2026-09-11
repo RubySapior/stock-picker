@@ -165,6 +165,27 @@ JSON verdict that feeds three deterministic layers. Nothing executes.
   -> target book diff -> "Buy TQQQ +$2k" review cards (buttons, never
   execution).
 
+## [site 0.5.6.18] — 2026-09-11
+
+### Fixed — dead Submit buttons + misleading local-server alert
+
+- **Stale proposal/rotation cards pruned at dashboard-write time:**
+  `proposal_queue()` now drops queued reads whose ticker left the book, and
+  `build_ai_payload()` filters rotations through `rotation_layer()` instead
+  of dumping the raw verdict. Previously a verdict whose tickers had since
+  executed/closed (e.g. IWDL trim, IWM→BTAL rotation) kept rendering Submit
+  buttons the server would always refuse.
+- **`/book` + `/execute_all` accept what the UI shows:** new
+  `serve.py::_bookable_proposals()` validates against the fresh verdict PLUS
+  carried queue entries still open and cap-clear, instead of the verdict
+  alone. Empty queue now answers with an actionable message ("already
+  executed or left the book; run AI Analysis") instead of a bare 500.
+- **Honest booking errors in `app.js`:** `post()` distinguishes "browser
+  never reached serve.py" (`LOCAL_SERVER`) from a server refusal, and all
+  four catch sites (Auto AI toggle, Booking, Submit all Orders, sentiment
+  slider) surface the server's own reason text. Submit-all also re-enables
+  after a failure so it can be retried without a reload.
+
 ## [site 0.5.6.17] — 2026-09-11
 
 ### Added — Risk-parity sizing engine, Phase 1 SHADOW MODE (multi-review spec)

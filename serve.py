@@ -105,6 +105,40 @@ def _set_meta(data, keys, value):
     return data
 
 
+def _bookable_proposals(data):
+    """Proposals the dashboard offers (fresh verdict + persisted queue).
+
+    /book + /execute_all must accept exactly what the UI shows: the current
+    verdict's bullish_layer PLUS carried queue entries in
+    meta.ai_state.proposals that are still OPEN holdings and pass the
+    sector-cap pre-check. Closed tickers are never bookable (a sell of a
+    closed position would sit pending forever).
+    """
+    import ai_sentiment
+    verdict = ((data.get("meta") or {}).get("ai_last_output")) or {}
+    fresh = {}
+    for p in ai_sentiment.bullish_layer(verdict, data):
+        side = "buy" if p.get("conviction_score", 0) > 0 else "sell"
+        fresh[(p["ticker"], side)] = p
+    whitelist = {p["ticker"] for p in data.get("positions") or []
+                 if p.get("status") == "open"}
+    merged = dict(fresh)
+    queue = (((data.get("meta") or {}).get("ai_state") or {}).get("proposals")
+             or [])
+    for e in queue:
+        tk = e.get("ticker")
+        if not tk or tk not in whitelist:
+            continue
+        side = (e.get("side")
+                or ("sell" if e.get("action") in ("trim", "sell") else "buy"))
+        if (side != "sell" and e.get("amount")
+                and ai_sentiment.sector_cap_blocked(tk, float(e["amount"]),
+                                                   data)):
+            continue
+        merged.setdefault((tk, side), e)
+    return list(merged.values())
+
+
 def _append_orders(data, created):
     """Mutator for store.update_portfolio: keep executed history, replace
     the pending queue with the newly approved orders."""
@@ -362,7 +396,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             def note_for(tk, action, pnl=None):
                 return (pnl or f"{action.upper()} {tk}")[:160]
 
-            proposals = ai_sentiment.bullish_layer(verdict, data)
+            proposals = _bookable_proposals(data)
             rotations = ai_sentiment.rotation_layer(verdict, data)
 
             if body.get("ticker"):
@@ -438,7 +472,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
                 raise ValueError("no AI verdict on record - run Update first")
             size = float(cfg.get("order_size", 2500))
             created = []
-            for p in ai_sentiment.bullish_layer(verdict, data):
+            for p in _bookable_proposals(data):
                 action = "buy" if p["conviction_score"] > 0 else "sell"
                 amt = round(float(p.get("amount") or size), 2)
                 if action == "buy" and ai_sentiment.sector_cap_blocked(p["ticker"], amt, data):
@@ -465,7 +499,9 @@ class Handler(http.server.SimpleHTTPRequestHandler):
                         "created": verdict["date"], "note": note,
                     })
             if not created:
-                raise ValueError("the current verdict has no proposals or rotations")
+                raise ValueError("no bookable proposals or rotations - "
+                                 "the queued reads already executed or left "
+                                 "the book; run AI Analysis for a fresh read")
             store.update_portfolio(lambda d: _append_orders(d, created), user_id=user_id)
         except Exception as exc:
             self._json({"ok": False, "error": str(exc)}, 500)
