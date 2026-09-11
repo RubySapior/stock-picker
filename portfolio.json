@@ -620,7 +620,7 @@
   },
   "account": {
     "cash": 25.0,
-    "realized_pnl": 3.66,
+    "realized_pnl": -86.53,
     "history": [
       {
         "date": "2026-08-10",
@@ -1291,6 +1291,34 @@
           "DBMF": 31.92,
           "SGOV": 100.5
         }
+      },
+      {
+        "date": "2026-09-11",
+        "total_value": 99343.97,
+        "cash": 25.0,
+        "invested_value": 99318.97,
+        "day_change": 815.65,
+        "prices": {
+          "TQQQ": 71.28,
+          "SOXL": 123.245,
+          "SMH": 570.82,
+          "DRAM": 59.086,
+          "PLTR": 166.68,
+          "NLR": 114.45,
+          "NUKZ": 64.67,
+          "IWM": 289.53,
+          "XLY": 112.99,
+          "EZU": 69.725,
+          "ZROZ": 57.88,
+          "FXY": 59.66,
+          "VIXM": 13.36,
+          "QFLR": 35.36,
+          "GLD": 399.96,
+          "GDX": 96.95,
+          "BTAL": 12.255,
+          "DBMF": 31.94,
+          "SGOV": 100.517
+        }
       }
     ],
     "dividends": 8.42
@@ -1714,22 +1742,65 @@
       "buy_price": null,
       "shares": null,
       "realized_pnl": 0
+    },
+    {
+      "date": "2026-09-11",
+      "ts": "16:56:04",
+      "ticker": "IWDL",
+      "name": "ETRACS 2x Leveraged US Value Factor TR ETN",
+      "reason": "market_order",
+      "note": "SELL 2,125 (execute_all_2026-09-11)",
+      "action": "sell",
+      "state": null,
+      "price": 70.245,
+      "buy_price": 69.9752,
+      "shares": 0.1368,
+      "amount": 2125.0,
+      "realized_pnl": 0.04
+    },
+    {
+      "date": "2026-09-11",
+      "ts": "16:56:04",
+      "ticker": "IWM",
+      "name": "iShares Russell 2000 ETF",
+      "reason": "market_order",
+      "note": "SELL 2,500 (execute_all_2026-09-11)",
+      "action": "sell",
+      "state": null,
+      "price": 289.53,
+      "buy_price": 299.98,
+      "shares": 8.6347,
+      "amount": 2500.0,
+      "realized_pnl": -90.23
+    },
+    {
+      "date": "2026-09-11",
+      "ts": "16:56:04",
+      "ticker": "BTAL",
+      "name": "AGF U.S. Market Neutral Anti-Beta Fund",
+      "reason": "market_order",
+      "note": "BUY 2,500 (execute_all_2026-09-11)",
+      "action": "buy",
+      "state": null,
+      "price": 12.255,
+      "buy_price": 12.255,
+      "shares": 203.9984,
+      "amount": 2500.0,
+      "realized_pnl": 0
+    },
+    {
+      "date": "2026-09-11",
+      "ts": "16:56:04",
+      "ticker": "SGOV",
+      "name": "iShares 0-3 Month Treasury Bond ETF",
+      "reason": "deploy_cash",
+      "price": 100.517,
+      "buy_price": 100.517,
+      "shares": 24.967,
+      "realized_pnl": 0
     }
   ],
   "orders": [
-    {
-      "ticker": "TQQQ",
-      "action": "buy",
-      "amount": 2500.0,
-      "status": "executed",
-      "source": "ai_2026-08-14",
-      "created": "2026-08-14",
-      "note": "HUMAN-APPROVED from 2026-08-14 AI verdict: close the gap in the underweight Tech / AI Growth sleeve (46.3% vs 60.0% limit) while core tech fundamentals lead.",
-      "exec_date": "2026-08-17",
-      "exec_price": 77.11,
-      "shares": 32.4212,
-      "realized_pnl": 0.0
-    },
     {
       "ticker": "SOXL",
       "action": "buy",
@@ -1903,19 +1974,27 @@
       "ticker": "IWDL",
       "action": "sell",
       "amount": 2125.0,
-      "status": "pending",
+      "status": "executed",
       "source": "execute_all_2026-09-11",
       "created": "2026-09-11",
-      "note": "Residual dust position in 2x leveraged value suffers from severe negative carry and factor decay amid 4.94% Treasury yields; prioritize liquidation."
+      "note": "Residual dust position in 2x leveraged value suffers from severe negative carry and factor decay amid 4.94% Treasury yields; prioritize liquidation.",
+      "exec_date": "2026-09-11",
+      "exec_price": 70.245,
+      "shares": 0.1368,
+      "realized_pnl": 0.04
     },
     {
       "ticker": "IWM",
       "action": "sell",
       "amount": 2500.0,
-      "status": "pending",
+      "status": "executed",
       "source": "execute_all_2026-09-11",
       "created": "2026-09-11",
-      "note": "rotation IWM->BTAL: Rotate interest-rate-sensitive small-cap beta facing refinancing headwinds at near-5% yields into market-neutral anti-be"
+      "note": "rotation IWM->BTAL: Rotate interest-rate-sensitive small-cap beta facing refinancing headwinds at near-5% yields into market-neutral anti-be",
+      "exec_date": "2026-09-11",
+      "exec_price": 289.53,
+      "shares": 8.6347,
+      "realized_pnl": -90.23
     },
     {
       "ticker": "BTAL",
@@ -2076,8 +2155,8 @@
       ],
       "buy_date": "2026-08-10",
       "buy_price": 299.98,
-      "shares": 10.000667,
-      "cost": 3000.0,
+      "shares": 1.365983,
+      "cost": 409.77,
       "take_profit_pct": 0.3,
       "stop_loss_pct": -0.15,
       "status": "open",
@@ -2094,17 +2173,24 @@
       ],
       "buy_date": "2026-08-10",
       "buy_price": 69.9752,
-      "shares": 0.136797,
-      "cost": 9.57,
+      "shares": 0.0,
+      "cost": 0.0,
       "take_profit_pct": 0.45,
       "stop_loss_pct": -0.35,
       "underlying": "IWD",
       "underlying_stop_pct": -0.1,
       "underlying_buy_price": 258.31,
-      "status": "open",
+      "status": "closed",
       "thesis": "B-TIER CONVICTION, kept as an ANTI-GROWTH FACTOR HEDGE (the value factor offsets the growth-heavy book - covered by the hedge exemption since it is a factor counterweight, not a directional growth bet). Value beat growth by the widest margin in 25 years in July; widening should continue. Risk: ETN (UBS credit) + 2x daily decay. V5.1: stop is index-referenced (IWD -10%), the -35% wrapper level is only a backstop.",
       "entry_note": "Factor-hedge justification. 1x alternative: IWD/VTV. Stop on IWD (1x), not the 2x ETN.",
-      "dynamic_stop_pct": -0.1
+      "dynamic_stop_pct": -0.1,
+      "exit": {
+        "reason": "market_order",
+        "price": 70.245,
+        "state": null,
+        "note": "Market order sold full position (execute_all_2026-09-11)",
+        "realized_pnl": 0.04
+      }
     },
     {
       "id": "XLY",
@@ -2275,8 +2361,8 @@
       ],
       "buy_date": "2026-08-10",
       "buy_price": 12.08,
-      "shares": 873.912534,
-      "cost": 10500.0,
+      "shares": 1077.910902,
+      "cost": 13000.0,
       "take_profit_pct": 0.15,
       "stop_loss_pct": -0.1,
       "status": "open",
@@ -2311,8 +2397,8 @@
       "theory_ids": [],
       "buy_date": "2026-08-11",
       "buy_price": 100.505,
-      "shares": 27.525223,
-      "cost": 2759.86,
+      "shares": 27.620829,
+      "cost": 2769.47,
       "take_profit_pct": 0.0,
       "stop_loss_pct": -0.1,
       "status": "open",
