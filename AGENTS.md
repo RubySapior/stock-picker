@@ -219,7 +219,7 @@ Owned by `write_dashboard()` in `update.py`. `app.js` reads these fields:
   `status` ("ok"/"warn"/"over"), `note`
 - `leverage_factor`: book-wide effective ÷ market value
 - `history[]`: `date`, `total_value`, `cash`, `invested_value`, `day_change`,
-  `prices{ticker: px}`
+  `prices{ticker: px}` (portfolio.json only; dashboard.js history omits `prices` - no frontend code reads it)
 - `events[]`: `date`, `ts` (HH:MM:SS local time the event was recorded),
   `ticker`, `name`, `reason` ("take_profit"/"stop_loss"/
   "deploy_cash"/"re_entry"/"market_order"/"dividend"), `note`

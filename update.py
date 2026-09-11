@@ -204,17 +204,26 @@ def save_ohlc_cache(cache):
     store.write_text_atomic(OHLC_CACHE, json.dumps(cache, indent=1))
 
 
+OHLC_KEEP = 400  # cached sessions per ticker (1y ~= 252; EMA/ATR need ~50)
+
 def ensure_ohlc_bars(tickers, today):
-    """Daily OHLC bars per ticker, fetched once per calendar day (completed
-    sessions only; today's partial bar is excluded by indicators())."""
+    """Daily OHLC bars per ticker, refreshed once per calendar day (completed
+    sessions only; today's partial bar is excluded by indicators()).
+
+    Incremental: a full 1y fetch happens only for tickers with no cached
+    bars; cached tickers merge a 5d delta by date (same-session rows are
+    overwritten, new sessions appended, cache capped at OHLC_KEEP). The
+    old code refetched 1y x every ticker on every date change.
+    """
     cache = load_ohlc_cache()
     bars = cache.get("bars") or {}
+    fetched = cache.setdefault("bars_fetched", {})
     if cache.get("date") != today:
-        bars = {}
         cache["date"] = today
-    missing = [t for t in tickers if t not in bars]
+    full = [t for t in tickers if not bars.get(t)]
+    delta = [t for t in tickers if t not in full and fetched.get(t) != today]
 
-    def one(t):
+    def one_full(t):
         time.sleep(0.15)
         try:
             b = fetch_bars_ohlc(t)
@@ -224,11 +233,33 @@ def ensure_ohlc_bars(tickers, today):
             print(f"  WARN: indicator history fetch failed for {t}: {exc}")
             return t, None
 
-    if missing:
+    def one_delta(t):
+        time.sleep(0.15)
+        try:
+            b = fetch_bars_ohlc(t, rng="5d")
+            return t, b
+        except Exception as exc:
+            print(f"  WARN: indicator delta fetch failed for {t}: {exc}")
+            return t, None
+
+    if full:
         with concurrent.futures.ThreadPoolExecutor(max_workers=8) as ex:
-            for t, b in ex.map(one, missing):
+            for t, b in ex.map(one_full, full):
                 if b:
-                    bars[t] = b
+                    bars[t] = b[-OHLC_KEEP:]
+                    fetched[t] = today
+    if delta:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=8) as ex:
+            for t, b in ex.map(one_delta, delta):
+                if not b:
+                    continue
+                by_date = {r["date"]: r for r in bars.get(t) or []}
+                for r in b:
+                    by_date[r["date"]] = r
+                merged = sorted(by_date.values(), key=lambda r: r["date"])
+                bars[t] = merged[-OHLC_KEEP:]
+                fetched[t] = today
+                print(f"  INDICATORS: delta-merged {t} ({len(b)} bars, cache {len(bars[t])})")
     cache["bars"] = bars
     save_ohlc_cache(cache)
     return bars
@@ -2464,7 +2495,11 @@ def write_dashboard(data, benchmark=None, fear_data=None,
         "sleeves": sleeves,
         "sectors": sectors,
         "leverage_factor": round(total_eff / tot_mv, 2),
-        "history": history,
+        # Slim history: per-snapshot prices stay in portfolio.json (exit/
+        # calibration fallbacks) but are dead weight in the browser bundle -
+        # no frontend code reads history[].prices (chart uses total_value).
+        "history": [{k: v for k, v in h.items() if k != "prices"}
+                    for h in history],
         "events": data["events"],
         "theories": data["theories"],
         "fears": (fear_data or {}).get("fears") or None,
