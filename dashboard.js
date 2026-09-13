@@ -136,46 +136,46 @@ window.DASH = {
     "disclaimer": "Simulated portfolio for tracking/learning. Not financial advice.",
     "fear_state": {
       "F1": {
-        "prev_score": 2.1,
+        "prev_score": 2.0,
         "score": 2.0,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F2": {
-        "prev_score": 4.3,
+        "prev_score": 4.5,
         "score": 4.5,
-        "days_above": 2,
+        "days_above": 3,
         "confirmed": true,
-        "last_above_date": "2026-09-12"
+        "last_above_date": "2026-09-13"
       },
       "F3": {
-        "prev_score": 3.4,
+        "prev_score": 3.6,
         "score": 3.6,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F4": {
-        "prev_score": 4.9,
+        "prev_score": 4.8,
         "score": 4.8,
-        "days_above": 4,
+        "days_above": 5,
         "confirmed": true,
-        "last_above_date": "2026-09-12"
+        "last_above_date": "2026-09-13"
       },
       "F5": {
         "prev_score": 4.4,
         "score": 4.4,
-        "days_above": 7,
+        "days_above": 8,
         "confirmed": true,
-        "last_above_date": "2026-09-12"
+        "last_above_date": "2026-09-13"
       },
       "F6": {
-        "prev_score": 5.0,
+        "prev_score": 4.9,
         "score": 4.9,
-        "days_above": 7,
+        "days_above": 8,
         "confirmed": true,
-        "last_above_date": "2026-09-12"
+        "last_above_date": "2026-09-13"
       },
       "F7": {
         "prev_score": 1.7,
@@ -185,7 +185,7 @@ window.DASH = {
         "last_above_date": null
       },
       "F8": {
-        "prev_score": 3.0,
+        "prev_score": 2.9,
         "score": 2.9,
         "days_above": 0,
         "confirmed": false,
@@ -633,7 +633,7 @@ window.DASH = {
       "cash_buffer_usd": 500.0,
       "shadow_mode": true
     },
-    "asof_ts": 1789190788,
+    "asof_ts": 1789278144,
     "refresh_interval": 1440
   },
   "asof": "2026-09-11",
@@ -2505,7 +2505,7 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-09-12",
+      "asof": "2026-09-13",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2536,7 +2536,7 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-09-12",
+      "asof": "2026-09-13",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2566,9 +2566,9 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-09-12",
+      "asof": "2026-09-13",
       "degraded": false,
-      "trend_dir": "rising"
+      "trend_dir": "flat"
     },
     {
       "id": "F5",
@@ -2602,7 +2602,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-09-12",
+      "asof": "2026-09-13",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2637,9 +2637,9 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-09-12",
+      "asof": "2026-09-13",
       "degraded": false,
-      "trend_dir": "rising"
+      "trend_dir": "flat"
     },
     {
       "id": "F8",
@@ -2671,7 +2671,7 @@ window.DASH = {
         "BTAL"
       ],
       "sizing": null,
-      "asof": "2026-09-12",
+      "asof": "2026-09-13",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2707,7 +2707,7 @@ window.DASH = {
         "ZROZ"
       ],
       "sizing": null,
-      "asof": "2026-09-12",
+      "asof": "2026-09-13",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2737,7 +2737,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-09-12",
+      "asof": "2026-09-13",
       "degraded": false,
       "trend_dir": "flat"
     }
@@ -4121,13 +4121,23 @@ window.DASH = {
     "enabled": true
   },
   "news": {
-    "asof": "2026-09-12 05:26:29",
+    "asof": "2026-09-13 05:42:25",
     "big_stories": [
       {
-        "title": "Palantir (PLTR)’s CEO Bets his Own Money on Ukraine’s Ousted Tech-Warfare Architect",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/palantir-pltr-ceo-bets-own-005236786.html?.tsrc=rss",
-        "ts": 1789174356,
-        "when": "Sep 12, 12:52 AM",
+        "title": "How to Build $7,900 a Month in Dividend Income While Minimizing Your IRMAA Risk",
+        "link": "https://247wallst.com/personal-finance/2026/09/12/how-to-build-7900-a-month-in-dividend-income-while-minimizing-your-irmaa-risk/?.tsrc=rss",
+        "ts": 1789245098,
+        "when": "Sep 12, 08:31 PM",
+        "ticker": "SGOV",
+        "industry": "Equities",
+        "theory": [],
+        "sent": "negative"
+      },
+      {
+        "title": "Palantir's Growth Has Kept Accelerating, but Can the Rally Continue?",
+        "link": "https://www.fool.com/investing/2026/09/12/palantirs-growth-has-kept-accelerating-but-can-the/?.tsrc=rss",
+        "ts": 1789228500,
+        "when": "Sep 12, 03:55 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -4136,7 +4146,7 @@ window.DASH = {
           "T2",
           "T14"
         ],
-        "sent": "neutral"
+        "sent": "positive"
       },
       {
         "title": "Sell the Nvidia Shares That Made Your Retirement or Ride Them Into It? These 3 ETFs Are the Middle Path",
@@ -4166,16 +4176,6 @@ window.DASH = {
         "sent": "neutral"
       },
       {
-        "title": "A $1.65 Million Portfolio, Two Withdrawal Plans: One Triggers IRMAA and RMD Taxes, One Never Does",
-        "link": "https://247wallst.com/personal-finance/2026/09/11/a-1-65-million-portfolio-two-withdrawal-plans-one-triggers-irmaa-and-rmd-taxes-one-never-does/?.tsrc=rss",
-        "ts": 1789153314,
-        "when": "Sep 11, 07:01 PM",
-        "ticker": "SGOV",
-        "industry": "Equities",
-        "theory": [],
-        "sent": "neutral"
-      },
-      {
         "title": "Fall Market Crash Risk: 6 Defensive Moves for Boomers & Gen X Investors",
         "link": "https://247wallst.com/investing/2026/09/11/fall-market-crash-risk-6-defensive-moves-for-boomers-gen-x-investors/?.tsrc=rss",
         "ts": 1789132541,
@@ -4193,6 +4193,76 @@ window.DASH = {
       }
     ],
     "feed": [
+      {
+        "title": "How to Build $7,900 a Month in Dividend Income While Minimizing Your IRMAA Risk",
+        "link": "https://247wallst.com/personal-finance/2026/09/12/how-to-build-7900-a-month-in-dividend-income-while-minimizing-your-irmaa-risk/?.tsrc=rss",
+        "ts": 1789245098,
+        "when": "Sep 12, 08:31 PM",
+        "ticker": "SGOV",
+        "industry": "Equities",
+        "theory": [],
+        "sent": "negative"
+      },
+      {
+        "title": "Palantir's Growth Has Kept Accelerating, but Can the Rally Continue?",
+        "link": "https://www.fool.com/investing/2026/09/12/palantirs-growth-has-kept-accelerating-but-can-the/?.tsrc=rss",
+        "ts": 1789228500,
+        "when": "Sep 12, 03:55 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "Palantir and Nvidia Are Building a Sovereign AI Stack. Who Captures More of the Economics?",
+        "link": "https://finance.yahoo.com/technology/ai/articles/palantir-nvidia-building-sovereign-ai-085205506.html?.tsrc=rss",
+        "ts": 1789203125,
+        "when": "Sep 12, 08:52 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "Michael Burry Is Staying Short Nvidia, Palantir, and Tesla, Warning of a Possible \"1987-Type Fall\" for AI Stocks. Should Investors Take the Bet Seriously?",
+        "link": "https://www.fool.com/investing/2026/09/12/michael-burry-is-staying-short-nvidia-palantir-and/?.tsrc=rss",
+        "ts": 1789192200,
+        "when": "Sep 12, 05:50 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "negative"
+      },
+      {
+        "title": "Palantir Stock Remains Attractive Even After a 50% Rally in August",
+        "link": "https://www.barchart.com/story/news/4568234/palantir-stock-remains-attractive-even-after-a-50-rally-in-august?.tsrc=rss",
+        "ts": 1789191002,
+        "when": "Sep 12, 05:30 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
       {
         "title": "Palantir (PLTR)’s CEO Bets his Own Money on Ukraine’s Ousted Tech-Warfare Architect",
         "link": "https://finance.yahoo.com/markets/stocks/articles/palantir-pltr-ceo-bets-own-005236786.html?.tsrc=rss",
@@ -4533,66 +4603,6 @@ window.DASH = {
         "sent": "positive"
       },
       {
-        "title": "Relatively unknown cloud provider gets Nvidia's stamp of approval",
-        "link": "https://www.thestreet.com/technology/rackspace-rxt-nvidia-cloud-partner-sovereign-ai?.tsrc=rss",
-        "ts": 1789124580,
-        "when": "Sep 11, 11:03 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "Alex Karp Set Palantir a 134% Growth Target for the Whole Company. Here's What It Would Take to Hit It.",
-        "link": "https://www.fool.com/investing/2026/09/11/alex-karp-set-palantir-a-134-growth-target-for-the-whole-company-here-s-what-it-would-take-to-hit-it/?.tsrc=rss",
-        "ts": 1789111741,
-        "when": "Sep 11, 07:29 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "PLTR Stock Wins Whether We’re In An AI Bubble Or Not? Wall Street Analyst Explains Why",
-        "link": "https://stocktwits.com/news-articles/markets/equity/pltr-stock-wins-whether-we-re-in-an-ai-bubble-or-not-wall-street-analyst-explains-why/cZtXeu2RBGd?.tsrc=rss",
-        "ts": 1789107067,
-        "when": "Sep 11, 06:11 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "Dan Ives Says Software Stocks Just Got Their Clearest Buy Signal Yet",
-        "link": "https://beincrypto.com/dan-ives-software-stocks-buy-signal/?.tsrc=rss",
-        "ts": 1789089739,
-        "when": "Sep 11, 01:22 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
         "title": "Forget SMH: The Chip Fund That Charges 0.15% Is Beating It by 22 Points This Year",
         "link": "https://247wallst.com/investing/etf/2026/09/10/forget-smh-the-chip-fund-that-charges-0-15-is-beating-it-by-22-points-this-year/?.tsrc=rss",
         "ts": 1789078518,
@@ -4606,22 +4616,6 @@ window.DASH = {
           "T14"
         ],
         "sent": "negative"
-      },
-      {
-        "title": "Daily ETF Flows: GDX Registers Outflows",
-        "link": "http://www.etf.com/sections/daily-etf-flows/daily-etf-flows-gdx-registers-outflows?utm_source=yahoo-finance&utm_medium=rss&utm_campaign=yahoo-finance-rss&.tsrc=rss",
-        "ts": 1789074004,
-        "when": "Sep 10, 09:00 PM",
-        "ticker": "GDX",
-        "industry": "Gold Miners",
-        "theory": [
-          "T6",
-          "T9",
-          "T19",
-          "T20",
-          "T21"
-        ],
-        "sent": "neutral"
       }
     ]
   },
