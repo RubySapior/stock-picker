@@ -145,9 +145,9 @@ window.DASH = {
       "F2": {
         "prev_score": 4.5,
         "score": 4.5,
-        "days_above": 3,
+        "days_above": 4,
         "confirmed": true,
-        "last_above_date": "2026-09-13"
+        "last_above_date": "2026-09-14"
       },
       "F3": {
         "prev_score": 3.6,
@@ -159,23 +159,23 @@ window.DASH = {
       "F4": {
         "prev_score": 4.8,
         "score": 4.8,
-        "days_above": 5,
+        "days_above": 6,
         "confirmed": true,
-        "last_above_date": "2026-09-13"
+        "last_above_date": "2026-09-14"
       },
       "F5": {
         "prev_score": 4.4,
-        "score": 4.4,
-        "days_above": 8,
+        "score": 4.6,
+        "days_above": 9,
         "confirmed": true,
-        "last_above_date": "2026-09-13"
+        "last_above_date": "2026-09-14"
       },
       "F6": {
         "prev_score": 4.9,
         "score": 4.9,
-        "days_above": 8,
+        "days_above": 9,
         "confirmed": true,
-        "last_above_date": "2026-09-13"
+        "last_above_date": "2026-09-14"
       },
       "F7": {
         "prev_score": 1.7,
@@ -633,7 +633,7 @@ window.DASH = {
       "cash_buffer_usd": 500.0,
       "shadow_mode": true
     },
-    "asof_ts": 1789278144,
+    "asof_ts": 1789365120,
     "refresh_interval": 1440
   },
   "asof": "2026-09-11",
@@ -2505,7 +2505,7 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-09-13",
+      "asof": "2026-09-14",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2536,37 +2536,7 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-09-13",
-      "degraded": false,
-      "trend_dir": "flat"
-    },
-    {
-      "id": "F2",
-      "name": "Yen-carry unwind",
-      "type": "episodic",
-      "score": 4.5,
-      "level": 0.781,
-      "velocity": {
-        "label": "5d velocity",
-        "value": 0.0169,
-        "pct": 0.914
-      },
-      "trend": null,
-      "signals": [
-        {
-          "label": "Yen strength (FXY level)",
-          "value": 0.781
-        }
-      ],
-      "theory_ids": [
-        "T18"
-      ],
-      "hedge_ticks": [
-        "FXY",
-        "DBMF"
-      ],
-      "sizing": null,
-      "asof": "2026-09-13",
+      "asof": "2026-09-14",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2574,18 +2544,18 @@ window.DASH = {
       "id": "F5",
       "name": "War / energy shock",
       "type": "episodic",
-      "score": 4.4,
-      "level": 0.792,
+      "score": 4.6,
+      "level": 0.834,
       "velocity": {
         "label": "5d velocity",
-        "value": 0.0958,
-        "pct": 0.871
+        "value": 0.1197,
+        "pct": 0.929
       },
       "trend": null,
       "signals": [
         {
           "label": "Crude 5d momentum",
-          "value": 0.871
+          "value": 0.929
         },
         {
           "label": "Gold 1d momentum",
@@ -2602,7 +2572,37 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-09-13",
+      "asof": "2026-09-14",
+      "degraded": false,
+      "trend_dir": "rising"
+    },
+    {
+      "id": "F2",
+      "name": "Yen-carry unwind",
+      "type": "episodic",
+      "score": 4.5,
+      "level": 0.781,
+      "velocity": {
+        "label": "5d velocity",
+        "value": 0.0136,
+        "pct": 0.906
+      },
+      "trend": null,
+      "signals": [
+        {
+          "label": "Yen strength (FXY level)",
+          "value": 0.781
+        }
+      ],
+      "theory_ids": [
+        "T18"
+      ],
+      "hedge_ticks": [
+        "FXY",
+        "DBMF"
+      ],
+      "sizing": null,
+      "asof": "2026-09-14",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2637,7 +2637,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-09-13",
+      "asof": "2026-09-14",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2671,7 +2671,7 @@ window.DASH = {
         "BTAL"
       ],
       "sizing": null,
-      "asof": "2026-09-13",
+      "asof": "2026-09-14",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2707,7 +2707,7 @@ window.DASH = {
         "ZROZ"
       ],
       "sizing": null,
-      "asof": "2026-09-13",
+      "asof": "2026-09-14",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2737,7 +2737,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-09-13",
+      "asof": "2026-09-14",
       "degraded": false,
       "trend_dir": "flat"
     }
@@ -2747,11 +2747,11 @@ window.DASH = {
     "label": "Fear"
   },
   "complacency": {
-    "index": 0.012,
+    "index": 0.011,
     "valuation_stretch": 0.188,
-    "fear_term": 0.067,
-    "divergence": 0.175,
-    "fear_avg": 4.73,
+    "fear_term": 0.058,
+    "divergence": 0.177,
+    "fear_avg": 4.77,
     "regime": "stress",
     "note": "Stress regime - broad equity drawdown active. Hedges should be paying.",
     "pay_check": {
@@ -4121,23 +4121,35 @@ window.DASH = {
     "enabled": true
   },
   "news": {
-    "asof": "2026-09-13 05:42:25",
+    "asof": "2026-09-14 05:52:01",
     "big_stories": [
       {
-        "title": "How to Build $7,900 a Month in Dividend Income While Minimizing Your IRMAA Risk",
-        "link": "https://247wallst.com/personal-finance/2026/09/12/how-to-build-7900-a-month-in-dividend-income-while-minimizing-your-irmaa-risk/?.tsrc=rss",
-        "ts": 1789245098,
-        "when": "Sep 12, 08:31 PM",
+        "title": "Jim Cramer Says a 25% Surtax Just Got Added to Everything You Buy. Congress Never Voted on It.",
+        "link": "https://247wallst.com/investing/2026/09/13/jim-cramer-says-a-25-surtax-just-got-added-to-everything-you-buy-congress-never-voted-on-it/?.tsrc=rss",
+        "ts": 1789329618,
+        "when": "Sep 13, 08:00 PM",
+        "ticker": "XLY",
+        "industry": "Consumer Disc.",
+        "theory": [
+          "T13"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "How a 62-Year-Old Who Just Got Laid Off Turned $990,000 Into a $6,900 Monthly Paycheck",
+        "link": "https://247wallst.com/personal-finance/2026/09/13/how-a-62-year-old-who-just-got-laid-off-turned-990000-into-a-6900-monthly-paycheck/?.tsrc=rss",
+        "ts": 1789328353,
+        "when": "Sep 13, 07:39 PM",
         "ticker": "SGOV",
         "industry": "Equities",
         "theory": [],
-        "sent": "negative"
+        "sent": "neutral"
       },
       {
-        "title": "Palantir's Growth Has Kept Accelerating, but Can the Rally Continue?",
-        "link": "https://www.fool.com/investing/2026/09/12/palantirs-growth-has-kept-accelerating-but-can-the/?.tsrc=rss",
-        "ts": 1789228500,
-        "when": "Sep 12, 03:55 PM",
+        "title": "3 Stocks to Bet Against If You Want to Invest Like Michael Burry",
+        "link": "https://www.barchart.com/story/news/4578225/3-stocks-to-bet-against-if-you-want-to-invest-like-michael-burry?.tsrc=rss",
+        "ts": 1789298459,
+        "when": "Sep 13, 11:20 AM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -4164,18 +4176,6 @@ window.DASH = {
         "sent": "positive"
       },
       {
-        "title": "Sector Update: Consumer Stocks Rise Late Afternoon",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-rise-afternoon-195414948.html?.tsrc=rss",
-        "ts": 1789156454,
-        "when": "Sep 11, 07:54 PM",
-        "ticker": "XLY",
-        "industry": "Consumer Disc.",
-        "theory": [
-          "T13"
-        ],
-        "sent": "neutral"
-      },
-      {
         "title": "Fall Market Crash Risk: 6 Defensive Moves for Boomers & Gen X Investors",
         "link": "https://247wallst.com/investing/2026/09/11/fall-market-crash-risk-6-defensive-moves-for-boomers-gen-x-investors/?.tsrc=rss",
         "ts": 1789132541,
@@ -4193,6 +4193,43 @@ window.DASH = {
       }
     ],
     "feed": [
+      {
+        "title": "Jim Cramer Says a 25% Surtax Just Got Added to Everything You Buy. Congress Never Voted on It.",
+        "link": "https://247wallst.com/investing/2026/09/13/jim-cramer-says-a-25-surtax-just-got-added-to-everything-you-buy-congress-never-voted-on-it/?.tsrc=rss",
+        "ts": 1789329618,
+        "when": "Sep 13, 08:00 PM",
+        "ticker": "XLY",
+        "industry": "Consumer Disc.",
+        "theory": [
+          "T13"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "How a 62-Year-Old Who Just Got Laid Off Turned $990,000 Into a $6,900 Monthly Paycheck",
+        "link": "https://247wallst.com/personal-finance/2026/09/13/how-a-62-year-old-who-just-got-laid-off-turned-990000-into-a-6900-monthly-paycheck/?.tsrc=rss",
+        "ts": 1789328353,
+        "when": "Sep 13, 07:39 PM",
+        "ticker": "SGOV",
+        "industry": "Equities",
+        "theory": [],
+        "sent": "neutral"
+      },
+      {
+        "title": "3 Stocks to Bet Against If You Want to Invest Like Michael Burry",
+        "link": "https://www.barchart.com/story/news/4578225/3-stocks-to-bet-against-if-you-want-to-invest-like-michael-burry?.tsrc=rss",
+        "ts": 1789298459,
+        "when": "Sep 13, 11:20 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
       {
         "title": "How to Build $7,900 a Month in Dividend Income While Minimizing Your IRMAA Risk",
         "link": "https://247wallst.com/personal-finance/2026/09/12/how-to-build-7900-a-month-in-dividend-income-while-minimizing-your-irmaa-risk/?.tsrc=rss",
@@ -4217,6 +4254,21 @@ window.DASH = {
           "T14"
         ],
         "sent": "positive"
+      },
+      {
+        "title": "MarketBeat Week in Review – 09/07 - 09/11",
+        "link": "https://www.marketbeat.com/articles/marketbeat-week-in-review-09-07-09-11/?utm_source=yahoofinance&utm_medium=yahoofinance&.tsrc=rss",
+        "ts": 1789210800,
+        "when": "Sep 12, 11:00 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
       },
       {
         "title": "Palantir and Nvidia Are Building a Sovereign AI Stack. Who Captures More of the Economics?",
@@ -4546,21 +4598,6 @@ window.DASH = {
         "sent": "negative"
       },
       {
-        "title": "Palantir Technologies Inc. (PLTR) is Attracting Investor Attention: Here is What You Should Know",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/palantir-technologies-inc-pltr-attracting-130003502.html?.tsrc=rss",
-        "ts": 1789131603,
-        "when": "Sep 11, 01:00 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
         "title": "Tesla’s Drag on XLY Was Softened by Amazon’s Gain; QQQ Felt Almost Nothing",
         "link": "https://247wallst.com/investing/etf/2026/09/11/teslas-drag-on-xly-was-softened-by-amazons-gain-qqq-felt-almost-nothing/?.tsrc=rss",
         "ts": 1789128337,
@@ -4571,51 +4608,6 @@ window.DASH = {
           "T13"
         ],
         "sent": "positive"
-      },
-      {
-        "title": "Top Funds Aren't Fooling Around. Witness Massive Bets On CrowdStrike And Beyond.",
-        "link": "https://finance.yahoo.com/m/d8f363d5-3816-30bc-9762-25fdf424b4b5/top-funds-aren%27t-fooling.html?.tsrc=rss",
-        "ts": 1789128053,
-        "when": "Sep 11, 12:00 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "Easing Oil Bills, Tech Optimism Lift Wall Street Pre-Bell, Asia off, Europe Up",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/easing-oil-bills-tech-optimism-111107820.html?.tsrc=rss",
-        "ts": 1789125067,
-        "when": "Sep 11, 11:11 AM",
-        "ticker": "SMH",
-        "industry": "Semis",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "Forget SMH: The Chip Fund That Charges 0.15% Is Beating It by 22 Points This Year",
-        "link": "https://247wallst.com/investing/etf/2026/09/10/forget-smh-the-chip-fund-that-charges-0-15-is-beating-it-by-22-points-this-year/?.tsrc=rss",
-        "ts": 1789078518,
-        "when": "Sep 10, 10:15 PM",
-        "ticker": "SMH",
-        "industry": "Semis",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "negative"
       }
     ]
   },
