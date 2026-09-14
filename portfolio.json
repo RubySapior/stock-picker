@@ -136,49 +136,49 @@
     "fear_state": {
       "F1": {
         "prev_score": 2.0,
-        "score": 2.0,
+        "score": 1.9,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F2": {
         "prev_score": 4.5,
-        "score": 4.5,
+        "score": 4.4,
         "days_above": 4,
         "confirmed": true,
         "last_above_date": "2026-09-14"
       },
       "F3": {
         "prev_score": 3.6,
-        "score": 3.6,
+        "score": 3.4,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F4": {
         "prev_score": 4.8,
-        "score": 4.8,
+        "score": 4.7,
         "days_above": 6,
         "confirmed": true,
         "last_above_date": "2026-09-14"
       },
       "F5": {
-        "prev_score": 4.4,
-        "score": 4.6,
+        "prev_score": 4.6,
+        "score": 4.4,
         "days_above": 9,
         "confirmed": true,
         "last_above_date": "2026-09-14"
       },
       "F6": {
         "prev_score": 4.9,
-        "score": 4.9,
+        "score": 4.8,
         "days_above": 9,
         "confirmed": true,
         "last_above_date": "2026-09-14"
       },
       "F7": {
         "prev_score": 1.7,
-        "score": 1.7,
+        "score": 2.0,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
@@ -212,7 +212,7 @@
     },
     "ai_state": {
       "last_call_date": "2026-09-11",
-      "calls_today": 2,
+      "calls_today": 0,
       "last_call_ts": "10:18:51",
       "note": "manual run (market closed) - Friday data, first read",
       "last_sentiment_index": -1.0,
@@ -1332,6 +1332,33 @@
           "BTAL": 12.27,
           "DBMF": 31.97,
           "SGOV": 100.52
+        }
+      },
+      {
+        "date": "2026-09-14",
+        "total_value": 96763.37,
+        "cash": 25.0,
+        "invested_value": 96738.37,
+        "day_change": -2389.31,
+        "prices": {
+          "TQQQ": 70.115,
+          "SOXL": 104.345,
+          "SMH": 545.502,
+          "DRAM": 55.6,
+          "PLTR": 172.52,
+          "NLR": 109.82,
+          "NUKZ": 62.665,
+          "XLY": 113.045,
+          "EZU": 68.79,
+          "ZROZ": 58.166,
+          "FXY": 59.407,
+          "VIXM": 13.315,
+          "QFLR": 35.2,
+          "GLD": 395.275,
+          "GDX": 94.51,
+          "BTAL": 12.525,
+          "DBMF": 31.93,
+          "SGOV": 100.526
         }
       }
     ],
