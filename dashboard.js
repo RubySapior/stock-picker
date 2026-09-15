@@ -136,50 +136,50 @@ window.DASH = {
     "disclaimer": "Simulated portfolio for tracking/learning. Not financial advice.",
     "fear_state": {
       "F1": {
-        "prev_score": 2.0,
-        "score": 1.9,
+        "prev_score": 1.9,
+        "score": 2.0,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F2": {
-        "prev_score": 4.5,
-        "score": 4.4,
-        "days_above": 4,
-        "confirmed": true,
-        "last_above_date": "2026-09-14"
+        "prev_score": 4.4,
+        "score": 2.8,
+        "days_above": 0,
+        "confirmed": false,
+        "last_above_date": null
       },
       "F3": {
-        "prev_score": 3.6,
-        "score": 3.4,
+        "prev_score": 3.4,
+        "score": 3.5,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F4": {
-        "prev_score": 4.8,
-        "score": 4.7,
-        "days_above": 6,
+        "prev_score": 4.7,
+        "score": 4.8,
+        "days_above": 7,
         "confirmed": true,
-        "last_above_date": "2026-09-14"
+        "last_above_date": "2026-09-15"
       },
       "F5": {
-        "prev_score": 4.6,
+        "prev_score": 4.4,
         "score": 4.4,
-        "days_above": 9,
+        "days_above": 10,
         "confirmed": true,
-        "last_above_date": "2026-09-14"
+        "last_above_date": "2026-09-15"
       },
       "F6": {
-        "prev_score": 4.9,
-        "score": 4.8,
-        "days_above": 9,
+        "prev_score": 4.8,
+        "score": 4.9,
+        "days_above": 10,
         "confirmed": true,
-        "last_above_date": "2026-09-14"
+        "last_above_date": "2026-09-15"
       },
       "F7": {
-        "prev_score": 1.7,
-        "score": 2.0,
+        "prev_score": 2.0,
+        "score": 1.8,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
@@ -633,8 +633,8 @@ window.DASH = {
       "cash_buffer_usd": 500.0,
       "shadow_mode": true
     },
-    "asof_ts": 1789410120,
-    "refresh_interval": 6
+    "asof_ts": 1789451661,
+    "refresh_interval": 1440
   },
   "asof": "2026-09-14",
   "summary": {
@@ -705,8 +705,8 @@ window.DASH = {
       "underlying_stop_pct": -0.08,
       "underlying_buy_price": 720.87,
       "dynamic_stop_pct": -0.08,
-      "underlying_ema20": 714.2798942510615,
-      "underlying_atr14": 9.002233775319842,
+      "underlying_ema20": 713.7941893391301,
+      "underlying_atr14": 9.226360980542532,
       "runner_active": false,
       "base_trimmed": false,
       "theory_ids": [
@@ -833,9 +833,9 @@ window.DASH = {
       "underlying": "SOXX",
       "underlying_stop_pct": -0.09,
       "underlying_buy_price": 529.39,
-      "dynamic_stop_pct": -0.09,
-      "underlying_ema20": 521.1851209825849,
-      "underlying_atr14": 17.28845047372013,
+      "dynamic_stop_pct": -0.0921,
+      "underlying_ema20": 518.9198707839087,
+      "underlying_atr14": 18.333562113292576,
       "runner_active": false,
       "base_trimmed": false,
       "theory_ids": [
@@ -2487,13 +2487,13 @@ window.DASH = {
       "id": "F6",
       "name": "Rates shock / duration liquidation",
       "type": "structural",
-      "score": 4.8,
+      "score": 4.9,
       "level": 0.987,
       "velocity": null,
       "trend": {
         "label": "50d trend",
-        "value": 0.0423,
-        "pct": 0.905
+        "value": 0.0449,
+        "pct": 0.938
       },
       "signals": [
         {
@@ -2512,7 +2512,7 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-09-14",
+      "asof": "2026-09-15",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2520,13 +2520,13 @@ window.DASH = {
       "id": "F4",
       "name": "Inflation resurgence",
       "type": "structural",
-      "score": 4.7,
+      "score": 4.8,
       "level": 0.985,
       "velocity": null,
       "trend": {
         "label": "50d trend",
-        "value": 0.0112,
-        "pct": 0.824
+        "value": 0.0114,
+        "pct": 0.833
       },
       "signals": [
         {
@@ -2543,37 +2543,7 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-09-14",
-      "degraded": false,
-      "trend_dir": "flat"
-    },
-    {
-      "id": "F2",
-      "name": "Yen-carry unwind",
-      "type": "episodic",
-      "score": 4.4,
-      "level": 0.735,
-      "velocity": {
-        "label": "5d velocity",
-        "value": 0.0117,
-        "pct": 0.894
-      },
-      "trend": null,
-      "signals": [
-        {
-          "label": "Yen strength (FXY level)",
-          "value": 0.735
-        }
-      ],
-      "theory_ids": [
-        "T18"
-      ],
-      "hedge_ticks": [
-        "FXY",
-        "DBMF"
-      ],
-      "sizing": null,
-      "asof": "2026-09-14",
+      "asof": "2026-09-15",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2582,21 +2552,21 @@ window.DASH = {
       "name": "War / energy shock",
       "type": "episodic",
       "score": 4.4,
-      "level": 0.708,
+      "level": 0.696,
       "velocity": {
         "label": "5d velocity",
-        "value": 0.1071,
-        "pct": 0.914
+        "value": 0.1091,
+        "pct": 0.925
       },
       "trend": null,
       "signals": [
         {
           "label": "Crude 5d momentum",
-          "value": 0.914
+          "value": 0.925
         },
         {
           "label": "Gold 1d momentum",
-          "value": 0.228
+          "value": 0.162
         }
       ],
       "theory_ids": [
@@ -2609,30 +2579,30 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-09-14",
+      "asof": "2026-09-15",
       "degraded": false,
-      "trend_dir": "falling"
+      "trend_dir": "flat"
     },
     {
       "id": "F3",
       "name": "China / Taiwan escalation",
       "type": "episodic",
-      "score": 3.4,
-      "level": 0.114,
+      "score": 3.5,
+      "level": 0.096,
       "velocity": {
         "label": "5d velocity",
-        "value": 0.0185,
-        "pct": 0.808
+        "value": 0.0207,
+        "pct": 0.851
       },
       "trend": null,
       "signals": [
         {
           "label": "Gold 3d momentum",
-          "value": 0.198
+          "value": 0.152
         },
         {
           "label": "HK equities drawdown",
-          "value": 0.058
+          "value": 0.06
         }
       ],
       "theory_ids": [
@@ -2644,26 +2614,26 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-09-14",
+      "asof": "2026-09-15",
       "degraded": false,
-      "trend_dir": "falling"
+      "trend_dir": "flat"
     },
     {
       "id": "F8",
       "name": "Recession / growth freeze",
       "type": "structural",
       "score": 2.9,
-      "level": 0.444,
+      "level": 0.446,
       "velocity": null,
       "trend": {
         "label": "50d trend",
-        "value": 0.0291,
-        "pct": 0.562
+        "value": 0.03,
+        "pct": 0.571
       },
       "signals": [
         {
           "label": "XLY/XLP (cyclical vs staples)",
-          "value": 0.888
+          "value": 0.892
         },
         {
           "label": "SPY below 200d MA",
@@ -2678,7 +2648,73 @@ window.DASH = {
         "BTAL"
       ],
       "sizing": null,
-      "asof": "2026-09-14",
+      "asof": "2026-09-15",
+      "degraded": false,
+      "trend_dir": "flat"
+    },
+    {
+      "id": "F2",
+      "name": "Yen-carry unwind",
+      "type": "episodic",
+      "score": 2.8,
+      "level": 0.746,
+      "velocity": {
+        "label": "5d velocity",
+        "value": -0.006,
+        "pct": 0.333
+      },
+      "trend": null,
+      "signals": [
+        {
+          "label": "Yen strength (FXY level)",
+          "value": 0.746
+        }
+      ],
+      "theory_ids": [
+        "T18"
+      ],
+      "hedge_ticks": [
+        "FXY",
+        "DBMF"
+      ],
+      "sizing": null,
+      "asof": "2026-09-15",
+      "degraded": false,
+      "trend_dir": "falling"
+    },
+    {
+      "id": "F1",
+      "name": "AI / tech concentration pop",
+      "type": "structural",
+      "score": 2.0,
+      "level": 0.165,
+      "velocity": null,
+      "trend": {
+        "label": "50d trend",
+        "value": 0.0053,
+        "pct": 0.457
+      },
+      "signals": [
+        {
+          "label": "QQQ/RSP concentration ratio",
+          "value": 0.281
+        },
+        {
+          "label": "QQQ drawdown from 52w high",
+          "value": 0.049
+        }
+      ],
+      "theory_ids": [
+        "T17"
+      ],
+      "hedge_ticks": [
+        "QFLR",
+        "VIXM",
+        "BTAL",
+        "ZROZ"
+      ],
+      "sizing": null,
+      "asof": "2026-09-15",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2686,12 +2722,12 @@ window.DASH = {
       "id": "F7",
       "name": "Credit stress / HY spread",
       "type": "episodic",
-      "score": 2.0,
+      "score": 1.8,
       "level": 0.008,
       "velocity": {
         "label": "5d velocity",
-        "value": -0.0025,
-        "pct": 0.341
+        "value": -0.0033,
+        "pct": 0.267
       },
       "trend": null,
       "signals": [
@@ -2708,45 +2744,9 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-09-14",
+      "asof": "2026-09-15",
       "degraded": false,
-      "trend_dir": "rising"
-    },
-    {
-      "id": "F1",
-      "name": "AI / tech concentration pop",
-      "type": "structural",
-      "score": 1.9,
-      "level": 0.147,
-      "velocity": null,
-      "trend": {
-        "label": "50d trend",
-        "value": 0.0009,
-        "pct": 0.438
-      },
-      "signals": [
-        {
-          "label": "QQQ/RSP concentration ratio",
-          "value": 0.25
-        },
-        {
-          "label": "QQQ drawdown from 52w high",
-          "value": 0.045
-        }
-      ],
-      "theory_ids": [
-        "T17"
-      ],
-      "hedge_ticks": [
-        "QFLR",
-        "VIXM",
-        "BTAL",
-        "ZROZ"
-      ],
-      "sizing": null,
-      "asof": "2026-09-14",
-      "degraded": false,
-      "trend_dir": "flat"
+      "trend_dir": "falling"
     }
   ],
   "fear_greed": {
@@ -2754,21 +2754,21 @@ window.DASH = {
     "label": "Fear"
   },
   "complacency": {
-    "index": 0.013,
-    "valuation_stretch": 0.146,
-    "fear_term": 0.092,
-    "divergence": 0.132,
-    "fear_avg": 4.63,
+    "index": 0.01,
+    "valuation_stretch": 0.129,
+    "fear_term": 0.075,
+    "divergence": 0.119,
+    "fear_avg": 4.7,
     "regime": "stress",
     "note": "Stress regime - broad equity drawdown active. Hedges should be paying.",
     "pay_check": {
       "fear_id": "F6",
       "fear_name": "Rates shock / duration liquidation",
-      "score": 4.8,
+      "score": 4.9,
       "checks": [
         {
           "ticker": "SGOV",
-          "ret_pct": 0.14,
+          "ret_pct": 0.15,
           "paying": true
         }
       ]
@@ -2878,7 +2878,7 @@ window.DASH = {
       },
       {
         "date": "2026-09-14",
-        "value": 98596.43
+        "value": 98428.26
       }
     ],
     "aligned": [
@@ -2980,13 +2980,13 @@ window.DASH = {
       },
       {
         "date": "2026-09-14",
-        "value": 98596.43
+        "value": 98428.26
       }
     ],
     "summary": {
-      "total_return_pct": -1.4,
+      "total_return_pct": -1.57,
       "max_drawdown_pct": -2.58,
-      "sharpe_annualized": -1.71
+      "sharpe_annualized": -1.91
     }
   },
   "benchmarks": {
@@ -3092,7 +3092,7 @@ window.DASH = {
         },
         {
           "date": "2026-09-14",
-          "value": 98596.43
+          "value": 98428.26
         }
       ],
       "aligned": [
@@ -3194,13 +3194,13 @@ window.DASH = {
         },
         {
           "date": "2026-09-14",
-          "value": 98596.43
+          "value": 98428.26
         }
       ],
       "summary": {
-        "total_return_pct": -1.4,
+        "total_return_pct": -1.57,
         "max_drawdown_pct": -2.58,
-        "sharpe_annualized": -1.71
+        "sharpe_annualized": -1.91
       }
     },
     "QQQ": {
@@ -3305,7 +3305,7 @@ window.DASH = {
         },
         {
           "date": "2026-09-14",
-          "value": 98775.23
+          "value": 98378.35
         }
       ],
       "aligned": [
@@ -3407,13 +3407,13 @@ window.DASH = {
         },
         {
           "date": "2026-09-14",
-          "value": 98775.23
+          "value": 98378.35
         }
       ],
       "summary": {
-        "total_return_pct": -1.22,
+        "total_return_pct": -1.62,
         "max_drawdown_pct": -3.52,
-        "sharpe_annualized": -0.97
+        "sharpe_annualized": -1.28
       }
     },
     "TQQQ": {
@@ -3518,7 +3518,7 @@ window.DASH = {
         },
         {
           "date": "2026-09-14",
-          "value": 95000.0
+          "value": 93861.79
         }
       ],
       "aligned": [
@@ -3620,13 +3620,13 @@ window.DASH = {
         },
         {
           "date": "2026-09-14",
-          "value": 95000.0
+          "value": 93861.79
         }
       ],
       "summary": {
-        "total_return_pct": -5.0,
+        "total_return_pct": -6.14,
         "max_drawdown_pct": -10.55,
-        "sharpe_annualized": -1.25
+        "sharpe_annualized": -1.56
       }
     },
     "MUU": {
@@ -3731,7 +3731,7 @@ window.DASH = {
         },
         {
           "date": "2026-09-14",
-          "value": 111280.25
+          "value": 109836.07
         }
       ],
       "aligned": [
@@ -3833,13 +3833,13 @@ window.DASH = {
         },
         {
           "date": "2026-09-14",
-          "value": 111280.25
+          "value": 109836.07
         }
       ],
       "summary": {
-        "total_return_pct": 11.28,
+        "total_return_pct": 9.84,
         "max_drawdown_pct": -20.28,
-        "sharpe_annualized": 1.57
+        "sharpe_annualized": 1.44
       }
     }
   },
@@ -4168,13 +4168,38 @@ window.DASH = {
     "enabled": true
   },
   "news": {
-    "asof": "2026-09-14 18:22:01",
+    "asof": "2026-09-15 05:54:22",
     "big_stories": [
       {
-        "title": "Did You Pay For Palantir's Guidance Or For Something Else?",
-        "link": "https://www.trefis.com/articles/615232/did-you-pay-for-palantirs-guidance-or-for-something-else/2026-09-14?.tsrc=rss",
-        "ts": 1789408836,
-        "when": "Sep 14, 06:00 PM",
+        "title": "Bond Yields Near 5% as ETF Investors Keep Buying",
+        "link": "http://www.etf.com/sections/weekly-etf-flows/bond-yields-near-5-etf-investors-keep-buying?utm_source=yahoo-finance&utm_medium=rss&utm_campaign=yahoo-finance-rss&.tsrc=rss",
+        "ts": 1789432734,
+        "when": "Sep 15, 12:38 AM",
+        "ticker": "SMH",
+        "industry": "Semis",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "These 3 ETFs Pay Up to 14 Percent and Legally Shield Most of It From the IRS",
+        "link": "https://247wallst.com/investing/etf/2026/09/14/these-3-etfs-pay-up-to-14-percent-and-legally-shield-most-of-it-from-the-irs/?.tsrc=rss",
+        "ts": 1789421705,
+        "when": "Sep 14, 09:35 PM",
+        "ticker": "SGOV",
+        "industry": "Equities",
+        "theory": [],
+        "sent": "neutral"
+      },
+      {
+        "title": "Oklo Has Massive Potential Due to Artificial Intelligence, but the Stock Is Sinking. Here's What I'd Do",
+        "link": "https://www.fool.com/investing/2026/09/14/oklo-has-massive-potential-due-to-artificial-intelligence-but-the-stock-is-sinking-here-s-what-i-d-do/?.tsrc=rss",
+        "ts": 1789421521,
+        "when": "Sep 14, 09:32 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -4183,13 +4208,13 @@ window.DASH = {
           "T2",
           "T14"
         ],
-        "sent": "negative"
+        "sent": "positive"
       },
       {
-        "title": "Sector Update: Consumer Stocks Advance Monday Afternoon",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-advance-monday-174958227.html?.tsrc=rss",
-        "ts": 1789408198,
-        "when": "Sep 14, 05:49 PM",
+        "title": "Sector Update: Consumer Stocks Mixed Late Afternoon",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-mixed-afternoon-195035841.html?.tsrc=rss",
+        "ts": 1789415435,
+        "when": "Sep 14, 07:50 PM",
         "ticker": "XLY",
         "industry": "Consumer Disc.",
         "theory": [
@@ -4211,12 +4236,14 @@ window.DASH = {
           "T14"
         ],
         "sent": "neutral"
-      },
+      }
+    ],
+    "feed": [
       {
-        "title": "AI, Oil, Bond Yield Concerns Damp Wall Street Pre-Bell; Asia, Europe Off",
-        "link": "https://finance.yahoo.com/markets/articles/ai-oil-bond-yield-concerns-111150869.html?.tsrc=rss",
-        "ts": 1789384310,
-        "when": "Sep 14, 11:11 AM",
+        "title": "Bond Yields Near 5% as ETF Investors Keep Buying",
+        "link": "http://www.etf.com/sections/weekly-etf-flows/bond-yields-near-5-etf-investors-keep-buying?utm_source=yahoo-finance&utm_medium=rss&utm_campaign=yahoo-finance-rss&.tsrc=rss",
+        "ts": 1789432734,
+        "when": "Sep 15, 12:38 AM",
         "ticker": "SMH",
         "industry": "Semis",
         "theory": [
@@ -4228,23 +4255,72 @@ window.DASH = {
         "sent": "neutral"
       },
       {
-        "title": "Gold Is Down Since the Iran War Began. This Obscure Shipping ETF Is Up 1,168%.",
-        "link": "https://247wallst.com/investing/2026/09/14/gold-is-down-since-the-iran-war-began-this-obscure-shipping-etf-is-up-1168/?.tsrc=rss",
-        "ts": 1789381971,
-        "when": "Sep 14, 10:32 AM",
-        "ticker": "GLD",
-        "industry": "Gold",
+        "title": "ETF League Tables: VanEck Sees Outflows",
+        "link": "http://www.etf.com/sections/etf-league-tables/etf-league-tables-vaneck-sees-outflows?utm_source=yahoo-finance&utm_medium=rss&utm_campaign=yahoo-finance-rss&.tsrc=rss",
+        "ts": 1789432672,
+        "when": "Sep 15, 12:37 AM",
+        "ticker": "SMH",
+        "industry": "Semis",
         "theory": [
-          "T6",
-          "T9",
-          "T19",
-          "T20",
-          "T21"
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "These 3 ETFs Pay Up to 14 Percent and Legally Shield Most of It From the IRS",
+        "link": "https://247wallst.com/investing/etf/2026/09/14/these-3-etfs-pay-up-to-14-percent-and-legally-shield-most-of-it-from-the-irs/?.tsrc=rss",
+        "ts": 1789421705,
+        "when": "Sep 14, 09:35 PM",
+        "ticker": "SGOV",
+        "industry": "Equities",
+        "theory": [],
+        "sent": "neutral"
+      },
+      {
+        "title": "Oklo Has Massive Potential Due to Artificial Intelligence, but the Stock Is Sinking. Here's What I'd Do",
+        "link": "https://www.fool.com/investing/2026/09/14/oklo-has-massive-potential-due-to-artificial-intelligence-but-the-stock-is-sinking-here-s-what-i-d-do/?.tsrc=rss",
+        "ts": 1789421521,
+        "when": "Sep 14, 09:32 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "Sector Update: Consumer Stocks Mixed Late Afternoon",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-mixed-afternoon-195035841.html?.tsrc=rss",
+        "ts": 1789415435,
+        "when": "Sep 14, 07:50 PM",
+        "ticker": "XLY",
+        "industry": "Consumer Disc.",
+        "theory": [
+          "T13"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "Palantir and Nvidia rethink AI use over a growing data risk",
+        "link": "https://finance.yahoo.com/news/palantir-nvidia-rethink-ai-over-190043439.html?.tsrc=rss",
+        "ts": 1789412443,
+        "when": "Sep 14, 07:00 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
         ],
         "sent": "negative"
-      }
-    ],
-    "feed": [
+      },
       {
         "title": "Did You Pay For Palantir's Guidance Or For Something Else?",
         "link": "https://www.trefis.com/articles/615232/did-you-pay-for-palantirs-guidance-or-for-something-else/2026-09-14?.tsrc=rss",
@@ -4586,96 +4662,6 @@ window.DASH = {
           "T14"
         ],
         "sent": "positive"
-      },
-      {
-        "title": "MarketBeat Week in Review – 09/07 - 09/11",
-        "link": "https://www.marketbeat.com/articles/marketbeat-week-in-review-09-07-09-11/?utm_source=yahoofinance&utm_medium=yahoofinance&.tsrc=rss",
-        "ts": 1789210800,
-        "when": "Sep 12, 11:00 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Palantir and Nvidia Are Building a Sovereign AI Stack. Who Captures More of the Economics?",
-        "link": "https://finance.yahoo.com/technology/ai/articles/palantir-nvidia-building-sovereign-ai-085205506.html?.tsrc=rss",
-        "ts": 1789203125,
-        "when": "Sep 12, 08:52 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Michael Burry Is Staying Short Nvidia, Palantir, and Tesla, Warning of a Possible \"1987-Type Fall\" for AI Stocks. Should Investors Take the Bet Seriously?",
-        "link": "https://www.fool.com/investing/2026/09/12/michael-burry-is-staying-short-nvidia-palantir-and/?.tsrc=rss",
-        "ts": 1789192200,
-        "when": "Sep 12, 05:50 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "negative"
-      },
-      {
-        "title": "Palantir Stock Remains Attractive Even After a 50% Rally in August",
-        "link": "https://www.barchart.com/story/news/4568234/palantir-stock-remains-attractive-even-after-a-50-rally-in-august?.tsrc=rss",
-        "ts": 1789191002,
-        "when": "Sep 12, 05:30 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "Palantir (PLTR)’s CEO Bets his Own Money on Ukraine’s Ousted Tech-Warfare Architect",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/palantir-pltr-ceo-bets-own-005236786.html?.tsrc=rss",
-        "ts": 1789174356,
-        "when": "Sep 12, 12:52 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Veteran analyst resets Palantir price target for rest of 2026",
-        "link": "https://www.thestreet.com/investing/palantir-da-davidson-raises-price-target?.tsrc=rss",
-        "ts": 1789171380,
-        "when": "Sep 12, 12:03 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
       }
     ]
   },
