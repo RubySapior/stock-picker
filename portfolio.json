@@ -142,7 +142,7 @@
         "last_above_date": null
       },
       "F2": {
-        "prev_score": 1.9,
+        "prev_score": 1.8,
         "score": 1.8,
         "days_above": 0,
         "confirmed": false,
@@ -150,42 +150,42 @@
       },
       "F3": {
         "prev_score": 2.8,
-        "score": 2.8,
+        "score": 3.0,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F4": {
         "prev_score": 4.2,
-        "score": 4.2,
+        "score": 4.4,
         "days_above": 10,
         "confirmed": true,
         "last_above_date": "2026-09-18"
       },
       "F5": {
-        "prev_score": 3.0,
-        "score": 3.3,
+        "prev_score": 3.3,
+        "score": 2.1,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F6": {
-        "prev_score": 4.5,
-        "score": 4.4,
+        "prev_score": 4.4,
+        "score": 4.7,
         "days_above": 13,
         "confirmed": true,
         "last_above_date": "2026-09-18"
       },
       "F7": {
-        "prev_score": 3.6,
-        "score": 3.8,
+        "prev_score": 3.8,
+        "score": 3.6,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F8": {
-        "prev_score": 2.8,
-        "score": 2.9,
+        "prev_score": 2.9,
+        "score": 3.1,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
@@ -1440,6 +1440,33 @@
           "BTAL": 12.344,
           "DBMF": 32.13,
           "SGOV": 100.555
+        }
+      },
+      {
+        "date": "2026-09-18",
+        "total_value": 98030.48,
+        "cash": 25.0,
+        "invested_value": 98005.48,
+        "day_change": -110.6,
+        "prices": {
+          "TQQQ": 71.283,
+          "SOXL": 117.522,
+          "SMH": 563.74,
+          "DRAM": 58.485,
+          "PLTR": 175.516,
+          "NLR": 108.11,
+          "NUKZ": 62.27,
+          "XLY": 111.07,
+          "EZU": 68.025,
+          "ZROZ": 58.4,
+          "FXY": 58.48,
+          "VIXM": 13.16,
+          "QFLR": 35.507,
+          "GLD": 401.795,
+          "GDX": 95.48,
+          "BTAL": 12.29,
+          "DBMF": 32.195,
+          "SGOV": 100.59
         }
       }
     ],
