@@ -136,14 +136,14 @@
     "fear_state": {
       "F1": {
         "prev_score": 1.8,
-        "score": 1.8,
+        "score": 1.7,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F2": {
         "prev_score": 1.8,
-        "score": 1.8,
+        "score": 1.7,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
@@ -156,25 +156,25 @@
         "last_above_date": null
       },
       "F4": {
-        "prev_score": 4.4,
+        "prev_score": 4.3,
         "score": 4.3,
-        "days_above": 10,
+        "days_above": 11,
         "confirmed": true,
-        "last_above_date": "2026-09-18"
+        "last_above_date": "2026-09-19"
       },
       "F5": {
-        "prev_score": 2.1,
-        "score": 2.0,
+        "prev_score": 2.0,
+        "score": 3.0,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F6": {
         "prev_score": 4.7,
-        "score": 4.7,
-        "days_above": 13,
+        "score": 4.6,
+        "days_above": 14,
         "confirmed": true,
-        "last_above_date": "2026-09-18"
+        "last_above_date": "2026-09-19"
       },
       "F7": {
         "prev_score": 3.6,
@@ -184,7 +184,7 @@
         "last_above_date": null
       },
       "F8": {
-        "prev_score": 3.1,
+        "prev_score": 3.0,
         "score": 3.0,
         "days_above": 0,
         "confirmed": false,

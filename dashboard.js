@@ -137,14 +137,14 @@ window.DASH = {
     "fear_state": {
       "F1": {
         "prev_score": 1.8,
-        "score": 1.8,
+        "score": 1.7,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F2": {
         "prev_score": 1.8,
-        "score": 1.8,
+        "score": 1.7,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
@@ -157,25 +157,25 @@ window.DASH = {
         "last_above_date": null
       },
       "F4": {
-        "prev_score": 4.4,
+        "prev_score": 4.3,
         "score": 4.3,
-        "days_above": 10,
+        "days_above": 11,
         "confirmed": true,
-        "last_above_date": "2026-09-18"
+        "last_above_date": "2026-09-19"
       },
       "F5": {
-        "prev_score": 2.1,
-        "score": 2.0,
+        "prev_score": 2.0,
+        "score": 3.0,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F6": {
         "prev_score": 4.7,
-        "score": 4.7,
-        "days_above": 13,
+        "score": 4.6,
+        "days_above": 14,
         "confirmed": true,
-        "last_above_date": "2026-09-18"
+        "last_above_date": "2026-09-19"
       },
       "F7": {
         "prev_score": 3.6,
@@ -185,7 +185,7 @@ window.DASH = {
         "last_above_date": null
       },
       "F8": {
-        "prev_score": 3.1,
+        "prev_score": 3.0,
         "score": 3.0,
         "days_above": 0,
         "confirmed": false,
@@ -633,8 +633,8 @@ window.DASH = {
       "cash_buffer_usd": 500.0,
       "shadow_mode": true
     },
-    "asof_ts": 1789759789,
-    "refresh_interval": 6
+    "asof_ts": 1789795874,
+    "refresh_interval": 1440
   },
   "asof": "2026-09-18",
   "summary": {
@@ -705,8 +705,8 @@ window.DASH = {
       "underlying_stop_pct": -0.08,
       "underlying_buy_price": 720.87,
       "dynamic_stop_pct": -0.08,
-      "underlying_ema20": 712.6784904069219,
-      "underlying_atr14": 9.569393705707771,
+      "underlying_ema20": 713.5138734355037,
+      "underlying_atr14": 9.36086296807909,
       "runner_active": false,
       "base_trimmed": false,
       "theory_ids": [
@@ -834,8 +834,8 @@ window.DASH = {
       "underlying_stop_pct": -0.09,
       "underlying_buy_price": 529.39,
       "dynamic_stop_pct": -0.09,
-      "underlying_ema20": 516.0440190569309,
-      "underlying_atr14": 17.49653669379637,
+      "underlying_ema20": 517.6655417490535,
+      "underlying_atr14": 17.26250062554529,
       "runner_active": false,
       "base_trimmed": false,
       "theory_ids": [
@@ -2515,18 +2515,18 @@ window.DASH = {
       "id": "F6",
       "name": "Rates shock / duration liquidation",
       "type": "structural",
-      "score": 4.7,
-      "level": 0.98,
+      "score": 4.6,
+      "level": 0.975,
       "velocity": null,
       "trend": {
         "label": "50d trend",
-        "value": 0.0299,
-        "pct": 0.757
+        "value": 0.0287,
+        "pct": 0.752
       },
       "signals": [
         {
           "label": "TLT/SHY (long-vs-short duration)",
-          "value": 0.969
+          "value": 0.962
         },
         {
           "label": "10y yield level",
@@ -2540,7 +2540,7 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-09-18",
+      "asof": "2026-09-19",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2553,7 +2553,7 @@ window.DASH = {
       "velocity": null,
       "trend": {
         "label": "50d trend",
-        "value": 0.0052,
+        "value": 0.0051,
         "pct": 0.643
       },
       "signals": [
@@ -2571,7 +2571,7 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-09-18",
+      "asof": "2026-09-19",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2580,17 +2580,17 @@ window.DASH = {
       "name": "Credit stress / HY spread",
       "type": "episodic",
       "score": 3.6,
-      "level": 0.05,
+      "level": 0.058,
       "velocity": {
         "label": "5d velocity",
-        "value": 0.0043,
-        "pct": 0.89
+        "value": 0.0045,
+        "pct": 0.898
       },
       "trend": null,
       "signals": [
         {
           "label": "HYG/LQD (credit spread proxy)",
-          "value": 0.05
+          "value": 0.058
         }
       ],
       "theory_ids": [
@@ -2601,7 +2601,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-09-18",
+      "asof": "2026-09-19",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2610,17 +2610,17 @@ window.DASH = {
       "name": "China / Taiwan escalation",
       "type": "episodic",
       "score": 3.0,
-      "level": 0.327,
+      "level": 0.324,
       "velocity": {
         "label": "5d velocity",
-        "value": 0.0029,
-        "pct": 0.573
+        "value": 0.0031,
+        "pct": 0.576
       },
       "trend": null,
       "signals": [
         {
           "label": "Gold 3d momentum",
-          "value": 0.712
+          "value": 0.704
         },
         {
           "label": "HK equities drawdown",
@@ -2636,26 +2636,62 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-09-18",
+      "asof": "2026-09-19",
       "degraded": false,
       "trend_dir": "flat"
+    },
+    {
+      "id": "F5",
+      "name": "War / energy shock",
+      "type": "episodic",
+      "score": 3.0,
+      "level": 0.529,
+      "velocity": {
+        "label": "5d velocity",
+        "value": 0.0025,
+        "pct": 0.482
+      },
+      "trend": null,
+      "signals": [
+        {
+          "label": "Crude 5d momentum",
+          "value": 0.482
+        },
+        {
+          "label": "Gold 1d momentum",
+          "value": 0.637
+        }
+      ],
+      "theory_ids": [
+        "T21"
+      ],
+      "hedge_ticks": [
+        "GLD",
+        "GDX",
+        "FXY",
+        "DBMF"
+      ],
+      "sizing": null,
+      "asof": "2026-09-19",
+      "degraded": false,
+      "trend_dir": "rising"
     },
     {
       "id": "F8",
       "name": "Recession / growth freeze",
       "type": "structural",
       "score": 3.0,
-      "level": 0.437,
+      "level": 0.435,
       "velocity": null,
       "trend": {
         "label": "50d trend",
-        "value": 0.0466,
-        "pct": 0.686
+        "value": 0.0452,
+        "pct": 0.667
       },
       "signals": [
         {
           "label": "XLY/XLP (cyclical vs staples)",
-          "value": 0.873
+          "value": 0.869
         },
         {
           "label": "SPY below 200d MA",
@@ -2670,43 +2706,7 @@ window.DASH = {
         "BTAL"
       ],
       "sizing": null,
-      "asof": "2026-09-18",
-      "degraded": false,
-      "trend_dir": "flat"
-    },
-    {
-      "id": "F5",
-      "name": "War / energy shock",
-      "type": "episodic",
-      "score": 2.0,
-      "level": 0.339,
-      "velocity": {
-        "label": "5d velocity",
-        "value": -0.0454,
-        "pct": 0.196
-      },
-      "trend": null,
-      "signals": [
-        {
-          "label": "Gold 1d momentum",
-          "value": 0.672
-        },
-        {
-          "label": "Crude 5d momentum",
-          "value": 0.196
-        }
-      ],
-      "theory_ids": [
-        "T21"
-      ],
-      "hedge_ticks": [
-        "GLD",
-        "GDX",
-        "FXY",
-        "DBMF"
-      ],
-      "sizing": null,
-      "asof": "2026-09-18",
+      "asof": "2026-09-19",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2714,22 +2714,22 @@ window.DASH = {
       "id": "F1",
       "name": "AI / tech concentration pop",
       "type": "structural",
-      "score": 1.8,
-      "level": 0.091,
+      "score": 1.7,
+      "level": 0.083,
       "velocity": null,
       "trend": {
         "label": "50d trend",
-        "value": 0.0004,
-        "pct": 0.429
+        "value": -0.0032,
+        "pct": 0.405
       },
       "signals": [
         {
           "label": "QQQ/RSP concentration ratio",
-          "value": 0.146
+          "value": 0.135
         },
         {
           "label": "QQQ drawdown from 52w high",
-          "value": 0.035
+          "value": 0.032
         }
       ],
       "theory_ids": [
@@ -2742,7 +2742,7 @@ window.DASH = {
         "ZROZ"
       ],
       "sizing": null,
-      "asof": "2026-09-18",
+      "asof": "2026-09-19",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2750,18 +2750,18 @@ window.DASH = {
       "id": "F2",
       "name": "Yen-carry unwind",
       "type": "episodic",
-      "score": 1.8,
-      "level": 0.542,
+      "score": 1.7,
+      "level": 0.519,
       "velocity": {
         "label": "5d velocity",
-        "value": -0.0142,
-        "pct": 0.071
+        "value": -0.0224,
+        "pct": 0.024
       },
       "trend": null,
       "signals": [
         {
           "label": "Yen strength (FXY level)",
-          "value": 0.542
+          "value": 0.519
         }
       ],
       "theory_ids": [
@@ -2772,7 +2772,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-09-18",
+      "asof": "2026-09-19",
       "degraded": false,
       "trend_dir": "flat"
     }
@@ -2782,17 +2782,17 @@ window.DASH = {
     "label": "Fear"
   },
   "complacency": {
-    "index": 0.083,
-    "valuation_stretch": 0.415,
-    "fear_term": 0.2,
-    "divergence": 0.332,
-    "fear_avg": 4.2,
+    "index": 0.1,
+    "valuation_stretch": 0.481,
+    "fear_term": 0.208,
+    "divergence": 0.381,
+    "fear_avg": 4.17,
     "regime": "stress",
     "note": "Stress regime - broad equity drawdown active. Hedges should be paying.",
     "pay_check": {
       "fear_id": "F6",
       "fear_name": "Rates shock / duration liquidation",
-      "score": 4.7,
+      "score": 4.6,
       "checks": [
         {
           "ticker": "SGOV",
@@ -2818,7 +2818,7 @@ window.DASH = {
       },
       {
         "date": "2026-08-12",
-        "value": 99930.15
+        "value": 99930.14
       },
       {
         "date": "2026-08-13",
@@ -2830,15 +2830,15 @@ window.DASH = {
       },
       {
         "date": "2026-08-17",
-        "value": 99953.43
+        "value": 99953.42
       },
       {
         "date": "2026-08-18",
-        "value": 99278.17
+        "value": 99278.16
       },
       {
         "date": "2026-08-19",
-        "value": 99486.44
+        "value": 99486.43
       },
       {
         "date": "2026-08-20",
@@ -2846,15 +2846,15 @@ window.DASH = {
       },
       {
         "date": "2026-08-21",
-        "value": 99054.37
+        "value": 99054.36
       },
       {
         "date": "2026-08-24",
-        "value": 98763.31
+        "value": 98763.3
       },
       {
         "date": "2026-08-25",
-        "value": 99078.95
+        "value": 99078.94
       },
       {
         "date": "2026-08-26",
@@ -2862,7 +2862,7 @@ window.DASH = {
       },
       {
         "date": "2026-08-27",
-        "value": 99750.33
+        "value": 99750.32
       },
       {
         "date": "2026-08-28",
@@ -2878,11 +2878,11 @@ window.DASH = {
       },
       {
         "date": "2026-09-02",
-        "value": 98981.93
+        "value": 98981.92
       },
       {
         "date": "2026-09-03",
-        "value": 100018.11
+        "value": 100018.1
       },
       {
         "date": "2026-09-04",
@@ -2898,7 +2898,7 @@ window.DASH = {
       },
       {
         "date": "2026-09-10",
-        "value": 98033.71
+        "value": 98033.7
       },
       {
         "date": "2026-09-11",
@@ -2906,7 +2906,7 @@ window.DASH = {
       },
       {
         "date": "2026-09-14",
-        "value": 98428.26
+        "value": 98428.25
       },
       {
         "date": "2026-09-15",
@@ -2914,7 +2914,7 @@ window.DASH = {
       },
       {
         "date": "2026-09-16",
-        "value": 97544.73
+        "value": 97544.72
       },
       {
         "date": "2026-09-17",
@@ -2922,7 +2922,7 @@ window.DASH = {
       },
       {
         "date": "2026-09-18",
-        "value": 98426.96
+        "value": 98777.72
       }
     ],
     "aligned": [
@@ -2936,7 +2936,7 @@ window.DASH = {
       },
       {
         "date": "2026-08-12",
-        "value": 99930.15
+        "value": 99930.14
       },
       {
         "date": "2026-08-13",
@@ -2948,15 +2948,15 @@ window.DASH = {
       },
       {
         "date": "2026-08-17",
-        "value": 99953.43
+        "value": 99953.42
       },
       {
         "date": "2026-08-18",
-        "value": 99278.17
+        "value": 99278.16
       },
       {
         "date": "2026-08-19",
-        "value": 99486.44
+        "value": 99486.43
       },
       {
         "date": "2026-08-20",
@@ -2964,15 +2964,15 @@ window.DASH = {
       },
       {
         "date": "2026-08-21",
-        "value": 99054.37
+        "value": 99054.36
       },
       {
         "date": "2026-08-24",
-        "value": 98763.31
+        "value": 98763.3
       },
       {
         "date": "2026-08-25",
-        "value": 99078.95
+        "value": 99078.94
       },
       {
         "date": "2026-08-26",
@@ -2980,7 +2980,7 @@ window.DASH = {
       },
       {
         "date": "2026-08-27",
-        "value": 99750.33
+        "value": 99750.32
       },
       {
         "date": "2026-08-28",
@@ -2996,11 +2996,11 @@ window.DASH = {
       },
       {
         "date": "2026-09-02",
-        "value": 98981.93
+        "value": 98981.92
       },
       {
         "date": "2026-09-03",
-        "value": 100018.11
+        "value": 100018.1
       },
       {
         "date": "2026-09-04",
@@ -3016,7 +3016,7 @@ window.DASH = {
       },
       {
         "date": "2026-09-10",
-        "value": 98033.71
+        "value": 98033.7
       },
       {
         "date": "2026-09-11",
@@ -3024,7 +3024,7 @@ window.DASH = {
       },
       {
         "date": "2026-09-14",
-        "value": 98428.26
+        "value": 98428.25
       },
       {
         "date": "2026-09-15",
@@ -3032,7 +3032,7 @@ window.DASH = {
       },
       {
         "date": "2026-09-16",
-        "value": 97544.73
+        "value": 97544.72
       },
       {
         "date": "2026-09-17",
@@ -3040,13 +3040,13 @@ window.DASH = {
       },
       {
         "date": "2026-09-18",
-        "value": 98426.96
+        "value": 98777.72
       }
     ],
     "summary": {
-      "total_return_pct": -1.57,
+      "total_return_pct": -1.22,
       "max_drawdown_pct": -3.06,
-      "sharpe_annualized": -1.57
+      "sharpe_annualized": -1.21
     }
   },
   "benchmarks": {
@@ -3064,7 +3064,7 @@ window.DASH = {
         },
         {
           "date": "2026-08-12",
-          "value": 99930.15
+          "value": 99930.14
         },
         {
           "date": "2026-08-13",
@@ -3076,15 +3076,15 @@ window.DASH = {
         },
         {
           "date": "2026-08-17",
-          "value": 99953.43
+          "value": 99953.42
         },
         {
           "date": "2026-08-18",
-          "value": 99278.17
+          "value": 99278.16
         },
         {
           "date": "2026-08-19",
-          "value": 99486.44
+          "value": 99486.43
         },
         {
           "date": "2026-08-20",
@@ -3092,15 +3092,15 @@ window.DASH = {
         },
         {
           "date": "2026-08-21",
-          "value": 99054.37
+          "value": 99054.36
         },
         {
           "date": "2026-08-24",
-          "value": 98763.31
+          "value": 98763.3
         },
         {
           "date": "2026-08-25",
-          "value": 99078.95
+          "value": 99078.94
         },
         {
           "date": "2026-08-26",
@@ -3108,7 +3108,7 @@ window.DASH = {
         },
         {
           "date": "2026-08-27",
-          "value": 99750.33
+          "value": 99750.32
         },
         {
           "date": "2026-08-28",
@@ -3124,11 +3124,11 @@ window.DASH = {
         },
         {
           "date": "2026-09-02",
-          "value": 98981.93
+          "value": 98981.92
         },
         {
           "date": "2026-09-03",
-          "value": 100018.11
+          "value": 100018.1
         },
         {
           "date": "2026-09-04",
@@ -3144,7 +3144,7 @@ window.DASH = {
         },
         {
           "date": "2026-09-10",
-          "value": 98033.71
+          "value": 98033.7
         },
         {
           "date": "2026-09-11",
@@ -3152,7 +3152,7 @@ window.DASH = {
         },
         {
           "date": "2026-09-14",
-          "value": 98428.26
+          "value": 98428.25
         },
         {
           "date": "2026-09-15",
@@ -3160,7 +3160,7 @@ window.DASH = {
         },
         {
           "date": "2026-09-16",
-          "value": 97544.73
+          "value": 97544.72
         },
         {
           "date": "2026-09-17",
@@ -3168,7 +3168,7 @@ window.DASH = {
         },
         {
           "date": "2026-09-18",
-          "value": 98426.96
+          "value": 98777.72
         }
       ],
       "aligned": [
@@ -3182,7 +3182,7 @@ window.DASH = {
         },
         {
           "date": "2026-08-12",
-          "value": 99930.15
+          "value": 99930.14
         },
         {
           "date": "2026-08-13",
@@ -3194,15 +3194,15 @@ window.DASH = {
         },
         {
           "date": "2026-08-17",
-          "value": 99953.43
+          "value": 99953.42
         },
         {
           "date": "2026-08-18",
-          "value": 99278.17
+          "value": 99278.16
         },
         {
           "date": "2026-08-19",
-          "value": 99486.44
+          "value": 99486.43
         },
         {
           "date": "2026-08-20",
@@ -3210,15 +3210,15 @@ window.DASH = {
         },
         {
           "date": "2026-08-21",
-          "value": 99054.37
+          "value": 99054.36
         },
         {
           "date": "2026-08-24",
-          "value": 98763.31
+          "value": 98763.3
         },
         {
           "date": "2026-08-25",
-          "value": 99078.95
+          "value": 99078.94
         },
         {
           "date": "2026-08-26",
@@ -3226,7 +3226,7 @@ window.DASH = {
         },
         {
           "date": "2026-08-27",
-          "value": 99750.33
+          "value": 99750.32
         },
         {
           "date": "2026-08-28",
@@ -3242,11 +3242,11 @@ window.DASH = {
         },
         {
           "date": "2026-09-02",
-          "value": 98981.93
+          "value": 98981.92
         },
         {
           "date": "2026-09-03",
-          "value": 100018.11
+          "value": 100018.1
         },
         {
           "date": "2026-09-04",
@@ -3262,7 +3262,7 @@ window.DASH = {
         },
         {
           "date": "2026-09-10",
-          "value": 98033.71
+          "value": 98033.7
         },
         {
           "date": "2026-09-11",
@@ -3270,7 +3270,7 @@ window.DASH = {
         },
         {
           "date": "2026-09-14",
-          "value": 98428.26
+          "value": 98428.25
         },
         {
           "date": "2026-09-15",
@@ -3278,7 +3278,7 @@ window.DASH = {
         },
         {
           "date": "2026-09-16",
-          "value": 97544.73
+          "value": 97544.72
         },
         {
           "date": "2026-09-17",
@@ -3286,13 +3286,13 @@ window.DASH = {
         },
         {
           "date": "2026-09-18",
-          "value": 98426.96
+          "value": 98777.72
         }
       ],
       "summary": {
-        "total_return_pct": -1.57,
+        "total_return_pct": -1.22,
         "max_drawdown_pct": -3.06,
-        "sharpe_annualized": -1.57
+        "sharpe_annualized": -1.21
       }
     },
     "QQQ": {
@@ -3413,7 +3413,7 @@ window.DASH = {
         },
         {
           "date": "2026-09-18",
-          "value": 99754.46
+          "value": 100080.46
         }
       ],
       "aligned": [
@@ -3531,13 +3531,13 @@ window.DASH = {
         },
         {
           "date": "2026-09-18",
-          "value": 99754.46
+          "value": 100080.46
         }
       ],
       "summary": {
-        "total_return_pct": -0.25,
+        "total_return_pct": 0.08,
         "max_drawdown_pct": -3.76,
-        "sharpe_annualized": -0.1
+        "sharpe_annualized": 0.12
       }
     },
     "TQQQ": {
@@ -3658,7 +3658,7 @@ window.DASH = {
         },
         {
           "date": "2026-09-18",
-          "value": 97547.43
+          "value": 98428.18
         }
       ],
       "aligned": [
@@ -3776,13 +3776,13 @@ window.DASH = {
         },
         {
           "date": "2026-09-18",
-          "value": 97547.43
+          "value": 98428.18
         }
       ],
       "summary": {
-        "total_return_pct": -2.45,
+        "total_return_pct": -1.57,
         "max_drawdown_pct": -11.99,
-        "sharpe_annualized": -0.38
+        "sharpe_annualized": -0.17
       }
     },
     "MUU": {
@@ -3903,7 +3903,7 @@ window.DASH = {
         },
         {
           "date": "2026-09-18",
-          "value": 129429.74
+          "value": 131615.93
         }
       ],
       "aligned": [
@@ -4021,13 +4021,13 @@ window.DASH = {
         },
         {
           "date": "2026-09-18",
-          "value": 129429.74
+          "value": 131615.93
         }
       ],
       "summary": {
-        "total_return_pct": 29.43,
+        "total_return_pct": 31.62,
         "max_drawdown_pct": -20.28,
-        "sharpe_annualized": 2.7
+        "sharpe_annualized": 2.83
       }
     }
   },
@@ -4356,13 +4356,38 @@ window.DASH = {
     "enabled": true
   },
   "news": {
-    "asof": "2026-09-18 19:29:49",
+    "asof": "2026-09-19 05:31:15",
     "big_stories": [
       {
-        "title": "Is Palantir's Lead Over Its Peers Already Priced In?",
-        "link": "https://www.trefis.com/articles/615840/is-palantirs-lead-over-its-peers-already-priced-in/2026-09-18?.tsrc=rss",
-        "ts": 1789754441,
-        "when": "Sep 18, 06:00 PM",
+        "title": "SGOV vs. VBIL: Vanguard Finally Has a T-Bill ETF, So Is It the Cheaper Place to Park Cash?",
+        "link": "https://247wallst.com/investing/etf/2026/09/18/sgov-vs-vbil-vanguard-finally-has-a-t-bill-etf-so-is-it-the-cheaper-place-to-park-cash/?.tsrc=rss",
+        "ts": 1789781407,
+        "when": "Sep 19, 01:30 AM",
+        "ticker": "SGOV",
+        "industry": "Equities",
+        "theory": [],
+        "sent": "neutral"
+      },
+      {
+        "title": "Dow Drops To Record Worst Week In Six Months Amid Elevated Yields, Oil — NVDA, TSLA, SPCX, ONON In Focus",
+        "link": "https://stocktwits.com/news-articles/markets/equity/dow-drops-to-record-worst-week-in-six-months-amid-elevated-yields-oil-nvda-tsla-spcx-onon-in-focus/cZtHOYsRBEK?.tsrc=rss",
+        "ts": 1789774558,
+        "when": "Sep 18, 11:35 PM",
+        "ticker": "SMH",
+        "industry": "Semis",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "negative"
+      },
+      {
+        "title": "Jim Cramer Says His Palantir Technologies Inc. (NASDAQ:PLTR) Price Target Is $250",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/jim-cramer-says-palantir-technologies-230154955.html?.tsrc=rss",
+        "ts": 1789772514,
+        "when": "Sep 18, 11:01 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -4374,19 +4399,16 @@ window.DASH = {
         "sent": "neutral"
       },
       {
-        "title": "Why XLK’s Next Rebalance Won’t Fix Its Massive Concentration Problem",
-        "link": "https://247wallst.com/investing/etf/2026/09/18/why-xlks-next-rebalance-wont-fix-its-massive-concentration-problem/?.tsrc=rss",
-        "ts": 1789752340,
-        "when": "Sep 18, 05:25 PM",
-        "ticker": "SMH",
-        "industry": "Semis",
+        "title": "Sector Update: Consumer Stocks Softer Late Afternoon",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-softer-afternoon-195143538.html?.tsrc=rss",
+        "ts": 1789761103,
+        "when": "Sep 18, 07:51 PM",
+        "ticker": "XLY",
+        "industry": "Consumer Disc.",
         "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
+          "T13"
         ],
-        "sent": "negative"
+        "sent": "neutral"
       },
       {
         "title": "Yen jumps over 1 yen after BOJ conducts rate check",
@@ -4401,14 +4423,41 @@ window.DASH = {
           "T21"
         ],
         "sent": "neutral"
+      }
+    ],
+    "feed": [
+      {
+        "title": "SGOV vs. VBIL: Vanguard Finally Has a T-Bill ETF, So Is It the Cheaper Place to Park Cash?",
+        "link": "https://247wallst.com/investing/etf/2026/09/18/sgov-vs-vbil-vanguard-finally-has-a-t-bill-etf-so-is-it-the-cheaper-place-to-park-cash/?.tsrc=rss",
+        "ts": 1789781407,
+        "when": "Sep 19, 01:30 AM",
+        "ticker": "SGOV",
+        "industry": "Equities",
+        "theory": [],
+        "sent": "neutral"
       },
       {
-        "title": "SanDisk Jumps 6% as Storage Bid Concentrates in One Name; Western Digital Rises 3%, Micron Ticks Up",
-        "link": "https://247wallst.com/investing/2026/09/18/sandisk-jumps-6-as-storage-bid-concentrates-in-one-name-western-digital-rises-3-micron-ticks-up/?.tsrc=rss",
-        "ts": 1789746681,
-        "when": "Sep 18, 03:51 PM",
-        "ticker": "DRAM",
-        "industry": "AI Memory/HBM",
+        "title": "Dow Drops To Record Worst Week In Six Months Amid Elevated Yields, Oil — NVDA, TSLA, SPCX, ONON In Focus",
+        "link": "https://stocktwits.com/news-articles/markets/equity/dow-drops-to-record-worst-week-in-six-months-amid-elevated-yields-oil-nvda-tsla-spcx-onon-in-focus/cZtHOYsRBEK?.tsrc=rss",
+        "ts": 1789774558,
+        "when": "Sep 18, 11:35 PM",
+        "ticker": "SMH",
+        "industry": "Semis",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "negative"
+      },
+      {
+        "title": "Jim Cramer Says His Palantir Technologies Inc. (NASDAQ:PLTR) Price Target Is $250",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/jim-cramer-says-palantir-technologies-230154955.html?.tsrc=rss",
+        "ts": 1789772514,
+        "when": "Sep 18, 11:01 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
         "theory": [
           "T1",
           "T7",
@@ -4418,17 +4467,62 @@ window.DASH = {
         "sent": "neutral"
       },
       {
-        "title": "How a 60-Year-Old Turned a $910,000 401(k) Rollover Into a $5,650 Monthly Paycheck Without Buying an Annuity",
-        "link": "https://247wallst.com/personal-finance/2026/09/18/how-a-60-year-old-turned-a-910000-401k-rollover-into-a-5650-monthly-paycheck-without-buying-an-annuity/?.tsrc=rss",
-        "ts": 1789746245,
-        "when": "Sep 18, 03:44 PM",
-        "ticker": "SGOV",
-        "industry": "Equities",
-        "theory": [],
+        "title": "The ARK Trade Watch: Cathie Wood Cuts Crypto Exposure, Then Reverses Course On CoreWeave",
+        "link": "https://stocktwits.com/news-articles/markets/equity/crwv-arkb-crcl-coin-cathie-wood-biggest-ark-invest-trades-week/cZtH7mZRBEg?.tsrc=rss",
+        "ts": 1789767510,
+        "when": "Sep 18, 09:38 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "negative"
+      },
+      {
+        "title": "Palantir CEO offers surprising solution to AI threats that involves Washington, D.C.",
+        "link": "https://www.thestreet.com/technology/palantir-karp-ai-liability-warning-nationalization?.tsrc=rss",
+        "ts": 1789762020,
+        "when": "Sep 18, 08:07 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "Sector Update: Consumer Stocks Softer Late Afternoon",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-softer-afternoon-195143538.html?.tsrc=rss",
+        "ts": 1789761103,
+        "when": "Sep 18, 07:51 PM",
+        "ticker": "XLY",
+        "industry": "Consumer Disc.",
+        "theory": [
+          "T13"
+        ],
         "sent": "neutral"
-      }
-    ],
-    "feed": [
+      },
+      {
+        "title": "The 3 Tech Laggards Are Top Stock Picks, UBS Says",
+        "link": "https://finance.yahoo.com/m/7fa81232-e469-3b85-b48a-31a488e41861/the-3-tech-laggards-are-top.html?.tsrc=rss",
+        "ts": 1789757340,
+        "when": "Sep 18, 06:49 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
       {
         "title": "Is Palantir's Lead Over Its Peers Already Priced In?",
         "link": "https://www.trefis.com/articles/615840/is-palantirs-lead-over-its-peers-already-priced-in/2026-09-18?.tsrc=rss",
@@ -4749,106 +4843,6 @@ window.DASH = {
         "link": "https://www.fool.com/investing/2026/09/18/forget-michael-burrys-short-thesis-heres-the-bull/?.tsrc=rss",
         "ts": 1789717020,
         "when": "Sep 18, 07:37 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "negative"
-      },
-      {
-        "title": "Palantir CEO Alex Karp Says Anthropic Wants AI Nationalization to Simply Dodge Lawsuits",
-        "link": "https://beincrypto.com/alex-karp-ai-nationalization-liability/?.tsrc=rss",
-        "ts": 1789694673,
-        "when": "Sep 18, 01:24 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "negative"
-      },
-      {
-        "title": "Palantir Technologies (PLTR) AI Deal Rush Meets A Fair Value Debate",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/palantir-technologies-pltr-ai-deal-001448200.html?.tsrc=rss",
-        "ts": 1789690488,
-        "when": "Sep 18, 12:14 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "$100,000 in These 3 ETFs Pays About $465 a Month From T-Bills and CLOs: No Dividend Stocks, Almost No Rate Risk",
-        "link": "https://247wallst.com/investing/etf/2026/09/17/100000-in-these-3-etfs-pays-about-465-a-month-from-t-bills-and-clos-no-dividend-stocks-almost-no-rate-risk/?.tsrc=rss",
-        "ts": 1789688951,
-        "when": "Sep 17, 11:49 PM",
-        "ticker": "SGOV",
-        "industry": "Equities",
-        "theory": [],
-        "sent": "negative"
-      },
-      {
-        "title": "Palantir Hires Former UK Labour Veteran With NHS Deal in Limbo",
-        "link": "https://finance.yahoo.com/healthcare/articles/palantir-hires-former-uk-labour-230100008.html?.tsrc=rss",
-        "ts": 1789686060,
-        "when": "Sep 17, 11:01 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "S&P 500, Nasdaq, Dow End Higher As Drop In Oil Prices Allays Inflationary Concerns — NVDA, MCD, CRWV, LMT, AMZN In Focus",
-        "link": "https://stocktwits.com/news-articles/markets/equity/s-and-p-500-nasdaq-dow-end-higher-amid-drop-in-oil-prices/cZtscNsRBdY?.tsrc=rss",
-        "ts": 1789683734,
-        "when": "Sep 17, 10:22 PM",
-        "ticker": "SMH",
-        "industry": "Semis",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "negative"
-      },
-      {
-        "title": "Palantir, Rocket Lab among biggest climbers in power ranking",
-        "link": "https://www.thestreet.com/crypto/markets/palantir-rocket-lab-among-biggest-climbers-in-power-ranking?.tsrc=rss",
-        "ts": 1789683047,
-        "when": "Sep 17, 10:10 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Michael Burry returns to a difficult corner of Wall Street",
-        "link": "https://www.thestreet.com/investing/michael-burry-joins-unicus-research-new-minerva-fund-adviser?.tsrc=rss",
-        "ts": 1789682820,
-        "when": "Sep 17, 10:07 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
