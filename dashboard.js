@@ -136,14 +136,14 @@ window.DASH = {
     "disclaimer": "Simulated portfolio for tracking/learning. Not financial advice.",
     "fear_state": {
       "F1": {
-        "prev_score": 1.8,
+        "prev_score": 1.7,
         "score": 1.7,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F2": {
-        "prev_score": 1.8,
+        "prev_score": 1.7,
         "score": 1.7,
         "days_above": 0,
         "confirmed": false,
@@ -159,23 +159,23 @@ window.DASH = {
       "F4": {
         "prev_score": 4.3,
         "score": 4.3,
-        "days_above": 11,
+        "days_above": 12,
         "confirmed": true,
-        "last_above_date": "2026-09-19"
+        "last_above_date": "2026-09-20"
       },
       "F5": {
-        "prev_score": 2.0,
-        "score": 3.0,
+        "prev_score": 3.0,
+        "score": 2.1,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F6": {
-        "prev_score": 4.7,
+        "prev_score": 4.6,
         "score": 4.6,
-        "days_above": 14,
+        "days_above": 15,
         "confirmed": true,
-        "last_above_date": "2026-09-19"
+        "last_above_date": "2026-09-20"
       },
       "F7": {
         "prev_score": 3.6,
@@ -633,7 +633,7 @@ window.DASH = {
       "cash_buffer_usd": 500.0,
       "shadow_mode": true
     },
-    "asof_ts": 1789795874,
+    "asof_ts": 1789883229,
     "refresh_interval": 1440
   },
   "asof": "2026-09-18",
@@ -2540,7 +2540,7 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-09-19",
+      "asof": "2026-09-20",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2571,7 +2571,7 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-09-19",
+      "asof": "2026-09-20",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2601,7 +2601,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-09-19",
+      "asof": "2026-09-20",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2636,45 +2636,9 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-09-19",
+      "asof": "2026-09-20",
       "degraded": false,
       "trend_dir": "flat"
-    },
-    {
-      "id": "F5",
-      "name": "War / energy shock",
-      "type": "episodic",
-      "score": 3.0,
-      "level": 0.529,
-      "velocity": {
-        "label": "5d velocity",
-        "value": 0.0025,
-        "pct": 0.482
-      },
-      "trend": null,
-      "signals": [
-        {
-          "label": "Crude 5d momentum",
-          "value": 0.482
-        },
-        {
-          "label": "Gold 1d momentum",
-          "value": 0.637
-        }
-      ],
-      "theory_ids": [
-        "T21"
-      ],
-      "hedge_ticks": [
-        "GLD",
-        "GDX",
-        "FXY",
-        "DBMF"
-      ],
-      "sizing": null,
-      "asof": "2026-09-19",
-      "degraded": false,
-      "trend_dir": "rising"
     },
     {
       "id": "F8",
@@ -2706,9 +2670,45 @@ window.DASH = {
         "BTAL"
       ],
       "sizing": null,
-      "asof": "2026-09-19",
+      "asof": "2026-09-20",
       "degraded": false,
       "trend_dir": "flat"
+    },
+    {
+      "id": "F5",
+      "name": "War / energy shock",
+      "type": "episodic",
+      "score": 2.1,
+      "level": 0.35,
+      "velocity": {
+        "label": "5d velocity",
+        "value": -0.0397,
+        "pct": 0.227
+      },
+      "trend": null,
+      "signals": [
+        {
+          "label": "Gold 1d momentum",
+          "value": 0.637
+        },
+        {
+          "label": "Crude 5d momentum",
+          "value": 0.227
+        }
+      ],
+      "theory_ids": [
+        "T21"
+      ],
+      "hedge_ticks": [
+        "GLD",
+        "GDX",
+        "FXY",
+        "DBMF"
+      ],
+      "sizing": null,
+      "asof": "2026-09-20",
+      "degraded": false,
+      "trend_dir": "falling"
     },
     {
       "id": "F1",
@@ -2742,7 +2742,7 @@ window.DASH = {
         "ZROZ"
       ],
       "sizing": null,
-      "asof": "2026-09-19",
+      "asof": "2026-09-20",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2772,7 +2772,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-09-19",
+      "asof": "2026-09-20",
       "degraded": false,
       "trend_dir": "flat"
     }
@@ -4356,16 +4356,46 @@ window.DASH = {
     "enabled": true
   },
   "news": {
-    "asof": "2026-09-19 05:31:15",
+    "asof": "2026-09-20 05:47:10",
     "big_stories": [
       {
-        "title": "SGOV vs. VBIL: Vanguard Finally Has a T-Bill ETF, So Is It the Cheaper Place to Park Cash?",
-        "link": "https://247wallst.com/investing/etf/2026/09/18/sgov-vs-vbil-vanguard-finally-has-a-t-bill-etf-so-is-it-the-cheaper-place-to-park-cash/?.tsrc=rss",
-        "ts": 1789781407,
-        "when": "Sep 19, 01:30 AM",
+        "title": "Cathie Wood Sold Palantir and AMD, Then Poured $3.35 Million Into Archer Aviation. Is ARK Betting Big on Flying Taxis?",
+        "link": "https://www.fool.com/investing/2026/09/19/cathie-wood-sold-palantir-and-amd-then-poured-335/?.tsrc=rss",
+        "ts": 1789849500,
+        "when": "Sep 19, 08:25 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "A $2.25 Million Portfolio, Two Withdrawal Plans: One Triggers IRMAA and RMD Taxes, One Never Does",
+        "link": "https://247wallst.com/personal-finance/2026/09/19/a-2-25-million-portfolio-two-withdrawal-plans-one-triggers-irmaa-and-rmd-taxes-one-never-does/?.tsrc=rss",
+        "ts": 1789849224,
+        "when": "Sep 19, 08:20 PM",
         "ticker": "SGOV",
         "industry": "Equities",
         "theory": [],
+        "sent": "neutral"
+      },
+      {
+        "title": "QLD Doubles the Nasdaq-100 Instead of Tripling It. That 2X Middle Ground Is Why It Survives Crashes TQQQ Doesn’t",
+        "link": "https://247wallst.com/investing/etf/2026/09/19/qld-doubles-the-nasdaq-100-instead-of-tripling-it-that-2x-middle-ground-is-why-it-survives-crashes-tqqq-doesnt/?.tsrc=rss",
+        "ts": 1789815334,
+        "when": "Sep 19, 10:55 AM",
+        "ticker": "TQQQ",
+        "industry": "Leveraged Tech",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
         "sent": "neutral"
       },
       {
@@ -4384,10 +4414,24 @@ window.DASH = {
         "sent": "negative"
       },
       {
-        "title": "Jim Cramer Says His Palantir Technologies Inc. (NASDAQ:PLTR) Price Target Is $250",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/jim-cramer-says-palantir-technologies-230154955.html?.tsrc=rss",
-        "ts": 1789772514,
-        "when": "Sep 18, 11:01 PM",
+        "title": "Sector Update: Consumer Stocks Softer Late Afternoon",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-softer-afternoon-195143538.html?.tsrc=rss",
+        "ts": 1789761103,
+        "when": "Sep 18, 07:51 PM",
+        "ticker": "XLY",
+        "industry": "Consumer Disc.",
+        "theory": [
+          "T13"
+        ],
+        "sent": "neutral"
+      }
+    ],
+    "feed": [
+      {
+        "title": "Cathie Wood Sold Palantir and AMD, Then Poured $3.35 Million Into Archer Aviation. Is ARK Betting Big on Flying Taxis?",
+        "link": "https://www.fool.com/investing/2026/09/19/cathie-wood-sold-palantir-and-amd-then-poured-335/?.tsrc=rss",
+        "ts": 1789849500,
+        "when": "Sep 19, 08:25 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -4399,33 +4443,45 @@ window.DASH = {
         "sent": "neutral"
       },
       {
-        "title": "Sector Update: Consumer Stocks Softer Late Afternoon",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-softer-afternoon-195143538.html?.tsrc=rss",
-        "ts": 1789761103,
-        "when": "Sep 18, 07:51 PM",
-        "ticker": "XLY",
-        "industry": "Consumer Disc.",
-        "theory": [
-          "T13"
-        ],
+        "title": "A $2.25 Million Portfolio, Two Withdrawal Plans: One Triggers IRMAA and RMD Taxes, One Never Does",
+        "link": "https://247wallst.com/personal-finance/2026/09/19/a-2-25-million-portfolio-two-withdrawal-plans-one-triggers-irmaa-and-rmd-taxes-one-never-does/?.tsrc=rss",
+        "ts": 1789849224,
+        "when": "Sep 19, 08:20 PM",
+        "ticker": "SGOV",
+        "industry": "Equities",
+        "theory": [],
         "sent": "neutral"
       },
       {
-        "title": "Yen jumps over 1 yen after BOJ conducts rate check",
-        "link": "https://finance.yahoo.com/markets/currencies/articles/yen-jumps-over-1-yen-163753498.html?.tsrc=rss",
-        "ts": 1789749473,
-        "when": "Sep 18, 04:37 PM",
-        "ticker": "FXY",
-        "industry": "Yen FX",
+        "title": "What Will $5,000 Invested in Palantir Stock Be Worth in 5 Years?",
+        "link": "https://247wallst.com/investing/2026/09/19/what-will-5000-invested-in-palantir-stock-be-worth-in-5-years/?.tsrc=rss",
+        "ts": 1789822827,
+        "when": "Sep 19, 01:00 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
         "theory": [
-          "T6",
-          "T18",
-          "T21"
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "QLD Doubles the Nasdaq-100 Instead of Tripling It. That 2X Middle Ground Is Why It Survives Crashes TQQQ Doesn’t",
+        "link": "https://247wallst.com/investing/etf/2026/09/19/qld-doubles-the-nasdaq-100-instead-of-tripling-it-that-2x-middle-ground-is-why-it-survives-crashes-tqqq-doesnt/?.tsrc=rss",
+        "ts": 1789815334,
+        "when": "Sep 19, 10:55 AM",
+        "ticker": "TQQQ",
+        "industry": "Leveraged Tech",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
         ],
         "sent": "neutral"
-      }
-    ],
-    "feed": [
+      },
       {
         "title": "SGOV vs. VBIL: Vanguard Finally Has a T-Bill ETF, So Is It the Cheaper Place to Park Cash?",
         "link": "https://247wallst.com/investing/etf/2026/09/18/sgov-vs-vbil-vanguard-finally-has-a-t-bill-etf-so-is-it-the-cheaper-place-to-park-cash/?.tsrc=rss",
@@ -4792,66 +4848,6 @@ window.DASH = {
           "T14"
         ],
         "sent": "positive"
-      },
-      {
-        "title": "2 Game-Changing AI Stocks That Can Plunge 48% and 54%, According to Select Wall Street Analysts",
-        "link": "https://www.fool.com/investing/2026/09/18/2-game-changing-ai-stocks-can-plunge-48-and-54-according-to-wall-street-analysts/?.tsrc=rss",
-        "ts": 1789730761,
-        "when": "Sep 18, 11:26 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Easing Oil Prices, Tech Rally Lift Wall Street Pre-Bell; Asia Up, Europe Off",
-        "link": "https://finance.yahoo.com/markets/articles/easing-oil-prices-tech-rally-111414374.html?.tsrc=rss",
-        "ts": 1789730054,
-        "when": "Sep 18, 11:14 AM",
-        "ticker": "SMH",
-        "industry": "Semis",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "Prediction: This Will Be Palantir's Stock Price 1 Year From Now (Hint: It's a Bigger Move Than You Think)",
-        "link": "https://www.fool.com/investing/2026/09/18/prediction-this-will-be-palantirs-stock-price-1-ye/?.tsrc=rss",
-        "ts": 1789721400,
-        "when": "Sep 18, 08:50 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Forget Michael Burry's Short Thesis. Here's the Bull Case for Palantir He's Not Talking About.",
-        "link": "https://www.fool.com/investing/2026/09/18/forget-michael-burrys-short-thesis-heres-the-bull/?.tsrc=rss",
-        "ts": 1789717020,
-        "when": "Sep 18, 07:37 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "negative"
       }
     ]
   },
