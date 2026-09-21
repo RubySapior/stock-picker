@@ -159,13 +159,13 @@ window.DASH = {
       "F4": {
         "prev_score": 4.3,
         "score": 4.3,
-        "days_above": 12,
+        "days_above": 13,
         "confirmed": true,
-        "last_above_date": "2026-09-20"
+        "last_above_date": "2026-09-21"
       },
       "F5": {
-        "prev_score": 3.0,
-        "score": 2.1,
+        "prev_score": 2.1,
+        "score": 1.6,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
@@ -173,9 +173,9 @@ window.DASH = {
       "F6": {
         "prev_score": 4.6,
         "score": 4.6,
-        "days_above": 15,
+        "days_above": 16,
         "confirmed": true,
-        "last_above_date": "2026-09-20"
+        "last_above_date": "2026-09-21"
       },
       "F7": {
         "prev_score": 3.6,
@@ -633,7 +633,7 @@ window.DASH = {
       "cash_buffer_usd": 500.0,
       "shadow_mode": true
     },
-    "asof_ts": 1789883229,
+    "asof_ts": 1789970190,
     "refresh_interval": 1440
   },
   "asof": "2026-09-18",
@@ -2540,7 +2540,7 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-09-20",
+      "asof": "2026-09-21",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2571,7 +2571,7 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-09-20",
+      "asof": "2026-09-21",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2601,7 +2601,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-09-20",
+      "asof": "2026-09-21",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2636,7 +2636,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-09-20",
+      "asof": "2026-09-21",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2670,45 +2670,9 @@ window.DASH = {
         "BTAL"
       ],
       "sizing": null,
-      "asof": "2026-09-20",
+      "asof": "2026-09-21",
       "degraded": false,
       "trend_dir": "flat"
-    },
-    {
-      "id": "F5",
-      "name": "War / energy shock",
-      "type": "episodic",
-      "score": 2.1,
-      "level": 0.35,
-      "velocity": {
-        "label": "5d velocity",
-        "value": -0.0397,
-        "pct": 0.227
-      },
-      "trend": null,
-      "signals": [
-        {
-          "label": "Gold 1d momentum",
-          "value": 0.637
-        },
-        {
-          "label": "Crude 5d momentum",
-          "value": 0.227
-        }
-      ],
-      "theory_ids": [
-        "T21"
-      ],
-      "hedge_ticks": [
-        "GLD",
-        "GDX",
-        "FXY",
-        "DBMF"
-      ],
-      "sizing": null,
-      "asof": "2026-09-20",
-      "degraded": false,
-      "trend_dir": "falling"
     },
     {
       "id": "F1",
@@ -2742,7 +2706,7 @@ window.DASH = {
         "ZROZ"
       ],
       "sizing": null,
-      "asof": "2026-09-20",
+      "asof": "2026-09-21",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2754,7 +2718,7 @@ window.DASH = {
       "level": 0.519,
       "velocity": {
         "label": "5d velocity",
-        "value": -0.0224,
+        "value": -0.0236,
         "pct": 0.024
       },
       "trend": null,
@@ -2772,9 +2736,45 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-09-20",
+      "asof": "2026-09-21",
       "degraded": false,
       "trend_dir": "flat"
+    },
+    {
+      "id": "F5",
+      "name": "War / energy shock",
+      "type": "episodic",
+      "score": 1.6,
+      "level": 0.271,
+      "velocity": {
+        "label": "5d velocity",
+        "value": -0.0687,
+        "pct": 0.114
+      },
+      "trend": null,
+      "signals": [
+        {
+          "label": "Gold 1d momentum",
+          "value": 0.637
+        },
+        {
+          "label": "Crude 5d momentum",
+          "value": 0.114
+        }
+      ],
+      "theory_ids": [
+        "T21"
+      ],
+      "hedge_ticks": [
+        "GLD",
+        "GDX",
+        "FXY",
+        "DBMF"
+      ],
+      "sizing": null,
+      "asof": "2026-09-21",
+      "degraded": false,
+      "trend_dir": "falling"
     }
   ],
   "fear_greed": {
@@ -4356,13 +4356,28 @@ window.DASH = {
     "enabled": true
   },
   "news": {
-    "asof": "2026-09-20 05:47:10",
+    "asof": "2026-09-21 05:56:30",
     "big_stories": [
       {
-        "title": "Cathie Wood Sold Palantir and AMD, Then Poured $3.35 Million Into Archer Aviation. Is ARK Betting Big on Flying Taxis?",
-        "link": "https://www.fool.com/investing/2026/09/19/cathie-wood-sold-palantir-and-amd-then-poured-335/?.tsrc=rss",
-        "ts": 1789849500,
-        "when": "Sep 19, 08:25 PM",
+        "title": "History Says This Chip ETF Keeps Beating the S&P 500. It Has Trailed the Index Only Twice Since 2016.",
+        "link": "https://www.fool.com/investing/2026/09/20/history-says-this-chip-etf-keeps-beating-the-s-and-p-500-it-has-trailed-the-index-only-twice-since-2016/?.tsrc=rss",
+        "ts": 1789960681,
+        "when": "Sep 21, 03:18 AM",
+        "ticker": "SMH",
+        "industry": "Semis",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "negative"
+      },
+      {
+        "title": "Palantir Technologies (PLTR) Unveils Alliance Push Across AI Supply Chains And Cyber Defense",
+        "link": "https://finance.yahoo.com/technology/ai/articles/palantir-technologies-pltr-unveils-alliance-011200856.html?.tsrc=rss",
+        "ts": 1789953120,
+        "when": "Sep 21, 01:12 AM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -4371,17 +4386,32 @@ window.DASH = {
           "T2",
           "T14"
         ],
-        "sent": "neutral"
+        "sent": "positive"
       },
       {
-        "title": "A $2.25 Million Portfolio, Two Withdrawal Plans: One Triggers IRMAA and RMD Taxes, One Never Does",
-        "link": "https://247wallst.com/personal-finance/2026/09/19/a-2-25-million-portfolio-two-withdrawal-plans-one-triggers-irmaa-and-rmd-taxes-one-never-does/?.tsrc=rss",
-        "ts": 1789849224,
-        "when": "Sep 19, 08:20 PM",
+        "title": "How Much Do You Need Invested to Cover a $2,150 Mortgage Payment With Dividends Alone?",
+        "link": "https://247wallst.com/personal-finance/2026/09/20/how-much-do-you-need-invested-to-cover-a-2150-mortgage-payment-with-dividends-alone/?.tsrc=rss",
+        "ts": 1789905688,
+        "when": "Sep 20, 12:01 PM",
         "ticker": "SGOV",
         "industry": "Equities",
         "theory": [],
-        "sent": "neutral"
+        "sent": "negative"
+      },
+      {
+        "title": "Stocks face a growing list of threats — so why are investors staying so calm?",
+        "link": "https://www.marketwatch.com/story/stocks-face-a-growing-list-of-threats-so-why-are-investors-staying-so-calm-a6acd7e5?.tsrc=rss",
+        "ts": 1789817400,
+        "when": "Sep 19, 11:30 AM",
+        "ticker": "DRAM",
+        "industry": "AI Memory/HBM",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
       },
       {
         "title": "QLD Doubles the Nasdaq-100 Instead of Tripling It. That 2X Middle Ground Is Why It Survives Crashes TQQQ Doesn’t",
@@ -4397,12 +4427,14 @@ window.DASH = {
           "T14"
         ],
         "sent": "neutral"
-      },
+      }
+    ],
+    "feed": [
       {
-        "title": "Dow Drops To Record Worst Week In Six Months Amid Elevated Yields, Oil — NVDA, TSLA, SPCX, ONON In Focus",
-        "link": "https://stocktwits.com/news-articles/markets/equity/dow-drops-to-record-worst-week-in-six-months-amid-elevated-yields-oil-nvda-tsla-spcx-onon-in-focus/cZtHOYsRBEK?.tsrc=rss",
-        "ts": 1789774558,
-        "when": "Sep 18, 11:35 PM",
+        "title": "History Says This Chip ETF Keeps Beating the S&P 500. It Has Trailed the Index Only Twice Since 2016.",
+        "link": "https://www.fool.com/investing/2026/09/20/history-says-this-chip-etf-keeps-beating-the-s-and-p-500-it-has-trailed-the-index-only-twice-since-2016/?.tsrc=rss",
+        "ts": 1789960681,
+        "when": "Sep 21, 03:18 AM",
         "ticker": "SMH",
         "industry": "Semis",
         "theory": [
@@ -4414,19 +4446,60 @@ window.DASH = {
         "sent": "negative"
       },
       {
-        "title": "Sector Update: Consumer Stocks Softer Late Afternoon",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-softer-afternoon-195143538.html?.tsrc=rss",
-        "ts": 1789761103,
-        "when": "Sep 18, 07:51 PM",
-        "ticker": "XLY",
-        "industry": "Consumer Disc.",
+        "title": "Palantir Technologies (PLTR) Unveils Alliance Push Across AI Supply Chains And Cyber Defense",
+        "link": "https://finance.yahoo.com/technology/ai/articles/palantir-technologies-pltr-unveils-alliance-011200856.html?.tsrc=rss",
+        "ts": 1789953120,
+        "when": "Sep 21, 01:12 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
         "theory": [
-          "T13"
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "Palantir Nearly Doubled Its Revenue. Its Stock Stood Still. Is It Time to Buy the Stock?",
+        "link": "https://www.fool.com/investing/2026/09/20/palantir-nearly-doubled-its-revenue-its-stock-stood-still-is-it-time-to-buy-the-stock/?.tsrc=rss",
+        "ts": 1789945921,
+        "when": "Sep 20, 11:12 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
         ],
         "sent": "neutral"
-      }
-    ],
-    "feed": [
+      },
+      {
+        "title": "Why You Should Avoid Palantir and Buy These 2 Defense Stocks Instead",
+        "link": "https://www.fool.com/investing/2026/09/20/why-you-should-avoid-palantir-and-buy-these-2-defe/?.tsrc=rss",
+        "ts": 1789908120,
+        "when": "Sep 20, 12:42 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "negative"
+      },
+      {
+        "title": "How Much Do You Need Invested to Cover a $2,150 Mortgage Payment With Dividends Alone?",
+        "link": "https://247wallst.com/personal-finance/2026/09/20/how-much-do-you-need-invested-to-cover-a-2150-mortgage-payment-with-dividends-alone/?.tsrc=rss",
+        "ts": 1789905688,
+        "when": "Sep 20, 12:01 PM",
+        "ticker": "SGOV",
+        "industry": "Equities",
+        "theory": [],
+        "sent": "negative"
+      },
       {
         "title": "Cathie Wood Sold Palantir and AMD, Then Poured $3.35 Million Into Archer Aviation. Is ARK Betting Big on Flying Taxis?",
         "link": "https://www.fool.com/investing/2026/09/19/cathie-wood-sold-palantir-and-amd-then-poured-335/?.tsrc=rss",
@@ -4459,6 +4532,21 @@ window.DASH = {
         "when": "Sep 19, 01:00 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "Stocks face a growing list of threats — so why are investors staying so calm?",
+        "link": "https://www.marketwatch.com/story/stocks-face-a-growing-list-of-threats-so-why-are-investors-staying-so-calm-a6acd7e5?.tsrc=rss",
+        "ts": 1789817400,
+        "when": "Sep 19, 11:30 AM",
+        "ticker": "DRAM",
+        "industry": "AI Memory/HBM",
         "theory": [
           "T1",
           "T7",
@@ -4761,93 +4849,6 @@ window.DASH = {
           "T13"
         ],
         "sent": "neutral"
-      },
-      {
-        "title": "Dan Ives Says AI Leaders Can't 'Stop The Elevator' With Meta In The 'Ferrari Left Lane' As AI Race Accelerates",
-        "link": "https://stocktwits.com/news-articles/markets/equity/dan-ives-says-ai-leaders-cant-stop-the-elevator-with-meta-in-the-ferrari-left-lane/cZtuDjwRB3r?.tsrc=rss",
-        "ts": 1789738178,
-        "when": "Sep 18, 01:29 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "Roundhill’s CCML ETF Targets the Unglamorous Choke Point That Powers AI and EVs",
-        "link": "https://247wallst.com/investing/etf/2026/09/18/portfolio-fit-ccml/?.tsrc=rss",
-        "ts": 1789737648,
-        "when": "Sep 18, 01:20 PM",
-        "ticker": "SMH",
-        "industry": "Semis",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "negative"
-      },
-      {
-        "title": "On Holding Climbs 5% as Kylian Mbappé Joins Its Football Push; Nike Slips",
-        "link": "https://247wallst.com/investing/2026/09/18/on-holding-climbs-5-as-kylian-mbappe-joins-its-football-push-nike-slips/?.tsrc=rss",
-        "ts": 1789736908,
-        "when": "Sep 18, 01:08 PM",
-        "ticker": "XLY",
-        "industry": "Consumer Disc.",
-        "theory": [
-          "T13"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "New Semiconductor ETF AIFR Isolates Chip Makers, but the 0.71% Fee Demands Results",
-        "link": "https://247wallst.com/investing/etf/2026/09/18/portfolio-fit-aifr/?.tsrc=rss",
-        "ts": 1789735249,
-        "when": "Sep 18, 12:40 PM",
-        "ticker": "SMH",
-        "industry": "Semis",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "negative"
-      },
-      {
-        "title": "Karp Says AI Labs May Need Nationalizing to Escape Lawsuits",
-        "link": "https://finance.yahoo.com/technology/ai/articles/karp-says-ai-labs-may-121739458.html?.tsrc=rss",
-        "ts": 1789733859,
-        "when": "Sep 18, 12:17 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "The Real Reason for the Stock Market’s Surprising Strength",
-        "link": "https://finance.yahoo.com/m/101e59d8-3cf6-3f13-bbf0-f579210acc8d/the-real-reason-for-the-stock.html?.tsrc=rss",
-        "ts": 1789731480,
-        "when": "Sep 18, 11:38 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
       }
     ]
   },
