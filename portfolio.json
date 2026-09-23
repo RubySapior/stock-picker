@@ -135,57 +135,57 @@
     "disclaimer": "Simulated portfolio for tracking/learning. Not financial advice.",
     "fear_state": {
       "F1": {
-        "prev_score": 1.4,
-        "score": 1.5,
+        "prev_score": 1.5,
+        "score": 1.4,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F2": {
-        "prev_score": 1.6,
-        "score": 1.7,
+        "prev_score": 1.7,
+        "score": 1.6,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F3": {
-        "prev_score": 2.2,
-        "score": 2.8,
+        "prev_score": 2.8,
+        "score": 2.7,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F4": {
-        "prev_score": 4.1,
-        "score": 4.3,
+        "prev_score": 4.3,
+        "score": 4.6,
         "days_above": 15,
         "confirmed": true,
         "last_above_date": "2026-09-23"
       },
       "F5": {
         "prev_score": 1.2,
-        "score": 1.2,
+        "score": 1.3,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F6": {
         "prev_score": 4.4,
-        "score": 4.4,
+        "score": 4.7,
         "days_above": 18,
         "confirmed": true,
         "last_above_date": "2026-09-23"
       },
       "F7": {
-        "prev_score": 3.4,
-        "score": 3.7,
+        "prev_score": 3.7,
+        "score": 2.4,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F8": {
         "prev_score": 2.6,
-        "score": 2.6,
+        "score": 2.9,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
@@ -1521,6 +1521,33 @@
           "BTAL": 11.915,
           "DBMF": 32.071,
           "SGOV": 100.61
+        }
+      },
+      {
+        "date": "2026-09-23",
+        "total_value": 101729.49,
+        "cash": 25.0,
+        "invested_value": 101704.49,
+        "day_change": -824.88,
+        "prices": {
+          "TQQQ": 78.495,
+          "SOXL": 144.6,
+          "SMH": 599.385,
+          "DRAM": 62.03,
+          "PLTR": 191.51,
+          "NLR": 108.875,
+          "NUKZ": 62.279,
+          "XLY": 110.73,
+          "EZU": 68.06,
+          "ZROZ": 57.58,
+          "FXY": 57.95,
+          "VIXM": 12.965,
+          "QFLR": 36.095,
+          "GLD": 393.0,
+          "GDX": 93.8,
+          "BTAL": 12.05,
+          "DBMF": 32.515,
+          "SGOV": 100.614
         }
       }
     ],
