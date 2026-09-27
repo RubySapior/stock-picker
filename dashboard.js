@@ -143,14 +143,14 @@ window.DASH = {
         "last_above_date": null
       },
       "F2": {
-        "prev_score": 2.3,
+        "prev_score": 3.3,
         "score": 3.3,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F3": {
-        "prev_score": 3.1,
+        "prev_score": 3.0,
         "score": 3.0,
         "days_above": 0,
         "confirmed": false,
@@ -159,9 +159,9 @@ window.DASH = {
       "F4": {
         "prev_score": 4.6,
         "score": 4.6,
-        "days_above": 18,
+        "days_above": 19,
         "confirmed": true,
-        "last_above_date": "2026-09-26"
+        "last_above_date": "2026-09-27"
       },
       "F5": {
         "prev_score": 1.5,
@@ -171,21 +171,21 @@ window.DASH = {
         "last_above_date": null
       },
       "F6": {
-        "prev_score": 5.0,
+        "prev_score": 4.9,
         "score": 4.9,
-        "days_above": 21,
+        "days_above": 22,
         "confirmed": true,
-        "last_above_date": "2026-09-26"
+        "last_above_date": "2026-09-27"
       },
       "F7": {
-        "prev_score": 1.3,
+        "prev_score": 1.4,
         "score": 1.4,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F8": {
-        "prev_score": 2.7,
+        "prev_score": 2.8,
         "score": 2.8,
         "days_above": 0,
         "confirmed": false,
@@ -633,7 +633,7 @@ window.DASH = {
       "cash_buffer_usd": 500.0,
       "shadow_mode": true
     },
-    "asof_ts": 1790402079,
+    "asof_ts": 1790489984,
     "refresh_interval": 1440
   },
   "asof": "2026-09-25",
@@ -2617,7 +2617,7 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-09-26",
+      "asof": "2026-09-27",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2648,7 +2648,7 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-09-26",
+      "asof": "2026-09-27",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2678,9 +2678,9 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-09-26",
+      "asof": "2026-09-27",
       "degraded": false,
-      "trend_dir": "rising"
+      "trend_dir": "flat"
     },
     {
       "id": "F3",
@@ -2713,7 +2713,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-09-26",
+      "asof": "2026-09-27",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2747,7 +2747,7 @@ window.DASH = {
         "BTAL"
       ],
       "sizing": null,
-      "asof": "2026-09-26",
+      "asof": "2026-09-27",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2783,7 +2783,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-09-26",
+      "asof": "2026-09-27",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2813,7 +2813,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-09-26",
+      "asof": "2026-09-27",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2849,7 +2849,7 @@ window.DASH = {
         "ZROZ"
       ],
       "sizing": null,
-      "asof": "2026-09-26",
+      "asof": "2026-09-27",
       "degraded": false,
       "trend_dir": "flat"
     }
@@ -4633,13 +4633,13 @@ window.DASH = {
     "enabled": true
   },
   "news": {
-    "asof": "2026-09-26 05:54:40",
+    "asof": "2026-09-27 06:19:45",
     "big_stories": [
       {
-        "title": "Why Palantir (PLTR) Is Up 6.8% After Expanding AIP Deals And Announcing Nebius AI Partnership",
-        "link": "https://finance.yahoo.com/technology/ai/articles/why-palantir-pltr-6-8-031727990.html?.tsrc=rss",
-        "ts": 1790392647,
-        "when": "Sep 26, 03:17 AM",
+        "title": "Figma vs. Palantir Technologies: Which Technology Stock Is a Better Buy in 2026?",
+        "link": "https://www.fool.com/coverage/better-buy/2026/09/26/figma-vs-palantir-technologies-which-technology-stock-is-a-better-buy-in-2026/?.tsrc=rss",
+        "ts": 1790437982,
+        "when": "Sep 26, 03:53 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -4647,6 +4647,22 @@ window.DASH = {
           "T7",
           "T2",
           "T14"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "Bitcoin Surges 36% Since August 18 While Gold and Stocks Remain Stagnant: A Shift in Correlation?",
+        "link": "https://247wallst.com/investing/cryptocurrency/2026/09/26/bitcoin-surges-36-since-august-18-while-gold-and-stocks-remain-stagnant-a-shift-in-correlation/?.tsrc=rss",
+        "ts": 1790411138,
+        "when": "Sep 26, 08:25 AM",
+        "ticker": "GLD",
+        "industry": "Gold",
+        "theory": [
+          "T6",
+          "T9",
+          "T19",
+          "T20",
+          "T21"
         ],
         "sent": "neutral"
       },
@@ -4664,22 +4680,6 @@ window.DASH = {
           "T14"
         ],
         "sent": "neutral"
-      },
-      {
-        "title": "What a $500,000 All Weather Portfolio Actually Looks Like, Built With ETFs",
-        "link": "https://247wallst.com/personal-finance/2026/09/25/what-a-500000-all-weather-portfolio-actually-looks-like-built-with-etfs/?.tsrc=rss",
-        "ts": 1790373928,
-        "when": "Sep 25, 10:05 PM",
-        "ticker": "GLD",
-        "industry": "Gold",
-        "theory": [
-          "T6",
-          "T9",
-          "T19",
-          "T20",
-          "T21"
-        ],
-        "sent": "positive"
       },
       {
         "title": "You Retire in 12 Months and Nothing Is Set Up to Pay You. These 4 ETFs Send the First Check on Day 1",
@@ -4705,6 +4705,52 @@ window.DASH = {
       }
     ],
     "feed": [
+      {
+        "title": "Figma vs. Palantir Technologies: Which Technology Stock Is a Better Buy in 2026?",
+        "link": "https://www.fool.com/coverage/better-buy/2026/09/26/figma-vs-palantir-technologies-which-technology-stock-is-a-better-buy-in-2026/?.tsrc=rss",
+        "ts": 1790437982,
+        "when": "Sep 26, 03:53 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "Bitcoin Surges 36% Since August 18 While Gold and Stocks Remain Stagnant: A Shift in Correlation?",
+        "link": "https://247wallst.com/investing/cryptocurrency/2026/09/26/bitcoin-surges-36-since-august-18-while-gold-and-stocks-remain-stagnant-a-shift-in-correlation/?.tsrc=rss",
+        "ts": 1790411138,
+        "when": "Sep 26, 08:25 AM",
+        "ticker": "GLD",
+        "industry": "Gold",
+        "theory": [
+          "T6",
+          "T9",
+          "T19",
+          "T20",
+          "T21"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "The Biggest Risk to Palantir Stock Has Nothing to Do With Its Valuation",
+        "link": "https://www.fool.com/investing/2026/09/26/the-biggest-risk-to-palantir-stock-has-nothing-to/?.tsrc=rss",
+        "ts": 1790410500,
+        "when": "Sep 26, 08:15 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "negative"
+      },
       {
         "title": "Why Palantir (PLTR) Is Up 6.8% After Expanding AIP Deals And Announcing Nebius AI Partnership",
         "link": "https://finance.yahoo.com/technology/ai/articles/why-palantir-pltr-6-8-031727990.html?.tsrc=rss",
@@ -5086,52 +5132,6 @@ window.DASH = {
         "link": "https://finance.yahoo.com/markets/stocks/articles/holding-company-060000251.html?.tsrc=rss",
         "ts": 1790316000,
         "when": "Sep 25, 06:00 AM",
-        "ticker": "GDX",
-        "industry": "Gold Miners",
-        "theory": [
-          "T6",
-          "T9",
-          "T19",
-          "T20",
-          "T21"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "S&P 500, Dow, Nasdaq Futures Ease As Treasury Yields Continue To Spike — ORCL, META, AKAM, GOOGL, MGM In Focus",
-        "link": "https://stocktwits.com/news-articles/markets/equity/s-and-p-500-dow-nasdaq-futures-ease-as-us-treasury-yields-spike/cZMapaERBac?.tsrc=rss",
-        "ts": 1790295174,
-        "when": "Sep 25, 12:12 AM",
-        "ticker": "SMH",
-        "industry": "Semis",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "Reddit Stock And 2 More Quality Stocks",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/reddit-stock-2-more-quality-231436685.html?.tsrc=rss",
-        "ts": 1790291676,
-        "when": "Sep 24, 11:14 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Market Chatter: Gold Selloff Is Temporary, Hedge Fund Manager Lamm Says",
-        "link": "https://finance.yahoo.com/markets/commodities/articles/market-chatter-gold-selloff-temporary-230133518.html?.tsrc=rss",
-        "ts": 1790290893,
-        "when": "Sep 24, 11:01 PM",
         "ticker": "GDX",
         "industry": "Gold Miners",
         "theory": [
