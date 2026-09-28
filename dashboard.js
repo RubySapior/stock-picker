@@ -144,7 +144,7 @@ window.DASH = {
       },
       "F2": {
         "prev_score": 3.3,
-        "score": 3.3,
+        "score": 2.8,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
@@ -159,13 +159,13 @@ window.DASH = {
       "F4": {
         "prev_score": 4.6,
         "score": 4.6,
-        "days_above": 19,
+        "days_above": 20,
         "confirmed": true,
-        "last_above_date": "2026-09-27"
+        "last_above_date": "2026-09-28"
       },
       "F5": {
         "prev_score": 1.5,
-        "score": 1.5,
+        "score": 2.5,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
@@ -173,9 +173,9 @@ window.DASH = {
       "F6": {
         "prev_score": 4.9,
         "score": 4.9,
-        "days_above": 22,
+        "days_above": 23,
         "confirmed": true,
-        "last_above_date": "2026-09-27"
+        "last_above_date": "2026-09-28"
       },
       "F7": {
         "prev_score": 1.4,
@@ -633,7 +633,7 @@ window.DASH = {
       "cash_buffer_usd": 500.0,
       "shadow_mode": true
     },
-    "asof_ts": 1790489984,
+    "asof_ts": 1790576489,
     "refresh_interval": 1440
   },
   "asof": "2026-09-25",
@@ -2617,7 +2617,7 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-09-27",
+      "asof": "2026-09-28",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2648,37 +2648,7 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-09-27",
-      "degraded": false,
-      "trend_dir": "flat"
-    },
-    {
-      "id": "F2",
-      "name": "Yen-carry unwind",
-      "type": "episodic",
-      "score": 3.3,
-      "level": 0.515,
-      "velocity": {
-        "label": "5d velocity",
-        "value": -0.0009,
-        "pct": 0.6
-      },
-      "trend": null,
-      "signals": [
-        {
-          "label": "Yen strength (FXY level)",
-          "value": 0.515
-        }
-      ],
-      "theory_ids": [
-        "T18"
-      ],
-      "hedge_ticks": [
-        "FXY",
-        "DBMF"
-      ],
-      "sizing": null,
-      "asof": "2026-09-27",
+      "asof": "2026-09-28",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2713,9 +2683,39 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-09-27",
+      "asof": "2026-09-28",
       "degraded": false,
       "trend_dir": "flat"
+    },
+    {
+      "id": "F2",
+      "name": "Yen-carry unwind",
+      "type": "episodic",
+      "score": 2.8,
+      "level": 0.515,
+      "velocity": {
+        "label": "5d velocity",
+        "value": -0.004,
+        "pct": 0.439
+      },
+      "trend": null,
+      "signals": [
+        {
+          "label": "Yen strength (FXY level)",
+          "value": 0.515
+        }
+      ],
+      "theory_ids": [
+        "T18"
+      ],
+      "hedge_ticks": [
+        "FXY",
+        "DBMF"
+      ],
+      "sizing": null,
+      "asof": "2026-09-28",
+      "degraded": false,
+      "trend_dir": "falling"
     },
     {
       "id": "F8",
@@ -2747,7 +2747,7 @@ window.DASH = {
         "BTAL"
       ],
       "sizing": null,
-      "asof": "2026-09-27",
+      "asof": "2026-09-28",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2755,22 +2755,22 @@ window.DASH = {
       "id": "F5",
       "name": "War / energy shock",
       "type": "episodic",
-      "score": 1.5,
-      "level": 0.238,
+      "score": 2.5,
+      "level": 0.414,
       "velocity": {
         "label": "5d velocity",
-        "value": -0.0787,
-        "pct": 0.094
+        "value": -0.0184,
+        "pct": 0.345
       },
       "trend": null,
       "signals": [
         {
-          "label": "Gold 1d momentum",
-          "value": 0.575
+          "label": "Crude 5d momentum",
+          "value": 0.345
         },
         {
-          "label": "Crude 5d momentum",
-          "value": 0.094
+          "label": "Gold 1d momentum",
+          "value": 0.575
         }
       ],
       "theory_ids": [
@@ -2783,9 +2783,9 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-09-27",
+      "asof": "2026-09-28",
       "degraded": false,
-      "trend_dir": "flat"
+      "trend_dir": "rising"
     },
     {
       "id": "F7",
@@ -2813,7 +2813,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-09-27",
+      "asof": "2026-09-28",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2849,7 +2849,7 @@ window.DASH = {
         "ZROZ"
       ],
       "sizing": null,
-      "asof": "2026-09-27",
+      "asof": "2026-09-28",
       "degraded": false,
       "trend_dir": "flat"
     }
@@ -2859,11 +2859,11 @@ window.DASH = {
     "label": "Fear"
   },
   "complacency": {
-    "index": 0.137,
+    "index": 0.156,
     "valuation_stretch": 0.748,
-    "fear_term": 0.183,
-    "divergence": 0.611,
-    "fear_avg": 4.27,
+    "fear_term": 0.208,
+    "divergence": 0.592,
+    "fear_avg": 4.17,
     "regime": "fragility",
     "note": "Fragility regime - macro divergence: equities stretched while macro fears run high. Equities expected to crack.",
     "pay_check": {
@@ -4633,13 +4633,13 @@ window.DASH = {
     "enabled": true
   },
   "news": {
-    "asof": "2026-09-27 06:19:45",
+    "asof": "2026-09-28 06:21:30",
     "big_stories": [
       {
-        "title": "Figma vs. Palantir Technologies: Which Technology Stock Is a Better Buy in 2026?",
-        "link": "https://www.fool.com/coverage/better-buy/2026/09/26/figma-vs-palantir-technologies-which-technology-stock-is-a-better-buy-in-2026/?.tsrc=rss",
-        "ts": 1790437982,
-        "when": "Sep 26, 03:53 PM",
+        "title": "‘Big Short’ Fame Michael Burry Says Trump ‘Cannot Afford’ To Let AI Boom Fall",
+        "link": "https://stocktwits.com/news-articles/markets/equity/big-short-fame-michael-burry-says-trump-cannot-afford-to-let-ai-boom-fall/cZMSiAPRBfl?.tsrc=rss",
+        "ts": 1790567942,
+        "when": "Sep 28, 03:59 AM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -4648,6 +4648,28 @@ window.DASH = {
           "T2",
           "T14"
         ],
+        "sent": "positive"
+      },
+      {
+        "title": "Stocktwits Retail Therapy: Defensive Bets Take Off As COST, DG, WMT Lead Weekly Consumer Staples Gains",
+        "link": "https://stocktwits.com/news-articles/markets/equity/stocktwits-retail-therapy-defensive-bets-take-off-as-cost-dg-wmt-lead-weekly-consumer-staples-gains/cZMSipvRBfk?.tsrc=rss",
+        "ts": 1790567905,
+        "when": "Sep 28, 03:58 AM",
+        "ticker": "XLY",
+        "industry": "Consumer Disc.",
+        "theory": [
+          "T13"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "A Barbell Portfolio Skips the Middle Entirely. Here’s What $250,000 Looks Like at Both Ends",
+        "link": "https://247wallst.com/personal-finance/2026/09/27/a-barbell-portfolio-skips-the-middle-entirely-heres-what-250000-looks-like-at-both-ends/?.tsrc=rss",
+        "ts": 1790541473,
+        "when": "Sep 27, 08:37 PM",
+        "ticker": "SGOV",
+        "industry": "Equities",
+        "theory": [],
         "sent": "positive"
       },
       {
@@ -4680,31 +4702,101 @@ window.DASH = {
           "T14"
         ],
         "sent": "neutral"
+      }
+    ],
+    "feed": [
+      {
+        "title": "‘Big Short’ Fame Michael Burry Says Trump ‘Cannot Afford’ To Let AI Boom Fall",
+        "link": "https://stocktwits.com/news-articles/markets/equity/big-short-fame-michael-burry-says-trump-cannot-afford-to-let-ai-boom-fall/cZMSiAPRBfl?.tsrc=rss",
+        "ts": 1790567942,
+        "when": "Sep 28, 03:59 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
       },
       {
-        "title": "You Retire in 12 Months and Nothing Is Set Up to Pay You. These 4 ETFs Send the First Check on Day 1",
-        "link": "https://247wallst.com/investing/etf/2026/09/25/you-retire-in-12-months-and-nothing-is-set-up-to-pay-you-these-4-etfs-send-the-first-check-on-day-1/?.tsrc=rss",
-        "ts": 1790372328,
-        "when": "Sep 25, 09:38 PM",
-        "ticker": "SGOV",
-        "industry": "Equities",
-        "theory": [],
-        "sent": "negative"
-      },
-      {
-        "title": "Sector Update: Consumer Stocks Advance Late Afternoon",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-advance-afternoon-193943724.html?.tsrc=rss",
-        "ts": 1790365183,
-        "when": "Sep 25, 07:39 PM",
+        "title": "Stocktwits Retail Therapy: Defensive Bets Take Off As COST, DG, WMT Lead Weekly Consumer Staples Gains",
+        "link": "https://stocktwits.com/news-articles/markets/equity/stocktwits-retail-therapy-defensive-bets-take-off-as-cost-dg-wmt-lead-weekly-consumer-staples-gains/cZMSipvRBfk?.tsrc=rss",
+        "ts": 1790567905,
+        "when": "Sep 28, 03:58 AM",
         "ticker": "XLY",
         "industry": "Consumer Disc.",
         "theory": [
           "T13"
         ],
+        "sent": "positive"
+      },
+      {
+        "title": "Salesforce vs. Palantir Technologies: What Revenue Trends Reveal to Investors About These Tech Giants",
+        "link": "https://www.fool.com/coverage/charts/2026/09/27/salesforce-vs-palantir-technologies-what-revenue-trends-reveal-to-investors-about-these-tech-giants/?.tsrc=rss",
+        "ts": 1790552106,
+        "when": "Sep 27, 11:35 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
         "sent": "neutral"
-      }
-    ],
-    "feed": [
+      },
+      {
+        "title": "A Barbell Portfolio Skips the Middle Entirely. Here’s What $250,000 Looks Like at Both Ends",
+        "link": "https://247wallst.com/personal-finance/2026/09/27/a-barbell-portfolio-skips-the-middle-entirely-heres-what-250000-looks-like-at-both-ends/?.tsrc=rss",
+        "ts": 1790541473,
+        "when": "Sep 27, 08:37 PM",
+        "ticker": "SGOV",
+        "industry": "Equities",
+        "theory": [],
+        "sent": "positive"
+      },
+      {
+        "title": "Which Pays More for Life: A $640,000 Annuity or a $640,000 Dividend Portfolio?",
+        "link": "https://247wallst.com/personal-finance/2026/09/27/which-pays-more-for-life-a-640000-annuity-or-a-640000-dividend-portfolio/?.tsrc=rss",
+        "ts": 1790540653,
+        "when": "Sep 27, 08:24 PM",
+        "ticker": "SGOV",
+        "industry": "Equities",
+        "theory": [],
+        "sent": "neutral"
+      },
+      {
+        "title": "3 Founder Led Stocks To Own In September 2026",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/3-founder-led-stocks-own-111131931.html?.tsrc=rss",
+        "ts": 1790507491,
+        "when": "Sep 27, 11:11 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "Is Palantir a Millionaire-Maker Stock After Its Rally?",
+        "link": "https://www.fool.com/investing/2026/09/27/is-palantir-a-millionaire-maker-stock-after-its-ra/?.tsrc=rss",
+        "ts": 1790497320,
+        "when": "Sep 27, 08:22 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
       {
         "title": "Figma vs. Palantir Technologies: Which Technology Stock Is a Better Buy in 2026?",
         "link": "https://www.fool.com/coverage/better-buy/2026/09/26/figma-vs-palantir-technologies-which-technology-stock-is-a-better-buy-in-2026/?.tsrc=rss",
@@ -4719,6 +4811,21 @@ window.DASH = {
           "T14"
         ],
         "sent": "positive"
+      },
+      {
+        "title": "MarketBeat Week in Review – 09/21 - 09/25",
+        "link": "https://www.marketbeat.com/articles/marketbeat-week-in-review-09-21-09-25/?utm_source=yahoofinance&utm_medium=yahoofinance&.tsrc=rss",
+        "ts": 1790420400,
+        "when": "Sep 26, 11:00 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
       },
       {
         "title": "Bitcoin Surges 36% Since August 18 While Gold and Stocks Remain Stagnant: A Shift in Correlation?",
@@ -5026,122 +5133,6 @@ window.DASH = {
           "T14"
         ],
         "sent": "positive"
-      },
-      {
-        "title": "Anthropic Seeks Palantir-Style Control Ahead of IPO",
-        "link": "https://finance.yahoo.com/technology/ai/articles/anthropic-seeks-palantir-style-control-134606375.html?.tsrc=rss",
-        "ts": 1790343966,
-        "when": "Sep 25, 01:46 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "EXCLUSIVE: Palantir Is ‘Not Really an AI Company’ but an ‘Incredible Data Architecture Company,’ Defense AI CEO Says",
-        "link": "https://www.benzinga.com/markets/prediction-markets/26/09/61993852/palantir-ai-data-architecture-edgerunner?utm_source=yahooFinance&utm_campaign=partner_feed&utm_medium=referral&.tsrc=rss",
-        "ts": 1790341304,
-        "when": "Sep 25, 01:01 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "Palantir’s Valuation Is Huge. So Is the Opportunity",
-        "link": "https://247wallst.com/investing/2026/09/25/palantirs-valuation-is-huge-so-is-the-opportunity/?.tsrc=rss",
-        "ts": 1790339421,
-        "when": "Sep 25, 12:30 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "How Much Does a 65-Year-Old Need Invested to Collect $6,250 a Month for Life?",
-        "link": "https://247wallst.com/personal-finance/2026/09/25/how-much-does-a-65-year-old-need-invested-to-collect-6250-a-month-for-life-2/?.tsrc=rss",
-        "ts": 1790339340,
-        "when": "Sep 25, 12:29 PM",
-        "ticker": "SGOV",
-        "industry": "Equities",
-        "theory": [],
-        "sent": "neutral"
-      },
-      {
-        "title": "Technology Stocks Are Back, Because Nothing Else Is",
-        "link": "https://finance.yahoo.com/m/6e83da33-e6c4-3c4b-909e-53a8a1eeff49/technology-stocks-are-back%2C.html?.tsrc=rss",
-        "ts": 1790339030,
-        "when": "Sep 25, 12:23 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Easing Oil Prices, Tech Strength Lift Wall Street Pre-Bell; Asia Mixed, Europe Up",
-        "link": "https://finance.yahoo.com/markets/articles/easing-oil-prices-tech-strength-111205154.html?.tsrc=rss",
-        "ts": 1790334725,
-        "when": "Sep 25, 11:12 AM",
-        "ticker": "SMH",
-        "industry": "Semis",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "Should Investors Worry About Michael Burry's Big AI Stock Shorts",
-        "link": "https://www.fool.com/investing/2026/09/25/should-investors-worry-about-michael-burrys-big-ai/?.tsrc=rss",
-        "ts": 1790328900,
-        "when": "Sep 25, 09:35 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "negative"
-      },
-      {
-        "title": "Holding(s) in Company",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/holding-company-060000251.html?.tsrc=rss",
-        "ts": 1790316000,
-        "when": "Sep 25, 06:00 AM",
-        "ticker": "GDX",
-        "industry": "Gold Miners",
-        "theory": [
-          "T6",
-          "T9",
-          "T19",
-          "T20",
-          "T21"
-        ],
-        "sent": "neutral"
       }
     ]
   },
