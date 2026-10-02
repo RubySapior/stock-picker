@@ -143,13 +143,13 @@
       },
       "F2": {
         "prev_score": 3.5,
-        "score": 3.5,
+        "score": 3.9,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F3": {
-        "prev_score": 3.2,
+        "prev_score": 3.5,
         "score": 3.5,
         "days_above": 0,
         "confirmed": false,
@@ -157,14 +157,14 @@
       },
       "F4": {
         "prev_score": 4.7,
-        "score": 4.7,
-        "days_above": 23,
+        "score": 4.5,
+        "days_above": 24,
         "confirmed": true,
-        "last_above_date": "2026-10-01"
+        "last_above_date": "2026-10-02"
       },
       "F5": {
-        "prev_score": 1.9,
-        "score": 2.6,
+        "prev_score": 2.6,
+        "score": 3.0,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
@@ -172,19 +172,19 @@
       "F6": {
         "prev_score": 5.0,
         "score": 5.0,
-        "days_above": 26,
+        "days_above": 27,
         "confirmed": true,
-        "last_above_date": "2026-10-01"
+        "last_above_date": "2026-10-02"
       },
       "F7": {
-        "prev_score": 1.5,
-        "score": 3.3,
+        "prev_score": 3.3,
+        "score": 3.1,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F8": {
-        "prev_score": 2.7,
+        "prev_score": 2.5,
         "score": 2.5,
         "days_above": 0,
         "confirmed": false,
@@ -1713,7 +1713,7 @@
         }
       }
     ],
-    "dividends": 44.17
+    "dividends": 56.66
   },
   "events": [
     {
@@ -2286,6 +2286,34 @@
       "shares": 0.2393,
       "amount": 24.08,
       "realized_pnl": 0
+    },
+    {
+      "date": "2026-10-02",
+      "ts": "06:45:35",
+      "ticker": "ZROZ",
+      "name": "PIMCO 25+ Year Zero Coupon U.S. Treasury ETF",
+      "reason": "dividend",
+      "note": "DIV $10.34 (0.550/sh x 18.8000) -> SGOV 0.1030 sh @ 100.41",
+      "action": "sgov",
+      "state": null,
+      "price": 100.41,
+      "shares": 0.103,
+      "amount": 10.34,
+      "realized_pnl": 0
+    },
+    {
+      "date": "2026-10-02",
+      "ts": "06:45:35",
+      "ticker": "SGOV",
+      "name": "iShares 0-3 Month Treasury Bond ETF",
+      "reason": "dividend",
+      "note": "DIV $2.15 (0.301/sh x 7.1367) -> SGOV 0.0214 sh @ 100.41",
+      "action": "sgov",
+      "state": null,
+      "price": 100.41,
+      "shares": 0.0214,
+      "amount": 2.15,
+      "realized_pnl": 0
     }
   ],
   "orders": [
@@ -2734,7 +2762,8 @@
       "stop_loss_pct": -0.15,
       "status": "open",
       "thesis": "HEDGE (allowed regardless of tier, but honestly the highest-conviction hedge in the stack): ~26yr zero-coupon = ~15-20% rally per 100bp of yield collapse in an AI-bust/Fed-cut scenario (dot-com analog). Also on the contrarian side: bond markets are FEARING a Fed-behind-the-curve hike, which is exactly what makes long bonds cheap. V5: boosted +1k.",
-      "entry_note": "Deflation-scenario insurance + cheap entry."
+      "entry_note": "Deflation-scenario insurance + cheap entry.",
+      "last_div_date": "2026-10-01"
     },
     {
       "id": "FXY",
@@ -2886,13 +2915,13 @@
       "theory_ids": [],
       "buy_date": "2026-08-11",
       "buy_price": 100.505,
-      "shares": 7.033688,
-      "cost": 700.21,
+      "shares": 7.158078,
+      "cost": 712.7,
       "take_profit_pct": 0.0,
       "stop_loss_pct": -0.1,
       "status": "open",
       "thesis": "Dry powder: idle cash parked in ultra-short T-bills (no cash drag).",
-      "last_div_date": "2026-09-01"
+      "last_div_date": "2026-10-01"
     }
   ],
   "theories": [
