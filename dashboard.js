@@ -143,7 +143,7 @@ window.DASH = {
         "last_above_date": null
       },
       "F2": {
-        "prev_score": 3.9,
+        "prev_score": 3.0,
         "score": 3.0,
         "days_above": 0,
         "confirmed": false,
@@ -159,12 +159,12 @@ window.DASH = {
       "F4": {
         "prev_score": 4.6,
         "score": 4.6,
-        "days_above": 25,
+        "days_above": 26,
         "confirmed": true,
-        "last_above_date": "2026-10-03"
+        "last_above_date": "2026-10-04"
       },
       "F5": {
-        "prev_score": 2.7,
+        "prev_score": 2.6,
         "score": 2.6,
         "days_above": 0,
         "confirmed": false,
@@ -173,12 +173,12 @@ window.DASH = {
       "F6": {
         "prev_score": 5.0,
         "score": 5.0,
-        "days_above": 28,
+        "days_above": 29,
         "confirmed": true,
-        "last_above_date": "2026-10-03"
+        "last_above_date": "2026-10-04"
       },
       "F7": {
-        "prev_score": 2.4,
+        "prev_score": 2.3,
         "score": 2.3,
         "days_above": 0,
         "confirmed": false,
@@ -633,7 +633,7 @@ window.DASH = {
       "cash_buffer_usd": 500.0,
       "shadow_mode": true
     },
-    "asof_ts": 1791007506,
+    "asof_ts": 1791095914,
     "refresh_interval": 1440
   },
   "asof": "2026-10-02",
@@ -2680,7 +2680,7 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-10-03",
+      "asof": "2026-10-04",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2711,7 +2711,7 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-10-03",
+      "asof": "2026-10-04",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2746,7 +2746,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-10-03",
+      "asof": "2026-10-04",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2776,9 +2776,9 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-10-03",
+      "asof": "2026-10-04",
       "degraded": false,
-      "trend_dir": "falling"
+      "trend_dir": "flat"
     },
     {
       "id": "F5",
@@ -2812,7 +2812,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-10-03",
+      "asof": "2026-10-04",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2842,7 +2842,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-10-03",
+      "asof": "2026-10-04",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2876,7 +2876,7 @@ window.DASH = {
         "BTAL"
       ],
       "sizing": null,
-      "asof": "2026-10-03",
+      "asof": "2026-10-04",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2912,7 +2912,7 @@ window.DASH = {
         "ZROZ"
       ],
       "sizing": null,
-      "asof": "2026-10-03",
+      "asof": "2026-10-04",
       "degraded": false,
       "trend_dir": "flat"
     }
@@ -4896,8 +4896,35 @@ window.DASH = {
     "enabled": true
   },
   "news": {
-    "asof": "2026-10-03 06:05:06",
+    "asof": "2026-10-04 06:38:35",
     "big_stories": [
+      {
+        "title": "How Much of Marvell’s Adjusted Profit Reaches Shareholders?",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/much-marvell-adjusted-profit-reaches-024647978.html?.tsrc=rss",
+        "ts": 1791082007,
+        "when": "Oct 04, 02:46 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "Uranium Prices Just Broke a 19-Year Record, but Nuclear Stocks Are Collapsing Anyway",
+        "link": "https://247wallst.com/investing/2026/10/03/uranium-prices-just-broke-a-19-year-record-but-nuclear-stocks-are-collapsing-anyway/?.tsrc=rss",
+        "ts": 1791032633,
+        "when": "Oct 03, 01:03 PM",
+        "ticker": "NLR",
+        "industry": "Nuclear/Power",
+        "theory": [
+          "T3"
+        ],
+        "sent": "negative"
+      },
       {
         "title": "S&P 500, Nasdaq, Dow End Week Higher As Weak Jobs Report Cools Rate Hike Bets — NVDA, BA, SPCX, RIVN, APLD In Focus",
         "link": "https://stocktwits.com/news-articles/markets/equity/s-and-p-500-nasdaq-dow-end-week-higher-as-weak-jobs-report-cools-rate-hike-bets-nvda-ba-spcx-rivn-apld-in-focus/cZDjq3URBKF?.tsrc=rss",
@@ -4912,21 +4939,6 @@ window.DASH = {
           "T14"
         ],
         "sent": "negative"
-      },
-      {
-        "title": "3 Great AI Stocks To Own In October 2026",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/3-great-ai-stocks-own-211026956.html?.tsrc=rss",
-        "ts": 1790975426,
-        "when": "Oct 02, 09:10 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
       },
       {
         "title": "Sector Update: Consumer Stocks Rise Late Afternoon",
@@ -4954,19 +4966,81 @@ window.DASH = {
           "T14"
         ],
         "sent": "positive"
-      },
-      {
-        "title": "Which Pays a 66-Year-Old More for Life: A $540,000 Annuity or a $540,000 Dividend Portfolio?",
-        "link": "https://247wallst.com/personal-finance/2026/10/02/which-pays-a-66-year-old-more-for-life-a-540000-annuity-or-a-540000-dividend-portfolio/?.tsrc=rss",
-        "ts": 1790956743,
-        "when": "Oct 02, 03:59 PM",
-        "ticker": "SGOV",
-        "industry": "Equities",
-        "theory": [],
-        "sent": "neutral"
       }
     ],
     "feed": [
+      {
+        "title": "How Much of Marvell’s Adjusted Profit Reaches Shareholders?",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/much-marvell-adjusted-profit-reaches-024647978.html?.tsrc=rss",
+        "ts": 1791082007,
+        "when": "Oct 04, 02:46 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "Reddit And 2 Other High Quality Stocks",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/reddit-2-other-high-quality-200937580.html?.tsrc=rss",
+        "ts": 1791058177,
+        "when": "Oct 03, 08:09 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "Uranium Prices Just Broke a 19-Year Record, but Nuclear Stocks Are Collapsing Anyway",
+        "link": "https://247wallst.com/investing/2026/10/03/uranium-prices-just-broke-a-19-year-record-but-nuclear-stocks-are-collapsing-anyway/?.tsrc=rss",
+        "ts": 1791032633,
+        "when": "Oct 03, 01:03 PM",
+        "ticker": "NLR",
+        "industry": "Nuclear/Power",
+        "theory": [
+          "T3"
+        ],
+        "sent": "negative"
+      },
+      {
+        "title": "Could $20,000 Invested in Palantir Help You Retire a Millionaire?",
+        "link": "https://www.fool.com/investing/2026/10/03/could-20k-invested-in-palantir-help-you-retire-a-m/?.tsrc=rss",
+        "ts": 1791026700,
+        "when": "Oct 03, 11:25 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "Should You Forget Palantir and Buy These 2 Artificial Intelligence (AI) Stocks Instead?",
+        "link": "https://www.fool.com/investing/2026/10/03/should-you-forget-palantir-and-buy-these-2-artific/?.tsrc=rss",
+        "ts": 1791026340,
+        "when": "Oct 03, 11:19 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
       {
         "title": "S&P 500, Nasdaq, Dow End Week Higher As Weak Jobs Report Cools Rate Hike Bets — NVDA, BA, SPCX, RIVN, APLD In Focus",
         "link": "https://stocktwits.com/news-articles/markets/equity/s-and-p-500-nasdaq-dow-end-week-higher-as-weak-jobs-report-cools-rate-hike-bets-nvda-ba-spcx-rivn-apld-in-focus/cZDjq3URBKF?.tsrc=rss",
@@ -5254,66 +5328,6 @@ window.DASH = {
         "sent": "positive"
       },
       {
-        "title": "The Bull Case For Nebius Group (NBIS) Could Change Following Inferize Deal And New AI Capacity Commitments",
-        "link": "https://finance.yahoo.com/technology/ai/articles/bull-case-nebius-group-nbis-100910087.html?.tsrc=rss",
-        "ts": 1790935750,
-        "when": "Oct 02, 10:09 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "What Could Go Wrong With Palantir Stock?",
-        "link": "https://www.trefis.com/articles/617421/what-could-go-wrong-with-palantir-stock/2026-10-02?.tsrc=rss",
-        "ts": 1790931918,
-        "when": "Oct 02, 09:05 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "negative"
-      },
-      {
-        "title": "Palantir Billionaire Peter Thiel Has 42% of His Portfolio in These 2 Artificial Intelligence Stocks",
-        "link": "https://www.fool.com/investing/2026/10/02/palantir-billionaire-peter-thiel-has-42-of-his-por/?.tsrc=rss",
-        "ts": 1790914800,
-        "when": "Oct 02, 04:20 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "PLTR Stock Rally Intact After Best Quarter In A Year — Retail Watches Cautiously As Palantir Adds Data Center Partner",
-        "link": "https://stocktwits.com/news-articles/markets/equity/pltr-stock-rally-intact-after-best-quarter-in-a-year-retail-watches-cautiously-as-palantir-adds-data-center-partner/cZDSUwJRB08?.tsrc=rss",
-        "ts": 1790912047,
-        "when": "Oct 02, 03:34 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
         "title": "The Semiconductor ETF's 2026 Return Is About 3 Times Nvidia's",
         "link": "https://www.fool.com/investing/2026/10/01/the-semiconductor-etf-s-2026-return-is-about-3-times-nvidia-s/?.tsrc=rss",
         "ts": 1790901961,
@@ -5380,21 +5394,6 @@ window.DASH = {
         "industry": "Consumer Disc.",
         "theory": [
           "T13"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Micron Technology Results Lift Wall Street Pre-Bell, Asia Up, Europe Off",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/micron-technology-results-lift-wall-111841552.html?.tsrc=rss",
-        "ts": 1790853521,
-        "when": "Oct 01, 11:18 AM",
-        "ticker": "SMH",
-        "industry": "Semis",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
         ],
         "sent": "neutral"
       }

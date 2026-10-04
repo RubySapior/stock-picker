@@ -142,7 +142,7 @@
         "last_above_date": null
       },
       "F2": {
-        "prev_score": 3.9,
+        "prev_score": 3.0,
         "score": 3.0,
         "days_above": 0,
         "confirmed": false,
@@ -158,12 +158,12 @@
       "F4": {
         "prev_score": 4.6,
         "score": 4.6,
-        "days_above": 25,
+        "days_above": 26,
         "confirmed": true,
-        "last_above_date": "2026-10-03"
+        "last_above_date": "2026-10-04"
       },
       "F5": {
-        "prev_score": 2.7,
+        "prev_score": 2.6,
         "score": 2.6,
         "days_above": 0,
         "confirmed": false,
@@ -172,12 +172,12 @@
       "F6": {
         "prev_score": 5.0,
         "score": 5.0,
-        "days_above": 28,
+        "days_above": 29,
         "confirmed": true,
-        "last_above_date": "2026-10-03"
+        "last_above_date": "2026-10-04"
       },
       "F7": {
-        "prev_score": 2.4,
+        "prev_score": 2.3,
         "score": 2.3,
         "days_above": 0,
         "confirmed": false,
