@@ -159,13 +159,13 @@ window.DASH = {
       "F4": {
         "prev_score": 4.6,
         "score": 4.6,
-        "days_above": 26,
+        "days_above": 27,
         "confirmed": true,
-        "last_above_date": "2026-10-04"
+        "last_above_date": "2026-10-05"
       },
       "F5": {
         "prev_score": 2.6,
-        "score": 2.6,
+        "score": 2.2,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
@@ -173,9 +173,9 @@ window.DASH = {
       "F6": {
         "prev_score": 5.0,
         "score": 5.0,
-        "days_above": 29,
+        "days_above": 30,
         "confirmed": true,
-        "last_above_date": "2026-10-04"
+        "last_above_date": "2026-10-05"
       },
       "F7": {
         "prev_score": 2.3,
@@ -633,7 +633,7 @@ window.DASH = {
       "cash_buffer_usd": 500.0,
       "shadow_mode": true
     },
-    "asof_ts": 1791095914,
+    "asof_ts": 1791182119,
     "refresh_interval": 1440
   },
   "asof": "2026-10-02",
@@ -2680,7 +2680,7 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-10-04",
+      "asof": "2026-10-05",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2711,7 +2711,7 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-10-04",
+      "asof": "2026-10-05",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2746,7 +2746,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-10-04",
+      "asof": "2026-10-05",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2758,8 +2758,8 @@ window.DASH = {
       "level": 0.446,
       "velocity": {
         "label": "5d velocity",
-        "value": -0.0023,
-        "pct": 0.514
+        "value": -0.0022,
+        "pct": 0.525
       },
       "trend": null,
       "signals": [
@@ -2776,43 +2776,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-10-04",
-      "degraded": false,
-      "trend_dir": "flat"
-    },
-    {
-      "id": "F5",
-      "name": "War / energy shock",
-      "type": "episodic",
-      "score": 2.6,
-      "level": 0.362,
-      "velocity": {
-        "label": "5d velocity",
-        "value": -0.0141,
-        "pct": 0.4
-      },
-      "trend": null,
-      "signals": [
-        {
-          "label": "Crude 5d momentum",
-          "value": 0.4
-        },
-        {
-          "label": "Gold 1d momentum",
-          "value": 0.274
-        }
-      ],
-      "theory_ids": [
-        "T21"
-      ],
-      "hedge_ticks": [
-        "GLD",
-        "GDX",
-        "FXY",
-        "DBMF"
-      ],
-      "sizing": null,
-      "asof": "2026-10-04",
+      "asof": "2026-10-05",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2842,9 +2806,45 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-10-04",
+      "asof": "2026-10-05",
       "degraded": false,
       "trend_dir": "flat"
+    },
+    {
+      "id": "F5",
+      "name": "War / energy shock",
+      "type": "episodic",
+      "score": 2.2,
+      "level": 0.294,
+      "velocity": {
+        "label": "5d velocity",
+        "value": -0.0294,
+        "pct": 0.302
+      },
+      "trend": null,
+      "signals": [
+        {
+          "label": "Crude 5d momentum",
+          "value": 0.302
+        },
+        {
+          "label": "Gold 1d momentum",
+          "value": 0.274
+        }
+      ],
+      "theory_ids": [
+        "T21"
+      ],
+      "hedge_ticks": [
+        "GLD",
+        "GDX",
+        "FXY",
+        "DBMF"
+      ],
+      "sizing": null,
+      "asof": "2026-10-05",
+      "degraded": false,
+      "trend_dir": "falling"
     },
     {
       "id": "F8",
@@ -2876,7 +2876,7 @@ window.DASH = {
         "BTAL"
       ],
       "sizing": null,
-      "asof": "2026-10-04",
+      "asof": "2026-10-05",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2912,7 +2912,7 @@ window.DASH = {
         "ZROZ"
       ],
       "sizing": null,
-      "asof": "2026-10-04",
+      "asof": "2026-10-05",
       "degraded": false,
       "trend_dir": "flat"
     }
@@ -4896,13 +4896,25 @@ window.DASH = {
     "enabled": true
   },
   "news": {
-    "asof": "2026-10-04 06:38:35",
+    "asof": "2026-10-05 06:35:19",
     "big_stories": [
       {
-        "title": "How Much of Marvell’s Adjusted Profit Reaches Shareholders?",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/much-marvell-adjusted-profit-reaches-024647978.html?.tsrc=rss",
-        "ts": 1791082007,
-        "when": "Oct 04, 02:46 AM",
+        "title": "Stocktwits Retail Therapy: Consumer Stocks Face Heat But Carnival, Mattel And Stitch Fix Buck The Trend",
+        "link": "https://stocktwits.com/news-articles/markets/equity/stocktwits-retail-therapy-consumer-stocks-face-heat-but-carnival-mattel-and-stitch-fix-buck-the-trend/cZDpNWdRBSB?.tsrc=rss",
+        "ts": 1791178164,
+        "when": "Oct 05, 05:29 AM",
+        "ticker": "XLY",
+        "industry": "Consumer Disc.",
+        "theory": [
+          "T13"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "Palantir (PLTR) Defense Momentum Strengthens the Bullish Case",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/palantir-pltr-defense-momentum-strengthens-035539941.html?.tsrc=rss",
+        "ts": 1791172539,
+        "when": "Oct 05, 03:55 AM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -4912,6 +4924,21 @@ window.DASH = {
           "T14"
         ],
         "sent": "positive"
+      },
+      {
+        "title": "Billionaire Investor Dan Loeb’s Third Point Exited 5 Chip Stocks Last Quarter — Here’s How They’re Performing Today",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/billionaire-investor-dan-loeb-third-233016814.html?.tsrc=rss",
+        "ts": 1791156616,
+        "when": "Oct 04, 11:30 PM",
+        "ticker": "SMH",
+        "industry": "Semis",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
       },
       {
         "title": "Uranium Prices Just Broke a 19-Year Record, but Nuclear Stocks Are Collapsing Anyway",
@@ -4924,33 +4951,6 @@ window.DASH = {
           "T3"
         ],
         "sent": "negative"
-      },
-      {
-        "title": "S&P 500, Nasdaq, Dow End Week Higher As Weak Jobs Report Cools Rate Hike Bets — NVDA, BA, SPCX, RIVN, APLD In Focus",
-        "link": "https://stocktwits.com/news-articles/markets/equity/s-and-p-500-nasdaq-dow-end-week-higher-as-weak-jobs-report-cools-rate-hike-bets-nvda-ba-spcx-rivn-apld-in-focus/cZDjq3URBKF?.tsrc=rss",
-        "ts": 1790980139,
-        "when": "Oct 02, 10:28 PM",
-        "ticker": "SMH",
-        "industry": "Semis",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "negative"
-      },
-      {
-        "title": "Sector Update: Consumer Stocks Rise Late Afternoon",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-rise-afternoon-194435839.html?.tsrc=rss",
-        "ts": 1790970275,
-        "when": "Oct 02, 07:44 PM",
-        "ticker": "XLY",
-        "industry": "Consumer Disc.",
-        "theory": [
-          "T13"
-        ],
-        "sent": "neutral"
       },
       {
         "title": "Seagate, Western Digital Shares Sink on Toshiba Production Report",
@@ -4969,6 +4969,93 @@ window.DASH = {
       }
     ],
     "feed": [
+      {
+        "title": "Stocktwits Retail Therapy: Consumer Stocks Face Heat But Carnival, Mattel And Stitch Fix Buck The Trend",
+        "link": "https://stocktwits.com/news-articles/markets/equity/stocktwits-retail-therapy-consumer-stocks-face-heat-but-carnival-mattel-and-stitch-fix-buck-the-trend/cZDpNWdRBSB?.tsrc=rss",
+        "ts": 1791178164,
+        "when": "Oct 05, 05:29 AM",
+        "ticker": "XLY",
+        "industry": "Consumer Disc.",
+        "theory": [
+          "T13"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "Palantir (PLTR) Defense Momentum Strengthens the Bullish Case",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/palantir-pltr-defense-momentum-strengthens-035539941.html?.tsrc=rss",
+        "ts": 1791172539,
+        "when": "Oct 05, 03:55 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "Peter Thiel Was an Early Outside Investor in Facebook and Co-Founded Both PayPal and Palantir Before Building a Hedge Fund Now Concentrated in Power and Energy Stocks. Here's What That Track Record Says About Following His Contrarian Bets.",
+        "link": "https://www.fool.com/investing/2026/10/04/peter-thiel-was-an-early-outside-investor-in-faceb/?.tsrc=rss",
+        "ts": 1791167700,
+        "when": "Oct 05, 02:35 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "Jim Cramer Sticks With Palantir (PLTR) Despite Admitting His Target Was Too Aggressive",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/jim-cramer-sticks-palantir-pltr-234240811.html?.tsrc=rss",
+        "ts": 1791157360,
+        "when": "Oct 04, 11:42 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "negative"
+      },
+      {
+        "title": "Billionaire Investor Dan Loeb’s Third Point Exited 5 Chip Stocks Last Quarter — Here’s How They’re Performing Today",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/billionaire-investor-dan-loeb-third-233016814.html?.tsrc=rss",
+        "ts": 1791156616,
+        "when": "Oct 04, 11:30 PM",
+        "ticker": "SMH",
+        "industry": "Semis",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "BigBear.ai vs. Airship AI: Which Security AI Stock Offers the Better Bet?",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/bigbear-ai-vs-airship-ai-232611796.html?.tsrc=rss",
+        "ts": 1791156371,
+        "when": "Oct 04, 11:26 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
       {
         "title": "How Much of Marvell’s Adjusted Profit Reaches Shareholders?",
         "link": "https://finance.yahoo.com/markets/stocks/articles/much-marvell-adjusted-profit-reaches-024647978.html?.tsrc=rss",
@@ -5283,36 +5370,6 @@ window.DASH = {
         "sent": "positive"
       },
       {
-        "title": "A Guide to AI ETF Investment",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/guide-ai-etf-investment-122900384.html?.tsrc=rss",
-        "ts": 1790944140,
-        "when": "Oct 02, 12:29 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "1 Software Stock with Exciting Potential and 2 We Ignore",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/1-software-stock-exciting-potential-113403781.html?.tsrc=rss",
-        "ts": 1790940843,
-        "when": "Oct 02, 11:34 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
         "title": "Easing Bond Yields, Oil Prices Undergird Wall Street Pre-Bell; Asia Down, Europe Up",
         "link": "https://finance.yahoo.com/markets/articles/easing-bond-yields-oil-prices-111028114.html?.tsrc=rss",
         "ts": 1790939428,
@@ -5339,61 +5396,6 @@ window.DASH = {
           "T7",
           "T2",
           "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Forget URA’s Concentration. This Nuclear Fund Spreads the Bet Across Utilities, Miners and Reactor Builders",
-        "link": "https://247wallst.com/investing/etf/2026/10/01/forget-uras-concentration-this-nuclear-fund-spreads-the-bet-across-utilities-miners-and-reactor-builders/?.tsrc=rss",
-        "ts": 1790897604,
-        "when": "Oct 01, 11:33 PM",
-        "ticker": "NLR",
-        "industry": "Nuclear/Power",
-        "theory": [
-          "T3"
-        ],
-        "sent": "negative"
-      },
-      {
-        "title": "Gold Is Trading Around $4,140 an Ounce. He Sells $100,000 at 67 Instead of Taking More From His IRA, and the IRS Can Tax the Gain at Up to 28%",
-        "link": "https://247wallst.com/personal-finance/social-security/2026/10/01/gold-is-trading-around-4140-an-ounce-he-sells-100000-at-67-instead-of-taking-more-from-his-ira-and-the-irs-can-tax-the-gain-at-up-to-28/?.tsrc=rss",
-        "ts": 1790865015,
-        "when": "Oct 01, 02:30 PM",
-        "ticker": "GLD",
-        "industry": "Gold",
-        "theory": [
-          "T6",
-          "T9",
-          "T19",
-          "T20",
-          "T21"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "Micron Slips 3% Despite Record Quarter and Above-Consensus Guidance; Western Digital Dips, SK Hynix Drifts",
-        "link": "https://247wallst.com/investing/2026/10/01/micron-slips-3-despite-record-quarter-and-above-consensus-guidance-western-digital-dips-sk-hynix-drifts/?.tsrc=rss",
-        "ts": 1790864196,
-        "when": "Oct 01, 02:16 PM",
-        "ticker": "DRAM",
-        "industry": "AI Memory/HBM",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Every S&P Sector Fell in September Except One",
-        "link": "https://247wallst.com/investing/2026/10/01/every-sp-sector-fell-in-september-except-one/?.tsrc=rss",
-        "ts": 1790854230,
-        "when": "Oct 01, 11:30 AM",
-        "ticker": "XLY",
-        "industry": "Consumer Disc.",
-        "theory": [
-          "T13"
         ],
         "sent": "neutral"
       }
