@@ -136,21 +136,21 @@
     "fear_state": {
       "F1": {
         "prev_score": 1.2,
-        "score": 1.2,
+        "score": 1.4,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F2": {
-        "prev_score": 3.1,
+        "prev_score": 3.0,
         "score": 3.0,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F3": {
-        "prev_score": 3.7,
-        "score": 3.6,
+        "prev_score": 3.6,
+        "score": 1.9,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
@@ -163,8 +163,8 @@
         "last_above_date": "2026-10-09"
       },
       "F5": {
-        "prev_score": 2.7,
-        "score": 3.0,
+        "prev_score": 3.0,
+        "score": 3.3,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
@@ -177,7 +177,7 @@
         "last_above_date": "2026-10-09"
       },
       "F7": {
-        "prev_score": 3.2,
+        "prev_score": 3.0,
         "score": 3.0,
         "days_above": 0,
         "confirmed": false,
@@ -1818,6 +1818,33 @@
           "BTAL": 12.26,
           "DBMF": 32.935,
           "SGOV": 100.476
+        }
+      },
+      {
+        "date": "2026-10-09",
+        "total_value": 100782.58,
+        "cash": 25.0,
+        "invested_value": 100757.58,
+        "day_change": 775.14,
+        "prices": {
+          "TQQQ": 81.246,
+          "SOXL": 139.415,
+          "SMH": 603.17,
+          "DRAM": 57.2,
+          "PLTR": 206.255,
+          "NLR": 103.57,
+          "NUKZ": 61.265,
+          "XLY": 112.825,
+          "EZU": 65.835,
+          "ZROZ": 53.865,
+          "FXY": 57.915,
+          "VIXM": 12.825,
+          "QFLR": 36.526,
+          "GLD": 384.5,
+          "GDX": 89.269,
+          "BTAL": 12.165,
+          "DBMF": 33.175,
+          "SGOV": 100.514
         }
       }
     ],
