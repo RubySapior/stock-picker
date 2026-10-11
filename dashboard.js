@@ -143,7 +143,7 @@ window.DASH = {
         "last_above_date": null
       },
       "F2": {
-        "prev_score": 3.0,
+        "prev_score": 2.8,
         "score": 2.8,
         "days_above": 0,
         "confirmed": false,
@@ -159,9 +159,9 @@ window.DASH = {
       "F4": {
         "prev_score": 4.5,
         "score": 4.5,
-        "days_above": 32,
+        "days_above": 33,
         "confirmed": true,
-        "last_above_date": "2026-10-10"
+        "last_above_date": "2026-10-11"
       },
       "F5": {
         "prev_score": 3.3,
@@ -173,12 +173,12 @@ window.DASH = {
       "F6": {
         "prev_score": 4.8,
         "score": 4.8,
-        "days_above": 35,
+        "days_above": 36,
         "confirmed": true,
-        "last_above_date": "2026-10-10"
+        "last_above_date": "2026-10-11"
       },
       "F7": {
-        "prev_score": 3.0,
+        "prev_score": 3.1,
         "score": 3.1,
         "days_above": 0,
         "confirmed": false,
@@ -633,7 +633,7 @@ window.DASH = {
       "cash_buffer_usd": 500.0,
       "shadow_mode": true
     },
-    "asof_ts": 1791614610,
+    "asof_ts": 1791701467,
     "refresh_interval": 1440
   },
   "asof": "2026-10-09",
@@ -2708,7 +2708,7 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-10-10",
+      "asof": "2026-10-11",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2739,7 +2739,7 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-10-10",
+      "asof": "2026-10-11",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2775,7 +2775,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-10-10",
+      "asof": "2026-10-11",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2805,7 +2805,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-10-10",
+      "asof": "2026-10-11",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2835,9 +2835,9 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-10-10",
+      "asof": "2026-10-11",
       "degraded": false,
-      "trend_dir": "falling"
+      "trend_dir": "flat"
     },
     {
       "id": "F8",
@@ -2869,7 +2869,7 @@ window.DASH = {
         "BTAL"
       ],
       "sizing": null,
-      "asof": "2026-10-10",
+      "asof": "2026-10-11",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2904,7 +2904,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-10-10",
+      "asof": "2026-10-11",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2940,7 +2940,7 @@ window.DASH = {
         "ZROZ"
       ],
       "sizing": null,
-      "asof": "2026-10-10",
+      "asof": "2026-10-11",
       "degraded": false,
       "trend_dir": "flat"
     }
@@ -5104,13 +5104,13 @@ window.DASH = {
     "enabled": true
   },
   "news": {
-    "asof": "2026-10-10 06:43:31",
+    "asof": "2026-10-11 06:51:07",
     "big_stories": [
       {
-        "title": "Palantir Technologies (PLTR) Is Up 10.8% After Wall Street Upgrades and New Sovereign AI Partnership",
-        "link": "https://finance.yahoo.com/technology/ai/articles/palantir-technologies-pltr-10-8-041533230.html?.tsrc=rss",
-        "ts": 1791605733,
-        "when": "Oct 10, 04:15 AM",
+        "title": "Top Quality Stocks For October 2026",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/top-quality-stocks-october-2026-051051116.html?.tsrc=rss",
+        "ts": 1791695451,
+        "when": "Oct 11, 05:10 AM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -5119,6 +5119,16 @@ window.DASH = {
           "T2",
           "T14"
         ],
+        "sent": "positive"
+      },
+      {
+        "title": "How Much Does a 57-Year-Old Need in a Roth IRA to Collect $5,050 a Month Tax-Free for Life?",
+        "link": "https://247wallst.com/personal-finance/2026/10/10/how-much-does-a-57-year-old-need-in-a-roth-ira-to-collect-5050-a-month-tax-free-for-life/?.tsrc=rss",
+        "ts": 1791653393,
+        "when": "Oct 10, 05:29 PM",
+        "ticker": "SGOV",
+        "industry": "Equities",
+        "theory": [],
         "sent": "neutral"
       },
       {
@@ -5159,14 +5169,31 @@ window.DASH = {
           "T13"
         ],
         "sent": "neutral"
+      }
+    ],
+    "feed": [
+      {
+        "title": "Top Quality Stocks For October 2026",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/top-quality-stocks-october-2026-051051116.html?.tsrc=rss",
+        "ts": 1791695451,
+        "when": "Oct 11, 05:10 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
       },
       {
-        "title": "Most Chip Stocks Sit Out AI Trade Bounce Back",
-        "link": "https://finance.yahoo.com/m/c4160005-d84a-35df-9087-1fc649bc6931/most-chip-stocks-sit-out-ai.html?.tsrc=rss",
-        "ts": 1791573948,
-        "when": "Oct 09, 07:25 PM",
-        "ticker": "DRAM",
-        "industry": "AI Memory/HBM",
+        "title": "Goldman Sachs resets Palantir Stock 12-month price target by 18%",
+        "link": "https://www.thestreet.com/investing/stocks/pltr-palantir-technologies-stock-12-month-price-target-raised-by-18-percent-goldman-sachs-october-2026?.tsrc=rss",
+        "ts": 1791662820,
+        "when": "Oct 10, 08:07 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
         "theory": [
           "T1",
           "T7",
@@ -5174,9 +5201,107 @@ window.DASH = {
           "T14"
         ],
         "sent": "neutral"
-      }
-    ],
-    "feed": [
+      },
+      {
+        "title": "Is It Too Late to Buy Palantir Stock?",
+        "link": "https://www.fool.com/investing/2026/10/10/is-it-too-late-to-buy-palantir-stock/?.tsrc=rss",
+        "ts": 1791658200,
+        "when": "Oct 10, 06:50 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "How Much Does a 57-Year-Old Need in a Roth IRA to Collect $5,050 a Month Tax-Free for Life?",
+        "link": "https://247wallst.com/personal-finance/2026/10/10/how-much-does-a-57-year-old-need-in-a-roth-ira-to-collect-5050-a-month-tax-free-for-life/?.tsrc=rss",
+        "ts": 1791653393,
+        "when": "Oct 10, 05:29 PM",
+        "ticker": "SGOV",
+        "industry": "Equities",
+        "theory": [],
+        "sent": "neutral"
+      },
+      {
+        "title": "Snowflake vs. MongoDB: Does Faster Growth Justify Twice the Cash-Flow Price?",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/snowflake-vs-mongodb-does-faster-211850339.html?.tsrc=rss",
+        "ts": 1791649130,
+        "when": "Oct 10, 04:18 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "Palantir Stock Closed at a Record After Barclays Set a $265 Target. Here’s What Q3 Has to Clear",
+        "link": "https://www.tikr.com/blog/palantir-stock-closed-at-a-record-after-barclays-set-a-265-target-heres-what-q3-has-to-clear?ref=yahoofinance&.tsrc=rss",
+        "ts": 1791646605,
+        "when": "Oct 10, 03:36 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "3 AI Stocks With Earnings Growth Up To 34%",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/3-ai-stocks-earnings-growth-151129179.html?.tsrc=rss",
+        "ts": 1791645089,
+        "when": "Oct 10, 03:11 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "Microsoft Plus 2 Elite Defensive Stocks",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/microsoft-plus-2-elite-defensive-101209605.html?.tsrc=rss",
+        "ts": 1791627129,
+        "when": "Oct 10, 10:12 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "Palantir Stock Rose 60% in the Third Quarter. Here's What Its Other Big Quarters Did Next.",
+        "link": "https://www.fool.com/investing/2026/10/10/palantir-stock-rose-60-in-the-third-quarter-here-s-what-its-other-big-quarters-did-next/?.tsrc=rss",
+        "ts": 1791624782,
+        "when": "Oct 10, 09:33 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
       {
         "title": "Palantir Technologies (PLTR) Is Up 10.8% After Wall Street Upgrades and New Sovereign AI Partnership",
         "link": "https://finance.yahoo.com/technology/ai/articles/palantir-technologies-pltr-10-8-041533230.html?.tsrc=rss",
@@ -5197,21 +5322,6 @@ window.DASH = {
         "link": "https://www.fool.com/investing/2026/10/09/why-palantir-stock-powered-to-a-more-than-5-gain-today/?.tsrc=rss",
         "ts": 1791591392,
         "when": "Oct 10, 12:16 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "Snowflake vs. MongoDB: Does Faster Growth Justify Twice the Cash-Flow Price?",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/snowflake-vs-mongodb-does-faster-211850339.html?.tsrc=rss",
-        "ts": 1791580730,
-        "when": "Oct 09, 09:18 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -5367,111 +5477,6 @@ window.DASH = {
         "sent": "positive"
       },
       {
-        "title": "Boeing and 10 More Buys for the ‘Modern-Day Industrial Revolution’",
-        "link": "https://finance.yahoo.com/m/1c8dc937-0558-30b9-ad19-9cffffad7485/boeing-and-10-more-buys-for.html?.tsrc=rss",
-        "ts": 1791562080,
-        "when": "Oct 09, 04:08 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "ServiceNow vs. Palantir: Can Faster AI Growth Justify Paying More Than Four Times as Much for Cash Flow?",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/servicenow-vs-palantir-faster-ai-160452659.html?.tsrc=rss",
-        "ts": 1791561892,
-        "when": "Oct 09, 04:04 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "Gorilla Tumbles 10% on Non-Binding Letter of Intent for First US Data Center; Palantir Inches Higher, BigBear.ai Unmoved",
-        "link": "https://247wallst.com/investing/2026/10/09/gorilla-tumbles-10-on-non-binding-letter-of-intent-for-first-us-data-center-palantir-inches-higher-bigbear-ai-unmoved/?.tsrc=rss",
-        "ts": 1791557539,
-        "when": "Oct 09, 02:52 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Gorilla Falls 4% on Non-Binding Letter of Intent for First US Data Center; Palantir Inches Higher, BigBear.ai Unmoved",
-        "link": "https://247wallst.com/investing/2026/10/09/gorilla-falls-4-on-non-binding-letter-of-intent-for-first-us-data-center-palantir-inches-higher-bigbear-ai-unmoved/?.tsrc=rss",
-        "ts": 1791556970,
-        "when": "Oct 09, 02:42 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Palantir's Growth Story Gets a Goldman Boost: ETFs to Consider",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/palantirs-growth-story-gets-goldman-143900086.html?.tsrc=rss",
-        "ts": 1791556740,
-        "when": "Oct 09, 02:39 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "3 Reasons SpaceX Stock Is Taking Off Today",
-        "link": "https://finance.yahoo.com/m/373301a5-51d3-366a-9e17-1effe3f66064/3-reasons-spacex-stock-is.html?.tsrc=rss",
-        "ts": 1791554700,
-        "when": "Oct 09, 02:05 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "SpaceX initiated, Humana upgraded: Wall Street's top analyst calls",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/spacex-initiated-humana-upgraded-wall-134518623.html?.tsrc=rss",
-        "ts": 1791553518,
-        "when": "Oct 09, 01:45 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
         "title": "2 Semiconductor Stocks to Buy and Hold Through 2032",
         "link": "https://www.fool.com/investing/2026/10/09/2-semiconductor-stocks-to-buy-and-hold-through-203/?.tsrc=rss",
         "ts": 1791544980,
@@ -5506,8 +5511,8 @@ window.DASH = {
         "link": "https://247wallst.com/investing/etf/2026/10/08/gld-gdx-and-gdxj-are-3-ways-to-bet-on-gold-the-same-move-can-produce-wildly-different-returns/?.tsrc=rss",
         "ts": 1791505993,
         "when": "Oct 09, 12:33 AM",
-        "ticker": "GLD",
-        "industry": "Gold",
+        "ticker": "GDX",
+        "industry": "Gold Miners",
         "theory": [
           "T6",
           "T9",
@@ -5574,8 +5579,8 @@ window.DASH = {
         "link": "https://247wallst.com/investing/2026/10/08/gold-just-fell-to-a-two-month-low-as-the-fed-signals-another-hike/?.tsrc=rss",
         "ts": 1791470741,
         "when": "Oct 08, 02:45 PM",
-        "ticker": "GLD",
-        "industry": "Gold",
+        "ticker": "GDX",
+        "industry": "Gold Miners",
         "theory": [
           "T6",
           "T9",
@@ -5599,22 +5604,6 @@ window.DASH = {
           "T14"
         ],
         "sent": "positive"
-      },
-      {
-        "title": "Gold ETF Down 13% in Six Months: 4 Bullish Reasons for Long Term",
-        "link": "https://finance.yahoo.com/markets/commodities/articles/gold-etf-down-13-six-120000828.html?.tsrc=rss",
-        "ts": 1791460800,
-        "when": "Oct 08, 12:00 PM",
-        "ticker": "GLD",
-        "industry": "Gold",
-        "theory": [
-          "T6",
-          "T9",
-          "T19",
-          "T20",
-          "T21"
-        ],
-        "sent": "neutral"
       }
     ]
   },
