@@ -144,7 +144,7 @@ window.DASH = {
       },
       "F2": {
         "prev_score": 2.8,
-        "score": 2.8,
+        "score": 2.7,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
@@ -159,13 +159,13 @@ window.DASH = {
       "F4": {
         "prev_score": 4.5,
         "score": 4.5,
-        "days_above": 33,
+        "days_above": 34,
         "confirmed": true,
-        "last_above_date": "2026-10-11"
+        "last_above_date": "2026-10-12"
       },
       "F5": {
         "prev_score": 3.3,
-        "score": 3.3,
+        "score": 3.6,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
@@ -173,9 +173,9 @@ window.DASH = {
       "F6": {
         "prev_score": 4.8,
         "score": 4.8,
-        "days_above": 36,
+        "days_above": 37,
         "confirmed": true,
-        "last_above_date": "2026-10-11"
+        "last_above_date": "2026-10-12"
       },
       "F7": {
         "prev_score": 3.1,
@@ -633,7 +633,7 @@ window.DASH = {
       "cash_buffer_usd": 500.0,
       "shadow_mode": true
     },
-    "asof_ts": 1791701467,
+    "asof_ts": 1791788437,
     "refresh_interval": 1440
   },
   "asof": "2026-10-09",
@@ -2708,7 +2708,7 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-10-11",
+      "asof": "2026-10-12",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2739,7 +2739,7 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-10-11",
+      "asof": "2026-10-12",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2747,18 +2747,18 @@ window.DASH = {
       "id": "F5",
       "name": "War / energy shock",
       "type": "episodic",
-      "score": 3.3,
-      "level": 0.638,
+      "score": 3.6,
+      "level": 0.696,
       "velocity": {
         "label": "5d velocity",
-        "value": 0.0081,
-        "pct": 0.553
+        "value": 0.0219,
+        "pct": 0.635
       },
       "trend": null,
       "signals": [
         {
           "label": "Crude 5d momentum",
-          "value": 0.553
+          "value": 0.635
         },
         {
           "label": "Gold 1d momentum",
@@ -2775,9 +2775,9 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-10-11",
+      "asof": "2026-10-12",
       "degraded": false,
-      "trend_dir": "flat"
+      "trend_dir": "rising"
     },
     {
       "id": "F7",
@@ -2805,7 +2805,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-10-11",
+      "asof": "2026-10-12",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2813,12 +2813,12 @@ window.DASH = {
       "id": "F2",
       "name": "Yen-carry unwind",
       "type": "episodic",
-      "score": 2.8,
+      "score": 2.7,
       "level": 0.415,
       "velocity": {
         "label": "5d velocity",
-        "value": -0.0032,
-        "pct": 0.471
+        "value": -0.004,
+        "pct": 0.42
       },
       "trend": null,
       "signals": [
@@ -2835,7 +2835,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-10-11",
+      "asof": "2026-10-12",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2869,7 +2869,7 @@ window.DASH = {
         "BTAL"
       ],
       "sizing": null,
-      "asof": "2026-10-11",
+      "asof": "2026-10-12",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2904,7 +2904,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-10-11",
+      "asof": "2026-10-12",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2940,7 +2940,7 @@ window.DASH = {
         "ZROZ"
       ],
       "sizing": null,
-      "asof": "2026-10-11",
+      "asof": "2026-10-12",
       "degraded": false,
       "trend_dir": "flat"
     }
@@ -2950,11 +2950,11 @@ window.DASH = {
     "label": "Fear"
   },
   "complacency": {
-    "index": 0.16,
+    "index": 0.14,
     "valuation_stretch": 0.802,
-    "fear_term": 0.2,
-    "divergence": 0.642,
-    "fear_avg": 4.2,
+    "fear_term": 0.175,
+    "divergence": 0.662,
+    "fear_avg": 4.3,
     "regime": "fragility",
     "note": "Fragility regime - macro divergence: equities stretched while macro fears run high. Equities expected to crack.",
     "pay_check": {
@@ -5104,13 +5104,13 @@ window.DASH = {
     "enabled": true
   },
   "news": {
-    "asof": "2026-10-11 06:51:07",
+    "asof": "2026-10-12 07:00:37",
     "big_stories": [
       {
-        "title": "Top Quality Stocks For October 2026",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/top-quality-stocks-october-2026-051051116.html?.tsrc=rss",
-        "ts": 1791695451,
-        "when": "Oct 11, 05:10 AM",
+        "title": "PLTR Stock At Record High: CTO Slams Report Of Maven Role In Iran School Strike, Retail Bulls Embrace Wall Street Upgrades",
+        "link": "https://stocktwits.com/news-articles/markets/equity/pltr-stock-at-record-high-cto-slams-report-of-maven-role-in-iran-school-strike-retail-bulls-embrace-wall-street-upgrades/cZxIGfhRBFj?.tsrc=rss",
+        "ts": 1791784985,
+        "when": "Oct 12, 06:03 AM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -5122,6 +5122,50 @@ window.DASH = {
         "sent": "positive"
       },
       {
+        "title": "Stocktwits Retail Therapy: Consumer Stocks Snap Losing Streaks As Planet Fitness, MercadoLibre And Genius Sports Rally",
+        "link": "https://stocktwits.com/news-articles/markets/equity/consumer-stocks-rebound-xlp-xly-planet-fitness-mercadolibre-genius/cZx4CZtRBFK?.tsrc=rss",
+        "ts": 1791783393,
+        "when": "Oct 12, 05:36 AM",
+        "ticker": "XLY",
+        "industry": "Consumer Disc.",
+        "theory": [
+          "T13"
+        ],
+        "sent": "negative"
+      },
+      {
+        "title": "Which Precious Metals ETF Is the Better Buy: abrdn’s Silver SIVR or VanEck’s Gold Miners GDX?",
+        "link": "https://www.fool.com/coverage/etfs/2026/10/11/which-precious-metals-etf-is-the-better-buy-abrdn-s-silver-sivr-or-vaneck-s-gold-miners-gdx/?.tsrc=rss",
+        "ts": 1791759849,
+        "when": "Oct 11, 11:04 PM",
+        "ticker": "GDX",
+        "industry": "Gold Miners",
+        "theory": [
+          "T6",
+          "T9",
+          "T19",
+          "T20",
+          "T21"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "A Record $31 Billion Gold Rush Is Sending Investors a Strange Warning About the Bond Market",
+        "link": "https://247wallst.com/investing/2026/10/11/a-record-31-billion-gold-rush-is-sending-investors-a-strange-warning-about-the-bond-market/?.tsrc=rss",
+        "ts": 1791729683,
+        "when": "Oct 11, 02:41 PM",
+        "ticker": "GLD",
+        "industry": "Gold",
+        "theory": [
+          "T6",
+          "T9",
+          "T19",
+          "T20",
+          "T21"
+        ],
+        "sent": "negative"
+      },
+      {
         "title": "How Much Does a 57-Year-Old Need in a Roth IRA to Collect $5,050 a Month Tax-Free for Life?",
         "link": "https://247wallst.com/personal-finance/2026/10/10/how-much-does-a-57-year-old-need-in-a-roth-ira-to-collect-5050-a-month-tax-free-for-life/?.tsrc=rss",
         "ts": 1791653393,
@@ -5130,26 +5174,43 @@ window.DASH = {
         "industry": "Equities",
         "theory": [],
         "sent": "neutral"
-      },
+      }
+    ],
+    "feed": [
       {
-        "title": "Better Energy ETF: VanEck's Nuclear-Focused NLR vs. State Street's XOP Oil and Gas Fund",
-        "link": "https://www.fool.com/coverage/etfs/2026/10/09/better-energy-etf-vaneck-s-nuclear-focused-nlr-vs-state-street-s-xop-oil-and-gas-fund/?.tsrc=rss",
-        "ts": 1791579904,
-        "when": "Oct 09, 09:05 PM",
-        "ticker": "NLR",
-        "industry": "Nuclear/Power",
+        "title": "PLTR Stock At Record High: CTO Slams Report Of Maven Role In Iran School Strike, Retail Bulls Embrace Wall Street Upgrades",
+        "link": "https://stocktwits.com/news-articles/markets/equity/pltr-stock-at-record-high-cto-slams-report-of-maven-role-in-iran-school-strike-retail-bulls-embrace-wall-street-upgrades/cZxIGfhRBFj?.tsrc=rss",
+        "ts": 1791784985,
+        "when": "Oct 12, 06:03 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
         "theory": [
-          "T3"
+          "T1",
+          "T7",
+          "T2",
+          "T14"
         ],
         "sent": "positive"
       },
       {
-        "title": "ETF League Tables: $143M Flows Into VanEck ETFs",
-        "link": "http://www.etf.com/sections/etf-league-tables/etf-league-tables-143m-flows-vaneck-etfs?utm_source=yahoo-finance&utm_medium=rss&utm_campaign=yahoo-finance-rss&.tsrc=rss",
-        "ts": 1791579604,
-        "when": "Oct 09, 09:00 PM",
-        "ticker": "SMH",
-        "industry": "Semis",
+        "title": "Stocktwits Retail Therapy: Consumer Stocks Snap Losing Streaks As Planet Fitness, MercadoLibre And Genius Sports Rally",
+        "link": "https://stocktwits.com/news-articles/markets/equity/consumer-stocks-rebound-xlp-xly-planet-fitness-mercadolibre-genius/cZx4CZtRBFK?.tsrc=rss",
+        "ts": 1791783393,
+        "when": "Oct 12, 05:36 AM",
+        "ticker": "XLY",
+        "industry": "Consumer Disc.",
+        "theory": [
+          "T13"
+        ],
+        "sent": "negative"
+      },
+      {
+        "title": "3 Tech Stocks Wall Street Upgraded Last Week, and the One I'd Buy First",
+        "link": "https://www.fool.com/investing/2026/10/11/stocks-wall-street-upgraded-last-week-one-id-buy/?.tsrc=rss",
+        "ts": 1791773400,
+        "when": "Oct 12, 02:50 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
         "theory": [
           "T1",
           "T7",
@@ -5159,19 +5220,82 @@ window.DASH = {
         "sent": "neutral"
       },
       {
-        "title": "Sector Update: Consumer Stocks Rise Late Afternoon",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-rise-afternoon-195109289.html?.tsrc=rss",
-        "ts": 1791575469,
-        "when": "Oct 09, 07:51 PM",
-        "ticker": "XLY",
-        "industry": "Consumer Disc.",
+        "title": "Palantir Technologies Announces October Seoul Pop-Up with Korea-First Exclusive Merchandise Release",
+        "link": "https://finance.yahoo.com/technology/ai/articles/palantir-technologies-announces-october-seoul-010000825.html?.tsrc=rss",
+        "ts": 1791773100,
+        "when": "Oct 12, 02:45 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
         "theory": [
-          "T13"
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "Palantir hits record as its next AI market gets awkward",
+        "link": "https://www.thestreet.com/investing/palantir-hits-record-as-its-next-ai-market-gets-awkward?.tsrc=rss",
+        "ts": 1791766980,
+        "when": "Oct 12, 01:03 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "negative"
+      },
+      {
+        "title": "Which Precious Metals ETF Is the Better Buy: abrdn’s Silver SIVR or VanEck’s Gold Miners GDX?",
+        "link": "https://www.fool.com/coverage/etfs/2026/10/11/which-precious-metals-etf-is-the-better-buy-abrdn-s-silver-sivr-or-vaneck-s-gold-miners-gdx/?.tsrc=rss",
+        "ts": 1791759849,
+        "when": "Oct 11, 11:04 PM",
+        "ticker": "GDX",
+        "industry": "Gold Miners",
+        "theory": [
+          "T6",
+          "T9",
+          "T19",
+          "T20",
+          "T21"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "History Says This Will Happen to Palantir Stock by 2028",
+        "link": "https://www.fool.com/investing/2026/10/11/history-says-this-will-happen-to-palantir-stock-by/?.tsrc=rss",
+        "ts": 1791747000,
+        "when": "Oct 11, 07:30 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
         ],
         "sent": "neutral"
-      }
-    ],
-    "feed": [
+      },
+      {
+        "title": "A Record $31 Billion Gold Rush Is Sending Investors a Strange Warning About the Bond Market",
+        "link": "https://247wallst.com/investing/2026/10/11/a-record-31-billion-gold-rush-is-sending-investors-a-strange-warning-about-the-bond-market/?.tsrc=rss",
+        "ts": 1791729683,
+        "when": "Oct 11, 02:41 PM",
+        "ticker": "GLD",
+        "industry": "Gold",
+        "theory": [
+          "T6",
+          "T9",
+          "T19",
+          "T20",
+          "T21"
+        ],
+        "sent": "negative"
+      },
       {
         "title": "Top Quality Stocks For October 2026",
         "link": "https://finance.yahoo.com/markets/stocks/articles/top-quality-stocks-october-2026-051051116.html?.tsrc=rss",
@@ -5417,66 +5541,6 @@ window.DASH = {
         "sent": "neutral"
       },
       {
-        "title": "Better High-Growth AI Stock: CrowdStrike vs. Palantir Technologies",
-        "link": "https://www.fool.com/coverage/better-buy/2026/10/09/better-high-growth-ai-stock-crowdstrike-vs-palantir-technologies/?.tsrc=rss",
-        "ts": 1791567873,
-        "when": "Oct 09, 05:44 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "Goldman Predicts a “Step Function Change” in Palantir’s AI Opportunity",
-        "link": "https://www.tikr.com/blog/goldman-predicts-a-step-function-change-in-palantirs-ai-opportunity?ref=yahoofinance&.tsrc=rss",
-        "ts": 1791567609,
-        "when": "Oct 09, 05:40 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "Goldman Sachs Upgrades Palantir to Buy, Sees 18% Upside and Further Outperformance Into 2027",
-        "link": "https://247wallst.com/investing/2026/10/09/goldman-sachs-upgrades-palantir-to-buy-sees-18-upside-and-further-outperformance-into-2027/?.tsrc=rss",
-        "ts": 1791567036,
-        "when": "Oct 09, 05:30 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "How Much Growth Are You Paying For In Palantir Stock?",
-        "link": "https://www.trefis.com/articles/618151/how-much-growth-are-you-paying-for-in-palantir-stock/2026-10-09?.tsrc=rss",
-        "ts": 1791567002,
-        "when": "Oct 09, 05:30 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
         "title": "2 Semiconductor Stocks to Buy and Hold Through 2032",
         "link": "https://www.fool.com/investing/2026/10/09/2-semiconductor-stocks-to-buy-and-hold-through-203/?.tsrc=rss",
         "ts": 1791544980,
@@ -5548,62 +5612,6 @@ window.DASH = {
           "T13"
         ],
         "sent": "neutral"
-      },
-      {
-        "title": "At 66, Here’s Exactly How Much You Need Invested to Collect $6,550 a Month for Life",
-        "link": "https://247wallst.com/personal-finance/2026/10/08/at-66-heres-exactly-how-much-you-need-invested-to-collect-6550-a-month-for-life-2/?.tsrc=rss",
-        "ts": 1791475671,
-        "when": "Oct 08, 04:07 PM",
-        "ticker": "SGOV",
-        "industry": "Equities",
-        "theory": [],
-        "sent": "neutral"
-      },
-      {
-        "title": "The Memory Trade Cools After Samsung’s Preliminary Results Disappoint",
-        "link": "https://www.investopedia.com/market-update-the-memory-trade-cools-after-samsung-preliminary-results-disappoint-12164457?.tsrc=rss",
-        "ts": 1791474702,
-        "when": "Oct 08, 03:51 PM",
-        "ticker": "DRAM",
-        "industry": "AI Memory/HBM",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "negative"
-      },
-      {
-        "title": "Gold Just Fell to a Two-Month Low as the Fed Signals Another Hike",
-        "link": "https://247wallst.com/investing/2026/10/08/gold-just-fell-to-a-two-month-low-as-the-fed-signals-another-hike/?.tsrc=rss",
-        "ts": 1791470741,
-        "when": "Oct 08, 02:45 PM",
-        "ticker": "GDX",
-        "industry": "Gold Miners",
-        "theory": [
-          "T6",
-          "T9",
-          "T19",
-          "T20",
-          "T21"
-        ],
-        "sent": "negative"
-      },
-      {
-        "title": "ETFs to Benefit as Nasdaq's Breakthrough Still Matters",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/etfs-benefit-nasdaqs-breakthrough-still-130400149.html?.tsrc=rss",
-        "ts": 1791464640,
-        "when": "Oct 08, 01:04 PM",
-        "ticker": "SMH",
-        "industry": "Semis",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
       }
     ]
   },
