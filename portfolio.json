@@ -136,34 +136,34 @@
     "fear_state": {
       "F1": {
         "prev_score": 1.5,
-        "score": 1.5,
+        "score": 1.7,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F2": {
-        "prev_score": 2.7,
-        "score": 3.4,
+        "prev_score": 3.4,
+        "score": 3.0,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F3": {
         "prev_score": 1.6,
-        "score": 1.6,
+        "score": 2.1,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F4": {
         "prev_score": 4.5,
-        "score": 4.5,
+        "score": 4.7,
         "days_above": 36,
         "confirmed": true,
         "last_above_date": "2026-10-14"
       },
       "F5": {
-        "prev_score": 3.9,
+        "prev_score": 4.1,
         "score": 4.1,
         "days_above": 1,
         "confirmed": false,
@@ -171,21 +171,21 @@
       },
       "F6": {
         "prev_score": 4.6,
-        "score": 4.6,
+        "score": 4.7,
         "days_above": 39,
         "confirmed": true,
         "last_above_date": "2026-10-14"
       },
       "F7": {
-        "prev_score": 3.8,
-        "score": 3.7,
+        "prev_score": 3.7,
+        "score": 3.9,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F8": {
         "prev_score": 3.1,
-        "score": 3.1,
+        "score": 3.3,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
@@ -635,7 +635,7 @@
   },
   "account": {
     "cash": 25.0,
-    "realized_pnl": -101.31,
+    "realized_pnl": -2222.93,
     "history": [
       {
         "date": "2026-08-10",
@@ -1873,6 +1873,32 @@
           "DBMF": 33.195,
           "SGOV": 100.53
         }
+      },
+      {
+        "date": "2026-10-14",
+        "total_value": 95722.24,
+        "cash": 25.0,
+        "invested_value": 95697.24,
+        "day_change": -2696.85,
+        "prices": {
+          "TQQQ": 74.075,
+          "SOXL": 111.365,
+          "SMH": 566.43,
+          "DRAM": 50.405,
+          "PLTR": 201.87,
+          "NUKZ": 58.453,
+          "XLY": 110.91,
+          "EZU": 65.285,
+          "ZROZ": 55.0,
+          "FXY": 57.795,
+          "VIXM": 12.81,
+          "QFLR": 35.7499,
+          "GLD": 374.44,
+          "GDX": 82.935,
+          "BTAL": 12.8,
+          "DBMF": 33.16,
+          "SGOV": 100.535
+        }
       }
     ],
     "dividends": 56.66
@@ -2476,6 +2502,30 @@
       "shares": 0.0214,
       "amount": 2.15,
       "realized_pnl": 0
+    },
+    {
+      "date": "2026-10-14",
+      "ts": "17:48:45",
+      "ticker": "NLR",
+      "name": "VanEck Uranium and Nuclear ETF",
+      "reason": "stop_loss",
+      "note": "backstop",
+      "state": "vol_halt",
+      "price": 94.84,
+      "buy_price": 116.99,
+      "shares": 93.610334,
+      "realized_pnl": -2121.62
+    },
+    {
+      "date": "2026-10-14",
+      "ts": "17:48:45",
+      "ticker": "SGOV",
+      "name": "iShares 0-3 Month Treasury Bond ETF",
+      "reason": "deploy_cash",
+      "price": 100.535,
+      "buy_price": 100.535,
+      "shares": 88.3076,
+      "realized_pnl": 0
     }
   ],
   "orders": [
@@ -2794,9 +2844,20 @@
       "cost": 11000.0,
       "take_profit_pct": 0.35,
       "stop_loss_pct": -0.18,
-      "status": "open",
+      "status": "closed",
       "thesis": "B-TIER CONVICTION (T3). Data centers to 12% of US electricity by 2028; 20-yr hyperscaler PPAs (CEG/VST/Oklo) give revenue visibility. Recent 10-14% pullback = buying the fear. NOTE: growth, not a hedge - power-for-AI trades with tech in an AI valuation reset.",
-      "entry_note": "Structural power-demand story. Growth sleeve (Nuclear/Power) - correlates with tech in an AI reset."
+      "entry_note": "Structural power-demand story. Growth sleeve (Nuclear/Power) - correlates with tech in an AI reset.",
+      "exit": {
+        "date": "2026-10-14",
+        "price": 94.84,
+        "reason": "stop_loss",
+        "note": "backstop",
+        "state": "vol_halt",
+        "reclaim_ticker": "NLR",
+        "reclaim_level": 95.9318,
+        "reentry_amount": 8878.38,
+        "realized_pnl": -2121.62
+      }
     },
     {
       "id": "NUKZ",
@@ -3077,8 +3138,8 @@
       "theory_ids": [],
       "buy_date": "2026-08-11",
       "buy_price": 100.505,
-      "shares": 7.158078,
-      "cost": 712.7,
+      "shares": 95.465633,
+      "cost": 9590.7,
       "take_profit_pct": 0.0,
       "stop_loss_pct": -0.1,
       "status": "open",
