@@ -136,56 +136,56 @@
     "fear_state": {
       "F1": {
         "prev_score": 1.8,
-        "score": 1.8,
+        "score": 2.0,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F2": {
-        "prev_score": 3.2,
-        "score": 3.6,
+        "prev_score": 3.6,
+        "score": 3.2,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F3": {
         "prev_score": 2.1,
-        "score": 2.1,
+        "score": 2.8,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F4": {
-        "prev_score": 4.5,
-        "score": 4.4,
+        "prev_score": 4.4,
+        "score": 4.6,
         "days_above": 38,
         "confirmed": true,
         "last_above_date": "2026-10-16"
       },
       "F5": {
-        "prev_score": 4.0,
-        "score": 3.9,
-        "days_above": 0,
+        "prev_score": 3.9,
+        "score": 4.0,
+        "days_above": 1,
         "confirmed": false,
-        "last_above_date": null
+        "last_above_date": "2026-10-16"
       },
       "F6": {
         "prev_score": 4.4,
-        "score": 4.4,
+        "score": 4.3,
         "days_above": 41,
         "confirmed": true,
         "last_above_date": "2026-10-16"
       },
       "F7": {
         "prev_score": 4.0,
-        "score": 4.0,
+        "score": 4.1,
         "days_above": 2,
         "confirmed": true,
         "last_above_date": "2026-10-16"
       },
       "F8": {
-        "prev_score": 3.3,
-        "score": 3.2,
+        "prev_score": 3.2,
+        "score": 3.3,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
@@ -1925,6 +1925,32 @@
           "DBMF": 32.795,
           "SGOV": 100.548
         }
+      },
+      {
+        "date": "2026-10-16",
+        "total_value": 93590.4,
+        "cash": 25.0,
+        "invested_value": 93565.4,
+        "day_change": -1191.62,
+        "prices": {
+          "TQQQ": 69.2,
+          "SOXL": 98.61,
+          "SMH": 546.7,
+          "DRAM": 47.18,
+          "PLTR": 185.88,
+          "NUKZ": 58.06,
+          "XLY": 112.42,
+          "EZU": 65.835,
+          "ZROZ": 56.65,
+          "FXY": 57.935,
+          "VIXM": 12.995,
+          "QFLR": 35.2,
+          "GLD": 381.27,
+          "GDX": 87.01,
+          "BTAL": 12.922,
+          "DBMF": 32.805,
+          "SGOV": 100.586
+        }
       }
     ],
     "dividends": 56.66
@@ -2797,7 +2823,7 @@
       "status": "open",
       "thesis": "A-TIER CONVICTION. Semis remain the epicenter of the $1T AI capex cycle (T1); backlogs expanding, earnings above estimates. The June selloff was technical, not fundamental. 3x leverage is the highest-octane expression with vol-decay risk offset by VIXM. V5: boosted +2k. V5.1: stop is index-referenced (SOXX -9%), the -35% wrapper level is only a backstop.",
       "entry_note": "Crowded-trade risk accepted at A-tier conviction; stop on SOXX (1x), not the 3x wrapper.",
-      "dynamic_stop_pct": -0.0953,
+      "dynamic_stop_pct": -0.091,
       "last_div_date": "2026-09-22"
     },
     {
