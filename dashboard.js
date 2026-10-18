@@ -159,30 +159,30 @@ window.DASH = {
       "F4": {
         "prev_score": 4.5,
         "score": 4.5,
-        "days_above": 39,
+        "days_above": 40,
         "confirmed": true,
-        "last_above_date": "2026-10-17"
+        "last_above_date": "2026-10-18"
       },
       "F5": {
-        "prev_score": 4.1,
-        "score": 4.4,
-        "days_above": 2,
+        "prev_score": 4.4,
+        "score": 4.1,
+        "days_above": 3,
         "confirmed": true,
-        "last_above_date": "2026-10-17"
+        "last_above_date": "2026-10-18"
       },
       "F6": {
         "prev_score": 4.3,
         "score": 4.3,
-        "days_above": 42,
+        "days_above": 43,
         "confirmed": true,
-        "last_above_date": "2026-10-17"
+        "last_above_date": "2026-10-18"
       },
       "F7": {
         "prev_score": 4.1,
         "score": 4.1,
-        "days_above": 3,
+        "days_above": 4,
         "confirmed": true,
-        "last_above_date": "2026-10-17"
+        "last_above_date": "2026-10-18"
       },
       "F8": {
         "prev_score": 3.3,
@@ -633,7 +633,7 @@ window.DASH = {
       "cash_buffer_usd": 500.0,
       "shadow_mode": true
     },
-    "asof_ts": 1792214483,
+    "asof_ts": 1792301336,
     "refresh_interval": 1440
   },
   "asof": "2026-10-16",
@@ -2768,45 +2768,9 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-10-17",
+      "asof": "2026-10-18",
       "degraded": false,
       "trend_dir": "flat"
-    },
-    {
-      "id": "F5",
-      "name": "War / energy shock",
-      "type": "episodic",
-      "score": 4.4,
-      "level": 0.738,
-      "velocity": {
-        "label": "5d velocity",
-        "value": 0.1041,
-        "pct": 0.89
-      },
-      "trend": null,
-      "signals": [
-        {
-          "label": "Crude 5d momentum",
-          "value": 0.89
-        },
-        {
-          "label": "Gold 1d momentum",
-          "value": 0.382
-        }
-      ],
-      "theory_ids": [
-        "T21"
-      ],
-      "hedge_ticks": [
-        "GLD",
-        "GDX",
-        "FXY",
-        "DBMF"
-      ],
-      "sizing": null,
-      "asof": "2026-10-17",
-      "degraded": false,
-      "trend_dir": "rising"
     },
     {
       "id": "F6",
@@ -2837,9 +2801,45 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-10-17",
+      "asof": "2026-10-18",
       "degraded": false,
       "trend_dir": "flat"
+    },
+    {
+      "id": "F5",
+      "name": "War / energy shock",
+      "type": "episodic",
+      "score": 4.1,
+      "level": 0.683,
+      "velocity": {
+        "label": "5d velocity",
+        "value": 0.0781,
+        "pct": 0.812
+      },
+      "trend": null,
+      "signals": [
+        {
+          "label": "Crude 5d momentum",
+          "value": 0.812
+        },
+        {
+          "label": "Gold 1d momentum",
+          "value": 0.382
+        }
+      ],
+      "theory_ids": [
+        "T21"
+      ],
+      "hedge_ticks": [
+        "GLD",
+        "GDX",
+        "FXY",
+        "DBMF"
+      ],
+      "sizing": null,
+      "asof": "2026-10-18",
+      "degraded": false,
+      "trend_dir": "falling"
     },
     {
       "id": "F7",
@@ -2867,7 +2867,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-10-17",
+      "asof": "2026-10-18",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2897,7 +2897,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-10-17",
+      "asof": "2026-10-18",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2931,7 +2931,7 @@ window.DASH = {
         "BTAL"
       ],
       "sizing": null,
-      "asof": "2026-10-17",
+      "asof": "2026-10-18",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2966,7 +2966,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-10-17",
+      "asof": "2026-10-18",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -3002,7 +3002,7 @@ window.DASH = {
         "ZROZ"
       ],
       "sizing": null,
-      "asof": "2026-10-17",
+      "asof": "2026-10-18",
       "degraded": false,
       "trend_dir": "flat"
     }
@@ -3012,11 +3012,11 @@ window.DASH = {
     "label": "Extreme Fear"
   },
   "complacency": {
-    "index": 0.024,
+    "index": 0.028,
     "valuation_stretch": 0.163,
-    "fear_term": 0.15,
-    "divergence": 0.138,
-    "fear_avg": 4.4,
+    "fear_term": 0.175,
+    "divergence": 0.134,
+    "fear_avg": 4.3,
     "regime": "stress",
     "note": "Stress regime - broad equity drawdown active. Hedges should be paying.",
     "pay_check": {
@@ -5340,13 +5340,13 @@ window.DASH = {
     "enabled": true
   },
   "news": {
-    "asof": "2026-10-17 05:21:23",
+    "asof": "2026-10-18 05:28:57",
     "big_stories": [
       {
-        "title": "Stocktwits Defense Watch: RTX Continues Deal Momentum, Ondas-Palantir Launch AI Firm As AeroVironment Strike Four International Deals",
-        "link": "https://stocktwits.com/news-articles/markets/equity/rtx-counter-drone-orders-aerovironment-palantir-defense-ai/cZxjx4bRBtI?.tsrc=rss",
-        "ts": 1792210547,
-        "when": "Oct 17, 04:15 AM",
+        "title": "Can Palantir’s (PLTR) Growth Justify Its Valuation?",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/palantir-pltr-growth-justify-valuation-194556491.html?.tsrc=rss",
+        "ts": 1792266356,
+        "when": "Oct 17, 07:45 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -5355,7 +5355,17 @@ window.DASH = {
           "T2",
           "T14"
         ],
-        "sent": "neutral"
+        "sent": "positive"
+      },
+      {
+        "title": "Should You Sell BND Now, or Is It the Best Bond Buy in 3 Years?",
+        "link": "https://247wallst.com/investing/etf/2026/10/17/should-you-sell-bnd-now-or-is-it-the-best-bond-buy-in-3-years/?.tsrc=rss",
+        "ts": 1792248614,
+        "when": "Oct 17, 02:50 PM",
+        "ticker": "SGOV",
+        "industry": "Equities",
+        "theory": [],
+        "sent": "positive"
       },
       {
         "title": "Nasdaq Buckles on Fear This Boom Is an AI Bubble: Stock Market Today",
@@ -5398,25 +5408,139 @@ window.DASH = {
           "T14"
         ],
         "sent": "negative"
-      },
-      {
-        "title": "Inflation Comes in Hotter Than Expected at 3.7%, Keeping Fed Hike Bets Alive (UPDATED)",
-        "link": "https://finance.yahoo.com/economy/policy/articles/inflation-comes-hotter-expected-3-223009336.html?.tsrc=rss",
-        "ts": 1792103409,
-        "when": "Oct 15, 10:30 PM",
-        "ticker": "GLD",
-        "industry": "Gold",
-        "theory": [
-          "T6",
-          "T9",
-          "T19",
-          "T20",
-          "T21"
-        ],
-        "sent": "positive"
       }
     ],
     "feed": [
+      {
+        "title": "Can Palantir’s (PLTR) Growth Justify Its Valuation?",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/palantir-pltr-growth-justify-valuation-194556491.html?.tsrc=rss",
+        "ts": 1792266356,
+        "when": "Oct 17, 07:45 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "Jim Cramer Set A $250 Palantir (PLTR) Share Price Target – Then The Shares Closed 11% Lower During The AI Selloff",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/jim-cramer-set-250-palantir-184659608.html?.tsrc=rss",
+        "ts": 1792262819,
+        "when": "Oct 17, 06:46 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "History of Palantir: Company timeline, facts & milestones",
+        "link": "https://www.thestreet.com/investing/stocks/history-of-palantir-company-timeline-facts-milestones?.tsrc=rss",
+        "ts": 1792258380,
+        "when": "Oct 17, 05:33 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "Palantir Stock Fell 7% in a Day and Slipped Into a Correction. Here’s Where It Could Go by 2030",
+        "link": "https://www.tikr.com/blog/palantir-stock-fell-7-in-a-day-and-slipped-into-a-correction-heres-where-it-could-go-by-2030?ref=yahoofinance&.tsrc=rss",
+        "ts": 1792258216,
+        "when": "Oct 17, 05:30 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "Is Palantir Stock a Buy Right Now?",
+        "link": "https://www.fool.com/investing/2026/10/17/is-palantir-stock-a-buy-right-now/?.tsrc=rss",
+        "ts": 1792257900,
+        "when": "Oct 17, 05:25 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "Should You Sell BND Now, or Is It the Best Bond Buy in 3 Years?",
+        "link": "https://247wallst.com/investing/etf/2026/10/17/should-you-sell-bnd-now-or-is-it-the-best-bond-buy-in-3-years/?.tsrc=rss",
+        "ts": 1792248614,
+        "when": "Oct 17, 02:50 PM",
+        "ticker": "SGOV",
+        "industry": "Equities",
+        "theory": [],
+        "sent": "positive"
+      },
+      {
+        "title": "The Nasdaq-100's 6 Best Stocks This Year, and Whether They Can Keep Going",
+        "link": "https://www.fool.com/investing/2026/10/17/nasdaq-100-best-stocks-2026-keep-going/?.tsrc=rss",
+        "ts": 1792242300,
+        "when": "Oct 17, 01:05 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "Cathie Wood-Led Ark Invest's Biggest Q3 Winners And Losers — PLTR, NVDA, TXG Led While TSLA, RKLB Dragged",
+        "link": "https://stocktwits.com/news-articles/markets/equity/cathie-wood-ark-invest-biggest-q3-winners-losers-pltr-nvda-txg-tsla-rklb/cZxkcykRBtO?.tsrc=rss",
+        "ts": 1792225773,
+        "when": "Oct 17, 08:29 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "negative"
+      },
+      {
+        "title": "Missed Out On Micron and Sandisk? Make Sure You Don't Miss Out On This Memory Stock.",
+        "link": "https://www.fool.com/investing/2026/10/17/missed-out-on-micron-and-sandisk-make-sure-you-don/?.tsrc=rss",
+        "ts": 1792216200,
+        "when": "Oct 17, 05:50 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
       {
         "title": "Stocktwits Defense Watch: RTX Continues Deal Momentum, Ondas-Palantir Launch AI Firm As AeroVironment Strike Four International Deals",
         "link": "https://stocktwits.com/news-articles/markets/equity/rtx-counter-drone-orders-aerovironment-palantir-defense-ai/cZxjx4bRBtI?.tsrc=rss",
@@ -5592,10 +5716,10 @@ window.DASH = {
         "sent": "neutral"
       },
       {
-        "title": "Could Palantir Stock Create Life-Changing Wealth for Patient Investors?",
-        "link": "https://247wallst.com/investing/2026/10/16/could-palantir-stock-create-life-changing-wealth-for-patient-investors/?.tsrc=rss",
-        "ts": 1792159202,
-        "when": "Oct 16, 02:00 PM",
+        "title": "Palantir's Potential Next Catalyst After Retail Profit-Taking",
+        "link": "https://www.marketbeat.com/articles/palantirs-potential-next-catalyst-after-retail-profit-taking/?utm_source=yahoofinance&utm_medium=yahoofinance&.tsrc=rss",
+        "ts": 1792162200,
+        "when": "Oct 16, 02:50 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -5604,7 +5728,7 @@ window.DASH = {
           "T2",
           "T14"
         ],
-        "sent": "positive"
+        "sent": "neutral"
       },
       {
         "title": "Chip Stocks Head for Longest Skid in Two Decades",
@@ -5613,36 +5737,6 @@ window.DASH = {
         "when": "Oct 16, 01:59 PM",
         "ticker": "SMH",
         "industry": "Semis",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Nvidia and Apple Donate Millions for Planned White House Project",
-        "link": "https://www.tikr.com/blog/nvidia-stock-white-house-ballroom-donation?ref=yahoofinance&.tsrc=rss",
-        "ts": 1792158945,
-        "when": "Oct 16, 01:55 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Cathie Wood Bought CoreWeave Two Days in a Row as Its Bonds Cratered",
-        "link": "https://247wallst.com/investing/2026/10/16/cathie-wood-bought-coreweave-two-days-in-a-row-as-its-bonds-cratered/?.tsrc=rss",
-        "ts": 1792157589,
-        "when": "Oct 16, 01:33 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
         "theory": [
           "T1",
           "T7",
@@ -5665,36 +5759,6 @@ window.DASH = {
           "T14"
         ],
         "sent": "negative"
-      },
-      {
-        "title": "Ondas and Palantir Launch Regna AI to Expand Sovereign AI Capabilities",
-        "link": "https://finance.yahoo.com/technology/ai/articles/ondas-palantir-launch-regna-ai-123600041.html?.tsrc=rss",
-        "ts": 1792154160,
-        "when": "Oct 16, 12:36 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "Palantir Technologies Inc. (PLTR) is Attracting Investor Attention: Here is What You Should Know",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/palantir-technologies-inc-pltr-attracting-120006946.html?.tsrc=rss",
-        "ts": 1792152006,
-        "when": "Oct 16, 12:00 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
       },
       {
         "title": "Chip Stocks' Losing Streaks Are Worrying",
@@ -5725,36 +5789,6 @@ window.DASH = {
           "T14"
         ],
         "sent": "positive"
-      },
-      {
-        "title": "Defense ETFs in Spotlight Ahead of Q3 Earnings Season",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/defense-etfs-spotlight-ahead-q3-111300111.html?.tsrc=rss",
-        "ts": 1792149180,
-        "when": "Oct 16, 11:13 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "Palantir, Apple and Microsoft Brace for Democrats to Go on Offensive",
-        "link": "https://finance.yahoo.com/economy/policy/articles/palantir-apple-microsoft-brace-democrats-110000498.html?.tsrc=rss",
-        "ts": 1792148400,
-        "when": "Oct 16, 11:00 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "negative"
       },
       {
         "title": "Memory stocks slide into another bear market as chip losses near $2.5 trillion: Chart of the Day",
@@ -5807,52 +5841,6 @@ window.DASH = {
         "link": "http://www.etf.com/sections/daily-etf-flows/etf-fund-flows-semiconductors-leveraged-etfs-dominate?utm_source=yahoo-finance&utm_medium=rss&utm_campaign=yahoo-finance-rss&.tsrc=rss",
         "ts": 1792098004,
         "when": "Oct 15, 09:00 PM",
-        "ticker": "SMH",
-        "industry": "Semis",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "negative"
-      },
-      {
-        "title": "DRAM ETF Heads For Longest Weekly Losing Streak Since Inception, Roundhill CEO Says ‘Investor Sentiment Has Turned’",
-        "link": "https://stocktwits.com/news-articles/markets/equity/dram-etf-record-weekly-losing-streak-roundhill-ceo-investor-sentiment-has-turned/cZxhcl7RBrQ?.tsrc=rss",
-        "ts": 1792086482,
-        "when": "Oct 15, 05:48 PM",
-        "ticker": "DRAM",
-        "industry": "AI Memory/HBM",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "negative"
-      },
-      {
-        "title": "Gold Lost $100 an Ounce in Hours After the Inflation Report",
-        "link": "https://247wallst.com/investing/2026/10/15/gold-lost-100-an-ounce-in-hours-after-the-inflation-report/?.tsrc=rss",
-        "ts": 1792084234,
-        "when": "Oct 15, 05:10 PM",
-        "ticker": "GLD",
-        "industry": "Gold",
-        "theory": [
-          "T6",
-          "T9",
-          "T19",
-          "T20",
-          "T21"
-        ],
-        "sent": "negative"
-      },
-      {
-        "title": "Why Direxion Daily Semiconductor Bull 3X ETF Crashed Today",
-        "link": "https://www.fool.com/investing/2026/10/15/why-direxion-daily-semiconductor-bull-3x-etf-crashed-today/?.tsrc=rss",
-        "ts": 1792079719,
-        "when": "Oct 15, 03:55 PM",
         "ticker": "SOXL",
         "industry": "Semis",
         "theory": [
@@ -5861,7 +5849,7 @@ window.DASH = {
           "T2",
           "T14"
         ],
-        "sent": "neutral"
+        "sent": "negative"
       }
     ]
   },
