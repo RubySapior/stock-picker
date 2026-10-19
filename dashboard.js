@@ -144,7 +144,7 @@ window.DASH = {
       },
       "F2": {
         "prev_score": 3.6,
-        "score": 3.6,
+        "score": 3.5,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
@@ -159,30 +159,30 @@ window.DASH = {
       "F4": {
         "prev_score": 4.5,
         "score": 4.5,
-        "days_above": 40,
+        "days_above": 41,
         "confirmed": true,
-        "last_above_date": "2026-10-18"
+        "last_above_date": "2026-10-19"
       },
       "F5": {
-        "prev_score": 4.4,
-        "score": 4.1,
-        "days_above": 3,
-        "confirmed": true,
-        "last_above_date": "2026-10-18"
+        "prev_score": 4.1,
+        "score": 3.6,
+        "days_above": 0,
+        "confirmed": false,
+        "last_above_date": null
       },
       "F6": {
         "prev_score": 4.3,
         "score": 4.3,
-        "days_above": 43,
+        "days_above": 44,
         "confirmed": true,
-        "last_above_date": "2026-10-18"
+        "last_above_date": "2026-10-19"
       },
       "F7": {
         "prev_score": 4.1,
         "score": 4.1,
-        "days_above": 4,
+        "days_above": 5,
         "confirmed": true,
-        "last_above_date": "2026-10-18"
+        "last_above_date": "2026-10-19"
       },
       "F8": {
         "prev_score": 3.3,
@@ -633,7 +633,7 @@ window.DASH = {
       "cash_buffer_usd": 500.0,
       "shadow_mode": true
     },
-    "asof_ts": 1792301336,
+    "asof_ts": 1792388863,
     "refresh_interval": 1440
   },
   "asof": "2026-10-16",
@@ -2768,7 +2768,7 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-10-18",
+      "asof": "2026-10-19",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2801,45 +2801,9 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-10-18",
+      "asof": "2026-10-19",
       "degraded": false,
       "trend_dir": "flat"
-    },
-    {
-      "id": "F5",
-      "name": "War / energy shock",
-      "type": "episodic",
-      "score": 4.1,
-      "level": 0.683,
-      "velocity": {
-        "label": "5d velocity",
-        "value": 0.0781,
-        "pct": 0.812
-      },
-      "trend": null,
-      "signals": [
-        {
-          "label": "Crude 5d momentum",
-          "value": 0.812
-        },
-        {
-          "label": "Gold 1d momentum",
-          "value": 0.382
-        }
-      ],
-      "theory_ids": [
-        "T21"
-      ],
-      "hedge_ticks": [
-        "GLD",
-        "GDX",
-        "FXY",
-        "DBMF"
-      ],
-      "sizing": null,
-      "asof": "2026-10-18",
-      "degraded": false,
-      "trend_dir": "falling"
     },
     {
       "id": "F7",
@@ -2867,20 +2831,56 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-10-18",
+      "asof": "2026-10-19",
       "degraded": false,
       "trend_dir": "flat"
+    },
+    {
+      "id": "F5",
+      "name": "War / energy shock",
+      "type": "episodic",
+      "score": 3.6,
+      "level": 0.592,
+      "velocity": {
+        "label": "5d velocity",
+        "value": 0.0387,
+        "pct": 0.682
+      },
+      "trend": null,
+      "signals": [
+        {
+          "label": "Crude 5d momentum",
+          "value": 0.682
+        },
+        {
+          "label": "Gold 1d momentum",
+          "value": 0.382
+        }
+      ],
+      "theory_ids": [
+        "T21"
+      ],
+      "hedge_ticks": [
+        "GLD",
+        "GDX",
+        "FXY",
+        "DBMF"
+      ],
+      "sizing": null,
+      "asof": "2026-10-19",
+      "degraded": false,
+      "trend_dir": "falling"
     },
     {
       "id": "F2",
       "name": "Yen-carry unwind",
       "type": "episodic",
-      "score": 3.6,
+      "score": 3.5,
       "level": 0.462,
       "velocity": {
         "label": "5d velocity",
-        "value": 0.0014,
-        "pct": 0.733
+        "value": 0.0008,
+        "pct": 0.702
       },
       "trend": null,
       "signals": [
@@ -2897,7 +2897,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-10-18",
+      "asof": "2026-10-19",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2931,7 +2931,7 @@ window.DASH = {
         "BTAL"
       ],
       "sizing": null,
-      "asof": "2026-10-18",
+      "asof": "2026-10-19",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2966,7 +2966,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-10-18",
+      "asof": "2026-10-19",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -3002,7 +3002,7 @@ window.DASH = {
         "ZROZ"
       ],
       "sizing": null,
-      "asof": "2026-10-18",
+      "asof": "2026-10-19",
       "degraded": false,
       "trend_dir": "flat"
     }
@@ -5340,13 +5340,13 @@ window.DASH = {
     "enabled": true
   },
   "news": {
-    "asof": "2026-10-18 05:28:57",
+    "asof": "2026-10-19 05:47:44",
     "big_stories": [
       {
-        "title": "Can Palantir’s (PLTR) Growth Justify Its Valuation?",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/palantir-pltr-growth-justify-valuation-194556491.html?.tsrc=rss",
-        "ts": 1792266356,
-        "when": "Oct 17, 07:45 PM",
+        "title": "Trump’s $330 Million White House Ballroom Donor List Reveals Nvidia, Apple and Google Among Top Tech Contributors: Report (UPDATED)",
+        "link": "https://finance.yahoo.com/technology/articles/trump-330-million-white-house-033011715.html?.tsrc=rss",
+        "ts": 1792380611,
+        "when": "Oct 19, 03:30 AM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -5356,6 +5356,36 @@ window.DASH = {
           "T14"
         ],
         "sent": "positive"
+      },
+      {
+        "title": "Stock Futures Rise Ahead of Another Busy Earnings Week",
+        "link": "https://finance.yahoo.com/m/48664293-fad0-31aa-9b59-9f0f597f1e48/stock-futures-rise-ahead-of.html?.tsrc=rss",
+        "ts": 1792361160,
+        "when": "Oct 18, 10:06 PM",
+        "ticker": "SMH",
+        "industry": "Semis",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "AI Chip Bets Suffer $34M Liquidation Wipeout As Bitcoin, Ethereum Near Danger Zone Ahead Of Black Monday Fears",
+        "link": "https://stocktwits.com/news-articles/markets/cryptocurrency/black-monday-fears-rise-dollarm-ai-chip-bets-get-liquidated-bitcoin-near-danger-zone/cZxNVSaRBts?.tsrc=rss",
+        "ts": 1792342372,
+        "when": "Oct 18, 04:52 PM",
+        "ticker": "SOXL",
+        "industry": "Semis",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "negative"
       },
       {
         "title": "Should You Sell BND Now, or Is It the Best Bond Buy in 3 Years?",
@@ -5368,21 +5398,6 @@ window.DASH = {
         "sent": "positive"
       },
       {
-        "title": "Nasdaq Buckles on Fear This Boom Is an AI Bubble: Stock Market Today",
-        "link": "https://www.kiplinger.com/investing/stocks/nasdaq-buckles-on-fear-this-boom-is-an-ai-bubble-stock-market-today?.tsrc=rss",
-        "ts": 1792181651,
-        "when": "Oct 16, 08:14 PM",
-        "ticker": "SMH",
-        "industry": "Semis",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "negative"
-      },
-      {
         "title": "Ford Rises 2%, General Motors and Stellantis Edge Higher While the Stock Market Sells Off",
         "link": "https://247wallst.com/investing/2026/10/16/ford-rises-2-general-motors-and-stellantis-edge-higher-while-stock-market-sells-off/?.tsrc=rss",
         "ts": 1792173995,
@@ -5393,14 +5408,61 @@ window.DASH = {
           "T13"
         ],
         "sent": "neutral"
+      }
+    ],
+    "feed": [
+      {
+        "title": "Trump’s $330 Million White House Ballroom Donor List Reveals Nvidia, Apple and Google Among Top Tech Contributors: Report (UPDATED)",
+        "link": "https://finance.yahoo.com/technology/articles/trump-330-million-white-house-033011715.html?.tsrc=rss",
+        "ts": 1792380611,
+        "when": "Oct 19, 03:30 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
       },
       {
-        "title": "SK Hynix, SanDisk, and Micron Drop 3% Despite Goldman Sachs Calling China Chip Fears Overdone",
-        "link": "https://247wallst.com/investing/2026/10/16/sk-hynix-sandisk-and-micron-drop-3-despite-goldman-sachs-calling-china-chip-fears-overdone/?.tsrc=rss",
-        "ts": 1792157452,
-        "when": "Oct 16, 01:30 PM",
-        "ticker": "DRAM",
-        "industry": "AI Memory/HBM",
+        "title": "Stock Futures Rise Ahead of Another Busy Earnings Week",
+        "link": "https://finance.yahoo.com/m/48664293-fad0-31aa-9b59-9f0f597f1e48/stock-futures-rise-ahead-of.html?.tsrc=rss",
+        "ts": 1792361160,
+        "when": "Oct 18, 10:06 PM",
+        "ticker": "SMH",
+        "industry": "Semis",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "3 AI Stocks With Earnings Growth Over 33% To Watch",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/3-ai-stocks-earnings-growth-211058029.html?.tsrc=rss",
+        "ts": 1792357858,
+        "when": "Oct 18, 09:10 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "AI Chip Bets Suffer $34M Liquidation Wipeout As Bitcoin, Ethereum Near Danger Zone Ahead Of Black Monday Fears",
+        "link": "https://stocktwits.com/news-articles/markets/cryptocurrency/black-monday-fears-rise-dollarm-ai-chip-bets-get-liquidated-bitcoin-near-danger-zone/cZxNVSaRBts?.tsrc=rss",
+        "ts": 1792342372,
+        "when": "Oct 18, 04:52 PM",
+        "ticker": "SOXL",
+        "industry": "Semis",
         "theory": [
           "T1",
           "T7",
@@ -5408,9 +5470,37 @@ window.DASH = {
           "T14"
         ],
         "sent": "negative"
-      }
-    ],
-    "feed": [
+      },
+      {
+        "title": "Innodata (INOD) Stock Looks Overvalued Despite Strong AI Expectations",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/innodata-inod-stock-looks-overvalued-101505605.html?.tsrc=rss",
+        "ts": 1792318505,
+        "when": "Oct 18, 10:15 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "negative"
+      },
+      {
+        "title": "Here's What $10,000 Split Across SpaceX, Palantir, and 3 AI Chip Stocks Could Be Worth in 2035",
+        "link": "https://www.fool.com/investing/2026/10/18/heres-what-10000-split-across-spacex-palantir-and/?.tsrc=rss",
+        "ts": 1792312020,
+        "when": "Oct 18, 08:27 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
       {
         "title": "Can Palantir’s (PLTR) Growth Justify Its Valuation?",
         "link": "https://finance.yahoo.com/markets/stocks/articles/palantir-pltr-growth-justify-valuation-194556491.html?.tsrc=rss",
@@ -5671,66 +5761,6 @@ window.DASH = {
         "sent": "positive"
       },
       {
-        "title": "Does The Move In Snowflake Stock Change Anything?",
-        "link": "https://www.trefis.com/articles/618999/does-the-move-in-snowflake-stock-change-anything/2026-10-16?.tsrc=rss",
-        "ts": 1792166047,
-        "when": "Oct 16, 03:54 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Palantir Stock Is Near Its Record. Here's the Price at Which I'd Buy It.",
-        "link": "https://www.fool.com/investing/2026/10/16/palantir-stock-is-near-its-record-here-s-the-price-at-which-i-d-buy-it/?.tsrc=rss",
-        "ts": 1792162622,
-        "when": "Oct 16, 02:57 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "5 Stock Ideas for Your Short List",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/5-stock-ideas-short-list-145700049.html?.tsrc=rss",
-        "ts": 1792162620,
-        "when": "Oct 16, 02:57 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Palantir's Potential Next Catalyst After Retail Profit-Taking",
-        "link": "https://www.marketbeat.com/articles/palantirs-potential-next-catalyst-after-retail-profit-taking/?utm_source=yahoofinance&utm_medium=yahoofinance&.tsrc=rss",
-        "ts": 1792162200,
-        "when": "Oct 16, 02:50 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
         "title": "Chip Stocks Head for Longest Skid in Two Decades",
         "link": "https://finance.yahoo.com/m/9e792634-ee05-3412-94e1-4ae6e600201c/chip-stocks-head-for-longest.html?.tsrc=rss",
         "ts": 1792159176,
@@ -5819,37 +5849,6 @@ window.DASH = {
           "T14"
         ],
         "sent": "positive"
-      },
-      {
-        "title": "Inflation Comes in Hotter Than Expected at 3.7%, Keeping Fed Hike Bets Alive (UPDATED)",
-        "link": "https://finance.yahoo.com/economy/policy/articles/inflation-comes-hotter-expected-3-223009336.html?.tsrc=rss",
-        "ts": 1792103409,
-        "when": "Oct 15, 10:30 PM",
-        "ticker": "GLD",
-        "industry": "Gold",
-        "theory": [
-          "T6",
-          "T9",
-          "T19",
-          "T20",
-          "T21"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "ETF Fund Flows: Semiconductors, Leveraged ETFs Dominate",
-        "link": "http://www.etf.com/sections/daily-etf-flows/etf-fund-flows-semiconductors-leveraged-etfs-dominate?utm_source=yahoo-finance&utm_medium=rss&utm_campaign=yahoo-finance-rss&.tsrc=rss",
-        "ts": 1792098004,
-        "when": "Oct 15, 09:00 PM",
-        "ticker": "SOXL",
-        "industry": "Semis",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "negative"
       }
     ]
   },
