@@ -136,18 +136,18 @@ window.DASH = {
     "disclaimer": "Simulated portfolio for tracking/learning. Not financial advice.",
     "fear_state": {
       "F1": {
-        "prev_score": 2.4,
+        "prev_score": 2.5,
         "score": 2.5,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F2": {
-        "prev_score": 4.2,
+        "prev_score": 4.1,
         "score": 4.1,
-        "days_above": 3,
+        "days_above": 4,
         "confirmed": true,
-        "last_above_date": "2026-10-24"
+        "last_above_date": "2026-10-25"
       },
       "F3": {
         "prev_score": 3.3,
@@ -157,11 +157,11 @@ window.DASH = {
         "last_above_date": null
       },
       "F4": {
-        "prev_score": 4.5,
+        "prev_score": 4.4,
         "score": 4.4,
-        "days_above": 46,
+        "days_above": 47,
         "confirmed": true,
-        "last_above_date": "2026-10-24"
+        "last_above_date": "2026-10-25"
       },
       "F5": {
         "prev_score": 3.2,
@@ -171,14 +171,14 @@ window.DASH = {
         "last_above_date": null
       },
       "F6": {
-        "prev_score": 3.8,
+        "prev_score": 3.9,
         "score": 3.9,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F7": {
-        "prev_score": 3.7,
+        "prev_score": 3.4,
         "score": 3.4,
         "days_above": 0,
         "confirmed": false,
@@ -633,7 +633,7 @@ window.DASH = {
       "cash_buffer_usd": 500.0,
       "shadow_mode": true
     },
-    "asof_ts": 1792819609,
+    "asof_ts": 1792907138,
     "refresh_interval": 1440
   },
   "asof": "2026-10-23",
@@ -2837,7 +2837,7 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-10-24",
+      "asof": "2026-10-25",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2867,7 +2867,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-10-24",
+      "asof": "2026-10-25",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2900,7 +2900,7 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-10-24",
+      "asof": "2026-10-25",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2930,9 +2930,9 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-10-24",
+      "asof": "2026-10-25",
       "degraded": false,
-      "trend_dir": "falling"
+      "trend_dir": "flat"
     },
     {
       "id": "F3",
@@ -2965,7 +2965,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-10-24",
+      "asof": "2026-10-25",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2999,7 +2999,7 @@ window.DASH = {
         "BTAL"
       ],
       "sizing": null,
-      "asof": "2026-10-24",
+      "asof": "2026-10-25",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -3035,7 +3035,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-10-24",
+      "asof": "2026-10-25",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -3071,7 +3071,7 @@ window.DASH = {
         "ZROZ"
       ],
       "sizing": null,
-      "asof": "2026-10-24",
+      "asof": "2026-10-25",
       "degraded": false,
       "trend_dir": "flat"
     }
@@ -3113,7 +3113,7 @@ window.DASH = {
   },
   "fear_sizing": null,
   "hedge_harvest": {
-    "asof": "2026-10-24",
+    "asof": "2026-10-25",
     "items": [
       {
         "ticker": "BTAL",
@@ -5638,13 +5638,13 @@ window.DASH = {
     "enabled": true
   },
   "news": {
-    "asof": "2026-10-24 05:26:49",
+    "asof": "2026-10-25 05:45:39",
     "big_stories": [
       {
-        "title": "What Does Palantir Technologies (PLTR) Sovereign AI Push Mean For Investors?",
-        "link": "https://finance.yahoo.com/technology/ai/articles/does-palantir-technologies-pltr-sovereign-031717592.html?.tsrc=rss",
-        "ts": 1792811837,
-        "when": "Oct 24, 03:17 AM",
+        "title": "Stock-Split Watch: Is Palantir Next?",
+        "link": "https://www.fool.com/investing/2026/10/24/stock-split-watch-is-palantir-next/?.tsrc=rss",
+        "ts": 1792882200,
+        "when": "Oct 24, 10:50 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -5656,10 +5656,20 @@ window.DASH = {
         "sent": "neutral"
       },
       {
-        "title": "Atlassian Swing Trade: Why We Sold A Resilient Stock In A Tech Pullback",
-        "link": "https://finance.yahoo.com/m/87d52fa0-71d2-306f-ac6d-6cc7bf8e62ac/atlassian-swing-trade%3A-why-we.html?.tsrc=rss",
-        "ts": 1792787530,
-        "when": "Oct 23, 08:32 PM",
+        "title": "How Much Should a 70-Year-Old Have Invested to Add $3,600 a Month to Social Security?",
+        "link": "https://247wallst.com/personal-finance/2026/10/24/how-much-should-a-70-year-old-have-invested-to-add-3600-a-month-to-social-security/?.tsrc=rss",
+        "ts": 1792867880,
+        "when": "Oct 24, 06:51 PM",
+        "ticker": "SGOV",
+        "industry": "Equities",
+        "theory": [],
+        "sent": "positive"
+      },
+      {
+        "title": "The Nasdaq-100 Had Its Worst Week in 18 Months. History Says the Following Year Has Usually Been Strong.",
+        "link": "https://www.fool.com/investing/2026/10/24/the-nasdaq-100-had-its-worst-week-in-18-months-history-says-the-following-year-has-usually-been-strong/?.tsrc=rss",
+        "ts": 1792855622,
+        "when": "Oct 24, 03:27 PM",
         "ticker": "SMH",
         "industry": "Semis",
         "theory": [
@@ -5668,7 +5678,23 @@ window.DASH = {
           "T2",
           "T14"
         ],
-        "sent": "neutral"
+        "sent": "negative"
+      },
+      {
+        "title": "Gold Just Fell Below $4,000 After Its Worst Week in Five Months",
+        "link": "https://247wallst.com/investing/2026/10/24/gold-just-fell-below-4000-after-its-worst-week-in-five-months/?.tsrc=rss",
+        "ts": 1792844856,
+        "when": "Oct 24, 12:27 PM",
+        "ticker": "GLD",
+        "industry": "Gold",
+        "theory": [
+          "T6",
+          "T9",
+          "T19",
+          "T20",
+          "T21"
+        ],
+        "sent": "negative"
       },
       {
         "title": "Sector Update: Consumer Stocks Retreat Friday",
@@ -5681,14 +5707,16 @@ window.DASH = {
           "T13"
         ],
         "sent": "positive"
-      },
+      }
+    ],
+    "feed": [
       {
-        "title": "Memory, Storage Stocks Rebound After Western Digital Earnings Land",
-        "link": "https://www.investopedia.com/market-update-memory-storage-stocks-rebound-after-western-digital-earnings-land-wdc-12189805?.tsrc=rss",
-        "ts": 1792771096,
-        "when": "Oct 23, 03:58 PM",
-        "ticker": "DRAM",
-        "industry": "AI Memory/HBM",
+        "title": "Stock-Split Watch: Is Palantir Next?",
+        "link": "https://www.fool.com/investing/2026/10/24/stock-split-watch-is-palantir-next/?.tsrc=rss",
+        "ts": 1792882200,
+        "when": "Oct 24, 10:50 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
         "theory": [
           "T1",
           "T7",
@@ -5698,12 +5726,52 @@ window.DASH = {
         "sent": "neutral"
       },
       {
-        "title": "Newmont Sinks 4%4 Despite Record Third-Quarter Profit as Gold Slides Back Toward $4,000",
-        "link": "https://www.tikr.com/blog/newmont-sinks-44-despite-record-third-quarter-profit-as-gold-slides-back-toward-4000?ref=yahoofinance&.tsrc=rss",
-        "ts": 1792768580,
-        "when": "Oct 23, 03:16 PM",
-        "ticker": "GDX",
-        "industry": "Gold Miners",
+        "title": "How Much Should a 70-Year-Old Have Invested to Add $3,600 a Month to Social Security?",
+        "link": "https://247wallst.com/personal-finance/2026/10/24/how-much-should-a-70-year-old-have-invested-to-add-3600-a-month-to-social-security/?.tsrc=rss",
+        "ts": 1792867880,
+        "when": "Oct 24, 06:51 PM",
+        "ticker": "SGOV",
+        "industry": "Equities",
+        "theory": [],
+        "sent": "positive"
+      },
+      {
+        "title": "The Nasdaq-100 Had Its Worst Week in 18 Months. History Says the Following Year Has Usually Been Strong.",
+        "link": "https://www.fool.com/investing/2026/10/24/the-nasdaq-100-had-its-worst-week-in-18-months-history-says-the-following-year-has-usually-been-strong/?.tsrc=rss",
+        "ts": 1792855622,
+        "when": "Oct 24, 03:27 PM",
+        "ticker": "SMH",
+        "industry": "Semis",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "negative"
+      },
+      {
+        "title": "You Might Be Able to Invest in the Starlab Space Station -- but Should You?",
+        "link": "https://www.fool.com/investing/2026/10/24/how-to-invest-in-starlab-space-station-should-you/?.tsrc=rss",
+        "ts": 1792844880,
+        "when": "Oct 24, 12:28 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "Gold Just Fell Below $4,000 After Its Worst Week in Five Months",
+        "link": "https://247wallst.com/investing/2026/10/24/gold-just-fell-below-4000-after-its-worst-week-in-five-months/?.tsrc=rss",
+        "ts": 1792844856,
+        "when": "Oct 24, 12:27 PM",
+        "ticker": "GLD",
+        "industry": "Gold",
         "theory": [
           "T6",
           "T9",
@@ -5712,9 +5780,82 @@ window.DASH = {
           "T21"
         ],
         "sent": "negative"
-      }
-    ],
-    "feed": [
+      },
+      {
+        "title": "Tom Lee Says AI Selloff Is Nearing Its End, Points To Setup Similar To Cisco's 1997 Rout — Sees Opportunity In NVDA, Software And Beyond",
+        "link": "https://stocktwits.com/news-articles/markets/equity/tom-lee-ai-selloff-end-cisco-1997-opportunity-nvda-software-crypto/cZUGjHjRBUh?.tsrc=rss",
+        "ts": 1792837024,
+        "when": "Oct 24, 10:17 AM",
+        "ticker": "SMH",
+        "industry": "Semis",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "2 Unloved Stocks of 2026 to Consider Buying Now",
+        "link": "https://www.fool.com/investing/2026/10/24/2-unloved-stocks-of-2026-to-consider-buying-now/?.tsrc=rss",
+        "ts": 1792834982,
+        "when": "Oct 24, 09:43 AM",
+        "ticker": "SMH",
+        "industry": "Semis",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "negative"
+      },
+      {
+        "title": "You Are Inheriting a Portfolio of Unwanted Investments. How to Fix It.",
+        "link": "https://finance.yahoo.com/m/dc26ac38-ed34-3745-8eef-12dbcb5d78d0/you-are-inheriting-a.html?.tsrc=rss",
+        "ts": 1792832400,
+        "when": "Oct 24, 09:00 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "negative"
+      },
+      {
+        "title": "What Will a $10,000 Investment in Palantir Be Worth by 2030?",
+        "link": "https://www.fool.com/investing/2026/10/24/what-will-a-10000-investment-in-palantir-be-worth/?.tsrc=rss",
+        "ts": 1792830000,
+        "when": "Oct 24, 08:20 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "Cathie Wood-Led Ark Invest Sells PLTR, GOOG, SHOP Stocks — But Loads Up On PACB, FRNM And Other Biotech Firms",
+        "link": "https://stocktwits.com/news-articles/markets/equity/cathie-wood-ark-invest-sells-goog-pltr-crwd-buys-biotech-stocks/cZUGfEJRBUO?.tsrc=rss",
+        "ts": 1792819795,
+        "when": "Oct 24, 05:29 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
       {
         "title": "What Does Palantir Technologies (PLTR) Sovereign AI Push Mean For Investors?",
         "link": "https://finance.yahoo.com/technology/ai/articles/does-palantir-technologies-pltr-sovereign-031717592.html?.tsrc=rss",
@@ -5875,6 +6016,21 @@ window.DASH = {
         "sent": "neutral"
       },
       {
+        "title": "Palantir's Next Big Test Isn't a Partnership—It's the Numbers",
+        "link": "https://www.marketbeat.com/articles/palantirs-next-big-test-isnt-a-partnershipits-the-numbers/?utm_source=yahoofinance&utm_medium=yahoofinance&.tsrc=rss",
+        "ts": 1792769400,
+        "when": "Oct 23, 03:30 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
         "title": "Newmont Sinks 4%4 Despite Record Third-Quarter Profit as Gold Slides Back Toward $4,000",
         "link": "https://www.tikr.com/blog/newmont-sinks-44-despite-record-third-quarter-profit-as-gold-slides-back-toward-4000?ref=yahoofinance&.tsrc=rss",
         "ts": 1792768580,
@@ -5990,169 +6146,6 @@ window.DASH = {
           "T7",
           "T2",
           "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Interview: REDLattice CEO Boyd, Bold Eagle CEO Baker Plus IPO Edge Valuation Analysis",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/interview-redlattice-ceo-boyd-bold-110055553.html?.tsrc=rss",
-        "ts": 1792753255,
-        "when": "Oct 23, 11:00 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "Markets News, Oct. 23, 2026: Dow Ends Week Higher Despite Friday Tumble; Nasdaq, S&P 500 Log Weekly Losses",
-        "link": "https://www.investopedia.com/stock-market-today-dow-jones-s-and-p-500-10232026-12189475?.tsrc=rss",
-        "ts": 1792751399,
-        "when": "Oct 23, 10:29 AM",
-        "ticker": "DRAM",
-        "industry": "AI Memory/HBM",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "negative"
-      },
-      {
-        "title": "The Week in Canadian Press Releases: 10 Stories You Need to See",
-        "link": "https://finance.yahoo.com/media-advertising/articles/week-canadian-press-releases-10-101800045.html?.tsrc=rss",
-        "ts": 1792750680,
-        "when": "Oct 23, 10:18 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Looking for a Hedge? These 2 Gold ETFs Offer Very Different Ways to Invest",
-        "link": "https://www.fool.com/coverage/etfs/2026/10/23/looking-for-a-hedge-these-2-gold-etfs-offer-very-different-ways-to-invest/?.tsrc=rss",
-        "ts": 1792749002,
-        "when": "Oct 23, 09:50 AM",
-        "ticker": "GDX",
-        "industry": "Gold Miners",
-        "theory": [
-          "T6",
-          "T9",
-          "T19",
-          "T20",
-          "T21"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "If I Could Only Buy 1 AI Stock in November After This Sell-Off, It Would Be This One.",
-        "link": "https://www.fool.com/investing/2026/10/23/if-only-buy-ai-stock-in-november-sell-off-alab/?.tsrc=rss",
-        "ts": 1792745400,
-        "when": "Oct 23, 08:50 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "The Zacks Analyst Blog Highlights SHOC, XSD, FTXL, CHPS and SMH",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/zacks-analyst-blog-highlights-shoc-070900629.html?.tsrc=rss",
-        "ts": 1792739340,
-        "when": "Oct 23, 07:09 AM",
-        "ticker": "SMH",
-        "industry": "Semis",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "negative"
-      },
-      {
-        "title": "Our Pick Of The Best AI Growth Stocks In October 2026",
-        "link": "https://finance.yahoo.com/technology/ai/articles/pick-best-ai-growth-stocks-051422083.html?.tsrc=rss",
-        "ts": 1792732462,
-        "when": "Oct 23, 05:14 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "Daily ETF Flows: Chip ETFs See Inflows",
-        "link": "http://www.etf.com/sections/daily-etf-flows/daily-etf-flows-chip-etfs-see-inflows?utm_source=yahoo-finance&utm_medium=rss&utm_campaign=yahoo-finance-rss&.tsrc=rss",
-        "ts": 1792704718,
-        "when": "Oct 22, 09:31 PM",
-        "ticker": "SMH",
-        "industry": "Semis",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Palantir Technologies Inc. (PLTR) Declines More Than Market: Some Information for Investors",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/palantir-technologies-inc-pltr-declines-204503515.html?.tsrc=rss",
-        "ts": 1792701903,
-        "when": "Oct 22, 08:45 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Cathie Wood sells $16 million of surging tech stock",
-        "link": "https://www.thestreet.com/investing/stocks/cathie-wood-sells-16-million-of-surging-tech-stock-palantir-pltr?.tsrc=rss",
-        "ts": 1792696380,
-        "when": "Oct 22, 07:13 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "How Ross and On Holding Can Buck That Retail Funk",
-        "link": "https://finance.yahoo.com/m/cfe822c9-0291-3804-a214-b89ed09c874f/how-ross-and-on-holding-can.html?.tsrc=rss",
-        "ts": 1792694760,
-        "when": "Oct 22, 06:46 PM",
-        "ticker": "XLY",
-        "industry": "Consumer Disc.",
-        "theory": [
-          "T13"
         ],
         "sent": "neutral"
       }
