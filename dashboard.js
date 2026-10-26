@@ -144,10 +144,10 @@ window.DASH = {
       },
       "F2": {
         "prev_score": 4.1,
-        "score": 4.1,
-        "days_above": 4,
+        "score": 4.0,
+        "days_above": 5,
         "confirmed": true,
-        "last_above_date": "2026-10-25"
+        "last_above_date": "2026-10-26"
       },
       "F3": {
         "prev_score": 3.3,
@@ -159,13 +159,13 @@ window.DASH = {
       "F4": {
         "prev_score": 4.4,
         "score": 4.4,
-        "days_above": 47,
+        "days_above": 48,
         "confirmed": true,
-        "last_above_date": "2026-10-25"
+        "last_above_date": "2026-10-26"
       },
       "F5": {
         "prev_score": 3.2,
-        "score": 3.2,
+        "score": 2.2,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
@@ -633,7 +633,7 @@ window.DASH = {
       "cash_buffer_usd": 500.0,
       "shadow_mode": true
     },
-    "asof_ts": 1792907138,
+    "asof_ts": 1792993709,
     "refresh_interval": 1440
   },
   "asof": "2026-10-23",
@@ -2837,7 +2837,7 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-10-25",
+      "asof": "2026-10-26",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2845,12 +2845,12 @@ window.DASH = {
       "id": "F2",
       "name": "Yen-carry unwind",
       "type": "episodic",
-      "score": 4.1,
+      "score": 4.0,
       "level": 0.6,
       "velocity": {
         "label": "5d velocity",
-        "value": 0.0063,
-        "pct": 0.847
+        "value": 0.0046,
+        "pct": 0.827
       },
       "trend": null,
       "signals": [
@@ -2867,7 +2867,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-10-25",
+      "asof": "2026-10-26",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2900,7 +2900,7 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-10-25",
+      "asof": "2026-10-26",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2930,7 +2930,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-10-25",
+      "asof": "2026-10-26",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2965,7 +2965,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-10-25",
+      "asof": "2026-10-26",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -2999,43 +2999,7 @@ window.DASH = {
         "BTAL"
       ],
       "sizing": null,
-      "asof": "2026-10-25",
-      "degraded": false,
-      "trend_dir": "flat"
-    },
-    {
-      "id": "F5",
-      "name": "War / energy shock",
-      "type": "episodic",
-      "score": 3.2,
-      "level": 0.492,
-      "velocity": {
-        "label": "5d velocity",
-        "value": 0.0183,
-        "pct": 0.58
-      },
-      "trend": null,
-      "signals": [
-        {
-          "label": "Crude 5d momentum",
-          "value": 0.58
-        },
-        {
-          "label": "Gold 1d momentum",
-          "value": 0.286
-        }
-      ],
-      "theory_ids": [
-        "T21"
-      ],
-      "hedge_ticks": [
-        "GLD",
-        "GDX",
-        "FXY",
-        "DBMF"
-      ],
-      "sizing": null,
-      "asof": "2026-10-25",
+      "asof": "2026-10-26",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -3071,9 +3035,45 @@ window.DASH = {
         "ZROZ"
       ],
       "sizing": null,
-      "asof": "2026-10-25",
+      "asof": "2026-10-26",
       "degraded": false,
       "trend_dir": "flat"
+    },
+    {
+      "id": "F5",
+      "name": "War / energy shock",
+      "type": "episodic",
+      "score": 2.2,
+      "level": 0.292,
+      "velocity": {
+        "label": "5d velocity",
+        "value": -0.0246,
+        "pct": 0.294
+      },
+      "trend": null,
+      "signals": [
+        {
+          "label": "Crude 5d momentum",
+          "value": 0.294
+        },
+        {
+          "label": "Gold 1d momentum",
+          "value": 0.286
+        }
+      ],
+      "theory_ids": [
+        "T21"
+      ],
+      "hedge_ticks": [
+        "GLD",
+        "GDX",
+        "FXY",
+        "DBMF"
+      ],
+      "sizing": null,
+      "asof": "2026-10-26",
+      "degraded": false,
+      "trend_dir": "falling"
     }
   ],
   "fear_greed": {
@@ -3083,9 +3083,9 @@ window.DASH = {
   "complacency": {
     "index": 0.004,
     "valuation_stretch": 0.017,
-    "fear_term": 0.217,
+    "fear_term": 0.225,
     "divergence": 0.013,
-    "fear_avg": 4.13,
+    "fear_avg": 4.1,
     "regime": "stress",
     "note": "Stress regime - broad equity drawdown active. Hedges should be paying.",
     "pay_check": {
@@ -3113,7 +3113,7 @@ window.DASH = {
   },
   "fear_sizing": null,
   "hedge_harvest": {
-    "asof": "2026-10-25",
+    "asof": "2026-10-26",
     "items": [
       {
         "ticker": "BTAL",
@@ -5638,13 +5638,13 @@ window.DASH = {
     "enabled": true
   },
   "news": {
-    "asof": "2026-10-25 05:45:39",
+    "asof": "2026-10-26 05:48:29",
     "big_stories": [
       {
-        "title": "Stock-Split Watch: Is Palantir Next?",
-        "link": "https://www.fool.com/investing/2026/10/24/stock-split-watch-is-palantir-next/?.tsrc=rss",
-        "ts": 1792882200,
-        "when": "Oct 24, 10:50 PM",
+        "title": "How Low Can Snowflake Stock Go?",
+        "link": "https://www.trefis.com/stock/snow/articles/620456/how-low-can-snowflake-stock-go/2026-10-26?.tsrc=rss",
+        "ts": 1792992703,
+        "when": "Oct 26, 05:31 AM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -5653,7 +5653,23 @@ window.DASH = {
           "T2",
           "T14"
         ],
-        "sent": "neutral"
+        "sent": "negative"
+      },
+      {
+        "title": "Selling $300,000 of GLD Bought Five Years Ago Means a $162,713 Gain Taxed as a Collectible, Not a Stock",
+        "link": "https://247wallst.com/investing/etf/2026/10/25/selling-300000-of-gld-bought-five-years-ago-means-a-162713-gain-taxed-as-a-collectible-not-a-stock/?.tsrc=rss",
+        "ts": 1792958611,
+        "when": "Oct 25, 08:03 PM",
+        "ticker": "GLD",
+        "industry": "Gold",
+        "theory": [
+          "T6",
+          "T9",
+          "T19",
+          "T20",
+          "T21"
+        ],
+        "sent": "positive"
       },
       {
         "title": "How Much Should a 70-Year-Old Have Invested to Add $3,600 a Month to Social Security?",
@@ -5681,10 +5697,57 @@ window.DASH = {
         "sent": "negative"
       },
       {
-        "title": "Gold Just Fell Below $4,000 After Its Worst Week in Five Months",
-        "link": "https://247wallst.com/investing/2026/10/24/gold-just-fell-below-4000-after-its-worst-week-in-five-months/?.tsrc=rss",
-        "ts": 1792844856,
-        "when": "Oct 24, 12:27 PM",
+        "title": "AI fever ignites a boom in thematic ETFs as fund managers hunt for their next big hit",
+        "link": "https://www.marketwatch.com/story/ai-fever-ignites-a-boom-in-thematic-etfs-as-fund-managers-hunt-for-their-next-big-hit-82d1566c?.tsrc=rss",
+        "ts": 1792843200,
+        "when": "Oct 24, 12:00 PM",
+        "ticker": "DRAM",
+        "industry": "AI Memory/HBM",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      }
+    ],
+    "feed": [
+      {
+        "title": "How Low Can Snowflake Stock Go?",
+        "link": "https://www.trefis.com/stock/snow/articles/620456/how-low-can-snowflake-stock-go/2026-10-26?.tsrc=rss",
+        "ts": 1792992703,
+        "when": "Oct 26, 05:31 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "negative"
+      },
+      {
+        "title": "Palantir's AI pitch gets a 30,000-hour proof point",
+        "link": "https://www.thestreet.com/investing/palantirs-ai-pitch-gets-a-30000-hour-proof-point?.tsrc=rss",
+        "ts": 1792982820,
+        "when": "Oct 26, 02:47 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "Selling $300,000 of GLD Bought Five Years Ago Means a $162,713 Gain Taxed as a Collectible, Not a Stock",
+        "link": "https://247wallst.com/investing/etf/2026/10/25/selling-300000-of-gld-bought-five-years-ago-means-a-162713-gain-taxed-as-a-collectible-not-a-stock/?.tsrc=rss",
+        "ts": 1792958611,
+        "when": "Oct 25, 08:03 PM",
         "ticker": "GLD",
         "industry": "Gold",
         "theory": [
@@ -5694,22 +5757,98 @@ window.DASH = {
           "T20",
           "T21"
         ],
-        "sent": "negative"
+        "sent": "positive"
       },
       {
-        "title": "Sector Update: Consumer Stocks Retreat Friday",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-retreat-friday-200354006.html?.tsrc=rss",
-        "ts": 1792785834,
-        "when": "Oct 23, 08:03 PM",
-        "ticker": "XLY",
-        "industry": "Consumer Disc.",
+        "title": "I Said Palantir Stock Would Top $220 This Year. Here's What It Has to Prove on Nov. 2.",
+        "link": "https://www.fool.com/investing/2026/10/25/i-said-palantir-stock-would-top-220-this-year-here/?.tsrc=rss",
+        "ts": 1792947780,
+        "when": "Oct 25, 05:03 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
         "theory": [
-          "T13"
+          "T1",
+          "T7",
+          "T2",
+          "T14"
         ],
         "sent": "positive"
-      }
-    ],
-    "feed": [
+      },
+      {
+        "title": "Here's What a $10,000 Investment in Palantir Could Be Worth in 10 Years",
+        "link": "https://www.fool.com/investing/2026/10/25/heres-what-a-10000-investment-in-palantir-could-be/?.tsrc=rss",
+        "ts": 1792932000,
+        "when": "Oct 25, 12:40 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "The Next Palantir? Why This Under-the-Radar Software Stock Could Be the Biggest Surprise of 2027",
+        "link": "https://www.fool.com/investing/2026/10/25/the-next-snowflake-why-this-under-the-radar-softwa/?.tsrc=rss",
+        "ts": 1792925400,
+        "when": "Oct 25, 10:50 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "Prediction: This Is Where Palantir Stock Will Trade When Its Revenue Hits $10 Billion",
+        "link": "https://www.fool.com/investing/2026/10/25/prediction-this-is-where-palantir-stock-will-trade-when-its-revenue-hits-usd10-billion/?.tsrc=rss",
+        "ts": 1792917842,
+        "when": "Oct 25, 08:44 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "Palantir CEO Alex Karp says neurodivergent workers will thrive in the AI era. An autistic psychologist says he has a point",
+        "link": "https://finance.yahoo.com/technology/ai/articles/palantir-ceo-alex-karp-says-080900524.html?.tsrc=rss",
+        "ts": 1792915740,
+        "when": "Oct 25, 08:09 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "Palantir Stock Is Up 17% This Year. Why the Return Hides a 36% Drawdown",
+        "link": "https://www.tikr.com/blog/palantir-stock-is-up-17-this-year-why-the-return-hides-a-36-drawdown?ref=yahoofinance&.tsrc=rss",
+        "ts": 1792908974,
+        "when": "Oct 25, 06:16 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "negative"
+      },
       {
         "title": "Stock-Split Watch: Is Palantir Next?",
         "link": "https://www.fool.com/investing/2026/10/24/stock-split-watch-is-palantir-next/?.tsrc=rss",
@@ -5780,6 +5919,21 @@ window.DASH = {
           "T21"
         ],
         "sent": "negative"
+      },
+      {
+        "title": "AI fever ignites a boom in thematic ETFs as fund managers hunt for their next big hit",
+        "link": "https://www.marketwatch.com/story/ai-fever-ignites-a-boom-in-thematic-etfs-as-fund-managers-hunt-for-their-next-big-hit-82d1566c?.tsrc=rss",
+        "ts": 1792843200,
+        "when": "Oct 24, 12:00 PM",
+        "ticker": "DRAM",
+        "industry": "AI Memory/HBM",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
       },
       {
         "title": "Tom Lee Says AI Selloff Is Nearing Its End, Points To Setup Similar To Cisco's 1997 Rout — Sees Opportunity In NVDA, Software And Beyond",
@@ -5971,57 +6125,12 @@ window.DASH = {
         "sent": "neutral"
       },
       {
-        "title": "Palantir Investors Have One Big Number to Watch in 2027",
-        "link": "https://247wallst.com/investing/2026/10/23/palantir-investors-have-one-big-number-to-watch-in-2027/?.tsrc=rss",
-        "ts": 1792773036,
-        "when": "Oct 23, 04:30 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "Palantir Guided for $2.16 Billion in Revenue for Q3. Its Last 2 Quarters Suggest We Should Expect More.",
-        "link": "https://www.fool.com/investing/2026/10/23/palantir-guided-for-216-billion-in-revenue-for-q3/?.tsrc=rss",
-        "ts": 1792772640,
-        "when": "Oct 23, 04:24 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
         "title": "Memory, Storage Stocks Rebound After Western Digital Earnings Land",
         "link": "https://www.investopedia.com/market-update-memory-storage-stocks-rebound-after-western-digital-earnings-land-wdc-12189805?.tsrc=rss",
         "ts": 1792771096,
         "when": "Oct 23, 03:58 PM",
         "ticker": "DRAM",
         "industry": "AI Memory/HBM",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Palantir's Next Big Test Isn't a Partnership—It's the Numbers",
-        "link": "https://www.marketbeat.com/articles/palantirs-next-big-test-isnt-a-partnershipits-the-numbers/?utm_source=yahoofinance&utm_medium=yahoofinance&.tsrc=rss",
-        "ts": 1792769400,
-        "when": "Oct 23, 03:30 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
         "theory": [
           "T1",
           "T7",
@@ -6045,109 +6154,6 @@ window.DASH = {
           "T21"
         ],
         "sent": "negative"
-      },
-      {
-        "title": "Stellantis Sinks 8% as Q3 Report Nears; Ford Drops 4%, General Motors Slides 3%",
-        "link": "https://247wallst.com/investing/2026/10/23/stellantis-sinks-8-as-q3-report-nears-ford-drops-4-general-motors-slides-3/?.tsrc=rss",
-        "ts": 1792767373,
-        "when": "Oct 23, 02:56 PM",
-        "ticker": "XLY",
-        "industry": "Consumer Disc.",
-        "theory": [
-          "T13"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Nasdaq Turns Green With Chip Stocks Rebounding",
-        "link": "https://finance.yahoo.com/m/06467ddf-4e9f-3f23-94b6-3cfc20c3bff0/nasdaq-turns-green-with-chip.html?.tsrc=rss",
-        "ts": 1792767068,
-        "when": "Oct 23, 02:51 PM",
-        "ticker": "DRAM",
-        "industry": "AI Memory/HBM",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "SK Hynix Jumps 4% After Scrapping Solidigm’s U.S. IPO; Micron and SanDisk Edge Higher",
-        "link": "https://247wallst.com/investing/2026/10/23/sk-hynix-jumps-4-after-scrapping-solidigms-u-s-ipo-micron-and-sandisk-edges-higher/?.tsrc=rss",
-        "ts": 1792761952,
-        "when": "Oct 23, 01:25 PM",
-        "ticker": "DRAM",
-        "industry": "AI Memory/HBM",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Palantir Stock Price Prediction: Is $212 in Reach by Year-End?",
-        "link": "https://247wallst.com/investing/2026/10/23/palantir-stock-price-prediction-is-212-in-reach-by-year-end/?.tsrc=rss",
-        "ts": 1792761946,
-        "when": "Oct 23, 01:25 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Gold Is Sliding Back Toward $4,000 as the Haven Trade Breaks",
-        "link": "https://247wallst.com/investing/2026/10/23/gold-is-sliding-back-toward-4000-as-the-haven-trade-breaks/?.tsrc=rss",
-        "ts": 1792761776,
-        "when": "Oct 23, 01:22 PM",
-        "ticker": "GLD",
-        "industry": "Gold",
-        "theory": [
-          "T6",
-          "T9",
-          "T19",
-          "T20",
-          "T21"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Tech Regains Footing, Undergirds Wall Street Pre-Bell; Asia Mixed, Europe Off",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/tech-regains-footing-undergirds-wall-112518800.html?.tsrc=rss",
-        "ts": 1792754718,
-        "when": "Oct 23, 11:25 AM",
-        "ticker": "SMH",
-        "industry": "Semis",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Even With SOXX and DRAM Down Between 24% and 42% From Their Highs, I'd Still Rather Buy This Vanguard ETF for Semiconductor Stock Exposure",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/even-soxx-dram-down-between-112000899.html?.tsrc=rss",
-        "ts": 1792754400,
-        "when": "Oct 23, 11:20 AM",
-        "ticker": "DRAM",
-        "industry": "AI Memory/HBM",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
       }
     ]
   },
