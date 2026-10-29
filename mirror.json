@@ -33,9 +33,9 @@
       "ticker": "SGOV",
       "sleeve": "Short-Term Bonds (SGOV)",
       "buy_date": "2026-08-11",
-      "shares": 95.749118,
-      "current_value": 9641.46,
-      "pct_of_book": 10.21,
+      "shares": 96.171263,
+      "current_value": 9683.97,
+      "pct_of_book": 10.26,
       "theory_ids": []
     },
     {
@@ -653,6 +653,16 @@
       "price": 101.08,
       "amount": 5938.77,
       "reason": "re-affirmed (SOXX reclaimed 481.7449, 2 close(s))"
+    },
+    {
+      "ts": "2026-10-29 06:47:08",
+      "type": "dividend",
+      "ticker": "DBMF",
+      "action": "sgov",
+      "shares": 0.4221,
+      "price": 100.7,
+      "amount": 42.51,
+      "reason": "DIV $42.51 (0.146/sh x 291.1559) -> SGOV 0.4221 sh @ 100.70"
     }
   ]
 }
