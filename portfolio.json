@@ -136,56 +136,56 @@
     "fear_state": {
       "F1": {
         "prev_score": 2.4,
-        "score": 2.4,
+        "score": 2.9,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F2": {
-        "prev_score": 3.6,
-        "score": 2.3,
+        "prev_score": 2.3,
+        "score": 2.5,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F3": {
-        "prev_score": 2.5,
-        "score": 2.3,
+        "prev_score": 2.3,
+        "score": 1.4,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F4": {
-        "prev_score": 4.3,
-        "score": 4.2,
-        "days_above": 52,
-        "confirmed": true,
-        "last_above_date": "2026-10-30"
+        "prev_score": 4.2,
+        "score": 3.7,
+        "days_above": 0,
+        "confirmed": false,
+        "last_above_date": null
       },
       "F5": {
-        "prev_score": 3.4,
-        "score": 2.7,
+        "prev_score": 2.7,
+        "score": 3.0,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F6": {
-        "prev_score": 4.0,
-        "score": 3.9,
+        "prev_score": 3.9,
+        "score": 3.7,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F7": {
         "prev_score": 1.6,
-        "score": 1.6,
+        "score": 2.9,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F8": {
         "prev_score": 3.0,
-        "score": 3.0,
+        "score": 3.2,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
@@ -634,8 +634,8 @@
     }
   },
   "account": {
-    "cash": 0.0,
-    "realized_pnl": -5784.16,
+    "cash": 25.0,
+    "realized_pnl": -7521.78,
     "history": [
       {
         "date": "2026-08-10",
@@ -2181,6 +2181,31 @@
           "SGOV": 100.705,
           "SOXL": 99.77
         }
+      },
+      {
+        "date": "2026-10-30",
+        "total_value": 89025.73,
+        "cash": 25.0,
+        "invested_value": 89000.73,
+        "day_change": -3844.46,
+        "prices": {
+          "TQQQ": 60.547,
+          "SMH": 513.9,
+          "DRAM": 47.195,
+          "PLTR": 184.25,
+          "NUKZ": 56.33,
+          "XLY": 115.075,
+          "EZU": 65.015,
+          "ZROZ": 58.265,
+          "FXY": 58.245,
+          "VIXM": 13.32,
+          "QFLR": 34.42,
+          "GLD": 355.499,
+          "GDX": 75.96,
+          "BTAL": 13.34,
+          "DBMF": 32.455,
+          "SGOV": 100.735
+        }
       }
     ],
     "dividends": 99.17
@@ -2858,6 +2883,30 @@
       "shares": 0.4221,
       "amount": 42.51,
       "realized_pnl": 0
+    },
+    {
+      "date": "2026-10-30",
+      "ts": "18:26:18",
+      "ticker": "SOXL",
+      "name": "Direxion Daily Semiconductor Bull 3X Shares",
+      "reason": "stop_loss",
+      "note": "index_stop (SOXX -9.55%)",
+      "state": "vol_halt",
+      "price": 71.5,
+      "buy_price": 101.08,
+      "shares": 58.753166,
+      "realized_pnl": -1737.62
+    },
+    {
+      "date": "2026-10-30",
+      "ts": "18:26:18",
+      "ticker": "SGOV",
+      "name": "iShares 0-3 Month Treasury Bond ETF",
+      "reason": "deploy_cash",
+      "price": 100.735,
+      "buy_price": 100.735,
+      "shares": 41.4538,
+      "realized_pnl": 0
     }
   ],
   "orders": [
@@ -3483,8 +3532,8 @@
       "theory_ids": [],
       "buy_date": "2026-08-11",
       "buy_price": 100.505,
-      "shares": 96.171263,
-      "cost": 9668.49,
+      "shares": 137.625077,
+      "cost": 13844.34,
       "take_profit_pct": 0.0,
       "stop_loss_pct": -0.1,
       "status": "open",
@@ -3508,10 +3557,21 @@
         "T1",
         "T7"
       ],
-      "status": "open",
+      "status": "closed",
       "thesis": "A-TIER CONVICTION. Semis remain the epicenter of the $1T AI capex cycle (T1); backlogs expanding, earnings above estimates. The June selloff was technical, not fundamental. 3x leverage is the highest-octane expression with vol-decay risk offset by VIXM. V5: boosted +2k. V5.1: stop is index-referenced (SOXX -9%), the -35% wrapper level is only a backstop. [RE-ENTRY on 2026-10-28: theory re-affirmed after SOXX reclaimed 481.7449]",
       "entry_note": "Vol-halt re-entry: index reclaim confirmed the test continues.",
-      "dynamic_stop_pct": -0.0936
+      "dynamic_stop_pct": -0.0921,
+      "exit": {
+        "date": "2026-10-30",
+        "price": 71.5,
+        "reason": "stop_loss",
+        "note": "index_stop (SOXX -9.55%)",
+        "state": "vol_halt",
+        "reclaim_ticker": "SOXX",
+        "reclaim_level": 464.0159,
+        "reentry_amount": 4201.15,
+        "realized_pnl": -1737.62
+      }
     }
   ],
   "theories": [
