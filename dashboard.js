@@ -137,21 +137,21 @@ window.DASH = {
     "fear_state": {
       "F1": {
         "prev_score": 2.8,
-        "score": 2.8,
+        "score": 3.1,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F2": {
-        "prev_score": 2.2,
-        "score": 2.4,
+        "prev_score": 2.4,
+        "score": 3.1,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F3": {
         "prev_score": 1.3,
-        "score": 1.3,
+        "score": 1.5,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
@@ -164,22 +164,22 @@ window.DASH = {
         "last_above_date": null
       },
       "F5": {
-        "prev_score": 2.9,
-        "score": 2.4,
+        "prev_score": 2.4,
+        "score": 2.6,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F6": {
         "prev_score": 3.7,
-        "score": 3.7,
+        "score": 3.5,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F7": {
         "prev_score": 2.8,
-        "score": 2.8,
+        "score": 3.3,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
@@ -633,7 +633,7 @@ window.DASH = {
       "cash_buffer_usd": 500.0,
       "shadow_mode": true
     },
-    "asof_ts": 1793603985,
+    "asof_ts": 1793691494,
     "refresh_interval": 1440
   },
   "asof": "2026-10-30",
@@ -768,8 +768,8 @@ window.DASH = {
       "underlying_stop_pct": -0.08,
       "underlying_buy_price": 720.87,
       "dynamic_stop_pct": -0.08,
-      "underlying_ema20": 713.4291715741182,
-      "underlying_atr14": 10.958711826699338,
+      "underlying_ema20": 710.4771005332601,
+      "underlying_atr14": 11.382168400026785,
       "runner_active": false,
       "base_trimmed": false,
       "theory_ids": [
@@ -884,8 +884,8 @@ window.DASH = {
       "underlying_stop_pct": -0.09,
       "underlying_buy_price": 529.39,
       "dynamic_stop_pct": -0.09,
-      "underlying_ema20": 513.4068171803927,
-      "underlying_atr14": 21.409272399240344,
+      "underlying_ema20": 509.42140123890266,
+      "underlying_atr14": 20.791558190765564,
       "runner_active": false,
       "base_trimmed": false,
       "theory_ids": [
@@ -957,8 +957,8 @@ window.DASH = {
       "underlying_stop_pct": -0.09,
       "underlying_buy_price": 511.06,
       "dynamic_stop_pct": -0.0921,
-      "underlying_ema20": 513.4068171803927,
-      "underlying_atr14": 21.409272399240344,
+      "underlying_ema20": 509.42140123890266,
+      "underlying_atr14": 20.791558190765564,
       "runner_active": false,
       "base_trimmed": false,
       "theory_ids": [
@@ -2939,54 +2939,21 @@ window.DASH = {
   ],
   "fears": [
     {
-      "id": "F6",
-      "name": "Rates shock / duration liquidation",
-      "type": "structural",
-      "score": 3.7,
-      "level": 0.855,
-      "velocity": null,
-      "trend": {
-        "label": "50d trend",
-        "value": 0.0003,
-        "pct": 0.219
-      },
-      "signals": [
-        {
-          "label": "TLT/SHY (long-vs-short duration)",
-          "value": 0.85
-        },
-        {
-          "label": "10y yield level",
-          "value": 0.862
-        }
-      ],
-      "theory_ids": [
-        "T6"
-      ],
-      "hedge_ticks": [
-        "SGOV"
-      ],
-      "sizing": null,
-      "asof": "2026-11-02",
-      "degraded": false,
-      "trend_dir": "flat"
-    },
-    {
       "id": "F4",
       "name": "Inflation resurgence",
       "type": "structural",
       "score": 3.5,
-      "level": 0.785,
+      "level": 0.788,
       "velocity": null,
       "trend": {
         "label": "50d trend",
-        "value": -0.0014,
-        "pct": 0.214
+        "value": 0.0005,
+        "pct": 0.281
       },
       "signals": [
         {
           "label": "TIP/IEF (breakevens proxy)",
-          "value": 0.785
+          "value": 0.788
         }
       ],
       "theory_ids": [
@@ -2998,26 +2965,89 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-11-02",
+      "asof": "2026-11-03",
       "degraded": false,
       "trend_dir": "flat"
+    },
+    {
+      "id": "F6",
+      "name": "Rates shock / duration liquidation",
+      "type": "structural",
+      "score": 3.5,
+      "level": 0.832,
+      "velocity": null,
+      "trend": {
+        "label": "50d trend",
+        "value": -0.0046,
+        "pct": 0.138
+      },
+      "signals": [
+        {
+          "label": "TLT/SHY (long-vs-short duration)",
+          "value": 0.815
+        },
+        {
+          "label": "10y yield level",
+          "value": 0.858
+        }
+      ],
+      "theory_ids": [
+        "T6"
+      ],
+      "hedge_ticks": [
+        "SGOV"
+      ],
+      "sizing": null,
+      "asof": "2026-11-03",
+      "degraded": false,
+      "trend_dir": "falling"
+    },
+    {
+      "id": "F7",
+      "name": "Credit stress / HY spread",
+      "type": "episodic",
+      "score": 3.3,
+      "level": 0.288,
+      "velocity": {
+        "label": "5d velocity",
+        "value": 0.001,
+        "pct": 0.694
+      },
+      "trend": null,
+      "signals": [
+        {
+          "label": "HYG/LQD (credit spread proxy)",
+          "value": 0.288
+        }
+      ],
+      "theory_ids": [
+        "T6"
+      ],
+      "hedge_ticks": [
+        "BTAL",
+        "DBMF"
+      ],
+      "sizing": null,
+      "asof": "2026-11-03",
+      "degraded": false,
+      "trend_dir": "rising"
     },
     {
       "id": "F8",
       "name": "Recession / growth freeze",
       "type": "structural",
       "score": 3.2,
-      "level": 0.49,
+      "level": 0.483,
       "velocity": null,
       "trend": {
         "label": "50d trend",
-        "value": 0.0606,
-        "pct": 0.71
+        "value": 0.0563,
+        "pct": 0.671
       },
       "signals": [
         {
           "label": "XLY/XLP (cyclical vs staples)",
-          "value": 0.981
+          "value": 0.965
         },
         {
           "label": "SPY below 200d MA",
@@ -3032,7 +3062,7 @@ window.DASH = {
         "BTAL"
       ],
       "sizing": null,
-      "asof": "2026-11-02",
+      "asof": "2026-11-03",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -3040,22 +3070,22 @@ window.DASH = {
       "id": "F1",
       "name": "AI / tech concentration pop",
       "type": "structural",
-      "score": 2.8,
-      "level": 0.434,
+      "score": 3.1,
+      "level": 0.475,
       "velocity": null,
       "trend": {
         "label": "50d trend",
-        "value": 0.0226,
-        "pct": 0.519
+        "value": 0.0406,
+        "pct": 0.648
       },
       "signals": [
         {
           "label": "QQQ/RSP concentration ratio",
-          "value": 0.777
+          "value": 0.846
         },
         {
           "label": "QQQ drawdown from 52w high",
-          "value": 0.091
+          "value": 0.103
         }
       ],
       "theory_ids": [
@@ -3068,56 +3098,26 @@ window.DASH = {
         "ZROZ"
       ],
       "sizing": null,
-      "asof": "2026-11-02",
+      "asof": "2026-11-03",
       "degraded": false,
-      "trend_dir": "flat"
-    },
-    {
-      "id": "F7",
-      "name": "Credit stress / HY spread",
-      "type": "episodic",
-      "score": 2.8,
-      "level": 0.262,
-      "velocity": {
-        "label": "5d velocity",
-        "value": -0.0009,
-        "pct": 0.522
-      },
-      "trend": null,
-      "signals": [
-        {
-          "label": "HYG/LQD (credit spread proxy)",
-          "value": 0.262
-        }
-      ],
-      "theory_ids": [
-        "T6"
-      ],
-      "hedge_ticks": [
-        "BTAL",
-        "DBMF"
-      ],
-      "sizing": null,
-      "asof": "2026-11-02",
-      "degraded": false,
-      "trend_dir": "flat"
+      "trend_dir": "rising"
     },
     {
       "id": "F2",
       "name": "Yen-carry unwind",
       "type": "episodic",
-      "score": 2.4,
-      "level": 0.55,
+      "score": 3.1,
+      "level": 0.496,
       "velocity": {
         "label": "5d velocity",
-        "value": -0.0064,
-        "pct": 0.263
+        "value": -0.0016,
+        "pct": 0.529
       },
       "trend": null,
       "signals": [
         {
           "label": "Yen strength (FXY level)",
-          "value": 0.55
+          "value": 0.496
         }
       ],
       "theory_ids": [
@@ -3128,7 +3128,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-11-02",
+      "asof": "2026-11-03",
       "degraded": false,
       "trend_dir": "rising"
     },
@@ -3136,22 +3136,22 @@ window.DASH = {
       "id": "F5",
       "name": "War / energy shock",
       "type": "episodic",
-      "score": 2.4,
-      "level": 0.286,
+      "score": 2.6,
+      "level": 0.506,
       "velocity": {
         "label": "5d velocity",
-        "value": -0.0108,
-        "pct": 0.388
+        "value": -0.0176,
+        "pct": 0.349
       },
       "trend": null,
       "signals": [
         {
-          "label": "Crude 5d momentum",
-          "value": 0.388
+          "label": "Gold 1d momentum",
+          "value": 0.873
         },
         {
-          "label": "Gold 1d momentum",
-          "value": 0.046
+          "label": "Crude 5d momentum",
+          "value": 0.349
         }
       ],
       "theory_ids": [
@@ -3164,30 +3164,30 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-11-02",
+      "asof": "2026-11-03",
       "degraded": false,
-      "trend_dir": "falling"
+      "trend_dir": "rising"
     },
     {
       "id": "F3",
       "name": "China / Taiwan escalation",
       "type": "episodic",
-      "score": 1.3,
-      "level": 0.066,
+      "score": 1.5,
+      "level": 0.091,
       "velocity": {
         "label": "5d velocity",
-        "value": -0.0364,
-        "pct": 0.067
+        "value": -0.0273,
+        "pct": 0.137
       },
       "trend": null,
       "signals": [
         {
-          "label": "HK equities drawdown",
-          "value": 0.068
+          "label": "Gold 3d momentum",
+          "value": 0.128
         },
         {
-          "label": "Gold 3d momentum",
-          "value": 0.062
+          "label": "HK equities drawdown",
+          "value": 0.067
         }
       ],
       "theory_ids": [
@@ -3199,55 +3199,56 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-11-02",
+      "asof": "2026-11-03",
       "degraded": false,
-      "trend_dir": "flat"
+      "trend_dir": "rising"
     }
   ],
   "fear_greed": {
-    "index": 26,
-    "label": "Fear"
+    "index": 23,
+    "label": "Extreme Fear"
   },
   "complacency": {
     "index": 0.002,
-    "valuation_stretch": 0.006,
-    "fear_term": 0.383,
-    "divergence": 0.004,
-    "fear_avg": 3.47,
+    "valuation_stretch": 0.004,
+    "fear_term": 0.392,
+    "divergence": 0.003,
+    "fear_avg": 3.43,
     "regime": "moderate",
     "note": "Moderate stress - hedges have a job to do.",
     "pay_check": {
-      "fear_id": "F6",
-      "fear_name": "Rates shock / duration liquidation",
-      "score": 3.7,
+      "fear_id": "F4",
+      "fear_name": "Inflation resurgence",
+      "score": 3.5,
       "checks": [
         {
+          "ticker": "GLD",
+          "ret_pct": -4.75,
+          "paying": false
+        },
+        {
+          "ticker": "GDX",
+          "ret_pct": -8.47,
+          "paying": false
+        },
+        {
           "ticker": "SGOV",
-          "ret_pct": 0.14,
-          "paying": true
+          "ret_pct": -0.16,
+          "paying": false
         }
       ]
     }
   },
   "fear_sizing": null,
   "hedge_harvest": {
-    "asof": "2026-11-02",
+    "asof": "2026-11-03",
     "items": [
       {
         "ticker": "BTAL",
         "pct": 50,
-        "z": 2.98,
+        "z": 3.15,
         "reasons": [
-          "BTAL 3.0sigma above 50d mean",
-          "growth vol-halt ACTIVE (NLR halted) - redeploy at the bottom"
-        ]
-      },
-      {
-        "ticker": "DBMF",
-        "pct": 50,
-        "z": 2.04,
-        "reasons": [
-          "DBMF 2.0sigma above 50d mean",
+          "BTAL 3.2sigma above 50d mean",
           "growth vol-halt ACTIVE (NLR halted) - redeploy at the bottom"
         ]
       }
@@ -3492,6 +3493,10 @@ window.DASH = {
       {
         "date": "2026-10-30",
         "value": 98003.51
+      },
+      {
+        "date": "2026-11-02",
+        "value": 97534.06
       }
     ],
     "aligned": [
@@ -3725,9 +3730,9 @@ window.DASH = {
       }
     ],
     "summary": {
-      "total_return_pct": -2.0,
-      "max_drawdown_pct": -3.06,
-      "sharpe_annualized": -0.82
+      "total_return_pct": -2.47,
+      "max_drawdown_pct": -3.46,
+      "sharpe_annualized": -1.01
     }
   },
   "benchmarks": {
@@ -3970,6 +3975,10 @@ window.DASH = {
         {
           "date": "2026-10-30",
           "value": 98003.51
+        },
+        {
+          "date": "2026-11-02",
+          "value": 97534.06
         }
       ],
       "aligned": [
@@ -4203,9 +4212,9 @@ window.DASH = {
         }
       ],
       "summary": {
-        "total_return_pct": -2.0,
-        "max_drawdown_pct": -3.06,
-        "sharpe_annualized": -0.82
+        "total_return_pct": -2.47,
+        "max_drawdown_pct": -3.46,
+        "sharpe_annualized": -1.01
       }
     },
     "QQQ": {
@@ -4447,6 +4456,10 @@ window.DASH = {
         {
           "date": "2026-10-30",
           "value": 95885.46
+        },
+        {
+          "date": "2026-11-02",
+          "value": 94580.12
         }
       ],
       "aligned": [
@@ -4680,9 +4693,9 @@ window.DASH = {
         }
       ],
       "summary": {
-        "total_return_pct": -4.11,
-        "max_drawdown_pct": -9.11,
-        "sharpe_annualized": -0.93
+        "total_return_pct": -5.42,
+        "max_drawdown_pct": -10.34,
+        "sharpe_annualized": -1.24
       }
     },
     "TQQQ": {
@@ -4924,6 +4937,10 @@ window.DASH = {
         {
           "date": "2026-10-30",
           "value": 84186.83
+        },
+        {
+          "date": "2026-11-02",
+          "value": 80724.87
         }
       ],
       "aligned": [
@@ -5157,9 +5174,9 @@ window.DASH = {
         }
       ],
       "summary": {
-        "total_return_pct": -15.81,
-        "max_drawdown_pct": -26.4,
-        "sharpe_annualized": -1.13
+        "total_return_pct": -19.28,
+        "max_drawdown_pct": -29.42,
+        "sharpe_annualized": -1.43
       }
     },
     "MUU": {
@@ -5401,6 +5418,10 @@ window.DASH = {
         {
           "date": "2026-10-30",
           "value": 94528.87
+        },
+        {
+          "date": "2026-11-02",
+          "value": 83537.14
         }
       ],
       "aligned": [
@@ -5634,9 +5655,9 @@ window.DASH = {
         }
       ],
       "summary": {
-        "total_return_pct": -5.47,
-        "max_drawdown_pct": -41.14,
-        "sharpe_annualized": 0.32
+        "total_return_pct": -16.46,
+        "max_drawdown_pct": -45.32,
+        "sharpe_annualized": -0.14
       }
     }
   },
@@ -5947,8 +5968,8 @@ window.DASH = {
     },
     "mode": "execute",
     "gauge": {
-      "index": 26,
-      "label": "Fear"
+      "index": 23,
+      "label": "Extreme Fear"
     },
     "calibration": {
       "TQQQ": {
@@ -5965,13 +5986,13 @@ window.DASH = {
     "enabled": true
   },
   "news": {
-    "asof": "2026-11-02 07:19:45",
+    "asof": "2026-11-03 07:38:15",
     "big_stories": [
       {
-        "title": "Palantir’s Q3 Report To Test Stock Defensiveness Amid AI Panic — What Analysts Are Expecting",
-        "link": "https://stocktwits.com/news-articles/markets/equity/palantir-s-q3-report-to-test-stock-defensiveness-amid-ai-panic-what-analysts-are-expecting/cNG9FfPR92V?.tsrc=rss",
-        "ts": 1793601422,
-        "when": "Nov 02, 06:37 AM",
+        "title": "Michael Burry’s Substack Turns One: He Says A Year Is ‘Useless’ For Judging Skill — Here’s How His Stock Picks Have Fared",
+        "link": "https://stocktwits.com/news-articles/markets/equity/michael-burry-substack-turns-one-year-useless-judging-skill-how-stock-picks-fared/cNGQuz4R95d?.tsrc=rss",
+        "ts": 1793686641,
+        "when": "Nov 03, 06:17 AM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -5980,13 +6001,13 @@ window.DASH = {
           "T2",
           "T14"
         ],
-        "sent": "negative"
+        "sent": "neutral"
       },
       {
-        "title": "MU, SNDK, DRAM Inch Higher Overnight After Mixed Week: Japan’s Kioxia Plunges After Cautious Memory Outlook",
-        "link": "https://stocktwits.com/news-articles/markets/equity/mu-sndk-dram-inch-higher-overnight-after-mixed-week-japan-s-kioxia-plunges-after-cautious-memory-outlook/cNG9K4wR92O?.tsrc=rss",
-        "ts": 1793585348,
-        "when": "Nov 02, 02:09 AM",
+        "title": "This Money Market ETF Was Built with Stablecoin Issuers in Mind. Here’s What That Means if You Park Your Cash in It",
+        "link": "https://247wallst.com/investing/etf/2026/11/02/this-money-market-etf-was-built-with-stablecoin-issuers-in-mind-heres-what-that-means-if-you-park-your-cash-in-it/?.tsrc=rss",
+        "ts": 1793669602,
+        "when": "Nov 03, 01:33 AM",
         "ticker": "DRAM",
         "industry": "AI Memory/HBM",
         "theory": [
@@ -5995,35 +6016,13 @@ window.DASH = {
           "T2",
           "T14"
         ],
-        "sent": "negative"
-      },
-      {
-        "title": "The U.S. Just Borrowed a Record $839 Billion in One Week",
-        "link": "https://247wallst.com/investing/2026/10/31/the-u-s-just-borrowed-a-record-839-billion-in-one-week/?.tsrc=rss",
-        "ts": 1793463235,
-        "when": "Oct 31, 04:13 PM",
-        "ticker": "SGOV",
-        "industry": "Equities",
-        "theory": [],
         "sent": "neutral"
       },
       {
-        "title": "Is Wall Street Bullish or Bearish on Starbucks’ Stock?",
-        "link": "https://www.barchart.com/story/news/8572939/is-wall-street-bullish-or-bearish-on-starbucks-stock?.tsrc=rss",
-        "ts": 1793459174,
-        "when": "Oct 31, 03:06 PM",
-        "ticker": "XLY",
-        "industry": "Consumer Disc.",
-        "theory": [
-          "T13"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Intel Drags Down CPU Rivals. Is it a Buying Opportunity for AMD and Arm?",
-        "link": "https://www.fool.com/investing/2026/10/30/intel-drags-down-cpu-rivals-is-it-a-buying-opportunity-for-the-amd-and-arm/?.tsrc=rss",
-        "ts": 1793416801,
-        "when": "Oct 31, 03:20 AM",
+        "title": "S&P 500, Nasdaq Drop As Capex Concerns Grip Tech Investors, Outweighing US-Iran Diplomacy Hope —  ORCL, META, PLTR, AAPL In Focus",
+        "link": "https://stocktwits.com/news-articles/markets/equity/s-and-p-500-nasdaq-drop-as-capex-concerns-grip-tech-investors-outweighing-us-iran-diplomacy-hope/cNGQZKqR9PD?.tsrc=rss",
+        "ts": 1793665355,
+        "when": "Nov 03, 12:22 AM",
         "ticker": "SMH",
         "industry": "Semis",
         "theory": [
@@ -6033,14 +6032,222 @@ window.DASH = {
           "T14"
         ],
         "sent": "positive"
+      },
+      {
+        "title": "Sector Update: Consumer Stocks Gain Late Afternoon",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-gain-afternoon-205429447.html?.tsrc=rss",
+        "ts": 1793652869,
+        "when": "Nov 02, 08:54 PM",
+        "ticker": "XLY",
+        "industry": "Consumer Disc.",
+        "theory": [
+          "T13"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "What Is Behind The Move In Kinross Gold Stock?",
+        "link": "https://www.trefis.com/stock/kgc/articles/621891/what-is-behind-the-move-in-kinross-gold-stock/2026-11-02?.tsrc=rss",
+        "ts": 1793647171,
+        "when": "Nov 02, 07:19 PM",
+        "ticker": "GLD",
+        "industry": "Gold",
+        "theory": [
+          "T6",
+          "T9",
+          "T19",
+          "T20",
+          "T21"
+        ],
+        "sent": "neutral"
       }
     ],
     "feed": [
       {
-        "title": "Palantir’s Q3 Report To Test Stock Defensiveness Amid AI Panic — What Analysts Are Expecting",
-        "link": "https://stocktwits.com/news-articles/markets/equity/palantir-s-q3-report-to-test-stock-defensiveness-amid-ai-panic-what-analysts-are-expecting/cNG9FfPR92V?.tsrc=rss",
-        "ts": 1793601422,
-        "when": "Nov 02, 06:37 AM",
+        "title": "Michael Burry’s Substack Turns One: He Says A Year Is ‘Useless’ For Judging Skill — Here’s How His Stock Picks Have Fared",
+        "link": "https://stocktwits.com/news-articles/markets/equity/michael-burry-substack-turns-one-year-useless-judging-skill-how-stock-picks-fared/cNGQuz4R95d?.tsrc=rss",
+        "ts": 1793686641,
+        "when": "Nov 03, 06:17 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "Palantir: 3 Key Takeaways for Long-Term Investors",
+        "link": "https://www.fool.com/earnings/takeaways/2026/11/03/palantir-3-key-takeaways-for-long-term-investors/?.tsrc=rss",
+        "ts": 1793685899,
+        "when": "Nov 03, 06:04 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "Palantir Technologies Inc (PLTR) (Q3 2026) Earnings Call Highlights: Revenue Nearly Doubles as ...",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/palantir-technologies-inc-pltr-q3-050513873.html?.tsrc=rss",
+        "ts": 1793682313,
+        "when": "Nov 03, 05:05 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "Palantir (PLTR) Q3 2026 Earnings Call Transcript",
+        "link": "https://www.fool.com/earnings/call-transcripts/2026/11/02/palantir-pltr-q3-2026-earnings-call-transcript/?.tsrc=rss",
+        "ts": 1793680119,
+        "when": "Nov 03, 04:28 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "Jim Cramer Calls Out 'Pretty Thick' Negativity on Apple, Palantir and Marvell: 'No Matter What They Say, It Isn't Enough'",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/jim-cramer-calls-pretty-thick-032537139.html?.tsrc=rss",
+        "ts": 1793676337,
+        "when": "Nov 03, 03:25 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "‘Captain Of The Football Team’: Alex Karp Says Palantir’s AI Appeal Is Surging",
+        "link": "https://stocktwits.com/news-articles/markets/equity/captain-of-the-football-team-alex-karp-says-palantir-s-ai-appeal-is-surging/cNGQofOR9Pz?.tsrc=rss",
+        "ts": 1793674035,
+        "when": "Nov 03, 02:47 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "Dow Jones Futures: AI Trade Dives As Marvell, Lumentum Plunge; Apple Tumbles On Earnings With Midterm Elections Next",
+        "link": "https://finance.yahoo.com/m/4fe38c4f-79dc-38c4-99cf-7844e9e446ee/dow-jones-futures%3A-ai-trade.html?.tsrc=rss",
+        "ts": 1793673159,
+        "when": "Nov 03, 02:32 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "This Money Market ETF Was Built with Stablecoin Issuers in Mind. Here’s What That Means if You Park Your Cash in It",
+        "link": "https://247wallst.com/investing/etf/2026/11/02/this-money-market-etf-was-built-with-stablecoin-issuers-in-mind-heres-what-that-means-if-you-park-your-cash-in-it/?.tsrc=rss",
+        "ts": 1793669602,
+        "when": "Nov 03, 01:33 AM",
+        "ticker": "DRAM",
+        "industry": "AI Memory/HBM",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "What Palantir Technologies (PLTR) Said on Its Q3 Earnings Call",
+        "link": "https://www.marketbeat.com/instant-alerts/transcript-what-palantir-technologies-pltr-said-on-its-q3-earnings-call-2026-11-02/?utm_source=yahoofinance&utm_medium=yahoofinance&.tsrc=rss",
+        "ts": 1793668447,
+        "when": "Nov 03, 01:14 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "S&P 500, Nasdaq Drop As Capex Concerns Grip Tech Investors, Outweighing US-Iran Diplomacy Hope —  ORCL, META, PLTR, AAPL In Focus",
+        "link": "https://stocktwits.com/news-articles/markets/equity/s-and-p-500-nasdaq-drop-as-capex-concerns-grip-tech-investors-outweighing-us-iran-diplomacy-hope/cNGQZKqR9PD?.tsrc=rss",
+        "ts": 1793665355,
+        "when": "Nov 03, 12:22 AM",
+        "ticker": "SMH",
+        "industry": "Semis",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "Palantir Blows Past Expectations In Q3 On Strong Commercial Sales, But Valuation Concerns Dampen Sentiment",
+        "link": "https://stocktwits.com/news-articles/markets/equity/palantir-blows-past-expectations-in-q3-on-strong-commercial-sales-but-valuation-concerns-dampen-sentiment/cNGaXtiR9Pv?.tsrc=rss",
+        "ts": 1793663217,
+        "when": "Nov 02, 11:46 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "Palantir's U.S. Revenue Soars 119% as Commercial Revenue Surpasses Government Revenue for the First Time. Here's Why Its Growth Is Still Surging, Even as Other AI Stocks Falter",
+        "link": "https://www.fool.com/investing/2026/11/02/palantirs-us-revenue-soars-119-as-commercial-revenue-surpasses-government-revenue-for-the-first-time-heres-why-its-growth-is-still-surging-even-as-other-ai-stocks-falter/?.tsrc=rss",
+        "ts": 1793662455,
+        "when": "Nov 02, 11:34 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "Alex Karp on Palantir's AI demand: 'Much larger than we can service'",
+        "link": "https://finance.yahoo.com/video/alex-karp-on-palantirs-ai-demand-much-larger-than-we-can-service-232326872.html?.tsrc=rss",
+        "ts": 1793661806,
+        "when": "Nov 02, 11:23 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -6052,10 +6259,10 @@ window.DASH = {
         "sent": "negative"
       },
       {
-        "title": "Dow Jones Futures Rise But Market Still Ails; Midterm Elections Ahead",
-        "link": "https://finance.yahoo.com/m/d0bc23d0-115b-314d-8989-07ca797bebfa/dow-jones-futures-rise-but.html?.tsrc=rss",
-        "ts": 1793592096,
-        "when": "Nov 02, 04:01 AM",
+        "title": "Palantir Stock Tumbles Despite Soaring Commercial Sales",
+        "link": "https://finance.yahoo.com/m/3dcc0779-0da6-36d6-b849-4512aa2119af/palantir-stock-tumbles.html?.tsrc=rss",
+        "ts": 1793661240,
+        "when": "Nov 02, 11:14 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -6065,6 +6272,146 @@ window.DASH = {
           "T14"
         ],
         "sent": "neutral"
+      },
+      {
+        "title": "SMH Returned 44.09% Over the Past Year. First Trust’s Chip Fund Returned 67.35%.",
+        "link": "https://247wallst.com/investing/etf/2026/11/02/smh-returned-44-09-over-the-past-year-first-trusts-chip-fund-returned-67-35/?.tsrc=rss",
+        "ts": 1793658821,
+        "when": "Nov 02, 10:33 PM",
+        "ticker": "SMH",
+        "industry": "Semis",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "negative"
+      },
+      {
+        "title": "Palantir Earnings Top Views. Revenue Beat Slightly Smaller.",
+        "link": "https://finance.yahoo.com/m/653d34ac-6dcc-3569-a2a1-603f6b130c9b/palantir-earnings-top-views..html?.tsrc=rss",
+        "ts": 1793658124,
+        "when": "Nov 02, 10:22 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "Big Quarterly Beats After the Close: AAPL, PLTR, LSCC, ROKU",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/big-quarterly-beats-close-aapl-221900745.html?.tsrc=rss",
+        "ts": 1793657940,
+        "when": "Nov 02, 10:19 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "Here's What Key Metrics Tell Us About Palantir Technologies (PLTR) Q3 Earnings",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/heres-key-metrics-tell-us-220002490.html?.tsrc=rss",
+        "ts": 1793656802,
+        "when": "Nov 02, 10:00 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "Sector Update: Consumer Stocks Gain Late Afternoon",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-gain-afternoon-205429447.html?.tsrc=rss",
+        "ts": 1793652869,
+        "when": "Nov 02, 08:54 PM",
+        "ticker": "XLY",
+        "industry": "Consumer Disc.",
+        "theory": [
+          "T13"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "What Is Behind The Move In Kinross Gold Stock?",
+        "link": "https://www.trefis.com/stock/kgc/articles/621891/what-is-behind-the-move-in-kinross-gold-stock/2026-11-02?.tsrc=rss",
+        "ts": 1793647171,
+        "when": "Nov 02, 07:19 PM",
+        "ticker": "GLD",
+        "industry": "Gold",
+        "theory": [
+          "T6",
+          "T9",
+          "T19",
+          "T20",
+          "T21"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "How Much You Need Invested to Collect $5,000 a Month From 62 to 70 While Social Security Grows",
+        "link": "https://247wallst.com/personal-finance/2026/11/02/how-much-you-need-invested-to-collect-5000-a-month-from-62-to-70-while-social-security-grows/?.tsrc=rss",
+        "ts": 1793635510,
+        "when": "Nov 02, 04:05 PM",
+        "ticker": "SGOV",
+        "industry": "Equities",
+        "theory": [],
+        "sent": "positive"
+      },
+      {
+        "title": "Here Comes the AI Bounce Back",
+        "link": "https://finance.yahoo.com/m/aa8a21d8-0a01-3d6c-bf96-6fe612883d3a/here-comes-the-ai-bounce-back.html?.tsrc=rss",
+        "ts": 1793633740,
+        "when": "Nov 02, 03:35 PM",
+        "ticker": "DRAM",
+        "industry": "AI Memory/HBM",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "What Are Wall Street Analysts' Target Price for Expedia Group Stock?",
+        "link": "https://www.barchart.com/story/news/8594221/what-are-wall-street-analysts-target-price-for-expedia-group-stock?.tsrc=rss",
+        "ts": 1793632339,
+        "when": "Nov 02, 03:12 PM",
+        "ticker": "XLY",
+        "industry": "Consumer Disc.",
+        "theory": [
+          "T13"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "Tech Rebound, Crude Slide Lift Wall Street Pre-Bell; Asia Mixed, Europe Up",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/tech-rebound-crude-slide-lift-113558010.html?.tsrc=rss",
+        "ts": 1793619358,
+        "when": "Nov 02, 11:35 AM",
+        "ticker": "SMH",
+        "industry": "Semis",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "negative"
       },
       {
         "title": "MU, SNDK, DRAM Inch Higher Overnight After Mixed Week: Japan’s Kioxia Plunges After Cautious Memory Outlook",
@@ -6082,246 +6429,6 @@ window.DASH = {
         "sent": "negative"
       },
       {
-        "title": "Jobs, Midterm Elections, Apple, Palantir, McDonald’s, Moderna, and More to Watch This Week",
-        "link": "https://finance.yahoo.com/m/70ce984f-00d7-351b-ac85-1541ff0679b6/jobs%2C-midterm-elections%2C.html?.tsrc=rss",
-        "ts": 1793559600,
-        "when": "Nov 01, 07:00 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Midterm Elections, Important Earnings and Other Key things to Watch this Week",
-        "link": "https://www.barchart.com/story/news/8581500/midterm-elections-important-earnings-and-other-key-things-to-watch-this-week?.tsrc=rss",
-        "ts": 1793556002,
-        "when": "Nov 01, 06:00 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "Prediction: 3 Stocks That Will Be Worth More Than Palantir 5 Years From Now",
-        "link": "https://www.fool.com/investing/2026/11/01/prediction-3-stocks-that-will-be-worth-more-than-p/?.tsrc=rss",
-        "ts": 1793552580,
-        "when": "Nov 01, 05:03 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "Palantir Technologies (PLTR) Deepens Sovereign AI Deployments Across Sensitive Industries",
-        "link": "https://finance.yahoo.com/technology/ai/articles/palantir-technologies-pltr-deepens-sovereign-160706148.html?.tsrc=rss",
-        "ts": 1793549226,
-        "when": "Nov 01, 04:07 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Bloom Energy And 2 More High Growth Stocks To Improve Your Portfolio",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/bloom-energy-2-more-high-151124016.html?.tsrc=rss",
-        "ts": 1793545884,
-        "when": "Nov 01, 03:11 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "CRWD, PANW, OKTA Stocks Have Doubled This Year — Here’s What’s Driving The Cybersecurity Rally",
-        "link": "https://stocktwits.com/news-articles/markets/equity/crwd-panw-okta-stocks-doubled-this-year-whats-driving-cybersecurity-rally/cNGetEDR92I?.tsrc=rss",
-        "ts": 1793544255,
-        "when": "Nov 01, 02:44 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "What To Expect In Markets This Week: AAPL, PLTR, AMD, SMCI, SHOP, Earnings, Jobs Report And More",
-        "link": "https://stocktwits.com/news-articles/markets/equity/what-to-expect-markets-this-week-nov-1-2026/cNGes4VR923?.tsrc=rss",
-        "ts": 1793541976,
-        "when": "Nov 01, 02:06 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Is Palantir Stock a Buy?",
-        "link": "https://www.fool.com/investing/2026/11/01/is-palantir-stock-a-buy/?.tsrc=rss",
-        "ts": 1793534820,
-        "when": "Nov 01, 12:07 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Lab monkey prices reportedly jumped from $3K to $20K. Now a Palantir billionaire wants to breed 30,000 of them in the US",
-        "link": "https://finance.yahoo.com/healthcare/articles/lab-monkey-prices-reportedly-jumped-113000275.html?.tsrc=rss",
-        "ts": 1793532600,
-        "when": "Nov 01, 11:30 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "A big sell-off collides with more Big Tech earnings and a midterm election: What to watch this week",
-        "link": "https://finance.yahoo.com/markets/article/a-big-sell-off-collides-with-more-big-tech-earnings-and-a-midterm-election-what-to-watch-this-week-110000657.html?.tsrc=rss",
-        "ts": 1793530800,
-        "when": "Nov 01, 11:00 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "negative"
-      },
-      {
-        "title": "Prediction: This Will Be Palantir's Stock Price by Year-End 2027",
-        "link": "https://www.fool.com/investing/2026/11/01/prediction-palantir-stock-price-by-2027/?.tsrc=rss",
-        "ts": 1793529300,
-        "when": "Nov 01, 10:35 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "What to Expect in Markets This Week: Apple, Palantir Report; October Jobs Data Lands",
-        "link": "https://www.investopedia.com/what-to-expect-in-markets-this-week-apple-palantir-report-october-jobs-data-lands-12199599?.tsrc=rss",
-        "ts": 1793527200,
-        "when": "Nov 01, 10:00 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Palantir Technologies (PLTR) to report earnings tomorrow: here is what to expect",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/palantir-technologies-pltr-report-earnings-091500242.html?.tsrc=rss",
-        "ts": 1793524500,
-        "when": "Nov 01, 09:15 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Josh Brown: Meta Could Become “a Cash Spigot” That Makes Nvidia Look Expensive",
-        "link": "https://www.tikr.com/blog/josh-brown-meta-could-become-a-cash-spigot-that-makes-nvidia-look-expensive?ref=yahoofinance&tlnk=yf-261101-8m9xjfvm&.tsrc=rss",
-        "ts": 1793518177,
-        "when": "Nov 01, 07:29 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Prediction: This Will Be Palantir's Stock Price by the End of 2027",
-        "link": "https://www.fool.com/investing/2026/10/31/prediction-palantirs-price-by-the-end-of-2027/?.tsrc=rss",
-        "ts": 1793491020,
-        "when": "Oct 31, 11:57 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "3 AI Stocks With Earnings Growth Over 30%",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/3-ai-stocks-earnings-growth-221029656.html?.tsrc=rss",
-        "ts": 1793484629,
-        "when": "Oct 31, 10:10 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
         "title": "The U.S. Just Borrowed a Record $839 Billion in One Week",
         "link": "https://247wallst.com/investing/2026/10/31/the-u-s-just-borrowed-a-record-839-billion-in-one-week/?.tsrc=rss",
         "ts": 1793463235,
@@ -6329,21 +6436,6 @@ window.DASH = {
         "ticker": "SGOV",
         "industry": "Equities",
         "theory": [],
-        "sent": "neutral"
-      },
-      {
-        "title": "Are Wall Street Analysts Predicting Palantir Technologies Stock Will Climb or Sink?",
-        "link": "https://www.barchart.com/story/news/8573432/are-wall-street-analysts-predicting-palantir-technologies-stock-will-climb-or-sink?.tsrc=rss",
-        "ts": 1793462186,
-        "when": "Oct 31, 03:56 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
         "sent": "neutral"
       },
       {
@@ -6369,21 +6461,6 @@ window.DASH = {
           "T13"
         ],
         "sent": "neutral"
-      },
-      {
-        "title": "3 Low Risk Stocks With At Least 21% ROE",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/3-low-risk-stocks-least-130955405.html?.tsrc=rss",
-        "ts": 1793452195,
-        "when": "Oct 31, 01:09 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "negative"
       },
       {
         "title": "Intel Drags Down CPU Rivals. Is it a Buying Opportunity for AMD and Arm?",
@@ -6415,61 +6492,6 @@ window.DASH = {
           "T21"
         ],
         "sent": "neutral"
-      },
-      {
-        "title": "Amazon.com Stock: Is Wall Street Bullish or Bearish?",
-        "link": "https://www.barchart.com/story/news/8559533/amazon-com-stock-is-wall-street-bullish-or-bearish?.tsrc=rss",
-        "ts": 1793383480,
-        "when": "Oct 30, 06:04 PM",
-        "ticker": "XLY",
-        "industry": "Consumer Disc.",
-        "theory": [
-          "T13"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Gold, Silver In Spotlight After GLD Hits 52-Week Low, SLV Sinks To 11-Month Low – Peter Brandt Sees Signs Of A Potential Bottom",
-        "link": "https://stocktwits.com/news-articles/markets/equity/gold-silver-in-spotlight-after-gld-hits-52-week-low/cZUh6rfR9TD?.tsrc=rss",
-        "ts": 1793380258,
-        "when": "Oct 30, 05:10 PM",
-        "ticker": "GLD",
-        "industry": "Gold",
-        "theory": [
-          "T6",
-          "T9",
-          "T19",
-          "T20",
-          "T21"
-        ],
-        "sent": "negative"
-      },
-      {
-        "title": "Intel’s Earnings Fallout Is Hitting Your Index Funds Too",
-        "link": "https://247wallst.com/investing/etf/2026/10/30/intels-earnings-fallout-is-hitting-your-index-funds-too/?.tsrc=rss",
-        "ts": 1793377271,
-        "when": "Oct 30, 04:21 PM",
-        "ticker": "SMH",
-        "industry": "Semis",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Will Oil Prices Slump on Peace Hopes? ETFs in Focus",
-        "link": "https://finance.yahoo.com/energy/articles/oil-prices-slump-peace-hopes-145900484.html?.tsrc=rss",
-        "ts": 1793372340,
-        "when": "Oct 30, 02:59 PM",
-        "ticker": "XLY",
-        "industry": "Consumer Disc.",
-        "theory": [
-          "T13"
-        ],
-        "sent": "positive"
       }
     ]
   },
