@@ -158,7 +158,7 @@ window.DASH = {
       },
       "F4": {
         "prev_score": 3.3,
-        "score": 3.3,
+        "score": 2.7,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
@@ -178,14 +178,14 @@ window.DASH = {
         "last_above_date": null
       },
       "F7": {
-        "prev_score": 3.8,
+        "prev_score": 3.9,
         "score": 3.9,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F8": {
-        "prev_score": 3.0,
+        "prev_score": 3.1,
         "score": 3.1,
         "days_above": 0,
         "confirmed": false,
@@ -633,7 +633,7 @@ window.DASH = {
       "cash_buffer_usd": 500.0,
       "shadow_mode": true
     },
-    "asof_ts": 1794034297,
+    "asof_ts": 1794121032,
     "refresh_interval": 1440
   },
   "asof": "2026-11-06",
@@ -3091,7 +3091,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-11-07",
+      "asof": "2026-11-08",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -3100,17 +3100,17 @@ window.DASH = {
       "name": "Rates shock / duration liquidation",
       "type": "structural",
       "score": 3.7,
-      "level": 0.823,
+      "level": 0.816,
       "velocity": null,
       "trend": {
         "label": "50d trend",
-        "value": 0.0088,
-        "pct": 0.367
+        "value": 0.0077,
+        "pct": 0.357
       },
       "signals": [
         {
           "label": "TLT/SHY (long-vs-short duration)",
-          "value": 0.808
+          "value": 0.796
         },
         {
           "label": "10y yield level",
@@ -3124,7 +3124,7 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-11-07",
+      "asof": "2026-11-08",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -3160,38 +3160,7 @@ window.DASH = {
         "ZROZ"
       ],
       "sizing": null,
-      "asof": "2026-11-07",
-      "degraded": false,
-      "trend_dir": "flat"
-    },
-    {
-      "id": "F4",
-      "name": "Inflation resurgence",
-      "type": "structural",
-      "score": 3.3,
-      "level": 0.704,
-      "velocity": null,
-      "trend": {
-        "label": "50d trend",
-        "value": 0.0003,
-        "pct": 0.248
-      },
-      "signals": [
-        {
-          "label": "TIP/IEF (breakevens proxy)",
-          "value": 0.704
-        }
-      ],
-      "theory_ids": [
-        "T20"
-      ],
-      "hedge_ticks": [
-        "GLD",
-        "GDX",
-        "SGOV"
-      ],
-      "sizing": null,
-      "asof": "2026-11-07",
+      "asof": "2026-11-08",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -3225,9 +3194,40 @@ window.DASH = {
         "BTAL"
       ],
       "sizing": null,
-      "asof": "2026-11-07",
+      "asof": "2026-11-08",
       "degraded": false,
       "trend_dir": "flat"
+    },
+    {
+      "id": "F4",
+      "name": "Inflation resurgence",
+      "type": "structural",
+      "score": 2.7,
+      "level": 0.562,
+      "velocity": null,
+      "trend": {
+        "label": "50d trend",
+        "value": -0.0032,
+        "pct": 0.148
+      },
+      "signals": [
+        {
+          "label": "TIP/IEF (breakevens proxy)",
+          "value": 0.562
+        }
+      ],
+      "theory_ids": [
+        "T20"
+      ],
+      "hedge_ticks": [
+        "GLD",
+        "GDX",
+        "SGOV"
+      ],
+      "sizing": null,
+      "asof": "2026-11-08",
+      "degraded": false,
+      "trend_dir": "falling"
     },
     {
       "id": "F2",
@@ -3255,7 +3255,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-11-07",
+      "asof": "2026-11-08",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -3290,7 +3290,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-11-07",
+      "asof": "2026-11-08",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -3326,7 +3326,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-11-07",
+      "asof": "2026-11-08",
       "degraded": false,
       "trend_dir": "flat"
     }
@@ -3363,7 +3363,7 @@ window.DASH = {
   },
   "fear_sizing": null,
   "hedge_harvest": {
-    "asof": "2026-11-07",
+    "asof": "2026-11-08",
     "items": [
       {
         "ticker": "BTAL",
@@ -6252,13 +6252,23 @@ window.DASH = {
     "enabled": true
   },
   "news": {
-    "asof": "2026-11-07 06:51:37",
+    "asof": "2026-11-08 06:57:12",
     "big_stories": [
       {
-        "title": "Charlie Bilello Says “Some Sanity Has Returned to the Market.” What That Means for Your Portfolio",
-        "link": "https://247wallst.com/investing/2026/11/06/charlie-bilello-says-some-sanity-has-returned-to-the-market-what-that-means-for-your-portfolio/?.tsrc=rss",
-        "ts": 1794002848,
-        "when": "Nov 06, 10:07 PM",
+        "title": "Warren Buffett's Retirement Strategy Has a Catch: VOO Alone May Not Be Enough in 2026",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/warren-buffetts-retirement-strategy-catch-013032807.html?.tsrc=rss",
+        "ts": 1794101432,
+        "when": "Nov 08, 01:30 AM",
+        "ticker": "SGOV",
+        "industry": "Equities",
+        "theory": [],
+        "sent": "negative"
+      },
+      {
+        "title": "Palantir Stock Just Fell 8 Days in a Row. History Says What Followed Its Only 2 Longer Losing Streaks.",
+        "link": "https://www.fool.com/investing/2026/11/07/palantir-stock-just-fell-8-days-in-a-row-history-says-what-followed-its-only-2-longer-losing-streaks/?.tsrc=rss",
+        "ts": 1794081362,
+        "when": "Nov 07, 07:56 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -6267,7 +6277,23 @@ window.DASH = {
           "T2",
           "T14"
         ],
-        "sent": "neutral"
+        "sent": "negative"
+      },
+      {
+        "title": "Peter Schiff Predicts Gold Boom, Says Political Shift Threatens To Send Inflation Soaring — ‘Sign Of Things To Come’",
+        "link": "https://stocktwits.com/news-articles/markets/equity/peter-schiff-gold-boom-political-shift-threatens-inflation-soaring/cNGVpgIR9Il?.tsrc=rss",
+        "ts": 1794040918,
+        "when": "Nov 07, 08:41 AM",
+        "ticker": "GDX",
+        "industry": "Gold Miners",
+        "theory": [
+          "T6",
+          "T9",
+          "T19",
+          "T20",
+          "T21"
+        ],
+        "sent": "negative"
       },
       {
         "title": "Sector Update: Consumer Stocks Mixed Late Afternoon",
@@ -6294,14 +6320,86 @@ window.DASH = {
           "T21"
         ],
         "sent": "negative"
+      }
+    ],
+    "feed": [
+      {
+        "title": "Warren Buffett's Retirement Strategy Has a Catch: VOO Alone May Not Be Enough in 2026",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/warren-buffetts-retirement-strategy-catch-013032807.html?.tsrc=rss",
+        "ts": 1794101432,
+        "when": "Nov 08, 01:30 AM",
+        "ticker": "SGOV",
+        "industry": "Equities",
+        "theory": [],
+        "sent": "negative"
       },
       {
-        "title": "Guide to Gold ETF Investing",
-        "link": "https://finance.yahoo.com/markets/commodities/articles/guide-gold-etf-investing-120000135.html?.tsrc=rss",
-        "ts": 1793966400,
-        "when": "Nov 06, 12:00 PM",
-        "ticker": "GLD",
-        "industry": "Gold",
+        "title": "Palantir Stock Just Fell 8 Days in a Row. History Says What Followed Its Only 2 Longer Losing Streaks.",
+        "link": "https://www.fool.com/investing/2026/11/07/palantir-stock-just-fell-8-days-in-a-row-history-says-what-followed-its-only-2-longer-losing-streaks/?.tsrc=rss",
+        "ts": 1794081362,
+        "when": "Nov 07, 07:56 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "negative"
+      },
+      {
+        "title": "Apple Completes the Set: Every Magnificent Seven Stock Opts Out of OKX-ICE Venue",
+        "link": "https://decrypt.co/382768/apple-meta-every-magnificent-seven-stock-opts-out-okx-ice-venue?.tsrc=rss",
+        "ts": 1794070863,
+        "when": "Nov 07, 05:01 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "Palantir Stock Investors Just Got Great News From a Wall Street Analyst (Hint: The Stock Could Soar)",
+        "link": "https://www.fool.com/investing/2026/11/07/palantir-stock-investors-great-news-wall-street-stock-soar/?.tsrc=rss",
+        "ts": 1794046082,
+        "when": "Nov 07, 10:08 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "How Much Should This Move Change Your View Of Snowflake Stock?",
+        "link": "https://www.trefis.com/stock/snow/articles/623620/how-much-should-this-move-change-your-view-of-snowflake-stock/2026-11-07?.tsrc=rss",
+        "ts": 1794046015,
+        "when": "Nov 07, 10:06 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "Peter Schiff Predicts Gold Boom, Says Political Shift Threatens To Send Inflation Soaring — ‘Sign Of Things To Come’",
+        "link": "https://stocktwits.com/news-articles/markets/equity/peter-schiff-gold-boom-political-shift-threatens-inflation-soaring/cNGVpgIR9Il?.tsrc=rss",
+        "ts": 1794040918,
+        "when": "Nov 07, 08:41 AM",
+        "ticker": "GDX",
+        "industry": "Gold Miners",
         "theory": [
           "T6",
           "T9",
@@ -6309,20 +6407,8 @@ window.DASH = {
           "T20",
           "T21"
         ],
-        "sent": "neutral"
+        "sent": "negative"
       },
-      {
-        "title": "The Monthly Check From These 3 Treasury ETFs Moves With Interest Rates. Here’s What Retirees Should Expect",
-        "link": "https://247wallst.com/investing/etf/2026/11/05/the-monthly-check-from-these-3-treasury-etfs-moves-with-interest-rates-heres-what-retirees-should-expect/?.tsrc=rss",
-        "ts": 1793875300,
-        "when": "Nov 05, 10:41 AM",
-        "ticker": "SGOV",
-        "industry": "Equities",
-        "theory": [],
-        "sent": "positive"
-      }
-    ],
-    "feed": [
       {
         "title": "Charlie Bilello Says “Some Sanity Has Returned to the Market.” What That Means for Your Portfolio",
         "link": "https://247wallst.com/investing/2026/11/06/charlie-bilello-says-some-sanity-has-returned-to-the-market-what-that-means-for-your-portfolio/?.tsrc=rss",
@@ -6578,6 +6664,21 @@ window.DASH = {
         "sent": "neutral"
       },
       {
+        "title": "Michael Burry Dumps 25% of His Semiconductor Bet Amid Brutal Tech Selloff",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/michael-burry-dumps-25-semiconductor-131244639.html?.tsrc=rss",
+        "ts": 1793970764,
+        "when": "Nov 06, 01:12 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "negative"
+      },
+      {
         "title": "Nvidia Partner CoreWeave Ready To Report Q3 As AI Stocks Crumble; Nebius, Qualys Also Due",
         "link": "https://finance.yahoo.com/m/1f843001-c94b-3d44-9a8c-33bfc2e1bc2b/nvidia-partner-coreweave.html?.tsrc=rss",
         "ts": 1793970064,
@@ -6635,21 +6736,6 @@ window.DASH = {
         "sent": "positive"
       },
       {
-        "title": "Palantir Shed Nearly 20% Over 12 Months: This Wall Street Desk Predicts 76% Gains Moving Forward",
-        "link": "https://247wallst.com/investing/2026/11/06/palantir-shed-nearly-20-over-12-months-this-wall-street-desk-predicts-76-gains-moving-forward/?.tsrc=rss",
-        "ts": 1793967357,
-        "when": "Nov 06, 12:15 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
         "title": "Guide to Gold ETF Investing",
         "link": "https://finance.yahoo.com/markets/commodities/articles/guide-gold-etf-investing-120000135.html?.tsrc=rss",
         "ts": 1793966400,
@@ -6662,94 +6748,6 @@ window.DASH = {
           "T19",
           "T20",
           "T21"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Not Nvidia. Not Palantir. The Midterms Just Made This Magnificent Artificial Intelligence (AI) Stock the Safer Bet.",
-        "link": "https://www.fool.com/investing/2026/11/06/not-nvidia-not-palantir-the-midterms-just-made-thi/?.tsrc=rss",
-        "ts": 1793964000,
-        "when": "Nov 06, 11:20 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "iShares Expanded Tech-Software (IGV) Adds Oracle, Trims Microsoft on Nov. 4",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/ishares-expanded-tech-software-igv-110607892.html?.tsrc=rss",
-        "ts": 1793963167,
-        "when": "Nov 06, 11:06 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "State Street Consumer Discretionary (XLY) Adds Amazon and Tesla on Nov. 4",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/state-street-consumer-discretionary-xly-110509148.html?.tsrc=rss",
-        "ts": 1793963109,
-        "when": "Nov 06, 11:05 AM",
-        "ticker": "XLY",
-        "industry": "Consumer Disc.",
-        "theory": [
-          "T13"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "ETFs Are Net Sellers of Palantir (PLTR) on Wednesday",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/etfs-net-sellers-palantir-pltr-110350243.html?.tsrc=rss",
-        "ts": 1793963030,
-        "when": "Nov 06, 11:03 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "The World’s Debt Is at Record Levels. 6 Ways to Protect Your Portfolio.",
-        "link": "https://finance.yahoo.com/m/4cc5943c-b287-3103-8682-52f032f50e55/the-world%E2%80%99s-debt-is-at-record.html?.tsrc=rss",
-        "ts": 1793962800,
-        "when": "Nov 06, 11:00 AM",
-        "ticker": "GLD",
-        "industry": "Gold",
-        "theory": [
-          "T6",
-          "T9",
-          "T19",
-          "T20",
-          "T21"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Kalshi Users Pour $300 Million Into Stock Perps Within Hours of U.S. Debut",
-        "link": "https://unchainedcrypto.com/kalshi-users-pour-300-million-into-stock-perps-within-hours-of-u-s-debut/?.tsrc=rss",
-        "ts": 1793961932,
-        "when": "Nov 06, 10:45 AM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
         ],
         "sent": "neutral"
       }
