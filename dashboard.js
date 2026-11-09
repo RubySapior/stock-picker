@@ -144,7 +144,7 @@ window.DASH = {
       },
       "F2": {
         "prev_score": 2.4,
-        "score": 2.4,
+        "score": 2.8,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
@@ -157,7 +157,7 @@ window.DASH = {
         "last_above_date": null
       },
       "F4": {
-        "prev_score": 3.3,
+        "prev_score": 2.7,
         "score": 2.7,
         "days_above": 0,
         "confirmed": false,
@@ -165,7 +165,7 @@ window.DASH = {
       },
       "F5": {
         "prev_score": 1.2,
-        "score": 1.2,
+        "score": 1.6,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
@@ -633,7 +633,7 @@ window.DASH = {
       "cash_buffer_usd": 500.0,
       "shadow_mode": true
     },
-    "asof_ts": 1794121032,
+    "asof_ts": 1794210090,
     "refresh_interval": 1440
   },
   "asof": "2026-11-06",
@@ -3091,7 +3091,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-11-08",
+      "asof": "2026-11-09",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -3124,7 +3124,7 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-11-08",
+      "asof": "2026-11-09",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -3160,7 +3160,7 @@ window.DASH = {
         "ZROZ"
       ],
       "sizing": null,
-      "asof": "2026-11-08",
+      "asof": "2026-11-09",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -3194,9 +3194,39 @@ window.DASH = {
         "BTAL"
       ],
       "sizing": null,
-      "asof": "2026-11-08",
+      "asof": "2026-11-09",
       "degraded": false,
       "trend_dir": "flat"
+    },
+    {
+      "id": "F2",
+      "name": "Yen-carry unwind",
+      "type": "episodic",
+      "score": 2.8,
+      "level": 0.396,
+      "velocity": {
+        "label": "5d velocity",
+        "value": -0.0025,
+        "pct": 0.486
+      },
+      "trend": null,
+      "signals": [
+        {
+          "label": "Yen strength (FXY level)",
+          "value": 0.396
+        }
+      ],
+      "theory_ids": [
+        "T18"
+      ],
+      "hedge_ticks": [
+        "FXY",
+        "DBMF"
+      ],
+      "sizing": null,
+      "asof": "2026-11-09",
+      "degraded": false,
+      "trend_dir": "rising"
     },
     {
       "id": "F4",
@@ -3225,37 +3255,7 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-11-08",
-      "degraded": false,
-      "trend_dir": "falling"
-    },
-    {
-      "id": "F2",
-      "name": "Yen-carry unwind",
-      "type": "episodic",
-      "score": 2.4,
-      "level": 0.396,
-      "velocity": {
-        "label": "5d velocity",
-        "value": -0.0047,
-        "pct": 0.329
-      },
-      "trend": null,
-      "signals": [
-        {
-          "label": "Yen strength (FXY level)",
-          "value": 0.396
-        }
-      ],
-      "theory_ids": [
-        "T18"
-      ],
-      "hedge_ticks": [
-        "FXY",
-        "DBMF"
-      ],
-      "sizing": null,
-      "asof": "2026-11-08",
+      "asof": "2026-11-09",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -3290,7 +3290,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-11-08",
+      "asof": "2026-11-09",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -3298,22 +3298,22 @@ window.DASH = {
       "id": "F5",
       "name": "War / energy shock",
       "type": "episodic",
-      "score": 1.2,
-      "level": 0.101,
+      "score": 1.6,
+      "level": 0.167,
       "velocity": {
         "label": "5d velocity",
-        "value": -0.1276,
-        "pct": 0.035
+        "value": -0.0691,
+        "pct": 0.129
       },
       "trend": null,
       "signals": [
         {
-          "label": "Gold 1d momentum",
-          "value": 0.255
+          "label": "Crude 5d momentum",
+          "value": 0.129
         },
         {
-          "label": "Crude 5d momentum",
-          "value": 0.035
+          "label": "Gold 1d momentum",
+          "value": 0.255
         }
       ],
       "theory_ids": [
@@ -3326,9 +3326,9 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-11-08",
+      "asof": "2026-11-09",
       "degraded": false,
-      "trend_dir": "flat"
+      "trend_dir": "rising"
     }
   ],
   "fear_greed": {
@@ -3363,7 +3363,7 @@ window.DASH = {
   },
   "fear_sizing": null,
   "hedge_harvest": {
-    "asof": "2026-11-08",
+    "asof": "2026-11-09",
     "items": [
       {
         "ticker": "BTAL",
@@ -6252,23 +6252,13 @@ window.DASH = {
     "enabled": true
   },
   "news": {
-    "asof": "2026-11-08 06:57:12",
+    "asof": "2026-11-09 07:41:31",
     "big_stories": [
       {
-        "title": "Warren Buffett's Retirement Strategy Has a Catch: VOO Alone May Not Be Enough in 2026",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/warren-buffetts-retirement-strategy-catch-013032807.html?.tsrc=rss",
-        "ts": 1794101432,
-        "when": "Nov 08, 01:30 AM",
-        "ticker": "SGOV",
-        "industry": "Equities",
-        "theory": [],
-        "sent": "negative"
-      },
-      {
-        "title": "Palantir Stock Just Fell 8 Days in a Row. History Says What Followed Its Only 2 Longer Losing Streaks.",
-        "link": "https://www.fool.com/investing/2026/11/07/palantir-stock-just-fell-8-days-in-a-row-history-says-what-followed-its-only-2-longer-losing-streaks/?.tsrc=rss",
-        "ts": 1794081362,
-        "when": "Nov 07, 07:56 PM",
+        "title": "Micron Technology And 2 High Growth Stocks To Watch",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/micron-technology-2-high-growth-042757242.html?.tsrc=rss",
+        "ts": 1794198477,
+        "when": "Nov 09, 04:27 AM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -6277,6 +6267,16 @@ window.DASH = {
           "T2",
           "T14"
         ],
+        "sent": "positive"
+      },
+      {
+        "title": "Warren Buffett's Retirement Strategy Has a Catch: VOO Alone May Not Be Enough in 2026",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/warren-buffetts-retirement-strategy-catch-013032807.html?.tsrc=rss",
+        "ts": 1794101432,
+        "when": "Nov 08, 01:30 AM",
+        "ticker": "SGOV",
+        "industry": "Equities",
+        "theory": [],
         "sent": "negative"
       },
       {
@@ -6324,6 +6324,141 @@ window.DASH = {
     ],
     "feed": [
       {
+        "title": "Micron Technology And 2 High Growth Stocks To Watch",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/micron-technology-2-high-growth-042757242.html?.tsrc=rss",
+        "ts": 1794198477,
+        "when": "Nov 09, 04:27 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "Palantir vs. Snowflake: The AI Sell-Off Is Exposing a Critical Difference for 2027",
+        "link": "https://www.fool.com/coverage/better-buy/2026/11/08/palantir-vs-snowflake-the-ai-sell-off-is-exposing-a-critical-difference-for-2027/?.tsrc=rss",
+        "ts": 1794198002,
+        "when": "Nov 09, 04:20 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "negative"
+      },
+      {
+        "title": "NVDA, PLTR, QCOM, SPCX, MRVL: Why Retail Traders Couldn’t Take Their Eyes Off These Stocks Last Week",
+        "link": "https://stocktwits.com/news-articles/markets/equity/nvda-pltr-qcom-spcx-mrvl-why-retail-traders-couldn-t-take-their-eyes-off-these-stocks-last-week/cNGAH2tR9Ix?.tsrc=rss",
+        "ts": 1794189895,
+        "when": "Nov 09, 02:04 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "Could Buying Palantir Stock Today Set You Up for Life?",
+        "link": "https://www.fool.com/investing/2026/11/08/could-buying-palantir-stock-today-set-you-up-for-l/?.tsrc=rss",
+        "ts": 1794183600,
+        "when": "Nov 09, 12:20 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "3 Growth Stocks With Earnings Growth Over 20%",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/3-growth-stocks-earnings-growth-220719361.html?.tsrc=rss",
+        "ts": 1794175639,
+        "when": "Nov 08, 10:07 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "Palantir’s business beyond government just got a lot bigger",
+        "link": "https://www.thestreet.com/investing/stocks/palantirs-business-beyond-government-just-got-a-lot-bigger?.tsrc=rss",
+        "ts": 1794161820,
+        "when": "Nov 08, 06:17 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "Adobe vs. Palantir Technologies: Which Technology Stock Is a Better Buy Going Into 2027?",
+        "link": "https://www.fool.com/coverage/better-buy/2026/11/08/adobe-vs-palantir-technologies-which-technology-stock-is-a-better-buy-going-into-2027/?.tsrc=rss",
+        "ts": 1794161250,
+        "when": "Nov 08, 06:07 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "Wall Street Is Dumping AI Stocks Even as Business Booms. Something Doesn’t Add Up.",
+        "link": "https://247wallst.com/investing/2026/11/08/wall-street-is-dumping-ai-stocks-even-as-business-booms-something-doesnt-add-up/?.tsrc=rss",
+        "ts": 1794155199,
+        "when": "Nov 08, 04:26 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "negative"
+      },
+      {
+        "title": "Palantir Technologies (PLTR) Lands Enterprise AI Partnership For Insurance And Retirement Rollout",
+        "link": "https://finance.yahoo.com/technology/ai/articles/palantir-technologies-pltr-lands-enterprise-111205834.html?.tsrc=rss",
+        "ts": 1794136325,
+        "when": "Nov 08, 11:12 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
         "title": "Warren Buffett's Retirement Strategy Has a Catch: VOO Alone May Not Be Enough in 2026",
         "link": "https://finance.yahoo.com/markets/stocks/articles/warren-buffetts-retirement-strategy-catch-013032807.html?.tsrc=rss",
         "ts": 1794101432,
@@ -6362,6 +6497,21 @@ window.DASH = {
           "T14"
         ],
         "sent": "positive"
+      },
+      {
+        "title": "MarketBeat Week in Review – 11/2 - 11/6",
+        "link": "https://www.marketbeat.com/articles/marketbeat-week-in-review-2026-11-2-11-6/?utm_source=yahoofinance&utm_medium=yahoofinance&.tsrc=rss",
+        "ts": 1794052800,
+        "when": "Nov 07, 12:00 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
       },
       {
         "title": "Palantir Stock Investors Just Got Great News From a Wall Street Analyst (Hint: The Stock Could Soar)",
@@ -6524,36 +6674,6 @@ window.DASH = {
         "sent": "positive"
       },
       {
-        "title": "The Biggest Takeaway From Palantir Technologies’ Latest Quarterly Report Is a Potential Warning Sign Investors Shouldn’t Miss",
-        "link": "https://www.fool.com/investing/2026/11/06/the-biggest-takeaway-from-palantir-technologies-latest-quarterly-report-is-a-potential-warning-sign-investors-shouldn-t-miss/?.tsrc=rss",
-        "ts": 1793985122,
-        "when": "Nov 06, 05:12 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "negative"
-      },
-      {
-        "title": "Stock Market Suffers Ugly Losses In Election Week; Apple, Palantir Led Key Earnings: Weekly Review",
-        "link": "https://finance.yahoo.com/m/802dbe86-5db0-31e8-a3aa-6f0e1336c90e/stock-market-suffers-ugly.html?.tsrc=rss",
-        "ts": 1793984799,
-        "when": "Nov 06, 05:06 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "negative"
-      },
-      {
         "title": "Market Turmoil Deepens: ETFs to Consider to Navigate the Volatility",
         "link": "https://finance.yahoo.com/markets/stocks/articles/market-turmoil-deepens-etfs-consider-161300749.html?.tsrc=rss",
         "ts": 1793981580,
@@ -6568,51 +6688,6 @@ window.DASH = {
         "sent": "negative"
       },
       {
-        "title": "Palantir Grew Revenue 96% and the Stock Still Fell. Here’s Where the Price Target Goes",
-        "link": "https://247wallst.com/investing/2026/11/06/palantir-grew-revenue-96-and-the-stock-still-fell-heres-where-the-price-target-goes/?.tsrc=rss",
-        "ts": 1793980988,
-        "when": "Nov 06, 04:03 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "PLTR support and resistance levels to watch",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/pltr-support-resistance-levels-watch-155752586.html?.tsrc=rss",
-        "ts": 1793980672,
-        "when": "Nov 06, 03:57 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "$3 trillion wipe-out, CEOs on the volatility of politics, and the status of the AI trade",
-        "link": "https://finance.yahoo.com/video/3-trillion-wipe-out-ceos-on-the-volatility-of-politics-and-the-status-of-the-ai-trade-151554253.html?.tsrc=rss",
-        "ts": 1793978154,
-        "when": "Nov 06, 03:15 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
         "title": "ETFs to Focus on Post-US Mid-Term Election Results",
         "link": "https://finance.yahoo.com/markets/stocks/articles/etfs-focus-post-us-mid-143000471.html?.tsrc=rss",
         "ts": 1793975400,
@@ -6621,21 +6696,6 @@ window.DASH = {
         "industry": "Consumer Disc.",
         "theory": [
           "T13"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "What Just Happened To Snowflake Stock?",
-        "link": "https://www.trefis.com/stock/snow/articles/623366/what-just-happened-to-snowflake-stock/2026-11-06?.tsrc=rss",
-        "ts": 1793974758,
-        "when": "Nov 06, 02:19 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
         ],
         "sent": "neutral"
       },
@@ -6662,66 +6722,6 @@ window.DASH = {
           "T13"
         ],
         "sent": "neutral"
-      },
-      {
-        "title": "Michael Burry Dumps 25% of His Semiconductor Bet Amid Brutal Tech Selloff",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/michael-burry-dumps-25-semiconductor-131244639.html?.tsrc=rss",
-        "ts": 1793970764,
-        "when": "Nov 06, 01:12 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "negative"
-      },
-      {
-        "title": "Nvidia Partner CoreWeave Ready To Report Q3 As AI Stocks Crumble; Nebius, Qualys Also Due",
-        "link": "https://finance.yahoo.com/m/1f843001-c94b-3d44-9a8c-33bfc2e1bc2b/nvidia-partner-coreweave.html?.tsrc=rss",
-        "ts": 1793970064,
-        "when": "Nov 06, 01:01 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "Top Funds Feast On Shell, Microsoft, Palantir And 24 More Stocks",
-        "link": "https://finance.yahoo.com/m/f949d09d-23e9-3a25-b459-43a09e843bec/top-funds-feast-on-shell%2C.html?.tsrc=rss",
-        "ts": 1793970049,
-        "when": "Nov 06, 01:00 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "Prediction: $5,000 Invested in Palantir Will Be Worth This Much by 2031",
-        "link": "https://www.fool.com/investing/2026/11/06/prediction-5000-invested-in-palantir-will-be-worth/?.tsrc=rss",
-        "ts": 1793969580,
-        "when": "Nov 06, 12:53 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
       },
       {
         "title": "Do Wall Street Analysts Like Las Vegas Sands Stock?",
