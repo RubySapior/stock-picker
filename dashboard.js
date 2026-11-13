@@ -137,48 +137,48 @@ window.DASH = {
     "fear_state": {
       "F1": {
         "prev_score": 3.1,
-        "score": 3.1,
+        "score": 3.0,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F2": {
-        "prev_score": 1.7,
-        "score": 1.6,
+        "prev_score": 1.6,
+        "score": 1.3,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F3": {
-        "prev_score": 3.3,
+        "prev_score": 2.6,
         "score": 2.6,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F4": {
-        "prev_score": 2.5,
-        "score": 2.9,
+        "prev_score": 2.9,
+        "score": 3.0,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F5": {
-        "prev_score": 2.0,
-        "score": 2.4,
+        "prev_score": 2.4,
+        "score": 2.2,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F6": {
-        "prev_score": 3.9,
+        "prev_score": 4.3,
         "score": 4.3,
-        "days_above": 1,
+        "days_above": 2,
         "confirmed": false,
-        "last_above_date": "2026-11-12"
+        "last_above_date": "2026-11-13"
       },
       "F7": {
-        "prev_score": 2.0,
+        "prev_score": 1.2,
         "score": 1.2,
         "days_above": 0,
         "confirmed": false,
@@ -633,8 +633,8 @@ window.DASH = {
       "cash_buffer_usd": 500.0,
       "shadow_mode": true
     },
-    "asof_ts": 1794515996,
-    "refresh_interval": 6
+    "asof_ts": 1794555509,
+    "refresh_interval": 1440
   },
   "asof": "2026-11-12",
   "summary": {
@@ -644,7 +644,7 @@ window.DASH = {
     "day_change": 144.89,
     "total_return_pct": -14.37,
     "realized_pnl": -14310.08,
-    "dividends_total": 99.17,
+    "dividends_total": 201.13,
     "start_value": 100000,
     "max_drawdown_pct": -17.85,
     "sharpe_annualized": -2.48,
@@ -657,10 +657,10 @@ window.DASH = {
       "sleeve": "Short-Term Bonds (SGOV)",
       "buy_date": "2026-08-11",
       "buy_price": 100.505,
-      "shares": 308.965104,
-      "cost": 31056.04,
+      "shares": 309.979329,
+      "cost": 31158.0,
       "current_price": 100.5295,
-      "current_value": 31060.11,
+      "current_value": 31162.07,
       "pnl_pct": 0.02,
       "take_profit_pct": 0.0,
       "stop_loss_pct": -0.1,
@@ -668,7 +668,7 @@ window.DASH = {
       "exit": null,
       "sector": "Short-Term Bonds",
       "leverage": 1.0,
-      "effective_value": 31060.11,
+      "effective_value": 31162.07,
       "underlying": null,
       "underlying_stop_pct": null,
       "underlying_buy_price": null,
@@ -819,8 +819,8 @@ window.DASH = {
       "underlying_stop_pct": -0.08,
       "underlying_buy_price": 720.87,
       "dynamic_stop_pct": -0.08,
-      "underlying_ema20": 701.8613669353839,
-      "underlying_atr14": 14.288328781282562,
+      "underlying_ema20": 700.557425599648,
+      "underlying_atr14": 14.31987533038738,
       "runner_active": false,
       "base_trimmed": false,
       "theory_ids": [
@@ -862,8 +862,8 @@ window.DASH = {
       "underlying_stop_pct": -0.09,
       "underlying_buy_price": 529.39,
       "dynamic_stop_pct": -0.09,
-      "underlying_ema20": 397.8719575694076,
-      "underlying_atr14": 37.4505458086731,
+      "underlying_ema20": 374.74034308595583,
+      "underlying_atr14": 35.31836440116185,
       "runner_active": false,
       "base_trimmed": false,
       "theory_ids": [
@@ -946,8 +946,8 @@ window.DASH = {
       "underlying_stop_pct": -0.09,
       "underlying_buy_price": 511.06,
       "dynamic_stop_pct": -0.0921,
-      "underlying_ema20": 397.8719575694076,
-      "underlying_atr14": 37.4505458086731,
+      "underlying_ema20": 374.74034308595583,
+      "underlying_atr14": 35.31836440116185,
       "runner_active": false,
       "base_trimmed": false,
       "theory_ids": [
@@ -1400,7 +1400,7 @@ window.DASH = {
   "sleeves": [
     {
       "sleeve": "Short-Term Bonds (SGOV)",
-      "value": 31060.11
+      "value": 31162.07
     },
     {
       "sleeve": "Tech/AI Growth",
@@ -1500,10 +1500,10 @@ window.DASH = {
     },
     {
       "sector": "Short-Term Bonds",
-      "value": 31060.11,
-      "effective": 31060.11,
+      "value": 31162.07,
+      "effective": 31162.07,
       "leverage": 1.0,
-      "pct": 36.3,
+      "pct": 36.4,
       "max_pct": 20,
       "status": "over",
       "note": ""
@@ -2718,6 +2718,20 @@ window.DASH = {
       "buy_price": 100.45,
       "shares": 52.4982,
       "realized_pnl": 0
+    },
+    {
+      "date": "2026-11-13",
+      "ts": "07:38:28",
+      "ticker": "SGOV",
+      "name": "iShares 0-3 Month Treasury Bond ETF",
+      "reason": "dividend",
+      "note": "DIV $101.96 (0.330/sh x 308.9651) -> SGOV 1.0142 sh @ 100.53",
+      "action": "sgov",
+      "state": null,
+      "price": 100.53,
+      "shares": 1.0142,
+      "amount": 101.96,
+      "realized_pnl": 0
     }
   ],
   "theories": [
@@ -3091,17 +3105,17 @@ window.DASH = {
       "name": "Rates shock / duration liquidation",
       "type": "structural",
       "score": 4.3,
-      "level": 0.927,
+      "level": 0.932,
       "velocity": null,
       "trend": {
         "label": "50d trend",
-        "value": 0.018,
-        "pct": 0.562
+        "value": 0.0191,
+        "pct": 0.586
       },
       "signals": [
         {
           "label": "TLT/SHY (long-vs-short duration)",
-          "value": 0.927
+          "value": 0.935
         },
         {
           "label": "10y yield level",
@@ -3115,30 +3129,30 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-11-12",
+      "asof": "2026-11-13",
       "degraded": false,
-      "trend_dir": "rising"
+      "trend_dir": "flat"
     },
     {
       "id": "F1",
       "name": "AI / tech concentration pop",
       "type": "structural",
-      "score": 3.1,
-      "level": 0.448,
+      "score": 3.0,
+      "level": 0.439,
       "velocity": null,
       "trend": {
         "label": "50d trend",
-        "value": 0.0444,
-        "pct": 0.667
+        "value": 0.0416,
+        "pct": 0.643
       },
       "signals": [
         {
           "label": "QQQ/RSP concentration ratio",
-          "value": 0.8
+          "value": 0.785
         },
         {
           "label": "QQQ drawdown from 52w high",
-          "value": 0.095
+          "value": 0.094
         }
       ],
       "theory_ids": [
@@ -3151,7 +3165,7 @@ window.DASH = {
         "ZROZ"
       ],
       "sizing": null,
-      "asof": "2026-11-12",
+      "asof": "2026-11-13",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -3159,18 +3173,18 @@ window.DASH = {
       "id": "F4",
       "name": "Inflation resurgence",
       "type": "structural",
-      "score": 2.9,
-      "level": 0.623,
+      "score": 3.0,
+      "level": 0.642,
       "velocity": null,
       "trend": {
         "label": "50d trend",
-        "value": -0.0037,
-        "pct": 0.133
+        "value": -0.0035,
+        "pct": 0.143
       },
       "signals": [
         {
           "label": "TIP/IEF (breakevens proxy)",
-          "value": 0.623
+          "value": 0.642
         }
       ],
       "theory_ids": [
@@ -3182,9 +3196,9 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-11-12",
+      "asof": "2026-11-13",
       "degraded": false,
-      "trend_dir": "rising"
+      "trend_dir": "flat"
     },
     {
       "id": "F8",
@@ -3195,8 +3209,8 @@ window.DASH = {
       "velocity": null,
       "trend": {
         "label": "50d trend",
-        "value": 0.0202,
-        "pct": 0.395
+        "value": 0.0192,
+        "pct": 0.386
       },
       "signals": [
         {
@@ -3216,7 +3230,7 @@ window.DASH = {
         "BTAL"
       ],
       "sizing": null,
-      "asof": "2026-11-12",
+      "asof": "2026-11-13",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -3228,14 +3242,14 @@ window.DASH = {
       "level": 0.035,
       "velocity": {
         "label": "5d velocity",
-        "value": 0.0011,
-        "pct": 0.545
+        "value": 0.0017,
+        "pct": 0.549
       },
       "trend": null,
       "signals": [
         {
           "label": "HK equities drawdown",
-          "value": 0.04
+          "value": 0.041
         },
         {
           "label": "Gold 3d momentum",
@@ -3251,30 +3265,30 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-11-12",
+      "asof": "2026-11-13",
       "degraded": false,
-      "trend_dir": "falling"
+      "trend_dir": "flat"
     },
     {
       "id": "F5",
       "name": "War / energy shock",
       "type": "episodic",
-      "score": 2.4,
-      "level": 0.282,
+      "score": 2.2,
+      "level": 0.247,
       "velocity": {
         "label": "5d velocity",
-        "value": -0.0173,
-        "pct": 0.369
+        "value": -0.0241,
+        "pct": 0.322
       },
       "trend": null,
       "signals": [
         {
           "label": "Crude 5d momentum",
-          "value": 0.369
+          "value": 0.322
         },
         {
           "label": "Gold 1d momentum",
-          "value": 0.081
+          "value": 0.073
         }
       ],
       "theory_ids": [
@@ -3287,26 +3301,26 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-11-12",
+      "asof": "2026-11-13",
       "degraded": false,
-      "trend_dir": "rising"
+      "trend_dir": "falling"
     },
     {
       "id": "F2",
       "name": "Yen-carry unwind",
       "type": "episodic",
-      "score": 1.6,
-      "level": 0.158,
+      "score": 1.3,
+      "level": 0.146,
       "velocity": {
         "label": "5d velocity",
-        "value": -0.0095,
-        "pct": 0.161
+        "value": -0.0146,
+        "pct": 0.059
       },
       "trend": null,
       "signals": [
         {
           "label": "Yen strength (FXY level)",
-          "value": 0.158
+          "value": 0.146
         }
       ],
       "theory_ids": [
@@ -3317,9 +3331,9 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-11-12",
+      "asof": "2026-11-13",
       "degraded": false,
-      "trend_dir": "flat"
+      "trend_dir": "falling"
     },
     {
       "id": "F7",
@@ -3329,7 +3343,7 @@ window.DASH = {
       "level": 0.162,
       "velocity": {
         "label": "5d velocity",
-        "value": -0.0118,
+        "value": -0.0117,
         "pct": 0.012
       },
       "trend": null,
@@ -3347,9 +3361,9 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-11-12",
+      "asof": "2026-11-13",
       "degraded": false,
-      "trend_dir": "falling"
+      "trend_dir": "flat"
     }
   ],
   "fear_greed": {
@@ -3357,10 +3371,10 @@ window.DASH = {
     "label": "Fear"
   },
   "complacency": {
-    "index": 0.029,
-    "valuation_stretch": 0.075,
+    "index": 0.033,
+    "valuation_stretch": 0.083,
     "fear_term": 0.392,
-    "divergence": 0.046,
+    "divergence": 0.051,
     "fear_avg": 3.43,
     "regime": "moderate",
     "note": "Moderate stress - hedges have a job to do.",
@@ -3371,31 +3385,31 @@ window.DASH = {
       "checks": [
         {
           "ticker": "SGOV",
-          "ret_pct": -0.18,
-          "paying": false
+          "ret_pct": 0.15,
+          "paying": true
         }
       ]
     }
   },
   "fear_sizing": null,
   "hedge_harvest": {
-    "asof": "2026-11-12",
+    "asof": "2026-11-13",
     "items": [
       {
         "ticker": "BTAL",
         "pct": 50,
-        "z": 2.42,
+        "z": 2.77,
         "reasons": [
-          "BTAL 2.4sigma above 50d mean",
+          "BTAL 2.8sigma above 50d mean",
           "growth vol-halt ACTIVE (TQQQ halted) - redeploy at the bottom"
         ]
       },
       {
         "ticker": "DBMF",
         "pct": 50,
-        "z": 2.05,
+        "z": 3.16,
         "reasons": [
-          "DBMF 2.1sigma above 50d mean",
+          "DBMF 3.2sigma above 50d mean",
           "growth vol-halt ACTIVE (TQQQ halted) - redeploy at the bottom"
         ]
       }
@@ -3675,7 +3689,7 @@ window.DASH = {
       },
       {
         "date": "2026-11-12",
-        "value": 98181.18
+        "value": 98185.07
       }
     ],
     "aligned": [
@@ -3933,11 +3947,11 @@ window.DASH = {
       },
       {
         "date": "2026-11-12",
-        "value": 98181.18
+        "value": 98185.07
       }
     ],
     "summary": {
-      "total_return_pct": -1.82,
+      "total_return_pct": -1.81,
       "max_drawdown_pct": -5.92,
       "sharpe_annualized": -0.41
     }
@@ -4217,7 +4231,7 @@ window.DASH = {
         },
         {
           "date": "2026-11-12",
-          "value": 98181.18
+          "value": 98185.07
         }
       ],
       "aligned": [
@@ -4475,11 +4489,11 @@ window.DASH = {
         },
         {
           "date": "2026-11-12",
-          "value": 98181.18
+          "value": 98185.07
         }
       ],
       "summary": {
-        "total_return_pct": -1.82,
+        "total_return_pct": -1.81,
         "max_drawdown_pct": -5.92,
         "sharpe_annualized": -0.41
       }
@@ -4758,7 +4772,7 @@ window.DASH = {
         },
         {
           "date": "2026-11-12",
-          "value": 95448.03
+          "value": 95563.29
         }
       ],
       "aligned": [
@@ -5016,13 +5030,13 @@ window.DASH = {
         },
         {
           "date": "2026-11-12",
-          "value": 95448.03
+          "value": 95563.29
         }
       ],
       "summary": {
-        "total_return_pct": -4.55,
+        "total_return_pct": -4.44,
         "max_drawdown_pct": -14.82,
-        "sharpe_annualized": -0.65
+        "sharpe_annualized": -0.63
       }
     },
     "TQQQ": {
@@ -5299,7 +5313,7 @@ window.DASH = {
         },
         {
           "date": "2026-11-12",
-          "value": 80996.39
+          "value": 81295.07
         }
       ],
       "aligned": [
@@ -5557,13 +5571,13 @@ window.DASH = {
         },
         {
           "date": "2026-11-12",
-          "value": 80996.39
+          "value": 81295.07
         }
       ],
       "summary": {
-        "total_return_pct": -19.0,
+        "total_return_pct": -18.7,
         "max_drawdown_pct": -40.09,
-        "sharpe_annualized": -0.82
+        "sharpe_annualized": -0.8
       }
     },
     "MUU": {
@@ -5840,7 +5854,7 @@ window.DASH = {
         },
         {
           "date": "2026-11-12",
-          "value": 70504.09
+          "value": 71171.44
         }
       ],
       "aligned": [
@@ -6098,13 +6112,13 @@ window.DASH = {
         },
         {
           "date": "2026-11-12",
-          "value": 70504.09
+          "value": 71171.44
         }
       ],
       "summary": {
-        "total_return_pct": -29.5,
+        "total_return_pct": -28.83,
         "max_drawdown_pct": -67.57,
-        "sharpe_annualized": -0.21
+        "sharpe_annualized": -0.19
       }
     }
   },
@@ -6417,41 +6431,13 @@ window.DASH = {
     "enabled": true
   },
   "news": {
-    "asof": "2026-11-12 20:39:56",
+    "asof": "2026-11-13 07:38:29",
     "big_stories": [
       {
-        "title": "Gold Prices Plunge as Fed Rate Hike Fears Intensify",
-        "link": "https://finance.yahoo.com/markets/commodities/articles/gold-prices-plunge-fed-rate-194427220.html?.tsrc=rss",
-        "ts": 1794512667,
-        "when": "Nov 12, 07:44 PM",
-        "ticker": "GLD",
-        "industry": "Gold",
-        "theory": [
-          "T6",
-          "T9",
-          "T19",
-          "T20",
-          "T21"
-        ],
-        "sent": "negative"
-      },
-      {
-        "title": "Sector Update: Consumer Stocks Edge Lower in Afternoon Trading",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-edge-lower-184211574.html?.tsrc=rss",
-        "ts": 1794508931,
-        "when": "Nov 12, 06:42 PM",
-        "ticker": "XLY",
-        "industry": "Consumer Disc.",
-        "theory": [
-          "T13"
-        ],
-        "sent": "negative"
-      },
-      {
-        "title": "Drone Maker Ondas Updates Its Profitability Forecast as Revenue Surges 1,558%",
-        "link": "https://finance.yahoo.com/m/3980cbc1-887b-3643-8fbf-eda8b4e74972/drone-maker-ondas-updates-its.html?.tsrc=rss",
-        "ts": 1794507960,
-        "when": "Nov 12, 06:26 PM",
+        "title": "Cathie Wood Boosts Bets On 2 AI Firms Amid Nvidia’s Huang Upheaval — Here’s How Her Trading Week Unfolded",
+        "link": "https://stocktwits.com/news-articles/markets/equity/cathie-wood-bets-2-ai-firms-nvidia-huang-upheaval-how-trading-week-unfolded/cNbbpHTR9Ol?.tsrc=rss",
+        "ts": 1794544907,
+        "when": "Nov 13, 04:41 AM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -6461,6 +6447,34 @@ window.DASH = {
           "T14"
         ],
         "sent": "positive"
+      },
+      {
+        "title": "What If You Had Invested $10,000 in Bitcoin 5 Years Ago?",
+        "link": "https://247wallst.com/investing/cryptocurrency/2026/11/12/what-if-you-had-invested-10000-in-bitcoin-5-years-ago/?.tsrc=rss",
+        "ts": 1794526196,
+        "when": "Nov 12, 11:29 PM",
+        "ticker": "GLD",
+        "industry": "Gold",
+        "theory": [
+          "T6",
+          "T9",
+          "T19",
+          "T20",
+          "T21"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "Sector Update: Consumer Stocks Decline Late Afternoon",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-decline-afternoon-204936730.html?.tsrc=rss",
+        "ts": 1794516576,
+        "when": "Nov 12, 08:49 PM",
+        "ticker": "XLY",
+        "industry": "Consumer Disc.",
+        "theory": [
+          "T13"
+        ],
+        "sent": "neutral"
       },
       {
         "title": "SGOV Yields 3.63%. Can Johnson & Johnson or Verizon Pay Retirees More?",
@@ -6490,6 +6504,64 @@ window.DASH = {
       }
     ],
     "feed": [
+      {
+        "title": "Cathie Wood Boosts Bets On 2 AI Firms Amid Nvidia’s Huang Upheaval — Here’s How Her Trading Week Unfolded",
+        "link": "https://stocktwits.com/news-articles/markets/equity/cathie-wood-bets-2-ai-firms-nvidia-huang-upheaval-how-trading-week-unfolded/cNbbpHTR9Ol?.tsrc=rss",
+        "ts": 1794544907,
+        "when": "Nov 13, 04:41 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "What If You Had Invested $10,000 in Bitcoin 5 Years Ago?",
+        "link": "https://247wallst.com/investing/cryptocurrency/2026/11/12/what-if-you-had-invested-10000-in-bitcoin-5-years-ago/?.tsrc=rss",
+        "ts": 1794526196,
+        "when": "Nov 12, 11:29 PM",
+        "ticker": "GLD",
+        "industry": "Gold",
+        "theory": [
+          "T6",
+          "T9",
+          "T19",
+          "T20",
+          "T21"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "IPO Edge NYSE Firesides Scheduled for Monday, December 7",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/ipo-edge-nyse-firesides-scheduled-222131276.html?.tsrc=rss",
+        "ts": 1794520831,
+        "when": "Nov 12, 10:00 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "Sector Update: Consumer Stocks Decline Late Afternoon",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-decline-afternoon-204936730.html?.tsrc=rss",
+        "ts": 1794516576,
+        "when": "Nov 12, 08:49 PM",
+        "ticker": "XLY",
+        "industry": "Consumer Disc.",
+        "theory": [
+          "T13"
+        ],
+        "sent": "neutral"
+      },
       {
         "title": "Gold Prices Plunge as Fed Rate Hike Fears Intensify",
         "link": "https://finance.yahoo.com/markets/commodities/articles/gold-prices-plunge-fed-rate-194427220.html?.tsrc=rss",
@@ -6818,21 +6890,6 @@ window.DASH = {
         "sent": "neutral"
       },
       {
-        "title": "3 Possible Paths Forward for AI Stocks (Bull Case, Bear Case, Base Case) -- and How to Invest for Each",
-        "link": "https://www.fool.com/investing/2026/11/11/3-possible-paths-forward-for-ai-stocks-bull-case-b/?.tsrc=rss",
-        "ts": 1794425049,
-        "when": "Nov 11, 07:24 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
         "title": "Sector Update: Consumer Stocks Decline Wednesday Afternoon",
         "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-decline-wednesday-183332507.html?.tsrc=rss",
         "ts": 1794422012,
@@ -6843,21 +6900,6 @@ window.DASH = {
           "T13"
         ],
         "sent": "neutral"
-      },
-      {
-        "title": "Helsing debuts Clarity military AI to challenge Palantir in Europe",
-        "link": "https://finance.yahoo.com/technology/ai/articles/helsing-debuts-clarity-military-ai-161625762.html?.tsrc=rss",
-        "ts": 1794413785,
-        "when": "Nov 11, 04:16 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
       },
       {
         "title": "SGOV Yields 3.63%. Can Johnson & Johnson or Verizon Pay Retirees More?",
@@ -6892,34 +6934,6 @@ window.DASH = {
           "T13"
         ],
         "sent": "neutral"
-      },
-      {
-        "title": "Sector Update: Consumer Stocks Mixed Tuesday Afternoon",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-mixed-tuesday-183348750.html?.tsrc=rss",
-        "ts": 1794335628,
-        "when": "Nov 10, 06:33 PM",
-        "ticker": "XLY",
-        "industry": "Consumer Disc.",
-        "theory": [
-          "T13"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Forget the ETF Outflows: Gold Miners Offer 3X Leverage As Cash Flow Surges",
-        "link": "https://finance.yahoo.com/markets/commodities/articles/forget-etf-outflows-gold-miners-133032447.html?.tsrc=rss",
-        "ts": 1794317432,
-        "when": "Nov 10, 01:30 PM",
-        "ticker": "GLD",
-        "industry": "Gold",
-        "theory": [
-          "T6",
-          "T9",
-          "T19",
-          "T20",
-          "T21"
-        ],
-        "sent": "negative"
       }
     ]
   },
