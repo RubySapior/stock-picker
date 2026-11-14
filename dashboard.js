@@ -136,22 +136,22 @@ window.DASH = {
     "disclaimer": "Simulated portfolio for tracking/learning. Not financial advice.",
     "fear_state": {
       "F1": {
-        "prev_score": 3.0,
+        "prev_score": 3.3,
         "score": 3.3,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F2": {
-        "prev_score": 1.3,
+        "prev_score": 1.4,
         "score": 1.4,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F3": {
-        "prev_score": 2.6,
-        "score": 3.1,
+        "prev_score": 3.1,
+        "score": 3.0,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
@@ -164,18 +164,18 @@ window.DASH = {
         "last_above_date": null
       },
       "F5": {
-        "prev_score": 2.2,
+        "prev_score": 2.4,
         "score": 2.4,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
       },
       "F6": {
-        "prev_score": 4.3,
+        "prev_score": 4.4,
         "score": 4.4,
-        "days_above": 2,
-        "confirmed": false,
-        "last_above_date": "2026-11-13"
+        "days_above": 3,
+        "confirmed": true,
+        "last_above_date": "2026-11-14"
       },
       "F7": {
         "prev_score": 1.2,
@@ -185,7 +185,7 @@ window.DASH = {
         "last_above_date": null
       },
       "F8": {
-        "prev_score": 2.7,
+        "prev_score": 3.1,
         "score": 3.1,
         "days_above": 0,
         "confirmed": false,
@@ -633,8 +633,8 @@ window.DASH = {
       "cash_buffer_usd": 500.0,
       "shadow_mode": true
     },
-    "asof_ts": 1794601287,
-    "refresh_interval": 6
+    "asof_ts": 1794641057,
+    "refresh_interval": 1440
   },
   "asof": "2026-11-13",
   "summary": {
@@ -819,8 +819,8 @@ window.DASH = {
       "underlying_stop_pct": -0.08,
       "underlying_buy_price": 720.87,
       "dynamic_stop_pct": -0.08,
-      "underlying_ema20": 704.2789619160181,
-      "underlying_atr14": 13.084492789077165,
+      "underlying_ema20": 701.9562050333915,
+      "underlying_atr14": 13.369172398730134,
       "runner_active": false,
       "base_trimmed": false,
       "theory_ids": [
@@ -862,8 +862,8 @@ window.DASH = {
       "underlying_stop_pct": -0.09,
       "underlying_buy_price": 529.39,
       "dynamic_stop_pct": -0.09,
-      "underlying_ema20": 399.3003834980764,
-      "underlying_atr14": 36.95539273942518,
+      "underlying_ema20": 375.49082345556985,
+      "underlying_atr14": 35.05500797971735,
       "runner_active": false,
       "base_trimmed": false,
       "theory_ids": [
@@ -946,8 +946,8 @@ window.DASH = {
       "underlying_stop_pct": -0.09,
       "underlying_buy_price": 511.06,
       "dynamic_stop_pct": -0.0921,
-      "underlying_ema20": 399.3003834980764,
-      "underlying_atr14": 36.95539273942518,
+      "underlying_ema20": 375.49082345556985,
+      "underlying_atr14": 35.05500797971735,
       "runner_active": false,
       "base_trimmed": false,
       "theory_ids": [
@@ -3116,7 +3116,7 @@ window.DASH = {
       "velocity": null,
       "trend": {
         "label": "50d trend",
-        "value": 0.0248,
+        "value": 0.0243,
         "pct": 0.671
       },
       "signals": [
@@ -3136,7 +3136,7 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-11-13",
+      "asof": "2026-11-14",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -3145,11 +3145,11 @@ window.DASH = {
       "name": "AI / tech concentration pop",
       "type": "structural",
       "score": 3.3,
-      "level": 0.484,
+      "level": 0.483,
       "velocity": null,
       "trend": {
         "label": "50d trend",
-        "value": 0.06,
+        "value": 0.0599,
         "pct": 0.776
       },
       "signals": [
@@ -3159,7 +3159,7 @@ window.DASH = {
         },
         {
           "label": "QQQ drawdown from 52w high",
-          "value": 0.106
+          "value": 0.105
         }
       ],
       "theory_ids": [
@@ -3172,26 +3172,60 @@ window.DASH = {
         "ZROZ"
       ],
       "sizing": null,
-      "asof": "2026-11-13",
+      "asof": "2026-11-14",
       "degraded": false,
-      "trend_dir": "rising"
+      "trend_dir": "flat"
+    },
+    {
+      "id": "F8",
+      "name": "Recession / growth freeze",
+      "type": "structural",
+      "score": 3.1,
+      "level": 0.481,
+      "velocity": null,
+      "trend": {
+        "label": "50d trend",
+        "value": 0.053,
+        "pct": 0.648
+      },
+      "signals": [
+        {
+          "label": "XLY/XLP (cyclical vs staples)",
+          "value": 0.962
+        },
+        {
+          "label": "SPY below 200d MA",
+          "value": 0.0
+        }
+      ],
+      "theory_ids": [
+        "T6"
+      ],
+      "hedge_ticks": [
+        "ZROZ",
+        "BTAL"
+      ],
+      "sizing": null,
+      "asof": "2026-11-14",
+      "degraded": false,
+      "trend_dir": "flat"
     },
     {
       "id": "F3",
       "name": "China / Taiwan escalation",
       "type": "episodic",
-      "score": 3.1,
-      "level": 0.057,
+      "score": 3.0,
+      "level": 0.06,
       "velocity": {
         "label": "5d velocity",
-        "value": 0.0118,
-        "pct": 0.722
+        "value": 0.0111,
+        "pct": 0.706
       },
       "trend": null,
       "signals": [
         {
           "label": "Gold 3d momentum",
-          "value": 0.074
+          "value": 0.082
         },
         {
           "label": "HK equities drawdown",
@@ -3207,43 +3241,9 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-11-13",
+      "asof": "2026-11-14",
       "degraded": false,
-      "trend_dir": "rising"
-    },
-    {
-      "id": "F8",
-      "name": "Recession / growth freeze",
-      "type": "structural",
-      "score": 3.1,
-      "level": 0.479,
-      "velocity": null,
-      "trend": {
-        "label": "50d trend",
-        "value": 0.0514,
-        "pct": 0.648
-      },
-      "signals": [
-        {
-          "label": "XLY/XLP (cyclical vs staples)",
-          "value": 0.958
-        },
-        {
-          "label": "SPY below 200d MA",
-          "value": 0.0
-        }
-      ],
-      "theory_ids": [
-        "T6"
-      ],
-      "hedge_ticks": [
-        "ZROZ",
-        "BTAL"
-      ],
-      "sizing": null,
-      "asof": "2026-11-13",
-      "degraded": false,
-      "trend_dir": "rising"
+      "trend_dir": "flat"
     },
     {
       "id": "F4",
@@ -3255,7 +3255,7 @@ window.DASH = {
       "trend": {
         "label": "50d trend",
         "value": -0.0033,
-        "pct": 0.152
+        "pct": 0.148
       },
       "signals": [
         {
@@ -3272,7 +3272,7 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-11-13",
+      "asof": "2026-11-14",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -3281,21 +3281,21 @@ window.DASH = {
       "name": "War / energy shock",
       "type": "episodic",
       "score": 2.4,
-      "level": 0.378,
+      "level": 0.38,
       "velocity": {
         "label": "5d velocity",
-        "value": -0.0221,
-        "pct": 0.329
+        "value": -0.025,
+        "pct": 0.322
       },
       "trend": null,
       "signals": [
         {
           "label": "Crude 5d momentum",
-          "value": 0.329
+          "value": 0.322
         },
         {
           "label": "Gold 1d momentum",
-          "value": 0.49
+          "value": 0.517
         }
       ],
       "theory_ids": [
@@ -3308,9 +3308,9 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-11-13",
+      "asof": "2026-11-14",
       "degraded": false,
-      "trend_dir": "rising"
+      "trend_dir": "flat"
     },
     {
       "id": "F2",
@@ -3320,8 +3320,8 @@ window.DASH = {
       "level": 0.173,
       "velocity": {
         "label": "5d velocity",
-        "value": -0.0146,
-        "pct": 0.059
+        "value": -0.0151,
+        "pct": 0.051
       },
       "trend": null,
       "signals": [
@@ -3338,7 +3338,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-11-13",
+      "asof": "2026-11-14",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -3368,7 +3368,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-11-13",
+      "asof": "2026-11-14",
       "degraded": false,
       "trend_dir": "flat"
     }
@@ -3392,7 +3392,7 @@ window.DASH = {
       "checks": [
         {
           "ticker": "SGOV",
-          "ret_pct": 0.15,
+          "ret_pct": 0.16,
           "paying": true
         }
       ]
@@ -3400,23 +3400,23 @@ window.DASH = {
   },
   "fear_sizing": null,
   "hedge_harvest": {
-    "asof": "2026-11-13",
+    "asof": "2026-11-14",
     "items": [
       {
         "ticker": "BTAL",
         "pct": 50,
-        "z": 3.03,
+        "z": 2.91,
         "reasons": [
-          "BTAL 3.0sigma above 50d mean",
+          "BTAL 2.9sigma above 50d mean",
           "growth vol-halt ACTIVE (TQQQ halted) - redeploy at the bottom"
         ]
       },
       {
         "ticker": "DBMF",
         "pct": 50,
-        "z": 3.15,
+        "z": 3.06,
         "reasons": [
-          "DBMF 3.2sigma above 50d mean",
+          "DBMF 3.1sigma above 50d mean",
           "growth vol-halt ACTIVE (TQQQ halted) - redeploy at the bottom"
         ]
       }
@@ -3700,7 +3700,7 @@ window.DASH = {
       },
       {
         "date": "2026-11-13",
-        "value": 97706.54
+        "value": 97828.44
       }
     ],
     "aligned": [
@@ -3962,13 +3962,13 @@ window.DASH = {
       },
       {
         "date": "2026-11-13",
-        "value": 97706.54
+        "value": 97828.44
       }
     ],
     "summary": {
-      "total_return_pct": -2.29,
+      "total_return_pct": -2.17,
       "max_drawdown_pct": -5.92,
-      "sharpe_annualized": -0.54
+      "sharpe_annualized": -0.5
     }
   },
   "benchmarks": {
@@ -4250,7 +4250,7 @@ window.DASH = {
         },
         {
           "date": "2026-11-13",
-          "value": 97706.54
+          "value": 97828.44
         }
       ],
       "aligned": [
@@ -4512,13 +4512,13 @@ window.DASH = {
         },
         {
           "date": "2026-11-13",
-          "value": 97706.54
+          "value": 97828.44
         }
       ],
       "summary": {
-        "total_return_pct": -2.29,
+        "total_return_pct": -2.17,
         "max_drawdown_pct": -5.92,
-        "sharpe_annualized": -0.54
+        "sharpe_annualized": -0.5
       }
     },
     "QQQ": {
@@ -4799,7 +4799,7 @@ window.DASH = {
         },
         {
           "date": "2026-11-13",
-          "value": 94380.21
+          "value": 94413.48
         }
       ],
       "aligned": [
@@ -5061,13 +5061,13 @@ window.DASH = {
         },
         {
           "date": "2026-11-13",
-          "value": 94380.21
+          "value": 94413.48
         }
       ],
       "summary": {
-        "total_return_pct": -5.62,
+        "total_return_pct": -5.59,
         "max_drawdown_pct": -14.82,
-        "sharpe_annualized": -0.82
+        "sharpe_annualized": -0.81
       }
     },
     "TQQQ": {
@@ -5348,7 +5348,7 @@ window.DASH = {
         },
         {
           "date": "2026-11-13",
-          "value": 78165.73
+          "value": 78308.28
         }
       ],
       "aligned": [
@@ -5610,13 +5610,13 @@ window.DASH = {
         },
         {
           "date": "2026-11-13",
-          "value": 78165.73
+          "value": 78308.28
         }
       ],
       "summary": {
-        "total_return_pct": -21.83,
+        "total_return_pct": -21.69,
         "max_drawdown_pct": -40.09,
-        "sharpe_annualized": -1.0
+        "sharpe_annualized": -0.99
       }
     },
     "MUU": {
@@ -5897,7 +5897,7 @@ window.DASH = {
         },
         {
           "date": "2026-11-13",
-          "value": 66244.79
+          "value": 67442.11
         }
       ],
       "aligned": [
@@ -6159,13 +6159,13 @@ window.DASH = {
         },
         {
           "date": "2026-11-13",
-          "value": 66244.79
+          "value": 67442.11
         }
       ],
       "summary": {
-        "total_return_pct": -33.76,
+        "total_return_pct": -32.56,
         "max_drawdown_pct": -67.57,
-        "sharpe_annualized": -0.37
+        "sharpe_annualized": -0.33
       }
     }
   },
@@ -6478,7 +6478,7 @@ window.DASH = {
     "enabled": true
   },
   "news": {
-    "asof": "2026-11-13 20:21:28",
+    "asof": "2026-11-14 07:24:17",
     "big_stories": [
       {
         "title": "Sector Update: Consumer Stocks Mixed in Afternoon Trading",
@@ -6588,6 +6588,18 @@ window.DASH = {
           "T7",
           "T2",
           "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "What Are Wall Street Analysts’ Target Price for Yum! Brands Stock?",
+        "link": "https://www.barchart.com/story/news/8824415/what-are-wall-street-analysts-target-price-for-yum-brands-stock?.tsrc=rss",
+        "ts": 1794586331,
+        "when": "Nov 13, 04:12 PM",
+        "ticker": "XLY",
+        "industry": "Consumer Disc.",
+        "theory": [
+          "T13"
         ],
         "sent": "neutral"
       },
@@ -6956,21 +6968,6 @@ window.DASH = {
         "link": "https://www.tikr.com/blog/top-vc-on-palantir-you-literally-cant-stop-your-margins-going-up?ref=yahoofinance&tlnk=yf-261112-pr8hf445&.tsrc=rss",
         "ts": 1794496850,
         "when": "Nov 12, 03:20 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "negative"
-      },
-      {
-        "title": "Palantir’s Tech Chief Wants to Sell $50 Million in Stock After the AI Crash",
-        "link": "https://247wallst.com/investing/2026/11/12/palantirs-tech-chief-wants-to-sell-50-million-in-stock-after-the-ai-crash/?.tsrc=rss",
-        "ts": 1794494836,
-        "when": "Nov 12, 02:47 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
