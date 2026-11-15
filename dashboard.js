@@ -150,7 +150,7 @@ window.DASH = {
         "last_above_date": null
       },
       "F3": {
-        "prev_score": 3.1,
+        "prev_score": 3.0,
         "score": 3.0,
         "days_above": 0,
         "confirmed": false,
@@ -173,9 +173,9 @@ window.DASH = {
       "F6": {
         "prev_score": 4.4,
         "score": 4.4,
-        "days_above": 3,
+        "days_above": 4,
         "confirmed": true,
-        "last_above_date": "2026-11-14"
+        "last_above_date": "2026-11-15"
       },
       "F7": {
         "prev_score": 1.2,
@@ -633,7 +633,7 @@ window.DASH = {
       "cash_buffer_usd": 500.0,
       "shadow_mode": true
     },
-    "asof_ts": 1794641057,
+    "asof_ts": 1794728178,
     "refresh_interval": 1440
   },
   "asof": "2026-11-13",
@@ -3136,7 +3136,7 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-11-14",
+      "asof": "2026-11-15",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -3172,7 +3172,7 @@ window.DASH = {
         "ZROZ"
       ],
       "sizing": null,
-      "asof": "2026-11-14",
+      "asof": "2026-11-15",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -3206,7 +3206,7 @@ window.DASH = {
         "BTAL"
       ],
       "sizing": null,
-      "asof": "2026-11-14",
+      "asof": "2026-11-15",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -3241,7 +3241,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-11-14",
+      "asof": "2026-11-15",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -3272,7 +3272,7 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-11-14",
+      "asof": "2026-11-15",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -3308,7 +3308,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-11-14",
+      "asof": "2026-11-15",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -3338,7 +3338,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-11-14",
+      "asof": "2026-11-15",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -3368,7 +3368,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-11-14",
+      "asof": "2026-11-15",
       "degraded": false,
       "trend_dir": "flat"
     }
@@ -3400,7 +3400,7 @@ window.DASH = {
   },
   "fear_sizing": null,
   "hedge_harvest": {
-    "asof": "2026-11-14",
+    "asof": "2026-11-15",
     "items": [
       {
         "ticker": "BTAL",
@@ -6478,8 +6478,39 @@ window.DASH = {
     "enabled": true
   },
   "news": {
-    "asof": "2026-11-14 07:24:17",
+    "asof": "2026-11-15 07:36:18",
     "big_stories": [
+      {
+        "title": "Top 3 AI Stocks To Watch In November 2026",
+        "link": "https://finance.yahoo.com/technology/ai/articles/top-3-ai-stocks-watch-021005217.html?.tsrc=rss",
+        "ts": 1794708605,
+        "when": "Nov 15, 02:10 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "Ray Dalio Keeps Telling Investors to Hold Gold. Gold Just Lost 28% From Its Record. Here’s His Rule for a 66-Year-Old With $800,000 in an IRA and $2,800 a Month in Social Security",
+        "link": "https://247wallst.com/investing/2026/11/14/ray-dalio-keeps-telling-investors-to-hold-gold-gold-just-lost-28-from-its-record-heres-his-rule-for-a-66-year-old-with-800000-in-an-ira-and-2800-a-month-in-social-security/?.tsrc=rss",
+        "ts": 1794685380,
+        "when": "Nov 14, 07:43 PM",
+        "ticker": "GLD",
+        "industry": "Gold",
+        "theory": [
+          "T6",
+          "T9",
+          "T19",
+          "T20",
+          "T21"
+        ],
+        "sent": "neutral"
+      },
       {
         "title": "Sector Update: Consumer Stocks Mixed in Afternoon Trading",
         "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-mixed-afternoon-183352371.html?.tsrc=rss",
@@ -6489,21 +6520,6 @@ window.DASH = {
         "industry": "Consumer Disc.",
         "theory": [
           "T13"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "PLTR's Rule of 40 Hits 158%: Can This Momentum Continue?",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/pltrs-rule-40-hits-158-174000798.html?.tsrc=rss",
-        "ts": 1794591600,
-        "when": "Nov 13, 05:40 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
         ],
         "sent": "neutral"
       },
@@ -6530,12 +6546,44 @@ window.DASH = {
         "industry": "Equities",
         "theory": [],
         "sent": "negative"
+      }
+    ],
+    "feed": [
+      {
+        "title": "Top 3 AI Stocks To Watch In November 2026",
+        "link": "https://finance.yahoo.com/technology/ai/articles/top-3-ai-stocks-watch-021005217.html?.tsrc=rss",
+        "ts": 1794708605,
+        "when": "Nov 15, 02:10 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
       },
       {
-        "title": "What If You Had Invested $10,000 in Bitcoin 5 Years Ago?",
-        "link": "https://247wallst.com/investing/cryptocurrency/2026/11/12/what-if-you-had-invested-10000-in-bitcoin-5-years-ago/?.tsrc=rss",
-        "ts": 1794526196,
-        "when": "Nov 12, 11:29 PM",
+        "title": "Peter Thiel’s Longtime Business Partner Says AI Is Absolutely in a Bubble: ‘This Will Correct’",
+        "link": "https://finance.yahoo.com/technology/ai/articles/peter-thiel-longtime-business-partner-213007111.html?.tsrc=rss",
+        "ts": 1794691807,
+        "when": "Nov 14, 09:30 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
+      },
+      {
+        "title": "Ray Dalio Keeps Telling Investors to Hold Gold. Gold Just Lost 28% From Its Record. Here’s His Rule for a 66-Year-Old With $800,000 in an IRA and $2,800 a Month in Social Security",
+        "link": "https://247wallst.com/investing/2026/11/14/ray-dalio-keeps-telling-investors-to-hold-gold-gold-just-lost-28-from-its-record-heres-his-rule-for-a-66-year-old-with-800000-in-an-ira-and-2800-a-month-in-social-security/?.tsrc=rss",
+        "ts": 1794685380,
+        "when": "Nov 14, 07:43 PM",
         "ticker": "GLD",
         "industry": "Gold",
         "theory": [
@@ -6546,9 +6594,22 @@ window.DASH = {
           "T21"
         ],
         "sent": "neutral"
-      }
-    ],
-    "feed": [
+      },
+      {
+        "title": "Palantir CEO Alex Karp Says Silicon Valley ‘Would Not Even Exist’ Without US Military Support",
+        "link": "https://finance.yahoo.com/technology/ai/articles/palantir-ceo-alex-karp-says-185402032.html?.tsrc=rss",
+        "ts": 1794682442,
+        "when": "Nov 14, 06:54 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "negative"
+      },
       {
         "title": "Sector Update: Consumer Stocks Mixed in Afternoon Trading",
         "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-mixed-afternoon-183352371.html?.tsrc=rss",
@@ -6710,6 +6771,21 @@ window.DASH = {
           "T14"
         ],
         "sent": "positive"
+      },
+      {
+        "title": "Golden Dome’s $185 Billion Question: Who Actually Gets Paid?",
+        "link": "https://www.marketbeat.com/articles/golden-domes-185-billion-question-who-actually-gets-paid/?utm_source=yahoofinance&utm_medium=yahoofinance&.tsrc=rss",
+        "ts": 1794573300,
+        "when": "Nov 13, 12:35 PM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "neutral"
       },
       {
         "title": "Cathie Wood buys $16 million in AI stock, dumps $10 million",
@@ -6901,82 +6977,6 @@ window.DASH = {
           "T14"
         ],
         "sent": "positive"
-      },
-      {
-        "title": "What $10,000 in Silver on Jan. 1 Is Worth Today",
-        "link": "https://www.fool.com/investing/2026/11/12/what-10000-in-silver-on-jan-1-is-worth-today/?.tsrc=rss",
-        "ts": 1794501300,
-        "when": "Nov 12, 04:35 PM",
-        "ticker": "GLD",
-        "industry": "Gold",
-        "theory": [
-          "T6",
-          "T9",
-          "T19",
-          "T20",
-          "T21"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "Palantir’s Growth Story Could Be Just Getting Started",
-        "link": "https://247wallst.com/investing/2026/11/12/palantirs-growth-story-could-be-just-getting-started/?.tsrc=rss",
-        "ts": 1794501215,
-        "when": "Nov 12, 04:33 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "AI Governance for Boards, 6th Palm Beach CorpGov Forum",
-        "link": "https://finance.yahoo.com/news/ai-governance-boards-6th-palm-162508281.html?.tsrc=rss",
-        "ts": 1794500708,
-        "when": "Nov 12, 04:25 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "XYZ vs. PLTR: Which Stock Should Value Investors Buy Now?",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/xyz-vs-pltr-stock-value-154001059.html?.tsrc=rss",
-        "ts": 1794498001,
-        "when": "Nov 12, 03:40 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "Top VC on Palantir: “You Literally Can’t Stop Your Margins Going Up”",
-        "link": "https://www.tikr.com/blog/top-vc-on-palantir-you-literally-cant-stop-your-margins-going-up?ref=yahoofinance&tlnk=yf-261112-pr8hf445&.tsrc=rss",
-        "ts": 1794496850,
-        "when": "Nov 12, 03:20 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "negative"
       }
     ]
   },
