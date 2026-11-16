@@ -144,7 +144,7 @@ window.DASH = {
       },
       "F2": {
         "prev_score": 1.4,
-        "score": 1.4,
+        "score": 1.9,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
@@ -165,7 +165,7 @@ window.DASH = {
       },
       "F5": {
         "prev_score": 2.4,
-        "score": 2.4,
+        "score": 3.5,
         "days_above": 0,
         "confirmed": false,
         "last_above_date": null
@@ -173,9 +173,9 @@ window.DASH = {
       "F6": {
         "prev_score": 4.4,
         "score": 4.4,
-        "days_above": 4,
+        "days_above": 5,
         "confirmed": true,
-        "last_above_date": "2026-11-15"
+        "last_above_date": "2026-11-16"
       },
       "F7": {
         "prev_score": 1.2,
@@ -633,7 +633,7 @@ window.DASH = {
       "cash_buffer_usd": 500.0,
       "shadow_mode": true
     },
-    "asof_ts": 1794728178,
+    "asof_ts": 1794814900,
     "refresh_interval": 1440
   },
   "asof": "2026-11-13",
@@ -3136,9 +3136,45 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-11-15",
+      "asof": "2026-11-16",
       "degraded": false,
       "trend_dir": "flat"
+    },
+    {
+      "id": "F5",
+      "name": "War / energy shock",
+      "type": "episodic",
+      "score": 3.5,
+      "level": 0.594,
+      "velocity": {
+        "label": "5d velocity",
+        "value": 0.0236,
+        "pct": 0.627
+      },
+      "trend": null,
+      "signals": [
+        {
+          "label": "Crude 5d momentum",
+          "value": 0.627
+        },
+        {
+          "label": "Gold 1d momentum",
+          "value": 0.517
+        }
+      ],
+      "theory_ids": [
+        "T21"
+      ],
+      "hedge_ticks": [
+        "GLD",
+        "GDX",
+        "FXY",
+        "DBMF"
+      ],
+      "sizing": null,
+      "asof": "2026-11-16",
+      "degraded": false,
+      "trend_dir": "rising"
     },
     {
       "id": "F1",
@@ -3172,7 +3208,7 @@ window.DASH = {
         "ZROZ"
       ],
       "sizing": null,
-      "asof": "2026-11-15",
+      "asof": "2026-11-16",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -3206,7 +3242,7 @@ window.DASH = {
         "BTAL"
       ],
       "sizing": null,
-      "asof": "2026-11-15",
+      "asof": "2026-11-16",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -3241,7 +3277,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-11-15",
+      "asof": "2026-11-16",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -3272,43 +3308,7 @@ window.DASH = {
         "SGOV"
       ],
       "sizing": null,
-      "asof": "2026-11-15",
-      "degraded": false,
-      "trend_dir": "flat"
-    },
-    {
-      "id": "F5",
-      "name": "War / energy shock",
-      "type": "episodic",
-      "score": 2.4,
-      "level": 0.38,
-      "velocity": {
-        "label": "5d velocity",
-        "value": -0.025,
-        "pct": 0.322
-      },
-      "trend": null,
-      "signals": [
-        {
-          "label": "Crude 5d momentum",
-          "value": 0.322
-        },
-        {
-          "label": "Gold 1d momentum",
-          "value": 0.517
-        }
-      ],
-      "theory_ids": [
-        "T21"
-      ],
-      "hedge_ticks": [
-        "GLD",
-        "GDX",
-        "FXY",
-        "DBMF"
-      ],
-      "sizing": null,
-      "asof": "2026-11-15",
+      "asof": "2026-11-16",
       "degraded": false,
       "trend_dir": "flat"
     },
@@ -3316,12 +3316,12 @@ window.DASH = {
       "id": "F2",
       "name": "Yen-carry unwind",
       "type": "episodic",
-      "score": 1.4,
+      "score": 1.9,
       "level": 0.173,
       "velocity": {
         "label": "5d velocity",
-        "value": -0.0151,
-        "pct": 0.051
+        "value": -0.0072,
+        "pct": 0.239
       },
       "trend": null,
       "signals": [
@@ -3338,9 +3338,9 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-11-15",
+      "asof": "2026-11-16",
       "degraded": false,
-      "trend_dir": "flat"
+      "trend_dir": "rising"
     },
     {
       "id": "F7",
@@ -3368,7 +3368,7 @@ window.DASH = {
         "DBMF"
       ],
       "sizing": null,
-      "asof": "2026-11-15",
+      "asof": "2026-11-16",
       "degraded": false,
       "trend_dir": "flat"
     }
@@ -3378,11 +3378,11 @@ window.DASH = {
     "label": "Fear"
   },
   "complacency": {
-    "index": 0.026,
+    "index": 0.024,
     "valuation_stretch": 0.075,
-    "fear_term": 0.35,
-    "divergence": 0.049,
-    "fear_avg": 3.6,
+    "fear_term": 0.317,
+    "divergence": 0.051,
+    "fear_avg": 3.73,
     "regime": "stress",
     "note": "Stress regime - broad equity drawdown active. Hedges should be paying.",
     "pay_check": {
@@ -3400,7 +3400,7 @@ window.DASH = {
   },
   "fear_sizing": null,
   "hedge_harvest": {
-    "asof": "2026-11-15",
+    "asof": "2026-11-16",
     "items": [
       {
         "ticker": "BTAL",
@@ -6478,13 +6478,25 @@ window.DASH = {
     "enabled": true
   },
   "news": {
-    "asof": "2026-11-15 07:36:18",
+    "asof": "2026-11-16 07:41:41",
     "big_stories": [
       {
-        "title": "Top 3 AI Stocks To Watch In November 2026",
-        "link": "https://finance.yahoo.com/technology/ai/articles/top-3-ai-stocks-watch-021005217.html?.tsrc=rss",
-        "ts": 1794708605,
-        "when": "Nov 15, 02:10 AM",
+        "title": "Consumer Defensive Stocks Extend Winning Streak To 6 Weeks As SPY, QQQ Rebound: TTD, CHTR, TSLA Lead Gains",
+        "link": "https://stocktwits.com/news-articles/markets/equity/consumer-defensive-stocks-extend-winning-streak-to-6-weeks-as-spy-qqq-rebound-ttd-chtr-tsla-lead-gains/cNb7EqoR9QC?.tsrc=rss",
+        "ts": 1794791600,
+        "when": "Nov 16, 01:13 AM",
+        "ticker": "XLY",
+        "industry": "Consumer Disc.",
+        "theory": [
+          "T13"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "Top 3 Quality Stocks To Watch In November 2026",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/top-3-quality-stocks-watch-100940220.html?.tsrc=rss",
+        "ts": 1794737380,
+        "when": "Nov 15, 10:09 AM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
@@ -6508,18 +6520,6 @@ window.DASH = {
           "T19",
           "T20",
           "T21"
-        ],
-        "sent": "neutral"
-      },
-      {
-        "title": "Sector Update: Consumer Stocks Mixed in Afternoon Trading",
-        "link": "https://finance.yahoo.com/markets/stocks/articles/sector-consumer-stocks-mixed-afternoon-183352371.html?.tsrc=rss",
-        "ts": 1794594832,
-        "when": "Nov 13, 06:33 PM",
-        "ticker": "XLY",
-        "industry": "Consumer Disc.",
-        "theory": [
-          "T13"
         ],
         "sent": "neutral"
       },
@@ -6549,6 +6549,33 @@ window.DASH = {
       }
     ],
     "feed": [
+      {
+        "title": "Consumer Defensive Stocks Extend Winning Streak To 6 Weeks As SPY, QQQ Rebound: TTD, CHTR, TSLA Lead Gains",
+        "link": "https://stocktwits.com/news-articles/markets/equity/consumer-defensive-stocks-extend-winning-streak-to-6-weeks-as-spy-qqq-rebound-ttd-chtr-tsla-lead-gains/cNb7EqoR9QC?.tsrc=rss",
+        "ts": 1794791600,
+        "when": "Nov 16, 01:13 AM",
+        "ticker": "XLY",
+        "industry": "Consumer Disc.",
+        "theory": [
+          "T13"
+        ],
+        "sent": "positive"
+      },
+      {
+        "title": "Top 3 Quality Stocks To Watch In November 2026",
+        "link": "https://finance.yahoo.com/markets/stocks/articles/top-3-quality-stocks-watch-100940220.html?.tsrc=rss",
+        "ts": 1794737380,
+        "when": "Nov 15, 10:09 AM",
+        "ticker": "PLTR",
+        "industry": "AI Software",
+        "theory": [
+          "T1",
+          "T7",
+          "T2",
+          "T14"
+        ],
+        "sent": "positive"
+      },
       {
         "title": "Top 3 AI Stocks To Watch In November 2026",
         "link": "https://finance.yahoo.com/technology/ai/articles/top-3-ai-stocks-watch-021005217.html?.tsrc=rss",
@@ -6938,36 +6965,6 @@ window.DASH = {
         "link": "https://finance.yahoo.com/m/3980cbc1-887b-3643-8fbf-eda8b4e74972/drone-maker-ondas-updates-its.html?.tsrc=rss",
         "ts": 1794507960,
         "when": "Nov 12, 06:26 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "Defense Tech: Investors and Operators, 6th Palm Beach CorpGov Forum",
-        "link": "https://finance.yahoo.com/technology/articles/defense-tech-investors-operators-6th-181202789.html?.tsrc=rss",
-        "ts": 1794507122,
-        "when": "Nov 12, 06:12 PM",
-        "ticker": "PLTR",
-        "industry": "AI Software",
-        "theory": [
-          "T1",
-          "T7",
-          "T2",
-          "T14"
-        ],
-        "sent": "positive"
-      },
-      {
-        "title": "Palantir (PLTR) Faces A European Rival In Defense AI",
-        "link": "https://finance.yahoo.com/technology/ai/articles/palantir-pltr-faces-european-rival-180906023.html?.tsrc=rss",
-        "ts": 1794506946,
-        "when": "Nov 12, 06:09 PM",
         "ticker": "PLTR",
         "industry": "AI Software",
         "theory": [
