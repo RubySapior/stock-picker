@@ -9,9 +9,9 @@
       "ticker": "SGOV",
       "sleeve": "Short-Term Bonds (SGOV)",
       "buy_date": "2026-08-11",
-      "shares": 340.488874,
-      "current_value": 34237.52,
-      "pct_of_book": 39.93,
+      "shares": 451.525451,
+      "current_value": 45402.69,
+      "pct_of_book": 52.95,
       "theory_ids": []
     },
     {
@@ -54,19 +54,6 @@
       ]
     },
     {
-      "ticker": "VIXM",
-      "sleeve": "Crisis Alpha - Vol Decay",
-      "buy_date": "2026-08-10",
-      "shares": 280.112045,
-      "current_value": 3745.1,
-      "pct_of_book": 4.37,
-      "theory_ids": [
-        "T6",
-        "T17",
-        "T21"
-      ]
-    },
-    {
       "ticker": "QFLR",
       "sleeve": "Crisis Alpha - Down-Day Floor",
       "buy_date": "2026-08-10",
@@ -87,21 +74,6 @@
       "pct_of_book": 3.89,
       "theory_ids": [
         "T3"
-      ]
-    },
-    {
-      "ticker": "GDX",
-      "sleeve": "Crisis Alpha - Real Assets",
-      "buy_date": "2026-08-10",
-      "shares": 38.678306,
-      "current_value": 3157.5,
-      "pct_of_book": 3.68,
-      "theory_ids": [
-        "T9",
-        "T6",
-        "T19",
-        "T20",
-        "T21"
       ]
     },
     {
@@ -700,6 +672,36 @@
       "shares": 30.5095,
       "price": 100.58,
       "amount": 3068.65,
+      "reason": null
+    },
+    {
+      "ts": "2026-11-20 08:07:43",
+      "type": "take_profit",
+      "ticker": "VIXM",
+      "action": "sell",
+      "shares": 280.112045,
+      "price": 29.94,
+      "amount": 8386.55,
+      "reason": "take_profit"
+    },
+    {
+      "ts": "2026-11-20 08:07:43",
+      "type": "stop_loss",
+      "ticker": "GDX",
+      "action": "sell",
+      "shares": 38.678306,
+      "price": 72.0,
+      "amount": 2784.84,
+      "reason": "backstop"
+    },
+    {
+      "ts": "2026-11-20 08:07:43",
+      "type": "deploy_cash",
+      "ticker": "SGOV",
+      "action": "buy",
+      "shares": 111.0366,
+      "price": 100.61,
+      "amount": 11171.39,
       "reason": null
     }
   ]
